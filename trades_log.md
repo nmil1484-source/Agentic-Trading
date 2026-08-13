@@ -167,3 +167,15 @@ Format per entry:
   while UNKNOWN_DEGRADED) on the two live candidates (IREN, NFLX); nothing else newly qualifies.
 - Account state after: equity $277.00, cash $277.00, 0 open positions, 0/1 new positions today,
   0/3 this week.
+
+## 2026-08-13 ~18:11 UTC — SYSTEM EVENT (autonomous execution paused, no trade)
+- Following the strategy-mode refactor (CLAUDE.md §2/§5B/§12: Mode A CORE_LUC_ACCUMULATION / Mode
+  B SWING_TRADING, LUC/FTA now optional context for swing entries), the user instructed keeping
+  the system in observation/alert state until autonomous execution is separately re-authorized.
+- Action taken: the self-bound hourly Routine (trig_012eXLTLCY6Mv9GiQR93WFuq) was deleted outright
+  (not just disabled) for an unambiguous stopped state. CLAUDE.md §14 status updated to PAUSED,
+  documenting the operational history and what re-authorization requires.
+- No trade placed. No position change. Manual research/Trade Cards in this chat remain available
+  on request — only the unattended autonomous firing is paused.
+- Account state: equity $277.00, cash $277.00, 0 open positions, 0/1 new positions today (still
+  0 trades placed all session), 0/3 this week.

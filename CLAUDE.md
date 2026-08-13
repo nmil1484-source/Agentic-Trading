@@ -360,18 +360,25 @@ computed number and which rule below produced it.
   the Routine directly, at any time. On that instruction, Claude disables the Routine immediately
   and reverts the Section 1 exception to inactive (the exception text stays as a historical
   record; a new dated entry here notes the revocation).
-- **Status: OPERATIONAL (2026-08-13), self-bound.** The first attempt (fresh session per firing)
-  failed tool-access verification and was deleted — see `trades_log.md` history for the record of
-  that failure. A second Routine was created **self-bound to the user's primary session**
-  (fires into the existing conversation instead of spawning a new one), which sidesteps the
-  connector-passing problem because that session's Robinhood MCP and GitHub tools are already
-  connected. Test-fired successfully 2026-08-13 08:17 UTC — correctly checked the account,
-  circuit breakers, position caps, and FTA Regime Dashboard, logged an OBSERVE outcome to
-  `trades_log.md`, and committed/pushed. Schedule: hourly at :30 past the hour, 14:30-19:30 UTC
-  (~10:30am-3:30pm ET), weekdays — will drift one hour when U.S. DST ends in November unless
-  updated. Trade-off versus the fresh-session design: no push/email notification support (self-
-  bound Routines can't use that parameter), so a placed trade is only visible by checking this
-  chat or `trades_log.md` — and this session's context grows with every firing over time.
+- **Status: PAUSED (2026-08-13, ~18:11 UTC).** Operational history: the first attempt (fresh
+  session per firing) failed tool-access verification and was deleted — see `trades_log.md`
+  history. A second Routine, self-bound to the user's primary session, ran successfully from
+  08:17 UTC through 17:41 UTC (test-fire plus several scheduled and on-demand cycles, all logged
+  to `trades_log.md`), correctly checking the account, circuit breakers, position caps, FTA
+  Regime Dashboard, and — after the §5/§13→§5B refactor — the Swing Entry Gate, without ever
+  clearing every condition needed to place a trade.
+  **Paused after the strategy-mode refactor (§2/§5B/§12) landed**: the user instructed keeping the
+  system in observation/alert state until autonomous execution is separately re-authorized, so the
+  Routine trigger was deleted outright (not just disabled) for an unambiguous stopped state. The
+  Section 1 exception permitting order placement without a live CONFIRM ORDER is **inactive** —
+  this text stays as a historical record of the authorization mechanics, not a currently-active
+  grant. Manual research, Trade Cards, and order confirmations in this chat are unaffected and
+  remain fully available on request (§11). **Re-enabling requires**: (1) the user issuing a fresh,
+  explicit authorization — the same rigor as the original "CONFIRM AUTONOMOUS EXECUTION" phrase,
+  given the underlying gate has materially changed since that authorization was given — and (2)
+  recreating the self-bound Routine (schedule was hourly at :30 past the hour, 14:30-19:30 UTC,
+  weekdays, before this pause; will need DST adjustment after early November regardless of when
+  it's re-created).
 
 ## 15. Fractional Tier-B Pilot Policy
 Added 2026-08-13 at explicit user instruction; **unmodified by the 2026-08-13 strategy-mode
