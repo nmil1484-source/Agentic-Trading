@@ -179,3 +179,26 @@ Format per entry:
   on request — only the unattended autonomous firing is paused.
 - Account state: equity $277.00, cash $277.00, 0 open positions, 0/1 new positions today (still
   0 trades placed all session), 0/3 this week.
+
+## 2026-08-13 ~19:46 UTC — MANUAL (out-of-band, confirmed by user)
+- **Discovered via routine reconciliation**, not placed through this chat: `get_equity_positions`
+  showed a new HIMS position with no matching record anywhere in this log, no autonomous trigger
+  active (confirmed zero), and no `CONFIRM ORDER` ever given in this conversation. Flagged
+  immediately per §6 reconciliation principle.
+- **User confirmed**: placed directly in the Robinhood app, outside this system's research/
+  confirmation process. No Trade Card, LUC/FTA check, or §5B Swing Entry Gate evaluation was run
+  on HIMS before this entry — logging that gap honestly rather than retroactively fabricating one.
+  (Note: every automated check on HIMS today independently found it technically weak — post-
+  earnings-miss selloff, bearish EMA alignment — so this was against, not aligned with, this
+  system's own read at the time.)
+- Position: **2 shares HIMS, avg cost $29.08**. Current price (as of discovery) $29.15 — unrealized
+  P&L ≈ +$0.14/share, +$0.28 total. Negligible so far.
+- **No documented stop/invalidation exists for this position.** §16 (Locked Exit and Loss-Control
+  Policy) requires an exit plan before entry for positions entered through this system; this one
+  wasn't. Recommend establishing one retroactively so it's not orphaned from risk management going
+  forward — offered to the user, not yet set.
+- Position-count impact: counted as **1 of the shared §3 caps** (1/day, 3/week, Tier-A/Tier-B/
+  manual/autonomous combined) for today and this week, consistent with how every other new
+  position is tracked — 1/1 today, 1/3 this week, regardless of order origin.
+- Account state after: equity $277.14, cash $218.84, equity-in-positions $58.30, 1 open position
+  (HIMS), 1/1 new positions today, 1/3 this week.
