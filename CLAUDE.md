@@ -66,7 +66,7 @@ Use these sources in this order. Log the source URL and access timestamp in ever
    https://marileegrace.github.io/fta-research-hub/
 
 4. FTA Trade Tracker
-   https://marileegrace.github.io/fta-trade-tracker/
+   https://fta-trade-tracker.onrender.com/
 
 5. Robinhood MCP account data (positions, buying power, open orders, and supported order capabilities)
    https://agent.robinhood.com/mcp/trading
