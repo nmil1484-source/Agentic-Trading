@@ -71,6 +71,10 @@ Use these sources in this order. Log the source URL and access timestamp in ever
 5. Robinhood MCP account data (positions, buying power, open orders, and supported order capabilities)
    https://agent.robinhood.com/mcp/trading
 
+6. User Watchlist (candidate ticker pool — see `watchlist.md`; not pre-approved, every symbol
+   still requires full LUC/FTA verification and a catalyst per Section 2)
+   https://www.tradingview.com/watchlists/190302653/
+
 ## 9. Source integrity rule
 - Do not treat YouTube titles, social-media posts, or prediction-market odds as a primary trade signal.
 - Use them only as context after checking the approved sources, price/volume data, and a verifiable catalyst.
