@@ -7,10 +7,14 @@
   CONFIRM ORDER: [BUY/SELL] [EXACT WHOLE SHARE QUANTITY] [TICKER] LIMIT [PRICE]
 - Do not treat "yes," "looks good," "go," or similar language as trade authorization.
 - Never initiate a deposit, withdrawal, transfer, margin borrowing, or account-setting change.
-- **Exception — Autonomous Execution Mode (see Section 14):** the scheduled hourly Routine
-  authorized in Section 14 may place, but not cancel or replace, orders without a live per-trade
-  CONFIRM ORDER message, strictly within the scope defined there. This exception applies only to
-  that Routine acting on its own schedule — every trade requested in this chat by the user still
+- **Exception — Autonomous Execution Mode, Mode B (SWING_TRADING) only (see Section 14):** the
+  scheduled hourly Routine authorized in Section 14 may place, and may modify an existing order
+  strictly to execute the documented §16 stop/exit mechanics (breakeven move, trailing stop, gap-
+  rule exit — never to widen risk or for any other purpose), without a live per-trade CONFIRM
+  ORDER message, strictly within the scope defined in Section 14. **This exception does not apply
+  to Mode A (CORE_LUC_ACCUMULATION), which remains research/alert-only** and has no order
+  authority of any kind unless separately authorized in its own right (§2). It applies only to the
+  Routine acting on its own schedule — every trade requested in this chat by the user still
   requires the exact CONFIRM ORDER phrase, with no exception.
 
 ## 2. Strategy Modes and Permitted Instruments
@@ -331,7 +335,80 @@ computed number and which rule below produced it.
 - **2026-08-13**: User issued the exact confirmation phrase **"CONFIRM AUTONOMOUS EXECUTION"**
   after being explicitly warned this removes the live per-trade CONFIRM ORDER requirement for a
   scheduled process. This authorizes an hourly automated Routine (see below) to research and,
-  when every existing gate clears, place equity orders without the user present.
+  when every existing gate clears, place equity orders without the user present. (Historical —
+  superseded operationally by the pause below and the Mode B AUTONOMOUS_EXECUTE framework that
+  follows; the original authorization mechanics stay documented here.)
+
+### Mode B AUTONOMOUS_EXECUTE Authority — drafted 2026-08-13, NOT YET ACTIVE
+Rules below are committed and ready, but **execution has not been re-armed**: per the PAUSED
+status logged after the strategy-mode refactor, re-enabling requires the user issuing a fresh,
+explicit, exact confirmation phrase — the same rigor as the original "CONFIRM AUTONOMOUS
+EXECUTION" — before the Routine trigger is recreated. The instruction that produced this section
+did not include that phrase, so the framework below is documented and effective the moment that
+confirmation is given, but no trigger exists yet and no order will be placed until then. Scoped to
+**Mode B (SWING_TRADING) only** — Mode A (CORE_LUC_ACCUMULATION) remains research/alert-only,
+unchanged, with no order authority.
+
+1. Mode B SWING_TRADING's operating mode is set to **AUTONOMOUS_EXECUTE** once activated per the
+   confirmation requirement above.
+
+2. **Funding note — discrepancy flagged, not silently accepted:** the source instruction states
+   "its hard funding budget is $200 total." That doesn't match two things already on record: the
+   Agentic Account's actual current equity is **$277** (last checked this session, `get_portfolio`
+   ••••8058), and §10's funding log already establishes the approved budget as *the full current
+   equity of the account, re-checked at proposal time* — not a fixed dollar figure. Rather than
+   silently overwrite §10 with a stale/lower number, this is logged as written intent to treat
+   **$200 as a hard ceiling** distinct from and tighter than §10's dynamic full-equity budget —
+   i.e., even though the account holds $277 and §10 would otherwise permit sizing against all of
+   it, Mode B AUTONOMOUS_EXECUTE treats only $200 of that as usable, leaving the remaining ~$77
+   untouched by autonomous activity. §10 itself is not changed. If $200 wasn't meant as a
+   deliberately tighter autonomous-only sub-budget, this needs correcting before activation.
+   Never deposit, withdraw, transfer, borrow, or use margin, or assume funds beyond this $200
+   sub-budget are available for autonomous activity — unchanged instruction, now logged precisely.
+
+3. The Routine may autonomously place, and may modify an order only to preserve a documented
+   stop/exit (§16 breakeven/trailing/gap mechanics — never to widen risk, never for any other
+   reason — see §1's updated exception), and close Mode B swing positions without per-trade
+   confirmation, only when every current §5B entry gate and every hard risk rule in item 4 below
+   is satisfied.
+
+4. All existing hard blockers remain in force without exception — this is a restatement, not a
+   new rule, cross-referenced to where each already lives: common stocks/non-leveraged ETFs only,
+   no options/crypto/margin/shorting/leverage/inverse ETFs/averaging down (§2); no penny stocks
+   (informal screen, not separately defined elsewhere — treating as consistent with §5B's
+   "liquid, exchange-listed" requirement; flag if a specific price/liquidity threshold was
+   intended); 1/day, 3/week new-position caps (§3); total-deployed ceiling, per-position cap,
+   Tier-B fractional cap, cash reserve (§3, §15); first/last-15-minute buffer (§4); locked stop,
+   gap, breakeven, profit-protection, time-stop, and 3-stop-outs-in-10-days circuit breaker (§16);
+   API-error and position-reconciliation, wash-sale flag, 3%-daily-loss HARD_OBSERVE_MODE (§6); no
+   entry on LUC RED (§5B/§15); UNKNOWN_DEGRADED → reduced size and ≥2:1 reward-to-risk (§5B, §6,
+   §13.A).
+
+5. Before every autonomous order: call `get_equity_tradability` and `review_equity_order`. Any
+   warning, error, unsupported asset/order type, stale quote, or mismatched position state → do
+   not submit the order; log an **URGENT RISK ALERT** to `trades_log.md` and this chat instead.
+
+6. After every fill: immediately create a durable Trade Card (ticker, exact quantity, fill price,
+   stop, target, STRATEGY: SWING_TRADING, catalyst, risk amount, and the specific reason it
+   cleared §5B) and log it. **Notification-path caveat, flagged:** the only Routine design that
+   has actually passed tool-access verification this session is the self-bound one — fires into
+   this same chat session rather than spawning a fresh one — and self-bound Routines **cannot use
+   the push/email notification parameter** (confirmed limitation, documented earlier in §14's
+   operational history). So "immediately visible Trade Card in this chat, plus the `trades_log.md`
+   commit" is the actual notification path available today, not a phone push or email. If a true
+   push/email alert is required, that needs the fresh-session design, which failed verification
+   earlier and would need to be re-solved first (see the deleted-trigger history above). Either
+   way: notifications inform after execution and are never a request for approval.
+
+7. **Emergency pause phrase: `PAUSE AUTONOMOUS TRADING`.** Recognized alongside the existing
+   `STOP AUTONOMOUS EXECUTION` kill phrase (below) — either immediately cancels all unfilled entry
+   orders, stops opening new positions, preserves existing stop/exit protection (does not remove
+   protective orders), enters HARD_OBSERVE_MODE (§6), and gets confirmed back to the user.
+
+8. **Restart phrase: `RESUME AUTONOMOUS SWING TRADING`.** May resume scanning only after all
+   data-reconciliation and circuit-breaker checks (§6) are clear. **Cannot** override an active
+   daily-loss or HARD_OBSERVE_MODE circuit breaker — those need their own resolution path (§6)
+   regardless of this phrase.
 - **Scope — everything else in this document still applies unchanged** to the autonomous
   Routine: permitted instruments (§2), exposure limits (§3, including the 1/day and 3/week new-
   position caps — count across BOTH manual and autonomous trades, tracked via `trades_log.md`),
@@ -339,8 +416,12 @@ computed number and which rule below produced it.
   the swing trading this Routine actually does — see §12 change log for how this superseded the
   original LUC/FTA-gated §5 this bullet used to describe), circuit breakers (§6), and the §16 exit
   mechanics (mandatory stop-loss, defined reward-to-risk per §5B/§13.A depending on mode/tier).
-  The Routine has no authority to cancel or replace orders, deposit/withdraw funds, or change
-  account settings — those still require the user directly, per §1.
+  The Routine has no authority to deposit/withdraw funds or change account settings — those still
+  require the user directly, per §1. **Order modification (2026-08-13, see the Mode B
+  AUTONOMOUS_EXECUTE block above and §1): narrowly scoped to preserving a documented §16 stop/exit
+  only** — this updates the original "no authority to cancel or replace orders" language, which
+  otherwise still stands (no modification for any other purpose, e.g. widening a target or
+  resizing an open order).
 - **Reporting cadence (2026-08-13, see §5B):** the Routine keeps its existing hourly schedule
   (below) for monitoring purposes, but only narrates a full report to the user at the first
   post-open cycle and whenever a candidate actually clears the §5B gate or a position triggers a
@@ -355,11 +436,17 @@ computed number and which rule below produced it.
   cycle — timestamp, tickers reviewed, gate results, and either "OBSERVE, no trade" with reasons
   or full trade detail (ticker, qty/fractional amount, limit, stop, target, reward-to-risk,
   sources, STRATEGY label). Every actual order additionally triggers a push+email notification to
-  the user where supported (see the self-bound trade-off note below).
-- **Kill switch**: the user can say "STOP AUTONOMOUS EXECUTION" in this chat, or disable/delete
-  the Routine directly, at any time. On that instruction, Claude disables the Routine immediately
-  and reverts the Section 1 exception to inactive (the exception text stays as a historical
-  record; a new dated entry here notes the revocation).
+  the user where supported — **in practice, not on the self-bound design actually in use; see
+  item 6 of the Mode B AUTONOMOUS_EXECUTE block above and the trade-off note in Status below.**
+- **Kill switches**: the user can say **"STOP AUTONOMOUS EXECUTION"** or **"PAUSE AUTONOMOUS
+  TRADING"** (2026-08-13, see Mode B AUTONOMOUS_EXECUTE item 7 — both recognized, same effect) in
+  this chat, or disable/delete the Routine directly, at any time. On any of these, Claude disables
+  the Routine immediately, cancels unfilled entry orders, preserves existing stop/exit protection,
+  enters HARD_OBSERVE_MODE, confirms the pause, and reverts the Section 1 exception to inactive
+  (the exception text stays as a historical record; a new dated entry here notes the revocation).
+  **"RESUME AUTONOMOUS SWING TRADING"** (item 8) restarts scanning only after reconciliation and
+  circuit-breaker checks are clear, and cannot override an active daily-loss or HARD_OBSERVE_MODE
+  breaker.
 - **Status: PAUSED (2026-08-13, ~18:11 UTC).** Operational history: the first attempt (fresh
   session per firing) failed tool-access verification and was deleted — see `trades_log.md`
   history. A second Routine, self-bound to the user's primary session, ran successfully from
@@ -379,6 +466,12 @@ computed number and which rule below produced it.
   recreating the self-bound Routine (schedule was hourly at :30 past the hour, 14:30-19:30 UTC,
   weekdays, before this pause; will need DST adjustment after early November regardless of when
   it's re-created).
+  **2026-08-13 (later same day): the Mode B AUTONOMOUS_EXECUTE framework above was drafted and
+  committed at user instruction** — full bounded-autonomy ruleset (funding sub-budget, hard
+  blockers, pre-trade checks, notification path, emergency pause/resume phrases) — but the
+  confirmation phrase required to actually re-arm it was not included in that instruction, so it
+  remains documented-but-inactive. The trigger has still not been recreated; this status stays
+  PAUSED until the exact phrase is given.
 
 ## 15. Fractional Tier-B Pilot Policy
 Added 2026-08-13 at explicit user instruction; **unmodified by the 2026-08-13 strategy-mode
