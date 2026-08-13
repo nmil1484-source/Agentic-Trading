@@ -18,6 +18,23 @@
 - No options, crypto, leveraged or inverse ETFs, short selling, margin, naked options, 0DTE, spreads, or multi-leg orders.
 - Do not use fractional-share limit orders. Every equity limit order must use an exact whole-share quantity and an explicit limit price. **Scoped exception (2026-08-13, see §15):** the Fractional Tier-B Pilot Policy permits fractional-share orders, but only for pilot positions meeting every requirement in §15 — this main rule is otherwise unchanged and still governs all standard (Tier-A) proposals.
 - Do not hard-code a ticker list. A proposed ticker must have: (a) verified LUC GREEN status or, if LUC is unavailable, strict FTA A-grade status; and (b) a verified catalyst/source. **Scoped exception (2026-08-13, see §15):** Tier-B pilots may also enter on LUC WHITE under §15's stricter confirmation requirement — standard (Tier-A) proposals still require GREEN, no exception.
+- **Non-LUC-covered fallback (2026-08-13, user instruction).** The (a) requirement is a waterfall,
+  not a hard stop the moment LUC doesn't apply:
+  1. LUC GREEN → qualifies.
+  2. LUC sheet inaccessible, or the ticker simply isn't rated on it at all (no GREEN/WHITE/RED
+     entry exists) → fall back to strict FTA A-grade status.
+  3. FTA A-grade also unavailable (as it has been all session — FTA Research Hub and Trade
+     Tracker both return loading placeholders) → the ticker may still qualify via an
+     **affirmative, unanimous pass of every §13 technical criterion**, not just the §13.B hard
+     gate: confirmed market structure (§13.D higher-highs/higher-lows), a genuine Fibonacci-zone
+     entry with its required confirmation (§13.C), and any applicable chart-pattern confirmation
+     (§13.D) must all line up — on top of the standing §13.A stop-loss/reward-to-risk requirement
+     and the §5.4 verified catalyst, unchanged. This is deliberately a stricter bar than
+     LUC-covered names face, since there's no independent LUC or FTA confirmation behind it — a
+     partial or merely-adequate technical read does not qualify here; it must be unanimous.
+  This fallback applies to standard (Tier-A) proposals only. Tier-B pilots (§15) still require an
+  actual LUC GREEN or WHITE rating — this does not extend Tier-B eligibility to uncovered
+  tickers.
 
 ## 3. Initial exposure limits
 - Before the Agentic Account has a separately approved funding budget, do not propose executable orders.
