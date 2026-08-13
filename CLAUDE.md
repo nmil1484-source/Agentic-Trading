@@ -16,8 +16,10 @@
 
 ## 3. Initial exposure limits
 - Before the Agentic Account has a separately approved funding budget, do not propose executable orders.
-- Once funded, maximum new position: the lower of $100 or 5% of Agentic Account equity.
-- Maximum total deployed capital: 50% of Agentic Account equity. Maintain at least 50% cash.
+- Once funded, maximum new position: 80% of Agentic Account equity. (Raised 2026-08-13 from
+  "lower of $100 or 5%" at explicit user instruction — see Section 12 change log.)
+- Maximum total deployed capital: 80% of Agentic Account equity. Maintain at least 20% cash.
+  (Raised 2026-08-13 from 50%/50% at explicit user instruction — see Section 12 change log.)
 - Maximum one new position per day and three new positions per calendar week.
 - Do not average down. Add only after a position is profitable or has reclaimed its technical trigger with renewed confirmation.
 - Do not increase risk after a daily realized loss of 2% or a weekly realized loss of 5% of Agentic Account equity.
@@ -101,5 +103,15 @@ Use these sources in this order. Log the source URL and access timestamp in ever
   but this is advisory only. "Good"/"looks fine" on a priority suggestion is not trade
   authorization — Section 1's exact `CONFIRM ORDER: ...` phrase is still required before any order
   is placed, cancelled, replaced, or modified.
+
+## 12. Risk-parameter change log
+- 2026-08-13: User instructed raising Section 3's per-position cap from "lower of $100 or 5% of
+  equity" to 80% of equity, and the total-deployed cap from 50% (min 50% cash) to 80% (min 20%
+  cash). Flagged at the time that this removes most of the diversification/cash-reserve
+  protection the original limits provided, and that at the current ~$200 equity a single position
+  can consume nearly the full total-deployed ceiling, leaving little room for the "3 new
+  positions/week" allowance to matter in practice. User confirmed proceeding anyway.
+- Any future change to Section 3's exposure limits must be logged here with date and the specific
+  before/after values.
 
 The objective is disciplined compounding and capital preservation, not maximum trade frequency or "get rich quick" behavior.
