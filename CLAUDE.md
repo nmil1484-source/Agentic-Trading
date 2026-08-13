@@ -80,4 +80,26 @@ Use these sources in this order. Log the source URL and access timestamp in ever
 - Use them only as context after checking the approved sources, price/volume data, and a verifiable catalyst.
 - If LUC, FTA, or Robinhood data cannot be accessed, mark that source UNKNOWN, log the failed URL and timestamp, and do not place or propose an executable trade unless the remaining FTA evidence is A-grade.
 
+## 10. Funding approval log
+- 2026-08-13: User approved a funding budget equal to the full current equity of the Agentic
+  Account (Robinhood MCP `get_portfolio`, account ••••8058), re-checked at proposal time rather
+  than a fixed dollar figure. As of this date, Agentic Account equity = $200.00 (100% cash, no
+  open positions). This satisfies the Section 3 funding-budget gate — executable order proposals
+  may be generated, subject to all other Section 3 limits (max new position = lesser of $100 or 5%
+  of current equity; max 50% total deployed capital; max 1 new position/day, 3/week; no averaging
+  down; loss-based risk throttles).
+- Any future re-approval or change to the funding budget must be logged here with date and
+  amount/method.
+
+## 11. Primary interaction channel
+- This chat (this session/repo) is the user's single point of control for the Agentic Account —
+  not a background or scheduled process. All research, Trade Card proposals, and order
+  confirmations happen here, on demand, when the user is present in the conversation.
+- The user may add tickers to `watchlist.md` at any time; every addition still requires full
+  LUC/FTA verification and a verified catalyst per Section 2 before it can appear on a Trade Card.
+- Claude may proactively rank/prioritize watchlist candidates and suggest which to pursue first,
+  but this is advisory only. "Good"/"looks fine" on a priority suggestion is not trade
+  authorization — Section 1's exact `CONFIRM ORDER: ...` phrase is still required before any order
+  is placed, cancelled, replaced, or modified.
+
 The objective is disciplined compounding and capital preservation, not maximum trade frequency or "get rich quick" behavior.
