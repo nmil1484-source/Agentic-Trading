@@ -37,7 +37,9 @@
 ## 5. Required research gate
 Before every proposal, verify and log:
 1. Current FTA Regime Dashboard classification — reference input only (changed 2026-08-13, see
-   §6); log it every time, but its unavailability alone does not block a proposal.
+   §6). If the dashboard is unavailable, stale, or returns loading placeholders instead of a live
+   reading, classify it as **UNKNOWN_DEGRADED** (not automatically bearish, and not blocking) —
+   log the URL and timestamp every time. See §6 for the compensating requirement this triggers.
 2. Current LUC status. If the LUC sheet fails, returns 403, or cannot render, mark LUC as UNKNOWN; log the failed URL and timestamp; then require strict FTA A-grade technical evidence.
 3. FTA scorecard: market-structure break, 9/20 EMA pullback, bullish reversal at support, volume confirmation, RSI/MACD alignment, and Fibonacci/support-zone context.
 4. Catalyst from a primary or reputable source, including URL and date.
@@ -46,7 +48,7 @@ Before every proposal, verify and log:
 ## 6. Circuit breakers and integrity checks
 - If Agentic Account equity declines more than 3% in one day, immediately enter HARD_OBSERVE_MODE: no new orders; provide an urgent incident report.
 - If Robinhood MCP returns three consecutive errors or reported positions do not match the account, cease trading until reconciliation is verified.
-- If data is stale, incomplete, contradictory, or unavailable, do not infer a bullish signal and do not propose execution. **Exception (2026-08-13, user instruction): the FTA Regime Dashboard is a reference input, not a blocking gate** — if it is UNKNOWN/unavailable, log that and proceed on the remaining required evidence (LUC status, or strict FTA A-grade technical evidence on the specific ticker per §5.2 if LUC is unavailable, plus the §13 technical scorecard and a verified catalyst). This unavailable-data rule still fully applies, with no exception, to LUC data, Robinhood account/position data, and a specific ticker's own technical or catalyst data.
+- If data is stale, incomplete, contradictory, or unavailable, do not infer a bullish signal and do not propose execution. **Exception (2026-08-13, user instruction): the FTA Regime Dashboard is a reference input, not a blocking gate.** If it's unavailable/stale/placeholder, classify it **UNKNOWN_DEGRADED** — log it, do not treat it as bearish, and do not let it alone block a proposal. **Compensating requirement while UNKNOWN_DEGRADED (2026-08-13):** the §13.A reward-to-risk floor rises from ≥1:2 to **≥1:3** — everything else in the research gate (LUC status or per-ticker FTA A-grade fallback, the full §13 technical scorecard including the 9/20 EMA hard gate, verified catalyst, mandatory stop-loss) still applies unchanged. This unavailable-data rule still fully applies, with no exception and no RR substitute, to LUC data, Robinhood account/position data, and a specific ticker's own technical or catalyst data — only the FTA Regime Dashboard gets the UNKNOWN_DEGRADED treatment.
 - Flag potential wash-sale risk when a loss sale may be followed by repurchase of the same or substantially identical security within 30 calendar days in a taxable account. This is a flag, not tax advice.
 
 ## 7. Required trade-card format
@@ -86,7 +88,7 @@ Use these sources in this order. Log the source URL and access timestamp in ever
 ## 9. Source integrity rule
 - Do not treat YouTube titles, social-media posts, or prediction-market odds as a primary trade signal.
 - Use them only as context after checking the approved sources, price/volume data, and a verifiable catalyst.
-- If LUC or Robinhood data cannot be accessed, mark that source UNKNOWN, log the failed URL and timestamp, and do not place or propose an executable trade unless the remaining FTA evidence is A-grade. The FTA Regime Dashboard specifically is excluded from this block per the §6 exception (2026-08-13) — its unavailability is logged but does not by itself prevent a proposal.
+- If LUC or Robinhood data cannot be accessed, mark that source UNKNOWN, log the failed URL and timestamp, and do not place or propose an executable trade unless the remaining FTA evidence is A-grade. The FTA Regime Dashboard specifically is excluded from this block per the §6 exception (2026-08-13) — classify it UNKNOWN_DEGRADED, log it, and proceed subject to the §6/§13.A tightened ≥1:3 reward-to-risk requirement rather than blocking the proposal outright.
 
 ## 10. Funding approval log
 - 2026-08-13: User approved a funding budget equal to the full current equity of the Agentic
@@ -134,7 +136,8 @@ fields must show the actual computed number and which rule below produced it.
 - No proposal reaches PROPOSE status without a specific, computed stop-loss price. "Watch
   closely" or an unstated level is not acceptable.
 - Reward-to-risk must be at least 1:2 (distance to target ≥ 2x distance to stop). If the math
-  doesn't clear that bar, the status stays OBSERVE.
+  doesn't clear that bar, the status stays OBSERVE. **While the FTA Regime Dashboard is classified
+  UNKNOWN_DEGRADED (§6, added 2026-08-13), this floor rises to ≥1:3.**
 - Stop-loss orders are risk-reduction/exit orders and remain exempt from the §4 timing windows
   once a documented invalidation level is actually hit — placing the *initial* stop when a new
   position is opened is not exempt and follows normal timing rules.
