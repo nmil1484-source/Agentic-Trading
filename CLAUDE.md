@@ -50,10 +50,18 @@ refactor and applies to both modes without exception.
   "lower of $100 or 5%" at explicit user instruction — see Section 12 change log.)
 - Maximum total deployed capital: 80% of Agentic Account equity. Maintain at least 20% cash.
   (Raised 2026-08-13 from 50%/50% at explicit user instruction — see Section 12 change log.)
-- Maximum one new position per day and three new positions per calendar week.
+- Maximum one new position per day and three new positions per calendar week. **Removed for Mode B
+  (2026-08-13, explicit user instruction — see §12 change log): Mode B is not subject to a fixed
+  daily/weekly trade-count quota** — it may scan every eligible cycle and take every valid setup
+  that fits within the remaining risk-capacity limits on this list (per-position cap,
+  total-deployed ceiling, no-averaging-down, loss throttles). **This quota is retained for Mode A**
+  if/when it's ever authorized to execute.
 - Do not average down. Add only after a position is profitable or has reclaimed its technical trigger with renewed confirmation.
 - Do not increase risk after a daily realized loss of 2% or a weekly realized loss of 5% of Agentic Account equity.
-- **Fractional Tier-B pilots (2026-08-13, see §15) count as ordinary new positions against the caps above** — a Tier-B pilot consumes one of the same 1/day, 3/week slots as any Tier-A position, no separate or additional allowance. Tier-B allocation is also sized within whatever headroom remains under the 80%-total-deployed / 20%-minimum-cash ceiling on this line, not in addition to it.
+- **Fractional Tier-B pilots (2026-08-13, see §15) count as ordinary new positions against the caps
+  above** — sized within whatever headroom remains under the 80%-total-deployed / 20%-minimum-cash
+  ceiling on this line, not in addition to it. (The 1/day, 3/week count Tier-B pilots used to also
+  share is removed for Mode B per the quota change above — see §15 item 7 for the current text.)
 
 ## 4. Timing and market-event rules
 - Do not open new positions during the first 15 minutes or final 15 minutes of regular U.S. market hours.
@@ -102,6 +110,13 @@ trades. A swing candidate qualifies when **all** of these conditions are met:
    trades on a flat floor while fractional ones flex with the regime.
 5. It is outside the first 15 minutes after open and the final 15 minutes before close (§4).
 6. It has no earnings or high-impact macro conflict inside the existing §4 timing rule.
+7. **It has both a daily-chart setup and a shorter-timeframe (hourly) execution trigger**
+   (2026-08-13, user instruction). Item 3's 3-of-6 confirmations establish the daily-chart setup;
+   the hourly trigger is the specific candle/level that times the actual entry (e.g., an hourly
+   close reclaiming a level, a range breakout on the hourly chart, an hourly pullback holding a
+   rising short-term average) — the daily setup says a name is worth watching, the hourly trigger
+   says now is the moment to act on it. Both are required; a daily setup without a confirming
+   hourly trigger stays OBSERVE.
 
 LUC status (GREEN/WHITE/RED/OFF_LIST/UNKNOWN) is still logged on every swing Trade Card for
 context — it is never itself a qualifying or disqualifying condition for Mode B.
@@ -126,13 +141,38 @@ context — it is never itself a qualifying or disqualifying condition for Mode 
   open new swing trades — circuit breakers are unchanged by this refactor and apply regardless of
   mode.
 
+#### Position Capacity and Sizing (Mode B)
+Added 2026-08-13 at explicit user instruction, replacing the day/week trade-count quota (removed
+above, see §3/§12) with risk-based capacity limits instead. All existing §3 dollar caps
+(per-position 80%, total-deployed 80%/20%-cash, no averaging down, loss throttles) and §15's
+Tier-B allocation formula remain unchanged and still apply on top of these:
+
+1. **Simultaneous-position cap**: no more than **four** Mode B positions open at once (whole-share
+   and fractional combined).
+2. **Correlation cap**: no more than **two** open positions may share one sector, industry, or
+   catalyst theme — log the sector/theme on the Trade Card so this is checkable, not eyeballed.
+3. **Per-trade risk sizing**: maximum planned loss on any new trade is the **lower of 1% of
+   current Agentic Account equity or the loss implied by the already-determined technical stop**
+   (§13/§16 item 2). Compute share (or fractional-share) quantity from the entry-to-stop distance
+   against that risk budget, then round down to fit within the existing §3/§15 allocation cap —
+   whichever constraint (the 1%-of-equity risk budget or the dollar allocation cap) produces the
+   smaller position wins.
+4. **Pacing**: only **one new entry per scheduled scan cycle** — this is a per-cycle pacing limit,
+   not a revival of the removed daily/weekly count quota; over a full trading day of hourly scans
+   it bounds total new entries to roughly the number of cycles, not to one per day.
+5. Never average down (restates §3/§16's existing rule — not new).
+
 #### Swing Exit Rules
 Mode B positions — both whole-share (Tier-A sizing) and fractional (Tier-B, §15) — follow the
-existing §16 Locked Exit and Loss-Control Policy mechanics unchanged: defined stop before entry, no
-averaging down, breakeven at +1R, partial profit protection at +2R/+3R, momentum-failure exit, and
-time-stop review after 10 sessions. (§16's applicability is broadened by this refactor from
-Tier-B-only to all Mode B positions — its numbered rules themselves are not modified; see §12
-change log and the note at the top of §16.) Swing target horizon is 2 to 15 trading days — do not
+§16 Locked Exit and Loss-Control Policy mechanics, **with two changes made directly to §16 itself
+on 2026-08-13** (see §16's own change note): the time-stop shortened from 10 to 7 trading sessions,
+and the +2R profit-protection step now requires the position to have been held through at least
+one regular-session close first. Otherwise unchanged: defined stop before entry, no averaging
+down, breakeven at +1R, partial profit protection at +2R/+3R, momentum-failure exit. (§16's
+applicability was broadened by the earlier refactor from Tier-B-only to all Mode B positions, and
+two of its numbered rules (items 6 and 8) were subsequently modified per explicit instruction on
+2026-08-13 — see §12 change log and the note at the top of §16.) Swing target horizon is 2 to 15
+trading days — do not
 reject a trade for lacking a multi-month upside target; that expectation belongs to Mode A, not
 Mode B.
 
@@ -146,8 +186,9 @@ Mode B.
   recurring check is what makes "urgent alert when a candidate clears the gate" possible at all —
   but only narrates a full report to the user at the first post-open cycle and whenever a candidate
   actually clears the §5B gate or an existing position triggers a §16 exit rule. Cycles in between
-  that find nothing new still append a brief entry to `trades_log.md` (for the §3 day/week-count
-  audit trail) but do not produce a routine full chat report.
+  that find nothing new still append a brief entry to `trades_log.md` (for the general audit trail
+  — no longer a day/week *count* audit now that Mode B has no trade-count quota, see §3) but do
+  not produce a routine full chat report.
 - Every Trade Card must clearly label **STRATEGY: CORE_LUC_ACCUMULATION** or **STRATEGY:
   SWING_TRADING** (§7).
 
@@ -172,6 +213,11 @@ Every proposal must be presented before any confirmation request:
 - **For Tier-B fractional pilots (§15), also include:** Tier designation (A or B), dollar
   allocation vs. the $35/15%-of-equity cap, the LUC-WHITE 3-of-5 evidence if applicable, and the
   full §16 exit plan (stop, maximum planned loss in dollars, first profit target, time-stop date)
+- **For Mode B swing entries/exits (2026-08-13, see §5B/§17), also include:** the daily-chart
+  setup and the specific hourly execution trigger (§5B item 7); sector/industry/catalyst theme
+  (for the §5B two-correlated-positions check); settled-cash status at order time (§17 item 1);
+  and whether the action involved a same-day protective exception (tag `SAME_DAY_PROTECTIVE_EXIT`
+  per §17 item 3) if applicable
 
 ## 8. Approved live research sources
 Use these sources in this order. Log the source URL and access timestamp in every Trade Card. (Mode
@@ -260,6 +306,27 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   including its own LUC GREEN/WHITE requirement and RR floor), account caps (§3), the §16 stop
   policy's own numbered rules (only its applicability broadened), and circuit breakers (§6's core
   daily-loss/MCP-error/wash-sale rules).
+- **2026-08-13 (later same day): removed the 1/day, 3/week new-position count quota from §3 for
+  Mode B only, at explicit user instruction, following a direct confirmation exchange given this
+  was previously marked off-limits ("account caps," "don't modify beyond the reviewed diff").**
+  Before: every new position — Mode A or B, Tier-A or Tier-B, manual or autonomous — shared a
+  combined cap of 1 new position/day and 3/calendar week. After: Mode B is no longer subject to
+  that count; it may scan every eligible cycle and take every valid setup that clears §5B and fits
+  within the remaining §3 dollar-based limits (80% per-position cap, 80% total-deployed ceiling,
+  20% minimum cash, no averaging down, daily/weekly loss throttles) — those all stay in force
+  unchanged and are now the sole bound on Mode B position count. Mode A retains the original 1/day,
+  3/week quota if/when it's authorized to execute. Also added §17 (Day-Trade and Settlement
+  Protection) for Mode B, at the same instruction — see §17 for its own change record.
+- **2026-08-13 (same day, follow-on instruction): added the risk-based capacity system that
+  replaces the removed quota, plus two direct edits to §16's own numbered rules.** New: §5B item 7
+  (every swing entry needs both a daily-chart setup and an hourly execution trigger); §5B "Position
+  Capacity and Sizing" (max 4 simultaneous Mode B positions; max 2 sharing a sector/industry/
+  catalyst theme; per-trade risk sized to the lower of 1% of equity or the stop-implied loss; one
+  new entry per scheduled scan cycle — a pacing limit, not a reinstated daily/weekly count).
+  Direct changes to §16: item 8's time stop shortened from 10 to 7 trading sessions; item 6's +2R
+  profit-protection trim now requires the position to have first been held through a regular-
+  session close. Trade Card format (§7) expanded to log the new fields. §7/§14 also expanded for
+  day-trade/settlement fields from §17.
 - Any future change to Section 3's exposure limits, or to the strategy-mode structure above, must
   be logged here with date and the specific before/after values.
 
@@ -377,12 +444,13 @@ unchanged, with no order authority.
    no options/crypto/margin/shorting/leverage/inverse ETFs/averaging down (§2); no penny stocks
    (informal screen, not separately defined elsewhere — treating as consistent with §5B's
    "liquid, exchange-listed" requirement; flag if a specific price/liquidity threshold was
-   intended); 1/day, 3/week new-position caps (§3); total-deployed ceiling, per-position cap,
-   Tier-B fractional cap, cash reserve (§3, §15); first/last-15-minute buffer (§4); locked stop,
-   gap, breakeven, profit-protection, time-stop, and 3-stop-outs-in-10-days circuit breaker (§16);
-   API-error and position-reconciliation, wash-sale flag, 3%-daily-loss HARD_OBSERVE_MODE (§6); no
-   entry on LUC RED (§5B/§15); UNKNOWN_DEGRADED → reduced size and ≥2:1 reward-to-risk (§5B, §6,
-   §13.A).
+   intended); total-deployed ceiling, per-position cap, Tier-B fractional cap, cash reserve (§3,
+   §15) — **note: the 1/day, 3/week new-position count cap was removed for Mode B on 2026-08-13
+   (see §3, §12 change log); Mode B is bounded by the dollar-based caps in this list, not a trade
+   count**; first/last-15-minute buffer (§4); locked stop, gap, breakeven, profit-protection,
+   time-stop, and 3-stop-outs-in-10-days circuit breaker (§16); API-error and
+   position-reconciliation, wash-sale flag, 3%-daily-loss HARD_OBSERVE_MODE (§6); no entry on LUC
+   RED (§5B/§15); UNKNOWN_DEGRADED → reduced size and ≥2:1 reward-to-risk (§5B, §6, §13.A).
 
 5. Before every autonomous order: call `get_equity_tradability` and `review_equity_order`. Any
    warning, error, unsupported asset/order type, stale quote, or mismatched position state → do
@@ -410,9 +478,11 @@ unchanged, with no order authority.
    daily-loss or HARD_OBSERVE_MODE circuit breaker — those need their own resolution path (§6)
    regardless of this phrase.
 - **Scope — everything else in this document still applies unchanged** to the autonomous
-  Routine: permitted instruments (§2), exposure limits (§3, including the 1/day and 3/week new-
-  position caps — count across BOTH manual and autonomous trades, tracked via `trades_log.md`),
-  timing rules (§4), the research gate appropriate to the mode in play (§5B Swing Entry Gate for
+  Routine: permitted instruments (§2), exposure limits (§3 — the 1/day and 3/week new-position
+  count cap no longer applies to Mode B as of 2026-08-13, see §3/§12; the dollar-based caps
+  (per-position, total-deployed, cash reserve) still fully apply and are still tracked via
+  `trades_log.md`), timing rules (§4), the research gate appropriate to the mode in play (§5B
+  Swing Entry Gate for
   the swing trading this Routine actually does — see §12 change log for how this superseded the
   original LUC/FTA-gated §5 this bullet used to describe), circuit breakers (§6), and the §16 exit
   mechanics (mandatory stop-loss, defined reward-to-risk per §5B/§13.A depending on mode/tier).
@@ -544,10 +614,13 @@ HARD_OBSERVE_MODE (§6), account and authority restrictions (§1), and the resea
    the event risk explicitly. No entry within 30 minutes of CPI, FOMC, major employment data, or
    the first/last 15 minutes of the regular session — unchanged from §4.
 
-7. **A Tier-B pilot counts as an ordinary new position against the existing §3 caps** — maximum
-   one new position per day and three per calendar week, Tier-A and Tier-B combined. There is no
-   separate or additional Tier-B allowance beyond those shared limits. Never average down. Add
-   only after a position is profitable and original support remains valid.
+7. **A Tier-B pilot counts as an ordinary new position against the existing §3 caps** — sized
+   within the shared total-deployed ceiling and per-position sub-caps, not in addition to them.
+   (Historical note: this used to also mean sharing the 1/day, 3/week count cap with Tier-A; that
+   count cap was removed for Mode B on 2026-08-13 — see §3/§12 change log — so Tier-B pilots are
+   now bounded by the dollar caps in items 1-2 above, not a trade count, same as Tier-A Mode B
+   entries.) Never average down. Add only after a position is profitable and original support
+   remains valid.
 
 8. Use a documented technical invalidation — see §16 for the full exit/loss-control mechanics
    that govern every Tier-B pilot. If invalidation hits, reduce or exit only after re-checking
@@ -562,12 +635,16 @@ HARD_OBSERVE_MODE (§6), account and authority restrictions (§1), and the resea
 ## 16. Locked Exit and Loss-Control Policy
 Added 2026-08-13 at explicit user instruction, originally scoped to Tier-B fractional pilots only.
 **Broadened 2026-08-13 by the strategy-mode refactor (§2/§5B/§12) to apply to every Mode B swing
-position, whole-share (Tier-A) or fractional (Tier-B)** — the numbered rules below are themselves
-unmodified by that refactor; only which positions they apply to changed, per explicit instruction
-("apply the existing locked exit policy" to swing exits generally). Full text also maintained in
+position, whole-share (Tier-A) or fractional (Tier-B).** Full text also maintained in
 `docs/fractional_tier_b_policy.md` (written when this section was Tier-B-only; treat this section
 of CLAUDE.md as authoritative on scope). All existing circuit breakers (§6) remain in force
 unchanged and independently of this section.
+
+**Change note (2026-08-13, later same day):** items 6 and 8 below were modified at explicit user
+instruction, alongside the §5B Position Capacity and Sizing addition — this is a direct,
+acknowledged change to this section's own numbered rules, not just a scope broadening. Item 6 now
+requires a full regular-session close before the +2R trim (day-trade protection, see §17). Item 8's
+time stop shortened from 10 to 7 trading sessions. Items 1-5, 7, and 9-11 are unchanged.
 
 1. Every entry must have an exit plan before the order is placed. The Trade Card must record:
    entry price, initial stop/invalidation, maximum planned loss in dollars, first profit target,
@@ -591,17 +668,20 @@ unchanged and independently of this section.
 5. Breakeven rule: after a position reaches +1R, move the stop to entry price or the nearest
    higher technical support, whichever is higher. Never move the stop lower afterward.
 
-6. Profit protection: at +2R, sell 50% of the position and trail the remainder below the 9/20
-   EMA, prior-day low, or nearest higher support. At +3R, sell an additional 25% and continue
-   trailing the remaining 25%.
+6. Profit protection: at +2R, sell 50% of the position **only if it has been held through at
+   least one regular-session close** (2026-08-13, day-trade protection — see §17), and trail the
+   remainder below the 9/20 EMA, prior-day low, or nearest higher support. At +3R, sell an
+   additional 25% and continue trailing the remaining 25%. If +2R is reached intraday on the entry
+   day itself, hold the trim until after that day's close rather than selling same-day.
 
 7. Momentum failure: exit the full remaining position if price closes below the 20-EMA for two
    consecutive sessions and RSI/MACD are both deteriorating, unless the original stop would
    trigger sooner.
 
-8. Time stop: if the position has not reached +0.5R within 10 trading sessions, issue a mandatory
-   exit review. If price is below entry and momentum is not improving, exit the full position —
-   do not keep capital trapped in a stagnant trade.
+8. Time stop: if the position has not reached +0.5R within **7 trading sessions** (shortened
+   2026-08-13 from 10, per explicit user instruction), issue a mandatory exit review. If price is
+   below entry and momentum is not improving, exit the full position — do not keep capital trapped
+   in a stagnant trade.
 
 9. No averaging down. No exception for "oversold," social-media sentiment, or a lower price. An
    invalidated swing trade is closed, documented, and not re-entered for 30 calendar days unless a
@@ -615,3 +695,42 @@ unchanged and independently of this section.
 11. Record every exit with planned loss, actual loss, slippage, the rule that triggered the exit,
     and whether the exit submitted successfully, in `trades_log.md`. These records must be
     included in the weekly system review.
+
+## 17. Day-Trade and Settlement Protection (Mode B)
+Added 2026-08-13 at explicit user instruction, alongside the §3/§12 removal of Mode B's 1/day,
+3/week trade-count quota. Full text also maintained in
+`docs/swing_trading_execution_policy.md` for standalone reference; if the two ever diverge, this
+section in CLAUDE.md is authoritative. Applies to every Mode B swing position, whole-share
+(Tier-A sizing) or fractional (Tier-B, §15). Mode B is a swing-trading system, not a day-trading
+system — intended holding period is 1 to 15 trading sessions (§5B) — and this section exists to
+keep it that way structurally, not just by intent, now that it can trade every eligible cycle
+instead of being capped at one new position a day.
+
+1. **Settled-funds check.** Before every entry and exit, query Robinhood account capabilities and
+   settled buying power (`get_accounts` for `unsettled_funds`, `get_portfolio`/tradability checks
+   for settled buying power). Use only settled cash for new purchases — never unsettled sale
+   proceeds, margin, or borrowed funds. This reinforces, and does not loosen, §1's existing
+   never-use-margin-or-borrowed-funds rule.
+
+2. **No same-day close by design.** Do not intentionally close a newly opened position on the same
+   trading day. Every ordinary swing entry must be designed to be held overnight at minimum,
+   consistent with Mode B's 1-15 session horizon (§5B).
+
+3. **Narrow same-day exit exceptions.** The only same-day exit exceptions are: a hard
+   stop/invalidation (§16) actually being hit, major adverse news, a broker risk event, or a
+   market-wide risk circuit breaker (§6). Record each such exception in `trades_log.md` tagged
+   **SAME_DAY_PROTECTIVE_EXIT**, and verify account status (positions, buying power, restriction
+   flags) before submitting the next order.
+
+4. **No same-day loss re-entry.** Never re-enter the same ticker on the same trading day after a
+   loss exit on that ticker.
+
+5. **Broker restriction check.** Do not open a new position if the broker reports a day-trading,
+   good-faith-violation, free-riding, settled-cash, or other trading restriction on the account —
+   check this via account/tradability data before every entry. If any such restriction is present,
+   do not trade; log an alert instead.
+
+### Change record
+- 2026-08-13: Section added at explicit user instruction, concurrent with removing Mode B's
+  1/day, 3/week trade-count quota (§3/§12) — this section is the structural replacement guarding
+  against the quota's removal turning Mode B into de facto day-trading. No prior version existed.
