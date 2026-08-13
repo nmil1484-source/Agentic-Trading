@@ -13,7 +13,16 @@ verification and a verified catalyst before it can appear on a Trade Card. Inclu
 
 TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL, VRT, PLAB, HIMS,
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
-AVAV, TSM, NOW, ORCL, PURR, BMNR
+AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL
+
+**Note on CVX and KEEL:** added 2026-08-13 per explicit user instruction. Both confirmed as real,
+tradable Robinhood equity instruments (CVX = Chevron Corporation; KEEL = Keel Infrastructure Corp.
+Common Stock — not to be confused with KEEX, a 2x leveraged ETF on KEEL, which is excluded per
+Section 2's no-leveraged-ETF rule). KEEL also appears in LUC's "Stock Watchlist" section
+(Bitcoin Mining + AI Data Storage + HPC) without buy-zone thresholds, so it currently falls under
+the non-LUC-covered fallback in Section 2 rather than a GREEN/WHITE/RED rating. Neither has been
+verified yet — same as everything else in this pool, both still require full LUC/FTA verification
+and a catalyst before appearing on a Trade Card.
 
 **Note on PURR:** listed on the source watchlist as `NASDAQ:PURR`. Resolved 2026-08-13 as a real,
 tradable Robinhood equity instrument (added successfully to the synced "TradingView Pool"
