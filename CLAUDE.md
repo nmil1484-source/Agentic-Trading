@@ -2,11 +2,16 @@
 
 ## 1. Account and authority
 - Use Robinhood MCP only with the separate Agentic Account. Never access, transfer, or trade in my existing retail brokerage account.
-- Operating mode is OBSERVE_AND_PROPOSE.
+- Operating mode is OBSERVE_AND_PROPOSE for all manually-requested activity in this chat.
 - Do not place, cancel, replace, or modify any order unless I provide this exact confirmation in the current chat:
   CONFIRM ORDER: [BUY/SELL] [EXACT WHOLE SHARE QUANTITY] [TICKER] LIMIT [PRICE]
 - Do not treat "yes," "looks good," "go," or similar language as trade authorization.
 - Never initiate a deposit, withdrawal, transfer, margin borrowing, or account-setting change.
+- **Exception — Autonomous Execution Mode (see Section 14):** the scheduled hourly Routine
+  authorized in Section 14 may place, but not cancel or replace, orders without a live per-trade
+  CONFIRM ORDER message, strictly within the scope defined there. This exception applies only to
+  that Routine acting on its own schedule — every trade requested in this chat by the user still
+  requires the exact CONFIRM ORDER phrase, with no exception.
 
 ## 2. Permitted instruments — initial phase
 - Long common stocks and non-leveraged ETFs only.
@@ -94,9 +99,13 @@ Use these sources in this order. Log the source URL and access timestamp in ever
   amount/method.
 
 ## 11. Primary interaction channel
-- This chat (this session/repo) is the user's single point of control for the Agentic Account —
-  not a background or scheduled process. All research, Trade Card proposals, and order
-  confirmations happen here, on demand, when the user is present in the conversation.
+- This chat (this session/repo) is the user's primary point of control for the Agentic Account.
+  All manually-requested research, Trade Card proposals, and order confirmations happen here, on
+  demand, when the user is present in the conversation.
+- Exception (added 2026-08-13, see Section 14): a scheduled hourly Routine now also runs
+  research and, when every gate clears, execution — autonomously, without the user present. This
+  is a deliberate, explicitly-confirmed exception to "not a background or scheduled process," not
+  a reversal of it for manually-requested activity.
 - The user may add tickers to `watchlist.md` at any time; every addition still requires full
   LUC/FTA verification and a verified catalyst per Section 2 before it can appear on a Trade Card.
 - Claude may proactively rank/prioritize watchlist candidates and suggest which to pursue first,
@@ -171,4 +180,29 @@ fields must show the actual computed number and which rule below produced it.
 - [Cup and Handle Pattern — TrendSpider](https://trendspider.com/learning-center/chart-patterns-cup-and-handle/)
 - [Cup and Handle Pattern: Breakout, Stop-Loss, and Targets — XS](https://www.xs.com/en/blog/cup-and-handle-pattern/)
 
-The objective is disciplined compounding and capital preservation, not maximum trade frequency or "get rich quick" behavior.
+## 14. Autonomous execution authorization
+- **2026-08-13**: User issued the exact confirmation phrase **"CONFIRM AUTONOMOUS EXECUTION"**
+  after being explicitly warned this removes the live per-trade CONFIRM ORDER requirement for a
+  scheduled process. This authorizes an hourly automated Routine (see below) to research and,
+  when every existing gate clears, place equity orders without the user present.
+- **Scope — everything else in this document still applies unchanged** to the autonomous
+  Routine: permitted instruments (§2), exposure limits (§3, including the 1/day and 3/week new-
+  position caps — count across BOTH manual and autonomous trades, tracked via `trades_log.md`),
+  timing rules (§4), the full research gate (§5, including the FTA Regime Dashboard check — if
+  it's UNKNOWN, the Routine must fall back to strict FTA A-grade evidence exactly like a manual
+  proposal, and if that's not met either, it logs OBSERVE and does not trade), circuit breakers
+  (§6), and the §13 technical/stop-loss methodology (mandatory stop-loss, ≥1:2 reward-to-risk).
+  The Routine has no authority to cancel or replace orders, deposit/withdraw funds, or change
+  account settings — those still require the user directly, per §1.
+- **Reality check flagged to the user at authorization time**: the FTA Regime Dashboard has
+  returned UNKNOWN (JS-rendered, loading placeholders to automated fetch) every time it's been
+  checked in this session. Until that changes, the Routine will likely log OBSERVE most/all
+  cycles rather than trade — that is correct, rule-following behavior, not a malfunction.
+- **Logging (mandatory, every cycle)**: the Routine appends one entry to `trades_log.md` per
+  cycle — timestamp, tickers reviewed, gate results, and either "OBSERVE, no trade" with reasons
+  or full trade detail (ticker, qty, limit, stop, target, reward-to-risk, sources). Every actual
+  order additionally triggers a push+email notification to the user.
+- **Kill switch**: the user can say "STOP AUTONOMOUS EXECUTION" in this chat, or disable/delete
+  the Routine directly, at any time. On that instruction, Claude disables the Routine immediately
+  and reverts the Section 1 exception to inactive (the exception text stays as a historical
+  record; a new dated entry here notes the revocation).
