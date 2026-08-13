@@ -2,10 +2,10 @@
 
 ## 1. Account and authority
 - Use Robinhood MCP only with the separate Agentic Account. Never access, transfer, or trade in my existing retail brokerage account.
-- Operating mode is OBSERVE_AND_PROPOSE.
-- Do not place, cancel, replace, or modify any order unless I provide this exact confirmation in the current chat:
+- Operating mode is AUTONOMOUS_EXECUTE: orders may be placed automatically, without per-trade confirmation, whenever a candidate clears every required gate in Sections 2–6 during an automated scan (Section 10).
+- For any trade discussed manually in chat, outside an automated scan, still require this exact confirmation string before placing, cancelling, replacing, or modifying an order:
   CONFIRM ORDER: [BUY/SELL] [EXACT WHOLE SHARE QUANTITY] [TICKER] LIMIT [PRICE]
-- Do not treat "yes," "looks good," "go," or similar language as trade authorization.
+- Do not treat "yes," "looks good," "go," or similar unstructured language as authorization for a manually discussed trade.
 - Never initiate a deposit, withdrawal, transfer, margin borrowing, or account-setting change.
 
 ## 2. Permitted instruments — initial phase
@@ -14,12 +14,12 @@
 - Do not use fractional-share limit orders. Every equity limit order must use an exact whole-share quantity and an explicit limit price.
 - Do not hard-code a ticker list. A proposed ticker must have: (a) verified LUC GREEN status or, if LUC is unavailable, strict FTA A-grade status; and (b) a verified catalyst/source.
 
-## 3. Initial exposure limits
-- Before the Agentic Account has a separately approved funding budget, do not propose executable orders.
-- Once funded, maximum new position: the lower of $100 or 5% of Agentic Account equity.
-- Maximum total deployed capital: 50% of Agentic Account equity. Maintain at least 50% cash.
+## 3. Exposure limits
+- The Agentic Account's own funded balance is the trading budget — no separate budget-approval step is required. Do not place any order if the account is unfunded or its balance is effectively zero.
+- No fixed dollar or percentage ceiling on individual position size — a position may be sized as large as needed to act on a qualifying setup.
+- Always maintain a minimum cash reserve of 20% of Agentic Account equity, to preserve room for new positions and rotations. Never let a purchase bring cash below this floor.
 - Maximum one new position per day and three new positions per calendar week.
-- Do not average down. Add only after a position is profitable or has reclaimed its technical trigger with renewed confirmation.
+- Do not average down (add to a losing position). Selling an existing position to redeploy into a higher-conviction, fully gated candidate is allowed, subject to the full research gate and every other rule in this document applying to the new position as if it were a fresh buy.
 - Do not increase risk after a daily realized loss of 2% or a weekly realized loss of 5% of Agentic Account equity.
 
 ## 4. Timing and market-event rules
@@ -79,5 +79,28 @@ Use these sources in this order. Log the source URL and access timestamp in ever
 - Do not treat YouTube titles, social-media posts, or prediction-market odds as a primary trade signal.
 - Use them only as context after checking the approved sources, price/volume data, and a verifiable catalyst.
 - If LUC, FTA, or Robinhood data cannot be accessed, mark that source UNKNOWN, log the failed URL and timestamp, and do not place or propose an executable trade unless the remaining FTA evidence is A-grade.
+
+## 10. Automated Scanning and Execution (AUTONOMOUS_EXECUTE mode)
+- Run an observation-and-execution scan hourly during regular U.S. market hours, in Pacific Time, only from 6:45 AM through 12:15 PM on U.S. trading days (approximating the requested 30-minute cadence within this environment's 1-hour minimum scheduling interval). Do not evaluate new entries during the first 15 minutes after open or the final 15 minutes before close (Section 4 still applies).
+- When, and only when, a candidate clears every required gate in Sections 2–6, place the order immediately — no per-trade confirmation required.
+- Immediately after any automated order placement, create a TRADE EXECUTED record: deliver it through the most reliable notification channel available in the current environment, and also create a GitHub Issue labeled `trade-alert` on this repository as a durable record. Use this exact structure:
+
+  ```
+  TRADE EXECUTED
+  Ticker / instrument:
+  Regime and LUC status:
+  FTA score and technical evidence:
+  Catalyst with source URL and timestamp:
+  Exact whole-share quantity:
+  Limit price:
+  Invalidation / stop level:
+  Reward-to-risk:
+  Portfolio concentration impact:
+  Order status (filled / pending / rejected):
+  ```
+
+- On a circuit breaker trip, data mismatch, market-data failure, or material uncertainty, create an URGENT RISK ALERT through the same channels and take no automated action beyond what Section 6 explicitly allows (e.g. an exit/stop order on a hit invalidation level).
+- Do not configure a new external notification service (e.g. email, Telegram, webhook) or change any Robinhood account setting to support this without asking first.
+- Notification channels verified available in this environment (as of 2026-08-13): Claude push notification (phone delivery depends on Remote Control being connected) and GitHub Issue creation. Email, Telegram, and generic webhook delivery are not currently configured — do not assume they exist.
 
 The objective is disciplined compounding and capital preservation, not maximum trade frequency or "get rich quick" behavior.
