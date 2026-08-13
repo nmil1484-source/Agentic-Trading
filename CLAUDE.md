@@ -21,6 +21,11 @@
 - Maximum one new position per day and three new positions per calendar week.
 - Do not average down (add to a losing position). Selling an existing position to redeploy into a higher-conviction, fully gated candidate is allowed, subject to the full research gate and every other rule in this document applying to the new position as if it were a fresh buy.
 - Do not increase risk after a daily realized loss of 2% or a weekly realized loss of 5% of Agentic Account equity.
+- Every position must carry a live protective stop. Immediately after any buy fills, place a
+  resting GTC stop order (stop_limit preferred; stop_market if a limit stop isn't practical) at
+  the position's invalidation level from `technical-analysis-playbook.md`, sized to the full
+  filled quantity. Never leave a filled position without an active stop order at the broker —
+  this is in addition to, not instead of, the hourly scan re-checking invalidation levels.
 
 ## 4. Timing and market-event rules
 - Do not open new positions during the first 15 minutes or final 15 minutes of regular U.S. market hours.
@@ -31,7 +36,7 @@
 Before every proposal, verify and log:
 1. Current FTA Regime Dashboard classification.
 2. Current LUC status. If the LUC sheet fails, returns 403, or cannot render, mark LUC as UNKNOWN; log the failed URL and timestamp; then require strict FTA A-grade technical evidence.
-3. FTA scorecard: market-structure break, 9/20 EMA pullback, bullish reversal at support, volume confirmation, RSI/MACD alignment, and Fibonacci/support-zone context.
+3. FTA scorecard: market-structure break, 9/20 EMA pullback, bullish reversal at support, volume confirmation, RSI/MACD alignment, and Fibonacci/support-zone context. See `technical-analysis-playbook.md` for the entry/invalidation methodology behind each of these (fib retracement zones, 9/20 EMA pullback rules, HH/HL structure, consolidation, cup and handle).
 4. Catalyst from a primary or reputable source, including URL and date.
 5. Exact entry limit, exact whole-share quantity, invalidation/stop level, target or review date, reward-to-risk, and portfolio-concentration check.
 
