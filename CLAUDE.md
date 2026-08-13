@@ -53,4 +53,27 @@ Every proposal must be presented before any confirmation request:
 - Reason to wait or not trade, if applicable
 - Final status: OBSERVE, PROPOSE, or AWAITING EXACT CONFIRMATION
 
+## 8. Approved live research sources
+Use these sources in this order. Log the source URL and access timestamp in every Trade Card.
+
+1. LUC Buy Zones (primary deployment map)
+   https://docs.google.com/spreadsheets/d/1tZRKLjYJlxswxF3vJsFYGt5v70Ds2n1P6wdYbAjY0CU/edit
+
+2. FTA Regime Dashboard (macro risk gate)
+   https://fta-regime-dashboard.onrender.com/
+
+3. FTA Research Hub (fundamental and thesis research)
+   https://marileegrace.github.io/fta-research-hub/
+
+4. FTA Trade Tracker
+   https://marileegrace.github.io/fta-trade-tracker/
+
+5. Robinhood MCP account data (positions, buying power, open orders, and supported order capabilities)
+   https://agent.robinhood.com/mcp/trading
+
+## 9. Source integrity rule
+- Do not treat YouTube titles, social-media posts, or prediction-market odds as a primary trade signal.
+- Use them only as context after checking the approved sources, price/volume data, and a verifiable catalyst.
+- If LUC, FTA, or Robinhood data cannot be accessed, mark that source UNKNOWN, log the failed URL and timestamp, and do not place or propose an executable trade unless the remaining FTA evidence is A-grade.
+
 The objective is disciplined compounding and capital preservation, not maximum trade frequency or "get rich quick" behavior.
