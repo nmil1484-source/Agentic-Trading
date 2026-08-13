@@ -206,3 +206,15 @@ fields must show the actual computed number and which rule below produced it.
   the Routine directly, at any time. On that instruction, Claude disables the Routine immediately
   and reverts the Section 1 exception to inactive (the exception text stays as a historical
   record; a new dated entry here notes the revocation).
+- **Status: NOT CURRENTLY OPERATIONAL (2026-08-13).** Authorization is on record and the scope
+  above stands, but the hourly Routine has been deleted after a test-fire failed verification: the
+  fresh session it spawned had no confirmed access to the Robinhood MCP or GitHub tools (the
+  trigger-creation API warned it was storing no connectors to pass through), and the test run
+  produced zero commits to this repo and no readable report — meaning it could not be confirmed
+  to research, log, or trade correctly, or possibly did nothing at all every cycle. Rather than
+  leave an unverified process armed against a real account, it was deleted outright. Re-enabling
+  requires either verifying tool access from a self-bound Routine (resumes this session, where
+  tools are already connected, at the cost of losing push/email notifications and unbounded
+  session context growth) or the user setting it up directly via the claude.ai Routines UI, which
+  can grant connector access this tool call could not. No autonomous cycle has run to completion
+  or placed any trade as of this entry.
