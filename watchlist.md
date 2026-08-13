@@ -15,11 +15,11 @@ TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR
 
-**Note on PURR:** listed on the source watchlist as `NASDAQ:PURR`. This could not be independently
-verified as a real Nasdaq-listed equity as of import — it may be mislabeled (e.g. a crypto token
-ticker). Included per explicit user instruction. Before any proposal, confirm it resolves to a
-real, tradable Robinhood equity via `get_equity_tradability` / `search` — if it doesn't, treat it
-as invalid and drop it, don't guess.
+**Note on PURR:** listed on the source watchlist as `NASDAQ:PURR`. Resolved 2026-08-13 as a real,
+tradable Robinhood equity instrument (added successfully to the synced "TradingView Pool"
+watchlist via Robinhood MCP) — the earlier concern about mislabeling did not hold up. Still
+requires full LUC/FTA verification and a catalyst per Section 2 before it can appear on a Trade
+Card, same as everything else in the pool.
 
 ## Excluded — instrument type not permitted (Section 2: no crypto, no leveraged/inverse ETFs)
 - Crypto pairs: ETHUSD, SOL, XRPUSD, LINK, BTCUSD, BTC.D, PYRUSDC

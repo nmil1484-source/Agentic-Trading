@@ -114,4 +114,61 @@ Use these sources in this order. Log the source URL and access timestamp in ever
 - Any future change to Section 3's exposure limits must be logged here with date and the specific
   before/after values.
 
+## 13. Technical entry & stop-loss methodology (required for every proposal)
+Added 2026-08-13 at user instruction — every future Trade Card's entry, invalidation/stop, and
+market-structure read must be derived from this methodology, not eyeballed. This expands on the
+§5.3 FTA scorecard and the §7 "Invalidation or stop level" / "Reward-to-risk" fields — those
+fields must show the actual computed number and which rule below produced it.
+
+### A. Stop-loss is mandatory, always
+- No proposal reaches PROPOSE status without a specific, computed stop-loss price. "Watch
+  closely" or an unstated level is not acceptable.
+- Reward-to-risk must be at least 1:2 (distance to target ≥ 2x distance to stop). If the math
+  doesn't clear that bar, the status stays OBSERVE.
+- Stop-loss orders are risk-reduction/exit orders and remain exempt from the §4 timing windows
+  once a documented invalidation level is actually hit — placing the *initial* stop when a new
+  position is opened is not exempt and follows normal timing rules.
+
+### B. 9/20 EMA (or SMA) trend and pullback rules
+- Only propose a long entry when the 9-period average is above the 20-period average on the daily
+  chart ("green zone"). If 9 is below 20, status stays OBSERVE regardless of other signals — this
+  is the same 9/20 check already required by §5.3, made a hard gate rather than one input among
+  many.
+- Entry trigger: a bullish daily candle closing back above the 9-average after a pullback —
+  don't enter blind mid-pullback before that close confirms.
+- Stop-loss: below the swing low of the pullback, or below the 20-average, whichever is tighter.
+- Once in a position, the stop may trail just under the rising 20-average — re-evaluated at each
+  check-in, never moved automatically without being stated in that day's log.
+- If the 9/20 flips bearish (9 crosses below 20) while holding a position, that is a documented
+  invalidation event per §4, independent of the original stop price.
+
+### C. Fibonacci retracement entries
+- Only applies within a confirmed uptrend (higher highs / higher lows on the daily chart).
+  Retracement levels in a downtrend or a directionless range are not reliable signals and must
+  not be used to justify an entry.
+- Preferred entry zones: 38.2%–50% retracement of the most recent impulse leg in a strong trend,
+  or 61.8% in a weaker/deeper pullback. Cross-check the computed Fib level against LUC's own buy
+  zones (LUC's zone structure is effectively a Fib/wave-based framework) before treating a price
+  as "in zone."
+- A price merely touching a Fib level is not by itself an entry signal — require one confirmation:
+  a bullish reversal candle, RSI turning up from neutral/oversold, or a volume pickup.
+- Stop-loss: placed just beyond the next Fibonacci level below entry — e.g. enter at 38.2%, stop
+  below 50%; enter at 61.8%, stop below 78.6%.
+
+### D. Chart-pattern confirmation
+- Higher-highs/higher-lows structure is the baseline definition of the §5.3 "market-structure
+  break" criterion. A series of lower highs/lower lows is a downtrend and disqualifies a long
+  entry regardless of LUC/FTA status.
+- Cup and handle: enter only on a breakout above the handle's resistance on rising volume; stop
+  goes below the handle's low (or the handle's midpoint for a tighter stop).
+- Consolidation/range: a name still inside a multi-week consolidation with no breakout stays
+  OBSERVE — do not anticipate the breakout before it happens.
+
+### References consulted 2026-08-13
+- [Fibonacci Retracement Strategy — QuantifiedStrategies](https://www.quantifiedstrategies.com/fibonacci-trading-strategy/)
+- [Fibonacci Pullback Strategy — SwingFolio](https://swingfolio.com/blog/fibonacci-pullback-trading-strategy)
+- [EMA Pullback Trading Strategy — SwingFolio](https://swingfolio.com/blog/ema-pullback-trading-strategy-guide)
+- [Cup and Handle Pattern — TrendSpider](https://trendspider.com/learning-center/chart-patterns-cup-and-handle/)
+- [Cup and Handle Pattern: Breakout, Stop-Loss, and Targets — XS](https://www.xs.com/en/blog/cup-and-handle-pattern/)
+
 The objective is disciplined compounding and capital preservation, not maximum trade frequency or "get rich quick" behavior.
