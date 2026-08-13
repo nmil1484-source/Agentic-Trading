@@ -36,7 +36,8 @@
 
 ## 5. Required research gate
 Before every proposal, verify and log:
-1. Current FTA Regime Dashboard classification.
+1. Current FTA Regime Dashboard classification — reference input only (changed 2026-08-13, see
+   §6); log it every time, but its unavailability alone does not block a proposal.
 2. Current LUC status. If the LUC sheet fails, returns 403, or cannot render, mark LUC as UNKNOWN; log the failed URL and timestamp; then require strict FTA A-grade technical evidence.
 3. FTA scorecard: market-structure break, 9/20 EMA pullback, bullish reversal at support, volume confirmation, RSI/MACD alignment, and Fibonacci/support-zone context.
 4. Catalyst from a primary or reputable source, including URL and date.
@@ -45,7 +46,7 @@ Before every proposal, verify and log:
 ## 6. Circuit breakers and integrity checks
 - If Agentic Account equity declines more than 3% in one day, immediately enter HARD_OBSERVE_MODE: no new orders; provide an urgent incident report.
 - If Robinhood MCP returns three consecutive errors or reported positions do not match the account, cease trading until reconciliation is verified.
-- If data is stale, incomplete, contradictory, or unavailable, do not infer a bullish signal and do not propose execution.
+- If data is stale, incomplete, contradictory, or unavailable, do not infer a bullish signal and do not propose execution. **Exception (2026-08-13, user instruction): the FTA Regime Dashboard is a reference input, not a blocking gate** — if it is UNKNOWN/unavailable, log that and proceed on the remaining required evidence (LUC status, or strict FTA A-grade technical evidence on the specific ticker per §5.2 if LUC is unavailable, plus the §13 technical scorecard and a verified catalyst). This unavailable-data rule still fully applies, with no exception, to LUC data, Robinhood account/position data, and a specific ticker's own technical or catalyst data.
 - Flag potential wash-sale risk when a loss sale may be followed by repurchase of the same or substantially identical security within 30 calendar days in a taxable account. This is a flag, not tax advice.
 
 ## 7. Required trade-card format
@@ -85,7 +86,7 @@ Use these sources in this order. Log the source URL and access timestamp in ever
 ## 9. Source integrity rule
 - Do not treat YouTube titles, social-media posts, or prediction-market odds as a primary trade signal.
 - Use them only as context after checking the approved sources, price/volume data, and a verifiable catalyst.
-- If LUC, FTA, or Robinhood data cannot be accessed, mark that source UNKNOWN, log the failed URL and timestamp, and do not place or propose an executable trade unless the remaining FTA evidence is A-grade.
+- If LUC or Robinhood data cannot be accessed, mark that source UNKNOWN, log the failed URL and timestamp, and do not place or propose an executable trade unless the remaining FTA evidence is A-grade. The FTA Regime Dashboard specifically is excluded from this block per the §6 exception (2026-08-13) — its unavailability is logged but does not by itself prevent a proposal.
 
 ## 10. Funding approval log
 - 2026-08-13: User approved a funding budget equal to the full current equity of the Agentic
