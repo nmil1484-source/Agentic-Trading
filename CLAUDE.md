@@ -327,6 +327,19 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   profit-protection trim now requires the position to have first been held through a regular-
   session close. Trade Card format (§7) expanded to log the new fields. §7/§14 also expanded for
   day-trade/settlement fields from §17.
+- **2026-08-13 (later same day): user issued "CONFIRM AUTONOMOUS EXECUTION" a second time, then in
+  the same exchange directed that §14 stay at PENDING_VERIFICATION rather than move to ACTIVE.**
+  A prior draft of this entry had moved §14 to ACTIVE (tracking full account equity, adding a
+  20-position/week autonomous allowance, accepting chat-only notifications) — the user rejected
+  that before it was committed. **Corrected version, as committed:** §14 item 2 retains the fixed
+  **$200 sub-budget** (not full equity); no trade-count allowance is added; and a new **required
+  verification procedure** is documented in §14's Status field — (1) reauthorize Robinhood MCP
+  outside this chat, (2) verify account capabilities and settled buying power, (3) recreate the
+  scheduled trigger in observation-only mode (no order authority), (4) run one logged dry cycle
+  producing zero orders, (5) present that evidence to the user. Only after all five steps, as a
+  separate reviewed diff, may a live-activation change be proposed. §14 Status is
+  **PENDING_VERIFICATION**, not ACTIVE, until then; no trigger exists and no autonomous order will
+  be placed.
 - Any future change to Section 3's exposure limits, or to the strategy-mode structure above, must
   be logged here with date and the specific before/after values.
 
@@ -406,32 +419,32 @@ computed number and which rule below produced it.
   superseded operationally by the pause below and the Mode B AUTONOMOUS_EXECUTE framework that
   follows; the original authorization mechanics stay documented here.)
 
-### Mode B AUTONOMOUS_EXECUTE Authority — drafted 2026-08-13, NOT YET ACTIVE
-Rules below are committed and ready, but **execution has not been re-armed**: per the PAUSED
-status logged after the strategy-mode refactor, re-enabling requires the user issuing a fresh,
-explicit, exact confirmation phrase — the same rigor as the original "CONFIRM AUTONOMOUS
-EXECUTION" — before the Routine trigger is recreated. The instruction that produced this section
-did not include that phrase, so the framework below is documented and effective the moment that
-confirmation is given, but no trigger exists yet and no order will be placed until then. Scoped to
-**Mode B (SWING_TRADING) only** — Mode A (CORE_LUC_ACCUMULATION) remains research/alert-only,
-unchanged, with no order authority.
+### Mode B AUTONOMOUS_EXECUTE Authority — drafted 2026-08-13, PENDING_VERIFICATION
+Rules below are committed and ready, but **execution has not been re-armed**. The user has issued
+the exact confirmation phrase "CONFIRM AUTONOMOUS EXECUTION" a second time (2026-08-13, later same
+day) — but in the same exchange directed that the phrase alone not move this straight to live:
+the fixed $200 sub-budget stays in place (item 2), no trade-count allowance is added, and a
+documented reauthorization-and-verification procedure (see Status below) must be completed and its
+evidence shown before a separate live-activation diff is even proposed. Until that procedure is
+complete, no trigger exists and no order will be placed. Scoped to **Mode B (SWING_TRADING)
+only** — Mode A (CORE_LUC_ACCUMULATION) remains research/alert-only, unchanged, with no order
+authority.
 
 1. Mode B SWING_TRADING's operating mode is set to **AUTONOMOUS_EXECUTE** once activated per the
    confirmation requirement above.
 
-2. **Funding note — discrepancy flagged, not silently accepted:** the source instruction states
-   "its hard funding budget is $200 total." That doesn't match two things already on record: the
-   Agentic Account's actual current equity is **$277** (last checked this session, `get_portfolio`
-   ••••8058), and §10's funding log already establishes the approved budget as *the full current
-   equity of the account, re-checked at proposal time* — not a fixed dollar figure. Rather than
-   silently overwrite §10 with a stale/lower number, this is logged as written intent to treat
-   **$200 as a hard ceiling** distinct from and tighter than §10's dynamic full-equity budget —
-   i.e., even though the account holds $277 and §10 would otherwise permit sizing against all of
-   it, Mode B AUTONOMOUS_EXECUTE treats only $200 of that as usable, leaving the remaining ~$77
-   untouched by autonomous activity. §10 itself is not changed. If $200 wasn't meant as a
-   deliberately tighter autonomous-only sub-budget, this needs correcting before activation.
-   Never deposit, withdraw, transfer, borrow, or use margin, or assume funds beyond this $200
-   sub-budget are available for autonomous activity — unchanged instruction, now logged precisely.
+2. **Funding — fixed experimental sub-budget, explicitly retained 2026-08-13 (later same day).**
+   Mode B AUTONOMOUS_EXECUTE uses a **hard $200 ceiling**, distinct from and tighter than §10's
+   dynamic full-current-equity budget that governs manual/in-chat trading. This was originally
+   logged as an unresolved discrepancy (the account's actual equity has run higher than $200 —
+   $277 at last check), but the user has since explicitly confirmed the $200 figure is deliberate:
+   autonomous activity may size against at most $200 of the account, never the full balance, even
+   though §10 would otherwise permit more. Re-check the account's actual current equity at
+   proposal/order time regardless — the $200 figure is a ceiling on top of §3/§15's other caps, not
+   a floor or an assumption that $200 is actually available (if settled buying power is below $200,
+   that lower number governs). §10 itself is not changed by this — it still describes the full,
+   separate manual-trading budget. Never deposit, withdraw, transfer, borrow, or use margin, or
+   assume funds beyond this $200 sub-budget are available for autonomous activity.
 
 3. The Routine may autonomously place, and may modify an order only to preserve a documented
    stop/exit (§16 breakeven/trailing/gap mechanics — never to widen risk, never for any other
@@ -517,31 +530,48 @@ unchanged, with no order authority.
   **"RESUME AUTONOMOUS SWING TRADING"** (item 8) restarts scanning only after reconciliation and
   circuit-breaker checks are clear, and cannot override an active daily-loss or HARD_OBSERVE_MODE
   breaker.
-- **Status: PAUSED (2026-08-13, ~18:11 UTC).** Operational history: the first attempt (fresh
-  session per firing) failed tool-access verification and was deleted — see `trades_log.md`
-  history. A second Routine, self-bound to the user's primary session, ran successfully from
-  08:17 UTC through 17:41 UTC (test-fire plus several scheduled and on-demand cycles, all logged
-  to `trades_log.md`), correctly checking the account, circuit breakers, position caps, FTA
-  Regime Dashboard, and — after the §5/§13→§5B refactor — the Swing Entry Gate, without ever
-  clearing every condition needed to place a trade.
-  **Paused after the strategy-mode refactor (§2/§5B/§12) landed**: the user instructed keeping the
-  system in observation/alert state until autonomous execution is separately re-authorized, so the
-  Routine trigger was deleted outright (not just disabled) for an unambiguous stopped state. The
-  Section 1 exception permitting order placement without a live CONFIRM ORDER is **inactive** —
-  this text stays as a historical record of the authorization mechanics, not a currently-active
-  grant. Manual research, Trade Cards, and order confirmations in this chat are unaffected and
-  remain fully available on request (§11). **Re-enabling requires**: (1) the user issuing a fresh,
-  explicit authorization — the same rigor as the original "CONFIRM AUTONOMOUS EXECUTION" phrase,
-  given the underlying gate has materially changed since that authorization was given — and (2)
-  recreating the self-bound Routine (schedule was hourly at :30 past the hour, 14:30-19:30 UTC,
-  weekdays, before this pause; will need DST adjustment after early November regardless of when
-  it's re-created).
-  **2026-08-13 (later same day): the Mode B AUTONOMOUS_EXECUTE framework above was drafted and
-  committed at user instruction** — full bounded-autonomy ruleset (funding sub-budget, hard
-  blockers, pre-trade checks, notification path, emergency pause/resume phrases) — but the
-  confirmation phrase required to actually re-arm it was not included in that instruction, so it
-  remains documented-but-inactive. The trigger has still not been recreated; this status stays
-  PAUSED until the exact phrase is given.
+- **Status: PENDING_VERIFICATION (2026-08-13, later same day).** Operational history: the first
+  attempt (fresh session per firing) failed tool-access verification and was deleted — see
+  `trades_log.md` history. A second Routine, self-bound to the user's primary session, ran
+  successfully from 08:17 UTC through 17:41 UTC (test-fire plus several scheduled and on-demand
+  cycles, all logged to `trades_log.md`), correctly checking the account, circuit breakers,
+  position caps, FTA Regime Dashboard, and — after the §5/§13→§5B refactor — the Swing Entry Gate,
+  without ever clearing every condition needed to place a trade.
+  **Paused after the strategy-mode refactor (§2/§5B/§12) landed**, then the trigger was deleted
+  outright for an unambiguous stopped state. The user has since issued the exact confirmation
+  phrase **"CONFIRM AUTONOMOUS EXECUTION"** a second time (2026-08-13, later same day) — but also
+  directed, in the same exchange, that the system **not** move straight to ACTIVE on that phrase
+  alone: retain this $200 fixed sub-budget rather than switch to tracking full account equity, do
+  not add a trade-count allowance, and complete a documented verification-and-dry-run procedure
+  before any live-activation diff is even proposed. The phrase is logged as valid and on record,
+  but this status field remains **PENDING_VERIFICATION**, not ACTIVE, until that procedure is
+  complete. The Section 1 exception permitting order placement without a live CONFIRM ORDER
+  remains **inactive**. Manual research, Trade Cards, and order confirmations in this chat are
+  unaffected and remain fully available on request (§11).
+
+  **Required verification procedure (2026-08-13, explicit user instruction) — all steps required,
+  in order, before a live-activation diff is proposed:**
+  1. **Reauthorize Robinhood MCP.** This session cannot run an OAuth flow itself. The user must
+     reauthorize the `robinhood-trading` MCP connector outside this chat — via `claude mcp` or
+     `/mcp` in an interactive Claude Code session (for a claude.ai connector, via claude.ai
+     connector settings instead). As of this entry the connector is unauthorized/disconnected;
+     this step is not yet complete.
+  2. **Verify account capabilities and settled buying power.** Once reauthorized: call
+     `get_accounts` (confirm `unsettled_funds`, `agentic_allowed`, account type on ••••8058),
+     `get_portfolio` (confirm current equity, buying power), and a tradability check, and log the
+     results here with a timestamp. Not yet done.
+  3. **Recreate the scheduled trigger in observation-only mode.** Rebuild the self-bound Routine
+     on its prior schedule (hourly at :30 past the hour, 14:30-19:30 UTC weekdays — needs a DST
+     check), but with no order-placing authority active — it may check the account, circuit
+     breakers, position caps, regime data, and the §5B gate, and log an OBSERVE entry, but must
+     not call `place_equity_order` or any order-modifying tool while this document's status is
+     PENDING_VERIFICATION. Not yet done.
+  4. **Run one logged dry cycle that produces no order.** Test-fire the trigger once, confirm it
+     completes end-to-end (account check → circuit-breaker check → §5B gate check → OBSERVE log
+     entry in `trades_log.md`), and confirm zero orders were placed. Not yet done.
+  5. **Present the evidence from steps 1-4 to the user.** Only after that — as a separate,
+     explicitly reviewed diff, not bundled into this one — may a live-activation change (moving
+     this status to ACTIVE and enabling real order placement) be proposed. Not yet done.
 
 ## 15. Fractional Tier-B Pilot Policy
 Added 2026-08-13 at explicit user instruction; **unmodified by the 2026-08-13 strategy-mode
