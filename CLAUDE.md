@@ -392,6 +392,14 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   2-correlated-theme caps, and every §16 exit rule are all unaffected — this was scoped narrowly to
   the two parameters above, at the user's explicit choice not to touch sizing/stop rules in the
   same pass.
+- **2026-08-14: §14 Mode B AUTONOMOUS_EXECUTE moved from PENDING_VERIFICATION to ACTIVE.** The
+  verification procedure (§14 items 1-5) completed with real evidence (reauthorization, account
+  checks, a real trigger firing with confirmed live tool access, zero-order dry cycle). User then
+  gave a scoped confirmation phrase: "CONFIRM AUTONOMOUS EXECUTION for Mode B swing trading in the
+  Agentic Account" — distinct from the bare "AUTONOMOUS_EXECUTE" label offered twice earlier and
+  not accepted. Section 1's order-placement exception is now active for the Mode B trigger only,
+  subject to every existing hard rule. Mode A unaffected. Trigger prompt being updated from
+  observation-only to real order authority in the same pass.
 - Any future change to Section 3's exposure limits, or to the strategy-mode structure above, must
   be logged here with date and the specific before/after values.
 
@@ -472,15 +480,13 @@ computed number and which rule below produced it.
   superseded operationally by the pause below and the Mode B AUTONOMOUS_EXECUTE framework that
   follows; the original authorization mechanics stay documented here.)
 
-### Mode B AUTONOMOUS_EXECUTE Authority — drafted 2026-08-13, PENDING_VERIFICATION
-Rules below are committed and ready, but **execution has not been re-armed**. The user has issued
-the exact confirmation phrase "CONFIRM AUTONOMOUS EXECUTION" a second time (2026-08-13, later same
-day) — but in the same exchange directed that the phrase alone not move this straight to live: a
-documented reauthorization-and-verification procedure (see Status below) must be completed and its
-evidence shown before a separate live-activation diff is even proposed. Until that procedure is
-complete, no trigger exists and no order will be placed. Scoped to **Mode B (SWING_TRADING)
-only** — Mode A (CORE_LUC_ACCUMULATION) remains research/alert-only, unchanged, with no order
-authority.
+### Mode B AUTONOMOUS_EXECUTE Authority — ACTIVE as of 2026-08-14
+**Live.** The verification procedure (items 1-5 below) completed with real evidence, and the user
+gave a fresh, scoped confirmation: "CONFIRM AUTONOMOUS EXECUTION for Mode B swing trading in the
+Agentic Account" (2026-08-14). The trigger now has real order-placement authority, strictly within
+every rule in this document — §5B gate, §3/§14 sizing caps, §16 stops/exits, §17 day-trade
+protection. Scoped to **Mode B (SWING_TRADING) only** — Mode A remains research/alert-only, no
+order authority.
 
 1. Mode B SWING_TRADING's operating mode is set to **AUTONOMOUS_EXECUTE** once activated per the
    confirmation requirement above.
@@ -586,7 +592,8 @@ authority.
   **"RESUME AUTONOMOUS SWING TRADING"** (item 8) restarts scanning only after reconciliation and
   circuit-breaker checks are clear, and cannot override an active daily-loss or HARD_OBSERVE_MODE
   breaker.
-- **Status: PENDING_VERIFICATION (2026-08-13, later same day).** Operational history: the first
+- **Status: ACTIVE (2026-08-14).** See the dated entry after the verification procedure below for
+  the live-activation record. Operational history: the first
   attempt (fresh session per firing) failed tool-access verification and was deleted — see
   `trades_log.md` history. A second Routine, self-bound to the user's primary session, ran
   successfully from 08:17 UTC through 17:41 UTC (test-fire plus several scheduled and on-demand
@@ -663,13 +670,18 @@ authority.
      forward without needing another manual intervention. Normal recurring schedule (hourly at :30,
      14:30-19:30 UTC weekdays) restored; next natural firing 2026-08-14 ~14:35 UTC.
   5. **Present the evidence from steps 1-4 to the user — COMPLETE (2026-08-14).** All four steps
-     now have real, verified evidence, presented to and reviewed with the user. Per this
-     procedure's own terms, a live-activation diff **may now be proposed** — but proposing is not
-     the same as approving: it still requires the user's explicit review and approval of that
-     separate diff, and a fresh, deliberate confirmation phrase distinct from casually repeating
-     the "AUTONOMOUS_EXECUTE" label (which has been offered twice this session and not accepted as
-     sufficient). §14 Status remains **PENDING_VERIFICATION** until the user reviews and approves
-     that separate activation diff.
+     now have real, verified evidence, presented to and reviewed with the user.
+
+  **LIVE ACTIVATION (2026-08-14).** The user gave a scoped, deliberate confirmation distinct from
+  the bare label previously declined twice: **"CONFIRM AUTONOMOUS EXECUTION for Mode B swing
+  trading in the Agentic Account."** §14 Status moves to **ACTIVE**. The Section 1 exception
+  permitting order placement without a live CONFIRM ORDER is now **active**, scoped strictly to
+  Mode B (SWING_TRADING) via the scheduled trigger, subject to every rule in this document — §5B
+  gate, §3/§14 sizing/deployment caps, §15 Tier-B rules where applicable, §16 stop/exit mechanics,
+  §17 day-trade/settlement protection, §6 circuit breakers. The trigger's prompt is being updated
+  from observation-only to real order-placement authority within those bounds. Mode A remains
+  research/alert-only, unaffected. Kill phrases (`STOP AUTONOMOUS EXECUTION` /
+  `PAUSE AUTONOMOUS TRADING`) remain fully in force.
 
 ## 15. Fractional Tier-B Pilot Policy
 Added 2026-08-13 at explicit user instruction; **unmodified by the 2026-08-13 strategy-mode
