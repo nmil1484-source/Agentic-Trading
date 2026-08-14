@@ -90,9 +90,9 @@ trades. A swing candidate qualifies when **all** of these conditions are met:
 2. It has a verified catalyst, sector tailwind, or clear relative-strength driver — logged with a
    URL/date when there is one; a relative-strength driver must be a specific, checkable comparison
    (e.g. "up X% vs. SPY's Y% over Z sessions"), not a vague assertion.
-3. It has at least 3 of these 6 technical confirmations (not all 6 — this replaces the old §13.B
-   hard 9/20-EMA-only gate for swing candidates; §13 remains the reference methodology for *how*
-   to read each one):
+3. It has at least **2 of these 6** technical confirmations (lowered 2026-08-14 from 3-of-6 at
+   explicit user instruction — not all 6; this replaces the old §13.B hard 9/20-EMA-only gate for
+   swing candidates; §13 remains the reference methodology for *how* to read each one):
    - 9/20 EMA bullish alignment or reclaim;
    - price above or reclaiming the 50-day SMA;
    - breakout/retest, range contraction, or support/Fibonacci pullback location;
@@ -100,18 +100,20 @@ trades. A swing candidate qualifies when **all** of these conditions are met:
    - volume at least 1.2x normal or no abnormal selling pressure;
    - RSI above 45 and improving, or MACD improving.
 4. It has a valid technical stop (computed per §13's methodology) and reward-to-risk of at least
-   **1.5:1 when the FTA Regime Dashboard is live and valid (not UNKNOWN_DEGRADED)**. **While
-   UNKNOWN_DEGRADED, every new swing entry — whole-share or fractional — requires reward-to-risk of
-   at least 2:1 instead, combined with reduced position sizing** (see the Regime Rule below). This
-   replaces the old §13.A floor (≥1:2, ≥1:3 while UNKNOWN_DEGRADED) for Mode B. That older floor is
-   retained for Mode A if/when it's authorized to execute. This 1.5:1-normal/2:1-degraded pattern
-   is the same one Tier-B fractional pilots already used before this refactor (§15 item 5) — Mode B
-   now applies it consistently to whole-share entries too, rather than leaving whole-share swing
-   trades on a flat floor while fractional ones flex with the regime.
+   **1.5:1, regardless of FTA Regime Dashboard state** (flattened 2026-08-14 at explicit user
+   instruction — see §12 change log; this reverses the 2026-08-13 correction that had deliberately
+   split the floor into 1.5:1-live/2:1-degraded, because in practice the dashboard has returned
+   UNKNOWN_DEGRADED on every check all session, so the split floor was functionally always the
+   stricter 2:1 with no realistic path to the easier one). Reduced position sizing while
+   UNKNOWN_DEGRADED is unchanged — see the Regime Rule below; only the reward-to-risk distinction
+   between live/degraded is removed. This replaces the old §13.A floor (≥1:2, ≥1:3 while
+   UNKNOWN_DEGRADED) for Mode B. That older floor is retained for Mode A if/when it's authorized to
+   execute. Tier-B fractional pilots (§15) keep their own separate 1.5:1/2:1-degraded floor,
+   unaffected by this change — see §15 item 5.
 5. It is outside the first 15 minutes after open and the final 15 minutes before close (§4).
 6. It has no earnings or high-impact macro conflict inside the existing §4 timing rule.
 7. **It has both a daily-chart setup and a shorter-timeframe (hourly) execution trigger**
-   (2026-08-13, user instruction). Item 3's 3-of-6 confirmations establish the daily-chart setup;
+   (2026-08-13, user instruction). Item 3's 2-of-6 confirmations establish the daily-chart setup;
    the hourly trigger is the specific candle/level that times the actual entry (e.g., an hourly
    close reclaiming a level, a range breakout on the hourly chart, an hourly pullback holding a
    rising short-term average) — the daily setup says a name is worth watching, the hourly trigger
@@ -128,15 +130,18 @@ context — it is never itself a qualifying or disqualifying condition for Mode 
 - **If regime data is available and live/valid (not UNKNOWN_DEGRADED)**, use normal approved swing
   sizing and the standard ≥1.5:1 reward-to-risk floor (§5B item 4).
 - **If regime data is unavailable, stale, or UNKNOWN/UNKNOWN_DEGRADED, every new swing entry
-  requires reduced position size and reward-to-risk of at least 2:1** (revised 2026-08-13 from an
-  earlier draft of this refactor that would have kept the floor flat at 1.5:1 regardless of regime
-  state — corrected per explicit user instruction; see §12 change log). Fractional entries use the
-  existing Tier-B halving, unchanged (§15 item 2/5). For whole-share entries, size the position at
-  roughly half of what §3's normal cap would otherwise support for that trade, rounded down to a
-  whole share — §3's actual limits are not changed by this; it's a tighter self-imposed sub-cap
-  while UNKNOWN_DEGRADED, the same mechanism Tier-B already uses. Keep scanning and logging
-  candidates in this state; the stronger ratio and smaller size are conditions to enter, not a
-  reason to stop looking.
+  requires reduced position size, at the same ≥1.5:1 reward-to-risk floor** (flattened 2026-08-14
+  at explicit user instruction — reverses the 2026-08-13 correction that had required ≥2:1 while
+  degraded; see §5B item 4 and §12 change log for the reasoning: the dashboard has never once
+  returned a live reading all session, so the split floor was functionally always the stricter
+  number with no realistic path to the easier one). Fractional entries use the existing Tier-B
+  halving, unchanged (§15 item 2/5). For whole-share entries, size the position at roughly half of
+  what §3's normal cap would otherwise support for that trade, rounded down to a whole share —
+  §3's actual limits are not changed by this; it's a tighter self-imposed sub-cap while
+  UNKNOWN_DEGRADED, the same mechanism Tier-B already uses. The reduced-sizing requirement is
+  unchanged by this update — only the reward-to-risk floor was flattened. Keep scanning and
+  logging candidates in this state; the smaller size is a condition to enter, not a reason to stop
+  looking.
 - If credit/volatility data shows clear market stress, or a §6 circuit breaker is active, do not
   open new swing trades — circuit breakers are unchanged by this refactor and apply regardless of
   mode.
@@ -195,7 +200,7 @@ Mode B.
 ## 6. Circuit breakers and integrity checks
 - If Agentic Account equity declines more than 3% in one day, immediately enter HARD_OBSERVE_MODE: no new orders; provide an urgent incident report.
 - If Robinhood MCP returns three consecutive errors or reported positions do not match the account, cease trading until reconciliation is verified.
-- If data is stale, incomplete, contradictory, or unavailable, do not infer a bullish signal and do not propose execution. **Exception (2026-08-13, user instruction): the FTA Regime Dashboard is a reference input, not a blocking gate.** If it's unavailable/stale/placeholder, classify it **UNKNOWN_DEGRADED** — log it, do not treat it as bearish, and do not let it alone block a proposal. **Compensating requirement while UNKNOWN_DEGRADED (2026-08-13):** for Mode A (and Tier-A proposals generally, if Mode A is ever authorized to execute), the §13.A reward-to-risk floor rises from ≥1:2 to **≥1:3**. **For Mode B swing trades, the compensating requirement is reward-to-risk ≥2:1 plus reduced position sizing** (2026-08-13, see §5B Regime Rule and §12 change log) — Mode B's normal floor is ≥1.5:1 when the regime dashboard is live and valid, rising to ≥2:1 with a halved position-size sub-cap while UNKNOWN_DEGRADED, for both whole-share and fractional swing entries. This matches the pattern Tier-B fractional pilots already used before this refactor (§15 item 5: halved size, ≥2:1) — now applied consistently across all of Mode B. This unavailable-data rule still fully applies, with no exception, to LUC data, Robinhood account/position data, and a specific ticker's own technical or catalyst data — only the FTA Regime Dashboard gets the UNKNOWN_DEGRADED treatment.
+- If data is stale, incomplete, contradictory, or unavailable, do not infer a bullish signal and do not propose execution. **Exception (2026-08-13, user instruction): the FTA Regime Dashboard is a reference input, not a blocking gate.** If it's unavailable/stale/placeholder, classify it **UNKNOWN_DEGRADED** — log it, do not treat it as bearish, and do not let it alone block a proposal. **Compensating requirement while UNKNOWN_DEGRADED (2026-08-13):** for Mode A (and Tier-A proposals generally, if Mode A is ever authorized to execute), the §13.A reward-to-risk floor rises from ≥1:2 to **≥1:3**. **For Mode B swing trades, the compensating requirement is reduced position sizing only, at a flat ≥1.5:1 reward-to-risk floor** (2026-08-13, see §5B Regime Rule and §12 change log; RR floor flattened 2026-08-14 at explicit user instruction — see §12) — Mode B's floor is ≥1.5:1 regardless of regime dashboard state, for both whole-share and fractional-Tier-A-style swing entries, with a halved position-size sub-cap while UNKNOWN_DEGRADED. Tier-B fractional pilots (§15 item 5) keep their own separate, unaffected ≥2:1-degraded floor with halved size. This unavailable-data rule still fully applies, with no exception, to LUC data, Robinhood account/position data, and a specific ticker's own technical or catalyst data — only the FTA Regime Dashboard gets the UNKNOWN_DEGRADED treatment.
 - Flag potential wash-sale risk when a loss sale may be followed by repurchase of the same or substantially identical security within 30 calendar days in a taxable account. This is a flag, not tax advice.
 
 ## 7. Required trade-card format
@@ -370,6 +375,23 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   be proposed** — but §14 Status remains **PENDING_VERIFICATION** and stays there until the user
   reviews and explicitly approves that separate diff with a real confirmation phrase; nothing here
   auto-advances the status.
+- **2026-08-14: at explicit user instruction ("let's rework the risk"), loosened two §5B Swing
+  Entry Gate parameters for Mode B, prompted by an entire session of zero qualifying trades and
+  the FTA Regime Dashboard never once returning a live reading.** (1) **Technical confirmation
+  bar**: §5B item 3 lowered from 3-of-6 to **2-of-6** required confirmations. (2) **Reward-to-risk
+  floor**: §5B item 4 flattened from the 2026-08-13 split (≥1.5:1 live / ≥2:1 UNKNOWN_DEGRADED) to
+  a **flat ≥1.5:1 regardless of regime state** — an explicit, deliberate reversal of the
+  2026-08-13 correction that had specifically required the stricter ≥2:1-while-degraded floor
+  (see the two 2026-08-13 entries above); reasoning this time is that since the regime dashboard
+  has returned UNKNOWN_DEGRADED on literally every check all session, the split floor was
+  functionally always the stricter number with no realistic path to the easier one, so keeping the
+  split no longer served its original purpose. **Reduced position sizing while UNKNOWN_DEGRADED is
+  unchanged** — only the reward-to-risk distinction was removed. **Explicitly NOT changed**: §15
+  Tier-B fractional pilots keep their own separate, untouched 1.5:1-live/2:1-degraded floor and
+  their own LUC GREEN/WHITE requirement; position sizing, stop methodology (§13), the 4-position/
+  2-correlated-theme caps, and every §16 exit rule are all unaffected — this was scoped narrowly to
+  the two parameters above, at the user's explicit choice not to touch sizing/stop rules in the
+  same pass.
 - Any future change to Section 3's exposure limits, or to the strategy-mode structure above, must
   be logged here with date and the specific before/after values.
 
@@ -377,7 +399,7 @@ per §5B — the ordering below is unchanged by the mode refactor.)
 Added 2026-08-13 at user instruction as a required hard gate; **refactored 2026-08-13** so it
 remains the shared reference methodology for *how* to read market structure, EMAs, Fibonacci zones,
 and chart patterns in both modes, but is no longer itself the mandatory gate for Mode B swing
-entries — that's now §5B's 3-of-6 test. It's still the direct, unmodified gate for Mode A if/when
+entries — that's now §5B's 2-of-6 test. It's still the direct, unmodified gate for Mode A if/when
 authorized to execute (see §5A, §12 change log). This expands on the §5A/old-§5.3 FTA scorecard and
 the §7 "Invalidation or stop level" / "Reward-to-risk" fields — those fields must show the actual
 computed number and which rule below produced it.
@@ -388,11 +410,12 @@ computed number and which rule below produced it.
 - For Mode A (and Tier-A generally, if Mode A is ever authorized to execute): reward-to-risk must
   be at least 1:2 (distance to target ≥ 2x distance to stop); this rises to ≥1:3 while the FTA
   Regime Dashboard is UNKNOWN_DEGRADED (§6). **For Mode B swing trades, the reward-to-risk floor is
-  the §5B test instead: ≥1.5:1 when the regime dashboard is live and valid, rising to ≥2:1 with
-  reduced position sizing while UNKNOWN_DEGRADED** (2026-08-13, see §12 change log) — the same
-  pattern fractional Tier-B pilots (§15) already used before this refactor, now applied
-  consistently to whole-share Mode B entries too. §15's own numbered rules are unchanged by this
-  refactor.
+  the §5B test instead: a flat ≥1.5:1 regardless of regime dashboard state** (flattened 2026-08-14
+  at explicit user instruction, reversing the 2026-08-13 1.5:1-live/2:1-degraded split — see §5B
+  item 4 and §12 change log). Reduced position sizing while UNKNOWN_DEGRADED still applies; only
+  the reward-to-risk distinction was removed. Tier-B fractional pilots (§15) keep their own
+  separate 1.5:1/2:1-degraded floor, unaffected by this change. §15's own numbered rules are
+  unchanged.
 - Stop-loss orders are risk-reduction/exit orders and remain exempt from the §4 timing windows
   once a documented invalidation level is actually hit — placing the *initial* stop when a new
   position is opened is not exempt and follows normal timing rules.
@@ -494,7 +517,9 @@ authority.
    count**; first/last-15-minute buffer (§4); locked stop, gap, breakeven, profit-protection,
    time-stop, and 3-stop-outs-in-10-days circuit breaker (§16); API-error and
    position-reconciliation, wash-sale flag, 3%-daily-loss HARD_OBSERVE_MODE (§6); no entry on LUC
-   RED (§5B/§15); UNKNOWN_DEGRADED → reduced size and ≥2:1 reward-to-risk (§5B, §6, §13.A).
+   RED (§5B/§15); UNKNOWN_DEGRADED → reduced size, flat ≥1.5:1 reward-to-risk for Mode B as of
+   2026-08-14 (§5B, §6, §13.A) — Tier-B fractional pilots keep their own separate ≥2:1-degraded
+   floor (§15 item 5), unaffected.
 
 5. Before every autonomous order: call `get_equity_tradability` and `review_equity_order`. Any
    warning, error, unsupported asset/order type, stale quote, or mismatched position state → do

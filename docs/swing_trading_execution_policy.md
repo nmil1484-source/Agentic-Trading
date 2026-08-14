@@ -64,12 +64,13 @@ A Mode B swing entry requires, per §5B:
    says a name is worth watching; the hourly trigger is the specific candle/level that times the
    actual entry.
 3. A verified catalyst, sector tailwind, or relative-strength driver.
-4. At least 3 of 6 technical confirmations: 9/20 EMA bullish alignment/reclaim; price above/
-   reclaiming the 50-day SMA; breakout/retest/range-contraction/Fib-pullback location; relative
-   strength vs. benchmark/sector; volume ≥1.2x normal or no abnormal selling; RSI >45 and
-   improving or MACD improving.
-5. A documented technical invalidation and reward-to-risk of at least 1.5:1 when regime data is
-   live/valid, or at least 2:1 with reduced size while UNKNOWN_DEGRADED.
+4. At least **2 of 6** technical confirmations (lowered 2026-08-14 from 3-of-6, see CLAUDE.md §12):
+   9/20 EMA bullish alignment/reclaim; price above/reclaiming the 50-day SMA; breakout/retest/
+   range-contraction/Fib-pullback location; relative strength vs. benchmark/sector; volume ≥1.2x
+   normal or no abnormal selling; RSI >45 and improving or MACD improving.
+5. A documented technical invalidation and reward-to-risk of at least **1.5:1, flat, regardless of
+   regime dashboard state** (flattened 2026-08-14, see CLAUDE.md §12 — reduced position sizing
+   while UNKNOWN_DEGRADED still applies, only the reward-to-risk distinction was removed).
 6. No opening order in the first 15 minutes after open or the final 15 minutes before close.
 
 ## Section 4 — Risk-based capacity and sizing
