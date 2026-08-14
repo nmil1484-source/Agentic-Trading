@@ -267,3 +267,36 @@ Format per entry:
   just the earlier manual substitute. Remaining open item is the delivery-latency observation
   above, which matters for anyone expecting near-real-time firing but does not block the
   verification itself — the mechanism works, it's just not instantaneous.
+
+## 2026-08-14 ~14:45 UTC — AUTONOMOUS (scheduled cycle, LIVE ORDER PLACED)
+- **First live autonomous entry under Mode B AUTONOMOUS_EXECUTE ACTIVE status.**
+- §14 Status check: ACTIVE, confirmed. No kill phrase found in recent history. Proceeded.
+- Account check: `get_accounts`/`get_portfolio` (••••8058) — total value $276.52, cash $218.84,
+  unsettled funds $0. Existing position: HIMS 2 sh (unchanged, reconciled). Zero MCP errors, no
+  circuit breaker active.
+- FTA Regime Dashboard, checked ~14:44 UTC: still UNKNOWN_DEGRADED (loading placeholders). Per
+  current rule this only reduces sizing, not the RR floor (flat 1.5:1 either way).
+- Candidates screened: IREN ($44.94, RR 1.57:1 but faded hard off its morning high $46.43 —
+  failing hourly pattern, not a reclaim, stays OBSERVE), ZETA (down 2.5% today, no bullish hourly
+  trigger, OBSERVE), RKLB (see below — cleared), NFLX/PATH (not re-verified this cycle, excluded).
+- **RKLB cleared full §5B gate**: catalyst (Q2 earnings Aug 10, record $234M revenue +62% YoY,
+  $2.36B backlog, Cantor PT raised to $122), technical confirmations (breakout, relative strength,
+  volume, MACD), daily setup + hourly trigger (held gains above session open $79.77 and prior
+  close $80.10 after fading off the morning high $82.48 — consolidation, not distribution), valid
+  stop $78.07 (Aug 12 low), reward-to-risk 2.48:1 at fill.
+- Funding check: 80% of $276.52 equity = $221.22 dynamic ceiling; only $57.68 deployed (HIMS)
+  pre-trade, full headroom available. Settled buying power $218.84, all non-margin. Order used
+  $80.59, well within both caps.
+- Position capacity: 1 new entry this cycle (of max 4 total, max 2 per correlated theme) —
+  RKLB (aerospace) shares no theme with HIMS (consumer health). 2/4 positions after this fill.
+- Day-trade/settlement check (§17): no broker restriction reported, no same-day loss re-entry
+  conflict (RKLB not previously traded today), entry designed to hold overnight per Mode B horizon.
+- Pre-order checks: `get_equity_tradability` (RKLB) — tradable, no restrictions.
+  `review_equity_order` — order_checks empty, no alerts. Compliance quote: Bid $80.63 x 100 / Ask
+  $80.73 x 100 / Last $80.68 x 200, 10:45 AM ET.
+- **ORDER PLACED AND FILLED**: BUY 1 RKLB LIMIT $80.60, filled @ $80.59 (order id
+  `6a7f2a21-a8e8-4b37-abe9-bccd05f715ed`). Risk $2.52 (within 1%/$2.77 budget). Stop $78.07,
+  target $86.83.
+- Account state after: cash ~$196.13, equity-in-positions ~$138.27 (HIMS + RKLB), 2 open
+  positions, 2/4 position cap, 1/2 this scan cycle's single-entry pacing limit used.
+- Trade Card posted to chat.
