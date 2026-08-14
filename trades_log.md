@@ -350,3 +350,13 @@ Format per entry:
 - Account state after: cash ~$71.99, 3 open positions (HIMS, RKLB, OSCR), 3/4 position cap,
   1/1 this cycle's single-entry pacing limit used.
 - Trade Card posted to chat.
+
+## 2026-08-14 ~16:56 UTC — MANUAL (out-of-band deposit, reported by user)
+- User deposited additional funds into the Agentic Account outside this system.
+- Confirmed via `get_accounts`/`get_portfolio`: cash $371.99 (up from ~$71.99), unsettled funds
+  $0.00 (fully settled, no hold), total account value $575.81, equity-in-positions $203.82
+  (HIMS, RKLB, OSCR unchanged).
+- Per §14 item 2, funding recalculated: new 80% dynamic deployment ceiling = $460.65 (up from
+  ~$220.51). New 1%-of-equity risk budget per trade = ~$5.76 (up from ~$2.76).
+- No trade action taken. No rule change. Next autonomous cycle will size against these updated
+  figures automatically.
