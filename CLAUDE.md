@@ -357,6 +357,19 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   3-5 of the procedure (trigger creation in observation-only mode, one dry cycle with zero order
   calls, presenting that evidence) are still outstanding, and moving to AUTONOMOUS_EXECUTE still
   requires a separate, explicitly approved activation diff after that evidence is shown.
+- **2026-08-14 (~05:31-05:41 UTC): §14 items 3-5 completed with real (not manual-substitute)
+  trigger-mechanism evidence, at user request to test the trigger immediately rather than wait for
+  its natural 14:35 UTC firing.** A manual `fire_trigger` test-fire ran in a separate, unreadable
+  preview session and was correctly excluded as evidence. Rescheduling the trigger to a one-shot
+  05:31 UTC fire produced a real result: it delivered as a synthetic user turn into this session
+  ~8-9 minutes later, executed the full observation-only cycle with confirmed live Robinhood MCP
+  access, logged one `trades_log.md` entry, made zero order-related API calls, and (per a
+  since-hardened prompt) committed and pushed that entry (`65c1bb1`). This resolves the
+  connector-access warning from trigger creation and completes §14's required verification
+  procedure end to end. Per the procedure's own terms this means a live-activation diff **may now
+  be proposed** — but §14 Status remains **PENDING_VERIFICATION** and stays there until the user
+  reviews and explicitly approves that separate diff with a real confirmation phrase; nothing here
+  auto-advances the status.
 - Any future change to Section 3's exposure limits, or to the strategy-mode structure above, must
   be logged here with date and the specific before/after values.
 
@@ -600,30 +613,38 @@ authority.
      `trig_01KrBsTt9mssjU4hPGtM3cBe` created, self-bound to this session, cron `30 14-19 * * 1-5`
      (hourly at :30, 14:30-19:30 UTC weekdays), prompt explicitly forbids any order-placing/
      modifying tool call and instructs an immediate halt if §14 Status is ever found to have
-     changed. **Caveat**: the trigger-creation response warned that triggers without explicit
-     connector grants may run without MCP tools — since this is self-bound to an existing session
-     rather than spawning a fresh one, that warning may not apply, but this has not been proven; see
-     item 5's status below.
-  4. **Run one logged dry cycle that produces no order.** **Partially complete, with a caveat
-     (2026-08-14, ~04:39-05:00 UTC).** A manual test-fire of the trigger was launched at 04:39 UTC,
-     but it executed in a separate preview session (`session_01JSSd5Y4LztwWxFSWtLmWcd`) that this
-     session has no tool to read the transcript of — `get_session` shows it completed (IDLE, no
-     error flags) but its actual output (whether Robinhood tools were reachable, what it logged)
-     could not be verified and is NOT being relied on as evidence. **As a directly inspectable
-     substitute**, a full dry cycle was instead run manually in this session (which already has
-     confirmed live Robinhood access) — see `trades_log.md`, entry "2026-08-14 ~04:59 UTC —
-     VERIFICATION DRY CYCLE": account/circuit-breaker check clean, FTA Regime Dashboard still
-     UNKNOWN_DEGRADED, no candidate cleared §5B, zero order-related API calls made. **This verifies
-     the underlying research/logging logic works, but does NOT yet verify the trigger mechanism
-     itself** (that unattended firings actually reach Robinhood/GitHub tools) — that remains open
-     until the trigger's first natural scheduled firing (next: 2026-08-14 ~14:35 UTC) is checked
-     and its `trades_log.md` entry confirmed.
-  5. **Present the evidence from steps 1-4 to the user.** Steps 1-2 evidence and the Step 4
-     substitute dry-cycle evidence have been presented (2026-08-14). **Not yet complete**: the
-     trigger mechanism itself (item 3's caveat / item 4's open item) is unverified — a
-     live-activation diff should not be proposed until the trigger's first natural firing is
-     confirmed to have actually run with live tool access and logged correctly, or until an
-     alternative verification method is found.
+     changed. **Connector-access warning resolved (2026-08-14, ~05:40 UTC)**: the trigger-creation
+     response had warned that triggers without explicit connector grants may run without MCP
+     tools; item 4's real firing at 05:31/~05:39 UTC proved this does NOT apply to this self-bound
+     design — the fired turn had full live Robinhood MCP access. **Open item, not yet explained**:
+     delivery latency of roughly 8-9 minutes between the scheduled fire time and the turn actually
+     landing in this session — worth watching on the next natural firing to see if it's consistent
+     or was a one-off.
+  4. **Run one logged dry cycle that produces no order — COMPLETE, with a real (not substitute)
+     mechanism verification (2026-08-14, ~05:31-05:40 UTC).** The manual test-fire at 04:39 UTC
+     ran in a separate, unreadable preview session and was correctly not relied on as evidence (see
+     the 04:59 UTC manual-substitute entry in `trades_log.md`). To actually test the mechanism, the
+     trigger was rescheduled to a one-shot fire at 05:31 UTC. It delivered as a synthetic user turn
+     directly into **this** session at ~05:39-05:40 UTC (roughly 8-9 minutes of delivery latency —
+     noted, not yet fully explained, but not a correctness problem) and executed for real: §14
+     Status check passed, `get_accounts`/`get_portfolio` succeeded with live data, FTA Regime
+     Dashboard checked (UNKNOWN_DEGRADED), watchlist candidates screened against §5B (none
+     qualified), one `trades_log.md` entry written, zero order-related API calls made, and the
+     entry committed and pushed (`65c1bb1`). See `trades_log.md`, entry "2026-08-14 ~05:40 UTC —
+     AUTONOMOUS (trigger-fired, OBSERVATION_ONLY — REAL §14 Step 4 mechanism evidence)". **This is
+     genuine end-to-end trigger verification**, not the manual substitute. The trigger's prompt was
+     also hardened afterward to require an explicit git push and an explicit self-report on
+     Robinhood tool availability on every future firing, so this evidence stays checkable going
+     forward without needing another manual intervention. Normal recurring schedule (hourly at :30,
+     14:30-19:30 UTC weekdays) restored; next natural firing 2026-08-14 ~14:35 UTC.
+  5. **Present the evidence from steps 1-4 to the user — COMPLETE (2026-08-14).** All four steps
+     now have real, verified evidence, presented to and reviewed with the user. Per this
+     procedure's own terms, a live-activation diff **may now be proposed** — but proposing is not
+     the same as approving: it still requires the user's explicit review and approval of that
+     separate diff, and a fresh, deliberate confirmation phrase distinct from casually repeating
+     the "AUTONOMOUS_EXECUTE" label (which has been offered twice this session and not accepted as
+     sufficient). §14 Status remains **PENDING_VERIFICATION** until the user reviews and approves
+     that separate activation diff.
 
 ## 15. Fractional Tier-B Pilot Policy
 Added 2026-08-13 at explicit user instruction; **unmodified by the 2026-08-13 strategy-mode
