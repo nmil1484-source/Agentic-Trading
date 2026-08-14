@@ -340,6 +340,23 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   separate reviewed diff, may a live-activation change be proposed. §14 Status is
   **PENDING_VERIFICATION**, not ACTIVE, until then; no trigger exists and no autonomous order will
   be placed.
+- **2026-08-14: §14 item 1 (Reauthorize Robinhood MCP) and item 2 (verify account capabilities and
+  settled buying power) of the verification procedure were completed, with evidence logged in
+  §14's Status field** — `get_accounts`/`get_portfolio`/`get_equity_tradability` results, retail
+  account confirmed excluded (`agentic_allowed: false`), Agentic account confirmed active
+  (`agentic_allowed: true`), total account value $276.56, settled buying power $218.84. **In the
+  same exchange, at explicit user instruction, §14 item 2's funding rule was amended**: the fixed
+  $200 sub-budget is removed and replaced with a **dynamic deployment limit of 80% of current
+  Agentic Account equity**, recalculated before every entry and after every deposit, withdrawal,
+  fill, and exit — mirroring §3's existing 80%-deployed/20%-cash structure rather than using a
+  separate, lower, static ceiling. New entries are restricted to confirmed settled, non-margin
+  buying power. The retail account (••••7533) remains permanently excluded regardless. All other
+  hard controls are explicitly retained unchanged: 20% cash reserve, 1% maximum planned loss per
+  trade, four-position cap, two-correlated-position cap, 3% daily-loss halt, no averaging down, and
+  the `PAUSE AUTONOMOUS TRADING` kill phrase. §14 Status remains **PENDING_VERIFICATION** — items
+  3-5 of the procedure (trigger creation in observation-only mode, one dry cycle with zero order
+  calls, presenting that evidence) are still outstanding, and moving to AUTONOMOUS_EXECUTE still
+  requires a separate, explicitly approved activation diff after that evidence is shown.
 - Any future change to Section 3's exposure limits, or to the strategy-mode structure above, must
   be logged here with date and the specific before/after values.
 
@@ -422,8 +439,7 @@ computed number and which rule below produced it.
 ### Mode B AUTONOMOUS_EXECUTE Authority — drafted 2026-08-13, PENDING_VERIFICATION
 Rules below are committed and ready, but **execution has not been re-armed**. The user has issued
 the exact confirmation phrase "CONFIRM AUTONOMOUS EXECUTION" a second time (2026-08-13, later same
-day) — but in the same exchange directed that the phrase alone not move this straight to live:
-the fixed $200 sub-budget stays in place (item 2), no trade-count allowance is added, and a
+day) — but in the same exchange directed that the phrase alone not move this straight to live: a
 documented reauthorization-and-verification procedure (see Status below) must be completed and its
 evidence shown before a separate live-activation diff is even proposed. Until that procedure is
 complete, no trigger exists and no order will be placed. Scoped to **Mode B (SWING_TRADING)
@@ -433,18 +449,20 @@ authority.
 1. Mode B SWING_TRADING's operating mode is set to **AUTONOMOUS_EXECUTE** once activated per the
    confirmation requirement above.
 
-2. **Funding — fixed experimental sub-budget, explicitly retained 2026-08-13 (later same day).**
-   Mode B AUTONOMOUS_EXECUTE uses a **hard $200 ceiling**, distinct from and tighter than §10's
-   dynamic full-current-equity budget that governs manual/in-chat trading. This was originally
-   logged as an unresolved discrepancy (the account's actual equity has run higher than $200 —
-   $277 at last check), but the user has since explicitly confirmed the $200 figure is deliberate:
-   autonomous activity may size against at most $200 of the account, never the full balance, even
-   though §10 would otherwise permit more. Re-check the account's actual current equity at
-   proposal/order time regardless — the $200 figure is a ceiling on top of §3/§15's other caps, not
-   a floor or an assumption that $200 is actually available (if settled buying power is below $200,
-   that lower number governs). §10 itself is not changed by this — it still describes the full,
-   separate manual-trading budget. Never deposit, withdraw, transfer, borrow, or use margin, or
-   assume funds beyond this $200 sub-budget are available for autonomous activity.
+2. **Funding — dynamic deployment limit, amended 2026-08-14 at explicit user instruction,
+   replacing the earlier fixed $200 sub-budget.** The Agentic Account (••••8058, `agentic_allowed:
+   true`) is the system's only source of capital; the retail account (••••7533, `agentic_allowed:
+   false`) remains permanently excluded and is never queried for funding purposes. Mode B
+   AUTONOMOUS_EXECUTE's deployment limit is **80% of current Agentic Account equity**, recalculated
+   before every entry and immediately after every deposit, withdrawal, fill, and exit — the same
+   80%-deployed / 20%-cash-reserve structure §3 already uses for manual trading, rather than a
+   separate fixed dollar figure. A new entry may use only **confirmed settled, non-margin buying
+   power** (verify via `get_accounts`/`get_portfolio` immediately before the order — never
+   unsettled sale proceeds, margin, or borrowed funds), and may not push total deployed value above
+   the recalculated 80% cap. §10 itself is unchanged — it still separately describes the
+   full-equity budget for manual/in-chat trading; this item governs autonomous sizing specifically,
+   now using the same 80%/20% mechanism instead of a lower, independent ceiling. Never deposit,
+   withdraw, transfer, borrow, or use margin — unchanged instruction.
 
 3. The Routine may autonomously place, and may modify an order only to preserve a documented
    stop/exit (§16 breakeven/trailing/gap mechanics — never to widen risk, never for any other
@@ -549,17 +567,30 @@ authority.
   remains **inactive**. Manual research, Trade Cards, and order confirmations in this chat are
   unaffected and remain fully available on request (§11).
 
+  **2026-08-14 addendum:** the fixed $200 sub-budget referenced immediately above was itself
+  superseded the next day — see item 2's current text for the operative funding rule (dynamic 80%-
+  of-Agentic-Account-equity deployment limit, recalculated per event, settled/non-margin buying
+  power only). This paragraph is left as a historical record of the PENDING_VERIFICATION decision
+  point; it does not describe the current funding rule.
+
   **Required verification procedure (2026-08-13, explicit user instruction) — all steps required,
   in order, before a live-activation diff is proposed:**
-  1. **Reauthorize Robinhood MCP.** This session cannot run an OAuth flow itself. The user must
-     reauthorize the `robinhood-trading` MCP connector outside this chat — via `claude mcp` or
-     `/mcp` in an interactive Claude Code session (for a claude.ai connector, via claude.ai
-     connector settings instead). As of this entry the connector is unauthorized/disconnected;
-     this step is not yet complete.
-  2. **Verify account capabilities and settled buying power.** Once reauthorized: call
-     `get_accounts` (confirm `unsettled_funds`, `agentic_allowed`, account type on ••••8058),
-     `get_portfolio` (confirm current equity, buying power), and a tradability check, and log the
-     results here with a timestamp. Not yet done.
+  1. **Reauthorize Robinhood MCP — COMPLETE (2026-08-14, ~04:29 UTC).** The user reauthorized the
+     `robinhood-trading` connector via claude.ai → Settings → Connectors → Robinhood Agentic. This
+     session confirmed live access via `get_accounts`.
+  2. **Verify account capabilities and settled buying power — COMPLETE (2026-08-14, ~04:29 UTC).**
+     Results: `get_accounts` — ••••7533 (retail): `type: margin`, `agentic_allowed: false`,
+     `unsettled_funds: $1,035.18`, state active (correctly walled off, not used by this system);
+     ••••8058 (Agentic): `type: limited_margin`, `agentic_allowed: true`, `unsettled_funds: $0.00`,
+     state active. `get_portfolio` (••••8058) — total account value $276.56, cash $218.84, equity
+     holdings $57.72 (the HIMS position), buying power $218.84 (equals unleveraged buying power
+     exactly — no margin extended). `get_equity_tradability` (AAPL, sanity check) — tradable,
+     fractional-tradable, individual-account-tradable, confirming the tool call path itself works.
+     Under the current item 2 funding rule (dynamic 80%-of-equity deployment limit, amended
+     2026-08-14), 80% of the $276.56 total account value is **$221.25** — settled buying power
+     ($218.84) sits just under that, so at this snapshot settled cash, not the 80% cap, would be
+     the binding constraint on a new entry. Both figures must be re-checked at proposal/order time
+     regardless, since either can be the tighter constraint depending on what's deployed.
   3. **Recreate the scheduled trigger in observation-only mode.** Rebuild the self-bound Routine
      on its prior schedule (hourly at :30 past the hour, 14:30-19:30 UTC weekdays — needs a DST
      check), but with no order-placing authority active — it may check the account, circuit
