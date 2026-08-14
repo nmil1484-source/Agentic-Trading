@@ -202,3 +202,38 @@ Format per entry:
   position is tracked — 1/1 today, 1/3 this week, regardless of order origin.
 - Account state after: equity $277.14, cash $218.84, equity-in-positions $58.30, 1 open position
   (HIMS), 1/1 new positions today, 1/3 this week.
+
+## 2026-08-14 ~04:59 UTC — VERIFICATION DRY CYCLE (manual, §14 Step 4 evidence)
+- **Context**: §14 PENDING_VERIFICATION Step 3 (recreate scheduled trigger, observation-only mode)
+  complete — trigger `trig_01KrBsTt9mssjU4hPGtM3cBe` created, self-bound, hourly :30 past the hour
+  14:30-19:30 UTC weekdays, explicit no-order-authority instruction. A manual test-fire of that
+  trigger was launched at 04:39 UTC but ran in a separate preview session
+  (`session_01JSSd5Y4LztwWxFSWtLmWcd`) whose transcript this session has no tool access to read —
+  get_session shows it completed (IDLE, no error flags) but its actual output could not be
+  verified from here, so it is NOT being cited as evidence. This entry is a direct, inspectable
+  substitute dry cycle run manually in this session instead, which already has confirmed live
+  Robinhood MCP access this session (see the 04:29 UTC verification entries in CLAUDE.md §14).
+- Account check: `get_portfolio` (••••8058) — total value $276.62, cash $218.84, equity holdings
+  $57.78, buying power $218.84. Matches expected HIMS position (2 shares, ~$28.76-28.89/share);
+  no reconciliation mismatch. Zero consecutive MCP errors. No daily-loss circuit breaker (roughly
+  flat vs. $277.14 logged 2026-08-13 ~19:47 UTC).
+- FTA Regime Dashboard, checked ~04:58 UTC: still **UNKNOWN_DEGRADED** (loading placeholders) —
+  unchanged from every prior check this session. §5B floor: ≥2:1 reward-to-risk, reduced sizing.
+- Spot-check of the two closest-to-qualifying candidates from the prior cycle (full 42-ticker
+  re-scan not performed for this mechanism-check cycle):
+  - IREN $44.77 (bid/ask 44.77/44.84, prior close $44.76). Standing reference stop/target
+    $43.00/$48.00 → RR ≈ (48-44.77)/(44.77-43) ≈ **1.83:1**, still short of the ≥2:1 floor.
+  - NFLX $78.23 (prior close $78.24) — now trading through the previously-used $77.89 resistance
+    target, so that target is stale and needs a fresh technical rebuild (flagged separately, not
+    done in this cycle). No currently valid computed stop/target/RR = fails §16's mandatory-stop
+    requirement outright; not a qualifying candidate as-is.
+  - HIMS $28.76 — already held (2 sh), not a new-entry candidate; no averaging down without
+    profitability/reclaim per §16 item 9.
+- Outcome: **OBSERVE — no trade.** No candidate clears the §5B gate. **Zero order-related API
+  calls were made this cycle** — no `place_equity_order`, `cancel_equity_order`, or
+  `review_equity_order`-in-a-placing-capacity call of any kind.
+- Account state after: total value $276.62, cash $218.84, 1 open position (HIMS, unchanged).
+- **This satisfies §14 Step 4 (one logged dry cycle producing no order) via direct execution in
+  this session.** The scheduled trigger's own first natural unattended firing (next: 2026-08-14
+  ~14:35 UTC) remains the first true end-to-end test of the trigger mechanism itself and should be
+  checked when it occurs, since the manual test-fire's actual execution could not be verified.

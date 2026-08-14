@@ -596,13 +596,34 @@ authority.
      check), but with no order-placing authority active — it may check the account, circuit
      breakers, position caps, regime data, and the §5B gate, and log an OBSERVE entry, but must
      not call `place_equity_order` or any order-modifying tool while this document's status is
-     PENDING_VERIFICATION. Not yet done.
-  4. **Run one logged dry cycle that produces no order.** Test-fire the trigger once, confirm it
-     completes end-to-end (account check → circuit-breaker check → §5B gate check → OBSERVE log
-     entry in `trades_log.md`), and confirm zero orders were placed. Not yet done.
-  5. **Present the evidence from steps 1-4 to the user.** Only after that — as a separate,
-     explicitly reviewed diff, not bundled into this one — may a live-activation change (moving
-     this status to ACTIVE and enabling real order placement) be proposed. Not yet done.
+     PENDING_VERIFICATION. **COMPLETE (2026-08-14, ~04:38 UTC)** — trigger
+     `trig_01KrBsTt9mssjU4hPGtM3cBe` created, self-bound to this session, cron `30 14-19 * * 1-5`
+     (hourly at :30, 14:30-19:30 UTC weekdays), prompt explicitly forbids any order-placing/
+     modifying tool call and instructs an immediate halt if §14 Status is ever found to have
+     changed. **Caveat**: the trigger-creation response warned that triggers without explicit
+     connector grants may run without MCP tools — since this is self-bound to an existing session
+     rather than spawning a fresh one, that warning may not apply, but this has not been proven; see
+     item 5's status below.
+  4. **Run one logged dry cycle that produces no order.** **Partially complete, with a caveat
+     (2026-08-14, ~04:39-05:00 UTC).** A manual test-fire of the trigger was launched at 04:39 UTC,
+     but it executed in a separate preview session (`session_01JSSd5Y4LztwWxFSWtLmWcd`) that this
+     session has no tool to read the transcript of — `get_session` shows it completed (IDLE, no
+     error flags) but its actual output (whether Robinhood tools were reachable, what it logged)
+     could not be verified and is NOT being relied on as evidence. **As a directly inspectable
+     substitute**, a full dry cycle was instead run manually in this session (which already has
+     confirmed live Robinhood access) — see `trades_log.md`, entry "2026-08-14 ~04:59 UTC —
+     VERIFICATION DRY CYCLE": account/circuit-breaker check clean, FTA Regime Dashboard still
+     UNKNOWN_DEGRADED, no candidate cleared §5B, zero order-related API calls made. **This verifies
+     the underlying research/logging logic works, but does NOT yet verify the trigger mechanism
+     itself** (that unattended firings actually reach Robinhood/GitHub tools) — that remains open
+     until the trigger's first natural scheduled firing (next: 2026-08-14 ~14:35 UTC) is checked
+     and its `trades_log.md` entry confirmed.
+  5. **Present the evidence from steps 1-4 to the user.** Steps 1-2 evidence and the Step 4
+     substitute dry-cycle evidence have been presented (2026-08-14). **Not yet complete**: the
+     trigger mechanism itself (item 3's caveat / item 4's open item) is unverified — a
+     live-activation diff should not be proposed until the trigger's first natural firing is
+     confirmed to have actually run with live tool access and logged correctly, or until an
+     alternative verification method is found.
 
 ## 15. Fractional Tier-B Pilot Policy
 Added 2026-08-13 at explicit user instruction; **unmodified by the 2026-08-13 strategy-mode
