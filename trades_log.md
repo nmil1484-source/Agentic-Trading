@@ -400,3 +400,17 @@ Format per entry:
 - Account state after: cash ~$170.85, 4 open positions (HIMS, RKLB, OSCR, CVX), 4/4 position cap
   (full), 1/1 this cycle's single-entry pacing limit used.
 - Trade Card posted to chat.
+
+## 2026-08-14 ~17:55 UTC — MANUAL (user confirmed, order placed — pending fill)
+- User asked whether HIMS could be controlled/exited; reviewed the chart — real downtrend since
+  mid-July ($37 -> $28.35), broke below its own recent one-month support ($29.25-29.80) this week,
+  close to a §16 item 7 momentum-failure signal. Recommended selling over trying to nurse it, or
+  documenting a stop at $27.30 (tightest defensible level under the 6%-of-entry-price cap) to hold
+  with protection. User chose to sell.
+- User confirmed: `CONFIRM ORDER: SELL 2 HIMS LIMIT 28.35`.
+- Pre-order checks: `get_equity_tradability` (HIMS) — tradable, no restrictions.
+  `review_equity_order` — order_checks empty. Compliance quote: Bid $28.33 x 600 / Ask $28.34 x
+  300 / Last $28.335 x 300, 1:55 PM ET.
+- **ORDER PLACED**: SELL 2 HIMS LIMIT $28.35 (order id `6a7f569a-dd6c-4f2c-a5a8-8b513f081daa`).
+  State: confirmed, **not yet filled** (limit sits above current bid $28.33). Will fill
+  automatically once price reaches $28.35 or better, same trading day (gfd).
