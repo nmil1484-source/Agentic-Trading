@@ -414,3 +414,28 @@ Format per entry:
 - **ORDER PLACED**: SELL 2 HIMS LIMIT $28.35 (order id `6a7f569a-dd6c-4f2c-a5a8-8b513f081daa`).
   State: confirmed, **not yet filled** (limit sits above current bid $28.33). Will fill
   automatically once price reaches $28.35 or better, same trading day (gfd).
+
+## 2026-08-14 ~18:36 UTC — AUTONOMOUS (scheduled cycle)
+- §14 Status: ACTIVE, confirmed. No kill phrase found. Proceeded.
+- **HIMS manual sell order (placed 17:55 UTC by user confirmation) filled at 17:58 UTC** @ $28.35,
+  2 shares. Realized loss $1.46 vs. $29.08 avg cost. Position closed, freeing a slot: 3/4 open
+  positions (RKLB, OSCR, CVX) going into this cycle.
+- Account check: total value $573.33, cash $227.54, unsettled $0. Positions reconcile (RKLB 1 sh,
+  OSCR 2 sh, CVX 1 sh). Zero MCP errors, no circuit breaker (-0.3% vs prior, well under 3%).
+- Existing positions vs §16: RKLB $79.41 (stop $78.07, $1.34 buffer); OSCR $32.85 (stop $32.20,
+  $0.65 buffer); CVX $200.68 (stop $199.50, $1.18 buffer). No exit conditions triggered.
+- FTA Regime Dashboard: still UNKNOWN_DEGRADED.
+- Screened the newly-added tickers (DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG) plus a
+  broader watchlist sweep. Only NBIS stood out (+8.1% today) but was **excluded for real, specific
+  reasons**: already up 34% the prior session (Aug 13) — extremely extended two-day run; Michael
+  Burry disclosed an expanded short position specifically criticizing Nebius's accounting
+  (extended server depreciation schedule to soften losses), against a backdrop of a $175.9M
+  operating loss and $190.4M net loss this quarter
+  (https://www.tradingkey.com/news/market-movers/262108891-market-movers-nbis-20260814); and
+  intraday, price is actively fading off its high ($278.65 at 17:00 UTC -> $271.40 now, three
+  consecutive declining 30-min bars) — fails the hourly-hold trigger regardless of the daily %
+  gain. Rest of watchlist unremarkable this cycle (no other names showing a fresh qualifying setup).
+- Outcome: **OBSERVE — no new entry.** Zero order-related API calls made this cycle (the HIMS sell
+  was a prior manual order that simply filled during this cycle's window, not a new autonomous
+  action).
+- Account state after: 3 open positions (RKLB, OSCR, CVX), 3/4 position cap, 1 slot open.
