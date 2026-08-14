@@ -237,3 +237,33 @@ Format per entry:
   this session.** The scheduled trigger's own first natural unattended firing (next: 2026-08-14
   ~14:35 UTC) remains the first true end-to-end test of the trigger mechanism itself and should be
   checked when it occurs, since the manual test-fire's actual execution could not be verified.
+
+## 2026-08-14 ~05:40 UTC — AUTONOMOUS (trigger-fired, OBSERVATION_ONLY — REAL §14 Step 4 mechanism evidence)
+- **This is the actual trigger mechanism firing**, not a manual substitute. `trig_01KrBsTt9mssjU4hPGtM3cBe`
+  was rescheduled to fire once at 2026-08-14 05:31 UTC to test it "now" rather than waiting for the
+  natural 14:35 UTC cadence. It delivered as a synthetic user turn into this same session
+  (`session_01P3m3ED59T7nyRGQShNVdEz`) at ~05:39-05:40 UTC — roughly 8-9 minutes of delivery
+  latency after the scheduled time, which itself is worth noting for anyone relying on tight
+  timing. **This confirms the self-bound trigger design does deliver into this live session with
+  full existing tool access** — the two earlier apparent non-fires (checked at 05:33 and again
+  after 05:39) were a latency/visibility problem, not a broken mechanism: the prompt had already
+  been queued and was simply slow to arrive as a turn, and produced no local/remote evidence until
+  it actually landed.
+- §14 Status check (per the fired prompt's hard rule): confirmed PENDING_VERIFICATION, unchanged.
+  Proceeded per instructions.
+- Account check: `get_accounts` — ••••7533 (retail) `agentic_allowed: false`, correctly excluded;
+  ••••8058 (Agentic) `agentic_allowed: true`, active. `get_portfolio` (••••8058) — total value
+  $276.72, cash $218.84, equity holdings $57.88, buying power $218.84, unsettled funds $0. No
+  reconciliation mismatch, zero consecutive MCP errors, no daily-loss circuit breaker.
+- FTA Regime Dashboard, checked ~05:40 UTC: still **UNKNOWN_DEGRADED** (loading placeholders).
+- Fresh quotes: IREN $44.70-44.77 (RR vs standing $43/$48 stop/target ≈1.8:1, still short of ≥2:1);
+  NFLX $78.23-78.91 (still no valid rebuilt stop/target — old $77.89 resistance target already
+  breached, disqualifying as-is); HIMS $28.76-28.94 (held position, not a new-entry candidate).
+- Outcome: **OBSERVE — no trade.** No candidate clears §5B. **Zero order-related API calls made**
+  — no `place_equity_order`, `cancel_equity_order`, or `review_equity_order`-in-a-placing-capacity
+  call of any kind.
+- Account state after: total value $276.72, cash $218.84, 1 open position (HIMS, unchanged).
+- **§14 Step 4 (trigger mechanism verification) is now genuinely satisfied** by this entry, not
+  just the earlier manual substitute. Remaining open item is the delivery-latency observation
+  above, which matters for anyone expecting near-real-time firing but does not block the
+  verification itself — the mechanism works, it's just not instantaneous.
