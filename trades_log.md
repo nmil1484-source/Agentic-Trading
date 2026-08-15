@@ -439,3 +439,21 @@ Format per entry:
   was a prior manual order that simply filled during this cycle's window, not a new autonomous
   action).
 - Account state after: 3 open positions (RKLB, OSCR, CVX), 3/4 position cap, 1 slot open.
+
+## 2026-08-15 ~19:49 UTC — AUTONOMOUS (scheduled cycle, SEVERE DELIVERY LATENCY)
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- **This cycle's prompt was labeled "2026-08-14 19:36 UTC" but was not actually processed until
+  2026-08-15 19:49:50 UTC — roughly 25 hours of delivery latency**, a major escalation from the
+  ~8-9 minute latency observed at initial trigger verification. Confirmed via `date -u` and via
+  quote timestamps (regular-session prints stamped 2026-08-14T19:59:59Z, i.e. Friday's close, with
+  no newer regular-session data available since today is Saturday and markets are closed).
+- Given markets are closed today, **no new order was attempted and no action was taken on existing
+  positions this cycle** — nothing to check against live data, and no entry can execute on a
+  non-trading day regardless.
+- Confirmed via git fetch: no cycles fired between the 2026-08-14 ~18:36 UTC entry and now: still
+  3 open positions (RKLB, OSCR, CVX), 3/4 position cap, unchanged.
+- **Flagging to the user directly**: this latency (~25 hours, not ~8-9 minutes) is a real
+  reliability concern for a system meant to fire hourly during market hours. Worth investigating
+  before relying on this for time-sensitive entries/exits — a stop-loss sitting unmonitored for
+  a full day is a real risk if this recurs on a trading day.
+- Outcome: **OBSERVE — no trade, market closed.** Zero order-related API calls made.
