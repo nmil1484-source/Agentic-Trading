@@ -505,3 +505,26 @@ Format per entry:
   used (the RKLB breakeven move and OSCR stop-out are exit/risk-management actions, not new
   entries, so they don't count against the one-new-entry-per-cycle pacing limit).
 - Trade Card (DRAM) and exit/breakeven summary posted to chat — first post-open cycle full report.
+
+## 2026-08-17 ~15:37 UTC — AUTONOMOUS (scheduled cycle)
+- §14 Status: ACTIVE, confirmed. No kill phrase found. Proceeded.
+- Account check: total value $575.66, cash/buying power $168.46, unsettled $0 (OSCR proceeds now
+  settled). Positions reconcile: RKLB 1 sh, CVX 1 sh, DRAM 2 sh. Zero MCP errors, no circuit
+  breaker (-0.1% vs prior cycle).
+- Existing positions vs §16: RKLB $82.47 (stop now breakeven $80.59 per last cycle, no new
+  trigger); CVX $201.31 (stop $199.50, +1R $202.80 not yet reached); DRAM $61.69 (stop $59.30,
+  +1R $63.02 not yet reached). No exit or breakeven conditions this cycle.
+- FTA Regime Dashboard: still UNKNOWN_DEGRADED.
+- Screened watchlist. **MU +6.4%** — real catalyst (DRAM contract pricing surging 2-6x on AI/HBM
+  demand outpacing supply, the same theme already driving the DRAM position) and a genuine
+  intraday hold/continuation pattern, but **excluded on stop-sizing grounds**: at ~$1034/share,
+  the only stop fitting the ~$5.76 risk budget (~$1031, the most recent 30-min low) is too tight
+  to be real support — the actual technical pullback level ($1017.91) implies $16+/share risk,
+  far over budget. Same structural issue as AMD's exclusion on 2026-08-14. Also noted: MU and DRAM
+  already share the memory/semiconductor theme, so this would have been the 2nd (max allowed)
+  position in that theme regardless of the sizing issue. **IREN +2.6%** — genuine intraday
+  recovery (dipped to $43.87, reclaimed to a new session high $45.29) but no fresh, distinct,
+  dated catalyst behind the move; fails item 2 despite the improved technical pattern. Rest of
+  watchlist unremarkable this cycle.
+- Outcome: **OBSERVE — no new entry.** Zero order-related API calls made this cycle.
+- Account state after: unchanged, 3 open positions (RKLB, CVX, DRAM), 3/4 position cap.
