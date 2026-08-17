@@ -457,3 +457,51 @@ Format per entry:
   before relying on this for time-sensitive entries/exits — a stop-loss sitting unmonitored for
   a full day is a real risk if this recurs on a trading day.
 - Outcome: **OBSERVE — no trade, market closed.** Zero order-related API calls made.
+
+## 2026-08-17 ~14:36 UTC — AUTONOMOUS (scheduled cycle, first post-open of Monday — FULL REPORT)
+- §14 Status: ACTIVE, confirmed. No kill phrase found. Proceeded.
+- Account check: total value $576.41 (pre-cycle), unsettled $63.24 (from OSCR sale mid-cycle,
+  resolved below). Positions reconcile: RKLB 1 sh, OSCR 2 sh, CVX 1 sh going in. Zero MCP errors,
+  no circuit breaker.
+- **OSCR STOPPED OUT (§16 item 3, mandatory).** Opened today at $32.22 (gap down from Friday's
+  $32.76 close, essentially at the $32.20 stop) and breached within the first 5-minute bar,
+  staying below it. `get_equity_tradability` — tradable, no restrictions.
+  `review_equity_order` — order_checks empty. Compliance quote: Bid $31.62 x 700 / Ask $31.63 x
+  300 / Last $31.61 x 100, 10:38 AM ET. **SOLD 2 OSCR LIMIT $31.50, filled @ $31.6201** (order id
+  `6a831cec-17e3-4af1-bb70-e0ee0ac297fe`). Realized loss $3.02 vs. $33.13 avg cost. Position
+  closed, freeing a slot.
+- **RKLB hit +1R** ($83.71 vs. entry $80.59, stop $78.07, +1R = $83.11). Checked hourly structure
+  since entry (2026-08-14 14:00-19:00 UTC) — no pullback low above entry exists (Friday's whole
+  range stayed below $80.59; today gapped straight up with no intermediate structure). Per §16
+  item 5, no valid higher support found, so **documented stop moves to breakeven, $80.59** (entry
+  price, the higher of the two options per the rule since no better support exists). No order
+  placed — this is a tracked-level update, not a broker-side order modification.
+- CVX checked: $201.96, entry $201.15, stop $199.50, +1R = $202.80. Not yet at +1R, no action.
+- FTA Regime Dashboard: still UNKNOWN_DEGRADED.
+- Screened watchlist for a new entry (day-trade check per §17 item 4: OSCR itself excluded from
+  re-entry today after its loss exit). **DRAM cleared the full §5B gate**: sector tailwind
+  (memory/DRAM chipmaker strength, consistent with MU's continued multi-day rally), fresh breakout
+  above a 4-day $57-58 consolidation on a strong pre-market volume surge (4.97M shares), relative
+  strength vs. SPY (+6.8% vs. flat). Valid stop $59.30 (below today's breakout base, within the 6%
+  risk-budget cap), target $65.00, reward-to-risk 2.06:1 at fill.
+- Funding check: 80% of $576.33 equity = $461.06 ceiling; $285.55 deployed pre-DRAM-trade (post-
+  OSCR-exit), ample headroom. **Settled buying power used conservatively**: `get_accounts` showed
+  $63.24 unsettled (from the OSCR sale moments earlier); rather than rely on the limited-margin
+  account's `buying_power` figure ($290.78, which may already permit trading against unsettled
+  proceeds per this account type's own feature), sized against the pre-sale settled cash figure
+  ($227.54) as the conservative, unambiguous "settled, non-margin" baseline per §14 item 2/§17
+  item 1. DRAM order ($122.32) was well within either figure regardless.
+- Position capacity: 1 new entry this cycle (pacing limit) — 3rd of max 4 positions (RKLB, CVX,
+  DRAM). No correlated-theme conflict.
+- Day-trade/settlement (§17): no broker restriction, DRAM not previously traded today, entry
+  designed to hold overnight. OSCR correctly excluded from same-day re-entry per item 4.
+- Pre-order checks: `get_equity_tradability` (DRAM) — tradable, no restrictions.
+  `review_equity_order` — order_checks empty. Compliance quote: Bid $61.15 x 800 / Ask $61.16 x
+  600 / Last $61.16 x 140, 10:40 AM ET.
+- **ORDER PLACED AND FILLED**: BUY 2 DRAM LIMIT $61.25, filled @ $61.1599 avg (order id
+  `6a831d4c-8c7d-41cf-9d52-6395797c4fb6`). Risk $3.72 (within budget). Stop $59.30, target $65.00.
+- Account state after: cash ~$228.62 (settled portion, before OSCR's unsettled proceeds clear),
+  3 open positions (RKLB, CVX, DRAM), 3/4 position cap, 1/1 this cycle's single-entry pacing limit
+  used (the RKLB breakeven move and OSCR stop-out are exit/risk-management actions, not new
+  entries, so they don't count against the one-new-entry-per-cycle pacing limit).
+- Trade Card (DRAM) and exit/breakeven summary posted to chat — first post-open cycle full report.
