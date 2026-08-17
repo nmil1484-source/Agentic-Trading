@@ -528,3 +528,41 @@ Format per entry:
   watchlist unremarkable this cycle.
 - Outcome: **OBSERVE — no new entry.** Zero order-related API calls made this cycle.
 - Account state after: unchanged, 3 open positions (RKLB, CVX, DRAM), 3/4 position cap.
+
+## 2026-08-17 ~16:37 UTC — AUTONOMOUS (scheduled cycle, LIVE ORDER PLACED)
+- §14 Status: ACTIVE, confirmed. No kill phrase found. Proceeded.
+- **Out-of-band deposit detected (~$70), not reported by the user this cycle.** `get_accounts`
+  confirmed clean (no reconciliation issue, unsettled funds unchanged at $63.24, agentic account
+  state normal, no circuit breaker — this is an increase, not a loss). Equity jumped from $575.66
+  to $646.665. Recalculated per §14 item 2: new 80% deployment ceiling $517.33 (up from $461.06),
+  new 1%-of-equity risk budget ~$6.47 (up from ~$5.76).
+- Existing positions vs §16: RKLB $83.71 (stop breakeven $80.59, no new trigger); CVX $201.85
+  (stop $199.50, +1R $202.80 not yet reached); DRAM $61.28 (stop $59.30, +1R $63.02 not yet
+  reached). No exit or breakeven conditions this cycle.
+- FTA Regime Dashboard: still UNKNOWN_DEGRADED.
+- Screened watchlist. **IREN accelerated to +5.6%** (was +2.6% last cycle, excluded then for lack
+  of catalyst) — this cycle a real catalyst was found: Microsoft Horizon 1 AI cloud deal (~$500M
+  projected ARR) and the completed Mirantis acquisition
+  (https://www.tipranks.com/news/catalyst/iris-energys-stock-rises-amid-ai-expansion); earnings
+  not until Aug 27, no timing conflict. Technicals: clean intraday reclaim (dipped to $43.87,
+  then consistent higher-highs/higher-lows to $46.46+ current), relative strength vs. a mixed
+  tape, daily setup + hourly trigger both present. Valid stop $45.00 (below the mid-session
+  consolidation low $45.02), target $49.00, reward-to-risk 1.74:1 at fill.
+- Funding check: 80% of $646.665 equity = $517.33 ceiling; $408.21 deployed pre-trade
+  (RKLB+CVX+DRAM). Settled buying power/cash $238.46, unsettled $63.24 unchanged. Position sized
+  at 2 shares — note: risk budget (~$6.47/1%) would have allowed up to 4 shares, and even the
+  conservative settled-cash-only figure ($175.22) would have allowed 3, but the 80%-deployment
+  headroom ($109.13 remaining) was the tightest constraint, capping it to 2 shares; per §5B item 3
+  the tighter constraint governs.
+- Position capacity: 1 new entry this cycle (pacing limit) — 4th of max 4 positions. IREN
+  (AI infrastructure/datacenter) shares no theme with RKLB/CVX/DRAM. **Position cap now full.**
+- Day-trade/settlement (§17): no restriction, IREN not previously traded today, entry designed to
+  hold overnight.
+- Pre-order checks: `get_equity_tradability` (IREN) — tradable, no restrictions.
+  `review_equity_order` — order_checks empty. Compliance quote: Bid $46.46 x 100 / Ask $46.47 x
+  200 / Last $46.465 x 151, 12:39 PM ET.
+- **ORDER PLACED AND FILLED**: BUY 2 IREN LIMIT $46.55, filled @ $46.4599 avg (order id
+  `6a833936-4593-4cd2-a3c3-6325048e89f6`). Risk $2.92 (within budget). Stop $45.00, target $49.00.
+- Account state after: 4 open positions (RKLB, CVX, DRAM, IREN), 4/4 position cap (full), 1/1
+  this cycle's single-entry pacing limit used.
+- Trade Card posted to chat.
