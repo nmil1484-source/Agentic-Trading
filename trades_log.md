@@ -605,3 +605,14 @@ Format per entry:
 - Position cap full (4/4) — no new entries possible this cycle regardless of screening; skipped
   full watchlist scan since no capacity exists to act on a candidate even if one qualified.
 - Outcome: **OBSERVE — no trade.** Zero order-related API calls made. Git push confirmed below.
+
+## 2026-08-18 — DEPOSIT DETECTED (manual check, user-reported)
+- User stated a $1,500 transfer. Verified via `get_portfolio`/`get_accounts` (••••8058): cash
+  $145.54 → $1,645.54 (+$1,500.00 exact match), total account value $2,129.70, unsettled funds
+  $0.00. Deposit confirmed.
+- Recalculated per §14 item 2 / §3: new 80% deployment ceiling = **$1,703.76** (up from $517.13);
+  new 1%-of-equity risk budget = **~$21.30** (up from ~$5.13).
+- User's message ("let it rip!") is **not** a CONFIRM ORDER per §1 — informal enthusiasm is
+  explicitly excluded as authorization, and no specific order was even named. **No trade placed.**
+  Manual trades still require the exact phrase; Mode B's autonomous trigger will pick up the new
+  capital/caps automatically on its next scheduled cycle, within all existing §5B/§3/§16 rules.
