@@ -668,3 +668,17 @@ Format per entry:
 - Only remaining position: CVX $204.36 (stop $201.40, $2.96 buffer, no trigger). No exit/breakeven
   action.
 - Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
+
+## 2026-08-18 ~16:36 UTC — AUTONOMOUS (scheduled cycle) — HARD_OBSERVE_MODE in effect
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- **HARD_OBSERVE_MODE remains active** (§16 items 4/10, set 14:38 UTC cycle). No regime review
+  from the user yet — no new-entry screening performed.
+- Account check: total value $2,128.115, cash $1,923.29 (unchanged), no circuit breaker, no MCP
+  errors.
+- Only remaining position: CVX $204.825 (stop $201.40, $3.425 buffer, no stop trigger). **Now
+  above +2R ($204.45)** — §16 item 6 would call for a 50% trim, but the position is a single
+  whole share and cannot be operationally split under Tier-A rules; consistent with the prior
+  cycle's reasoning, holding as-is rather than forcing a fractional/full liquidation not called for
+  by any actual exit rule. Watching for a full-exit trigger (momentum failure, time stop, or the
+  stop itself) instead.
+- Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
