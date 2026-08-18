@@ -616,3 +616,44 @@ Format per entry:
   explicitly excluded as authorization, and no specific order was even named. **No trade placed.**
   Manual trades still require the exact phrase; Mode B's autonomous trigger will pick up the new
   capital/caps automatically on its next scheduled cycle, within all existing §5B/§3/§16 rules.
+
+## 2026-08-18 ~14:38 UTC — AUTONOMOUS (scheduled cycle) — TRIPLE STOP-OUT, GAP RULE, HARD_OBSERVE_MODE
+- §14 Status: ACTIVE, confirmed. No kill phrase found. Proceeded.
+- Account check: total value $2,128.31 pre-cycle (post $1,500 deposit), cash $1,645.54. No MCP
+  errors, no position mismatch.
+- **Market gapped/dropped sharply overnight/this morning across the book.** Live quotes at
+  ~14:37 UTC found three of four open positions already trading through their documented §16
+  stops — this is the §16 item 4 **gap rule** (price below stop before/without a clean intraday
+  cross): RKLB $78.59 vs. stop $80.59 (breakeven); DRAM $56.45 vs. stop $59.30; IREN $43.44 vs.
+  stop $45.00. CVX $204.44 vs. stop $201.40 — clear, no action, approaching +2R ($204.45) but
+  position is only 1 share so the 50% partial-trim mechanic isn't operationally divisible; held
+  as-is pending a full-exit-rule trigger.
+- Per §16 item 4: reviewed and exited all three full remaining positions at the earliest available
+  execution, no waiting for a bounce. `get_equity_tradability` — all three tradable, no
+  restrictions. `review_equity_order` — all three clean, no alerts.
+- **ORDERS PLACED AND FILLED (all market-hours limit sells, immediately marketable):**
+  - RKLB: SELL 1 @ $78.55 avg (order `6a846e5a-0765-4ffe-a95f-a84762ea4214`). Entry $80.59, stop
+    $80.59 (breakeven). Planned loss at stop: $0.00 (breakeven). **Actual loss: $2.04** (gap below
+    breakeven). Slippage vs. documented stop: $2.04/share.
+  - DRAM: SELL 2 @ $56.3001 avg (order `6a846e5b-ff6a-4008-9257-3f208d9251a4`). Entry $61.16, stop
+    $59.30. Planned loss at stop: $3.72. **Actual loss: $9.72.** Slippage: $3.00/share ($6.00
+    total).
+  - IREN: SELL 2 @ $43.3001 avg (order `6a846e5c-a2f8-4a2a-8639-3366183e9bb2`). Entry $46.46, stop
+    $45.00. Planned loss at stop: $2.92. **Actual loss: $6.32.** Slippage: $1.70/share ($3.40
+    total).
+  - **Total realized loss this cycle: $18.08** (0.85% of pre-cycle account equity — well under the
+    3% single-day circuit breaker; post-cycle total value $2,127.76 vs. $2,128.31 pre-cycle,
+    essentially flat since most of the account is now uninvested cash from yesterday's deposit).
+- **§16 item 4 compensating action: entering HARD_OBSERVE_MODE for the remainder of this session**,
+  per the gap rule's own text.
+- **§16 item 10 also independently triggers**: three stop-outs inside a rolling 10-trading-day
+  window (RKLB, DRAM, IREN all today) → **HARD_OBSERVE_MODE, no new entries of either tier, until
+  the next full regime review is complete.** This supersedes the single-session gap-rule pause —
+  no new Mode B entries on future scheduled cycles until a full regime review has been presented to
+  and reviewed with the user.
+- Remaining position: CVX only (1 share, $201.40 stop, near +2R). Position count 1/4 — well under
+  cap, but **no new entries will be screened or taken while HARD_OBSERVE_MODE is active**, so the
+  freed-up capacity is not being used this cycle or until the pause is lifted.
+- **Outcome: three protective exits filled (RKLB, DRAM, IREN). No new entries. HARD_OBSERVE_MODE
+  now ACTIVE per §16 items 4 and 10 — next cycle must confirm this status and take no new-entry
+  action until the user completes a regime review.**
