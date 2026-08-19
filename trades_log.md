@@ -715,3 +715,17 @@ Format per entry:
 - **HARD_OBSERVE_MODE remains active** (§16 items 4/10, set 2026-08-18 ~14:38 UTC) — no regime
   review from the user yet. No trade placed; new capital does not override the pause. Autonomous
   cycles will keep logging OBSERVE until the pause is lifted.
+
+## 2026-08-19 ~14:36 UTC — AUTONOMOUS (scheduled cycle) — HARD_OBSERVE_MODE in effect, first post-open cycle
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- **HARD_OBSERVE_MODE remains active** (§16 items 4/10, set 2026-08-18). A full regime review was
+  conducted with the user 2026-08-19 ~14:20 UTC in chat (positions reconciled clean, no circuit
+  breaker, SPY confirmed a broad -0.68% gap-down on 8/18 with elevated volume explaining the
+  triple stop-out as market-wide, not a system fault; FTA Regime Dashboard still
+  UNKNOWN_DEGRADED). User has **not yet** issued the required exact resume phrase "RESUME
+  AUTONOMOUS SWING TRADING" — pause stands. No new-entry screening performed.
+- Only remaining position: CVX $206.89 (stop $201.40, no trigger). **Now past +3R** (entry
+  $201.15, R=$1.65, +3R=$206.10) — held through a full regular-session close since entry, but
+  still a single undivided share, so §16's staged 50%/25% partial-trim mechanics remain
+  operationally inapplicable. Holding, watching for a genuine full-exit trigger.
+- Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
