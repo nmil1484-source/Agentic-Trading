@@ -27,9 +27,10 @@ Added 2026-08-13 at explicit user instruction.
    - 15% of Agentic Account equity
    - a Tier-B-specific per-position sub-cap of **20% of Agentic Account equity** (tighter than
      Tier-A's 80% per-position cap)
-   - whatever headroom currently remains under the shared 80%-total-deployed ceiling (80% of
-     equity minus everything already deployed across Tier-A and Tier-B combined) — a Tier-B pilot
-     is sized within that shared ceiling, not in addition to it
+   - whatever headroom currently remains under the shared 90%-total-deployed ceiling (90% of
+     equity minus everything already deployed across Tier-A and Tier-B combined, raised 2026-08-19
+     from 80% — see CLAUDE.md §12) — a Tier-B pilot is sized within that shared ceiling, not in
+     addition to it
 
    **While the FTA Regime Dashboard is UNKNOWN_DEGRADED, halve all four of those figures**
    ($17.50 / 7.5% / 10% / half of remaining headroom) — paired with the reward-to-risk change in

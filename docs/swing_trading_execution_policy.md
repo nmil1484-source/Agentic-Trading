@@ -78,7 +78,8 @@ A Mode B swing entry requires, per §5B:
 Replaces the removed daily/weekly trade quota. A qualifying position may only be entered if all
 existing hard limits (CLAUDE.md §3 dollar caps) plus these are satisfied:
 
-1. Total deployed capital remains at or below 80% of Agentic Account equity after the order.
+1. Total deployed capital remains at or below 90% of Agentic Account equity after the order
+   (raised 2026-08-19 from 80%, see CLAUDE.md §12).
 2. **No more than ten Mode B positions simultaneously open** (raised 2026-08-19 from four, see
    CLAUDE.md §12).
 3. **No more than two open positions share one sector, industry, or catalyst theme.**

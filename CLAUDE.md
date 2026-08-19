@@ -48,8 +48,10 @@ refactor and applies to both modes without exception.
 - Before the Agentic Account has a separately approved funding budget, do not propose executable orders.
 - Once funded, maximum new position: 80% of Agentic Account equity. (Raised 2026-08-13 from
   "lower of $100 or 5%" at explicit user instruction — see Section 12 change log.)
-- Maximum total deployed capital: 80% of Agentic Account equity. Maintain at least 20% cash.
-  (Raised 2026-08-13 from 50%/50% at explicit user instruction — see Section 12 change log.)
+- Maximum total deployed capital: 90% of Agentic Account equity. Maintain at least 10% cash.
+  (Raised 2026-08-19 from 80%/20% at explicit user instruction, after being flagged that this
+  thins the cash cushion without changing per-trade risk sizing — see Section 12 change log. Prior
+  to that, raised 2026-08-13 from 50%/50%.)
 - Maximum one new position per day and three new positions per calendar week. **Removed for Mode B
   (2026-08-13, explicit user instruction — see §12 change log): Mode B is not subject to a fixed
   daily/weekly trade-count quota** — it may scan every eligible cycle and take every valid setup
@@ -59,7 +61,7 @@ refactor and applies to both modes without exception.
 - Do not average down. Add only after a position is profitable or has reclaimed its technical trigger with renewed confirmation.
 - Do not increase risk after a daily realized loss of 2% or a weekly realized loss of 5% of Agentic Account equity.
 - **Fractional Tier-B pilots (2026-08-13, see §15) count as ordinary new positions against the caps
-  above** — sized within whatever headroom remains under the 80%-total-deployed / 20%-minimum-cash
+  above** — sized within whatever headroom remains under the 90%-total-deployed / 10%-minimum-cash
   ceiling on this line, not in addition to it. (The 1/day, 3/week count Tier-B pilots used to also
   share is removed for Mode B per the quota change above — see §15 item 7 for the current text.)
 
@@ -149,7 +151,7 @@ context — it is never itself a qualifying or disqualifying condition for Mode 
 #### Position Capacity and Sizing (Mode B)
 Added 2026-08-13 at explicit user instruction, replacing the day/week trade-count quota (removed
 above, see §3/§12) with risk-based capacity limits instead. All existing §3 dollar caps
-(per-position 80%, total-deployed 80%/20%-cash, no averaging down, loss throttles) and §15's
+(per-position 80%, total-deployed 90%/10%-cash, no averaging down, loss throttles) and §15's
 Tier-B allocation formula remain unchanged and still apply on top of these:
 
 1. **Simultaneous-position cap**: no more than **ten** Mode B positions open at once (whole-share
@@ -284,6 +286,19 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-19: User instructed raising the total-deployed-capital ceiling from 80% to 90% of
+  Agentic Account equity (10% minimum cash, down from 20%).** Applies everywhere the 80%/20%
+  structure was used: §3 (manual trading), §14 item 2 (Mode B autonomous deployment limit), §15
+  item 2's shared Tier-B ceiling reference, and both standalone docs
+  (`docs/swing_trading_execution_policy.md`, `docs/fractional_tier_b_policy.md`). **Does not**
+  change the per-position cap (§3, still 80% of equity for a single position), per-trade risk
+  sizing (still 1% of equity or stop-implied loss, whichever is smaller), or any other §3/§5B/§16
+  control. Flagged before this was made: at the account's current size (~$2,529), the 80%/20%
+  ceiling was already thin after only 3 positions (~$17 of headroom left); moving to 90%/10% frees
+  roughly $250 more headroom but halves the cash cushion versus a bad session, and doesn't change
+  how much any single trade can lose (that's the separate 1%-risk rule) — it only changes how much
+  total capital can be committed at once. User confirmed explicitly after this tradeoff was
+  raised.
 - **2026-08-19: User instructed removing §5B's "one new entry per scheduled scan cycle" pacing
   limit.** Before: a single cycle could only place one new Mode B entry, even if multiple
   candidates qualified. After: a cycle may take every candidate clearing §5B, bounded only by the
@@ -540,13 +555,14 @@ order authority.
    replacing the earlier fixed $200 sub-budget.** The Agentic Account (••••8058, `agentic_allowed:
    true`) is the system's only source of capital; the retail account (••••7533, `agentic_allowed:
    false`) remains permanently excluded and is never queried for funding purposes. Mode B
-   AUTONOMOUS_EXECUTE's deployment limit is **80% of current Agentic Account equity**, recalculated
+   AUTONOMOUS_EXECUTE's deployment limit is **90% of current Agentic Account equity** (raised
+   2026-08-19 from 80%, at explicit user instruction — see §12 change log), recalculated
    before every entry and immediately after every deposit, withdrawal, fill, and exit — the same
-   80%-deployed / 20%-cash-reserve structure §3 already uses for manual trading, rather than a
+   90%-deployed / 10%-cash-reserve structure §3 already uses for manual trading, rather than a
    separate fixed dollar figure. A new entry may use only **confirmed settled, non-margin buying
    power** (verify via `get_accounts`/`get_portfolio` immediately before the order — never
    unsettled sale proceeds, margin, or borrowed funds), and may not push total deployed value above
-   the recalculated 80% cap. §10 itself is unchanged — it still separately describes the
+   the recalculated 90% cap. §10 itself is unchanged — it still separately describes the
    full-equity budget for manual/in-chat trading; this item governs autonomous sizing specifically,
    now using the same 80%/20% mechanism instead of a lower, independent ceiling. Never deposit,
    withdraw, transfer, borrow, or use margin — unchanged instruction.
@@ -630,7 +646,7 @@ are for audit and notification only and create no confirmation requirement.
 | Three consecutive Robinhood MCP errors, or reported positions don't match the account (§6) | Suspend new-entry order submission only — protective exits (§16) remain active per the standing exit-management mandate above. Continue scanning/logging; run automatic account/position reconciliation at the next cycle. | Resume new-entry order submission automatically once two consecutive reconciliations agree on account cash, positions, and order states. If reconciliation keeps failing, escalate in the log — no user phrase is required to keep retrying. |
 
 All other hard controls are unaffected and remain in force exactly as elsewhere in this document:
-Agentic-account-only wall (§1), dynamic 80% deployment ceiling (§14 item 2), confirmed
+Agentic-account-only wall (§1), dynamic 90% deployment ceiling (§14 item 2), confirmed
 settled/non-margin buying power only, ten-position/two-correlated-position caps in normal state
 (§5B), no averaging down (§3/§16), no options/crypto/margin/shorting/leverage in the Agentic
 account (§2), initial stop at entry (§16 item 2), breakeven at +1R (§16 item 5), 50% profit-take at
@@ -801,8 +817,8 @@ HARD_OBSERVE_MODE (§6), account and authority restrictions (§1), and the resea
 
 2. Maximum pilot allocation per position is the **lower of**: $35; 15% of Agentic Account equity;
    a Tier-B-specific per-position sub-cap of 20% of Agentic Account equity (tighter than Tier-A's
-   80% per-position cap in §3); and whatever headroom currently remains under the shared §3 80%-
-   total-deployed ceiling (i.e., 80% of equity minus everything already deployed across Tier-A and
+   80% per-position cap in §3); and whatever headroom currently remains under the shared §3 90%-
+   total-deployed ceiling (i.e., 90% of equity minus everything already deployed across Tier-A and
    Tier-B combined) — a Tier-B pilot is sized within that shared ceiling, not in addition to it.
    **While the FTA Regime Dashboard is UNKNOWN_DEGRADED (§6), halve all four of those figures**
    ($17.50 / 7.5% / 10% / half of remaining headroom) — see item 5 for the matching reward-to-risk
