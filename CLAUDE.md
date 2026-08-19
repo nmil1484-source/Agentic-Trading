@@ -163,9 +163,11 @@ Tier-B allocation formula remain unchanged and still apply on top of these:
    against that risk budget, then round down to fit within the existing §3/§15 allocation cap —
    whichever constraint (the 1%-of-equity risk budget or the dollar allocation cap) produces the
    smaller position wins.
-4. **Pacing**: only **one new entry per scheduled scan cycle** — this is a per-cycle pacing limit,
-   not a revival of the removed daily/weekly count quota; over a full trading day of hourly scans
-   it bounds total new entries to roughly the number of cycles, not to one per day.
+4. **Pacing: removed (2026-08-19, explicit user instruction — see §12 change log).** The prior
+   "one new entry per scheduled scan cycle" limit no longer applies. A single scan cycle may now
+   take every candidate that clears §5B and still fits within the remaining position-count (item
+   1), correlation (item 2), and funding/risk caps (item 3, §3, §14 item 2) — those dollar- and
+   count-based limits are the only remaining brakes on how many new entries one cycle can place.
 5. Never average down (restates §3/§16's existing rule — not new).
 
 #### Swing Exit Rules
@@ -282,6 +284,16 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-19: User instructed removing §5B's "one new entry per scheduled scan cycle" pacing
+  limit.** Before: a single cycle could only place one new Mode B entry, even if multiple
+  candidates qualified. After: a cycle may take every candidate clearing §5B, bounded only by the
+  position-count cap (now 10), the 2-per-theme correlation cap, and the funding/risk caps (80%
+  deployment ceiling, 1%-of-equity or stop-implied risk per trade). Flagged at the time: this was
+  raised specifically because funding, not the pacing rule, has been the actual binding constraint
+  on most recent cycles (only ~$15 of deployment headroom remained as of the last cycle) — so this
+  change mainly matters once more capital is deposited or positions free up room, at which point
+  multiple qualifying names could enter in the same cycle instead of trickling in one per hour.
+  Mirrored in `docs/swing_trading_execution_policy.md`.
 - **2026-08-19: User instructed raising §5B's simultaneous-position cap from 4 to 10.** Before:
   max 4 Mode B positions open at once. After: max 10. The 2-per-sector/theme correlation cap (§5B
   item 2) is unchanged — 10 positions therefore needs at least 5 distinct themes to fill. The 80%

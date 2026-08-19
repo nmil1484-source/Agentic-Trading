@@ -79,7 +79,8 @@ Replaces the removed daily/weekly trade quota. A qualifying position may only be
 existing hard limits (CLAUDE.md §3 dollar caps) plus these are satisfied:
 
 1. Total deployed capital remains at or below 80% of Agentic Account equity after the order.
-2. **No more than four Mode B positions simultaneously open.**
+2. **No more than ten Mode B positions simultaneously open** (raised 2026-08-19 from four, see
+   CLAUDE.md §12).
 3. **No more than two open positions share one sector, industry, or catalyst theme.**
 4. The existing per-position/fractional-pilot cap remains in force (§3/§15).
 5. **Maximum planned loss per new trade is the lower of 1% of current Agentic Account equity or
@@ -87,8 +88,9 @@ existing hard limits (CLAUDE.md §3 dollar caps) plus these are satisfied:
    from the entry-to-stop distance; round down within the existing allocation cap.
 6. Never average down. A later add is allowed only after the original position is profitable, the
    setup remains valid, and all capacity tests above remain clear.
-7. **Only one new entry per scheduled scan cycle** — a pacing limit, not a revival of the daily/
-   weekly count quota.
+7. **Pacing limit removed (2026-08-19)** — a scan cycle may take every qualifying candidate that
+   still fits within the position-count, correlation, and funding/risk caps above. See CLAUDE.md
+   §12.
 
 ## Section 5 — Exit management (see CLAUDE.md §16 for the authoritative rules)
 
