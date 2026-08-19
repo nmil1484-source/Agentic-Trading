@@ -706,3 +706,12 @@ Format per entry:
 - Only remaining position: CVX $205.48 (stop $201.40, no trigger; above +2R, still an undivided
   single share, holding per prior cycles' reasoning). No circuit breaker, no MCP errors.
 - Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
+
+## 2026-08-18 ~19:50 UTC — DEPOSIT DETECTED (manual check, user-reported)
+- User stated a deposit. Verified via `get_portfolio` (••••8058): cash $1,923.29 -> $2,323.29
+  (+$400.00 exact match), total account value $2,530.09.
+- Recalculated: 80% deployment ceiling = **$2,024.07** (up from $1,702.12); 1%-of-equity risk
+  budget = **~$25.30** (up from ~$21.28).
+- **HARD_OBSERVE_MODE remains active** (§16 items 4/10, set 2026-08-18 ~14:38 UTC) — no regime
+  review from the user yet. No trade placed; new capital does not override the pause. Autonomous
+  cycles will keep logging OBSERVE until the pause is lifted.
