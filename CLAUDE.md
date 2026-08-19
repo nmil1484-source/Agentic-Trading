@@ -198,8 +198,8 @@ Mode B.
   SWING_TRADING** (§7).
 
 ## 6. Circuit breakers and integrity checks
-- If Agentic Account equity declines more than 3% in one day, immediately enter HARD_OBSERVE_MODE: no new orders; provide an urgent incident report.
-- If Robinhood MCP returns three consecutive errors or reported positions do not match the account, cease trading until reconciliation is verified.
+- If Agentic Account equity declines more than 3% in one day, immediately enter HARD_OBSERVE_MODE: no new orders; provide an urgent incident report. **Mode B AUTONOMOUS_EXECUTE exception (2026-08-19, user instruction — see §14 Automatic Recovery State Machine):** for the autonomous Mode B trigger specifically, a 3%+ intraday decline blocks new entries only for the remainder of that regular session (exit management, scanning, and logging continue), then automatically resumes in DEGRADED_AUTONOMOUS (0.5% planned loss per new trade) for one full session, restoring full capacity automatically if no new breaker triggers — no manual resume phrase required. Does not apply to Mode A or to manually-requested trades in this chat, which still land in a full HARD_OBSERVE_MODE requiring human review and, for any order, the exact CONFIRM ORDER phrase (§1).
+- If Robinhood MCP returns three consecutive errors or reported positions do not match the account, cease trading until reconciliation is verified. **Mode B AUTONOMOUS_EXECUTE exception (2026-08-19 — see §14):** for the autonomous Mode B trigger, this suspends new-entry order submission only — protective exits (§16) stay active, scanning/logging continue, and automatic reconciliation runs each cycle, restoring new-entry submission automatically once two consecutive reconciliations agree on cash, positions, and order states, no manual phrase required. Unaffected for Mode A/manual trading.
 - If data is stale, incomplete, contradictory, or unavailable, do not infer a bullish signal and do not propose execution. **Exception (2026-08-13, user instruction): the FTA Regime Dashboard is a reference input, not a blocking gate.** If it's unavailable/stale/placeholder, classify it **UNKNOWN_DEGRADED** — log it, do not treat it as bearish, and do not let it alone block a proposal. **Compensating requirement while UNKNOWN_DEGRADED (2026-08-13):** for Mode A (and Tier-A proposals generally, if Mode A is ever authorized to execute), the §13.A reward-to-risk floor rises from ≥1:2 to **≥1:3**. **For Mode B swing trades, the compensating requirement is reduced position sizing only, at a flat ≥1.5:1 reward-to-risk floor** (2026-08-13, see §5B Regime Rule and §12 change log; RR floor flattened 2026-08-14 at explicit user instruction — see §12) — Mode B's floor is ≥1.5:1 regardless of regime dashboard state, for both whole-share and fractional-Tier-A-style swing entries, with a halved position-size sub-cap while UNKNOWN_DEGRADED. Tier-B fractional pilots (§15 item 5) keep their own separate, unaffected ≥2:1-degraded floor with halved size. This unavailable-data rule still fully applies, with no exception, to LUC data, Robinhood account/position data, and a specific ticker's own technical or catalyst data — only the FTA Regime Dashboard gets the UNKNOWN_DEGRADED treatment.
 - Flag potential wash-sale risk when a loss sale may be followed by repurchase of the same or substantially identical security within 30 calendar days in a taxable account. This is a flag, not tax advice.
 
@@ -281,6 +281,30 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-19: "Continuous Autonomous Operation Amendment" — user instruction, pasted as a full
+  binding-mandate spec.** Added the §14 "Mode B Automatic Recovery State Machine," scoped strictly
+  to the Mode B autonomous trigger (not Mode A, not manual chat trading). Before: any of a
+  gap-rule stop, a 3-stop-out cluster, a 3%+ intraday equity decline, or 3 consecutive MCP
+  errors/position mismatch dropped the autonomous trigger into HARD_OBSERVE_MODE, requiring the
+  user's exact `RESUME AUTONOMOUS SWING TRADING` phrase (and, in practice this session, a full
+  chat-based regime review) before new entries resumed. After: those four triggers now resolve
+  through an automatic state machine (SESSION_RESTRICTED / DEGRADED_AUTONOMOUS / reconciliation-
+  gated order suspension) with no manual phrase or review required — full mechanics and the
+  recovery table are in §14. The only remaining manual full-stop is the user issuing
+  `PAUSE AUTONOMOUS TRADING` / `STOP AUTONOMOUS EXECUTION`, which still requires
+  `RESUME AUTONOMOUS SWING TRADING` to lift. Explicitly unaffected, per the user's own instruction
+  and confirmed in this diff: the retail-account firewall (§1), the settled-funds requirement
+  (§17), all risk-sizing calculations and position/deployment caps (§3/§5B/§14 item 2), the 80%
+  deployment ceiling, no-averaging-down, initial-stop/breakeven/+2R-profit-take mechanics (§16),
+  and the exact emergency phrase itself. **Flagged to the user at the time this was drafted:** this
+  removes the one human checkpoint that, one day earlier (2026-08-18), actually added value — the
+  manual regime review after that day's triple stop-out (RKLB/DRAM/IREN) was what confirmed the
+  cause was a broad market gap rather than a system fault before trading resumed. Under this
+  amendment, that same event would now self-resolve into DEGRADED_AUTONOMOUS without anyone
+  reviewing why. The FTA Regime Dashboard has also returned UNKNOWN_DEGRADED on every check this
+  entire session, and one trigger firing was observed with ~25 hours of delivery latency — both
+  relevant to how much a human checkpoint was still adding versus how reliable the automatic path
+  is. Diff shown to and confirmed by the user before commit, per their explicit instruction.
 - 2026-08-13: User instructed raising Section 3's per-position cap from "lower of $100 or 5% of
   equity" to 80% of equity, and the total-deployed cap from 50% (min 50% cash) to 80% (min 20%
   cash). Flagged at the time that this removes most of the diversification/cash-reserve
@@ -521,8 +545,10 @@ order authority.
    §15) — **note: the 1/day, 3/week new-position count cap was removed for Mode B on 2026-08-13
    (see §3, §12 change log); Mode B is bounded by the dollar-based caps in this list, not a trade
    count**; first/last-15-minute buffer (§4); locked stop, gap, breakeven, profit-protection,
-   time-stop, and 3-stop-outs-in-10-days circuit breaker (§16); API-error and
-   position-reconciliation, wash-sale flag, 3%-daily-loss HARD_OBSERVE_MODE (§6); no entry on LUC
+   time-stop, and 3-stop-outs-in-10-days circuit breaker (§16, now routed through DEGRADED_AUTONOMOUS
+   per the Automatic Recovery State Machine below as of 2026-08-19); API-error and
+   position-reconciliation, wash-sale flag, 3%-daily-loss circuit breaker (§6, likewise routed
+   through session-restricted/degraded auto-recovery for Mode B as of 2026-08-19); no entry on LUC
    RED (§5B/§15); UNKNOWN_DEGRADED → reduced size, flat ≥1.5:1 reward-to-risk for Mode B as of
    2026-08-14 (§5B, §6, §13.A) — Tier-B fractional pilots keep their own separate ≥2:1-degraded
    floor (§15 item 5), unaffected.
@@ -548,10 +574,47 @@ order authority.
    orders, stops opening new positions, preserves existing stop/exit protection (does not remove
    protective orders), enters HARD_OBSERVE_MODE (§6), and gets confirmed back to the user.
 
-8. **Restart phrase: `RESUME AUTONOMOUS SWING TRADING`.** May resume scanning only after all
-   data-reconciliation and circuit-breaker checks (§6) are clear. **Cannot** override an active
-   daily-loss or HARD_OBSERVE_MODE circuit breaker — those need their own resolution path (§6)
-   regardless of this phrase.
+8. **Restart phrase (manual pause only): `RESUME AUTONOMOUS SWING TRADING`.** Governs recovery
+   from a user-issued `PAUSE AUTONOMOUS TRADING`/`STOP AUTONOMOUS EXECUTION` only — may resume
+   scanning only after all data-reconciliation and circuit-breaker checks (§6) are clear. **As of
+   2026-08-19, this phrase is not required for the four system-detected triggers in the Automatic
+   Recovery State Machine subsection below** (gap-rule/multi-name-gap, stop-out cluster, 3%
+   intraday equity decline, MCP-error/reconciliation) — those recover automatically with no manual
+   phrase needed. It remains the only way to resume after a *manual* pause.
+
+### Mode B Automatic Recovery State Machine (2026-08-19)
+Added at explicit user instruction ("Continuous Autonomous Operation Amendment"). **Binding
+mandate: once Mode B AUTONOMOUS_EXECUTE is live, it stays continuously active — the system must
+never silently convert it into OBSERVATION_ONLY, PENDING_VERIFICATION, HARD_OBSERVE_MODE, or any
+equivalent full-stop state in response to a system-detected trigger.** The only path to a full stop
+is the user issuing the exact phrase **`PAUSE AUTONOMOUS TRADING`** (or `STOP AUTONOMOUS
+EXECUTION`, item 7 above) — that remains entirely manual to enter *and* to leave (via `RESUME
+AUTONOMOUS SWING TRADING`, item 8, still gated on a clear reconciliation/circuit-breaker check at
+that moment). Everything below governs the four system-detected triggers only, replacing the prior
+HARD_OBSERVE_MODE-plus-manual-resume handling **for Mode B's autonomous trigger specifically.** It
+does not touch Mode A (still research/alert-only) or any trade requested manually in this chat —
+§1's live CONFIRM ORDER requirement, and manual trading's own HARD_OBSERVE_MODE/human-review path,
+are both unchanged.
+
+In every state below, these continue uninterrupted: exit/stop management (§16), scheduled
+scanning, regime/data checks, watchlist ranking, and `trades_log.md` logging. Log every trigger,
+temporary constraint, recovery check, and automatic restoration in `trades_log.md` — these entries
+are for audit and notification only and create no confirmation requirement.
+
+| Trigger | Immediate response | Automatic recovery |
+|---|---|---|
+| A position trades below its hard stop, or a broad market gap invalidates multiple active long setups (§16 item 4) | Execute the planned protective exit when executable. No new long entries for the remainder of that regular session. | **SESSION_RESTRICTED.** At the next pre-market cycle, automatically reassess the market and resume normal AUTONOMOUS_EXECUTE entries if data is available and the standard §5B gates pass. No manual phrase required. |
+| Three stop-outs within a rolling 10-calendar-day window (§16 item 10) | Enter **DEGRADED_AUTONOMOUS**, not observe-only. | Continue trading at cut size: 0.5% (not 1%) planned loss per new trade; cap concurrent positions at 2; prohibit new entries in the correlated sector/theme that produced the stop-outs. Restore normal 1%-risk/4-position capacity automatically after five completed regular sessions with no additional stop-out and no daily-loss breaker. |
+| Agentic Account equity falls 3%+ intraday (§6) | No additional new positions for the remainder of that regular session; continue managing protective exits and scanning/logging. | At the next pre-market cycle, automatically resume in **DEGRADED_AUTONOMOUS** (0.5% planned loss per new trade) for one full session. Restore normal capacity automatically after that session if no new breaker triggers. |
+| Three consecutive Robinhood MCP errors, or reported positions don't match the account (§6) | Suspend new-entry order submission only — protective exits (§16) remain active per the standing exit-management mandate above. Continue scanning/logging; run automatic account/position reconciliation at the next cycle. | Resume new-entry order submission automatically once two consecutive reconciliations agree on account cash, positions, and order states. If reconciliation keeps failing, escalate in the log — no user phrase is required to keep retrying. |
+
+All other hard controls are unaffected and remain in force exactly as elsewhere in this document:
+Agentic-account-only wall (§1), dynamic 80% deployment ceiling (§14 item 2), confirmed
+settled/non-margin buying power only, four-position/two-correlated-position caps in normal state
+(§5B), no averaging down (§3/§16), no options/crypto/margin/shorting/leverage in the Agentic
+account (§2), initial stop at entry (§16 item 2), breakeven at +1R (§16 item 5), 50% profit-take at
++2R (§16 item 6), and the exact emergency phrase `PAUSE AUTONOMOUS TRADING`.
+
 - **Scope — everything else in this document still applies unchanged** to the autonomous
   Routine: permitted instruments (§2), exposure limits (§3 — the 1/day and 3/week new-position
   count cap no longer applies to Mode B as of 2026-08-13, see §3/§12; the dollar-based caps
@@ -591,7 +654,10 @@ order authority.
   (the exception text stays as a historical record; a new dated entry here notes the revocation).
   **"RESUME AUTONOMOUS SWING TRADING"** (item 8) restarts scanning only after reconciliation and
   circuit-breaker checks are clear, and cannot override an active daily-loss or HARD_OBSERVE_MODE
-  breaker.
+  breaker. **(2026-08-19 addendum:** this manual kill switch is now the *only* path to a full
+  stop — the four system-detected triggers in the Automatic Recovery State Machine subsection
+  above no longer land here; they self-manage via SESSION_RESTRICTED/DEGRADED_AUTONOMOUS/
+  reconciliation states instead, with no manual phrase needed.)
 - **Status: ACTIVE (2026-08-14).** See the dated entry after the verification procedure below for
   the live-activation record. Operational history: the first
   attempt (fresh session per firing) failed tool-access verification and was deleted — see
@@ -802,8 +868,12 @@ time stop shortened from 10 to 7 trading sessions. Items 1-5, 7, and 9-11 are un
    unless a §6 circuit breaker independently triggers).
 
 4. Gap rule: if price opens below the stop, do not wait for a bounce — review and exit the full
-   position at the earliest available eligible execution. Log actual slippage and enter
-   HARD_OBSERVE_MODE (§6) for the remainder of that session.
+   position at the earliest available eligible execution. Log actual slippage. **For a Mode B
+   AUTONOMOUS_EXECUTE position (2026-08-19, see §14 Automatic Recovery State Machine): enter
+   SESSION_RESTRICTED for the remainder of that session** — no new entries, but exit management,
+   scanning, and logging continue, and normal entries resume automatically at the next pre-market
+   cycle if data is available and §5B gates pass, with no manual resume phrase required. Manual/
+   Mode A trading still enters a full HARD_OBSERVE_MODE (§6) requiring human review.
 
 5. Breakeven rule: after a position reaches +1R, move the stop to entry price or the nearest
    higher technical support, whichever is higher. Never move the stop lower afterward.
@@ -829,8 +899,13 @@ time stop shortened from 10 to 7 trading sessions. Items 1-5, 7, and 9-11 are un
    bar) forms.
 
 10. After any three stop-outs in a rolling 10-trading-day window (Tier-A and Tier-B combined),
-    enter HARD_OBSERVE_MODE (§6). No new entries of either tier until the next full regime
-    review is complete.
+    **for Mode B AUTONOMOUS_EXECUTE, enter DEGRADED_AUTONOMOUS (2026-08-19, see §14 Automatic
+    Recovery State Machine)**: continue trading at 0.5% (not 1%) planned loss per new trade, 2
+    positions max, no new entries in the correlated theme that produced the stop-outs; restores
+    automatically after five completed regular sessions with no additional stop-out and no
+    daily-loss breaker — no manual regime review required. Manual/Mode A trading still enters a
+    full HARD_OBSERVE_MODE (§6) with no new entries of either tier until a full regime review is
+    complete.
 
 11. Record every exit with planned loss, actual loss, slippage, the rule that triggered the exit,
     and whether the exit submitted successfully, in `trades_log.md`. These records must be
