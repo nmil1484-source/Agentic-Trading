@@ -729,3 +729,13 @@ Format per entry:
   still a single undivided share, so §16's staged 50%/25% partial-trim mechanics remain
   operationally inapplicable. Holding, watching for a genuine full-exit trigger.
 - Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
+
+## 2026-08-19 ~14:50 UTC — HARD_OBSERVE_MODE LIFTED (user resume phrase)
+- User issued the exact required phrase: **"RESUME AUTONOMOUS SWING TRADING"** (§14 item 8).
+- Regime review (completed ~14:20 UTC, see prior entry) satisfies the "all data-reconciliation and
+  circuit-breaker checks are clear" precondition: positions reconciled clean, no MCP errors, no
+  active 3% daily-loss breaker, market context for the 8/18 triple stop-out confirmed as a
+  broad-based gap-down (not a data/system fault).
+- **HARD_OBSERVE_MODE is lifted effective this entry.** Mode B autonomous scanning, including
+  new-entry screening, resumes on the next scheduled cycle, subject to all standard §5B/§3/§16
+  rules as before. Position cap currently 1/4 (CVX only), full capacity available.
