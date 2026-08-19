@@ -152,8 +152,9 @@ above, see §3/§12) with risk-based capacity limits instead. All existing §3 d
 (per-position 80%, total-deployed 80%/20%-cash, no averaging down, loss throttles) and §15's
 Tier-B allocation formula remain unchanged and still apply on top of these:
 
-1. **Simultaneous-position cap**: no more than **four** Mode B positions open at once (whole-share
-   and fractional combined).
+1. **Simultaneous-position cap**: no more than **ten** Mode B positions open at once (whole-share
+   and fractional combined). (Raised 2026-08-19 from four, at explicit user instruction — see §12
+   change log.)
 2. **Correlation cap**: no more than **two** open positions may share one sector, industry, or
    catalyst theme — log the sector/theme on the Trade Card so this is checkable, not eyeballed.
 3. **Per-trade risk sizing**: maximum planned loss on any new trade is the **lower of 1% of
@@ -281,6 +282,14 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-19: User instructed raising §5B's simultaneous-position cap from 4 to 10.** Before:
+  max 4 Mode B positions open at once. After: max 10. The 2-per-sector/theme correlation cap (§5B
+  item 2) is unchanged — 10 positions therefore needs at least 5 distinct themes to fill. The 80%
+  deployment ceiling and 20%-cash-reserve floor (§3/§14 item 2) are also unchanged, so more slots
+  mainly means smaller size per position once funding (not the count cap) becomes the binding
+  constraint — as it already has been on recent entries (e.g. GDX, sized down by remaining
+  deployment headroom rather than the risk budget). DEGRADED_AUTONOMOUS's reduced 2-position cap
+  (§14 Automatic Recovery State Machine) is unaffected — this only raises the *normal*-state cap.
 - **2026-08-19: "Continuous Autonomous Operation Amendment" — user instruction, pasted as a full
   binding-mandate spec.** Added the §14 "Mode B Automatic Recovery State Machine," scoped strictly
   to the Mode B autonomous trigger (not Mode A, not manual chat trading). Before: any of a
@@ -604,13 +613,13 @@ are for audit and notification only and create no confirmation requirement.
 | Trigger | Immediate response | Automatic recovery |
 |---|---|---|
 | A position trades below its hard stop, or a broad market gap invalidates multiple active long setups (§16 item 4) | Execute the planned protective exit when executable. No new long entries for the remainder of that regular session. | **SESSION_RESTRICTED.** At the next pre-market cycle, automatically reassess the market and resume normal AUTONOMOUS_EXECUTE entries if data is available and the standard §5B gates pass. No manual phrase required. |
-| Three stop-outs within a rolling 10-calendar-day window (§16 item 10) | Enter **DEGRADED_AUTONOMOUS**, not observe-only. | Continue trading at cut size: 0.5% (not 1%) planned loss per new trade; cap concurrent positions at 2; prohibit new entries in the correlated sector/theme that produced the stop-outs. Restore normal 1%-risk/4-position capacity automatically after five completed regular sessions with no additional stop-out and no daily-loss breaker. |
+| Three stop-outs within a rolling 10-calendar-day window (§16 item 10) | Enter **DEGRADED_AUTONOMOUS**, not observe-only. | Continue trading at cut size: 0.5% (not 1%) planned loss per new trade; cap concurrent positions at 2; prohibit new entries in the correlated sector/theme that produced the stop-outs. Restore normal 1%-risk/10-position capacity automatically after five completed regular sessions with no additional stop-out and no daily-loss breaker. |
 | Agentic Account equity falls 3%+ intraday (§6) | No additional new positions for the remainder of that regular session; continue managing protective exits and scanning/logging. | At the next pre-market cycle, automatically resume in **DEGRADED_AUTONOMOUS** (0.5% planned loss per new trade) for one full session. Restore normal capacity automatically after that session if no new breaker triggers. |
 | Three consecutive Robinhood MCP errors, or reported positions don't match the account (§6) | Suspend new-entry order submission only — protective exits (§16) remain active per the standing exit-management mandate above. Continue scanning/logging; run automatic account/position reconciliation at the next cycle. | Resume new-entry order submission automatically once two consecutive reconciliations agree on account cash, positions, and order states. If reconciliation keeps failing, escalate in the log — no user phrase is required to keep retrying. |
 
 All other hard controls are unaffected and remain in force exactly as elsewhere in this document:
 Agentic-account-only wall (§1), dynamic 80% deployment ceiling (§14 item 2), confirmed
-settled/non-margin buying power only, four-position/two-correlated-position caps in normal state
+settled/non-margin buying power only, ten-position/two-correlated-position caps in normal state
 (§5B), no averaging down (§3/§16), no options/crypto/margin/shorting/leverage in the Agentic
 account (§2), initial stop at entry (§16 item 2), breakeven at +1R (§16 item 5), 50% profit-take at
 +2R (§16 item 6), and the exact emergency phrase `PAUSE AUTONOMOUS TRADING`.
