@@ -883,3 +883,32 @@ Format per entry:
   `6a85e9eb-7da8-41a7-91d2-57ee125e909d`). Risk $3.44. Stop $29.10, target $31.00.
 - Account state after: 4 open positions (CVX, NOW, GDX, HIMS), 4/10 position cap.
 - Trade Card posted to chat.
+
+## 2026-08-19 ~17:38 UTC — AUTONOMOUS (scheduled cycle) — GDX STOP-OUT, DEGRADED_AUTONOMOUS TRIGGERED
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- Account check: total value $2,515.30, cash $286.75 pre-exit, no MCP errors, no 3% circuit
+  breaker.
+- Checked all 4 positions vs §16: CVX $206.25 (stop $201.40, no trigger); NOW $127.78 (stop
+  $123.25, no trigger); **GDX $95.61 — below its $96.30 stop**; HIMS $29.51 (stop $29.10, no
+  trigger).
+- **GDX stop hit.** `get_equity_tradability` — tradable, no restrictions. `review_equity_order` —
+  clean, no alerts. Compliance quote: Bid $95.61 × 300 Q / Ask $95.62 × 700 V / Last $95.62 × 250,
+  1:39 PM ET.
+- **ORDER PLACED AND FILLED**: SELL 12 GDX LIMIT $95.40, filled @ $95.5826 avg, $0.03 fee (order
+  id `6a85ea3e-8e37-4990-ba04-90143b829162`). Entry $96.7799, documented stop $96.30. Planned loss
+  at stop: $5.76. **Actual loss: $14.40** (incl. fee). Slippage vs. documented stop: $0.72/share
+  ($8.61 total) — a real intraday cross through the stop, not a gap.
+- **§16 item 10 / Automatic Recovery State Machine trigger: three-plus stop-outs in a rolling
+  10-calendar-day window.** RKLB, DRAM, IREN (2026-08-18) + GDX (2026-08-19) = 4 stop-outs within
+  10 days. **Entering DEGRADED_AUTONOMOUS** per §14: new-trade risk cut from 1% to 0.5% of equity;
+  concurrent-position cap reduced to 2. Note: unlike 8/18's cluster, these four stop-outs don't
+  share one obvious sector/theme (aerospace, semiconductor/memory, AI-datacenter/mining, gold
+  miners) — no single correlated theme to specifically prohibit, so the position-count and
+  reduced-risk restrictions are the operative constraints. **Currently 3 positions remain open
+  (CVX, NOW, HIMS) — already above the degraded 2-position cap, so no new entries of any kind
+  until natural exits bring the count to 2 or below**, per the standing exit-management mandate
+  (existing positions are not force-closed to meet the cap). Restores automatically to normal
+  1%-risk/10-position capacity after five completed regular sessions with no additional stop-out
+  and no daily-loss breaker.
+- Outcome: **One protective exit filled (GDX). No new entries — DEGRADED_AUTONOMOUS now active,
+  and position count is already above its 2-position cap.**
