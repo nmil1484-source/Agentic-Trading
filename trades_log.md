@@ -785,3 +785,47 @@ Format per entry:
   $134.60.
 - Account state after: 2 open positions (CVX, NOW), 2/4 position cap.
 - Trade Card posted to chat.
+
+## 2026-08-19 ~15:37 UTC — AUTONOMOUS (scheduled cycle)
+- §14 Status: ACTIVE, confirmed. No kill phrase found. (Note: a "Continuous Autonomous Operation
+  Amendment" diff was drafted this session but is still stashed, unconfirmed, and NOT committed —
+  this cycle ran under the existing, currently-committed §6/§14/§16 rules unchanged.)
+- Account check: total value $2,530.99, cash $1,684.35 (all settled, $0 unsettled), no circuit
+  breaker, no MCP errors.
+- Existing positions vs §16: CVX $206.84 (stop $201.40, no trigger, still >+3R); NOW $127.96 (stop
+  $123.25, entry $127.788, no trigger, +1R not yet reached at $132.33). No exit/breakeven actions.
+- Position cap 2/4 before this cycle — screened full watchlist for a new candidate.
+- **GDX cleared §5B:**
+  1. Liquid ETF (VanEck Gold Miners), non-leveraged. ✅.
+  2. Catalyst: Fed-pause expectations, sector-wide gold-miner rally, $419M August retail inflows
+     into GDX, breakout from a multi-week falling-wedge pattern [Benzinga/Sahm Capital/24-7 Wall
+     St coverage, verified via search 2026-08-19]. ✅.
+  3. Confirmations: range-contraction/breakout location (tight 30-min consolidation $96.37-97.32
+     after the initial gap, holding gains rather than fading); relative strength vs. SPY (GDX
+     +8.9% vs. SPY ~+0.5% today); volume clearly elevated vs. normal. ✅✅✅ (3-of-6, above the
+     2-of-6 floor).
+  4. Stop: below the last hour's consolidation low, set $96.30. Risk $0.48/share (fill
+     $96.7799). Target $99.00. **Reward-to-risk ≈4.6:1** — comfortably clears the flat 1.5:1
+     floor. Regime dashboard still UNKNOWN_DEGRADED — position sized conservatively via the
+     funding constraint below regardless.
+  5. Outside first/last 15 min. ✅.
+  6. No earnings/macro conflict. ✅.
+  7. Daily setup: breakout above the prior ~$92.66 multi-week high on a falling-wedge pattern.
+     Hourly/intraday trigger: sustained consolidation holding above $96.35 for the past hour after
+     the initial gap-up, rather than fading — a range-contraction continuation trigger. ✅.
+- Position capacity: 3rd of max 4 positions. Sector/theme: gold miners/materials — no overlap with
+  CVX (energy) or NOW (software/AI), correlation cap clear (0/2 used).
+- Funding: 80% deployment ceiling recalculated = $2,024.79; deployed pre-trade $846.64
+  (CVX+NOW); remaining headroom $1,178.15 — this was the binding constraint (tighter than the
+  $25.31 risk budget), sizing capped to 12 shares (~$1,162 cost) rather than the larger
+  risk-budget-implied size.
+- Day-trade/settlement (§17): no restriction, GDX not previously traded today, entry designed to
+  hold overnight.
+- Pre-order checks: `get_equity_tradability` (GDX) — tradable, no restrictions.
+  `review_equity_order` — order_checks empty. Compliance quote: Bid $96.73 × 400 V / Ask $96.75 ×
+  600 V / Last $96.745 × 215 D, 11:38 AM ET.
+- **ORDER PLACED AND FILLED**: BUY 12 GDX LIMIT $96.95, filled @ $96.7799 avg (order id
+  `6a85ce11-1a34-408a-8895-8f5dc8d5454d`). Risk $5.76 (well within $25.31 budget). Stop $96.30,
+  target $99.00.
+- Account state after: 3 open positions (CVX, NOW, GDX), 3/4 position cap.
+- Trade Card posted to chat.
