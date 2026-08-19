@@ -841,3 +841,45 @@ Format per entry:
   leaving only ~$15.45 of headroom. No new entry can be meaningfully sized this cycle regardless of
   candidate quality — skipped full watchlist screen since no fundable capacity exists.
 - Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
+
+## 2026-08-19 ~17:37 UTC — MANUAL SCAN (user-requested, "look into more entries")
+- §14 Status: ACTIVE, confirmed. No kill phrase.
+- Account: total value $2,516.74, cash $522.99 (all settled), no circuit breaker. 90% deployment
+  ceiling (raised today) = $2,265.07; deployed pre-trade $1,993.75; headroom $271.32 — meaningfully
+  reopened by today's 80%->90% change.
+- Screened top relative-strength movers: BMNR +13.7%, CRCL +12.4%, PURR +11.8%, HOOD +7.6%, ARKG
+  +7.7%, HIMS +7.7% (later ~+8% intraday), RUN +6.2%, SOFI +5.3%, DUOL +5.0%. Checked intraday
+  (30-min) structure on HIMS, ARKG, DUOL, CRCL: ARKG choppy/round-tripping (deprioritized), DUOL
+  fading through the session after an early spike (skipped — momentum failing, not a clean
+  trigger), CRCL very strong through 16:30 UTC but **pulled back sharply right at execution time**
+  ($80.59 -> $78.60 in ~1 minute, breaking below the planned stop before entry) — skipped this
+  cycle, setup deteriorated between screening and order time. **HIMS held up cleanly all session.**
+- **HIMS cleared §5B:**
+  1. Liquid NYSE-listed common stock. ✅.
+  2. Catalyst: raised FY2026 revenue guidance to $3.1-3.3B (Q2 earnings, subscriber growth + AI
+     investment), Deutsche Bank PT raised $25->$26 (2026-08-11). [Search-aggregated coverage,
+     verified 2026-08-19; FTC data-privacy scrutiny also noted as an ongoing risk flag, not a
+     scheduled event/timing conflict]. ✅.
+  3. Confirmations: steady session-long uptrend, higher-highs/higher-lows on the 30-min chart from
+     $27.69 open to $29.58 high; relative strength vs. SPY (+8% vs. SPY roughly flat this hour);
+     orderly volume pattern consistent with sustained accumulation. ✅✅✅.
+  4. Stop: below the last 30-min consolidation low ($29.11), set $29.10. Risk $0.43/share (fill
+     $29.5299). Target $31.00. **Reward-to-risk ≈3.4:1.**
+  5. Outside first/last 15 min. ✅.
+  6. No earnings/macro conflict (Q2 already reported). ✅.
+  7. Daily setup: session-long reclaim/extension off yesterday's base. Hourly trigger: consistent
+     higher-lows through the last several 30-min bars, holding new highs rather than fading. ✅.
+- Position capacity: 4th of max 10 positions. Sector/theme: healthcare/telehealth — no overlap
+  with CVX (energy), NOW (software), or GDX (gold miners); correlation cap clear.
+- Funding: 8 shares × $29.5299 ≈ $236.24, well within the $271.32 headroom (~$35 remaining buffer
+  left deliberately for price movement).
+- Day-trade/settlement (§17): no restriction; HIMS's only prior session activity was a profitable
+  manual sell days ago (not today), so the same-day-loss-reentry rule doesn't apply. Entry designed
+  to hold overnight.
+- Pre-order checks: `get_equity_tradability` (HIMS, CRCL) — both tradable, no restrictions.
+  `review_equity_order` (HIMS) — order_checks empty. Compliance quote: Bid $29.51 × 300 N / Ask
+  $29.53 × 200 K / Last $29.52 × 200 Z, 1:37 PM ET.
+- **ORDER PLACED AND FILLED**: BUY 8 HIMS LIMIT $29.65, filled @ $29.5299 avg (order id
+  `6a85e9eb-7da8-41a7-91d2-57ee125e909d`). Risk $3.44. Stop $29.10, target $31.00.
+- Account state after: 4 open positions (CVX, NOW, GDX, HIMS), 4/10 position cap.
+- Trade Card posted to chat.
