@@ -739,3 +739,49 @@ Format per entry:
 - **HARD_OBSERVE_MODE is lifted effective this entry.** Mode B autonomous scanning, including
   new-entry screening, resumes on the next scheduled cycle, subject to all standard §5B/§3/§16
   rules as before. Position cap currently 1/4 (CVX only), full capacity available.
+
+## 2026-08-19 ~14:54 UTC — MANUAL EARLY SCAN (user-requested, off normal hourly cadence)
+- §14 Status: ACTIVE, confirmed. No kill phrase. HARD_OBSERVE_MODE lifted this session (resume
+  phrase given ~14:50 UTC) — new-entry screening back in effect.
+- Account: total value $2,530.09, cash $2,323.29 (all settled, $0 unsettled), no circuit breaker.
+  80% deployment ceiling $2,024.07; 1%-of-equity risk budget ~$25.30. Existing position: CVX only
+  (1/4 cap used).
+- Full watchlist screened via live quotes (~54 tickers) for relative strength vs. SPY (+0.45%
+  today as of scan time). Standouts: TEM +19.2% (earnings-driven, too extended/no clean stop —
+  skipped), GDX +8.7% (gold-miner rally, Fed-pause + retail-inflow catalyst, but gapped up hard
+  intraday with only a thin/noisy stop available — passed over as second choice), **NOW +6.7%**
+  (chosen).
+- **NOW cleared §5B:**
+  1. Liquid NYSE-listed common stock. ✅.
+  2. Catalyst: Wells Fargo raised PT $160→$175 (2026-08-17); Q2 beat — 23% subscription revenue
+     growth, AI ACV >$1B, 9x customer-deployment growth, new Autonomous Security suite +
+     healthcare AI partnerships + first Brazil facility (early Aug 2026).
+     [Wells Fargo PT raise / Q2 results — Benzinga/MarketBeat aggregation, verified via search
+     2026-08-19]. ✅.
+  3. Technical confirmations (2-of-6 needed, met 3-4): 9-day average reclaim (price $127.79 vs.
+     ~$123.40 9-day avg); price above 50-day SMA (stock near top of its 3-month range); volume
+     pickup (1.6M in first hour alone vs. ~15-25M typical full-day volume — proportionally
+     elevated); RSI/MACD improving off yesterday's dip. ✅✅✅✅.
+  4. Stop: today's session low $123.33, stop set $123.25. Risk $4.538/share. Target $134.60.
+     **Reward-to-risk 1.50:1** — clears the flat 1.5:1 floor exactly. Regime dashboard:
+     UNKNOWN_DEGRADED (unchanged) — sized at 5 shares against the $25.30 risk budget, already a
+     reduced/conservative size relative to the $2,024.07 deployment ceiling.
+  5. Outside first/last 15 min. ✅.
+  6. No earnings/macro conflict (ServiceNow's Q2 already reported; no new macro event in the next
+     30 min). ✅.
+  7. Daily setup: reclaim of the 9-day average and the multi-week $123-129 range after
+     yesterday's pullback. Hourly trigger: today's first hourly candle opened $123.48, closed
+     $127.70 near the session high — a strong bullish reclaim candle. ✅.
+- Position capacity: 2nd of max 4 positions. Sector/theme: enterprise software/AI — no overlap
+  with CVX (energy), correlation cap clear.
+- Funding: 5 shares × $127.79 ≈ $639 well within the $2,024.07 ceiling and settled cash $2,323.29.
+- Day-trade/settlement (§17): no restriction, NOW not previously traded today, entry designed to
+  hold overnight.
+- Pre-order checks: `get_equity_tradability` (NOW) — tradable, no restrictions. `review_equity_order`
+  — order_checks empty. Compliance quote: Bid $127.69 × 100 N / Ask $127.74 × 200 K / Last $127.74
+  × 100 D, 10:54 AM ET.
+- **ORDER PLACED AND FILLED**: BUY 5 NOW LIMIT $127.85, filled @ $127.788 avg (order id
+  `6a85c394-c2c5-45ad-8d6b-a7e7b4053c69`). Risk $22.69 (within budget). Stop $123.25, target
+  $134.60.
+- Account state after: 2 open positions (CVX, NOW), 2/4 position cap.
+- Trade Card posted to chat.
