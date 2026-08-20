@@ -303,6 +303,17 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-19: User instructed raising §18's options position-size ceiling from 2% to 6% of
+  Agentic Account equity, permanently (not scoped to one trade).** Prompted by BMNR: at yesterday's
+  pricing, no 30-60 DTE call with a real delta (0.3+) fit inside the 2% cap (~$50) at this
+  account's size (~$2,521) — only strikes with sub-0.2 delta (weak directional exposure) were
+  affordable. After: 6% of equity (~$151) is the new ceiling, affording the $21-23 strikes at
+  reasonable deltas. Flagged before making the change: because §18's stop is a zero-loss floor on
+  entry day, the position-size cap **is** the realistic worst-case single-trade loss if a gap
+  bypasses the stop — so this is a genuine, permanent 3x increase in max single-trade options
+  exposure, not a cosmetic adjustment, and breaks parity with the 1%-of-equity risk standard used
+  everywhere else in this document. §19's separate 3% LEAPS cap is unaffected — this change is
+  scoped to §18 only.
 - **2026-08-19: User instructed adding a LEAPS lane, distinct from §18's 30-60 DTE options
   policy.** New §19 (LEAPS Options Policy, Mode B, Long-Horizon Lane). 9-12 month DTE window;
   research gate adapted from §5A's Mode A checklist rather than §5B's hourly-trigger swing gate
@@ -1085,12 +1096,15 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
      of exact execution — if the option's value gaps through the stop level, exit at the earliest
      eligible execution rather than waiting for a better price.
 
-5. **Position-size ceiling: maximum premium paid per position ≤ 2% of current Agentic Account
-   equity.** The item 4 zero-loss-on-entry-day floor structurally caps realized loss well below
-   what a flat percentage-of-premium stop would (absent a gap — see item 4's gap-risk note), so
-   this ceiling is a sizing cap rather than a precise 1%-of-equity risk calculation the way an
-   equity stop-distance produces one. Treat 2% of equity as the hard maximum commitment per
-   position regardless of how tight the effective day-one risk is. Round down to whole contracts.
+5. **Position-size ceiling: maximum premium paid per position ≤ 6% of current Agentic Account
+   equity** (raised 2026-08-19 from 2%, at explicit user instruction, to make single-name options
+   on richly-priced growth names affordable at this account's size — see §12 change log). The
+   item 4 zero-loss-on-entry-day floor structurally caps realized loss well below what a flat
+   percentage-of-premium stop would in normal conditions (absent a gap — see item 4's gap-risk
+   note), but 6% of equity is now the realistic worst-case single-trade exposure if a gap bypasses
+   the stop — meaningfully larger than the 1%-of-equity risk budget every equity position uses.
+   Treat 6% of equity as the hard maximum commitment per position regardless of how tight the
+   effective day-one risk is. Round down to whole contracts.
 
 6. **Autonomous authority (2026-08-19, explicit user instruction): the Mode B AUTONOMOUS_EXECUTE
    trigger may trade options under this policy from activation, with no separate verification
