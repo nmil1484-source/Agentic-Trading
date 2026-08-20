@@ -1006,3 +1006,11 @@ Format per entry:
 - Logged as context only per §9 — not a signal, not a position of ours. TBT is not tradable under
   our system regardless (2x leveraged inverse, banned per §2). Our own HIMS position is separate
   (equity shares, not the calls shown here).
+
+## 2026-08-20 — CONTEXT LOG: Elliott Wave read on HIMS (external, §9)
+- User relayed Marilee's (FTA) view: HIMS is in a pullback, expected to resolve into another
+  Elliott Wave impulse leg higher. Context only per §9 — not a signal, does not modify or override
+  the documented $32.20 stop on our 2 remaining HIMS shares. If the stop is hit, §16 mechanics
+  execute as normal regardless of this thesis; no discretionary hold based on wave-count
+  forecasts. If HIMS forms a fresh, independently-verified setup after any pullback, it would be
+  evaluated as a new candidate through §5B like anything else.
