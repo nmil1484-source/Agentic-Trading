@@ -304,6 +304,15 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-20: User instructed adding an ATR volatility note to §13.E, sourced from a "Beginner
+  Trading Playbook" PDF the user shared.** Most of that document (dealer-gamma/pin-zone analysis,
+  unusual-options-flow sweep-chasing, VWAP-based intraday entries, opening-bell/power-hour timing)
+  describes a day-trading/0DTE-options style that conflicts with §17 (Mode B is not a day-trading
+  system) and §2 (0DTE still banned) — flagged and explicitly not adopted. ATR was the one
+  portable piece: log it alongside the stop distance as a volatility-context note, soft/
+  informational like the rest of §13.E. A separate 200-SMA note (from the Moving Average Lab
+  resource, logged earlier the same day) was proposed but not yet confirmed by the user — revisit
+  if/when answered.
 - **2026-08-20: User instructed adding §13.E, sourced from an external "Chart Markup Framework"
   reference the user shared.** Confluence note (do the §5B confirmations cluster at one price
   zone, or scatter?), a wick-vs-candle-body chart-anchoring convention, and an extension-avoidance
@@ -639,6 +648,13 @@ Flag if a stricter, hard-gate version (confluence required, not just noted) is w
   session) — treat it as a reason to prefer a pullback entry over chasing, but not an automatic
   disqualifier if the catalyst and other confirmations are strong enough to justify the entry
   anyway.
+- **ATR (Average True Range) note (2026-08-20, sourced from a "Beginner Trading Playbook"
+  reference the user shared — most of that document describes intraday/0DTE-options flow trading
+  that conflicts with §2/§17 and was explicitly not adopted; ATR was the one portable piece).**
+  Log the current ATR alongside the stop distance on a Trade Card when convenient, as a volatility
+  gauge — e.g. whether the documented stop is tight or wide relative to the name's normal daily
+  range. Soft/informational only, same treatment as the rest of this subsection: does not change
+  §5B's 2-of-6 bar, the stop-placement methodology in §13.A-D, or any sizing rule.
 
 ### References consulted 2026-08-13
 - [Fibonacci Retracement Strategy — QuantifiedStrategies](https://www.quantifiedstrategies.com/fibonacci-trading-strategy/)
