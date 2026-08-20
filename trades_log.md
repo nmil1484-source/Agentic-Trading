@@ -986,3 +986,12 @@ Format per entry:
   trigger, +1R at $132.33 not yet reached); HIMS $32.51 (stop $32.20, $0.31 buffer, no trigger).
   No circuit breaker, no MCP errors.
 - Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
+
+## 2026-08-20 ~17:37 UTC — AUTONOMOUS (scheduled cycle)
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- **DEGRADED_AUTONOMOUS remains active** (3 positions, above the 2-position degraded cap). No
+  new-entry screening performed.
+- Existing positions vs §16: CVX $207.42 (stop $201.40, no trigger); NOW $129.32 (stop $123.25, no
+  trigger, +1R at $132.33 not yet reached); **HIMS $32.28 (stop $32.20, only $0.08 buffer — closest
+  to invalidation, watching closely)**. No circuit breaker, no MCP errors.
+- Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
