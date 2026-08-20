@@ -304,6 +304,13 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-20: User instructed adding §13.E, sourced from an external "Chart Markup Framework"
+  reference the user shared.** Confluence note (do the §5B confirmations cluster at one price
+  zone, or scatter?), a wick-vs-candle-body chart-anchoring convention, and an extension-avoidance
+  guidance note. Explicitly chosen as **soft/informational** — none of it raises the §5B 2-of-6 bar
+  or blocks an otherwise-qualifying entry; user was offered a stricter hard-gate version and chose
+  the soft one. IV Guide and two additional Notion references mentioned but not yet supplied —
+  revisit if/when shared.
 - **2026-08-20: User instructed tightening DEGRADED_AUTONOMOUS to also bind manual trades.**
   Before: the Automatic Recovery State Machine's DEGRADED_AUTONOMOUS state (2-position cap,
   correlated-theme lockout, 0.5% risk sizing) applied only to the autonomous Mode B trigger — a
@@ -611,6 +618,27 @@ computed number and which rule below produced it.
   goes below the handle's low (or the handle's midpoint for a tighter stop).
 - Consolidation/range: a name still inside a multi-week consolidation with no breakout stays
   OBSERVE — do not anticipate the breakout before it happens.
+
+### E. Confluence, chart-anchoring, and extension guidance (2026-08-20)
+Added at explicit user instruction, sourced from an external chart-markup framework the user
+shared as reference material (per §9, context informing methodology, not a trading signal in
+itself). **Soft/informational — none of this raises the §5B 2-of-6 bar or blocks an entry that
+otherwise qualifies; it adds context to the Trade Card, nothing more, per explicit user choice.**
+Flag if a stricter, hard-gate version (confluence required, not just noted) is wanted later.
+- **Confluence note:** when logging which §5B item 3 confirmations a candidate has, also note
+  whether they cluster at the same price zone (e.g., a Fibonacci level, a prior support/resistance
+  line, and the 9/20 EMA all sitting near the same price) or are scattered across unrelated levels.
+  Confluence is the stronger case; scattered confirmations are the weaker one — log which it is,
+  but a 2-of-6 pass is a pass either way.
+- **Chart-anchoring convention:** when reading a chart for support/resistance vs. trend lines vs.
+  Fibonacci levels, anchor support/resistance to candle bodies and anchor trend lines and Fibonacci
+  retracements to wicks. Clarifies how these levels are measured; doesn't change what counts as a
+  valid confirmation.
+- **Extension-avoidance guidance:** note explicitly when a candidate is trading far extended above
+  its 9/20 EMA (the kind of stretch that produced the TEM/GDX/BMNR pass-overs already logged this
+  session) — treat it as a reason to prefer a pullback entry over chasing, but not an automatic
+  disqualifier if the catalyst and other confirmations are strong enough to justify the entry
+  anyway.
 
 ### References consulted 2026-08-13
 - [Fibonacci Retracement Strategy — QuantifiedStrategies](https://www.quantifiedstrategies.com/fibonacci-trading-strategy/)
