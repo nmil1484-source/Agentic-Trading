@@ -24,9 +24,13 @@ mode's own rules — account/authority (§1), exposure limits (§3), timing rule
 breakers (§6), the Tier-B fractional order-permission/stop policy (§15/§16) — is unchanged by this
 refactor and applies to both modes without exception.
 
-**Instrument rules, both modes, unchanged:**
+**Instrument rules, both modes, unchanged except for the scoped options exception below:**
 - Long common stocks and non-leveraged ETFs only.
-- No options, crypto, leveraged or inverse ETFs, short selling, margin, naked options, 0DTE, spreads, or multi-leg orders.
+- No crypto, leveraged or inverse ETFs, short selling, margin, naked options, 0DTE, spreads, or
+  multi-leg orders. **Options themselves are no longer a blanket prohibition** — see §18 (Options
+  Trading Policy, Mode B), added 2026-08-19 at explicit user instruction, for the narrow,
+  long-calls/puts-only exception. Naked options, 0DTE, spreads, and multi-leg orders remain fully
+  prohibited even under §18 — that exception is scoped strictly to single-leg long calls/puts.
 - Do not use fractional-share limit orders for a standard entry in either mode. Every equity limit order must use an exact whole-share quantity and an explicit limit price. (Scoped exception: the Fractional Tier-B Pilot Policy, §15 — untouched by this refactor, including its own LUC GREEN/WHITE requirement, item 3, which still governs the fractional order-permission mechanism specifically regardless of mode.)
 - Do not hard-code a ticker list in either mode — every candidate still requires independent, current verification appropriate to its mode, per §5A (Mode A) or §5B (Mode B), before it can appear on a Trade Card.
 
@@ -228,6 +232,19 @@ Every proposal must be presented before any confirmation request:
   (for the §5B two-correlated-positions check); settled-cash status at order time (§17 item 1);
   and whether the action involved a same-day protective exception (tag `SAME_DAY_PROTECTIVE_EXIT`
   per §17 item 3) if applicable
+- **For §18 options entries/exits (2026-08-19), also include:** `OPTIONS` tag; call or put;
+  strike; expiration date and DTE at entry; premium paid per contract and total; breakeven price;
+  current documented trailing-stop level (dollar value, and whether it's still the entry-day
+  zero-loss floor or has ratcheted up) and the calendar time-stop date; and the same
+  daily-setup/hourly-trigger/catalyst/
+  sector-theme fields required for an equity Mode B entry, since the underlying still has to clear
+  §5B in full.
+- **For §19 LEAPS entries/exits (2026-08-19), also include:** `LEAPS` tag (distinct from
+  `OPTIONS`); call or put; strike; expiration date and DTE at entry; premium paid per contract and
+  total; breakeven price; current documented trailing-stop level and whether it's still the -35%
+  initial floor or has ratcheted to the 40%-trailing level; the 90-day-before-expiration
+  reassessment date; and the §19 item 2 research-gate evidence (regime context, catalyst/thesis
+  with URL and date, weekly/daily structure) in place of §5B's hourly-trigger field.
 
 ## 8. Approved live research sources
 Use these sources in this order. Log the source URL and access timestamp in every Trade Card. (Mode
@@ -286,6 +303,45 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-19: User instructed adding a LEAPS lane, distinct from §18's 30-60 DTE options
+  policy.** New §19 (LEAPS Options Policy, Mode B, Long-Horizon Lane). 9-12 month DTE window;
+  research gate adapted from §5A's Mode A checklist rather than §5B's hourly-trigger swing gate
+  (weekly/daily structure + durable multi-month catalyst, not an hourly candle); wider exit
+  mechanic (-35% initial stop, 40% trailing once profitable, 90-day-before-expiration reassessment
+  backstop) sized for a 9-12 month hold rather than §18's zero-loss-day-one/30%-trail rule;
+  position size capped at 3% of equity premium (vs. §18's 2%); same autonomous-from-day-one
+  authority as §18, same 10-position/2-correlated-theme/90%-deployment caps, not a separate
+  allowance. Several specific numbers (the 40% vs. alternatives in the 40-50% range the user
+  offered, the 3% sizing cap, the 90-day reassessment window, autonomous authority extending to
+  LEAPS by assumption) were filled in by Claude rather than explicitly specified — each flagged
+  inline in §19 as adjustable. Flagged to the user before drafting: their named examples (SOFI,
+  BMNR) are mid-cap/small-cap, not the large-cap names "big companies" usually implies, and this
+  account's ~$2,600 size means the 3% cap (~$78) will not afford a LEAPS contract on many
+  genuinely large-cap underlyings — affordability, not just the qualifying gate, will bind on
+  higher-priced names.
+- **2026-08-19: User instructed a narrow options-trading exception, after Robinhood enabled
+  `option_level_3` on the Agentic Account.** New §18 (Options Trading Policy, Mode B). Before: §2
+  banned options outright, no exception. After: single-leg long calls/puts only (still fully
+  banned: naked options, 0DTE, spreads, multi-leg, covered calls, cash-secured puts); underlying
+  must still clear full §5B; 30-60 DTE at entry; **mandatory daily-trailing stop** (entry-day
+  zero-loss floor at premium paid, then each subsequent day the stop ratchets up to 30% below the
+  current value whenever the position is in profit, never lowered, checked at least once every
+  trading day) plus a 5-session-before-expiration time-stop backstop — refined mid-session,
+  replacing an initial draft that had used a flat 50%-of-premium stop with a +100%/50%-trim rule;
+  position size capped at 2% of equity premium paid (a sizing ceiling, not a precise 1%-equity-risk
+  calculation, since the daily-trailing mechanic structurally caps realized loss tighter than a
+  flat-percentage stop would); counts against the existing 10-position/2-correlated-theme caps and
+  the 90% deployment ceiling,
+  not in addition to them. **Two choices made at explicit user instruction, against the more
+  conservative option offered each time:** (1) autonomous authority from day one, with no
+  options-specific verification/dry-run procedure (unlike the 5-step process equities went
+  through before AUTONOMOUS_EXECUTE went live); (2) the standard 1%-of-equity risk budget rather
+  than a tighter pilot-style cap. Flagged to the user before drafting: this is the first §2
+  instrument-list change all session (every other change touched sizing/pacing/capacity/state-
+  machine rules, never what's permitted to trade), options carry a fundamentally different risk
+  shape than equities (premium can go to zero, time decay, no natural "just hold it" option), and
+  the account has no prior options trading history to validate the mechanics against before going
+  live autonomously. Diff shown to and confirmed by the user before commit.
 - **2026-08-19: User instructed raising the total-deployed-capital ceiling from 80% to 90% of
   Agentic Account equity (10% minimum cash, down from 20%).** Applies everywhere the 80%/20%
   structure was used: §3 (manual trading), §14 item 2 (Mode B autonomous deployment limit), §15
@@ -575,7 +631,8 @@ order authority.
 
 4. All existing hard blockers remain in force without exception — this is a restatement, not a
    new rule, cross-referenced to where each already lives: common stocks/non-leveraged ETFs only,
-   no options/crypto/margin/shorting/leverage/inverse ETFs/averaging down (§2); no penny stocks
+   no crypto/margin/shorting/leverage/inverse ETFs/averaging down (§2); options limited to the
+   narrow long-calls/puts-only exception in §18, autonomous-eligible per §18 item 6; no penny stocks
    (informal screen, not separately defined elsewhere — treating as consistent with §5B's
    "liquid, exchange-listed" requirement; flag if a specific price/liquidity threshold was
    intended); total-deployed ceiling, per-position cap, Tier-B fractional cap, cash reserve (§3,
@@ -986,3 +1043,156 @@ instead of being capped at one new position a day.
 - 2026-08-13: Section added at explicit user instruction, concurrent with removing Mode B's
   1/day, 3/week trade-count quota (§3/§12) — this section is the structural replacement guarding
   against the quota's removal turning Mode B into de facto day-trading. No prior version existed.
+
+## 18. Options Trading Policy (Mode B)
+Added 2026-08-19 at explicit user instruction, after Robinhood enabled `option_level_3` on the
+Agentic Account. **This is a scoped, narrow carve-out of §2's blanket options ban — not a general
+options authorization.** Everything not explicitly modified below stays fully banned: naked
+options, 0DTE, spreads, multi-leg orders, covered calls, cash-secured puts, and any option
+strategy other than a single-leg long call or long put. Applies to Mode B (SWING_TRADING) only —
+Mode A remains research/alert-only and has no order authority of any kind, options included.
+
+1. **Permitted instrument: single-leg long calls and long puts only.** No selling to open, no
+   spreads, no multi-leg combinations, no naked/uncovered positions. One option leg per trade, buy
+   to open only.
+
+2. **Underlying must still clear the full §5B Swing Entry Gate** — catalyst/relative-strength
+   driver with URL/date, 2-of-6 technical confirmations, daily-chart setup plus hourly execution
+   trigger, and outside the timing windows in §4. An option is a different way to express the same
+   thesis §5B already requires for an equity swing entry — it does not relax any of §5B's
+   conditions. The reward-to-risk floor (≥1.5:1, flat, regardless of regime state) is computed on
+   the option's own economics (premium paid vs. realistic profit target), not the underlying
+   stock's price move.
+
+3. **Expiration window: 30-60 days to expiration (DTE) at entry** (2026-08-19, explicit user
+   instruction). Do not open a new long option position outside this window.
+
+4. **Mandatory daily-trailing stop, checked at least once every trading day** (2026-08-19,
+   explicit user instruction, refining an initial draft that used a flat 50%-premium stop — this
+   is the operative mechanic):
+   - **Entry day: stop = premium paid (zero-loss floor).** Exit if the position's value would
+     return less than the original cost — no loss tolerated from day one.
+   - **Every subsequent trading day: if the position is above entry (in profit), move the stop up
+     to 30% below the current value.** Recompute daily; the stop only ratchets upward and is never
+     lowered (same never-move-a-stop-lower principle as §16 item 5). If the position hasn't moved
+     into profit yet, the entry-day zero-loss floor remains the operative stop.
+   - **Time-stop backstop:** close by 5 trading sessions before expiration regardless of where the
+     trailing stop sits, to prevent a stagnant position bleeding to theta decay into expiration.
+   - This is a continuous trailing mechanism, not a discrete profit-trim — it replaces the
+     +100%/50%-trim idea from the initial draft. Checked once per trading day (not intraday) as
+     part of the normal position-check cycle, same cadence as equity stop checks.
+   - Gap/slippage risk: as with §16 item 4's equity gap rule, a documented stop is not a guarantee
+     of exact execution — if the option's value gaps through the stop level, exit at the earliest
+     eligible execution rather than waiting for a better price.
+
+5. **Position-size ceiling: maximum premium paid per position ≤ 2% of current Agentic Account
+   equity.** The item 4 zero-loss-on-entry-day floor structurally caps realized loss well below
+   what a flat percentage-of-premium stop would (absent a gap — see item 4's gap-risk note), so
+   this ceiling is a sizing cap rather than a precise 1%-of-equity risk calculation the way an
+   equity stop-distance produces one. Treat 2% of equity as the hard maximum commitment per
+   position regardless of how tight the effective day-one risk is. Round down to whole contracts.
+
+6. **Autonomous authority (2026-08-19, explicit user instruction): the Mode B AUTONOMOUS_EXECUTE
+   trigger may trade options under this policy from activation, with no separate verification
+   procedure** — this differs from how equity autonomous authority was rolled out (§14's 5-step
+   verification procedure before live activation); the user explicitly chose to skip an equivalent
+   staged rollout for options. All other §14 hard blockers (funding/deployment ceiling, position
+   caps, day-trade/settlement checks, `get_equity_tradability`-equivalent and `review_equity_order`-
+   equivalent pre-order checks) apply to options exactly as they apply to equities — use
+   `get_option_instruments`/`get_option_quotes`/`get_option_chains` to select the contract, and
+   `review_option_order` before every `place_option_order`, with the same no-warnings-no-alerts
+   discipline as equity orders (§14 item 5).
+
+7. **Capacity and correlation:** an open long option position counts as one ordinary Mode B
+   position against the 10-position cap (§5B) and the 2-per-theme correlation cap — combined with
+   equity positions, not in addition to them. Premium paid counts against the 90% total-deployed
+   ceiling (§3/§14 item 2) exactly like an equity position's cost basis.
+
+8. **No averaging down.** Never buy more contracts of a losing position to lower the average
+   premium. A closed/invalidated option position is not re-entered same-day (§17 item 4's
+   principle, applied to options).
+
+9. **Every options entry/exit requires a full Trade Card** per §7's options-specific fields (call/
+   put, strike, expiration, DTE, premium, breakeven, max planned loss, exit-rule levels) and a
+   `trades_log.md` entry tagged `OPTIONS`, same discipline as every other Mode B trade.
+
+10. **Reality check flagged to the user at authorization time (2026-08-19):** this section was
+    activated with no options-specific dry run, no prior options trade of any kind in this
+    account's history, and immediate autonomous authority — a materially faster and less staged
+    rollout than equity autonomous execution received. The user chose "autonomous from day one"
+    and "same 1%-of-equity risk budget as equities" over the more conservative options offered
+    (manual-only start; tighter pilot-style cap). Options can lose 100% of premium and decay with
+    time in a way equities structurally cannot — worth remembering the first time this section
+    actually executes a trade.
+
+## 19. LEAPS Options Policy (Mode B, Long-Horizon Lane)
+Added 2026-08-19 at explicit user instruction, immediately after §18, as a separate long-duration
+lane — **§18's 30-60 DTE window does not stretch to cover LEAPS; this section exists because that
+gap needed its own rules, not a tweak to §18.** Same instrument restriction as §18: single-leg long
+calls/puts only, buy-to-open only, no spreads/multi-leg/naked/covered/cash-secured. Counts against
+the same 10-position/2-correlated-theme caps and the 90% deployment ceiling as every other Mode B
+position — LEAPS are not a separate allowance on top of those.
+
+**Reality check flagged before drafting:** the user's examples (SOFI, BMNR) are a mid-cap fintech
+(~$18-19B market cap) and a small-cap, crypto-adjacent name — not "big companies" in the
+traditional large-cap sense (AAPL/MSFT/AMZN territory). Worth naming plainly since a genuinely
+large-cap LEAPS call (e.g. on a $200+ stock) will cost meaningfully more premium than one on SOFI
+or BMNR, and this account is currently ~$2,600 total equity — affordability, not just eligibility,
+will bind hard on higher-priced underlyings. Flagging this now rather than after a contract search
+comes back unaffordable.
+
+1. **Expiration window: 9-12 months to expiration (DTE) at entry** (2026-08-19, explicit user
+   instruction) — distinct from §18's 30-60 day window.
+
+2. **Research gate: a longer-horizon standard, adapted from §5A's Mode A checklist, not §5B's
+   swing gate** (2026-08-19, explicit user instruction) — no hourly execution trigger is required,
+   since a 9-12 month hold isn't timed off an hourly candle. A LEAPS candidate qualifies when:
+   - Current FTA Regime Dashboard classification is logged (context; UNKNOWN_DEGRADED doesn't
+     block, per §6's existing exception — it still triggers the item 4 reduced-size rule below).
+   - A verified catalyst or durable multi-month thesis from a primary/reputable source (URL and
+     date) — not a single-day news event, but something with a plausible multi-quarter arc
+     (secular trend, sector tailwind, company-specific multi-year catalyst).
+   - A clear weekly/daily uptrend or basing structure (higher-highs/higher-lows on the weekly
+     chart, or a multi-month base with volume support) — the §13 methodology's market-structure
+     and Fibonacci tools apply here, read on a weekly/daily basis rather than intraday.
+   - Reward-to-risk ≥1.5:1 (same flat floor as everywhere else in this document), computed on the
+     option's economics against a realistic multi-month target, not the underlying's price alone.
+   - LUC status logged for context if the underlying is covered, same as every other Mode B entry
+     — never itself a gate (§5B's existing principle, carried over here).
+
+3. **Exit mechanic — wider than §18's, sized for a 9-12 month hold** (2026-08-19, explicit user
+   instruction: "wider trailing stop, 40-50% below peak" — filled in below into one concrete rule;
+   flag if a different split was intended):
+   - **Initial stop at entry: -35% of premium paid.** A zero-loss-on-day-one floor (§18's rule)
+     doesn't fit a position meant to absorb normal weekly/monthly volatility over 9-12 months —
+     this is a deliberate, filled-in departure from §18's mechanic, not an oversight.
+   - **Once the position is profitable, trail the stop at 40% below the current peak value.**
+     Recompute at least weekly (daily is fine but not required, given the longer hold horizon);
+     the stop only ratchets upward, never lowered, same principle as §16 item 5 and §18 item 4.
+   - **Time-stop backstop: close or reassess by 90 calendar days before expiration**, regardless
+     of the trailing-stop level — LEAPS theta decay accelerates meaningfully in the final ~90
+     days, and this prevents a stagnant position bleeding value into that window. "Reassess" may
+     mean close, roll to a new expiration, or hold with explicit reasoning logged — but it must be
+     an active decision, not silence.
+   - Gap/slippage risk note carries over from §18 item 4: a documented stop is not a guaranteed
+     execution price.
+
+4. **Position-size ceiling: maximum premium paid per LEAPS position ≤ 3% of current Agentic
+   Account equity** (filled in by Claude, not explicitly specified by the user — flag if a
+   different number is wanted). Set slightly above §18's 2% short-dated cap to reflect the longer
+   conviction horizon, but still modest given the account's size — at ~$2,600 equity this is
+   roughly $78, which will not afford a LEAPS contract on many genuinely large-cap names (see the
+   reality check above). Round down to whole contracts; if the cap can't afford one contract on a
+   given underlying, the trade doesn't happen — do not stretch the cap to force a fill.
+
+5. **Autonomous authority: same as §18 — the Mode B AUTONOMOUS_EXECUTE trigger may trade LEAPS
+   under this policy from activation, no separate verification procedure** (assumed consistent
+   with the user's §18 choice; flag if LEAPS specifically should be manual-only instead, given
+   the larger premium-per-contract and longer hold typically involved).
+
+6. **No averaging down.** Same principle as §16/§18 — never add to a losing LEAPS position to
+   lower the average premium.
+
+7. **Every LEAPS entry/exit requires a full Trade Card** (§7's options fields, plus explicit
+   labeling as `LEAPS` distinct from the `OPTIONS` tag used for §18's shorter-dated trades) and a
+   `trades_log.md` entry tagged `LEAPS`.
