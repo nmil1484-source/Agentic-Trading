@@ -235,7 +235,8 @@ Every proposal must be presented before any confirmation request:
 - **For §18 options entries/exits (2026-08-19), also include:** `OPTIONS` tag; call or put;
   strike; expiration date and DTE at entry; premium paid per contract and total; breakeven price;
   current documented trailing-stop level (dollar value, and whether it's still the entry-day
-  zero-loss floor or has ratcheted up) and the calendar time-stop date; and the same
+  15%-cushion floor or has ratcheted up to the 30%-trailing level) and the calendar time-stop
+  date; and the same
   daily-setup/hourly-trigger/catalyst/
   sector-theme fields required for an equity Mode B entry, since the underlying still has to clear
   §5B in full.
@@ -303,6 +304,14 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-20: User instructed loosening §18's entry-day options stop from a literal zero-loss
+  floor to a 15%-below-premium cushion.** Before: day-one stop = premium paid exactly, no loss
+  tolerated at all. After: day-one (and every day until the position turns profitable) stop = 15%
+  below premium paid; the 30%-below-peak trailing mechanic once profitable is unchanged. Reasoning
+  given: a literal zero-loss stop would get triggered by ordinary bid-ask spread alone on most
+  fills, making the floor effectively unusable in practice. Scoped to §18 (30-60 DTE options)
+  only — §19's LEAPS lane already used a wider -35% initial floor and is unaffected by this
+  change.
 - **2026-08-19: User instructed raising §18's options position-size ceiling from 2% to 6% of
   Agentic Account equity, permanently (not scoped to one trade).** Prompted by BMNR: at yesterday's
   pricing, no 30-60 DTE call with a real delta (0.3+) fit inside the 2% cap (~$50) at this
@@ -1079,14 +1088,17 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
    instruction). Do not open a new long option position outside this window.
 
 4. **Mandatory daily-trailing stop, checked at least once every trading day** (2026-08-19,
-   explicit user instruction, refining an initial draft that used a flat 50%-premium stop — this
-   is the operative mechanic):
-   - **Entry day: stop = premium paid (zero-loss floor).** Exit if the position's value would
-     return less than the original cost — no loss tolerated from day one.
-   - **Every subsequent trading day: if the position is above entry (in profit), move the stop up
-     to 30% below the current value.** Recompute daily; the stop only ratchets upward and is never
-     lowered (same never-move-a-stop-lower principle as §16 item 5). If the position hasn't moved
-     into profit yet, the entry-day zero-loss floor remains the operative stop.
+   explicit user instruction, refined twice mid-session — first from a flat 50%-premium stop to a
+   zero-loss-day-one/30%-trailing design, then from that zero-loss floor to the 15% cushion below,
+   after the user flagged that a literal zero-loss stop gets whipsawed by ordinary bid-ask spread
+   alone):
+   - **Entry day (and every day until the position is profitable): stop = 15% below premium
+     paid.** Exit if the position's value falls more than 15% below the original cost — a real
+     cushion for normal day-to-day noise, not a zero-tolerance floor.
+   - **Once the position moves into profit (value above entry), move the stop up to 30% below the
+     current value.** Recompute daily; the stop only ratchets upward and is never lowered (same
+     never-move-a-stop-lower principle as §16 item 5) — it cannot fall back to the 15%-loss floor
+     once the profit-trailing mechanic has taken over.
    - **Time-stop backstop:** close by 5 trading sessions before expiration regardless of where the
      trailing stop sits, to prevent a stagnant position bleeding to theta decay into expiration.
    - This is a continuous trailing mechanism, not a discrete profit-trim — it replaces the
@@ -1099,8 +1111,8 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
 5. **Position-size ceiling: maximum premium paid per position ≤ 6% of current Agentic Account
    equity** (raised 2026-08-19 from 2%, at explicit user instruction, to make single-name options
    on richly-priced growth names affordable at this account's size — see §12 change log). The
-   item 4 zero-loss-on-entry-day floor structurally caps realized loss well below what a flat
-   percentage-of-premium stop would in normal conditions (absent a gap — see item 4's gap-risk
+   item 4 15%-cushion entry-day floor structurally caps realized loss well below what an
+   unstructured position would see in normal conditions (absent a gap — see item 4's gap-risk
    note), but 6% of equity is now the realistic worst-case single-trade exposure if a gap bypasses
    the stop — meaningfully larger than the 1%-of-equity risk budget every equity position uses.
    Treat 6% of equity as the hard maximum commitment per position regardless of how tight the
@@ -1177,9 +1189,10 @@ comes back unaffordable.
 3. **Exit mechanic — wider than §18's, sized for a 9-12 month hold** (2026-08-19, explicit user
    instruction: "wider trailing stop, 40-50% below peak" — filled in below into one concrete rule;
    flag if a different split was intended):
-   - **Initial stop at entry: -35% of premium paid.** A zero-loss-on-day-one floor (§18's rule)
-     doesn't fit a position meant to absorb normal weekly/monthly volatility over 9-12 months —
-     this is a deliberate, filled-in departure from §18's mechanic, not an oversight.
+   - **Initial stop at entry: -35% of premium paid.** Even §18's 15%-cushion floor (loosened from
+     an original zero-loss design, see §12 change log) doesn't fit a position meant to absorb
+     normal weekly/monthly volatility over 9-12 months — this is a deliberate, filled-in departure
+     from §18's mechanic, not an oversight.
    - **Once the position is profitable, trail the stop at 40% below the current peak value.**
      Recompute at least weekly (daily is fine but not required, given the longer hold horizon);
      the stop only ratchets upward, never lowered, same principle as §16 item 5 and §18 item 4.
