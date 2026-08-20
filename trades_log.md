@@ -995,3 +995,14 @@ Format per entry:
   trigger, +1R at $132.33 not yet reached); **HIMS $32.28 (stop $32.20, only $0.08 buffer — closest
   to invalidation, watching closely)**. No circuit breaker, no MCP errors.
 - Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
+
+## 2026-08-20 — CONTEXT LOG: FTA Trade Tracker screenshot (external reference, §9)
+- User shared a screenshot of the FTA Trade Tracker (§8 source 4) — not our Agentic account.
+  This Week: 13 open trades, 4 closed, 100% win rate, total P&L +$405.00, open P&L -$8,174.20.
+  Notable positions shown: HIMS $35 CALL exp. 10/16/26 (entry $2.87, current $2.84, -1%,
+  rolled from two 9/18 expirations into a single October expiration); TBT (2x leveraged short
+  20Yr Treasury ETF, 30 shares, entry $38.88, -1.9%, explicitly a macro/fundamental thesis on
+  rising long-end yields, not a technical trade).
+- Logged as context only per §9 — not a signal, not a position of ours. TBT is not tradable under
+  our system regardless (2x leveraged inverse, banned per §2). Our own HIMS position is separate
+  (equity shares, not the calls shown here).
