@@ -304,6 +304,17 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-20: User instructed tightening DEGRADED_AUTONOMOUS to also bind manual trades.**
+  Before: the Automatic Recovery State Machine's DEGRADED_AUTONOMOUS state (2-position cap,
+  correlated-theme lockout, 0.5% risk sizing) applied only to the autonomous Mode B trigger — a
+  manually-confirmed trade in this chat used the normal 10-position/1%-risk rules even while
+  DEGRADED_AUTONOMOUS was active. After: DEGRADED_AUTONOMOUS's caps now bind manual Mode B entries
+  too — a live CONFIRM ORDER phrase still authorizes an order, but the order must fit the degraded
+  caps while that state is active. Prompted directly by the account sitting at 3 open positions
+  (above the 2-position degraded cap, triggered by 2026-08-19's GDX stop-out) while a manual BMNR
+  options trade was being discussed — the user chose consistency over the loophole. The other
+  three Automatic Recovery State Machine rows (gap-rule SESSION_RESTRICTED, 3% equity decline,
+  MCP-error reconciliation) remain scoped to the autonomous trigger only, unchanged.
 - **2026-08-20: User instructed loosening §18's entry-day options stop from a literal zero-loss
   floor to a 15%-below-premium cushion.** Before: day-one stop = premium paid exactly, no loss
   tolerated at all. After: day-one (and every day until the position turns profitable) stop = 15%
@@ -706,9 +717,15 @@ EXECUTION`, item 7 above) — that remains entirely manual to enter *and* to lea
 AUTONOMOUS SWING TRADING`, item 8, still gated on a clear reconciliation/circuit-breaker check at
 that moment). Everything below governs the four system-detected triggers only, replacing the prior
 HARD_OBSERVE_MODE-plus-manual-resume handling **for Mode B's autonomous trigger specifically.** It
-does not touch Mode A (still research/alert-only) or any trade requested manually in this chat —
-§1's live CONFIRM ORDER requirement, and manual trading's own HARD_OBSERVE_MODE/human-review path,
-are both unchanged.
+does not touch Mode A (still research/alert-only). **DEGRADED_AUTONOMOUS is the one exception
+(2026-08-20, explicit user instruction — "tighten up" so the reduced state also binds manual
+trades):** while DEGRADED_AUTONOMOUS is active, its 2-position cap, correlated-theme lockout, and
+0.5% risk sizing apply to Mode B entries confirmed manually in this chat too, not just the
+autonomous trigger — a live CONFIRM ORDER phrase still authorizes the order, but the order itself
+must fit inside the degraded caps like any other Mode B entry while the state is active. The other
+three trigger rows (session-restricted gap rule, 3% equity decline, MCP-error reconciliation)
+remain scoped to the autonomous trigger only, unchanged — §1's live CONFIRM ORDER requirement, and
+manual trading's own HARD_OBSERVE_MODE/human-review path for those three, are otherwise unchanged.
 
 In every state below, these continue uninterrupted: exit/stop management (§16), scheduled
 scanning, regime/data checks, watchlist ranking, and `trades_log.md` logging. Log every trigger,
