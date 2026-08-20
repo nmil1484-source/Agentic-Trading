@@ -945,3 +945,26 @@ Format per entry:
   prior cycle). Will re-check for the trim at the next post-close cycle.
 - Outcome: **OBSERVE for new entries (DEGRADED_AUTONOMOUS); no trim action on HIMS this cycle
   (same-day protection).** Zero order-related API calls made.
+
+## 2026-08-20 ~14:38 UTC — AUTONOMOUS (scheduled cycle) — HIMS +2R/+3R TRIM (first post-open cycle)
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- **DEGRADED_AUTONOMOUS remains active** (triggered 2026-08-19, GDX stop-out; now also binds
+  manual trades per 2026-08-20 tightening). 3 positions open (CVX, NOW, HIMS), above the
+  2-position degraded cap even after this cycle's trim (HIMS remains open, just smaller) — no
+  new-entry screening performed.
+- Account check: total value $2,545.02, no circuit breaker, no MCP errors.
+- Existing positions vs §16: CVX $207.54 (stop $201.40, no trigger); NOW $128.705 (stop $123.25,
+  entry $127.788, +1R at $132.33 not yet reached, no trigger). **HIMS $32.44** — well above both
+  +2R ($30.39) and +3R ($30.82), and now held through a full regular-session close (8/19 close
+  $31.09), satisfying the day-trade-protection condition that held the trim yesterday.
+- **HIMS +2R/+3R trim executed**: `get_equity_tradability` — tradable, no restrictions.
+  `review_equity_order` — clean, no alerts. Compliance quote: Bid $32.38 × 500 P / Ask $32.40 ×
+  200 N / Last $32.39 × 100 V, 10:38 AM ET. **ORDER PLACED AND FILLED**: SELL 6 HIMS LIMIT $32.30,
+  filled @ $32.3135 avg (order id `6a871167-f1c3-40d8-a06e-a569349b29f9`) — combined 50% (+2R) +
+  25% (+3R) trim in one order since both thresholds were already cleared by the time same-day
+  protection allowed action. Realized gain on trimmed shares: $16.70 (entry $29.5299 → $32.3135).
+  Remaining position: 2 shares. New trailing stop set at **$32.20** (below today's most recent
+  higher-low pivot, ~$32.30-32.32 from the 14:10-14:20 UTC bars) — up from the prior $29.85
+  breakeven+ stop, consistent with §16 item 5's never-lower rule.
+- Outcome: **One risk-management action (HIMS trim + stop update). No new entries — position count
+  still 3, above DEGRADED_AUTONOMOUS's 2-cap.**
