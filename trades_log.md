@@ -1085,3 +1085,19 @@ Format per entry:
   `6a886fba-40bf-4d0a-a731-b9c0bd46c1ef`). Risk $19.20, stop $105.30, target $110.50.
 - Account state after: 4 open positions (CVX, NOW, HIMS, HOOD), 4/10 position cap.
 - Trade Card posted to chat.
+
+## 2026-08-21 ~15:37 UTC — AUTONOMOUS (scheduled cycle)
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- Account check: total value $2,555.29, cash $344.79, no circuit breaker, no MCP errors.
+  DEGRADED_AUTONOMOUS's position-cap/risk-sizing cuts remain removed (2026-08-21) — only the
+  correlated-theme lockout would still apply (not triggered).
+- Existing positions vs §16: CVX $205.71 (stop $201.40, no trigger); NOW $130.875 (stop $123.25,
+  no trigger, +1R at $132.33 not yet reached); HIMS $33.46 (stop $32.20, no trigger, well clear);
+  HOOD $106.96 (stop $105.30, entry $106.90, essentially flat just after this cycle's manual
+  entry, no trigger). No exit/breakeven actions.
+- Position cap 4/10 — but **funding is now the binding constraint**: 90% deployment ceiling
+  $2,299.76, with $2,210.50 already deployed (after the HOOD entry this cycle), leaving only
+  ~$89.26 of headroom. Skipped a full new-candidate screen since no meaningfully-sized new entry
+  fits regardless of setup quality.
+- Outcome: **OBSERVE for new entries (funding exhausted).** No additional order placed this cycle
+  beyond the manual HOOD entry already logged above.
