@@ -1045,3 +1045,43 @@ Format per entry:
   trigger, +1R at $132.33 not yet reached); HIMS $32.87 (stop $32.20, $0.67 buffer, no trigger —
   up ~3.2% from yesterday's $31.86 close). No exit/breakeven actions.
 - Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
+
+## 2026-08-21 ~15:33 UTC — MANUAL SCAN (user-requested, "let's do a scan!")
+- §14 Status: ACTIVE, confirmed. No kill phrase. DEGRADED_AUTONOMOUS's position-cap/risk-sizing
+  cuts were removed earlier today (2026-08-21) — normal 10-position/1%-risk rules apply; only the
+  correlated-theme lockout would still bind (not triggered here, no overlap).
+- Account: total value $2,553.42, cash $1,627.59 (all settled), no circuit breaker. 90% deployment
+  ceiling $2,298.08; deployed pre-trade $925.83; headroom ~$1,372.25.
+- Full watchlist screened via live quotes (~48 tickers) vs. SPY (+0.4% today). Standouts: HOOD
+  +12.1% (chosen), RGTI +7.6%, CRCL +6.4%, SOFI +5.8%, BMNR +5.8%, PURR +6.2%.
+- **HOOD cleared §5B:**
+  1. Liquid NYSE-listed common stock (Robinhood Markets). ✅.
+  2. Catalyst: Bitcoin hit a 2-month high; regulatory optimism around the CLARITY Act and
+     tokenized equities — same verified Reuters-sourced catalyst identified 8/19, still driving
+     the sector 8/21. ✅.
+  3. Confirmations: range-contraction/consolidation (gapped to $109.71, pulled back to $105.39,
+     then held a tightening $105.63-107.79 range for ~an hour); relative strength vs. SPY (+12.1%
+     vs. +0.4%); volume clearly elevated (6.8M in the first hour alone). ✅✅✅ (3-of-6).
+  4. Stop: below the post-spike consolidation low, set $105.30. Risk $1.60/share (fill $106.90).
+     Target $110.50 (just past the intraday high). **Reward-to-risk ≈2.25:1** — clears the flat
+     1.5:1 floor. Regime dashboard status not re-checked this cycle (manual scan, not autonomous;
+     sizing already conservative via funding constraint below).
+  5. Outside first/last 15 min (11:33 AM ET). ✅.
+  6. No earnings/macro conflict identified. ✅.
+  7. Daily setup: large catalyst-driven gap breakout. Hourly trigger: sustained consolidation
+     holding above the post-spike low for ~an hour, resuming upward in the most recent 5-min bars
+     rather than fading further. ✅.
+- Position capacity: 4th of max 10 positions. Sector/theme: fintech/crypto-adjacent brokerage — no
+  overlap with CVX (energy), NOW (software), or HIMS (healthcare/telehealth); correlation cap
+  clear.
+- Funding: 12 shares × $106.90 ≈ $1,282.80, within the ~$1,372.25 headroom.
+- Day-trade/settlement (§17): no restriction, HOOD not previously traded today, entry designed to
+  hold overnight.
+- Pre-order checks: `get_equity_tradability` (HOOD) — tradable, no restrictions.
+  `review_equity_order` — order_checks empty. Compliance quote: Bid $106.80 × 600 K / Ask $106.85
+  × 600 K / Last $106.84 × 100 D, 11:27 AM ET.
+- User confirmed via exact phrase: "CONFIRM ORDER: BUY 12 HOOD LIMIT 106.90".
+- **ORDER PLACED AND FILLED**: BUY 12 HOOD LIMIT $106.90, filled @ $106.90 avg (order id
+  `6a886fba-40bf-4d0a-a731-b9c0bd46c1ef`). Risk $19.20, stop $105.30, target $110.50.
+- Account state after: 4 open positions (CVX, NOW, HIMS, HOOD), 4/10 position cap.
+- Trade Card posted to chat.
