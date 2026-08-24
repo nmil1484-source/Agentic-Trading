@@ -304,6 +304,18 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-24: User instructed removing the gap-rule's same-day SESSION_RESTRICTED new-entry
+  pause.** Before: after any gap-rule protective exit (§16 item 4), the autonomous trigger paused
+  all new entries for the remainder of that regular session, resuming automatically at the next
+  pre-market cycle. After: the exit still executes immediately as before, but scanning and new
+  entries continue normally the same session — no pause at all. Prompted directly by today's HIMS
+  gap-rule exit (profitable, not a loss) blocking the rest of the session's opportunities for no
+  clear reason. Flagged before making the change: the pause existed as a precaution against a gap
+  being a symptom of broader market-wide risk-off conditions rather than a one-off; removing it
+  means a gap exit no longer triggers any cooldown, autonomous or otherwise, before the next entry.
+  Scoped to the autonomous trigger only, same as before — manual/Mode A trading is unaffected and
+  was never covered by this pause. The other two Automatic Recovery State Machine rows (3% equity
+  decline, MCP-error reconciliation) are unchanged.
 - **2026-08-21: User instructed loosening DEGRADED_AUTONOMOUS's restrictions, prompted by sitting
   at 3 positions since 8/19 with no new entries possible.** Before: 2-position cap, 0.5% risk per
   new trade (half of normal), correlated-theme lockout, 5-session recovery. After: position cap
@@ -793,7 +805,7 @@ are for audit and notification only and create no confirmation requirement.
 
 | Trigger | Immediate response | Automatic recovery |
 |---|---|---|
-| A position trades below its hard stop, or a broad market gap invalidates multiple active long setups (§16 item 4) | Execute the planned protective exit when executable. No new long entries for the remainder of that regular session. | **SESSION_RESTRICTED.** At the next pre-market cycle, automatically reassess the market and resume normal AUTONOMOUS_EXECUTE entries if data is available and the standard §5B gates pass. No manual phrase required. |
+| A position trades below its hard stop, or a broad market gap invalidates multiple active long setups (§16 item 4) | Execute the planned protective exit when executable. **(2026-08-24: the same-day new-entry pause was removed — see §12 change log.)** Scanning and new-entry evaluation continue normally for the rest of the session, subject to the standard §5B gates. | N/A — no restricted state to recover from; normal AUTONOMOUS_EXECUTE continues uninterrupted after the exit. |
 | Three stop-outs within a rolling 10-calendar-day window (§16 item 10) | Enter **DEGRADED_AUTONOMOUS**, not observe-only. | Continue trading at normal size (1% planned loss per new trade, normal 10-position cap — both loosened 2026-08-21, see §12 change log); the only remaining restriction is prohibiting new entries in the correlated sector/theme that produced the stop-outs. Lift that theme lockout automatically after five completed regular sessions with no additional stop-out and no daily-loss breaker. |
 | Agentic Account equity falls 3%+ intraday (§6) | No additional new positions for the remainder of that regular session; continue managing protective exits and scanning/logging. | At the next pre-market cycle, automatically resume in **DEGRADED_AUTONOMOUS** at normal size (1% planned loss per new trade — loosened 2026-08-21) for one full session; with sizing no longer cut, this trigger's practical effect is limited to the same-session pause above. No new breaker required to resume fully normal the following session. |
 | Three consecutive Robinhood MCP errors, or reported positions don't match the account (§6) | Suspend new-entry order submission only — protective exits (§16) remain active per the standing exit-management mandate above. Continue scanning/logging; run automatic account/position reconciliation at the next cycle. | Resume new-entry order submission automatically once two consecutive reconciliations agree on account cash, positions, and order states. If reconciliation keeps failing, escalate in the log — no user phrase is required to keep retrying. |
@@ -1059,11 +1071,12 @@ time stop shortened from 10 to 7 trading sessions. Items 1-5, 7, and 9-11 are un
 
 4. Gap rule: if price opens below the stop, do not wait for a bounce — review and exit the full
    position at the earliest available eligible execution. Log actual slippage. **For a Mode B
-   AUTONOMOUS_EXECUTE position (2026-08-19, see §14 Automatic Recovery State Machine): enter
-   SESSION_RESTRICTED for the remainder of that session** — no new entries, but exit management,
-   scanning, and logging continue, and normal entries resume automatically at the next pre-market
-   cycle if data is available and §5B gates pass, with no manual resume phrase required. Manual/
-   Mode A trading still enters a full HARD_OBSERVE_MODE (§6) requiring human review.
+   AUTONOMOUS_EXECUTE position (2026-08-19, see §14 Automatic Recovery State Machine, same-day
+   pause removed 2026-08-24 — see §12 change log): execute the exit and continue scanning/trading
+   normally the same session** — the prior SESSION_RESTRICTED same-day new-entry pause has been
+   removed at explicit user instruction; a gap-exit no longer blocks new entries for the rest of
+   that session. Exit management, scanning, and logging continue as always. Manual/Mode A trading
+   still enters a full HARD_OBSERVE_MODE (§6) requiring human review.
 
 5. Breakeven rule: after a position reaches +1R, move the stop to entry price or the nearest
    higher technical support, whichever is higher. Never move the stop lower afterward.
