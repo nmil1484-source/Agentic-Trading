@@ -1140,3 +1140,31 @@ Format per entry:
   at $108.50 not yet reached, no trigger). No circuit breaker, no MCP errors, no exit/breakeven
   actions.
 - Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
+
+## 2026-08-24 ~14:40 UTC — AUTONOMOUS (scheduled cycle, first post-open cycle of the week) — HIMS GAP-RULE EXIT (PROFITABLE)
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- Account check: total value $2,550.36, cash $346.57, no circuit breaker, no MCP errors.
+- Weekend gap: HIMS closed Friday (8/21) at $33.78, opened Monday at ~$31.22 — a ~7.6% weekend
+  gap-down, trading below the documented $32.20 stop.
+- **HIMS gap rule triggered.** `get_equity_tradability` — tradable, no restrictions.
+  `review_equity_order` — clean, no alerts. Compliance quote: Bid $31.23 × 200 Z / Ask $31.26 ×
+  200 Q / Last $31.24 × 100 N, 10:40 AM ET.
+- **ORDER PLACED AND FILLED**: SELL 2 HIMS LIMIT $31.00, filled @ $31.28 avg (order id
+  `6a8c57e9-971d-49c9-b380-9e6258cae632`) — better than limit. This closes the HIMS position
+  entirely (all 8 original shares now sold across the 8/20 +2R/+3R trim and this exit).
+- **This was a profitable exit, not a loss.** Original entry $29.5299 × 8 shares; trimmed 6 shares
+  at $32.3135 (+$16.70) on 8/20; final 2 shares closed here at $31.28 (+$3.50). **Total realized
+  gain on HIMS: +$20.20 (~8.6% on the original position) over 3 trading sessions.** The stop had
+  trailed up well above entry via the daily-trailing mechanism before this gap took it out — the
+  mechanism worked as designed (locked in gains, then exited on a pullback), it just happened via
+  the gap rule rather than an intraday cross. **This does NOT count toward the §16 item 10
+  three-stop-outs-in-10-days circuit breaker** — that trigger is about loss-management failures;
+  this trade was net profitable throughout its life, not an invalidated setup.
+- Per §16 item 4, entering **SESSION_RESTRICTED** for the remainder of today's session regardless
+  (gap risk generally, not loss-specific) — no new entries today; automatically reassesses at the
+  next pre-market cycle.
+- Existing positions vs §16: CVX $203.97 (stop $201.40, $2.57 buffer, no trigger); NOW $129.21
+  (stop $123.25, no trigger); HOOD $107.475 (stop $105.30, entry $106.90, +1R at $108.50 not yet
+  reached, no trigger).
+- Outcome: **One protective exit filled (HIMS, profitable). SESSION_RESTRICTED for the rest of
+  today — no new entries.** Position count now 3/10.
