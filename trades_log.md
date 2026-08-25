@@ -1254,3 +1254,48 @@ Format per entry:
 - No new positions, no additional action. Current state unchanged from the prior entry: CVX and
   NOW open (2/10), DEGRADED_AUTONOMOUS active (theme-lockout only, no concrete target).
 - Outcome: **No action — both cycles subsumed by the 01:53 UTC catch-up entry.**
+
+## 2026-08-25 ~14:37 UTC — AUTONOMOUS (scheduled cycle, first post-open) — FULL WATCHLIST SCAN, NO TRADE
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- Account: total value $2,174.03, cash $816.43 (= buying power, settled/spendable), equity_value
+  $837.60, options_value $520 (user's manually-placed IBIT call — filled since last check, not a
+  Mode B position, not managed by this system, noted for completeness only). No MCP errors, no
+  position mismatch. This is the first cycle of the day — today's equity baseline set at
+  $2,174.03; no 3% intraday-decline comparison possible yet.
+- FTA Regime Dashboard: checked https://fta-regime-dashboard.onrender.com/ — still all loading
+  placeholders (prices, market intelligence, structural risk, inflation model). **UNKNOWN_DEGRADED**,
+  as every check this session. Reduced sizing would apply to any new entry.
+- Existing positions vs §16: CVX $201.79 (stop $201.40, only **$0.39 buffer — closest to
+  invalidation**, watching closely; still the single non-divisible share past +3R, held as-is);
+  NOW $127.245 (stop $123.25, no trigger). No exit/breakeven actions triggered.
+- **Full watchlist momentum/gate screen run this cycle** (real data, not assumption): scanned all
+  56 watchlist names for 4-week relative strength vs. SPY, then ran live §5B checks on the six
+  cleanest non-extended standouts — PLTR, ORCL, ZS, ASTS, KTOS, IGV:
+  - **PLTR**: bullish daily 9/20 EMA alignment (9-EMA $173.05 > 20-EMA $163.02, 8/24 close), but
+    intraday faded hard off the open (high $179.87 → now $174.15) — a rejection, not a trigger.
+    No entry.
+  - **ZS**: consistent intraday downtrend all morning (open $175.01 → now $172.79). No entry.
+  - **ASTS, KTOS**: choppy/rangebound intraday, no clean directional trigger. No entry.
+  - **IGV**: tight rangebound chop ($102.05-103.34), no trigger. No entry.
+  - **ORCL — closest candidate, still OBSERVE not PROPOSE.** Daily setup: bullish 9/20 EMA
+    alignment (9-EMA $144.75 > 20-EMA $143.44, 8/24 close) and price reclaiming the 50-day SMA
+    ($144.59) intraday (currently ~$145.2-145.5, was below it at Monday's $142.45 close) — 2
+    technical confirmations if the reclaim holds. Intraday structure genuinely constructive:
+    gapped up, higher lows through the morning (30-min lows $143.19→$143.77→$144.43→$144.48),
+    holding near highs rather than fading. **Held back from PROPOSE for three reasons:** (1) the
+    50-SMA reclaim is intraday-only, not yet confirmed by a daily close — §13.B's own principle
+    ("don't enter blind mid-pullback before that close confirms") argues for waiting; (2) the
+    catalyst is diffuse, not a single fresh dated event — today's move reads as broad AI-sector
+    recovery sentiment plus a week-old batch of Oracle Health AI/AWS/Quantinuum partnership news
+    ([stockanalysis.com](https://stockanalysis.com/stocks/orcl/), checked 2026-08-25 ~15:40 UTC),
+    not a specific checkable catalyst with today's date; (3) ORCL is still **-55% from its
+    October 2025 ATH of $345.72** — this is a severely-beaten-down name attempting a bounce, not
+    a clean uptrend leader, which changes the risk read even though the last-month bounce (+24%)
+    looked strong in isolation. RSI 48.67 (8/24 close) — above 45 but not clearly improving
+    (oscillating 48-52 over the last week), not a confident confirmation on its own.
+    **Action: watching for an actual daily-close confirmation above the 50-SMA with a cleaner
+    catalyst before this clears the gate** — not proposed this cycle.
+- Day-trade/settlement (§17): not checked in depth — moot, no order was near submission.
+- Funding: not applicable — no order attempted.
+- **Outcome: OBSERVE — no trade.** Zero order-related API calls made. This was a real, full-effort
+  scan (not a rubber-stamp OBSERVE) — see the momentum/gate detail above.
