@@ -1428,3 +1428,20 @@ Format per entry:
 - **Mandatory same-day flatten applies** (§20 item 1.9) — this position must close by end of
   today's regular session regardless of where it stands, no exception.
 - **Outcome: RGTI Mode C entry filled and protected. No other trades this cycle.**
+
+## 2026-08-25 ~19:36 UTC — AUTONOMOUS (scheduled cycle) — MONITORING, NO NEW TRADE
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- Account: NOW $126.61 (stop $123.25, no trigger). RGTI $16.83 (entry $17.11, stop $16.57 —
+  confirmed still resting via get_equity_orders, $0.26 buffer, not yet at +1R so no
+  breakeven/trailing action). Broad market flat today (SPY range-bound $763-766 all session) —
+  RGTI's pullback reads as idiosyncratic, not a market-wide move.
+- Mode C daily P&L: -$5.32 unrealized on RGTI (open position), realized $0. Well inside the
+  2.5%-of-equity ($53.88) daily loss limit. Capacity: 1/3 concurrent, 1/5-6 entries today.
+- Re-checked CRCL (yesterday's other candidate): continued to new highs ($93.17 close, $93.33
+  high) on the 18:00-19:00 UTC bar, but this is drift beyond its actual ORB trigger point (last
+  cycle's H4 close, $92.23) — not a fresh, clean signal, just chasing an already-used trigger.
+  Not entered.
+- No new Mode B or Mode C screening beyond the above — existing positions monitored, no exit
+  conditions met on either.
+- **Outcome: OBSERVE — no new trade, no exit.** Zero order-related API calls made this cycle
+  beyond the confirmation check on RGTI's resting stop.
