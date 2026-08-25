@@ -1344,3 +1344,41 @@ Format per entry:
   could run; existing-position and prior-candidate status confirmed clean, no exit/entry action
   needed regardless.
 - **Outcome: OBSERVE — no trade.** Zero order-related API calls made this cycle.
+
+## 2026-08-25 ~17:36 UTC — AUTONOMOUS (scheduled cycle) — FIRST MODE C CYCLE, OBSERVE BOTH MODES
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- Account: total value $2,158.27, equity_value $634.53 (NOW only), options_value $506 (user's
+  IBIT, unmanaged), cash/buying power $1,017.74. No MCP errors, no position mismatch, no 3%
+  circuit breaker.
+- **MODE B**: NOW $126.94 (stop $123.25, no trigger; entry $127.79, +1R at $132.33 not reached).
+  Only open Mode B position (1/10). Did not re-run the full watchlist §5B scan this cycle (already
+  covered at 14:37 and 15:39 UTC today); ORCL from earlier watch: not re-checked this cycle,
+  revisit next cycle.
+- **MODE C — first live cycle.** Equity for sizing: $2,158.27 → 0.5% risk budget = $10.79/trade;
+  2.5% daily loss/profit limits = $53.96 each way. Starting capacity: 0/3 concurrent, 0/5-6 today,
+  $0 running P&L (no Mode C positions exist yet).
+  - Screened ~40 liquid watchlist names using hourly bars (VWAP-pullback/ORB/mean-reversion per
+    §20 item 5). Most names showed either declining/thin hourly volume (disqualifying per the
+    volume-confirmation rule), pure chop, or no real pullback structure (monotonic grinds with no
+    dip-and-reclaim candle to trade off).
+  - **Closest candidate: HOOD.** Strong uptrend today (+7.5% on the day, $103.62→~$111.41), real
+    volume all morning (1.8-1.9M/hour). The 16:00-17:00 UTC hourly bar dipped to $110.55 then
+    closed at $110.905 — closer to that bar's low than its high, a rejection-leaning candle, not
+    a clean bullish reclaim. Current price (17:53 UTC, mid-way through the next hourly bar) is
+    back up at $111.41, which would be a reclaim **if** it holds through this bar's close — but
+    that close hasn't happened yet. Per the same discipline applied to ORCL this morning (§13.B:
+    don't enter on an unconfirmed intra-bar move), **not entering on this partial bar.** ATR(14,
+    hourly) = $2.41, for reference on next cycle's stop sizing if it does confirm.
+  - No ORB setups identified (well past the opening-range window for a fresh breakout read) and
+    no mean-reversion extremes seen on this scan.
+  - **Note on HOOD specifically**: this is the same ticker stopped out at a loss in Mode B less
+    than 24 hours ago (2026-08-25 ~01:53 UTC catch-up entry, for Monday 8/24's session). That was
+    a different trading day and a different mode (Mode B swing vs. Mode C day-trade) — §17 item
+    4's same-day-loss-reentry rule doesn't carry over across modes or across days — but flagging
+    the overlap for the record rather than treating it as a coincidence-free green light.
+  - **Open design question, not yet resolved**: §20 doesn't currently specify whether a Mode B
+    DEGRADED_AUTONOMOUS state (§14/§16 item 10) constrains Mode C or vice versa — for now treating
+    the two as independent systems since §20 doesn't cross-reference the Automatic Recovery State
+    Machine. Flagging for the user; not blocking anything today since no Mode C entry was made.
+- **Outcome: OBSERVE — no trade in either mode.** Zero order-related API calls made this cycle.
+  Watching HOOD's hourly close next cycle for Mode C; NOW/ORCL continue under Mode B.
