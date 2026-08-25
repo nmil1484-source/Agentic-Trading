@@ -1179,3 +1179,61 @@ Format per entry:
   $105.30, entry $106.90, +1R at $108.50 — only $0.10 away, watching closely)**. No exit/breakeven
   actions triggered yet.
 - Outcome: **OBSERVE — no trade.** Zero order-related API calls made.
+
+## 2026-08-25 ~01:53 UTC — AUTONOMOUS (delayed scheduled cycle) — HOOD STOP-OUT, DEGRADED_AUTONOMOUS RE-TRIGGERED
+- **Processing delay flagged up front.** Two scheduled cycles queued for 2026-08-24 16:36:06 UTC
+  and 17:36:36 UTC did not actually run in real time — this session's worker restarted and the
+  notifications only delivered once it came back, landing at ~01:51 UTC on 8/25 (regular market
+  hours had already closed). This is an infrastructure/delivery gap, not a rule or data problem —
+  flagged because it directly affected the HOOD stop below (see outcome).
+- §14 Status: ACTIVE, confirmed (grep on CLAUDE.md). No kill phrase found in chat history since
+  last cycle.
+- Account check (post-delay): total value $2,504.04 pre-exit, cash $409.13, buying power $409.13.
+  No 3-consecutive-MCP-error state, no position mismatch. Day's equity vs. this morning's
+  first-cycle baseline ($2,550.36 at ~14:40 UTC 8/24): -1.8%, under the 3% circuit breaker.
+- FTA Regime Dashboard: checked https://fta-regime-dashboard.onrender.com/ — still loading
+  placeholders across all sections (prices, market intelligence, structural risk, inflation model).
+  **UNKNOWN_DEGRADED**, as every check this session.
+- Existing positions vs §16, using last available quotes (Monday 8/24 regular close + brief
+  after-hours print, since actual real-time monitoring during the session was unavailable — see
+  delay note above):
+  - CVX: close $203.09 vs. stop $201.40 ($1.69 buffer) — no trigger. Still the single non-divisible
+    share past +3R, held as-is per longstanding note (50%/25% partial-trim mechanic isn't
+    operable on a 1-share position).
+  - NOW: close $128.05, entry $127.788, stop $123.25. +1R level is $132.326 — not yet reached, no
+    trigger.
+  - **HOOD: closed Monday's regular session at $103.62 — BELOW its documented $105.30 stop.**
+    Last logged check at ~15:39 UTC (11:39am ET) had HOOD at $108.40, comfortably above stop and
+    only $0.10 from +1R. Sometime between then and the 4:00pm ET close, HOOD sold off roughly 4.4%
+    intraday and crossed the stop — a real intraday cross, not a gap — but the two cycles that
+    should have caught this live (12:36pm ET, 1:36pm ET) never actually ran due to the delay noted
+    above.
+- **HOOD stop breach acted on immediately upon discovery, per §16 item 3 ("do not wait," same
+  earliest-eligible-execution principle as the gap rule).** `get_equity_tradability` — tradable,
+  `all_day_tradability: tradable`. `review_equity_order` — clean, no alerts. Compliance quote: Bid
+  $103.40 × 100 K / Ask $103.50 × 1200 P / Last $103.4002 × 447, updated 7:59 PM ET (after-hours).
+- **ORDER PLACED AND FILLED**: SELL 12 HOOD LIMIT $103.00 (all_day_hours, GTC, marketable), filled
+  @ $104.3667 avg, $0.02 fee (order id `6a8cf58d-505a-4040-9279-cec4c24951c0`). Entry $106.90 ×
+  12 = $1,282.80. Exit proceeds $1,252.40 - $0.02 fee = $1,252.38. **Actual loss: $30.42 (2.37%
+  of the position).** Planned loss at the documented stop ($106.90 → $105.30 × 12) was $19.20 —
+  **slippage $11.22 total ($0.935/share)**, attributable to the missed real-time checks plus
+  thinner after-hours liquidity, not a widened/moved stop (stop was never touched).
+- Post-fill account: total value $2,502.30, cash $1,661.51, buying power $1,661.51. Position count
+  now 2/10 (CVX, NOW).
+- **§16 item 10 / Automatic Recovery State Machine: this is a genuine stop-out (loss), unlike
+  8/24's profitable HIMS gap exit.** Current rolling 10-trading-day window (8/18 through today)
+  contains RKLB, DRAM, IREN (8/18), GDX (8/19), and now HOOD (8/24-realized) — five stop-outs,
+  well past the 3-stop-out threshold. **DEGRADED_AUTONOMOUS is (re-)triggered/extended** — per the
+  2026-08-21 loosening, the only restriction is the correlated-theme lockout (position-cap and
+  risk-sizing cuts were removed). Checked for a shared theme across this cluster: aerospace
+  (RKLB), memory/semis (DRAM), AI-datacenter/mining (IREN), gold miners (GDX), and now
+  fintech/consumer brokerage (HOOD) — no single common theme, same conclusion as the original
+  8/19 trigger. **No concrete lockout target currently applies**, but flagging HOOD's theme
+  (fintech/brokerage/crypto-adjacent) for correlation screening against any future candidate in
+  that space. The five-clean-session recovery clock resets as of this stop-out; next count starts
+  at the next completed regular session with no additional stop-out.
+- No new-entry screening this cycle: well outside regular trading hours at processing time
+  (~9:53pm ET), so no new positions considered regardless of capacity/DEGRADED_AUTONOMOUS status.
+- **Outcome: one protective stop-loss exit filled (HOOD, real loss). DEGRADED_AUTONOMOUS
+  re-triggered (theme-lockout only, no concrete target right now). No new entries — market closed
+  at processing time.**
