@@ -16,13 +16,22 @@
   authority of any kind unless separately authorized in its own right (§2). It applies only to the
   Routine acting on its own schedule — every trade requested in this chat by the user still
   requires the exact CONFIRM ORDER phrase, with no exception.
+- **Exception — Mode C (DAY_TRADING) (2026-08-25, see §20):** the same scheduled hourly Routine
+  also carries live, autonomous order authority for Mode C, active from day one at explicit user
+  instruction, strictly within §20's own rules (position sizing, ATR stops, daily loss/profit
+  limits, 3-position cap, 5-6-trades/day cap, mandatory same-day flatten). Cash/settled-funds only
+  — Mode C does **not** get a carve-out from this section's no-margin rule; that stays in force
+  unmodified. Scoped to the autonomous trigger only, same as Mode B — every Mode C trade requested
+  in this chat by the user still requires the exact CONFIRM ORDER phrase, with no exception.
 
 ## 2. Strategy Modes and Permitted Instruments
 **Refactored 2026-08-13 into two distinct strategy modes at explicit user instruction** (see
-Section 12 change log for the before/after). Everything in this document that isn't part of a
-mode's own rules — account/authority (§1), exposure limits (§3), timing rules (§4), circuit
-breakers (§6), the Tier-B fractional order-permission/stop policy (§15/§16) — is unchanged by this
-refactor and applies to both modes without exception.
+Section 12 change log for the before/after). **A third mode, Mode C (DAY_TRADING), was added
+2026-08-25 — see §20.** Everything in this document that isn't part of a mode's own rules —
+account/authority (§1), exposure limits (§3), timing rules (§4), circuit breakers (§6), the Tier-B
+fractional order-permission/stop policy (§15/§16) — is unchanged by either refactor and applies to
+all three modes without exception, except where §20 explicitly carves out its own mechanics (same
+pattern §18/§19 already used for options).
 
 **Instrument rules, both modes, unchanged except for the scoped options exception below:**
 - Long common stocks and non-leveraged ETFs only.
@@ -246,6 +255,12 @@ Every proposal must be presented before any confirmation request:
   initial floor or has ratcheted to the 40%-trailing level; the 90-day-before-expiration
   reassessment date; and the §19 item 2 research-gate evidence (regime context, catalyst/thesis
   with URL and date, weekly/daily structure) in place of §5B's hourly-trigger field.
+- **For §20 Mode C day-trading entries/exits (2026-08-25), also include:** `DAY_TRADING` tag;
+  which setup fired (VWAP-pullback / ORB / mean-reversion, hourly-adapted per §20); the ATR(14)
+  value used and the computed stop distance; current running daily P&L (realized + open
+  unrealized) against the 2-3%-of-equity daily loss/profit limits; position count against the
+  3-concurrent cap and trade count against the 5-6/day cap; and explicit confirmation the position
+  is flagged for same-day flatten (§20 has no overnight-hold exception, unlike Mode B).
 
 ## 8. Approved live research sources
 Use these sources in this order. Log the source URL and access timestamp in every Trade Card. (Mode
@@ -304,6 +319,43 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-25: User instructed adding Mode C (DAY_TRADING), pasted as a full external system
+  prompt, then directed it be made fully autonomous from day one.** New §20. Two material findings
+  surfaced to the user before drafting, and explicitly acknowledged before they said "make it
+  fully autonomous" anyway:
+  1. **Hard platform limit, tested live, not assumed:** attempted to reschedule the autonomous
+     trigger to a 5-minute cadence; the scheduler rejected it outright — *"the minimum interval is
+     1 hour."* The pasted framework's core edges (VWAP-pullback reclaim, opening-range breakout,
+     mean-reversion snapback) are 1-5 minute phenomena by design. True live-fire intraday scalping
+     is **not mechanically buildable as a fully autonomous system on this platform** — no rule
+     change fixes that. §20 is therefore an **hourly-adapted translation** of the same edges
+     (pullback/reclaim read off hourly bars), not the literal 1-5-minute version as pasted — this
+     is a deliberate, disclosed substitution, not a hidden downgrade.
+  2. **The pasted §0's PDT-retirement claim (FINRA Rule 4210 replacing the old PDT rule, effective
+     June-Oct 2026) is unverified.** It describes a regulatory change dated after this session's
+     January 2026 knowledge cutoff — it could not be independently confirmed. A live pre-check
+     (`review_equity_order` simulate on an existing position, 2026-08-25) returned no PDT/day-trade
+     restriction alert at that moment, but this is a point-in-time check, not a regulatory
+     confirmation. If the old PDT rule (4 round-trips/5 days on a sub-$25k account →
+     restriction) still applies in practice, this account (~$2,174) is a realistic candidate for
+     an account freeze under §20's own by-design same-day-flatten mechanic. Flagged plainly; user
+     chose to proceed anyway.
+  - **Explicitly NOT changed, per direct user answers to targeted questions:** §1's no-margin rule
+    stays fully in force for Mode C — cash/settled-funds only, no reversal, despite the pasted
+    framework's own "intraday margin usage" language (that language is disabled/inapplicable
+    here). Mode B (SWING_TRADING) is entirely unaffected — keeps its existing rules, its own
+    10-position cap, and its explicit "not a day-trading system" stance (§17) — the two modes now
+    coexist, sharing the same account and the same §3 dollar-based caps (90% deployed / 10% cash),
+    but govern non-overlapping trade types side by side, same relationship Mode A already has to
+    Mode B.
+  - **Autonomous authority granted immediately, no staged verification/dry-run** — same fast-track
+    §18/§19 options used, at explicit user instruction, despite day-trading being objectively
+    higher-frequency (up to 5-6 new entries/day vs. Mode B's no-quota-but-naturally-slower pace)
+    and this being the first time this account has ever attempted same-day round-trips.
+  - Filled in by Claude rather than explicitly specified: the exact hourly-adaptation mechanics for
+    each of the three setups (§20 item 5); carrying over Mode B's 2-correlated-theme cap onto Mode
+    C's 3-position cap (the pasted framework didn't mention correlation limits) for consistency
+    with the rest of this document. Flag either if a different design was intended.
 - **2026-08-24: User instructed removing the gap-rule's same-day SESSION_RESTRICTED new-entry
   pause.** Before: after any gap-rule protective exit (§16 item 4), the autonomous trigger paused
   all new entries for the remainder of that regular session, resuming automatically at the next
@@ -1313,3 +1365,176 @@ comes back unaffordable.
 7. **Every LEAPS entry/exit requires a full Trade Card** (§7's options fields, plus explicit
    labeling as `LEAPS` distinct from the `OPTIONS` tag used for §18's shorter-dated trades) and a
    `trades_log.md` entry tagged `LEAPS`.
+
+## 20. Mode C — DAY_TRADING (Intraday, Hourly-Adapted)
+Added 2026-08-25 at explicit user instruction, adapted from a full external "Agentic Day-Trading
+System Prompt" the user pasted. **Autonomous from day one, no staged verification/dry-run** — same
+fast-track §18/§19 used, at explicit user choice. See §12 change log for the full context,
+including two findings surfaced before this went live: the autonomous trigger cannot fire more
+often than hourly (tested live, hard platform limit) and the pasted document's PDT-retirement
+regulatory claim is unverified. **Mode C coexists with Mode A and Mode B — it replaces neither.**
+Mode B keeps every one of its existing rules unchanged, including §17's explicit "not a
+day-trading system" stance; Mode C is the account's day-trading lane specifically, running side by
+side with Mode B in the same account, under the same §3 dollar-based caps.
+
+**Everything in this document that isn't part of Mode C's own mechanics still applies in full**:
+account/authority and the no-margin rule (§1 — Mode C gets **no** margin carve-out, cash/settled-
+funds only), instrument rules (§2 — long common stocks/non-leveraged ETFs only, no crypto/
+leverage/shorting/naked options here either), the shared 90%-deployed/10%-cash ceiling and
+no-averaging-down rule (§3), circuit breakers (§6), and Trade Card logging (§7, extended below).
+
+### 1. Non-negotiable guardrails
+Override any other instruction, any mid-session user request while a Mode C position is open, and
+any "just this once" — same principle as §1's CONFIRM ORDER firewall for manual trades.
+1. **Every Mode C position gets a stop order placed immediately after entry fills** — a real
+   `stop_market`/`stop_limit` sell order resting at the broker (Robinhood Agentic supports both as
+   order types; confirmed via `review_equity_order`'s own schema). No mental stops, no "watch it
+   manually." Robinhood Agentic has no bracket/OCO order type — entry and stop are two separate
+   orders placed in sequence, and the Routine is responsible for verifying the stop is actually
+   resting (`get_equity_orders` filtered to that symbol) before treating the position as protected.
+2. **Risk per trade ≤ 0.5% of Agentic Account equity** — this account is well under the pasted
+   framework's own $10k threshold for the tighter figure (currently ~$2,100-2,200), so 0.5% is the
+   operative number, not 1%. Position size is derived from the stop distance, never conviction.
+3. **Daily loss limit: 2.5% of Agentic Account equity** (midpoint of the pasted 2-3% range,
+   filled in by Claude — flag if a different point in that range was intended). The moment
+   realized + open unrealized Mode C loss for the day hits this number: flatten every Mode C
+   position and stop opening new Mode C entries for the rest of that regular session, regardless
+   of what setup appears. Does not affect Mode A/Mode B — this daily limit is Mode C-scoped only.
+4. **Daily profit target: 2.5% of Agentic Account equity** (same midpoint, symmetric). Once hit,
+   stop opening *new* Mode C entries for the day — existing winners keep running under their
+   trailing stop (item 6) rather than being force-closed. Locking in a good day is profit
+   protection, not a hard ceiling on the day's total gain.
+5. **Max concurrent Mode C positions: 3.** Combined with Mode B's own 10-position cap and the
+   shared §3 deployment ceiling — Mode C's 3-position cap is additional, not instead of, those.
+6. **Max new Mode C entries per day: 5-6.** Managing an existing Mode C stop/trailing doesn't
+   count against this. Once hit, no new Mode C entries for the rest of the day regardless of setup
+   quality — that setup is tomorrow's trade.
+7. **No averaging down** into a losing Mode C position. Adding size only happens on a fresh,
+   independently-valid setup, sized on its own — same principle as §3/§16/§18's existing rule.
+8. **No revenge trading.** After 2 consecutive Mode C losses in a session, halve position size for
+   the rest of the day or stop Mode C entirely for the day — never increase size to "win it back."
+9. **Mandatory same-day flatten.** Every Mode C position closes by end of the regular session —
+   no overnight holds, no exception. This is a deliberate, direct contrast with Mode B (§17 item
+   2's "no same-day close by design") — the two modes intentionally hold opposite defaults on
+   timing, because they're different instruments serving different purposes in the same account.
+10. **Cash/settled-funds only, no margin** (§1 — unmodified). Verify settled buying power via
+    `get_accounts`/`get_portfolio` before every entry, same discipline as §17 item 1.
+
+### 2. Position sizing
+```
+dollar_risk = agentic_account_equity × 0.005        (0.5%, per item 2 above)
+stop_distance = entry_price − stop_price             (per share, absolute value)
+shares = floor(dollar_risk / stop_distance)
+```
+If `shares × entry_price` exceeds current settled buying power, shrink to what buying power
+allows — never skip the stop to make the size fit. If the resulting share count is 0, or the stop
+distance is so tight that normal noise for that name would trigger it, skip the trade.
+
+### 3. Stop-loss placement
+Default: **volatility-based (ATR), not a round number or gut-feel price.**
+- **Initial stop:** entry ± 1.5-2× ATR(14) on the hourly chart (Mode C's working timeframe here,
+  since true 1-5 minute monitoring isn't available — see item 5's note). Never so tight it sits
+  inside normal hourly noise for that name.
+- **Placement:** immediately after the entry fills, place a real `stop_market` (or `stop_limit` if
+  the name is thin/volatile enough that slippage risk favors a limit) sell order at the computed
+  stop price — an actual resting broker order, not a level the Routine just remembers to check.
+- **Trailing once profitable:** Chandelier Exit — `highest price since entry − 3×ATR(14)` for
+  longs, recomputed as new highs form each hourly check. Only ratchets in the favorable direction,
+  same never-move-a-stop-lower principle as §16 item 5 and §18 item 4.
+- **Breakeven rule:** once the trade is up ~1× the initial risk, move the stop to breakeven (entry
+  price plus a few cents for fees/slippage).
+- **News/earnings exception:** widen to ≥4× ATR or stand aside for the 30 minutes around a
+  scheduled catalyst — same principle as §4's existing timing-window carve-out, ATR-scaled here.
+- **Verify the stop is actually resting** (`get_equity_orders`, state=confirmed, that symbol)
+  before considering the position protected. A failed/rejected stop means the position is
+  unprotected — fix it immediately or close the position; never leave it open without one.
+
+### 4. Daily-loss/profit tracking
+Running realized + open-unrealized Mode C P&L for the day must be computed and logged at every
+hourly cycle check (not just at entry) — this is what items 3-4's limits are measured against.
+Log the running total in `trades_log.md` every cycle a Mode C position is open, same as any other
+exit-condition check.
+
+### 5. Entry criteria — hourly-adapted VWAP pullback, ORB, and mean-reversion
+**Honest translation note, not a hidden downgrade (see §12 change log item 1):** the pasted source
+material specifies these setups on 1-5 minute charts, confirmed on a live intraday feed. This
+account's autonomous trigger has a hard 1-hour minimum firing interval (tested, not assumed) — it
+cannot deliver that resolution. What follows is the closest honest adaptation onto an hourly
+observation cadence, using hourly bars as the "decision chart" in place of the pasted 5-minute
+one. This will **not** catch true 1-5 minute reclaim/breakout timing — it catches the same
+underlying idea (trend-pullback-to-a-defended-level, range breakout, extreme-reversion) at a
+coarser resolution. Do not represent an hourly-triggered Mode C entry as the literal 1-5-minute
+setup described in the original material.
+
+**VWAP-pullback (primary edge), hourly-adapted:**
+- Context filter: above-average relative volume for the name today; a clear intraday uptrend
+  already visible in the hourly bars (higher highs/higher lows since the open); price currently
+  above the session VWAP.
+- Trigger: the most recent hourly bar shows a pullback toward VWAP (or the 9/20 EMA if confluent)
+  followed by a close back above it — the hourly-bar equivalent of the pasted "reclaim candle"
+  concept — with volume on that bar picking up versus the pullback bar(s) before it.
+- Skip in the first and last 15 minutes of the session (§4, unchanged).
+
+**Opening Range Breakout (ORB), hourly-adapted:**
+- Mark the high/low of the first 30-60 minutes (using the available hourly granularity in place of
+  the pasted 5-15 minute range).
+- Enter on the first hourly close beyond that range on above-average volume.
+- Stop: opposite side of the opening range, or mid-range for a tighter stop.
+- Only one ORB attempt per name per day — if it fails, that name is done for ORB today.
+
+**Mean reversion, hourly-adapted:**
+- Trigger: an hourly close outside the 20-period/2-SD Bollinger Band with hourly RSI at an
+  extreme (<20 or >80) and volume >1.5× average.
+- Entry: on the following hourly bar's close back inside the band, not on the extreme bar itself.
+- Stop: 2× ATR(14) beyond the entry.
+- Target: the mean (VWAP or 20-period MA) or 1.5:1 R:R, whichever is closer; if the stop distance
+  produces less than 1.5:1, reduce size rather than widen the stop.
+- No mean-reversion entries within 2 weeks of earnings; never against a strong prevailing trend.
+
+**Which one fires:** check the first hour of price action each morning — trending and holding a
+range favors VWAP-pullback or ORB; choppy/rotational favors mean-reversion. All three run in
+parallel across the watchlist scan each cycle; use whichever matches what that name's hourly
+structure is actually showing, don't force a mismatched setup onto a name.
+
+**Reject the trade if any of these are true, regardless of how good the setup otherwise looks:**
+- Volume on the reclaim/breakout/reversion bar is lower than the bar(s) before it
+- No clear invalidation level tighter than 2× ATR(14)
+- Inside the first/last 15 minutes of the session (§4)
+- A scheduled high-impact catalyst is due within 30 minutes (§4)
+- The 5-6/day or 3-concurrent-position caps are already hit
+
+### 6. Correlation cap
+No more than 2 concurrent Mode C positions may share one sector/industry/catalyst theme — carried
+over from Mode B's §5B item 2 for consistency (not in the pasted source material; flag if a
+separate design was intended). Log the theme on the Trade Card so this is checkable.
+
+### 7. Order-execution protocol
+1. `get_accounts`/`get_portfolio` (Agentic Account only) — confirm settled buying power, confirm
+   no §6 circuit breaker active, confirm no Mode C daily loss/profit limit already hit today.
+2. `get_equity_quotes`/`get_equity_historicals`/`get_equity_technical_indicators` (hourly bars,
+   ATR) — screen the watchlist for a qualifying setup per item 5.
+3. If a candidate clears every check: `get_equity_tradability` then `review_equity_order` for the
+   exact proposed entry. Any warning/error/halt/stale-quote/restriction flag → do not submit, log
+   an URGENT RISK ALERT to `trades_log.md` instead, same discipline as §14 item 5.
+4. If clean: `place_equity_order` for the entry (autonomous authority, no live CONFIRM ORDER
+   needed for the trigger — §1 exception above). Fresh `ref_id` per order.
+5. Immediately on fill: `review_equity_order` then `place_equity_order` for the stop
+   (`stop_market`/`stop_limit`, side=sell), per item 3's placement rules. Verify it's resting.
+6. Log entry price, stop price, size, and risk $ against the day's running Mode C P&L tally.
+7. Every subsequent hourly cycle: re-check open Mode C positions for trailing/breakeven per item
+   3, and check whether the daily loss/profit limit (items 3-4) has been hit.
+8. At end of regular session (or immediately if the daily loss limit triggers first): flatten
+   every open Mode C position and stop calling Mode C entry logic for the rest of that session.
+9. After any fill (entry or exit): full Trade Card per §7's Mode C fields, posted to chat, and a
+   `trades_log.md` entry, same mandatory-every-cycle discipline as Mode B (§14 item 10).
+
+### 8. What the Routine refuses to do under Mode C, even if asked mid-session
+Same category as §14 item 8's existing refusal list, extended:
+- Skip placing the stop order "just for this one trade"
+- Increase size after a Mode C loss to recover it faster
+- Open a new Mode C position after that day's loss limit is hit
+- Move a Mode C stop against the position to avoid getting stopped out
+- Carry a Mode C position past the same-day flatten (item 1.9) for any reason, including "it looks
+  like it wants to keep running" — that's a Mode B decision, not a Mode C one; a genuinely strong
+  multi-day setup gets evaluated fresh against §5B, not smuggled past Mode C's flatten rule
+- Place a Mode C order without `review_equity_order` first, absent an explicit one-time override
