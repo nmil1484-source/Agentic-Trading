@@ -1237,3 +1237,20 @@ Format per entry:
 - **Outcome: one protective stop-loss exit filled (HOOD, real loss). DEGRADED_AUTONOMOUS
   re-triggered (theme-lockout only, no concrete target right now). No new entries — market closed
   at processing time.**
+
+## 2026-08-24 18:36 UTC & 19:36 UTC cycles — SUBSUMED BY 2026-08-25 ~01:53 UTC CATCH-UP
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- Two more scheduled-cycle notifications (fired 18:36:13 UTC and 19:36:10 UTC on 8/24, both still
+  within Monday's regular session) arrived queued behind the same worker-restart backlog described
+  in the prior entry, and were only delivered after both market close and the 01:53 UTC catch-up
+  cycle above had already run.
+- Not re-run individually: their intended check-in timestamps (2:36pm ET and 3:36pm ET Monday) are
+  now stale — the most current available data (Monday's regular-session close, and the after-hours
+  print used for the HOOD stop execution) has already been acted on in the ~01:53 UTC entry
+  immediately above, which supersedes what either of these two cycles would have found. Replaying
+  them against the same stale mid-session data they'd have used at the time would add nothing and
+  risks constructing a false "detected earlier, waited" record — the HOOD stop was not detected
+  until the catch-up cycle, and that is accurately what's logged above.
+- No new positions, no additional action. Current state unchanged from the prior entry: CVX and
+  NOW open (2/10), DEGRADED_AUTONOMOUS active (theme-lockout only, no concrete target).
+- Outcome: **No action — both cycles subsumed by the 01:53 UTC catch-up entry.**
