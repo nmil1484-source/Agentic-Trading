@@ -1299,3 +1299,36 @@ Format per entry:
 - Funding: not applicable — no order attempted.
 - **Outcome: OBSERVE — no trade.** Zero order-related API calls made. This was a real, full-effort
   scan (not a rubber-stamp OBSERVE) — see the momentum/gate detail above.
+
+## 2026-08-25 ~15:39 UTC — AUTONOMOUS (scheduled cycle) — CVX STOP HIT, BARELY-PROFITABLE EXIT
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- Account pre-exit: total value $2,173.91, cash/buying power $816.43. No MCP errors, no position
+  mismatch. Equity vs. today's opening baseline ($2,174.03): essentially flat, no 3% breaker.
+- CVX traded at $201.33, below its documented $201.40 stop. `get_equity_tradability` — tradable,
+  no restrictions. `review_equity_order` — clean, no alerts. Compliance quote: Bid $201.32 × 200 Q
+  / Ask $201.37 × 100 Q / Last $201.3216 × 180, 11:39 AM ET.
+- **ORDER PLACED AND FILLED**: SELL 1 CVX LIMIT $200.80, filled @ $201.3082, $0.00 fee (order id
+  `6a8db71d-d743-4baf-9198-c122d68b3ea3`). Entry $201.15. **Actual result: +$0.1582 (+0.08%) —
+  essentially breakeven, a hair on the profitable side.**
+- **Worth flagging plainly: this was a large give-back, not a clean win.** CVX ran to $208.06 at
+  its peak (over +3R from entry/original $199.50 stop) and stayed above +2R for roughly a week
+  straight, but because the position was sized at exactly **1 non-divisible share**, the §16 item 6
+  50%-at-+2R / 25%-at-+3R partial-profit-protection mechanic could never actually fire — noted at
+  the time in the 8/18 log entry and every check since ("the 50% partial-trim mechanic isn't
+  operationally divisible; held as-is"). The only protection in force was the breakeven-plus-buffer
+  stop set at $201.40 after +1R, which is what finally caught it — well below where a real trailing
+  stop (9/20 EMA / prior-day-low style, per item 6) would have exited on the way down. Net effect:
+  the whole position rode the full round trip from +$6.91/share peak unrealized gain back to
+  +$0.16/share realized. **This is a direct, costly consequence of 1-share position sizing on a
+  high-priced name — a structural gap, not a rule violation** (every check correctly identified the
+  mechanic couldn't apply and said so).
+- Post-fill account: total value ~$2,174.07 (est.), cash/buying power $817.11. Position count now
+  **1/10 (NOW only)**.
+- §16 item 10 / stop-out tracking: **this exit is net-profitable (barely) and is NOT counted as a
+  stop-out** for the 3-stop-outs-in-10-day breaker, consistent with the 8/24 HIMS precedent — that
+  breaker is for loss-management failures, not a give-back that still closed in the black.
+  DEGRADED_AUTONOMOUS (theme-lockout only, from the 8/24 HOOD stop-out) remains active/unaffected
+  by this entry either way.
+- No new-entry screening this cycle (existing-position management took priority; ORCL still
+  unconfirmed from the prior cycle, watching for a daily close above the 50-SMA).
+- **Outcome: one protective exit filled (CVX, ~breakeven). No new entries.**
