@@ -1382,3 +1382,49 @@ Format per entry:
     Machine. Flagging for the user; not blocking anything today since no Mode C entry was made.
 - **Outcome: OBSERVE — no trade in either mode.** Zero order-related API calls made this cycle.
   Watching HOOD's hourly close next cycle for Mode C; NOW/ORCL continue under Mode B.
+
+## 2026-08-25 ~18:46 UTC — AUTONOMOUS (scheduled cycle) — FIRST MODE C TRADE: RGTI ENTRY
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- Account pre-entry: total value $2,155.39, cash/buying power $1,017.74. No MCP errors, no
+  position mismatch, no 3% circuit breaker. Mode C daily P&L before this trade: $0 (no prior Mode
+  C positions). 0.5% risk budget = $10.78; 2.5% daily loss/profit limits = $53.88 each way.
+- **MODE B**: NOW $126.47 (stop $123.25, no trigger). No new Mode B screening this cycle (existing
+  position clean, prior candidates unchanged since last check).
+- **MODE C — first live trade.** Screened watchlist using hourly bars for VWAP-pullback/ORB/
+  mean-reversion (§20 item 5):
+  - **HOOD (from last cycle's watch): still not entered.** The 17:00-18:00 UTC hourly bar closed
+    at $111.255 (a real reclaim-leaning close, dipped to $110.44 then closed in the upper half of
+    the range) — but volume on that bar (1,082,978) was *lower* than the prior pullback bar's
+    volume (1,216,043), which explicitly fails §20 item 5's reject-checklist ("volume on the
+    reclaim/breakout bar is lower than the bar(s) before it"). Held to strict criteria rather than
+    "close enough" — same discipline as this morning's ORCL pass. Not entered.
+  - **CRCL**: genuine ORB-style breakout — H4 (17:00-18:00 UTC) closed $92.23 (high $92.68),
+    clearing the opening-hour range high ($91.377) for the first time, on volume roughly double
+    the prior bar (844,502 vs 414,111). A real, clean qualifying signal. Not taken this cycle in
+    favor of RGTI below — reason: at ~$92/share, the 0.5%-risk budget ($10.78) against a
+    1.5×ATR($1.95)=$2.93 stop only sizes to 3 shares, too thin to size/manage cleanly (same
+    structural problem flagged on today's CVX 1-share exit). Worth a second look next cycle if
+    capacity remains and the setup is still live — not disqualified, just deprioritized this cycle.
+  - **RGTI — taken.** Rigetti Computing. Also a genuine ORB-style breakout: H4 closed $17.22 (high
+    $17.23), clearing the opening-hour range high ($16.995) for the first time, on rising volume
+    (700,254 vs 444,278 the prior bar, +58%). Less extended over the trailing month than CRCL
+    (fresher move, lower chase risk per the extension-avoidance principle in §13.E), and its ATR
+    ($0.358, 1.5x = $0.54 stop distance) sizes to a full 19-share position on the $10.78 risk
+    budget — real granularity for the trailing/breakeven mechanics to actually function, unlike a
+    1-2 share position.
+  - `get_equity_tradability` — RGTI tradable, no restrictions. `review_equity_order` (entry) —
+    clean, no alerts. Compliance quote: Bid $17.10 × 2800 / Ask $17.11 × 1400 / Last $17.11 × 100,
+    2:45 PM ET.
+- **ORDER PLACED AND FILLED (entry)**: BUY 19 RGTI LIMIT $17.15, filled @ $17.1099 avg, $0.00 fee
+  (order id `6a8de2e0-c828-4650-84e5-81f6c581de21`).
+- **STOP PLACED AND VERIFIED RESTING**: SELL 19 RGTI STOP_MARKET $16.57 GTC (order id
+  `6a8de2ec-5eb7-431b-9ef9-e335fe38fa20`), state=confirmed, `get_equity_orders` check passed —
+  position is protected. Stop = entry − 1.5×ATR(14, hourly) = $17.1099 − $0.54 = $16.57. Planned
+  loss at stop: $10.26 (0.48% of equity, inside the 0.5% budget after rounding). 1.5R target for
+  reference: ~$17.92 — no target order placed (per §20, targets are managed via the Chandelier
+  trailing mechanic on subsequent cycles, not a resting limit sell).
+- Post-fill account: cash/buying power ≈ $692.55 (est.), position count 1/3 Mode C, 1/5-6 today.
+  Combined with Mode B's NOW, total open positions across both modes: 2.
+- **Mandatory same-day flatten applies** (§20 item 1.9) — this position must close by end of
+  today's regular session regardless of where it stands, no exception.
+- **Outcome: RGTI Mode C entry filled and protected. No other trades this cycle.**
