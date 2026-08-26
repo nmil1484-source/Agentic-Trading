@@ -1445,3 +1445,43 @@ Format per entry:
   conditions met on either.
 - **Outcome: OBSERVE — no new trade, no exit.** Zero order-related API calls made this cycle
   beyond the confirmation check on RGTI's resting stop.
+
+## 2026-08-26 ~14:36-15:46 UTC — AUTONOMOUS (first post-open cycle) — SCHEDULE INCIDENT FOUND+FIXED, OBSERVE
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- **INCIDENT DISCOVERED AND FIXED THIS CYCLE (see CLAUDE.md §12 for full detail):** RGTI (Mode C,
+  entered 2026-08-25 ~18:46 UTC) was never flattened before Tuesday's close — held overnight in
+  violation of §20 item 1.9's mandatory same-day flatten. Root cause: the trigger's last daily
+  cycle fired at 19:30 UTC (~3:30pm ET), 30 min before the actual 4:00pm ET close, and the trigger
+  prompt's flatten language was vague enough to leave room to skip it. The position closed the
+  next morning (2026-08-26 ~10:00am ET / 14:00:52 UTC per order history) when its pre-placed
+  protective stop happened to be hit at exactly $16.57 — the planned stop price, zero extra
+  slippage, but that was coincidence, not the flatten mechanism working. **Fixed directly**: cron
+  moved from `30 14-19 * * 1-5` to `55 14-19 * * 1-5` (last cycle now 19:55 UTC, 5 min before
+  close instead of 30 min before it with margin to spare), and the trigger prompt now has an
+  explicit, mandatory "STEP 0.5" final-cycle flatten check naming the exact time window. Full
+  detail in CLAUDE.md §12; not just logged, actually corrected.
+  - **RGTI outcome, for the record**: entry $17.1099 (2026-08-25), stop-exit $16.57 (2026-08-26).
+    Loss: $10.26 — exactly the planned risk, no incremental cost from the overnight hold itself in
+    this instance. Mode C daily P&L reset for today: $0 realized/unrealized (new day, RGTI already
+    closed before this cycle started).
+- Account: total value $2,053.75, cash/buying power $1,427.17, equity_value $626.58
+  (NOW only), options_value **$0** (was ~$504-520 on recent checks — the user's manually-placed
+  IBIT call no longer shows a value here; unclear if closed, exercised, or a data change — **not
+  something I can explain from account data alone, flagging for the user** rather than guessing).
+  This explains most of the apparent day-over-day equity drop (~$2,174 open yesterday → $2,054
+  today) — not a Mode B/C trading loss.
+- FTA Regime Dashboard: still all loading placeholders. UNKNOWN_DEGRADED, as every check.
+- **MODE B**: NOW $125.44 (stop $123.25, $2.19 buffer, no trigger; entry $127.79, +1R at $132.33
+  not reached). No new §5B candidates screened in depth this cycle — see market-breadth note below
+  for why a screen would likely have come up empty regardless.
+- **MODE C**: 0/3 concurrent, 0/5-6 entries today (fresh day). Screened ~40 watchlist names via
+  the first complete hourly bar (14:00-15:00 UTC). **Notable: SPY and QQQ are both flat on the day
+  (+0.02%/+0.03%), but nearly every individual watchlist name is red** — TTD -1.4%, RGTI -2.6%,
+  CRCL -4.8%, NBIS -1.0%, ORCL -1.4%, BMNR -2.0%, HOOD -0.5%, ASTS -0.8%, and more. This reads as a
+  narrow-breadth rotation *away from* momentum/growth names specifically, not a broad risk-off day
+  — but it means there is no genuine bullish VWAP-pullback/ORB/mean-reversion setup to find today;
+  every one of those requires an established uptrend to pull back *from*, and nothing is trending
+  up intraday right now. Confirmed no candidates, not a screening failure.
+- **Outcome: OBSERVE — no trade in either mode.** Zero order-related API calls made this cycle.
+  Trigger schedule/prompt fix confirmed live (next fire 2026-08-26T15:55:00Z). Flagging the IBIT
+  options_value change to the user directly in chat.
