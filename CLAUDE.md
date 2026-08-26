@@ -319,6 +319,24 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-26: Operational incident — a Mode C position was held overnight, in direct violation
+  of §20 item 1.9's "no exception" same-day flatten rule. Root cause found and fixed, not just
+  logged.** RGTI (entered 2026-08-25 ~18:46 UTC) was never flattened before Tuesday's close: the
+  autonomous trigger's cron schedule fired its last cycle of the day at 19:30 UTC (~3:30pm ET),
+  30 minutes before the actual 4:00pm ET close, and the trigger prompt's flatten instruction said
+  only "near the end of the regular session" — vague enough, combined with the schedule gap, that
+  no cycle ever actually executed the flatten. The position sat overnight and only closed the next
+  morning (2026-08-26 ~10:00am ET) when its already-placed protective stop happened to be hit —
+  by coincidence landing at exactly the planned stop price with no extra slippage, but that was
+  luck, not the mechanism working as designed. **Fix applied directly to the trigger, not just
+  documented here:** cron schedule moved from `30 14-19 * * 1-5` to `55 14-19 * * 1-5`, so the
+  last cycle now fires at 19:55 UTC (~3:55pm ET), 5 minutes before close instead of 30 minutes
+  before it closes with 30 minutes still to spare; and the trigger prompt now has an explicit
+  "STEP 0.5 — FINAL-CYCLE-OF-DAY CHECK" that names the exact time window and makes the flatten
+  mandatory and non-discretionary at that cycle, replacing the old vague language. This is a
+  correction to how §20 item 1.9 is *executed*, not a change to the rule itself — the no-overnight-
+  hold requirement was always there; the trigger just weren't actually implementing it end-to-end.
+  Flagged to the user plainly rather than quietly patched.
 - **2026-08-25: User instructed adding Mode C (DAY_TRADING), pasted as a full external system
   prompt, then directed it be made fully autonomous from day one.** New §20. Two material findings
   surfaced to the user before drafting, and explicitly acknowledged before they said "make it
