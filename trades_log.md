@@ -1544,3 +1544,27 @@ Format per entry:
 - No protective stop placed yet — nothing to protect until/unless the entry fills. Will place
   immediately per §20 item 1 on confirmation of a fill.
 - **Outcome: order resting, unfilled as of this entry.** Will follow up on next check/cycle.
+
+## 2026-08-26 ~18:46 UTC — MANUAL (user-confirmed) — PLTR ENTRY FILLED + STOP PLACED
+- User confirmed the IBIT cash-change mystery from the prior entry: they had reopened an IBIT
+  Dec-2026 $50 call this morning (~9:30am ET, filled $2.58/2.75 debit) and closed both that
+  position and the older Nov-2026 $49 call this afternoon (~1:51-1:54pm ET), both at small losses
+  (~$50 and ~$70) — a manual trade made "because [the system] was lagging so much." No IBIT
+  exposure remains. Confirmed via get_option_orders/get_option_positions, not guessed.
+- PLTR kept climbing during the back-and-forth: $176.55 (original quote) -> $177.24 -> $177.46 ->
+  $177.65 by the time of re-confirmation. User gave a fresh exact confirmation at the new level:
+  "confirm order: buy 3 pltr limit 177.70".
+- `review_equity_order` — clean, no alerts. Compliance quote: Bid $177.45 x 100 / Ask $177.48 x 300
+  / Last $177.4501 x 300, 2:46 PM ET.
+- **ORDER PLACED AND FILLED**: BUY 3 PLTR LIMIT $177.70, filled @ $177.5522 avg, $0.00 fee (order
+  id `6a8f3483-2987-470a-81ad-b08379e61ef8`).
+- **STOP PLACED AND VERIFIED RESTING**: SELL 3 PLTR STOP_MARKET $174.57 GTC (order id
+  `6a8f3491-4092-4411-9cf3-e165a2918bb8`), state=confirmed. Stop = entry - 1.5xATR(14, hourly:
+  $1.985) = $177.5522 - $2.9775 = $174.57 (rounded). Planned loss at stop: $8.94 (~0.47% of
+  $1,887 equity, within the 0.5% Mode C budget). 1.5R reference target: ~$182.02.
+- Mode C capacity: 1/8 concurrent, 1/5-6 entries today. Mandatory same-day flatten applies (§20
+  item 1.9) — this position must close by end of today's regular session regardless of P&L.
+- **Extension risk flagged twice before this trade** (up ~46% this month pre-entry, then further
+  extended during the confirmation delay) — logged for the record, not a reason this didn't clear
+  the gate (technical setup and catalyst were both genuinely real), but worth remembering if this
+  doesn't work out: it was a real chase, disclosed as such at every step.
