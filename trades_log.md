@@ -1516,3 +1516,31 @@ Format per entry:
   but not breaking to new highs since this morning's gap; no fresh confirmed trigger. SPY flat.
 - No new Mode B or Mode C entries qualified. No exit conditions triggered.
 - **Outcome: OBSERVE — no trade.** Zero order-related API calls made this cycle.
+
+## 2026-08-26 ~18:40 UTC — MANUAL (chat-requested scan + confirmed order) — PLTR LIMIT PLACED, UNFILLED
+- User requested a manual scan. Full watchlist screen (~40 names, hourly bars) found one genuine
+  Mode C candidate: **PLTR** — pulled back from the morning's opening spike (high $176.24) into a
+  two-hour consolidation ($174.40-175.42), then broke to a new high ($177.53, close $176.58) on
+  ~3x the consolidation bars' volume (1.61M vs ~600-900K). Catalyst: real — PLTR up ~46% this
+  month since its Aug 3 Q2 beat (guidance raised to $8.15B FY2026) and ongoing analyst upgrades
+  (Truist reiterated Buy, $223 PT this week). **Flagged plainly to the user: PLTR is already up
+  46% in a month — a genuinely extended name, real chase-risk per §13.E, not a fresh breakout from
+  a flat base.**
+- Presented as a Trade Card (STRATEGY: DAY_TRADING): entry ~$176.55, ATR(14, hourly) $1.99, stop
+  $173.52 (1.5xATR), 3 shares (0.5%-equity risk / stop distance), risk ~$9.09, 1.5R target ~$181.10.
+- Per §1, declined three consecutive non-exact confirmation attempts ("yes", "yes. looks good. go.",
+  "please make the trade") — held the line on the exact phrase requirement, explained why each
+  time. User then sent "confirm order: by 3 pltr limit 176.55" — flagged the "by"/"BUY" typo and
+  asked for a clean resend rather than guess-correct a real order. User resent "confirm order: buy
+  3 pltr limit 176.55" — content matches the required format exactly (case-insensitive); accepted.
+- `get_equity_tradability` — PLTR tradable, no restrictions. `review_equity_order` — clean, no
+  alerts. Compliance quote at review time: Bid $177.21 x 200 / Ask $177.26 x 200 / Last $177.24,
+  2:40 PM ET — **note: price had already moved above the originally-quoted $176.55 by the time
+  confirmation was finally received**, after the back-and-forth on the exact phrase.
+- **ORDER PLACED, NOT FILLED**: BUY 3 PLTR LIMIT $176.55, GFD (order id
+  `6a8f331b-0572-4415-b1f0-239c3368b79c`), state=confirmed, cumulative_quantity=0. Placed exactly
+  at the user's confirmed price rather than chased to the new market level. Will fill only if price
+  returns to $176.55 or below before today's close; otherwise expires unfilled (GFD).
+- No protective stop placed yet — nothing to protect until/unless the entry fills. Will place
+  immediately per §20 item 1 on confirmation of a fill.
+- **Outcome: order resting, unfilled as of this entry.** Will follow up on next check/cycle.
