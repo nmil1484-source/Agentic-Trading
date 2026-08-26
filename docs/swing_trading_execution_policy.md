@@ -80,8 +80,8 @@ existing hard limits (CLAUDE.md §3 dollar caps) plus these are satisfied:
 
 1. Total deployed capital remains at or below 90% of Agentic Account equity after the order
    (raised 2026-08-19 from 80%, see CLAUDE.md §12).
-2. **No more than ten Mode B positions simultaneously open** (raised 2026-08-19 from four, see
-   CLAUDE.md §12).
+2. **No more than five Mode B positions simultaneously open** (lowered 2026-08-26 from ten, which
+   itself had been raised 2026-08-19 from four — see CLAUDE.md §12).
 3. **No more than two open positions share one sector, industry, or catalyst theme.**
 4. The existing per-position/fractional-pilot cap remains in force (§3/§15).
 5. **Maximum planned loss per new trade is the lower of 1% of current Agentic Account equity or

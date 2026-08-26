@@ -167,9 +167,11 @@ above, see §3/§12) with risk-based capacity limits instead. All existing §3 d
 (per-position 80%, total-deployed 90%/10%-cash, no averaging down, loss throttles) and §15's
 Tier-B allocation formula remain unchanged and still apply on top of these:
 
-1. **Simultaneous-position cap**: no more than **ten** Mode B positions open at once (whole-share
-   and fractional combined). (Raised 2026-08-19 from four, at explicit user instruction — see §12
-   change log.)
+1. **Simultaneous-position cap**: no more than **five** Mode B positions open at once (whole-share
+   and fractional combined). (Lowered 2026-08-26 from ten — raised to ten on 2026-08-19 from four
+   before that — at explicit user instruction, to shift capacity toward Mode C; see §12 change
+   log. Existing Mode B positions above the new cap are not force-closed, they just block new
+   entries until the count drops back under five.)
 2. **Correlation cap**: no more than **two** open positions may share one sector, industry, or
    catalyst theme — log the sector/theme on the Trade Card so this is checkable, not eyeballed.
 3. **Per-trade risk sizing**: maximum planned loss on any new trade is the **lower of 1% of
@@ -319,6 +321,18 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-08-26: User instructed rebalancing position-count capacity from Mode B toward Mode C.**
+  Before: Mode B simultaneous-position cap 10 (§5B item 1), Mode C simultaneous-position cap 3
+  (§20 item 5). After: **Mode B cap lowered to 5, Mode C cap raised to 8.** Prompted directly by
+  Mode B sitting at just 1 open position while capacity sat mostly idle, alongside Mode C already
+  producing its first live trade (RGTI) quickly once activated — the user chose to shift capacity
+  toward the mode showing more activity. Existing Mode B positions are not force-closed by the
+  lower cap; it only blocks new entries once the open count is at or above 5. All other caps
+  unchanged: the shared 90%-deployed/10%-cash ceiling (§3), 2-per-theme correlation caps (both
+  modes), per-trade risk sizing (1% Mode B / 0.5% Mode C), and Mode C's own daily loss/profit
+  limits. Updated everywhere the old numbers were live-referenced: §5B item 1, §18 item 7
+  (options count against the Mode B cap), §20 item 5, and the Automatic Recovery State Machine's
+  DEGRADED_AUTONOMOUS row (§14, which restores "normal" capacity — now 5, not 10).
 - **2026-08-26: Operational incident — a Mode C position was held overnight, in direct violation
   of §20 item 1.9's "no exception" same-day flatten rule. Root cause found and fixed, not just
   logged.** RGTI (entered 2026-08-25 ~18:46 UTC) was never flattened before Tuesday's close: the
@@ -876,7 +890,7 @@ are for audit and notification only and create no confirmation requirement.
 | Trigger | Immediate response | Automatic recovery |
 |---|---|---|
 | A position trades below its hard stop, or a broad market gap invalidates multiple active long setups (§16 item 4) | Execute the planned protective exit when executable. **(2026-08-24: the same-day new-entry pause was removed — see §12 change log.)** Scanning and new-entry evaluation continue normally for the rest of the session, subject to the standard §5B gates. | N/A — no restricted state to recover from; normal AUTONOMOUS_EXECUTE continues uninterrupted after the exit. |
-| Three stop-outs within a rolling 10-calendar-day window (§16 item 10) | Enter **DEGRADED_AUTONOMOUS**, not observe-only. | Continue trading at normal size (1% planned loss per new trade, normal 10-position cap — both loosened 2026-08-21, see §12 change log); the only remaining restriction is prohibiting new entries in the correlated sector/theme that produced the stop-outs. Lift that theme lockout automatically after five completed regular sessions with no additional stop-out and no daily-loss breaker. |
+| Three stop-outs within a rolling 10-calendar-day window (§16 item 10) | Enter **DEGRADED_AUTONOMOUS**, not observe-only. | Continue trading at normal size (1% planned loss per new trade, normal position cap — both loosened 2026-08-21, see §12 change log; the position cap itself was later changed again on 2026-08-26, 10→5, "normal" now means whatever §5B item 1 currently states); the only remaining restriction is prohibiting new entries in the correlated sector/theme that produced the stop-outs. Lift that theme lockout automatically after five completed regular sessions with no additional stop-out and no daily-loss breaker. |
 | Agentic Account equity falls 3%+ intraday (§6) | No additional new positions for the remainder of that regular session; continue managing protective exits and scanning/logging. | At the next pre-market cycle, automatically resume in **DEGRADED_AUTONOMOUS** at normal size (1% planned loss per new trade — loosened 2026-08-21) for one full session; with sizing no longer cut, this trigger's practical effect is limited to the same-session pause above. No new breaker required to resume fully normal the following session. |
 | Three consecutive Robinhood MCP errors, or reported positions don't match the account (§6) | Suspend new-entry order submission only — protective exits (§16) remain active per the standing exit-management mandate above. Continue scanning/logging; run automatic account/position reconciliation at the next cycle. | Resume new-entry order submission automatically once two consecutive reconciliations agree on account cash, positions, and order states. If reconciliation keeps failing, escalate in the log — no user phrase is required to keep retrying. |
 
@@ -1290,7 +1304,7 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
    discipline as equity orders (§14 item 5).
 
 7. **Capacity and correlation:** an open long option position counts as one ordinary Mode B
-   position against the 10-position cap (§5B) and the 2-per-theme correlation cap — combined with
+   position against the 5-position cap (§5B) and the 2-per-theme correlation cap — combined with
    equity positions, not in addition to them. Premium paid counts against the 90% total-deployed
    ceiling (§3/§14 item 2) exactly like an equity position's cost basis.
 
@@ -1422,8 +1436,10 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
    stop opening *new* Mode C entries for the day — existing winners keep running under their
    trailing stop (item 6) rather than being force-closed. Locking in a good day is profit
    protection, not a hard ceiling on the day's total gain.
-5. **Max concurrent Mode C positions: 3.** Combined with Mode B's own 10-position cap and the
-   shared §3 deployment ceiling — Mode C's 3-position cap is additional, not instead of, those.
+5. **Max concurrent Mode C positions: 8** (raised 2026-08-26 from 3, at explicit user instruction,
+   paired with lowering Mode B's cap from 10 to 5 — see §12 change log). Combined with Mode B's own
+   5-position cap and the shared §3 deployment ceiling — Mode C's 8-position cap is additional,
+   not instead of, those.
 6. **Max new Mode C entries per day: 5-6.** Managing an existing Mode C stop/trailing doesn't
    count against this. Once hit, no new Mode C entries for the rest of the day regardless of setup
    quality — that setup is tomorrow's trade.
