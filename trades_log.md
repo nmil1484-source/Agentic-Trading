@@ -1579,3 +1579,24 @@ Format per entry:
   the manual request; nothing has materially changed since).
 - **Outcome: OBSERVE — no new trade.** Zero order-related API calls made beyond the stop-status
   confirmation check.
+
+## 2026-08-26 ~19:55 UTC — AUTONOMOUS (LAST cycle of day) — STEP 0.5 MANDATORY FLATTEN: PLTR CLOSED
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- **STEP 0.5 final-cycle-of-day check applied**: this is the 19:55 UTC last cycle before the
+  4:00pm ET close. PLTR (Mode C) flattened per §20 item 1.9, no exception, regardless of P&L.
+- Cancelled the resting protective stop first (order `6a8f3491`, confirmed cancelled via
+  get_equity_orders) so the flatten sell could execute cleanly.
+- **ORDER PLACED AND FILLED**: SELL 3 PLTR LIMIT $177.60 (marketable), filled @ $177.8501 avg,
+  $0.02 fee (order id `6a8f44c1-da2e-4597-855e-34d81812e9ea`). Entry $177.5522 -> exit $177.8501.
+  **Result: +$0.87 (+0.16%)** — small gain, held the planned same-day duration exactly as
+  designed, no early/late deviation.
+- Mode C daily P&L, final for today: +$0.87 realized, $0 open. Well inside both the 2.5%
+  loss and profit limits — no breaker implications either way.
+- **NOW (Mode B)**: $125.82, stop $123.25, no trigger, holds overnight normally (Mode B has no
+  same-day-flatten requirement — unaffected by STEP 0.5).
+- Mode C capacity after flatten: 0/8 concurrent, 1/5-6 entries used today (PLTR).
+- **This is the schedule-fix's first real test since yesterday's incident, and it worked as
+  designed**: last cycle landed at 3:55pm ET, well inside the close, flatten executed cleanly with
+  no ambiguity about whether it was "the last cycle."
+- **Outcome: mandatory flatten executed (PLTR, small gain). NOW held overnight normally per Mode
+  B's own rules.**
