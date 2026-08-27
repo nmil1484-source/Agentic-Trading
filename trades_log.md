@@ -1712,3 +1712,20 @@ Format per entry:
 - NOW $137.01 (stop $127.79, no trigger). ONDS $8.785 (stop $8.15, no trigger; +1R at $9.205 not
   yet reached). No new exit conditions. No new Mode B/C candidates qualified this cycle.
 - **Outcome: OBSERVE — no trade.** Zero order-related API calls made this cycle.
+
+## 2026-08-27 ~19:55 UTC — AUTONOMOUS (LAST cycle of day) — NOW STOP TRAILED, NO MODE C TO FLATTEN
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- **STEP 0.5 final-cycle check applied**: 0/8 Mode C positions open today — nothing to flatten.
+  Mode C daily P&L for the day: $0 (no Mode C trades taken today; ONDS/IGV were both extended
+  and went the equity Mode B route instead per the options-evaluation logic, and no other Mode C
+  candidate cleared any cycle's screen).
+- **NOW trailing stop tightened** (§16 item 6, "trail the remainder below... nearest higher
+  support" — documented-level update only, no broker order): reviewed the last ~4 hours of
+  30-min price action, which has consolidated in a $135.6-$138.75 range after the morning's gap.
+  Moved the stop from breakeven ($127.79) to **$135.50** (just below that consolidation's lows) —
+  a real, meaningful tightening now that the position has held its gains through most of the
+  session, not just a token move. Never lowered, consistent with the never-move-a-stop-lower rule.
+- ONDS $8.79 (stop $8.15, no trigger; +1R at $9.205 not yet reached).
+- No new Mode B or Mode C entries this cycle.
+- **Outcome: one risk-management action (NOW stop trailed to $135.50). No new trades, no flatten
+  needed (no Mode C positions).**
