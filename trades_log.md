@@ -1600,3 +1600,28 @@ Format per entry:
   no ambiguity about whether it was "the last cycle."
 - **Outcome: mandatory flatten executed (PLTR, small gain). NOW held overnight normally per Mode
   B's own rules.**
+
+## 2026-08-27 ~14:27 UTC — MANUAL (user-confirmed) — NOW +2R PARTIAL PROFIT-TAKE
+- NOW gapped up huge overnight/this morning: prior close $125.80 -> ~$138+ today. Real catalyst:
+  Jim Cramer touted it Tuesday night ("sell half, let the rest run") alongside an expanded
+  ServiceNow-Tech Mahindra partnership (https://www.benzinga.com/markets/equities/26/08/61452752/servicenow-shares-after-hours-jump-jim-cramer,
+  checked 2026-08-27).
+- Position was well past both §16 thresholds: entry $127.79, original stop $123.25 (risk
+  $4.54/share). +1R $132.33, +2R $136.87 — price was ~2.26R at first check.
+- **Breakeven (§16 item 5) applied immediately** (documented-stop update only, no broker order
+  involved for Mode B): stop moved from $123.25 to $127.79 (entry), never to be lowered.
+- **+2R partial profit-take (§16 item 6)**: sell 50% of 5 shares, rounded down to 2. Per §1, this
+  required the exact CONFIRM ORDER phrase since it was executed in this chat (not the autonomous
+  Routine's own schedule) — user initially said "yes trim!", declined per the no-exception rule
+  (same as every other manual trade today), then gave the exact phrase.
+- `get_equity_tradability` — tradable, no restrictions. `review_equity_order` — clean, no alerts.
+  Compliance quote: Bid $138.38 x 100 / Ask $138.43 x 100 / Last $138.405, 10:27 AM ET.
+- **ORDER PLACED AND FILLED**: SELL 2 NOW LIMIT $138.00, filled @ $138.3241 avg, $0.00 fee (order
+  id `6a904962-5e7b-44c3-bffb-26b3973dffb0`). **Realized gain on trimmed shares: $21.07** ($10.53/
+  share x 2).
+- Remaining position: 3 shares, stop at breakeven $127.79, trailing per §16 item 6 ("trail the
+  remainder below the 9/20 EMA, prior-day low, or nearest higher support" — to be evaluated on the
+  next full technical check).
+- **Outcome: partial profit-take executed as designed.** Position count unchanged (still 1 Mode B
+  position, now sized down to 3 shares). Mode C: 0 positions (nothing new cleared the gate yet
+  today — session only ~1 hour old).
