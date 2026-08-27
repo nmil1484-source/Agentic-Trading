@@ -1658,3 +1658,44 @@ Format per entry:
   structures when both are viable; state explicitly why one was rejected when only one is.
 - Not logged as a §12 CLAUDE.md change since no rule changed — this is a scan-behavior fix so the
   trigger actually does what §18 already allowed.
+
+## 2026-08-27 ~15:57 UTC — AUTONOMOUS (scheduled cycle) — MODE B ENTRY: ONDS
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- Account: total value $1,950.75, cash/buying power $984.51. No MCP errors, no circuit breaker.
+- **MODE B — ONDS cleared the full §5B gate**:
+  - Catalyst (real, dated): Q2 2026 beat ($83.8M revenue), FY26 guidance raised to $525-550M,
+    $757M backlog, Aran Defense acquisition ($33M), analyst PT raised to $22.75 at Ladenburg.
+    (Checked 2026-08-27 via web search.)
+  - Technical confirmations (2-of-6, meeting the minimum): (1) price above the 50-day SMA
+    ($8.68 live vs. $8.152 as of 8/26 close); (2) volume clearly elevated on today's move
+    (~7.5M in the first complete hour alone vs. a much quieter prior session) — no abnormal
+    selling, real buying interest. **Note**: 9/20 EMA alignment was actually bearish as of 8/26's
+    close (9-EMA $8.548 < 20-EMA $8.559, both declining) — did NOT count this as a confirmation,
+    relied on the two that genuinely passed rather than stretching a marginal read.
+  - Daily-chart setup: gap-and-hold above the 50-SMA on a clear catalyst, breaking a short
+    downtrend in the EMAs. Hourly execution trigger: broke and held above the opening 30-minute
+    range high ($8.50) through the first complete hourly bar (14:00-15:00 UTC, closed $8.54,
+    continued to $8.68+ live) — a genuine breakout-and-hold, not a fade.
+  - Valid technical stop: $8.15 (just below the 50-day SMA). R:R at entry ~$8.68: risk $0.53,
+    reward to a realistic 1.5R target ~$9.47 → 1.5:1, clears the flat floor.
+  - Timing: well outside first/last 15 min; no earnings/macro conflict.
+- **§18 options actively evaluated per the new 3a instruction — REJECTED, not skipped**: ONDS is
+  already up ~5.5-8% intraday today (extended within the session), which per the new rule
+  disqualifies it as a fresh options entry (inflated IV after a big move) even though the
+  underlying itself cleared §5B for equity purposes. Equity shares were used instead.
+- Sector/theme: drone/defense/industrial networking — no overlap with NOW (enterprise SaaS), no
+  correlation-cap conflict. Position count now 2/5 Mode B.
+- `get_equity_tradability` — tradable (regular_hours), no restrictions. `review_equity_order` —
+  clean, no alerts. Compliance quote: Bid $8.67 x 10900 / Ask $8.68 x 9200 / Last $8.675 x 100,
+  11:57 AM ET.
+- **ORDER PLACED AND FILLED**: BUY 35 ONDS LIMIT $8.70, filled @ $8.6777 avg, $0.00 fee (order id
+  `6a905e70-9b64-4e50-a3ea-2bd9b07b7d25`). Risk: $18.47 (0.95% of equity, inside the 1% budget).
+  1.5R target: ~$9.47.
+- **NOW (existing Mode B position)**: $135.65-137ish range, still well above breakeven stop
+  $127.79, no new §16 trigger this cycle.
+- **MODE C**: 0/8 positions, $0 P&L today. No qualifying hourly-adapted setup this cycle (ONDS/
+  IGV both already extended, better suited to the equity Mode B route just executed for ONDS;
+  IGV itself wasn't pursued separately today — same underlying software-sector strength, avoiding
+  doubling up on a correlated theme).
+- **Outcome: one new Mode B equity entry (ONDS). Options actively considered and explicitly
+  rejected for cause. NOW unchanged. Mode C: no trade.**
