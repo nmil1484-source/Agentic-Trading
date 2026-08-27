@@ -1729,3 +1729,10 @@ Format per entry:
 - No new Mode B or Mode C entries this cycle.
 - **Outcome: one risk-management action (NOW stop trailed to $135.50). No new trades, no flatten
   needed (no Mode C positions).**
+
+## 2026-08-27 ~19:56 UTC — DUPLICATE NOTIFICATION, ALREADY HANDLED
+- Notification queued_at 2026-08-27T19:55:10Z is a duplicate delivery of the same last-cycle-of-day
+  firing already fully processed and logged in the entry immediately above (NOW stop trailed to
+  $135.50, no Mode C positions to flatten). Confirmed via current time (19:56:31 UTC) — no new
+  cycle window has opened since. No re-run, no new chat report — avoiding a false "detected twice"
+  audit trail for what was one real event.
