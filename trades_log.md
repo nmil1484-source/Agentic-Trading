@@ -1625,3 +1625,23 @@ Format per entry:
 - **Outcome: partial profit-take executed as designed.** Position count unchanged (still 1 Mode B
   position, now sized down to 3 shares). Mode C: 0 positions (nothing new cleared the gate yet
   today — session only ~1 hour old).
+
+## 2026-08-27 ~14:55 UTC — AUTONOMOUS (first post-open cycle) — OBSERVE (early session), NOW UPDATE
+- §14 Status: ACTIVE, confirmed. No kill phrase found.
+- Account: total value $1,955.22, cash/buying power $984.51, equity_value $970.71 (NOW + the
+  user's manually-held IBIT/DLLL positions combined in this figure, not all Mode B/C). No MCP
+  errors, no position mismatch, no 3% circuit breaker (today's baseline set now).
+- FTA Regime Dashboard: still all loading placeholders. UNKNOWN_DEGRADED, as every check.
+- **MODE B**: NOW $137.20 (well above breakeven stop $127.79, no new trigger; 3 shares remaining
+  after this morning's manual +2R trim). Trailing per §16 item 6 ("below 9/20 EMA, prior-day low,
+  or nearest higher support") not yet recomputed with fresh technicals this cycle — stop remains
+  at breakeven, still valid and never-lowered; will properly recompute a tighter trail next cycle
+  once more of today's range is established.
+- **MODE C**: screened via 30-min bars (only 2 of 3 bars complete this early — hourly bars won't
+  complete until 15:00 UTC). Closest candidates from user-prompted manual scan earlier (ONDS, IGV)
+  continued but without a new confirmed breakout/reclaim bar since last check — ONDS actually
+  pulled back slightly intrabar ($8.595 bar-close -> $8.505 live). Not confirmed. 0/8 Mode C
+  positions, $0 P&L today (fresh day).
+- **Outcome: OBSERVE for new entries — genuinely too early in the session for a clean confirmed
+  signal, not a screening failure.** No exit conditions beyond the already-applied NOW breakeven.
+  Zero order-related API calls made this cycle.
