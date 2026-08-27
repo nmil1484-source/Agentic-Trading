@@ -1645,3 +1645,16 @@ Format per entry:
 - **Outcome: OBSERVE for new entries — genuinely too early in the session for a clean confirmed
   signal, not a screening failure.** No exit conditions beyond the already-applied NOW breakeven.
   Zero order-related API calls made this cycle.
+
+## 2026-08-27 ~15:00 UTC — OPERATIONAL NOTE (not a rule change) — TRIGGER UPDATED TO ACTIVELY EVALUATE OPTIONS
+- User instructed: "just in the next scan and others really look for options!" — flagged that Mode
+  B scans have been defaulting to equity shares whenever a candidate clears §5B, without actively
+  weighing a §18 options structure as an alternative. §18 already permitted this all along; this
+  was a gap in scan behavior, not a rule restriction.
+- Trigger prompt updated (item 3a added): for every §5B-clearing candidate, pull the option chain
+  and check for a 30-60 DTE strike with real delta (~0.3+) inside the 6%-equity premium cap —
+  but only pursue options on a name that ISN'T already extended intraday that session (inflated
+  IV after a big move is a bad options entry regardless of the underlying story). Present both
+  structures when both are viable; state explicitly why one was rejected when only one is.
+- Not logged as a §12 CLAUDE.md change since no rule changed — this is a scan-behavior fix so the
+  trigger actually does what §18 already allowed.
