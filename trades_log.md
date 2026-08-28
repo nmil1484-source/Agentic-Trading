@@ -1854,3 +1854,27 @@ Format per entry:
   for any confirmed setup. 0/8 positions, $0 P&L.
 - Position count after this cycle: **1/5 Mode B (NOW only)**, 0/8 Mode C.
 - git push: confirmed below.
+
+## 2026-08-28 ~16:55 UTC — AUTONOMOUS — OBSERVE, NO TRADE (routine cycle)
+- §14 Status: ACTIVE, confirmed. No kill phrase. Account (••••8058): total_value $2,992.06,
+  equity_value $727.28 (NOW 2sh + IBIT 10sh manual), options_value $1,503 (unchanged from last
+  cycle — no new manual options activity), cash/buying power $761.78. No circuit breaker (down
+  slightly from the last intra-hour peak but still up from today's open baseline). No MCP errors.
+- **MODE B — NOW**: 2 sh, $143.39 (down from the $145+ peak, still well clear of the $140.00
+  trailed stop). New hourly bar (15:00-16:00 UTC) printed a higher low ($143.51) than the bar the
+  current stop was set from — noted as context, but **not** used to tighten the stop this cycle;
+  a single hourly bar's low this soon after the trim is too tight a base to trail to without risking
+  a whipsaw on normal noise (§13.B: stop is "re-evaluated at each check-in," discretionary, not
+  mechanically ratcheted every bar). Stop remains **$140.00**.
+- **MODE B — new candidates**: no material change since the last full screen; still nothing clears
+  §5B (no fresh dated catalyst on the day's gappers, momentum complex still broadly red). No
+  options evaluation triggered since no candidate cleared step 1 of §5B this cycle (3a is
+  conditional on a §5B pass).
+- **MODE C**: checked IREN specifically (today's largest decliner, -10.9% at last check) for the
+  hourly mean-reversion setup — hourly close at 15:00-16:00 UTC ($36.11ish) printed below the
+  lower 2-SD Bollinger Band ($36.57), but **RSI only 23.0, not below the required <20 extreme
+  threshold** — doesn't cleanly clear §20 item 5's mean-reversion trigger. Even if it had, entry
+  requires the *following* hourly bar's close back inside the band, and that bar (16:00-17:00 UTC)
+  isn't complete yet. **OBSERVE — watching for next cycle.** 0/8 Mode C positions, $0 P&L today.
+- Position count: 1/5 Mode B (NOW only), 0/8 Mode C. No orders placed this cycle. STEP 0.5
+  final-cycle flatten does not apply (not the 19:55 UTC cycle).
