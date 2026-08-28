@@ -1820,3 +1820,37 @@ Format per entry:
 - **Outcome: one risk-management trim (NOW +3R, 1 share, $17.30 realized) + stop trail to $140.00.
   No new entries either mode. Options_value discrepancy resolved (manual DLLL call, flagged, not
   managed by this system).** Position count: 2/5 Mode B (NOW, ONDS), 0/8 Mode C.
+
+## 2026-08-28 ~15:55 UTC — AUTONOMOUS — MODE B: ONDS STOP-LOSS EXIT (§16 item 3)
+- §14 Status: ACTIVE, confirmed. No kill phrase. No 3% intraday circuit breaker (equity $2,911.19 →
+  $3,047.51, up on the cycle — NOW's gap-up and cash from the earlier trim more than offset ONDS's
+  slide). No MCP errors.
+- Account (••••8058): total_value $3,047.51, equity_value $1,014.56, options_value $1,553, cash
+  $479.95.
+- **Second manual options trade found this cycle**: 1 IGV $110 call, exp 2027-01-15 (~4.5 months
+  out — doesn't fit either §18's 30-60 DTE window or §19's 9-12 month window), premium $970,
+  `placed_agent: "user"`, opened 15:33 UTC. Combined with the earlier DLLL $27.50 call ($680
+  premium, also manual), options_value is now $1,553 ($970+$680 — reconciles exactly). Neither
+  was placed by this system (confirmed via `get_option_orders`, both `placed_agent: "user"`).
+  IGV itself is a permitted, watchlisted instrument, but this specific call was never run through
+  §5B/§18's own gate (catalyst check, DTE window, delta/premium caps) — flagged for the record,
+  not actively managed by this system unless asked. DLLL remains banned regardless (§2, 2x
+  leveraged ETF) — flagged again, not managed.
+- **MODE B — ONDS: stop-loss breach, full exit executed.** Documented stop $8.15 (entry $8.6777,
+  35 sh, 2026-08-27). Last price $8.045-8.065, below stop — not a gap (opened today at $8.31,
+  above stop; this was an intraday slide through the level during the session, per the earlier
+  gap-rule check already logged this cycle-block). Per §16 item 3: `get_equity_tradability`
+  (tradable, no restriction) → `review_equity_order` (clean, no alerts; compliance quote: Bid
+  $8.04 x 13800 / Ask $8.05 x 5400 / Last $8.04, 11:56 AM ET) → **ORDER PLACED AND FILLED**: SELL
+  35 ONDS LIMIT $8.00, filled @ $8.0523 avg (order id `6a91afc6-239c-4018-bda0-076e3f72f7b0`).
+  Realized loss: **-$21.89** (planned max loss at the $8.15 stop was $18.47; ~$3.42 of normal
+  intraday slippage beyond plan, not a gap). Per §17 item 4, ONDS may not be re-entered today.
+- **MODE B — NOW**: 2 sh remain, stop $140.00 (trailed +3R level, logged last cycle). Current
+  $143.84, no trigger.
+- **MODE B — new candidates**: no material change from the first post-open screen ~1 hour ago;
+  same conclusion (AMZN/NFLX gaps still lack a fresh dated catalyst, momentum complex still
+  broadly red). No new entries.
+- **MODE C**: still only 1 complete hourly bar today (15:00 UTC bar not yet closed) — too early
+  for any confirmed setup. 0/8 positions, $0 P&L.
+- Position count after this cycle: **1/5 Mode B (NOW only)**, 0/8 Mode C.
+- git push: confirmed below.
