@@ -1753,3 +1753,70 @@ Format per entry:
 - §10 funding log: this is a new deposit event, not a re-approval of a fixed budget (the funding
   rule has been "current Agentic Account equity" dynamically since 2026-08-14 — see §14 item 2's
   history) — no CLAUDE.md text change required, just this record.
+
+## 2026-08-28 ~14:55 UTC — AUTONOMOUS (first post-open cycle) — MODE B: NOW +3R TRIM, STOP TRAILED; OBSERVE ELSEWHERE
+- **Note on resumption**: this cycle's chat session was interrupted mid-execution (context
+  compaction) after the initial `get_portfolio`/regime-dashboard checks and resumed later in the
+  same UTC window; no time was lost on the account side — all checks below are fresh, re-verified
+  live data at resumption, not stale carry-over.
+- §14 Status: ACTIVE, confirmed (re-read CLAUDE.md in full this cycle). No kill phrase issued
+  since last cycle.
+- Account (••••8058): total_value $2,911.19, equity_value $1,171.29, cash/buying power $1,104.90.
+  No MCP errors, no position mismatch, no 3% intraday circuit breaker (today's baseline just set).
+- **`options_value` discrepancy investigated and resolved**: portfolio showed $635 in options
+  (last known $0 end-of-day 8/27). Confirmed via `get_option_positions`/`get_option_orders`: a
+  **manual** long DLLL $27.50 call, exp 2026-11-20, 1 contract, premium $680 total ($6.80/share),
+  `placed_agent: "user"`, opened 2026-08-28 ~14:49 UTC — i.e., minutes before this cycle fired.
+  This is a second manual DLLL trade (equity shares were found earlier; now an option on the same
+  banned leveraged ETF) — **DLLL remains excluded under §2 (2x leveraged ETF) regardless of
+  instrument type**; this system did not place it, will not manage it, and it is flagged here for
+  the record only, same treatment as the prior manual IBIT/DLLL trades this week. Also newly
+  visible: 10 shares IBIT @ $44.46 avg (manual, crypto ETF, same non-management treatment).
+- FTA Regime Dashboard, re-checked: still all loading placeholders. **UNKNOWN_DEGRADED**, as every
+  check this session — logged, non-blocking, reduced-size/flat-1.5:1-floor rule applies to any new
+  Mode B entry.
+- **MODE B — existing positions vs. §16**:
+  - **NOW: +3R profit-protection trim executed.** Entry $127.788 (5 sh, 2026-08-19), original stop
+    $123.25 (risk $4.538/sh) → +1R $132.33 (breakeven applied), +2R $136.87 (2 sh trimmed
+    2026-08-27, 3 sh remained), **+3R $141.40 — crossed today on the open-session gap** (NOW
+    opened $141.82, printed as high as $145.17 by this check, official prior close $138.43).
+    Per §16 item 6, sold an additional 25%-of-original (1 share, rounded down from 1.25) —
+    `get_equity_tradability`/`review_equity_order` clean, no alerts. Compliance quote: Bid
+    $145.07 x 100 / Ask $145.15 x 500 / Last $145.1468, 11:31 AM ET. **ORDER PLACED AND FILLED**:
+    SELL 1 NOW LIMIT $144.90, filled @ $145.0908 (order id `6a91a9f0-fc18-42a7-9080-185baf2c1b6a`).
+    Realized gain on this share: $17.30. **2 shares remain**, trailing continues.
+  - **NOW stop trailed** (documented-level update, no broker order — Mode B stops are monitored/
+    executed-on-breach, not resting orders, unlike Mode C's §20 mandatory resting stops): today's
+    only complete hourly bar (14:00-15:00 UTC) printed a session low of $140.55 — a real, tighter
+    support level now that the position has run this far. Moved stop from breakeven-trail $135.50
+    to **$140.00** (just below that low, small buffer). Never lowered, consistent with the
+    never-move-a-stop-lower rule. Daily 9-EMA $128.28 / 20-EMA $123.48 (as of 8/27 close) both
+    well below the new stop, so today's session low is the binding (tighter) level, correctly
+    used per the "whichever is higher" rule.
+  - **ONDS**: entry $8.6777 (35 sh, 2026-08-27), stop $8.15. **Gap-rule check performed**: today's
+    opening hourly bar (14:00-15:00 UTC) opened $8.31 — ABOVE the stop, so no gap-below-stop event
+    (§16 item 4 doesn't apply). Current price ~$8.20, down from yesterday's $8.75 close but still
+    $0.05-0.07 above the $8.15 stop — no breach, watching closely given the proximity. +1R
+    ($9.205) not reached. No action this cycle; will re-check every remaining cycle today given
+    how close price is running to the stop.
+- **MODE B — new candidate screen**: full watchlist (58 names) quoted. Broad bifurcation today —
+  SPY +0.48%/QQQ +0.31% (mildly green), but most small/mid-cap momentum/AI names sharply red
+  (IREN -10.9%, KEEL -7.4%, HIMS -6.5%, PLAB -6.3%, NBIS -3.4%, TEM -3.4%, OKLO -3.3%, RGTI -3.3%,
+  CRCL -3.6%, CBRS -3.1%, KTOS -2.4%, ASTS -2.7%) while mega-cap tech gapped up (AMZN +4.2%,
+  NFLX +2.9%, AAPL +2.4%, GOOG +2.0%, UBER +2.4%). Checked `get_equity_news` for AMZN and NFLX
+  specifically (the two largest, most name-specific-looking gaps): **no fresh, dated,
+  name-specific catalyst found for either** — AMZN's news was generic sector chatter, NFLX's was
+  a multi-day-old analyst-PT-raise trend, nothing explaining today's print. Without a verified
+  catalyst these fail §5B item 2 regardless of how the technicals read, and both are already
+  30-40 minutes into an unexplained gap (extension-avoidance guidance, §13.E) — not chased.
+  **No candidate cleared §5B this cycle.**
+- **MODE C**: only 1 of the day's hourly bars is complete (14:00-15:00 UTC) — too early for a
+  confirmed mean-reversion reclaim bar (needs the bar *after* the extreme) or a clean VWAP-pullback
+  reclaim read on the sharply-red momentum names above. 0/8 Mode C positions, $0 P&L today (fresh
+  day). **OBSERVE — genuinely too early, not a screening failure**, consistent with the pattern on
+  prior first-hour cycles.
+- Updated risk figures (equity $2,911.19): 90% deployment ceiling $2,620.07; Mode B 1% risk budget
+  $29.11; Mode C 0.5% risk budget $14.56; Mode C 2.5% daily loss/profit limits $72.78 each.
+- **Outcome: one risk-management trim (NOW +3R, 1 share, $17.30 realized) + stop trail to $140.00.
+  No new entries either mode. Options_value discrepancy resolved (manual DLLL call, flagged, not
+  managed by this system).** Position count: 2/5 Mode B (NOW, ONDS), 0/8 Mode C.
