@@ -14,7 +14,26 @@ verification and a verified catalyst before it can appear on a Trade Card. Inclu
 TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL, VRT, PLAB, HIMS,
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
-IGV, CRCL, CBRS
+IGV, CRCL, CBRS, GLD, SLV
+
+**Note on GLD and SLV:** added 2026-08-28 per explicit user instruction ("put gold and silver on
+for B" — Mode B). Confirmed via `get_equity_tradability` as real, active, individual-account
+tradable instruments:
+- **GLD** = SPDR Gold Trust (SPDR Gold Shares) — physically-backed, single-commodity, non-leveraged
+  grantor trust. Structurally a "trust," not a registered ETF, but functionally the same for §2
+  purposes (long, unleveraged, exchange-listed exposure to one commodity) — same treatment already
+  extended to GDX (gold miners ETF). Not to be confused with any leveraged/inverse gold product
+  (e.g. UGL, DGP), which would remain excluded per §2.
+- **SLV** = iShares Silver Trust — same structure and treatment, silver instead of gold.
+- **Not added, but also confirmed tradable if preferred later**: **IAU** (iShares Gold Trust,
+  lower-expense-ratio gold alternative to GLD) and **SIVR** (abrdn Physical Silver Shares ETF,
+  silver alternative to SLV). Flag if either should replace or supplement GLD/SLV.
+
+Like every other name in this pool, GLD and SLV are **not pre-approved** — each still requires its
+own independent §5B Swing Entry Gate verification (catalyst, 2-of-6 technical confirmations, valid
+stop/reward-to-risk, daily-setup-plus-hourly-trigger) before either can appear on a Trade Card.
+Direct physical/spot/futures gold or silver remain excluded (§2, futures/FX are not a permitted
+instrument type at all, and this system has no order path for them regardless).
 
 **Note on CVX and KEEL:** added 2026-08-13 per explicit user instruction. Both confirmed as real,
 tradable Robinhood equity instruments (CVX = Chevron Corporation; KEEL = Keel Infrastructure Corp.
