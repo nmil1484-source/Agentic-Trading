@@ -1736,3 +1736,20 @@ Format per entry:
   $135.50, no Mode C positions to flatten). Confirmed via current time (19:56:31 UTC) — no new
   cycle window has opened since. No re-run, no new chat report — avoiding a false "detected twice"
   audit trail for what was one real event.
+
+## 2026-08-27 (evening) — FUNDING EVENT — $1,000 DEPOSIT CONFIRMED
+- User reported a $1,000 transfer into the Agentic Account. Verified via get_accounts/get_portfolio
+  (••••8058): cash/buying power now $1,784.94, total account value $2,946.73, unsettled_funds
+  $0.00. Consistent with a real deposit landing (this session did not initiate it — deposits are
+  always user-only per §1).
+- Recalculated operative limits per §10/§14 item 2 (dynamic, recalculated automatically before
+  every future order regardless, logging the snapshot here for the record):
+  - 90% deployment ceiling: **$2,652.05** (up from ~$1,758 pre-deposit)
+  - Mode B 1%-of-equity risk budget: **$29.47** (up from ~$19.51)
+  - Mode C 0.5%-of-equity risk budget: **$14.73** (up from ~$9.77)
+  - Mode C 2.5% daily loss/profit limits: **$73.67** each way (up from ~$48.85)
+- Open positions unaffected by the deposit itself (NOW: 3 shares, stop $135.50; ONDS: 35 shares,
+  stop $8.15) — sizing on any NEW entry from here forward uses the larger, post-deposit budget.
+- §10 funding log: this is a new deposit event, not a re-approval of a fixed budget (the funding
+  rule has been "current Agentic Account equity" dynamically since 2026-08-14 — see §14 item 2's
+  history) — no CLAUDE.md text change required, just this record.
