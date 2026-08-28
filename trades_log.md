@@ -1878,3 +1878,28 @@ Format per entry:
   isn't complete yet. **OBSERVE — watching for next cycle.** 0/8 Mode C positions, $0 P&L today.
 - Position count: 1/5 Mode B (NOW only), 0/8 Mode C. No orders placed this cycle. STEP 0.5
   final-cycle flatten does not apply (not the 19:55 UTC cycle).
+
+## 2026-08-28 ~17:55 UTC — AUTONOMOUS — OBSERVE, NO TRADE (routine cycle)
+- §14 Status: ACTIVE, confirmed. No kill phrase. Account (••••8058): total_value $2,995.16,
+  equity_value $288.78, options_value $1,503, cash/buying power $1,203.38. No circuit breaker,
+  no MCP errors.
+- **IBIT (manual holding) now fully gone** — 10 sh @ $44.46 avg no longer in `get_equity_positions`
+  (only NOW remains on the equity side); cash rose from $761.78 to $1,203.38, consistent with a
+  manual sale. Not this system's trade (system holds no crypto-ETF exposure per §2); noted for
+  the record, not investigated further since it doesn't touch anything this system manages.
+- FTA Regime Dashboard, re-checked: still all loading placeholders. UNKNOWN_DEGRADED, as every
+  check this session.
+- **Context note**: user shared a market-call summary (transcript, "Marilee" group, 8/27) naming
+  today (8/28) as the date of a Jackson Hole speech (Warsh) expected to set Fed tone — flagged as
+  a plausible explanation for today's bifurcated tape (mega-cap tech up, smaller momentum names
+  broadly down) and as a reason to be extra disciplined about §4's 30-minute pre/post
+  high-impact-event timing buffer if a specific speech time becomes known. Context only per §9,
+  not acted on directly.
+- **MODE B — NOW**: 2 sh, $144.32, stop $140.00 unchanged, no trigger. No new candidates clear
+  §5B this cycle (no material change from the last full screen).
+- **MODE C — IREN follow-up**: continued sliding, not reverting — now $34.95 (-13.8% on the day),
+  a fresh new low on the 16:00-17:00 UTC bar (no bounce back inside the Bollinger Band). This
+  confirms last cycle's decision not to treat it as a mean-reversion setup — it was a real
+  breakdown, not exhaustion. No entry. 0/8 Mode C positions, $0 P&L today.
+- Position count: 1/5 Mode B (NOW only), 0/8 Mode C. No orders placed this cycle. STEP 0.5
+  final-cycle flatten does not apply (not the 19:55 UTC cycle).
