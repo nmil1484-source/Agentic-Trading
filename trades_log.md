@@ -1943,3 +1943,47 @@ Format per entry:
   managed (DLLL $27.50c, IGV $110c). GLD/SLV added to watchlist per user instruction. Net Mode B
   position count end of day: **1/5 (NOW only)**. Mode C: 0/8 all day.
 - No orders placed this cycle. git push confirmed below.
+
+## 2026-08-31 ~14:55 UTC — AUTONOMOUS (first post-open cycle, new week) — MODE B: NOW HOLDS; ZS FLAGGED BUT DEFERRED (EARNINGS RISK); OBSERVE ELSEWHERE
+- §14 Status: ACTIVE, confirmed (re-read CLAUDE.md in full). No kill phrase since Friday's close.
+- Account (••••8058): total_value $2,973.70, equity_value $292.32 (NOW only), options_value
+  $1,478 (mark-to-market on the two manual calls, no new activity over the weekend), cash/buying
+  power $1,203.38. No circuit breaker, no MCP errors, no position mismatch.
+- FTA Regime Dashboard, re-checked: still no live classification, structural page only.
+  UNKNOWN_DEGRADED, as every check this session.
+- **MODE B — NOW**: 2 sh, $146.23 (further gap-up from Friday's $144.71 close), stop $140.00
+  unchanged, no trigger. Holding per normal Mode B design.
+- **MODE B — ZS flagged, deliberately NOT entered despite otherwise clearing most of §5B**:
+  - Catalyst (dated, verified): sector-wide cybersecurity re-rating following CRWD's blowout
+    earnings 2026-08-27 (record net-new ARR, raised FY27 guidance) — ZS rallied 10.9% same day in
+    sympathy; reinforced by dated analyst actions: BofA raised ZS PT to $210 from $175 (2026-08-18,
+    MT Newswires), Barclays raised ZS PT to $192 from $170 (2026-08-25, MT Newswires).
+  - Technical confirmations checked: relative strength vs. SPY/QQQ today (ZS +2.5% vs. SPY -0.44%,
+    QQQ -0.23% — clear outperformance); RSI 60.8 (8/28), >45 and holding elevated after a run from
+    52.6 (8/26); price pushing back toward/above the recent multi-week range high (~$186-190,
+    matching the exact level flagged in the user-shared Marilee call transcript as a breakout
+    watch level). At least 2-of-6 look satisfiable on this evidence alone.
+  - **Reason for deferral, not a rule-text technicality**: Zscaler reports fiscal Q4 earnings
+    **Thursday 2026-09-03, after close** — 3 trading sessions from today, per Benzinga's
+    "Earnings Volatility Watch" (2026-08-30), which lists ZS's own implied move for that report at
+    **12.75%**, the 4th-largest of the week across all reporting names. A same-day (or 1-2 day) new
+    swing entry today would hold directly into that binary event before any of §16's normal exit
+    mechanics (breakeven, trailing) could meaningfully de-risk the position — a documented
+    technical stop cannot protect against an earnings-driven overnight/premarket gap. §15 item 6
+    (Tier-B) explicitly requires flagging this exact scenario when entering within 3 sessions of
+    earnings; Mode B/Tier-A has no equivalent explicit clause, but the same risk logic applies with
+    real dollars at stake, so applying it here as a matter of prudent risk management rather than a
+    rule loophole. **Deferred to OBSERVE**, not blocked outright — flagging to the user now in case
+    they want to override; will re-screen fresh after the Sept 3 report clears.
+  - Options evaluation (§18, per trigger item 3a): not pursued for the same reason — a 30-60 DTE
+    call would carry the same earnings-gap exposure with added IV-crush risk into the print, worse
+    risk/reward than the equity route, not better.
+- **MODE B — rest of watchlist**: no other candidate clears §5B this cycle. Notable movers: TSLA
+  +3.9%, CVX +2.0%, DRAM +1.6% (no fresh catalyst found for either), NBIS/UBER/SHOP/AMZN/GOOG/FIG
+  all down 2-4% (broad softness, no single flagged driver).
+- **GLD/SLV**: GLD $406.60 (-0.6% vs. Friday's close), SLV $59.95 (-0.1%) — still no bullish
+  reversal candle/RSI turn/volume confirmation at the Fib zone flagged Friday. Remain OBSERVE.
+- **MODE C**: IREN stabilizing (+0.9% today after Friday's -13.8%) but no clean qualifying setup
+  yet. No other hourly-adapted VWAP-pullback/ORB/mean-reversion candidate identified this cycle.
+  0/8 positions, $0 P&L (fresh week).
+- Position count: 1/5 Mode B (NOW only), 0/8 Mode C. No orders placed this cycle.
