@@ -2020,3 +2020,33 @@ Format per entry:
 - **GLD/SLV**: GLD $406.57, SLV $59.80 — still flat/soft, no reversal confirmation.
 - **MODE C**: no confirmed setup this cycle. 0/8 positions, $0 P&L.
 - Position count: 1/5 Mode B, 0/8 Mode C. No orders placed this cycle.
+
+## 2026-08-31 ~19:25 UTC — MANUAL CHECK (user request, in-chat) — $1,300 DEPOSIT CONFIRMED; MODE C SCREEN, NO QUALIFYING SETUP
+- User reported adding funds and asked why only one Mode B position (NOW) is open with nothing
+  trading in Mode C. Verified live: cash rose from $1,203.38 to **$2,503.38** — a **$1,300
+  deposit** confirmed via `get_portfolio`/`get_accounts` (retail account ••••7533 unaffected,
+  Agentic ••••8058 `agentic_allowed: true` unchanged). New total_value **$4,310.56**.
+- **Updated risk/deployment figures**: 90% deployment ceiling $3,879.50; Mode B 1% risk budget
+  $43.11; Mode C 0.5% risk budget $21.55; Mode C 2.5% daily loss/profit limits $107.76 each.
+- **Ran a real, targeted Mode C screen in response** (not just the routine hourly pass) — checked
+  today's most notable movers for a qualifying hourly-adapted setup:
+  - **CRCL** (+9.1% today, $95.11): clean uptrend all session, volume increasing bar over bar
+    (356k→604k→746k→1.16M→956k), but **no pullback to VWAP at any point today** — straight up, no
+    entry pattern per §20 item 5 (VWAP-pullback needs an actual pullback-then-reclaim, not a
+    straight-line move). Entering now would be chasing an already-extended name — same
+    extension-avoidance discipline applied all session. Rejected.
+  - **TSLA** (+5.0% today, $366.18): did pull back toward VWAP in the 18:00-19:00 UTC bar (close
+    $365.83 vs. VWAP $365.55) — looked promising at first glance. **Rejected on the explicit §20
+    item 5 volume test**: that pullback bar's volume (3.00M) was *lower* than each of the three
+    bars before it (4.93M/3.94M/4.17M) — "volume on the reclaim bar lower than the bar(s) before
+    it" is one of §20's explicit auto-reject conditions, not a judgment call.
+  - **IREN** (+3.0% today, stabilizing after Friday's -13.8%): RSI recovered from Friday's extreme
+    (16.97-19.57) to 32.4 — the actual reclaim-from-extreme window (RSI<20 → next-bar close back
+    inside the band) already passed over the weekend/early Monday without ever cleanly confirming;
+    today's price action is basing/consolidating, not a fresh trigger. OBSERVE, not a new setup.
+  - No other name in the day's movers (BMNR +5.0%, PURR +2.5%, ZS +2.7% [earnings-blocked
+    regardless], CBRS +1.9%) was checked in the same depth given time, but none showed a
+    comparably clean setup at a glance.
+- **Outcome: no Mode C entry — genuinely no qualifying setup this cycle, not a capital constraint.**
+  Explained to the user that added capital doesn't create a trade on its own; the system won't
+  force a Mode C entry just to deploy cash. Will keep screening every scheduled cycle as normal.
