@@ -1987,3 +1987,15 @@ Format per entry:
   yet. No other hourly-adapted VWAP-pullback/ORB/mean-reversion candidate identified this cycle.
   0/8 positions, $0 P&L (fresh week).
 - Position count: 1/5 Mode B (NOW only), 0/8 Mode C. No orders placed this cycle.
+
+## 2026-08-31 ~15:55 UTC — AUTONOMOUS — OBSERVE, NO TRADE (routine cycle)
+- §14 Status: ACTIVE, confirmed. No kill phrase. Account: total_value $2,993.92, equity_value
+  $295.54 (NOW only), options_value $1,495, cash/buying power $1,203.38. No circuit breaker, no
+  MCP errors.
+- **MODE B — NOW**: 2 sh, $147.77 (continuing to climb), stop $140.00 unchanged, no trigger.
+- **ZS**: still deferred per last cycle's earnings-proximity flag (Sept 3 report, 3 sessions out).
+  No change to that call.
+- **GLD/SLV**: GLD $406.12, SLV $59.77 — still soft, no reversal confirmation. OBSERVE.
+- **MODE C**: IREN continuing to stabilize (+2.9% today) but no confirmed hourly setup yet. 0/8
+  positions, $0 P&L.
+- Position count: 1/5 Mode B, 0/8 Mode C. No orders placed this cycle.
