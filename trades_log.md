@@ -2071,3 +2071,75 @@ Format per entry:
 - **Day summary**: no new entries either mode. NOW continues running well above its trailed stop.
   Net Mode B position count end of day: 1/5 (NOW only). Mode C: 0/8 all day.
 - No orders placed this cycle.
+
+## 2026-09-01 ~14:55 UTC — AUTONOMOUS (first post-open cycle) — MODE B: DUOL ENTRY (5 sh); NOW HOLDS
+- §14 Status: ACTIVE, confirmed (re-read CLAUDE.md in full). No kill phrase since Monday's close.
+- Account (••••8058): total_value $2,973.39 (pre-entry), equity_value $289.08, options_value $435,
+  cash/buying power $2,249.31. No circuit breaker, no MCP errors.
+- **Unexplained cash decrease flagged**: cash fell from $3,449.31 (Monday ~19:55 UTC check) to
+  $2,249.31 — a **~$1,200 decrease** with **no matching order** in either `get_equity_orders` or
+  `get_option_orders` since Monday 20:00 UTC. options_value also drifted $550→$435 (consistent
+  with normal overnight mark-to-market decay on the manual DLLL/IGV calls, not a new trade).
+  Account state otherwise normal (active, no restrictions, `agentic_allowed: true` unchanged).
+  Most likely explanation: a manual withdrawal or transfer by the user outside this chat/system —
+  this system never withdraws or transfers funds (§1) and did not initiate this. Flagged to the
+  user in chat for confirmation; not investigated further since it doesn't match any circuit-
+  breaker trigger (positions reconcile fine, just less cash) and isn't something this system can
+  action either way.
+- FTA Regime Dashboard, re-checked: still all loading placeholders. UNKNOWN_DEGRADED, as every
+  check this session — reduced position sizing applied to today's entry below.
+- **Broad market context**: risk-off day — SPY -0.46%, QQQ -0.95% — with most watchlist names red
+  (OKLO -4.5%, CBRS -5.5%, CRCL -4.4%, ZS -4.4%, ONDS -5.7%, ASTS -4.4%, GLD -2.2%, SLV -2.8%).
+- **MODE B — DUOL: NEW ENTRY, cleared full §5B gate.**
+  - Catalyst (dated, verified): Evercore ISI analyst Mark Mahaney upgraded DUOL from In-Line to
+    **Outperform**, price target raised **$105 → $210**, published today 2026-09-01 (Benzinga,
+    "...Big Stocks Moving Higher On Tuesday").
+  - Technical confirmations (well past the 2-of-6 minimum):
+    - Breakout: gapped from $148.36 close to an intraday high of $162.51, now consolidating
+      $155-158 — a clean breakout above the multi-week $140-149.6 consolidation (Aug 18-31).
+    - Relative strength: DUOL +5.8%+ vs. SPY -0.46%/QQQ -0.95% on an otherwise broadly red day —
+      about as clean a relative-strength signal as this session has seen.
+    - RSI 58.7 (8/31), rising steadily from 54.4 (8/27) — above 45 and improving.
+    - Price well above 9-EMA ($144.37), 20-EMA ($140.71), and 50-SMA ($132.81) — full bullish
+      alignment.
+    - (4-of-6 confirmations logged: breakout, relative strength, RSI, EMA/SMA alignment.)
+  - Daily setup + hourly trigger (§5B item 7): first hourly candle of the day hadn't closed at
+    decision time (bars align to clock-hour boundaries, next close ~15:00 UTC) — used 5-minute
+    bars as a documented proxy: opened $159.81, spiked to $162.51, flushed hard to $153.60
+    (13:35 UTC), then based and reclaimed, holding $155-158.5 for the next ~80 minutes with higher
+    lows — a genuine flush-and-reclaim pattern, not a straight chase.
+  - Earnings check: next report tentatively 2026-11-04 (~2 months out) — no near-term earnings-gap
+    risk, unlike ZS.
+  - **Options evaluation (§18, per trigger item 3a): explicitly NOT pursued.** DUOL is already
+    extended intraday this session (+5.8%+, off a 9%+ opening spike) — trigger item 3a's own
+    condition ("only pursue options if NOT already extended intraday") rules this out; equity was
+    the only structure evaluated for this entry, consistent with how ZS's options route was
+    rejected on 8/31 and PLTR/RGTI/CRCL were passed over earlier in the session for the same
+    extension-avoidance reason.
+  - Stop: $154.50 (just below the intraday reclaim base low, tighter than the initial flush low
+    of $152.58, per §13.B "whichever is tighter"). Risk/share: $2.79 (vs. $157.29 fill).
+  - Sizing: account equity $2,973.39, 1% risk budget $29.73. **UNKNOWN_DEGRADED halved sizing
+    applied** (§5B Regime Rule) — normal risk-based share count ~10-11, halved to **5 shares**.
+    Dollar allocation $786.45 — well inside the 80% per-position cap and the 90%/$2,676.05 total-
+    deployment ceiling (combined with NOW, ~$1,075 deployed post-fill).
+  - Reward-to-risk: 1.5R minimum = $161.48 (already touched intraday at $162.51); realistic swing
+    target $162-165 (today's high / psychological level) implies ≥2:1 R:R. Clears the flat ≥1.5:1
+    floor comfortably.
+  - Correlation: no overlap with NOW (enterprise software) — DUOL is consumer edtech, a distinct
+    theme. Correlation cap clear (1/2 used post-fill, if a theme partner shows up later).
+  - Pre-order checks: `get_equity_tradability` (DUOL) — tradable, no restrictions.
+    `review_equity_order` — clean, no alerts. Compliance quote: Bid $156.80 x 300 / Ask $157.48 x
+    200 / Last $157.14, 10:58 AM ET.
+  - **ORDER PLACED AND FILLED**: BUY 5 DUOL LIMIT $157.30, filled @ $157.2899 avg (order id
+    `6a96e82b-bf91-4489-a7ed-50347580b7cb`).
+  - Exit plan: stop $154.50 (max planned loss $13.95), first target $161.48 (1.5R) trim
+    consideration at +2R per §16, time-stop review by 2026-09-10 (7 trading sessions) if +0.5R
+    not reached.
+- **MODE B — NOW**: 2 sh, $143.94 (down with the broad market, -2.7% today), stop $140.00
+  unchanged, no trigger.
+- **ZS**: still down further (-4.4% today, $180.12) — validates the 8/31 deferral decision.
+  Earnings now 1-2 sessions out (Wed 9/3 after close). Still not entered.
+- **GLD/SLV**: both down further today (GLD -2.2%, SLV -2.8%) — still no reversal, still OBSERVE.
+- **MODE C**: broadly red day, no clean VWAP-pullback/ORB/mean-reversion setup identified this
+  cycle in the time available. 0/8 positions, $0 P&L.
+- Account state after fill: **2/5 Mode B positions (NOW, DUOL)**, 0/8 Mode C.
