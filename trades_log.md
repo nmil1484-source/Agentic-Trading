@@ -2176,3 +2176,13 @@ Format per entry:
   trigger.
 - No new candidates this cycle. **MODE C**: no confirmed setup. 0/8 positions, $0 P&L.
 - Position count: 2/5 Mode B, 0/8 Mode C. No orders placed this cycle.
+
+## 2026-09-01 ~19:10 UTC — MANUAL CHECK (user reported deposit) — $2,000 DEPOSIT CONFIRMED
+- User reported adding funds. Verified live via `get_portfolio`: cash rose from ~$1,462.86
+  (post-DUOL-buy level after the 14:55 UTC cycle) to **$3,462.86** — a clean **$2,000 deposit**.
+  New total_value **$4,918.64**. equity_value $1,080.78 (NOW + DUOL at current prices, no new
+  equity buy), options_value $375 (mark-to-market drift only).
+- **Updated risk/deployment figures**: 90% deployment ceiling $4,426.77; Mode B 1% risk budget
+  $49.19; Mode C 0.5% risk budget $24.59; Mode C 2.5% daily loss/profit limits $122.97 each.
+- No trade action taken — deposit alone doesn't create a setup. Position count unchanged: 2/5
+  Mode B (NOW, DUOL), 0/8 Mode C. Continuing normal hourly screening.
