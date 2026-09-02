@@ -2202,3 +2202,64 @@ Format per entry:
   of day: **2/5 (NOW, DUOL)**. Mode C: 0/8 all day, no qualifying setup found despite a targeted
   mid-session check (CRCL/TSLA/IREN) at user request.
 - No orders placed this cycle.
+
+## 2026-09-02 ~14:00 UTC (delivered ~14:07 UTC) — FIRST SCAN OF DAY (new dedicated 10am ET trigger) — MODE B: NOW STOPPED OUT; DUOL HOLDS; NEW STOP-MONITORING GAP FOUND
+- §14 Status: ACTIVE, confirmed. No kill phrase. **First firing of the new dedicated first-scan
+  trigger** (`trig_01RN6ZbtgxKpoDApzmGswWAs`, created 2026-09-01) — confirmed working with full
+  live Robinhood MCP tool access (self-bound to this session, same pattern as the hourly trigger).
+- Account (••••8058): total_value $4,550.15 (pre-exit), equity_value $1,067.29, options_value
+  $420, cash/buying power $3,062.86. No circuit breaker.
+- **Unexplained ~$400 cash decrease flagged again**: cash fell from $3,462.86 (yesterday ~19:10
+  UTC check) to $3,062.86 overnight, with **zero matching orders** in either `get_equity_orders`
+  or `get_option_orders` since 2026-09-01 20:00 UTC. Positions unchanged (NOW 2sh, DUOL 5sh prior
+  to today's exit). Same pattern as Monday's ~$1,200 unexplained decrease — most likely another
+  manual withdrawal outside this system. Flagged to the user, not investigated further (doesn't
+  match a circuit-breaker trigger; nothing this system can or should act on).
+- FTA Regime Dashboard, re-checked: still all loading placeholders. UNKNOWN_DEGRADED, as every
+  check this session.
+- **MODE B — NOW: STOP-LOSS TRIGGERED, full exit executed.** Documented stop $140.00 (last
+  trailed level, set 2026-08-28 after the +3R trim). **Real monitoring gap found and flagged
+  honestly**: today's 5-minute bars show NOW opened at $140.235 (above stop, no gap-rule event)
+  but traded as low as **$139.59** in the first 15 minutes (13:30-13:45 UTC) — a genuine breach
+  that a resting broker-side stop order (like Mode C's mandatory mechanism) would have caught
+  immediately. Because Mode B stops are periodic documented-level checks (per §16, not resting
+  orders), and this cycle's first check landed at 14:09 UTC after price had already round-tripped
+  down to $139.59 and back up, the early dip was missed in real time. By 14:09 UTC price had
+  cycled back down to **$139.988/$140.005** — a fresh, confirmed at-or-below-stop read at check
+  time — so the exit fired correctly on this reading, just later than an always-on stop would
+  have caught the first breach. `get_equity_tradability` (tradable, no restriction) →
+  `review_equity_order` (clean, no alerts; compliance quote: Bid $139.92 x 100 / Ask $140.09 x 100
+  / Last $140.005, 10:09 AM ET) → **ORDER PLACED AND FILLED**: SELL 2 NOW LIMIT $139.50, filled @
+  $139.9201 avg (order id `6a982e0c-95fa-496f-b61a-553f78b7f263`). Realized on this final lot:
+  +$24.26 (vs. $127.788 entry). **NOW position fully closed** — combined with the earlier +3R trim
+  (+$17.30) and the original 2-share +2R trim (+$21.07, 2026-08-27), this was a net-profitable
+  trade across its full life (entered 2026-08-19 at $127.788, five shares, three partial exits).
+  - **Flagged for the user's decision, not implemented unilaterally**: this gap is structurally
+    identical to the reasoning behind Mode C's mandatory resting stop_market/stop_limit orders
+    (§20 item 1). Worth considering whether Mode B positions should also get a real resting
+    broker-side stop order placed immediately after entry (in addition to being monitored/logged
+    each cycle), closing this exact gap, now that position sizes are larger. Not implemented
+    without explicit instruction, per the same discipline used for every other live-system change
+    this session.
+- **MODE B — DUOL**: 5 sh, $157.27 (down slightly from yesterday's $158.77 close, still well clear
+  of the $154.50 stop), no trigger.
+- **MODE B — new candidates screened**:
+  - **DELL**: reported Q2 FY27 earnings after close 2026-09-01 — big beat ($7.04 actual vs. $4.88
+    estimate). Today's reaction is a **highly volatile, unresolved whipsaw**, not a clean
+    breakout: spiked to an intraday high of $483.94 (+13.9% off yesterday's $425.00 close) within
+    the first 15 minutes, then round-tripped straight back down to ~$445-448 (still +4-5% but
+    giving back most of the pop). Daily RSI (using 9/1's close data) is 44.1 — below the 45
+    "improving" confirmation threshold — and yesterday itself was a large red day (-6.8%) despite
+    the eventual beat. **Passed over as too unresolved/volatile to enter cleanly right now** —
+    will re-check once (if) it stabilizes into an actual range or confirms direction, rather than
+    chasing a post-earnings whipsaw mid-swing.
+  - **GLD/SLV**: bouncing today (+1.6%/+2.2%) after a sustained multi-day downtrend (GLD: lower
+    highs/lower lows every session since 2026-08-24's $429.42 high, through 9/1's $396.75 close).
+    Per §13.D, a lower-highs/lower-lows structure disqualifies a long entry regardless of a single
+    green day — one bounce isn't a confirmed reversal yet (needs an actual higher high, not just
+    a pause in the decline). **Still OBSERVE**, not chased.
+  - No other name screened cleared §5B this cycle in the time available (ASTS +10.6% and several
+    others noted but not deep-diligenced this cycle given the NOW stop-out took priority).
+- **MODE C**: too early in the session for a confirmed hourly-adapted setup (first hourly candle
+  not yet closed at decision time). 0/8 positions, $0 P&L.
+- Position count after this cycle: **1/5 Mode B (DUOL only)**, 0/8 Mode C.
