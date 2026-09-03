@@ -2399,3 +2399,16 @@ Format per entry:
 - **MODE B — HOOD**: 8 sh, $122.98, stop at breakeven $119.48, no trigger.
 - No new candidates this cycle. **MODE C**: no confirmed setup. 0/8 positions, $0 P&L.
 - Position count: 2/5 Mode B (DUOL, HOOD), 0/8 Mode C. No orders placed this cycle.
+
+## 2026-09-03 ~17:55 UTC — AUTONOMOUS — MODE B: DUOL BREAKEVEN STOP; HOOD AT +2R (TRIM HELD, ENTRY-DAY RULE)
+- §14 Status: ACTIVE, confirmed. No kill phrase. No circuit breaker, no MCP errors.
+- **MODE B — DUOL**: 5 sh, $160.84 — past +1R ($160.08, off the $157.29 entry/$154.50 original
+  stop, R=$2.79). Per §16 item 5, stop moved from $154.50 to **$157.29 (entry)**, documented
+  level, never lowered.
+- **MODE B — HOOD**: 8 sh, $124.33 — has reached +2R intraday ($123.44, off the $119.48 entry,
+  R=$1.98) on the **same day it was entered** (2026-09-03). Per §16 item 6's day-trade-protection
+  clause, the 50% profit-trim is **held until after today's regular-session close** rather than
+  sold intraday on entry day. Stop remains at breakeven $119.48. Will re-check at end of day/next
+  cycle and execute the trim if still at/above +2R after the close.
+- No new candidates this cycle. **MODE C**: no confirmed setup. 0/8 positions, $0 P&L.
+- Position count: 2/5 Mode B (DUOL, HOOD), 0/8 Mode C. No new-entry orders placed this cycle.
