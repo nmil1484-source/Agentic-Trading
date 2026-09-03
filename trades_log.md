@@ -2412,3 +2412,23 @@ Format per entry:
   cycle and execute the trim if still at/above +2R after the close.
 - No new candidates this cycle. **MODE C**: no confirmed setup. 0/8 positions, $0 P&L.
 - Position count: 2/5 Mode B (DUOL, HOOD), 0/8 Mode C. No new-entry orders placed this cycle.
+
+## 2026-09-03 ~18:05 UTC — MANUAL RULE CHANGE APPLIED — MODE B: HOOD STOP TRAILED (new decoupled-trailing rule, first application)
+- User instructed decoupling stop-trailing from the §16/§17 same-day trim gate (see CLAUDE.md §12
+  change log, 2026-09-03, and §16 items 5/6 for full text). Implemented directly in CLAUDE.md and
+  the two mirrored docs, committed and pushed (`46637ea`). Applying immediately to both open
+  positions per the new rule.
+- **HOOD**: entry $119.48 (2026-09-03), stop already at breakeven ($119.48) from the +1R move
+  earlier today. Today's hourly bars show clean rising intraday lows: 14:00 bar low $119.00, 15:00
+  low $121.18, 16:00 low $122.54 (17:00 bar in progress). Per the new rule, trailing the stop to
+  the best available intraday reference on this entry-day position — **moved from $119.48 to
+  $122.25**, just below the confirmed 16:00-17:00 hourly low, small buffer. Documented level, no
+  broker order (Mode B stops remain periodic-check, not resting, per existing design — see the
+  2026-09-02 monitoring-gap note, still unresolved/unimplemented). Never moved lower from here.
+- **DUOL**: entry $157.29 (2026-09-01), stop already at breakeven ($157.29) from today's +1R move.
+  Checked both reference levels the rule allows: 9-day EMA $149.37 and yesterday's (9/2) low
+  $154.30 — both below the current breakeven stop, so neither is a valid tightening ("whichever is
+  higher" — breakeven remains the tightest legitimate level). **No change**, stop remains $157.29.
+- Both positions' actual profit-trim (50% at +2R) remains gated by §17 as before — HOOD reached
+  +2R intraday today and that trim still waits until after today's regular-session close,
+  unchanged by this rule update.
