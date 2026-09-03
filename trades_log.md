@@ -2320,3 +2320,55 @@ Format per entry:
   post-earnings whipsaw, unconfirmed reversal). Net Mode B position count end of day: **1/5
   (DUOL only)**. Mode C: 0/8 all day, no qualifying setup found despite repeated screens.
 - No orders placed this cycle.
+
+## 2026-09-03 ~14:00 UTC (delivered ~14:01 UTC) — FIRST SCAN OF DAY — MODE B: HOOD ENTRY (8 sh); DUOL HOLDS
+- §14 Status: ACTIVE, confirmed. No kill phrase. Account (••••8058): total_value $3,421.40
+  (pre-entry), equity_value $813.70 (DUOL at current price), options_value $745, cash/buying
+  power $1,862.70. No circuit breaker.
+- **Recurring unexplained cash decrease — now a 3-day pattern, flagged prominently**: cash fell
+  from $2,762.70 (yesterday ~18:21 UTC) to $1,862.70 — another **~$900 decrease**, again with
+  **zero matching orders** in `get_equity_orders`/`get_option_orders` since 2026-09-02 20:00 UTC.
+  This is the third consecutive day of an unexplained cash drop with no order trail (~$1,200 Mon,
+  ~$400/$900 combined Tue, ~$900 today) — flagged plainly to the user as a pattern worth their
+  direct attention, not just another isolated note.
+- FTA Regime Dashboard, re-checked: still all loading placeholders. UNKNOWN_DEGRADED, as every
+  check this session — reduced sizing applied to today's entry.
+- **MODE B — HOOD: NEW ENTRY, cleared full §5B gate.**
+  - Catalyst (dated, verified): sector-wide crypto/fintech rally today (COIN +7.1%, MSTR +6.6%,
+    CRCL +11.2%, BULL +6.6%, GEMI +6.3% — Benzinga's Thursday movers list) plus a fresh Scotiabank
+    initiation on HOOD specifically — Sector Outperform, $136 price target — dated 2026-09-02.
+  - Technical confirmations: clean, sustained uptrend since the 2026-07-30 low ($86.60) through
+    today's breakout above the prior 2026-08-25 swing high ($112.45); daily RSI 54.5 (9/2), healthy
+    and improving from 51.0 the day before; dramatic relative strength (+11.6% vs. SPY +0.4% at
+    decision time).
+  - Daily setup + hourly trigger: today's 5-minute bars show a genuine gap-spike-flush-base
+    pattern (opened $113.80 → spiked to $122.20 → flushed to $118.55 → based/held $118.55-120.68
+    for ~20 minutes before entry) — a real pullback-and-hold, not a straight chase or a violent
+    whipsaw (contrast with DELL's unresolved round-trip, rejected twice this week).
+  - Earnings check: next report 2026-11-04 (~2 months out) — no near-term earnings-gap risk.
+  - **Options evaluation (§18, per trigger item 3a): explicitly NOT pursued.** HOOD is already
+    extended intraday (+11.6%+, off an even larger opening spike) — trigger item 3a's own
+    condition rules out the options route; equity only, same treatment as DUOL and the ZS
+    rejection.
+  - **Sizing note — larger-than-usual daily move required a tighter stop and correspondingly
+    smaller size**: stop set at $117.50 (below the intraday base low of $118.55, small buffer).
+    Risk/share $1.98 vs. $119.48 fill. Account equity $3,421.40, 1% budget $34.21, **halved for
+    UNKNOWN_DEGRADED** to ~$17.10 → 8 shares. Dollar allocation $955.84 — well inside all caps.
+  - Reward-to-risk: 1.5R minimum = $122.45 (already touched intraday at $122.20); realistic swing
+    target $125+ given the sector strength and fresh $136 analyst target. Clears the floor.
+  - Correlation: no overlap with DUOL (consumer edtech) — HOOD is fintech/brokerage, a distinct
+    theme. Correlation cap clear.
+  - Pre-order checks: `get_equity_tradability` (HOOD) — tradable, no restrictions.
+    `review_equity_order` — clean, no alerts. Compliance quote: Bid $119.36 x 100 / Ask $119.44 x
+    100 / Last $119.40, 10:03 AM ET.
+  - **ORDER PLACED AND FILLED**: BUY 8 HOOD LIMIT $119.60, filled @ $119.4799 avg (order id
+    `6a997e3f-25f2-4a35-8988-98d8fdb4da55`).
+- **MODE B — DUOL**: 5 sh, $162.74 (further gains, +3.1% today), stop $154.50 unchanged, no
+  trigger.
+- **ZS**: reports earnings **tonight after close** (2026-09-03) — absolutely still avoided, now
+  more critical than ever given the report is literally today.
+- **GLD/SLV**: both up again today (GLD +1.6% to $409.41, SLV +1.4%) — second consecutive up day.
+  Building toward a possible reversal but not yet confirmed (needs a real higher high on the daily
+  chart, not just two green days) — still OBSERVE, watching closely.
+- **MODE C**: too early in session for a confirmed hourly-adapted setup. 0/8 positions, $0 P&L.
+- Position count after this cycle: **2/5 Mode B (DUOL, HOOD)**, 0/8 Mode C.
