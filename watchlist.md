@@ -14,7 +14,22 @@ verification and a verified catalyst before it can appear on a Trade Card. Inclu
 TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL, VRT, PLAB, HIMS,
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
-IGV, CRCL, CBRS, GLD, SLV
+IGV, CRCL, CBRS, GLD, SLV, PGY
+
+**Note on PGY:** added 2026-09-03 per user instruction, after a Slack community call (source:
+"stockinvesting" channel, trader "J-Griff" — context per §9, never a signal) flagged a golden
+cross. Independently deep-dive-verified same day (full technicals, Fibonacci, Elliott Wave,
+volume, options chain) before adding — not added on the call's word alone. Findings at add time:
+real 50-SMA/200-SMA golden cross confirmed, 7-consecutive-quarter earnings-beat streak (last beat
+2026-07-30, +51% EPS surprise, next report ~2026-11-09), 4-of-6 §5B technical confirmations
+(EMA/50-SMA/Fib-pullback-location/RSI all pass; volume does NOT confirm — today's bounce printed
+below-average volume), MACD not yet confirming the bounce, near-term R:R marginal (~1.27:1 to the
+recent high, needs a $24+ target for 1.5:1+). Verdict at add time: **OBSERVE, not yet a qualifying
+entry** — watching for volume/MACD confirmation. Options chain checked (10/16 exp, 43 DTE, fits
+§18): thin liquidity, wide spreads, only 1 contract affordable under the 6%-of-equity cap at this
+account size — flagged as a real constraint, not a blocker. Same as every other name here: being
+watched is not pre-approval — still needs full independent re-verification against current §5B on
+whatever cycle actually proposes a trade.
 
 **Note on GLD and SLV:** added 2026-08-28 per explicit user instruction ("put gold and silver on
 for B" — Mode B). Confirmed via `get_equity_tradability` as real, active, individual-account
