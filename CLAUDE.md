@@ -321,6 +321,35 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-09-03 (later same day): User instructed adding profit-protection fail-safes to both Mode
+  B and Mode C.** Three requested mechanisms, evaluated and applied individually rather than as a
+  blanket add — some were already satisfied by existing rules:
+  1. **Continuous stop trailing, both modes, never frozen at breakeven.** Mode B: already just
+     decoupled from the same-day trim gate earlier today (see the entry directly below) — no
+     further change needed. Mode C: already satisfied by the existing Chandelier Exit mechanic
+     (§20.3, in place since Mode C's 2026-08-25 launch) — noted directly in §20.3, no change
+     needed.
+  2. **Peak-unrealized-R tracker with a 30%-retrace-from-peak full-sell trigger, once a position
+     reaches ≥+1.5R, both modes.** New in both: §16 item 12 (Mode B, explicitly overrides §17's
+     same-day-trim gate — this is a full protective exit, not the ordinary partial trim) and §20.1
+     item 11 (Mode C). **Platform-cadence question the user asked directly — answered, not
+     assumed:** whether Mode C's check cadence could tighten specifically for this rule, given
+     positions can only be checked once an hour. It cannot — the 1-hour minimum trigger interval
+     is a tested, hard platform floor (see §20.5's own note from 2026-08-25), not a configuration
+     choice; there is no mechanism available to poll more often than the scheduled hourly cycle.
+     Disclosed plainly in both new rule texts rather than silently accepting a gap: a fast
+     intra-hour spike-and-reversal can still erase more than 30% of peak gain before the next
+     cycle catches it, in either mode.
+  3. **Final-30-minutes tightening.** Mode B: new §16 item 13 — tightens the trailing reference in
+     the last 30 minutes of the session, but (per the same platform-cadence limitation) only the
+     19:55 UTC cycle actually falls inside that window, so this is a single tighter check at that
+     cycle, not continuous monitoring. Mode C: **no new rule added** — confirmed the existing
+     mandatory same-day flatten (§20.1 item 9, STEP 0.5 in the trigger) already forces every Mode C
+     position closed at the 19:55 UTC cycle regardless, so no position is ever open in the literal
+     final minutes before close in the first place; a separate tightening rule would have been
+     redundant on top of an outright forced exit.
+  No change to sizing, entry criteria, or risk-per-trade in either mode — scoped strictly to exit
+  mechanics, per the user's own framing of the request.
 - **2026-09-03: User instructed decoupling stop-trailing from the §16/§17 same-day profit-trim
   restriction, for Mode B.** Before: both stop-trailing and the +2R/+3R profit-trim were gated
   together behind the "held through at least one regular-session close" rule (§16 item 6) — in
@@ -1163,6 +1192,11 @@ stop-trailing (breakeven at +1R, then trailing under the 9/20 EMA/rising swing-l
 extends) is now decoupled from item 6's same-day trim restriction. See §12 change log for the
 full before/after.
 
+**Change note (2026-09-03, later same day):** two new items added — item 12 (peak-retracement
+protective exit: full sell if price gives back 30% of the gain from entry to peak, once ≥+1.5R,
+overriding the §17 same-day gate) and item 13 (final-30-minutes tighter trailing). Mirrored for
+Mode C in §20 (guardrail item 11 and the existing Chandelier Exit note). See §12 change log.
+
 1. Every entry must have an exit plan before the order is placed. The Trade Card must record:
    entry price, initial stop/invalidation, maximum planned loss in dollars, first profit target,
    and a time-stop date.
@@ -1239,6 +1273,35 @@ full before/after.
 11. Record every exit with planned loss, actual loss, slippage, the rule that triggered the exit,
     and whether the exit submitted successfully, in `trades_log.md`. These records must be
     included in the weekly system review.
+
+12. **Peak-retracement protective exit (2026-09-03, explicit user instruction — see §12 change
+    log).** Once a position's unrealized gain reaches +1.5R or higher, track the peak price
+    reached from that point forward. If price retraces 30% of the gain from entry to that peak
+    (current price falls to peak − 0.30×(peak − entry)), immediately exit the **full remaining
+    position** — `get_equity_tradability`/`review_equity_order` then submit a full sell, same
+    tradability/review discipline as item 3. **This explicitly overrides §17's same-day-trim
+    gate**: it is a full protective exit, not the ordinary 50%/25% profit-trim in item 6, so it
+    fires even on a same-day entry with no wait for a session close. Independent of, and can fire
+    before or after, the EMA/swing-low trailing stop (item 5/6) and the ordinary +2R/+3R trims —
+    whichever exit condition is hit first executes; do not stack or double-count. **Platform-
+    cadence caveat, disclosed plainly:** checked once per scheduled cycle (hourly, or at whichever
+    cycle catches it), the same 1-hour floor documented for Mode C (§20.5) — a true continuous or
+    sub-hourly check is not mechanically available on this platform. A very fast intra-hour
+    spike-and-reversal could still erase more than 30% of the peak gain between checks before this
+    rule catches it — the same structural limitation already accepted for Mode C, now equally true
+    here. Not a new gap; disclosed for completeness.
+
+13. **Final-30-minutes tightening (2026-09-03, explicit user instruction — see §12 change log).**
+    During the last 30 minutes of the regular session (approximately 3:30-4:00pm ET), any position
+    holding an open profit trails tighter than its normal item-6 reference — using the most recent
+    1-2 hourly lows (or the tightest of the normal references), not the wider daily EMA, to reduce
+    the odds of a late-session fade eating into the day's gains right before the position carries
+    overnight by design (§17 item 2). **Platform-cadence caveat:** given the 1-hour minimum
+    trigger interval, only the 19:55 UTC cycle (~3:55pm ET, 5 minutes before close) actually falls
+    inside this 30-minute window — this is a single tighter check at that last cycle, not
+    continuous monitoring across the full 30 minutes. This does not force a flatten the way Mode
+    C's item 9 does — Mode B still holds overnight by design unless a stop is actually hit; this
+    item only tightens where that stop sits going into the close.
 
 ## 17. Day-Trade and Settlement Protection (Mode B)
 Added 2026-08-13 at explicit user instruction, alongside the §3/§12 removal of Mode B's 1/day,
@@ -1492,8 +1555,28 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
    no overnight holds, no exception. This is a deliberate, direct contrast with Mode B (§17 item
    2's "no same-day close by design") — the two modes intentionally hold opposite defaults on
    timing, because they're different instruments serving different purposes in the same account.
+   **This already satisfies the "final-30-minutes tightening" fail-safe requested 2026-09-03 for
+   Mode B** — the trigger's own STEP 0.5 forces the flatten at the 19:55 UTC cycle (~3:55pm ET, 5
+   minutes before close), so no Mode C position is ever open in the literal final minutes before
+   close in the first place. A separate tightening rule would be redundant on top of an outright
+   forced exit; none was added.
 10. **Cash/settled-funds only, no margin** (§1 — unmodified). Verify settled buying power via
     `get_accounts`/`get_portfolio` before every entry, same discipline as §17 item 1.
+11. **Peak-retracement protective exit (2026-09-03, explicit user instruction — see §12 change
+    log).** Once a position's unrealized gain reaches +1.5R or higher, track the peak price
+    reached from that point forward. If price retraces 30% of the gain from entry to that peak
+    (current price falls to peak − 0.30×(peak − entry)), immediately exit the full position — a
+    real market/marketable-limit sell, same as any other Mode C exit — regardless of item 9's
+    same-day-flatten timing (this can fire well before end of day; it does not wait for anything).
+    Independent of, and can fire before or after, the Chandelier Exit trailing stop (§20.3) —
+    whichever exit condition is hit first executes. **Platform-cadence caveat, disclosed plainly:**
+    checked once per hourly cycle, the same 1-hour floor as everything else in Mode C (tested and
+    documented in §20.5's own note) — a true continuous or sub-hourly check is not mechanically
+    available on this platform. A fast intra-hour spike-and-reversal can still give back more than
+    30% of the peak gain before the next cycle catches it; this is the same structural limitation
+    already accepted for Mode C's entries, now equally true for this exit rule. Not a new gap —
+    disclosed here for completeness since the user asked directly whether a tighter check cadence
+    was achievable. It is not.
 
 ### 2. Position sizing
 ```
@@ -1515,7 +1598,10 @@ Default: **volatility-based (ATR), not a round number or gut-feel price.**
   stop price — an actual resting broker order, not a level the Routine just remembers to check.
 - **Trailing once profitable:** Chandelier Exit — `highest price since entry − 3×ATR(14)` for
   longs, recomputed as new highs form each hourly check. Only ratchets in the favorable direction,
-  same never-move-a-stop-lower principle as §16 item 5 and §18 item 4.
+  same never-move-a-stop-lower principle as §16 item 5 and §18 item 4. **This already satisfies
+  the "continuous stop trailing, never frozen at breakeven" fail-safe requested 2026-09-03** — Mode
+  C's stop has trailed mechanically under the rising highs since day one; nothing new was needed
+  here, only the peak-retracement rule (item 11 above) was actually new for this mode.
 - **Breakeven rule:** once the trade is up ~1× the initial risk, move the stop to breakeven (entry
   price plus a few cents for fees/slippage).
 - **News/earnings exception:** widen to ≥4× ATR or stand aside for the 30 minutes around a
