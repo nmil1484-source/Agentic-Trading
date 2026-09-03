@@ -2442,3 +2442,37 @@ Format per entry:
   no trigger.
 - No new candidates this cycle. **MODE C**: no confirmed setup. 0/8 positions, $0 P&L.
 - Position count: 2/5 Mode B (DUOL, HOOD), 0/8 Mode C. No orders placed this cycle.
+
+## 2026-09-03 ~19:05 UTC — NEW RULE APPLIED LIVE — MODE B: DUOL AND HOOD BOTH FULL-EXITED (peak-retracement protective exit, §16 item 12)
+- Immediately following implementation of the peak-retracement fail-safe (CLAUDE.md §16 item 12 /
+  §20.1 item 11, commit `2610089`), checked both open Mode B positions against the new rule using
+  the actual post-entry peak (not the whole day's high, which can include pre-entry price action —
+  confirmed via hourly bars for both names to isolate the true post-fill peak).
+- **DUOL**: entry $157.29 (2026-09-01, R=$2.79). True peak since the fill (hourly bars,
+  2026-09-01 15:00 UTC onward): **$163.72**, printed 2026-09-03 ~14:00-15:00 UTC — well above the
+  +1.5R tracking threshold ($161.475, i.e. +2.30R at peak). Retrace trigger = peak −
+  0.30×(peak−entry) = 163.72 − 0.30×6.43 = **$161.79**. Current price $160.48 was **below** this
+  trigger — a ~48% retracement of the peak-to-entry gain, well past the 30% threshold.
+  `get_equity_tradability`/`review_equity_order` clean, no alerts (Bid $160.33 x 100 / Ask $160.62
+  x 300 / Last $160.475, 3:05 PM ET). **ORDER PLACED AND FILLED**: SELL 5 DUOL LIMIT $160.20,
+  filled @ $160.3887 avg (order id `6a99c4f4-0595-4458-96a2-d284605bd5ae`). Realized gain: **+$15.47**
+  (fees $0.02). This overrides §17's same-day gate in spirit only in the sense that it's a full
+  exit rule independent of trim timing — DUOL wasn't a same-day entry anyway (held since 9/1), so
+  §17 wasn't actually in play here, just noting the rule's precedence relationship held correctly.
+- **HOOD**: entry $119.48 (2026-09-03, same day, R=$1.98). True peak since the fill (hourly bars,
+  today from 14:00 UTC): **$124.59**, printed ~17:00-18:00 UTC — above the +1.5R threshold
+  ($122.45, i.e. +2.58R at peak). Retrace trigger = 124.59 − 0.30×5.11 = **$123.06**. Current price
+  $122.61 was below this trigger — a ~36% retracement of the peak-to-entry gain. This **is** a
+  same-day entry, so this is the first real test of item 12 explicitly overriding §17's same-day
+  trim gate — the ordinary +2R 50%-trim was on hold per §17 (noted at 17:55 UTC), but this
+  full-exit rule fired independently and took precedence, exiting the entire position rather than
+  waiting for a post-close trim. `get_equity_tradability`/`review_equity_order` clean, no alerts
+  (Bid $122.57 x 100 / Ask $122.62 x 500 / Last $122.61, 3:05 PM ET). **ORDER PLACED AND FILLED**:
+  SELL 8 HOOD LIMIT $122.40, filled @ $122.7401 avg (order id `6a99c4f6-523d-4999-98aa-950a0b3fa6b9`).
+  Realized gain: **+$26.05** (fees $0.03).
+- **Combined realized this cycle: +$41.52.** Both trades net-profitable, both exited specifically
+  to protect a larger unrealized gain from further giveback rather than letting them ride toward
+  breakeven or worse — exactly the scenario that prompted the rule.
+- **Account state after both exits: 0/5 Mode B positions, 0/8 Mode C.** Fully flat. Continuing
+  normal hourly screening — nothing forces the account to stay in cash, this is just where things
+  landed after two same-cycle protective exits.
