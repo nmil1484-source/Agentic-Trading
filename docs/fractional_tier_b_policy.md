@@ -113,11 +113,15 @@ unchanged and independently of this section.
    HARD_OBSERVE_MODE for the remainder of that session.
 
 5. **Breakeven rule.** After a position reaches +1R, move the stop to entry price or the nearest
-   higher technical support, whichever is higher. Never move the stop lower afterward.
+   higher technical support, whichever is higher. Never move the stop lower afterward. **Applies
+   unconditionally, same-day entry or not (2026-09-03) — see CLAUDE.md §16 item 5, authoritative.**
 
 6. **Profit protection.** At +2R, sell 50% of the position and trail the remainder below the 9/20
    EMA, prior-day low, or nearest higher support. At +3R, sell an additional 25% and continue
-   trailing the remaining 25%.
+   trailing the remaining 25%. **This doc predates the §17 day-trade-protection and 2026-09-03
+   trailing/trim decoupling changes — CLAUDE.md §16 item 6 is authoritative on current mechanics
+   (the trim waits for a same-day entry's post-close review; the stop itself trails continuously
+   regardless).**
 
 7. **Momentum failure.** Exit the full remaining position if price closes below the 20-EMA for
    two consecutive sessions and RSI/MACD are both deteriorating, unless the original stop would

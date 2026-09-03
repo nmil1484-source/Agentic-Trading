@@ -321,6 +321,26 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-09-03: User instructed decoupling stop-trailing from the §16/§17 same-day profit-trim
+  restriction, for Mode B.** Before: both stop-trailing and the +2R/+3R profit-trim were gated
+  together behind the "held through at least one regular-session close" rule (§16 item 6) — in
+  practice this meant a same-day entry's stop sat frozen at breakeven from +1R all the way to that
+  day's close even if price ran to +2R, +3R, or further, exposing the full unrealized gain to
+  giveback with no progressive protection. Prompted directly by HOOD (entered 2026-09-03) reaching
+  +2R intraday on its own entry day, with the stop still sitting at breakeven while price continued
+  to run. **After:** stop-trailing (§16 item 5's breakeven-at-+1R rule, and item 6's
+  trail-under-the-9/20-EMA/rising-swing-low mechanic as price extends further) now applies
+  unconditionally on every Mode B position, same-day entry or not — mechanically, not as a
+  judgment call. **§17's no-same-day-trim rule is unchanged and still fully in force** — it now
+  binds only the sell/reduce-size action at +2R/+3R, not stop placement. So a same-day position can
+  have its stop actively climbing toward the current price all session, while the actual 50%/25%
+  share reduction still waits until after that day's close. On the entry day itself, before a daily
+  9/20 EMA or prior-session low is meaningful, the trailing stop uses the best available intraday
+  reference (an emerging session low, an hourly reclaim level) — the same method already used to
+  set that day's initial stop. The stop still only ever moves up, never down. Net effect: same
+  overnight-hold discipline as before (§17 untouched), but unrealized gains now get progressively
+  locked in as price rises instead of sitting exposed at breakeven for the rest of the entry-day
+  session. Updated directly in §16 items 5 and 6.
 - **2026-08-26: User instructed rebalancing position-count capacity from Mode B toward Mode C.**
   Before: Mode B simultaneous-position cap 10 (§5B item 1), Mode C simultaneous-position cap 3
   (§20 item 5). After: **Mode B cap lowered to 5, Mode C cap raised to 8.** Prompted directly by
@@ -1138,6 +1158,11 @@ acknowledged change to this section's own numbered rules, not just a scope broad
 requires a full regular-session close before the +2R trim (day-trade protection, see §17). Item 8's
 time stop shortened from 10 to 7 trading sessions. Items 1-5, 7, and 9-11 are unchanged.
 
+**Change note (2026-09-03):** items 5 and 6 further modified at explicit user instruction —
+stop-trailing (breakeven at +1R, then trailing under the 9/20 EMA/rising swing-low as price
+extends) is now decoupled from item 6's same-day trim restriction. See §12 change log for the
+full before/after.
+
 1. Every entry must have an exit plan before the order is placed. The Trade Card must record:
    entry price, initial stop/invalidation, maximum planned loss in dollars, first profit target,
    and a time-stop date.
@@ -1163,13 +1188,29 @@ time stop shortened from 10 to 7 trading sessions. Items 1-5, 7, and 9-11 are un
    still enters a full HARD_OBSERVE_MODE (§6) requiring human review.
 
 5. Breakeven rule: after a position reaches +1R, move the stop to entry price or the nearest
-   higher technical support, whichever is higher. Never move the stop lower afterward.
+   higher technical support, whichever is higher. Never move the stop lower afterward. **This
+   applies unconditionally, same-day entry or not** (2026-09-03, see change note below) — the
+   breakeven move and everything in item 6's *trailing* language happen mechanically as price
+   rises, regardless of the §17 day-trade-protection trim gate.
 
 6. Profit protection: at +2R, sell 50% of the position **only if it has been held through at
    least one regular-session close** (2026-08-13, day-trade protection — see §17), and trail the
    remainder below the 9/20 EMA, prior-day low, or nearest higher support. At +3R, sell an
    additional 25% and continue trailing the remaining 25%. If +2R is reached intraday on the entry
-   day itself, hold the trim until after that day's close rather than selling same-day.
+   day itself, hold the *trim* (the sell/reduce-size action) until after that day's close rather
+   than selling same-day. **Decoupled 2026-09-03, explicit user instruction: this same-day hold
+   applies only to the trim/sell action, never to stop placement.** The stop still trails
+   continuously and mechanically all session on every position, same-day entry or not — breakeven
+   at +1R (item 5), then following under the 9/20 EMA or a rising intraday swing-low/support as
+   price extends through +2R, +3R, and beyond, exactly as it already does for a position held past
+   its entry day. On the entry day itself, before a daily 9/20 EMA or prior-session low is
+   meaningful, trail using the best available intraday reference (an emerging session low, an
+   hourly reclaim level, etc.) — the same methodology already used to set that day's initial stop.
+   The stop only ever moves up, never down — unchanged. **Net effect:** a same-day position can
+   have its stop actively climbing toward the current price all session even though the actual
+   50%/25% share reduction still waits until after close if entered that day — unrealized gains
+   get progressively locked in as price rises instead of sitting exposed at breakeven from +1R
+   all the way to the close.
 
 7. Momentum failure: exit the full remaining position if price closes below the 20-EMA for two
    consecutive sessions and RSI/MACD are both deteriorating, unless the original stop would

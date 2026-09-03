@@ -100,10 +100,14 @@ existing hard limits (CLAUDE.md §3 dollar caps) plus these are satisfied:
 2. A hard-stop breach triggers a protective exit as soon as tradability/order review completes.
    Never widen, remove, or lower a stop.
 3. At +1R, move the stop to breakeven or the nearest higher technical support, whichever is
-   higher.
+   higher. **Applies unconditionally, same-day entry or not (2026-09-03) — see CLAUDE.md §16
+   item 5.**
 4. **At +2R, sell 50% only if the position has been held through at least one regular-session
    close** (2026-08-13 addition — day-trade protection); trail the remainder using the 9/20 EMA,
-   prior-day low, or nearest support.
+   prior-day low, or nearest support. **Decoupled 2026-09-03: the same-day hold applies only to
+   the sell/reduce-size action — the stop itself trails continuously all session regardless of
+   entry day, using the best available intraday reference before a daily EMA/prior-session low is
+   meaningful. See CLAUDE.md §16 item 6 (authoritative).**
 5. At +3R, sell another 25% and trail the remaining 25%.
 6. **Time stop: 7 trading sessions** (shortened 2026-08-13 from 10). If the trade hasn't reached
    +0.5R by then and momentum isn't improving, exit at the next eligible execution.
