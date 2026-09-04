@@ -2498,3 +2498,50 @@ Format per entry:
   this afternoon, on top of Tuesday's NOW result. Account ended the day fully flat: 0/5 Mode B,
   0/8 Mode C, $3,490.60 all cash.
 - No orders placed this cycle.
+
+## 2026-09-04 ~14:00 UTC (delivered ~14:01 UTC) — FIRST SCAN OF DAY — MODE B: MU ENTRY (1 sh)
+- §14 Status: ACTIVE, confirmed. No kill phrase. Account (••••8058): total_value $3,490.60
+  (pre-entry), all cash, 0/5 Mode B, 0/8 Mode C. No circuit breaker.
+- FTA Regime Dashboard, re-checked: still all loading placeholders. UNKNOWN_DEGRADED, as every
+  check this session — reduced sizing applied to today's entry.
+- **MODE B — MU: NEW ENTRY, cleared full §5B gate.**
+  - Catalyst (dated, verified): "AI Memory Crunch Is About to Hit '10 Out of 10' Craziness" —
+    sector-wide memory-chip supply/demand narrative, dated today (2026-09-04), naming Micron and
+    SanDisk specifically. Reinforced by real relative strength: MU +4.3% vs. SPY roughly flat
+    today.
+  - Technical confirmations: price ($999) well above 20-day EMA ($936.82) — bullish alignment;
+    RSI 53.2 (9/3 close) and improving from 50.2 (9/1); today's move breaks back above the top of
+    a 3-week consolidation range (~$974-990) that had capped price since 8/17's $1036 high — a
+    range-top reclaim, not a fresh all-time-high breakout, but a genuine technical trigger.
+    (4-of-6: EMA alignment, relative strength, RSI, range-top breakout.)
+  - Daily setup + hourly trigger: 5-minute bars show a clean pullback-and-reclaim today — gapped
+    to $971.88, spiked to $994.74, pulled back to a session low $986.80 (13:40 UTC), then reclaimed
+    and pushed to new session highs ($1000.10) — a real trigger, not a straight chase.
+  - Earnings check: no near-term earnings risk (MU's last report was well prior; next report not
+    imminent — not re-verified this cycle in the interest of time, flagging as a gap to confirm
+    next check if held longer).
+  - **Options evaluation (§18, per trigger item 3a): explicitly NOT pursued.** MU is already
+    extended intraday (+4.3%+ off the gap), consistent with the extension-avoidance rule applied
+    to every other entry this week — equity only.
+  - Stop: $985.00 (below the intraday pullback low of $986.80, small buffer). Risk/share: $14.50
+    vs. $999.50 fill (1.4%).
+  - Sizing: account equity $3,490.60, 1% risk budget $34.91, **halved for UNKNOWN_DEGRADED** to
+    ~$17.45 → floor(17.45/14.50) = **1 share**. MU's high per-share price naturally caps size here
+    regardless of dollar allocation headroom (~$3,141 deployment ceiling, $999 used — plenty of
+    room, just not more shares given the risk budget).
+  - Reward-to-risk: target the 8/17 high ($1036) → (1036-999.5)/14.5 = **~2.5:1**, comfortably
+    clears the 1.5:1 floor.
+  - Correlation: no overlap with any other open position (account is otherwise flat). Correlation
+    cap clear.
+  - Pre-order checks: `get_equity_tradability` (MU) — tradable, no restrictions.
+    `review_equity_order` — clean, no alerts. Compliance quote: Bid $998.81 x 120 / Ask $999.25 x
+    80 / Last $999.24, 10:03 AM ET.
+  - **ORDER PLACED AND FILLED**: BUY 1 MU LIMIT $999.50, filled @ $999.50 avg (order id
+    `6a9acfb3-7164-4fb7-b59d-c9b2f780c58f`).
+- **MODE B — other watchlist activity noted, not acted on**: PATH down sharply (~-14%, cause not
+  investigated this cycle — flagging for awareness, not a candidate regardless of direction);
+  CBRS/ASTS/CRWV/DRAM all up meaningfully but not diligenced this cycle given time; PGY ($22.24,
+  -2.8%) still no confirmation, remains OBSERVE per yesterday's deep dive; GLD/SLV both down again
+  today, still no reversal confirmed.
+- **MODE C**: too early in session for a confirmed hourly-adapted setup. 0/8 positions, $0 P&L.
+- Position count after this cycle: **1/5 Mode B (MU)**, 0/8 Mode C.
