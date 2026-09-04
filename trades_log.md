@@ -2564,3 +2564,20 @@ Format per entry:
   unchanged, no trigger.
 - No new candidates this cycle. **MODE C**: no confirmed setup. 0/8 positions, $0 P&L.
 - Position count: 1/5 Mode B (MU), 0/8 Mode C. No orders placed this cycle.
+
+## 2026-09-04 ~17:55 UTC — AUTONOMOUS — OBSERVE, NO TRADE (routine cycle)
+- §14 Status: ACTIVE, confirmed. No kill phrase. No circuit breaker.
+- **MODE B — MU**: 1 sh, last trade $998.735 (10:55:30 AM ET quote: bid $998.63 x, ask $998.84),
+  down slightly from prior cycle's $1005.63 but still above entry $999.50 basis / near flat. Not
+  yet at +1R ($1014.00) — no breakeven-move trigger. Stop $985.00 unchanged, no breach.
+- No new candidates screened this cycle. **MODE C**: no confirmed setup. 0/8 positions, $0 P&L.
+- Position count: 1/5 Mode B (MU), 0/8 Mode C. No orders placed this cycle.
+- **OPERATIONAL ALERT**: at the end of this cycle, the Robinhood MCP connector reported as
+  requiring reauthorization (`robinhood-trading` connector, non-interactive session — cannot
+  complete OAuth here). This blocks all further live account/quote/order calls until the user
+  reauthorizes via claude.ai → Settings → Connectors. Per §14 item 5 / §6 (MCP-error handling):
+  no new-entry orders can be evaluated or placed while this persists; MU's resting protective stop
+  is a broker-side mental/documented level only (Mode B does not currently use resting broker stop
+  orders — see the 2026-09-02 monitoring-gap disclosure), so this also means MU's stop cannot be
+  actively monitored or executed by this system until access is restored. Flagging to the user
+  directly in chat this cycle as a required action, not just logging it.
