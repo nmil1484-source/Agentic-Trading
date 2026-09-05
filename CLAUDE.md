@@ -289,6 +289,30 @@ per §5B — the ordering below is unchanged by the mode refactor.)
    Trade Card)
    https://www.tradingview.com/watchlists/190302653/
 
+7. **TradingView MCP ("tvremix") — added 2026-09-05 at explicit user instruction, after the user
+   connected their TradingView account via the tvremix Chrome extension connector.** A live data/
+   analytics tool (`get_quote`, `get_technicals`/`get_technicals_rating`, `run_screener`,
+   `analyze_multi_timeframe`, `analyze_smc_tool`/`analyze_swing_tool`, `rank_symbol_setups`,
+   `compare_symbols_tool`, `get_option_chain`, `get_earnings_history`/`get_earnings_calendar`/
+   `get_economic_calendar`/`get_dividends_calendar`, `get_news`), used as a **supplementary
+   technical/screening data source for both Mode B (§5B/§13) and Mode C (§20 item 5)** — it does
+   NOT change any gate, confirmation count, reward-to-risk floor, position cap, or risk-sizing rule
+   in this document; it only adds another way to gather the evidence those existing rules already
+   require (e.g., an independent read on EMA/SMA/RSI/MACD/volume confirmations alongside or instead
+   of Robinhood's `get_equity_technical_indicators`, and `run_screener`/`rank_symbol_setups` to
+   triage the watchlist efficiently before deep-diving individual names). **Execution stays
+   Robinhood-only** — this connector has no order-placement tool of any kind, so it cannot place,
+   modify, or cancel a trade; every entry/exit still goes through `get_equity_tradability`/
+   `review_equity_order`/`place_equity_order` (or the option equivalents) exactly as before. Symbols
+   use TradingView format (`EXCHANGE:TICKER`, e.g. `NASDAQ:MU`) — resolve via `search_symbols` when
+   the exchange prefix isn't already known for a given ticker. **Scope note**: this system uses only
+   the market-data/analytics tools above for research; it does not read or act on the user's
+   personal TradingView portfolio or watchlist state (`my_portfolio_*`, `my_watchlists`, `my_alerts`,
+   `my_charts`) unless the user separately asks — same account-separation discipline as §1, applied
+   to this connector even though it isn't a brokerage account. Log which TradingView tool(s) were
+   used and the query time in the Trade Card/`trades_log.md`, same discipline as every other source.
+   https://www.tradingview.com/ (data via the tvremix MCP connector, not a page fetch)
+
 ## 9. Source integrity rule
 - Do not treat YouTube titles, social-media posts, or prediction-market odds as a primary trade signal.
 - Use them only as context after checking the approved sources, price/volume data, and a verifiable catalyst.
@@ -321,6 +345,22 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-09-05: User instructed wiring the newly-connected TradingView MCP ("tvremix") connector
+  into the autonomous Mode B and Mode C scan cycles, not just manual/on-demand chat research.**
+  New §8 item 7 documents the connector and its scope. **Explicitly scoped as an additional
+  research/data source only** — no gate, confirmation count, reward-to-risk floor, position cap,
+  or risk-sizing rule changed; it supplements the evidence-gathering for the existing §5B/§13/§20
+  tests (an independent technicals/screener read alongside Robinhood's own
+  `get_equity_technical_indicators`) and gives the autonomous trigger a faster way to triage the
+  watchlist (`run_screener`/`rank_symbol_setups`) before deep-diving individual names. **Execution
+  is unaffected and stays Robinhood-only** — the connector has no order-placement tool, so it
+  cannot place/modify/cancel any trade; `get_equity_tradability`/`review_equity_order`/
+  `place_equity_order` (and the option equivalents) remain the sole execution path. The autonomous
+  trigger prompts (both the hourly Mode B/C scan and the daily first-scan) are being updated in the
+  same pass to reference the new tools at the appropriate screening steps. Flagged to the user
+  before making the change and confirmed: this session offered a narrower "manual research only"
+  option instead, given it's a brand-new, previously-unused data source being wired directly into a
+  live autonomous execution loop with no dry-run — the user chose full integration anyway.
 - **2026-09-03 (later same day): User instructed adding profit-protection fail-safes to both Mode
   B and Mode C.** Three requested mechanisms, evaluated and applied individually rather than as a
   blanket add — some were already satisfied by existing rules:
