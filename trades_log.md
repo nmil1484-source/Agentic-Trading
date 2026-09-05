@@ -2581,3 +2581,68 @@ Format per entry:
   orders — see the 2026-09-02 monitoring-gap disclosure), so this also means MU's stop cannot be
   actively monitored or executed by this system until access is restored. Flagging to the user
   directly in chat this cycle as a required action, not just logging it.
+
+## 2026-09-04 ~18:55 UTC — AUTONOMOUS — INVESTIGATION CYCLE (reconnected after MCP outage)
+- §14 Status: ACTIVE, confirmed. No kill phrase. Robinhood MCP reconnected mid-cycle (see prior
+  17:55 UTC entry's reauth flag) — `get_accounts` succeeded.
+- **URGENT — unexplained cash discrepancy flagged for user review.** Account (••••8058):
+  `get_equity_positions` — 1 sh MU, avg cost $999.50 (unchanged). `get_portfolio` — total_value
+  **$3,195.38**, cash **$2,191.10**, equity_value $1,004.28.
+  - Today's session started (per the 14:00 UTC first-scan entry, logged before the MU buy)
+    at total_value $3,490.60, **all cash**, 0 positions.
+  - Only equity order today: the single MU buy, 1 sh @ $999.50 (order `6a9acfb3...`, confirmed via
+    `get_equity_orders`, no other equity orders today).
+  - Expected cash after that buy: $3,490.60 − $999.50 = **$2,491.10**. Actual cash: **$2,191.10** —
+    a **$300.00 exact shortfall**, unexplained by the one trade this system placed today.
+  - Checked for other explanations: `get_option_orders` (today) — empty, no options activity
+    today. `get_option_positions` (nonzero) — empty, no open options. `get_crypto_orders` (today,
+    rhs_account_number 748688058) — empty, no crypto activity. `get_pnl_trade_history` (week) shows
+    two option closes (DLLL 9/3 +$120, IGV 8/31 −$24), both `placed_agent: "user"` (confirmed via
+    `get_option_orders`) — i.e., the user's own manual option closes, matching their earlier "ya
+    closed them" — but both predate today's $3,490.60 baseline, so they're already reflected in it
+    and don't explain today's gap.
+  - **No order of any kind (equity/option/crypto), on this account, placed by anyone, today,
+    accounts for the missing $300.** This system placed zero withdrawal/transfer requests (no such
+    tool has ever been called this session) and §1 prohibits it from ever doing so. Most likely
+    explanation: a withdrawal/transfer the user made directly, outside this system's visibility —
+    but this is **not confirmed**, only inferred by elimination.
+  - **Treating this conservatively as a §6 reconciliation concern combined with the §14 Automatic
+    Recovery 3%-intraday-decline trigger** (decline vs. today's opening equity: currently ~8.2-8.5%,
+    well past the 3% threshold, even though MU itself is profitable and the shortfall isn't a
+    trading loss): blocking any new Mode B or Mode C entries for the remainder of this session.
+    Exit management on MU continues per §16 regardless. **Flagging directly to the user in chat
+    this cycle — this needs human confirmation before entry authority is treated as fully
+    clean.**
+- MU: last confirmed price this cycle $1,004.28/sh (from equity_value), not yet at +1R ($1,014.00)
+  at that read. No new candidates screened this cycle — time spent on the investigation above.
+  Position count: 1/5 Mode B (MU), 0/8 Mode C (last confirmed).
+
+## 2026-09-04 ~19:55 UTC — AUTONOMOUS — FINAL CYCLE OF DAY
+- §14 Status: ACTIVE, confirmed. No kill phrase. **Unexplained $300 cash discrepancy from the
+  18:55 UTC cycle remains open/unresolved** — new-entry blocking from that entry stays in effect.
+- `get_portfolio`: total_value **$3,205.285**, cash $2,191.10, equity_value $1,014.185 (MU, 1 sh).
+  `get_crypto_orders` (today) — confirmed empty, ruling out crypto as the cause too. No further
+  explanation surfaced this cycle for the $300 gap.
+- **MODE B — MU: +1R REACHED, breakeven stop move (§16 item 5, unconditional since 2026-09-03).**
+  MU last price $1,014.185 vs. entry $999.50 (R=$14.50) → +1R threshold is $1,014.00, current price
+  is $0.185 above it. **Stop moved from $985.00 to breakeven $999.50** (no higher documented
+  intraday technical support identified to use instead). This is a documented-level move only —
+  Mode B does not currently rest a broker-side stop order (see the 2026-09-02 monitoring-gap
+  disclosure), so no order was placed for this; it updates the tracked invalidation level this
+  system checks each cycle. R-multiple ~1.01R — below the +1.5R peak-retracement-rule threshold
+  (§16 item 12) and below +2R, so neither of those rules is active yet.
+- **STEP 0.5 final-cycle check**: confirmed 19:55 UTC is the last scheduled cycle. **0/8 Mode C
+  positions** — nothing to flatten. Mode C daily P&L: $0 (no Mode C entries fired all session).
+- **Robinhood MCP disconnected again partway through this cycle** (after the portfolio/crypto-order
+  calls above completed) — no further live calls (fresh watchlist screening, tradability/order
+  review) were possible this cycle. Given (a) new entries were already blocked this session by the
+  unresolved discrepancy above, and (b) this is the final cycle of the day regardless, this outage
+  did not change today's outcome, but is noted for the record.
+- No orders placed this cycle, either mode.
+- **Day summary (2026-09-04):** MU entered at first scan (1 sh @ $999.50), ran to +1R by end of
+  day, stop moved to breakeven. Separately, a $300 cash discrepancy surfaced mid-afternoon with no
+  matching order on the account (equity/option/crypto all checked) — flagged as an open item
+  requiring user confirmation, and treated conservatively as a new-entry-blocking event for the
+  rest of the session per §6/§14. Mode C: no qualifying setup all session, 0/8 positions, $0 P&L.
+  Account close: 1/5 Mode B (MU, unrealized ~+$14.69), 0/8 Mode C, cash $2,191.10, total_value
+  ~$3,205.29 (pending resolution of the $300 discrepancy above).
