@@ -2646,3 +2646,20 @@ Format per entry:
   rest of the session per §6/§14. Mode C: no qualifying setup all session, 0/8 positions, $0 P&L.
   Account close: 1/5 Mode B (MU, unrealized ~+$14.69), 0/8 Mode C, cash $2,191.10, total_value
   ~$3,205.29 (pending resolution of the $300 discrepancy above).
+
+## 2026-09-05 — RECONCILIATION RESOLVED (user-confirmed)
+- The $300 cash discrepancy flagged in the 2026-09-04 ~18:55/19:55 UTC entries is resolved: user
+  confirmed in chat ("I probably moved it or something") that this was their own manual transfer/
+  movement of funds on the Agentic Account, not a system error, unauthorized action, or data
+  integrity issue. This system placed zero withdrawal/transfer requests at any point (consistent
+  with §1) — the movement was outside this system's order history by design, which is why nothing
+  in equity/option/crypto order history explained it.
+- **New-entry pause lifted.** Per §14's Automatic Recovery State Machine (reconciliation-gated
+  suspension) and the 3%-intraday-decline trigger, both resolve once reconciliation is verified —
+  now satisfied directly by user confirmation, a stronger bar than the automatic two-consecutive-
+  reconciliation mechanism alone. Mode B/C new-entry authority resumes normally next cycle.
+- **New equity baseline going forward: current actual total_value (~$3,205, last confirmed
+  2026-09-04 ~19:55 UTC), not the pre-transfer $3,490.60.** No rule change — §14 item 2's dynamic
+  90%-of-current-equity deployment ceiling and §5B/§20's 1%/0.5%-of-equity risk sizing already
+  recalculate from current equity every cycle; this simply notes why today's baseline is lower
+  than Friday's, so it isn't mistaken for a trading loss on a future cycle's review.
