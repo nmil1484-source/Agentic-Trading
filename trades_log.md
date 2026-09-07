@@ -2663,3 +2663,32 @@ Format per entry:
   90%-of-current-equity deployment ceiling and §5B/§20's 1%/0.5%-of-equity risk sizing already
   recalculate from current equity every cycle; this simply notes why today's baseline is lower
   than Friday's, so it isn't mistaken for a trading loss on a future cycle's review.
+
+## 2026-09-07 ~14:01 UTC — AUTONOMOUS — FIRST SCAN OF DAY — MARKET HOLIDAY (Labor Day), NO TRADE
+- §14 Status: ACTIVE, confirmed (§14 section header reads "Mode B AUTONOMOUS_EXECUTE Authority —
+  ACTIVE as of 2026-08-14"). No kill phrase found in recent trades_log.md history or session.
+- **Market closed today — Labor Day (2026-09-07, first Monday of September).** Confirmed via stale
+  quote data: MU's `get_equity_quotes` returns last_trade_price $1,014.95 timestamped
+  2026-09-04T19:59:59Z (Friday's close) with no fresher print — no live regular-session data
+  exists for today. The trigger fires on a plain weekday cron (`0 14 * * 1-5`) that doesn't know
+  about market holidays, so it fired on schedule despite the closure. No screening, no order
+  evaluation, and no exit-condition check is meaningful against stale Friday prices — skipping the
+  full §5B/§20 screen this cycle rather than manufacturing a false read on dead data.
+- **URGENT — second unexplained cash movement, same pattern as 2026-09-04's resolved $300 gap.**
+  Account (••••8058): `get_portfolio` — total_value **$2,206.01**, cash **$1,191.10**,
+  equity_value $1,014.91 (MU, 1 sh, unchanged). Friday's close (last logged 2026-09-04 ~19:55 UTC)
+  was cash $2,191.10 → today's cash is **exactly $1,000.00 lower**. Checked
+  `get_equity_orders`/`get_option_orders`/`get_crypto_orders` since Friday close (2026-09-04
+  20:00 UTC onward) — **all three return zero orders**, consistent with the market being closed
+  all weekend (no trading was even possible). MU's own position is unchanged and its value is
+  flat/slightly up, so this isn't a trading loss — it's a pure cash movement with no order behind
+  it, same shape as last week's $300 discrepancy (which the user confirmed was their own manual
+  transfer). Given that precedent, a manual transfer is the likely explanation again here, but per
+  the same conservative discipline: **not assuming it — flagging for explicit user confirmation.**
+  **New-entry authority for Mode B/C is paused pending confirmation**, same treatment as 2026-09-04.
+  Exit management on MU continues unaffected either way (though there's nothing to act on today
+  with the market closed).
+- **MODE B — MU**: 1 sh, entry $999.50, stop at breakeven $999.50 (moved 2026-09-04 ~19:55 UTC),
+  last known price $1,014.95 (Friday). No fresh action possible/needed with market closed.
+- **MODE C**: 0/8 positions, $0 P&L, market closed — nothing to screen or flatten.
+- No orders placed this cycle (none possible — market closed).
