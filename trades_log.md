@@ -2894,3 +2894,51 @@ Format per entry:
   new or larger gap, the same one already disclosed for §16 item 12/§20 item 11.
 - No trade placed this entry — configuration change only. The new crypto trigger's first live
   cycle will fire within the hour and should produce its own trades_log.md entry independently.
+
+## 2026-09-08 ~21:37 UTC — AUTONOMOUS — CRYPTO: LINK NEW ENTRY (§21) — FIRST-EVER CRYPTO TRADE
+- §14 Status: ACTIVE, confirmed. No kill phrase. This is the first live firing of the new dedicated
+  "Crypto 24/7 Scan (§21)" trigger (trig_01UUXAtYHjn7nBgzkdvZU4Rv), ~1 hour after it was created.
+- Account (••••8058): total_value $2,207.29, all cash, 0/2 crypto positions before this entry.
+  No circuit breaker (3%-decline, stop-out cluster, market-shock, or MCP-reconciliation) active.
+- **CRYPTO — LINK-USD: NEW ENTRY, cleared §21 item 3's entry gate.**
+  - Screened all 5 allowlist pairs (BTC, ETH, SOL, XRP, LINK) via TradingView `rank_symbol_setups`
+    + `analyze_structure_batch` (4H + 1H). Results: BTC — 4H bullish pullback setup but 1H trend
+    bearish (no confirming trigger) and R:R only 1.46:1 (fails 1.5:1 floor) → OBSERVE. ETH —
+    4H+1H both bullish but R:R 0.44:1/0.91:1 (both fail floor badly) → OBSERVE. SOL — 1H/4H mixed
+    (1H bearish) and R:R 0.09:1/0.62:1 → OBSERVE. XRP — aligned bearish both timeframes → OBSERVE
+    (no short authority anyway). **LINK — the only pair clearing every condition.**
+  - 4H setup: bullish trend (moderate), pullback to golden-pocket Fib zone, healthy.
+  - 1H execution trigger: bullish trend (moderate), deep pullback (73.1% retrace — noted as
+    aggressive/late-stage given LINK's already-large +50.6% monthly run, flagged as an extension
+    caution per §13.E even though it doesn't block the gate), tool's own computed setup: entry
+    ~$12.507, stop $11.9976, target1 $13.685, **R:R 2.31:1** (tool-graded "ok" quality, clears
+    both its own 2:1 bar and our 1.5:1 floor).
+  - Technical confirmations (5 of 6): EMA alignment bullish ✓ (price +20.8%/+25.8% above 50/200-EMA
+    equivalents), above-SMA-equivalent ✓, Fib-pullback location ✓ (golden pocket, 4H), RSI 64.65
+    (>45) ✓, relative strength vs. BTC ✓ (LINK +50.6% monthly vs. BTC's +20.9% — specific, checkable
+    comparison). Volume confirmation inconclusive — TradingView's `vol_ratio_10d` read near-zero
+    (0.02-0.05x) across **all five** allowlist pairs simultaneously, which does not match reality
+    for assets this liquid — treated as a data/computation artifact of this specific feed for
+    crypto, not a genuine abnormal-volume signal, and not counted either way.
+  - Catalyst: general dated market context (2026-09-08 news: "Sentiment Around Altcoins Improving
+    — Market Talk," Dow Jones Newswires; broader bullish BTC/crypto flow headlines same day) plus
+    the RS comparison above — no single dominant LINK-specific catalyst, RS comparison carries the
+    catalyst requirement per §21 item 3's "or" clause.
+  - Pre-order checks: `get_currency_pairs` (confirmed earlier this session) — LINK-USD tradable,
+    not halted. `preview_crypto_order` — clean, no alerts, fee $0.
+  - **ORDER PLACED AND FILLED**: BUY 21.53 LINK, market order, filled @ $12.61797 avg (order id
+    `6aa080b0-26aa-4a03-9e5d-aafad526015d`), notional $271.67, fee $0.
+  - **Protective stop placed and verified resting immediately**: SELL 21.53 LINK, stop order,
+    trigger $11.99, time-in-force GTC (order id `6aa080d0-af68-4a79-b55c-17c5c129f438`), confirmed
+    `state: confirmed` via `get_crypto_orders`.
+  - **Sizing note — actual risk came in slightly above the 0.5% target**: planned stop $11.9976 was
+    rejected by the broker (crypto stop prices must round to the nearest cent); re-priced to $11.99
+    (essentially identical, off by under a cent). Combined with the market-order fill landing at
+    $12.61797 vs. the ~$12.507 reference price used to plan the trade (ordinary market-order
+    slippage, ~0.9%), **actual risk is $13.52 (0.612% of equity)** vs. the planned $11.04 (0.5%) —
+    a small, disclosed overage from execution mechanics, not a sizing error. Actual R:R on the
+    filled numbers: (13.685-12.61797)/(12.61797-11.99) = **1.70:1**, still clears the 1.5:1 floor.
+  - Position size: $271.67 = **12.31% of equity** — within the §21 15%-per-position cap. Crypto
+    position count after this entry: **1/2**. Theme: crypto (single bucket, no correlation-cap
+    concern with only 1 of 2 slots used).
+- No orders in Mode B/Mode C this cycle (this trigger doesn't screen those lanes).
