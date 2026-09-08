@@ -2836,3 +2836,14 @@ Format per entry:
   order `6aa03e3e...`) — the first live trigger of that rule on a non-9/3-legacy position. Account
   spent the rest of the day fully flat and in cash, with new-entry authority paused pending
   confirmation of Sunday's $1,000 cash movement. No Mode C activity all session.
+
+## 2026-09-08 — RECONCILIATION RESOLVED (user-confirmed)
+- The $1,000 cash discrepancy flagged 2026-09-07 ~14:01 UTC is resolved: user confirmed in chat
+  ("yes i moved it") that this was their own manual transfer on the Agentic Account, not a system
+  error, unauthorized action, or data integrity issue — same pattern as the 2026-09-04 $300
+  discrepancy, resolved the same way. This system placed zero withdrawal/transfer requests at any
+  point (consistent with §1).
+- **New-entry pause lifted.** Mode B/C new-entry authority resumes normally next cycle. Current
+  equity baseline going forward: $2,207.29 (last confirmed 2026-09-08 ~19:55 UTC) — no rule change,
+  §14 item 2's dynamic 90%-of-current-equity deployment ceiling and §5B/§20's risk sizing already
+  recalculate from current equity every cycle.
