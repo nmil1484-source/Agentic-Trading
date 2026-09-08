@@ -2772,3 +2772,17 @@ Format per entry:
   still unconfirmed by user.
 - MU: 1 sh, $1,016.735 (~+1.19R), stop at breakeven $999.50, no new trigger. Mode C: 0/8, $0 P&L.
   No orders placed this cycle.
+
+## 2026-09-08 ~15:55 UTC — AUTONOMOUS — MU CROSSES +1.5R, PEAK-RETRACEMENT TRACKING NOW ACTIVE
+- §14 Status: ACTIVE, confirmed. No kill phrase. Entry pause continues — $1,000 cash discrepancy
+  still unconfirmed by user; no new entries evaluated this cycle regardless.
+- **MODE B — MU**: last trade $1,026.69 (15:55:57 UTC). R-multiple = (1026.69-999.50)/14.50 =
+  **+1.875R** — crosses the +1.5R peak-retracement threshold (§16 item 12) for the first time.
+  Peak tracking begins now: **peak = $1,026.69** (the reading at the moment of first crossing —
+  no higher print recorded between +1R and +1.5R this session). **Retracement exit trigger =
+  peak − 0.30×(peak−entry) = 1026.69 − 0.30×27.19 = $1,018.53** — a full sell fires if price falls
+  to or below this level, overriding §17's same-day-trim gate per the rule (moot here regardless,
+  position is 4 sessions past entry). Not yet at +2R ($1,029.00) — no trim rule active either.
+  Stop remains at breakeven $999.50 (unchanged, still the higher of the two protective levels
+  until price extends further and the EMA/swing-low trail overtakes it).
+- Mode C: 0/8, $0 P&L. No orders placed this cycle.
