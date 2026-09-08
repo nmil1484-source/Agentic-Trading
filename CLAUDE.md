@@ -35,11 +35,15 @@ pattern §18/§19 already used for options).
 
 **Instrument rules, both modes, unchanged except for the scoped options exception below:**
 - Long common stocks and non-leveraged ETFs only.
-- No crypto, leveraged or inverse ETFs, short selling, margin, naked options, 0DTE, spreads, or
-  multi-leg orders. **Options themselves are no longer a blanket prohibition** — see §18 (Options
-  Trading Policy, Mode B), added 2026-08-19 at explicit user instruction, for the narrow,
-  long-calls/puts-only exception. Naked options, 0DTE, spreads, and multi-leg orders remain fully
-  prohibited even under §18 — that exception is scoped strictly to single-leg long calls/puts.
+- No leveraged or inverse ETFs, short selling, margin, naked options, 0DTE, spreads, or multi-leg
+  orders. **Options themselves are no longer a blanket prohibition** — see §18 (Options Trading
+  Policy, Mode B), added 2026-08-19 at explicit user instruction, for the narrow, long-calls/
+  puts-only exception. Naked options, 0DTE, spreads, and multi-leg orders remain fully prohibited
+  even under §18 — that exception is scoped strictly to single-leg long calls/puts. **Crypto is
+  no longer a blanket prohibition either** — see §21 (Crypto Trading Policy, Mode B), added
+  2026-09-08 at explicit user instruction, for the narrow, named-allowlist, spot-only exception.
+  Perpetuals, crypto leverage, crypto options, margin/borrowed-funds crypto positions, and any
+  coin not on §21's named list remain fully prohibited even under §21.
 - Do not use fractional-share limit orders for a standard entry in either mode. Every equity limit order must use an exact whole-share quantity and an explicit limit price. (Scoped exception: the Fractional Tier-B Pilot Policy, §15 — untouched by this refactor, including its own LUC GREEN/WHITE requirement, item 3, which still governs the fractional order-permission mechanism specifically regardless of mode.)
 - Do not hard-code a ticker list in either mode — every candidate still requires independent, current verification appropriate to its mode, per §5A (Mode A) or §5B (Mode B), before it can appear on a Trade Card.
 
@@ -59,8 +63,19 @@ pattern §18/§19 already used for options).
 
 ## 3. Initial exposure limits
 - Before the Agentic Account has a separately approved funding budget, do not propose executable orders.
-- Once funded, maximum new position: 80% of Agentic Account equity. (Raised 2026-08-13 from
-  "lower of $100 or 5%" at explicit user instruction — see Section 12 change log.)
+- Once funded, maximum new position: **40% of Agentic Account equity** (tightened 2026-09-08 from
+  80%, at explicit user instruction after comparing against a friend's stricter operating-rules
+  document — see Section 12 change log; that document capped a single position at 12%/6% of
+  equity by setup-quality tier, which this system doesn't have an equivalent tiering for, so 40%
+  is a meaningful tightening rather than a direct match). Originally raised 2026-08-13 from "lower
+  of $100 or 5%" at explicit user instruction. **Indivisible-unit exception, unchanged in
+  substance from how sizing has always worked**: if the risk-budget-computed quantity floors to
+  less than one whole share (or, for crypto, less than one minimum order size per §21), and that
+  single indivisible unit's cost alone exceeds this 40% cap, the single unit may still be bought
+  — a real prior example is MU (2026-09-04), where 1 share at ~$1,000 was ~45% of the account
+  purely because MU's share price left no smaller whole-share option. This exception must be
+  flagged explicitly on the Trade Card when it applies, and taken as a signal worth noting that
+  the account may currently be too small to size that name properly, not a routine outcome.
 - Maximum total deployed capital: 90% of Agentic Account equity. Maintain at least 10% cash.
   (Raised 2026-08-19 from 80%/20% at explicit user instruction, after being flagged that this
   thins the cash cushion without changing per-trade risk sizing — see Section 12 change log. Prior
@@ -218,6 +233,22 @@ Mode B.
   SWING_TRADING** (§7).
 
 ## 6. Circuit breakers and integrity checks
+- **Same-day stop-out cluster (2026-09-08, explicit user instruction — see §12 change log),
+  additional to and faster-triggering than §16 item 10's existing 3-stop-outs-in-10-trading-days
+  rule, which stays in force unchanged.** After **two stop-outs across Mode B/C/§21 combined
+  within one calendar day**, no new entries in any mode for the remainder of that day — existing
+  protective exits/trailing stops stay fully active. This does not itself enter DEGRADED_AUTONOMOUS
+  or any correlated-theme lockout (that's still §16 item 10's mechanism, on its own slower
+  10-trading-day trigger) — it's a same-day cooldown only, and lifts automatically at the next
+  day's first-scan cycle with no manual phrase needed, same auto-recovery principle as the rest of
+  §14's state machine.
+- **Major unscheduled market shock (2026-09-08, explicit user instruction).** If SPY or QQQ moves
+  more than 1.5% intraday between two consecutive scheduled cycles (i.e., a single hourly gap, not
+  a slow multi-hour drift), pause new entries in every mode for the next scheduled cycle only
+  (effectively ~60 minutes given the hourly floor) — existing protective exits/trailing stops stay
+  fully active, and scanning/logging continue. Resumes automatically at the following cycle with
+  no manual phrase needed unless a slower-moving breaker (3%-equity-decline, stop-out cluster) is
+  also independently active by then.
 - If Agentic Account equity declines more than 3% in one day, immediately enter HARD_OBSERVE_MODE: no new orders; provide an urgent incident report. **Mode B AUTONOMOUS_EXECUTE exception (2026-08-19, user instruction — see §14 Automatic Recovery State Machine):** for the autonomous Mode B trigger specifically, a 3%+ intraday decline blocks new entries only for the remainder of that regular session (exit management, scanning, and logging continue), then automatically resumes in DEGRADED_AUTONOMOUS for one full session (2026-08-21: this state no longer cuts position count or risk sizing — see §12 change log — so in practice this trigger's effect is limited to the same-session pause), restoring full capacity automatically if no new breaker triggers — no manual resume phrase required. Does not apply to Mode A or to manually-requested trades in this chat, which still land in a full HARD_OBSERVE_MODE requiring human review and, for any order, the exact CONFIRM ORDER phrase (§1).
 - If Robinhood MCP returns three consecutive errors or reported positions do not match the account, cease trading until reconciliation is verified. **Mode B AUTONOMOUS_EXECUTE exception (2026-08-19 — see §14):** for the autonomous Mode B trigger, this suspends new-entry order submission only — protective exits (§16) stay active, scanning/logging continue, and automatic reconciliation runs each cycle, restoring new-entry submission automatically once two consecutive reconciliations agree on cash, positions, and order states, no manual phrase required. Unaffected for Mode A/manual trading.
 - If data is stale, incomplete, contradictory, or unavailable, do not infer a bullish signal and do not propose execution. **Exception (2026-08-13, user instruction): the FTA Regime Dashboard is a reference input, not a blocking gate.** If it's unavailable/stale/placeholder, classify it **UNKNOWN_DEGRADED** — log it, do not treat it as bearish, and do not let it alone block a proposal. **Compensating requirement while UNKNOWN_DEGRADED (2026-08-13):** for Mode A (and Tier-A proposals generally, if Mode A is ever authorized to execute), the §13.A reward-to-risk floor rises from ≥1:2 to **≥1:3**. **For Mode B swing trades, the compensating requirement is reduced position sizing only, at a flat ≥1.5:1 reward-to-risk floor** (2026-08-13, see §5B Regime Rule and §12 change log; RR floor flattened 2026-08-14 at explicit user instruction — see §12) — Mode B's floor is ≥1.5:1 regardless of regime dashboard state, for both whole-share and fractional-Tier-A-style swing entries, with a halved position-size sub-cap while UNKNOWN_DEGRADED. Tier-B fractional pilots (§15 item 5) keep their own separate, unaffected ≥2:1-degraded floor with halved size. This unavailable-data rule still fully applies, with no exception, to LUC data, Robinhood account/position data, and a specific ticker's own technical or catalyst data — only the FTA Regime Dashboard gets the UNKNOWN_DEGRADED treatment.
@@ -362,6 +393,48 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-09-08: User instructed adopting several risk-tightening changes from a friend's
+  independently-written operating-rules document, plus adding a narrow spot-crypto exception.**
+  The friend's document (compared earlier the same session) was overall stricter in several
+  dimensions than this one — most notably an 80%-of-equity single-position cap here versus a
+  12%/6%-of-equity cap there. Three changes made:
+  1. **Per-position cap tightened from 80% to 40% of equity (§3).** Not a direct match to the
+     friend's 12%/6% — this document has no equivalent setup-quality tiering to hang two numbers
+     on, so 40% is a meaningful tightening (halving the worst-case single-position exposure)
+     rather than a literal copy. **Indivisible-unit exception added in the same edit**: a real
+     prior trade (MU, 2026-09-04, 1 share ≈45% of equity purely from share price) would have been
+     blocked outright by a cap this tight without an explicit carve-out for a single whole share
+     (or crypto minimum order) that alone exceeds the cap — flagged before making the change
+     rather than silently picking a number that would have invalidated a trade already taken.
+  2. **Two new circuit breakers added (§6), both additional to and faster than existing ones,
+     not replacements**: a same-day 2-stop-out cooldown (vs. the existing 3-in-10-trading-days
+     rule in §16 item 10, unchanged) and a "major unscheduled market shock" pause (SPY/QQQ moving
+     >1.5% between two consecutive hourly cycles → skip the next cycle's new entries) — the
+     friend's document had both; this system had neither. The friend's document's third
+     circuit-breaker idea, the 60-second stop-verification-failure timeout with automatic
+     emergency close, was **not** adopted here as a blanket change — Mode B still uses documented-
+     level stops rather than resting broker orders (a known, separately-disclosed gap from
+     2026-09-02), so a hard timeout on stop *verification* specifically doesn't yet apply the same
+     way it does to Mode C, which already places and verifies real resting stops. Mode C's
+     existing "verify it's resting or the position is unprotected" language (§20 item 3) already
+     covers the same intent without a hard-coded 60-second number.
+  3. **New §21 — Crypto Trading Policy, spot-only, named allowlist (BTC, ETH, SOL, XRP, LINK).**
+     Verified live before drafting: all five pairs `tradable`, not halted, and the crypto
+     order-submission path (`preview_crypto_order`) confirmed working on this account. Scoped as a
+     narrow carve-out of §2's blanket crypto ban, same structural pattern as §18's options
+     carve-out — perpetuals, crypto options, crypto margin, and any coin off the named list remain
+     fully banned. Sizing tighter than the general equity structure (0.5% risk/trade, 15% per-
+     position cap, max 2 concurrent positions, 8% hard stop-distance ceiling) given crypto's higher
+     volatility. Autonomous authority granted from day one, no staged verification, consistent with
+     how §18/§20 were both activated — same fast-track pattern, at the user's explicit choice again.
+     **Honest gap disclosed plainly before this went live**: the autonomous trigger does not gain
+     any new firing times for crypto — it still only fires on the existing weekday, market-hours-
+     aligned schedule, so a crypto position can sit completely unmonitored (aside from its resting
+     stop order) for 18+ hours overnight or an entire weekend. This is a materially larger version
+     of the hourly-cadence gap already accepted for Mode C's peak-retracement rule, since crypto
+     has far more unmonitored hours per week than an equity ever does (which at least closes
+     nights/weekends). Accepted at explicit user instruction, not fixed — fixing it would need a
+     dedicated 24/7 trigger, which doesn't exist and wasn't requested.
 - **2026-09-08: User instructed removing the new-entry pause on a cash-only account discrepancy.**
   New §6 item (added after the wash-sale bullet) documents the change and its scope. Before: an
   unexplained cash-balance change with no matching order paused Mode B/C new-entry authority until
@@ -1768,3 +1841,115 @@ Same category as §14 item 8's existing refusal list, extended:
   like it wants to keep running" — that's a Mode B decision, not a Mode C one; a genuinely strong
   multi-day setup gets evaluated fresh against §5B, not smuggled past Mode C's flatten rule
 - Place a Mode C order without `review_equity_order` first, absent an explicit one-time override
+
+## 21. Crypto Trading Policy (Spot, Named Allowlist)
+Added 2026-09-08 at explicit user instruction, after comparing this document against a friend's
+independently-written operating-rules document that permitted a named list of spot crypto pairs
+under otherwise similar guardrails. **This is a scoped, narrow carve-out of §2's blanket crypto
+ban — not a general crypto authorization**, same structure as §18's options carve-out and §20's
+day-trading carve-out. Everything not explicitly modified below stays fully banned: perpetuals,
+futures, crypto options, crypto margin/leverage, staking/lending products, and any coin not on the
+named list in item 1. Trades through the **same Agentic Account** (••••8058) as every other
+instrument in this document — no separate account, no exception to §1's retail-account firewall.
+
+**Verified live before drafting this section (2026-09-08):** `get_currency_pairs` confirmed
+BTC-USD, ETH-USD, SOL-USD, XRP-USD, and LINK-USD are all `tradability: tradable` and not currently
+halted on this account. `preview_crypto_order` confirmed the order-submission path itself is live
+(rejected only on an intentionally-invalid test price, not on access/permission grounds).
+
+1. **Named allowlist — the only pairs this policy covers:** BTC, ETH, SOL, XRP, LINK (all vs.
+   USD). No other coin, meme token, or newly-listed asset may be traded under this policy without
+   a separate, explicit user instruction adding it here — same "no hard-coded ticker list without
+   independent verification" spirit as §2, but crypto specifically starts from a closed list
+   rather than an open universe, given the size and volatility of what Robinhood's broader crypto
+   catalog actually contains (hundreds of pairs, many thin/volatile meme coins) versus what was
+   actually verified and intended here.
+2. **Spot only.** Buy-to-open longs only — no shorting, no margin, no leverage, no perpetuals/
+   futures, no crypto options. This mirrors §2's equity instrument restrictions applied to crypto.
+3. **Entry gate — adapted from §5B, read on crypto's continuous timeframe:**
+   - Liquid pair from item 1's allowlist, confirmed via `get_currency_pairs`/`preview_crypto_order`
+     not halted for this account/region immediately before entry.
+   - A verified, dated catalyst (news, protocol event) **or** a specific, checkable
+     relative-strength comparison against BTC or a broad crypto benchmark over the prior sessions
+     — same specificity requirement as §5B item 2, adapted since crypto catalysts are looser and
+     less consistently dated than equity catalysts.
+   - At least **2 of 6** technical confirmations, same list as §5B item 3, read on the coin's own
+     chart (EMA/SMA alignment, structure/breakout, relative strength, volume, RSI/MACD).
+   - A valid technical stop and reward-to-risk of at least 1.5:1, same flat floor as §5B item 4.
+   - **Daily-chart-equivalent setup plus a shorter-timeframe trigger, crypto-adapted for a market
+     that never closes**: the 4-hour chart establishes the setup (in place of §5B's daily chart),
+     the 1-hour chart supplies the specific execution trigger (in place of §5B's hourly trigger on
+     an equity's session-bound day) — this is the same daily+hourly relationship as §5B, just
+     shifted down one level since crypto has no session boundary to anchor a true "daily" read.
+   - Outside 30 minutes of CPI/FOMC/major macro events (§4) — crypto reacts to macro too, this
+     rule is not equity-specific. The first/last-15-minutes-of-the-session rule does **not**
+     apply — there is no open/close for a 24/7 market.
+4. **Position sizing and caps, tighter than the general equity structure given crypto's higher
+   volatility and this account's now-24/7 (but only hourly-checked) exposure window:**
+   - Risk per trade: **0.5% of Agentic Account equity** (matching Mode C's tighter number, not
+     Mode B's 1%), sized from the entry-to-stop distance, same formula as §20 item 2.
+   - **Hard stop-distance ceiling: the stop may not sit farther than 8% below entry.** If the
+     technically valid invalidation needs more room than that, reduce size or skip the trade —
+     do not widen the stop to fit. (Distinct from, and in addition to, the risk-dollar sizing
+     above — both must be satisfied.)
+   - **Per-position cap: 15% of Agentic Account equity** — tighter than §3's general 40% cap,
+     same pattern as every other asset-class carve-out in this document having its own tighter
+     sub-cap (§15 Tier-B 20%, §18 options 6%, §19 LEAPS 3%).
+   - **Max 2 concurrent crypto positions** (its own small cap, separate from Mode B's 5-position
+     cap and Mode C's 8-position cap) — crypto behaves as a single, highly-correlated macro asset
+     class much of the time, so 2 is already a meaningful concentration limit given only 5 coins
+     are on the allowlist to begin with; no further per-coin theme subdivision.
+   - Counts against the shared 90%-total-deployed/10%-cash ceiling (§3/§14 item 2) exactly like
+     every other position — not an allowance on top of it.
+   - Never average down — same principle as everywhere else in this document.
+5. **Mandatory resting broker stop, same discipline as Mode C (§20 item 1/3), not Mode B's
+   documented-level approach** — given crypto trades continuously, a stop that's only checked
+   once an hour (Mode B's current mechanism) is a materially bigger gap here than for equities,
+   which at least close overnight/weekends. Every crypto entry gets a real
+   `place_crypto_order`-submitted stop (`type: stop_loss`, side=sell) for the full filled quantity
+   immediately after the entry fills, verified resting via `get_crypto_orders` before the position
+   is considered protected. If the stop cannot be placed and verified, close the position at the
+   earliest eligible execution and flag an URGENT EXIT FAILURE alert, same as §20's equivalent
+   rule.
+   - **Breakeven at +1R, then trail** under the rising 4H EMA or a confirmed higher low — same
+     mechanics and never-lower-the-stop principle as §16 items 5/6, adapted to the 4H timeframe.
+   - **Peak-retracement protective exit**, identical mechanism to §16 item 12/§20 item 11: once
+     unrealized gain reaches +1.5R, track the peak and exit the full position if price gives back
+     30% of the entry-to-peak gain.
+   - **Time-stop: 7 calendar days** (not trading sessions — crypto has none) if the position
+     hasn't reached +0.5R, mirroring §16 item 8's principle on a calendar basis appropriate to a
+     market that trades every day.
+6. **Autonomous authority: same scheduled trigger, granted from day one, no separate staged
+   verification procedure** — consistent with how §18 (options) and §20 (Mode C) were both
+   activated immediately at explicit user instruction rather than going through §14's original
+   5-step equity verification process. The very first live crypto order this cycle produces must
+   still be preceded by a live `get_currency_pairs`/`preview_crypto_order` check confirming the
+   pair isn't halted and the order path is clean — the same ordinary pre-trade discipline every
+   other instrument already requires, not an extra staged rollout.
+7. **Honest disclosure of the real gap this creates, not a hidden one:** crypto trades nights,
+   weekends, and holidays; this system's autonomous trigger only fires on the existing weekday,
+   market-hours-aligned cron (hourly 14:55-19:55 UTC, plus the 10am ET first-scan) — **it does not
+   gain any new firing times for crypto.** This means a crypto position can sit completely
+   unmonitored by this system for potentially 18+ hours overnight or an entire weekend, with only
+   its resting broker stop order (item 5) as protection during that window — no peak-retracement
+   check, no trailing update, nothing, until the next scheduled weekday cycle picks it back up.
+   This is a materially bigger version of the same hourly-cadence gap already disclosed for Mode C
+   and the peak-retracement rule (§20 item 11's own caveat) — crypto just has far more unmonitored
+   hours per week than an equity ever does. Accepted at explicit user instruction; not fixable
+   without a dedicated 24/7 trigger, which does not currently exist and was not requested.
+8. **Order mechanics note, distinct from equities — do not reuse the wrong tools:** crypto uses
+   `get_crypto_quotes`/`get_crypto_positions`/`get_crypto_orders`/`preview_crypto_order`/
+   `place_crypto_order`/`cancel_crypto_order`, not the equity equivalents, and the account
+   identifier for these specific tools is `rhs_account_number` (748688058), not the alphanumeric
+   `account_number` used elsewhere. Quantities are stated in units of the coin (e.g. "0.0142 BTC"),
+   never called "shares."
+9. **Every crypto entry/exit requires a full Trade Card** per §7's format, tagged `CRYPTO`,
+   including: the pair, exact quantity and average fill price, stop order ID and confirmed status,
+   4H setup + 1H trigger evidence, catalyst/relative-strength evidence with date, maximum planned
+   loss in dollars and % of equity, current peak-retracement tracking state once ≥+1.5R, and a
+   `trades_log.md` entry with the same mandatory-every-cycle discipline as every other instrument
+   in this document.
+10. **Change control, same as everywhere else:** adding a coin to item 1's allowlist, or any
+    change to this section's sizing/stop/cap rules, requires explicit user instruction and a
+    dated §12 change-log entry — this system does not expand its own crypto universe or loosen
+    its own crypto risk controls unilaterally.
