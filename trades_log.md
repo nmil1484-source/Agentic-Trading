@@ -2876,3 +2876,21 @@ Format per entry:
   watchlist pool itself remains equities/ETFs only; §21's allowlist is managed in CLAUDE.md
   directly.
 - No trade placed this entry — configuration change only.
+
+## 2026-09-08 (later same day) — SYSTEM CONFIGURATION CHANGE: crypto now fires 24/7
+- User instructed making crypto trading truly 24/7 rather than sharing the weekday, market-hours
+  trigger with Mode B/Mode C. Created a new dedicated Routine, "Crypto 24/7 Scan (§21)"
+  (trig_01UUXAtYHjn7nBgzkdvZU4Rv), self-bound to this session, cron anchored hourly every day of
+  the week (fires ~:37 past every hour, including nights/weekends/holidays) — the fastest cadence
+  this platform allows.
+- Removed all crypto screening/exit-management steps from the shared weekday Mode B/C trigger
+  (both the hourly and first-scan prompts updated) — crypto no longer shares a schedule with
+  equities/options, avoiding double-screening during weekday hours when both triggers would
+  otherwise fire in the same window.
+- CLAUDE.md §21 items 6-7 updated: the "unmonitored 18+ hours overnight/weekends" gap disclosed
+  a few hours earlier today is now closed — crypto gets the same ~hourly check cadence 24/7 that
+  equities get during market hours. What remains is the same platform-floor caveat already
+  accepted everywhere else (a very fast intra-hour move can still outrun an hourly check) — not a
+  new or larger gap, the same one already disclosed for §16 item 12/§20 item 11.
+- No trade placed this entry — configuration change only. The new crypto trigger's first live
+  cycle will fire within the hour and should produce its own trades_log.md entry independently.
