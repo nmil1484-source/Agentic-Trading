@@ -108,8 +108,15 @@ each still needs its own independent §5B verification). Confirmed via `search`:
 **TBT excluded, not added:** ProShares UltraShort 20+ Year Treasury — a 2x inverse ETF, prohibited
 by §2.
 
-## Excluded — instrument type not permitted (Section 2: no crypto, no leveraged/inverse ETFs)
-- Crypto pairs: ETHUSD, SOL, XRPUSD, LINK, BTCUSD, BTC.D, PYRUSDC
+## Excluded — instrument type not permitted (Section 2: no leveraged/inverse ETFs; crypto is a
+narrow named exception, not this pool)
+- Crypto pairs: ETHUSD, SOL, XRPUSD, LINK, BTCUSD, BTC.D, PYRUSDC — **note (2026-09-08):** §2's
+  blanket crypto ban now has a narrow, separate exception — §21 (Crypto Trading Policy) permits
+  spot BTC, ETH, SOL, XRP, and LINK specifically, under their own tighter sizing/stop rules. This
+  watchlist pool is still equities/ETFs only; §21's crypto allowlist is managed directly in
+  CLAUDE.md §21 itself, not here — do not add crypto pairs to this pool's "eligible candidate
+  pool" section above, and do not treat this list's remaining crypto rows (or PYRUSDC, still
+  fully excluded — not on §21's named list) as anything other than still-banned.
 - Leveraged ETFs: SOXL (3x semiconductors), UCO (2x crude oil)
 - Futures/FX (not a stock or ETF, not a permitted instrument at all): GOLD, USOIL, SILVER, USDJPY, US10Y
 
