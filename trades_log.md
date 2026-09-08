@@ -2847,3 +2847,32 @@ Format per entry:
   equity baseline going forward: $2,207.29 (last confirmed 2026-09-08 ~19:55 UTC) — no rule change,
   §14 item 2's dynamic 90%-of-current-equity deployment ceiling and §5B/§20's risk sizing already
   recalculate from current equity every cycle.
+
+## 2026-09-08 — SYSTEM CONFIGURATION CHANGE (not a trade cycle)
+- User instructed adopting risk-tightening changes from a friend's independently-written
+  operating-rules document, and adding a narrow spot-crypto exception. Full rationale and
+  before/after logged in CLAUDE.md §12. Summary of what changed:
+  1. Per-position cap tightened 80% → 40% of equity (§3), with an explicit indivisible-whole-
+     share exception (flagged using the real 2026-09-04 MU precedent, where 1 share alone was
+     ~45% of equity).
+  2. Two new cross-mode circuit breakers added (§6): same-day 2-stop-out cooldown, and a
+     SPY/QQQ >1.5% single-cycle-shock pause — both additional to, not replacing, existing breakers.
+  3. New §21 Crypto Trading Policy — spot-only, named allowlist (BTC, ETH, SOL, XRP, LINK), its
+     own tighter sizing (0.5% risk/trade, 15% per-position cap, max 2 concurrent positions, 8%
+     hard stop-distance ceiling), mandatory resting broker stop (matching Mode C's discipline, not
+     Mode B's documented-level approach), same peak-retracement/breakeven/trailing mechanics as
+     the rest of the system, autonomous from day one. **Verified live before activation**:
+     `get_currency_pairs` confirmed all 5 pairs tradable/unhalted; `preview_crypto_order` confirmed
+     the order path works. **Disclosed gap, accepted at explicit user instruction**: the
+     autonomous trigger gains no new firing times for crypto — it still only fires on the existing
+     weekday, market-hours-aligned schedule, so (a) new crypto entries can only be evaluated during
+     those same windows despite crypto trading 24/7, and (b) an open crypto position can go
+     completely unmonitored by this system (aside from its resting stop) for 18+ hours overnight
+     or a full weekend.
+- Both autonomous trigger prompts (hourly scan + daily first-scan) updated in the same pass to
+  add Crypto (§21) as a third parallel lane alongside Mode B/Mode C, and to check the two new
+  cross-mode circuit breakers every cycle before any new entry in any lane.
+- watchlist.md's crypto-exclusion note updated to point to §21 as the narrow exception — the
+  watchlist pool itself remains equities/ETFs only; §21's allowlist is managed in CLAUDE.md
+  directly.
+- No trade placed this entry — configuration change only.
