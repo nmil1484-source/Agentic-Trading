@@ -2955,3 +2955,31 @@ Format per entry:
   4H/1H structure check given prices moved <0.1% across the board since last cycle's detailed
   screen, which already found none of the four clearing §21's R:R/trigger requirements. No new
   entry this cycle.
+
+## 2026-09-08 ~23:37 UTC — AUTONOMOUS — CRYPTO: CYCLE SKIPPED (Robinhood MCP unauthenticated)
+- §14 Status check (from CLAUDE.md, local read — no MCP needed): ACTIVE, confirmed. No kill phrase
+  found in recent chat history.
+- **STEP 1 blocked at the very first tool call**: the Robinhood MCP connector (`robinhood-trading`)
+  is unauthenticated in this session — the harness reports it requires reauthorization before any
+  of its tools can be used, and that this session cannot run the OAuth flow itself. Zero Robinhood
+  tool calls were attempted this cycle (calling a known-unauthenticated connector and logging the
+  resulting error would add nothing over stating the gate plainly).
+- **Practical effect**: `get_accounts`/`get_portfolio` could not be checked (no account/circuit-
+  breaker state available), `get_crypto_positions`/`get_crypto_quotes`/`get_crypto_orders` could
+  not be checked — meaning the **open LINK-USD position (1/2 crypto slots, entered 21:37 UTC,
+  stop last confirmed resting @ $11.99, order `6aa080d0-af68-4a79-b55c-17c5c129f438`, as of the
+  22:37 UTC cycle) could not be re-verified this cycle** — its resting-stop status, current mark,
+  and R-multiple are unconfirmed at this timestamp, not because anything failed on the position
+  itself but because this cycle had no data access at all. No new-entry screening was performed
+  (§21 item 3 requires the same live tool access). **No order of any kind was placed, modified, or
+  cancelled this cycle** — this is a pure data-unavailability gap, not a decision to hold or exit.
+- Per CLAUDE.md §6's standing principle ("if data is stale, incomplete, contradictory, or
+  unavailable, do not infer a bullish signal and do not propose execution") and the spirit of the
+  MCP-error/reconciliation breaker (§6/§14 Automatic Recovery State Machine) — no new crypto entry
+  authority should be assumed until Robinhood access is restored and a fresh account/position read
+  confirms nothing has drifted (positions, cash, existing stop) since the last successful check at
+  22:37 UTC.
+- **Flagging to the user in chat this cycle** (narrated despite being a "no orders placed" cycle,
+  per §14's "URGENT alert" precedent) since an open, stop-protected position going a full cycle
+  with zero verification is exactly the kind of gap worth surfacing rather than logging silently.
+- Crypto position count: unconfirmed this cycle, last known 1/2 (LINK) as of 22:37 UTC.
