@@ -2786,3 +2786,29 @@ Format per entry:
   Stop remains at breakeven $999.50 (unchanged, still the higher of the two protective levels
   until price extends further and the EMA/swing-low trail overtakes it).
 - Mode C: 0/8, $0 P&L. No orders placed this cycle.
+
+## 2026-09-08 ~16:55 UTC — AUTONOMOUS — MODE B: MU FULL EXIT (peak-retracement rule, §16 item 12)
+- §14 Status: ACTIVE, confirmed. No kill phrase.
+- **MU peak-retracement rule fired.** Last cycle (15:55 UTC) established peak $1,026.69 after
+  crossing +1.5R, with retracement trigger $1,018.53 (peak − 30%×(peak−entry)). This cycle's quote
+  showed MU at $1,016.77 — below the trigger (retrace = (1026.69−1016.77)/(1026.69−999.50) =
+  **36.5% given back from peak**, past the 30% threshold). Per §16 item 12, this is a full
+  protective exit, independent of and overriding the ordinary +2R/+3R trim mechanic (MU had not
+  yet reached +2R/$1,029.00 anyway) — fires immediately, no same-day-gate consideration (moot,
+  position is 4 sessions old).
+  - Pre-exit checks: `get_equity_tradability` (MU) — tradable, no restrictions.
+    `review_equity_order` — clean, no alerts. Compliance quote: Bid $1,016.20 × 40 / Ask $1,016.67
+    × 40 / Last $1,016.435 × 400, 12:56 PM ET.
+  - **ORDER PLACED AND FILLED**: SELL 1 MU LIMIT $1,014.50, filled @ $1,016.2201 avg (order id
+    `6aa03e3e-c098-4355-8cb5-373c6fe4568a`, fees $0.03).
+  - **Realized gain: +$16.69** (gross $16.72 − $0.03 fees). Exit fill ($1,016.22) came in $2.31
+    below the documented trigger ($1,018.53) — real slippage between the 15:55 UTC cycle that set
+    the trigger and this 16:55 UTC cycle that caught the breach, consistent with the disclosed
+    hourly-cadence gap risk (§16 item 12's own caveat) — not a rule-execution failure, just the
+    platform's one-hour floor doing exactly what was disclosed it could do.
+  - R-multiple at exit: (1016.2201−999.50)/14.50 = **+1.15R** realized, down from the +1.875R peak
+    — exactly the kind of giveback this rule exists to cap, even with the hourly-check slippage.
+- **Account state after exit: 0/5 Mode B positions, 0/8 Mode C.** Fully flat.
+- The $1,000 cash discrepancy from 2026-09-07 remains unconfirmed — new-entry pause for Mode B/C
+  continues; this was a protective exit only, not a new entry, so it proceeded regardless per the
+  standing exit-management mandate.
