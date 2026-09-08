@@ -2824,3 +2824,15 @@ Format per entry:
   cash, stable, 0/5 Mode B, 0/8 Mode C.
 - Entry pause continues — $1,000 cash discrepancy (2026-09-07) still unconfirmed by user. No
   candidates screened toward entry this cycle. No orders placed.
+
+## 2026-09-08 ~19:55 UTC — AUTONOMOUS — FINAL CYCLE OF DAY
+- §14 Status: ACTIVE, confirmed. No kill phrase. Account (••••8058): total_value $2,207.29, all
+  cash, stable, 0/5 Mode B, 0/8 Mode C.
+- **STEP 0.5 final-cycle check**: confirmed 19:55 UTC last cycle. 0/8 Mode C positions — nothing
+  to flatten. Mode C daily P&L: $0.
+- Entry pause continues — $1,000 cash discrepancy (2026-09-07) still unconfirmed by user.
+- **Day summary (2026-09-08):** MU (carried in from 9/4) crossed +1.5R mid-morning, then gave back
+  >30% from its peak and was fully exited per the peak-retracement rule (+$16.69 realized,
+  order `6aa03e3e...`) — the first live trigger of that rule on a non-9/3-legacy position. Account
+  spent the rest of the day fully flat and in cash, with new-entry authority paused pending
+  confirmation of Sunday's $1,000 cash movement. No Mode C activity all session.
