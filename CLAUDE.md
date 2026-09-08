@@ -222,6 +222,23 @@ Mode B.
 - If Robinhood MCP returns three consecutive errors or reported positions do not match the account, cease trading until reconciliation is verified. **Mode B AUTONOMOUS_EXECUTE exception (2026-08-19 — see §14):** for the autonomous Mode B trigger, this suspends new-entry order submission only — protective exits (§16) stay active, scanning/logging continue, and automatic reconciliation runs each cycle, restoring new-entry submission automatically once two consecutive reconciliations agree on cash, positions, and order states, no manual phrase required. Unaffected for Mode A/manual trading.
 - If data is stale, incomplete, contradictory, or unavailable, do not infer a bullish signal and do not propose execution. **Exception (2026-08-13, user instruction): the FTA Regime Dashboard is a reference input, not a blocking gate.** If it's unavailable/stale/placeholder, classify it **UNKNOWN_DEGRADED** — log it, do not treat it as bearish, and do not let it alone block a proposal. **Compensating requirement while UNKNOWN_DEGRADED (2026-08-13):** for Mode A (and Tier-A proposals generally, if Mode A is ever authorized to execute), the §13.A reward-to-risk floor rises from ≥1:2 to **≥1:3**. **For Mode B swing trades, the compensating requirement is reduced position sizing only, at a flat ≥1.5:1 reward-to-risk floor** (2026-08-13, see §5B Regime Rule and §12 change log; RR floor flattened 2026-08-14 at explicit user instruction — see §12) — Mode B's floor is ≥1.5:1 regardless of regime dashboard state, for both whole-share and fractional-Tier-A-style swing entries, with a halved position-size sub-cap while UNKNOWN_DEGRADED. Tier-B fractional pilots (§15 item 5) keep their own separate, unaffected ≥2:1-degraded floor with halved size. This unavailable-data rule still fully applies, with no exception, to LUC data, Robinhood account/position data, and a specific ticker's own technical or catalyst data — only the FTA Regime Dashboard gets the UNKNOWN_DEGRADED treatment.
 - Flag potential wash-sale risk when a loss sale may be followed by repurchase of the same or substantially identical security within 30 calendar days in a taxable account. This is a flag, not tax advice.
+- **Cash-only discrepancy handling (2026-09-08, explicit user instruction).** The "reported
+  positions do not match the account" trigger above (item 2) is about position/order mismatches —
+  it does not cover a pure cash-balance change with positions and order history otherwise fully
+  consistent. When account cash differs from the expected value (prior state plus logged fills)
+  but every position and order this system can see reconciles cleanly, **do not pause new-entry
+  authority waiting for user confirmation** — log the discrepancy prominently in `trades_log.md`
+  and mention it in the next chat report, then continue trading normally. This system is
+  permanently walled off from ever moving money itself (§1), so any such gap is presumed to be the
+  user's own account activity. **Tradeoff, disclosed at the time this was requested:** the prior
+  practice (pause and wait for explicit confirmation, applied twice — 2026-09-04's $300 gap and
+  2026-09-07's $1,000 gap, both confirmed by the user as their own transfers) existed because a
+  cash-only mismatch could in principle also signal something worth catching before continuing to
+  trade — a data error, or in the worst case unauthorized account access — not only a benign
+  transfer. Removing the pause means the system will keep opening new positions through that kind
+  of event without a human looking first. The user chose to accept that tradeoff given two-for-two
+  benign outcomes. A **position or order mismatch** (the original §6 item 2 trigger) still pauses
+  new-entry submission exactly as before — this change is scoped strictly to a cash-only delta.
 
 ## 7. Required trade-card format
 Every proposal must be presented before any confirmation request:
@@ -345,6 +362,18 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-09-08: User instructed removing the new-entry pause on a cash-only account discrepancy.**
+  New §6 item (added after the wash-sale bullet) documents the change and its scope. Before: an
+  unexplained cash-balance change with no matching order paused Mode B/C new-entry authority until
+  the user explicitly confirmed the cause — applied twice this session (2026-09-04's $300 gap,
+  2026-09-07's $1,000 gap), both confirmed as the user's own manual transfers. After: a cash-only
+  discrepancy (positions/orders otherwise fully consistent) is logged and reported but no longer
+  blocks new entries — presumed benign given this system can never move money itself (§1).
+  **Scoped narrowly**: a genuine position/order mismatch (§6's original item 2 trigger) still
+  pauses new-entry submission exactly as before; this change touches only the cash-only case.
+  Tradeoff flagged before making the change: this removes a check that could otherwise catch a
+  data error or unauthorized account access early, not just a benign transfer — the user chose to
+  accept that given two-for-two benign outcomes so far.
 - **2026-09-05: User instructed wiring the newly-connected TradingView MCP ("tvremix") connector
   into the autonomous Mode B and Mode C scan cycles, not just manual/on-demand chat research.**
   New §8 item 7 documents the connector and its scope. **Explicitly scoped as an additional
