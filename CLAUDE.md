@@ -433,8 +433,20 @@ per §5B — the ordering below is unchanged by the mode refactor.)
      stop order) for 18+ hours overnight or an entire weekend. This is a materially larger version
      of the hourly-cadence gap already accepted for Mode C's peak-retracement rule, since crypto
      has far more unmonitored hours per week than an equity ever does (which at least closes
-     nights/weekends). Accepted at explicit user instruction, not fixed — fixing it would need a
-     dedicated 24/7 trigger, which doesn't exist and wasn't requested.
+     nights/weekends). **Resolved later the same day (see the entry directly below) — user
+     immediately asked for true 24/7 crypto firing times, and a dedicated hourly-every-day trigger
+     was created to close this gap rather than leaving it accepted as a permanent tradeoff.**
+- **2026-09-08 (later same day): User instructed making crypto fire 24/7, closing the monitoring
+  gap disclosed in the entry above.** New dedicated Routine, "Crypto 24/7 Scan (§21)"
+  (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`), self-bound to this same session, hourly every day of the week
+  including nights/weekends/holidays — the fastest cadence this platform allows (same tested
+  1-hour floor as everywhere else). Crypto screening/exit-management was removed from the shared
+  weekday Mode B/C trigger in the same pass (both trigger prompts updated) — crypto no longer
+  shares a schedule with equities/options at all, avoiding double-screening during weekday hours
+  when both triggers would otherwise fire in the same window. §21 items 6-7 rewritten to reflect
+  the new trigger and to narrow the disclosed gap down to the same platform-floor caveat already
+  accepted everywhere else (a fast intra-hour move can still outrun an hourly check) rather than
+  the much larger "unmonitored for 18+ hours overnight/weekends" gap from a few hours earlier.
 - **2026-09-08: User instructed removing the new-entry pause on a cash-only account discrepancy.**
   New §6 item (added after the wash-sale bullet) documents the change and its scope. Before: an
   unexplained cash-balance change with no matching order paused Mode B/C new-entry authority until
@@ -1919,24 +1931,34 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
    - **Time-stop: 7 calendar days** (not trading sessions — crypto has none) if the position
      hasn't reached +0.5R, mirroring §16 item 8's principle on a calendar basis appropriate to a
      market that trades every day.
-6. **Autonomous authority: same scheduled trigger, granted from day one, no separate staged
-   verification procedure** — consistent with how §18 (options) and §20 (Mode C) were both
-   activated immediately at explicit user instruction rather than going through §14's original
-   5-step equity verification process. The very first live crypto order this cycle produces must
-   still be preceded by a live `get_currency_pairs`/`preview_crypto_order` check confirming the
-   pair isn't halted and the order path is clean — the same ordinary pre-trade discipline every
-   other instrument already requires, not an extra staged rollout.
-7. **Honest disclosure of the real gap this creates, not a hidden one:** crypto trades nights,
-   weekends, and holidays; this system's autonomous trigger only fires on the existing weekday,
-   market-hours-aligned cron (hourly 14:55-19:55 UTC, plus the 10am ET first-scan) — **it does not
-   gain any new firing times for crypto.** This means a crypto position can sit completely
-   unmonitored by this system for potentially 18+ hours overnight or an entire weekend, with only
-   its resting broker stop order (item 5) as protection during that window — no peak-retracement
-   check, no trailing update, nothing, until the next scheduled weekday cycle picks it back up.
-   This is a materially bigger version of the same hourly-cadence gap already disclosed for Mode C
-   and the peak-retracement rule (§20 item 11's own caveat) — crypto just has far more unmonitored
-   hours per week than an equity ever does. Accepted at explicit user instruction; not fixable
-   without a dedicated 24/7 trigger, which does not currently exist and was not requested.
+6. **Autonomous authority: its own dedicated 24/7 hourly trigger, granted from day one, no
+   separate staged verification procedure** — consistent with how §18 (options) and §20 (Mode C)
+   were both activated immediately at explicit user instruction rather than going through §14's
+   original 5-step equity verification process. **Updated 2026-09-08, same day this section was
+   added**: crypto does not share the weekday, market-hours-aligned trigger that runs Mode B/Mode
+   C — it runs on a separate Routine ("Crypto 24/7 Scan (§21)", self-bound to the same session)
+   that fires hourly, every day of the week including nights, weekends, and holidays, the fastest
+   cadence this platform allows (the same tested 1-hour floor documented in §20.5's note — no
+   schedule fires faster than hourly anywhere in this system). This trigger handles crypto
+   exclusively; it does not screen or trade Mode B/Mode C/options, which stay on the separate
+   weekday trigger. The very first live crypto order this cycle produces must still be preceded
+   by a live `get_currency_pairs`/`preview_crypto_order` check confirming the pair isn't halted
+   and the order path is clean — the same ordinary pre-trade discipline every other instrument
+   already requires, not an extra staged rollout.
+7. **Monitoring-gap disclosure, updated 2026-09-08 now that item 6's dedicated 24/7 trigger
+   exists.** The original version of this item (drafted the same day, before the dedicated crypto
+   trigger existed) disclosed that a crypto position could go unmonitored for 18+ hours overnight
+   or a full weekend, since the shared weekday trigger gave crypto no off-hours coverage at all.
+   **That specific gap is now closed**: the dedicated 24/7 trigger means a crypto position is
+   checked roughly every hour, 24/7/365, the same as Mode C's equities-hours cadence — not
+   materially worse anymore. **What remains, and is not fixable, is the same platform floor
+   already accepted everywhere else in this document**: no schedule can fire faster than hourly,
+   so a very fast intra-hour move (a flash crash, a sudden depeg, a large exchange-wide liquidation
+   cascade) can still outrun the peak-retracement rule or the resting stop's ability to fill at the
+   expected price before the next check — the identical caveat already disclosed for Mode C (§20
+   item 11) and Mode B (§16 item 12), now equally true here. Crypto's continuous, 24/7 nature no
+   longer means *less* monitoring than equities get; it just means the same hourly-floor caveat
+   applies around the clock instead of only during market hours.
 8. **Order mechanics note, distinct from equities — do not reuse the wrong tools:** crypto uses
    `get_crypto_quotes`/`get_crypto_positions`/`get_crypto_orders`/`preview_crypto_order`/
    `place_crypto_order`/`cancel_crypto_order`, not the equity equivalents, and the account
