@@ -2739,3 +2739,30 @@ Format per entry:
   orders of any kind) remains unconfirmed by the user — new-entry pause for Mode B/C carries over
   into tomorrow's session until resolved. MU: 1 sh, entry $999.50, stop at breakeven $999.50,
   unchanged all day. Mode C: 0/8, $0 P&L. No orders placed any cycle today.
+
+## 2026-09-08 ~14:01 UTC — FIRST SCAN OF DAY — MARKET REOPENED, ENTRY PAUSE STILL IN EFFECT
+- §14 Status: ACTIVE, confirmed. No kill phrase. Market reopened after Labor Day — MU quote fresh
+  (last trade $1,018.595, timestamped today 14:02 UTC).
+- Account (••••8058): `get_portfolio` — total_value $2,208.60, cash $1,191.10 (stable vs. Monday,
+  no further movement), equity_value $1,017.50 (MU). **The $1,000 cash discrepancy flagged
+  2026-09-07 ~14:01 UTC remains unconfirmed by the user.** Cash being flat since Monday is
+  consistent with a one-time transfer rather than ongoing drift, but per protocol this is still
+  not being assumed — **new-entry authority for Mode B/C stays paused** pending explicit
+  confirmation. Exit management continues unaffected.
+- FTA Regime Dashboard re-checked (WebFetch): still no live regime classification returned —
+  page shows structural framework only, "Loading..." on the actual regime data. UNKNOWN_DEGRADED,
+  consistent with every check this entire session.
+- **Watchlist screen (TradingView `rank_symbol_setups`, 58 symbols, earnings-within-14d excluded):**
+  top candidates — CRCL (73, bullish, but low 0.1x volume participation), NVDA (71), CVX (65),
+  HOOD (64, well extended +29.3% above EMA200 — same name whose peak-retracement exit we already
+  booked twice), GDX (64), OSCR (63), QQQ (63), TSM (61), AAPL (61), IREN (60, huge +33% weekly
+  move, very extended). ORCL and AVAV correctly excluded (earnings in 2d/1d). **Screening completed
+  for the record, but no candidate was taken further into a full §5B verification or Trade Card
+  this cycle — the account-integrity pause above takes priority over pursuing any new entry today,
+  regardless of setup quality.** Every top name is also already meaningfully extended above EMA200
+  (11-29%), so nothing here was being forced into urgency even before the pause was considered.
+- **MODE B — MU**: 1 sh, entry $999.50, stop at breakeven $999.50. Current $1,018.595 → R-multiple
+  ~+1.32R (between the +1R breakeven trigger already applied and the +1.5R peak-retracement
+  threshold at $1,021.25). No new exit rule triggered this cycle.
+- **MODE C**: 0/8 positions, $0 P&L. No screen pursued to entry given the active pause.
+- No orders placed this cycle.
