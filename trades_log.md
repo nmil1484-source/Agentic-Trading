@@ -3375,3 +3375,11 @@ Format per entry:
   vs. last cycle ($116.67), still no hourly reclaim. No new candidate. No Mode B trigger.
 - **Mode C**: no ORB/VWAP-pullback/mean-reversion setup. No Mode C trade.
 - Mode B position count: 0/5. Mode C position count: 0/8. Mode C daily P&L: $0. No order placed.
+
+## 2026-09-09 ~19:38 UTC — AUTONOMOUS — CRYPTO: CYCLE SKIPPED (Robinhood MCP unauthenticated)
+- §14 Status check (CLAUDE.md, local read): ACTIVE, confirmed. No kill phrase found in recent
+  chat history.
+- Robinhood MCP unauthenticated this cycle (was live 17:55-18:55 UTC, dropped again). No tool
+  calls attempted. Zero orders placed, modified, or cancelled.
+- Crypto lane confirmed flat (0/2) as of the last successful check (18:37 UTC) — no open position
+  left unverified. No new-entry screening performed. First skipped cycle of this outage.
