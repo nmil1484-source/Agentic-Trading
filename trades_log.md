@@ -2999,3 +2999,21 @@ Format per entry:
 - Not re-narrating a full chat alert this cycle — same known, already-flagged blocker as last
   cycle, nothing new to report. Will flag again in chat if this extends further or if access is
   restored.
+
+## 2026-09-09 ~01:38 UTC — AUTONOMOUS — CRYPTO: CYCLE SKIPPED (Robinhood MCP still unauthenticated, 3rd consecutive cycle)
+- §14 Status check (CLAUDE.md, local read): ACTIVE, confirmed. No kill phrase found in recent
+  chat history.
+- **Third consecutive cycle blocked at STEP 1**: Robinhood MCP (`robinhood-trading`) remains
+  unauthenticated. No Robinhood tool calls attempted. Zero orders placed, modified, or cancelled.
+- **Open LINK-USD position (1/2 crypto slots) has now gone unverified for 3 full hours** — last
+  confirmed state remains the 22:37 UTC cycle (mark $12.51472, stop resting @ $11.99, order
+  `6aa080d0-af68-4a79-b55c-17c5c129f438`). This is now equivalent in spirit to §6's "three
+  consecutive Robinhood MCP errors" circuit breaker (unavailability rather than errors, same
+  practical effect: no reconciled account/position state) — treating new-entry authority as
+  paused pending a fresh successful reconciliation once access is restored, consistent with that
+  breaker's existing handling. Exit-management intent (breakeven/trailing/peak-retracement/
+  time-stop) remains unable to execute for the same reason — not a waived rule, just no access.
+- No new-entry screening performed. Crypto position count: unconfirmed, last known 1/2 (LINK) as
+  of 22:37 UTC.
+- Re-flagging in chat this cycle — 3 consecutive blocked cycles crosses a meaningful threshold
+  worth surfacing again rather than logging silently.
