@@ -2983,3 +2983,19 @@ Format per entry:
   per §14's "URGENT alert" precedent) since an open, stop-protected position going a full cycle
   with zero verification is exactly the kind of gap worth surfacing rather than logging silently.
 - Crypto position count: unconfirmed this cycle, last known 1/2 (LINK) as of 22:37 UTC.
+
+## 2026-09-09 ~00:37 UTC — AUTONOMOUS — CRYPTO: CYCLE SKIPPED (Robinhood MCP still unauthenticated)
+- §14 Status check (CLAUDE.md, local read): ACTIVE, confirmed. No kill phrase found in recent
+  chat history.
+- **Second consecutive cycle blocked at STEP 1**: Robinhood MCP (`robinhood-trading`) remains
+  unauthenticated in this session — same condition as the 23:37 UTC cycle. No Robinhood tool
+  calls attempted (known-unauthenticated). Zero orders placed, modified, or cancelled.
+- **Open LINK-USD position (1/2 crypto slots) has now gone unverified for 2 full hours** — last
+  confirmed state remains the 22:37 UTC cycle (mark $12.51472, stop resting @ $11.99, order
+  `6aa080d0-af68-4a79-b55c-17c5c129f438`, position not yet at +1R). No new information this cycle;
+  status unchanged from the prior log entry, just older.
+- No new-entry screening performed (requires the same live access). Crypto position count:
+  unconfirmed this cycle, last known 1/2 (LINK) as of 22:37 UTC.
+- Not re-narrating a full chat alert this cycle — same known, already-flagged blocker as last
+  cycle, nothing new to report. Will flag again in chat if this extends further or if access is
+  restored.
