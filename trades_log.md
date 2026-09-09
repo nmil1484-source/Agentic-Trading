@@ -3126,3 +3126,37 @@ Format per entry:
 - Remaining allowlist (BTC $79,338, ETH $2,502.7, SOL $104.1, XRP $1.4271) — essentially unchanged
   from prior cycle, same conclusions hold, none clear §21 item 3. No new entry.
 - Crypto position count: **1/2**. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-09 ~10:37 UTC — AUTONOMOUS — CRYPTO: LINK STOP-OUT (§21 item 5) — FIRST CRYPTO LOSS
+- §14 Status: ACTIVE, confirmed. No kill phrase. Account (••••8058): total_value $2,193.67, all
+  cash — fully flat on crypto.
+- **LINK-USD position closed via protective stop, discovered this cycle (executed at 06:18:52 ET
+  / 10:18:52 UTC, ~19 minutes before this cycle fired):**
+  - Entry (2026-09-08 21:37 UTC cycle): BUY 21.53 LINK @ avg $12.61797, notional $271.67 (order
+    `6aa080b0...`).
+  - Exit: SELL 21.53 LINK, stop order (trigger $11.99), filled @ avg $11.985866, notional $258.05
+    net (order `6aa080d0...`, `state: filled`).
+  - **Realized loss: $13.62** (271.67 − 258.05), **0.62% of the $2,207.29 equity baseline at
+    entry** — essentially exactly the planned 1R risk ($13.52 / 0.612% disclosed at entry) with
+    only ~$0.10 of extra slippage on the stop trigger. Clean, disciplined stop execution, not a
+    blown stop.
+  - Rule triggered: initial protective stop (§21 item 5) — the position never reached +1R
+    ($13.246) so no breakeven move was ever due, and never reached +1.5R so peak-retracement
+    tracking never activated. This was a straightforward "thesis invalidated, stop hit" exit, not
+    a giveback-from-peak exit.
+  - Held ~12.5 hours (2026-09-08 21:37 UTC entry → 2026-09-09 10:18 UTC exit), well inside the
+    7-calendar-day time-stop.
+- **Same-day stop-out count (§6 cross-mode cooldown): 1 of 2** across Mode B/C/Crypto combined
+  today — cooldown not yet triggered (needs 2). Logging this explicitly since it's now live-
+  tracked for the rest of the day.
+- **Capacity reopened**: crypto position count now **0/2**. Re-screened the full 5-coin allowlist
+  this cycle (BTC $79,133, ETH $2,492.2, SOL $104.0, XRP $1.424, LINK $12.068 — LINK now
+  ineligible for immediate re-entry per §17 item 4's no-same-day-loss-re-entry principle, applied
+  here consistent with every other loss-exit in this system) — BTC/ETH/SOL/XRP all within ~1% of
+  levels already screened out earlier this session (BTC R:R marginal, ETH/SOL R:R badly sub-1.5:1,
+  XRP aligned bearish) — no material change, no new entry this cycle.
+- Crypto position count: **0/2**. No new order placed this cycle (the stop fill itself executed
+  autonomously between cycles, per its standing resting-order authority — not a new discretionary
+  order this cycle).
+- **Flagging in chat** — first-ever crypto loss/stop-out, per the mandatory full-report trigger
+  for any exit.
