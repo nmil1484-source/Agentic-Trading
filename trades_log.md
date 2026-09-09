@@ -3336,3 +3336,15 @@ Format per entry:
 - **Mode C**: tape still quietly mixed/lower, no ORB/VWAP-pullback/mean-reversion setup observed.
   No Mode C trade.
 - Mode B position count: 0/5. Mode C position count: 0/8. Mode C daily P&L: $0. No order placed.
+
+## 2026-09-09 ~17:37 UTC — AUTONOMOUS — CRYPTO: CYCLE SKIPPED (Robinhood MCP unauthenticated)
+- §14 Status check (CLAUDE.md, local read): ACTIVE, confirmed. No kill phrase found in recent
+  chat history.
+- Robinhood MCP (`robinhood-trading`) unauthenticated this cycle (new drop — was live for the
+  three prior crypto cycles at 14:37/15:37/16:37 UTC). No tool calls attempted. Zero orders
+  placed, modified, or cancelled.
+- **LINK-USD is flat (0/2) as of the last confirmed check (16:37 UTC)** — no open crypto position
+  to leave unverified this time, so the practical stakes of this outage are lower than the earlier
+  one (which had an open, stop-protected LINK position). No new-entry screening performed.
+- First skipped cycle of this new outage — not re-flagging in chat yet per the same 3-consecutive
+  threshold used before.
