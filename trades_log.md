@@ -3054,3 +3054,18 @@ Format per entry:
 - Remaining allowlist (BTC $78,586, ETH $2,488.7, SOL $103.2, XRP $1.4135) all within ~0.5% of the
   02:37 UTC levels — same technical/R:R conclusions hold (none clear §21 item 3). No new entry.
 - Crypto position count: **1/2**. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-09 ~04:37 UTC — AUTONOMOUS — CRYPTO: CYCLE SKIPPED (Robinhood MCP unauthenticated again)
+- §14 Status check (CLAUDE.md, local read): ACTIVE, confirmed. No kill phrase found in recent
+  chat history.
+- **Robinhood MCP (`robinhood-trading`) has gone back to unauthenticated** after being live for
+  the 02:37 and 03:37 UTC cycles — a new drop, not a continuation of the earlier 3-cycle outage.
+  No Robinhood tool calls attempted (known-unauthenticated). Zero orders placed, modified, or
+  cancelled.
+- **LINK position (1/2)** last confirmed intact at the 03:37 UTC cycle: 21.53 LINK held, stop
+  resting @ $11.99 (order `6aa080d0...`), mark $12.3955 (~-0.35R), no exit rule due. Unverified
+  as of this cycle for the same reason as before — no data access, not a decision.
+- No new-entry screening performed. Crypto position count: unconfirmed this cycle, last known
+  1/2 (LINK) as of 03:37 UTC.
+- First skipped cycle of this new outage — not re-flagging in chat yet per the same threshold
+  used last time (flagged again only if this reaches 3 consecutive or an urgent condition arises).
