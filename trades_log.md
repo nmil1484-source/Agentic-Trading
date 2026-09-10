@@ -3660,3 +3660,29 @@ Format per entry:
 - Screened BTC ($76,934), ETH ($2,437.7), SOL ($99.2), XRP ($1.3442) — continued weakness. None
   clear §21 item 3.
 - Crypto position count: **0/2**. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-10 ~16:55 UTC — AUTONOMOUS — MODE B: AAPL — PEAK-RETRACEMENT TRACKING ACTIVATED, STOP RAISED
+- §14 Status: ACTIVE, confirmed. No kill phrase. Account (••••8058): total_value $2,198.03, cash
+  $1,874.54, equity_value $323.49 (1 AAPL share). SPY $759.23 (+0.10% vs. last cycle), QQQ
+  $711.14 (+0.24%) — no shock.
+- **AAPL — significant move since last cycle.** Mark $323.61 vs. entry $319.134 (risk $2.634).
+  Intraday hourly bars show a clean sequence of rising lows: $316.56 (hr1) → $318.85 (hr2) →
+  $319.20 (hr3, confirmed) → $321.27 (hr4, forming). Session high reached **$324.82** (+2.16R at
+  the peak — also past the +2R trim threshold, $324.40).
+  - **Stop raised** from breakeven ($319.134) to **$319.20** (hr3's confirmed higher low) — never
+    lowered, per §16 item 5/6's unconditional trailing rule (applies regardless of same-day-entry
+    status).
+  - **+1.5R crossed** (threshold $323.085, first crossed during hr2) — **peak-retracement
+    tracking (§16 item 12) now active.** Peak-to-date: $324.82. Current retracement trigger:
+    peak − 0.30×(peak−entry) = 324.82 − 0.30×5.686 = **$323.11**. Current price $323.61 is still
+    ~$0.50 above the trigger (~21.3% retraced from peak, below the 30% threshold) — **no exit
+    fired**. This level will recompute upward if a new peak prints; it only ever tightens.
+  - **+2R trim (§16 item 6) reached intraday but deferred**: the peak briefly exceeded $324.40
+    (+2R). Per §17's same-day-trim gate, the 50% profit-trim action itself waits until this
+    position has been held through at least one regular-session close — today's entry, so the
+    trim (not the stop-trailing, which is unconditional) is deferred to a future cycle if the
+    position is still open and above +2R after today's close.
+  - Mode B position count unchanged: 1/5.
+- **Mode B**: no new candidate this cycle. **Mode C**: no ORB/VWAP-pullback/mean-reversion setup.
+  No new order either lane.
+- Mode C position count: 0/8. Mode C daily P&L: $0.
