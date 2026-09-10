@@ -3765,3 +3765,40 @@ Format per entry:
   SOL/XRP not re-screened in detail given the same broad risk-off backdrop all session. None
   clear §21 item 3.
 - Crypto position count: **0/2**. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-10 ~20:37 UTC — AUTONOMOUS — MODE B/C RECONCILIATION: ACCESS RESTORED, AAPL STOP RAISED
+- Robinhood MCP access restored. Reconciling the full outage window (last confirmed check 16:55
+  UTC through now) using both live account data and hourly bars covering the gap.
+- **Mode C confirmed flat (0/8)** — `get_equity_positions` shows only the AAPL position, no Mode
+  C tickers. STEP 0.5's end-of-day flatten (moot at 19:55 UTC) is now confirmed to have had
+  nothing to flatten. Mode C daily P&L: $0 all session.
+- **AAPL — ran further during the outage, closed strong, no exit rule triggered.** Official
+  regular-session close: **$326.595** (+2.44% today). Reconstructed the gap via hourly bars:
+  - 10:30-11:30 ET: h=$323.82 (first crossed +1.5R, $323.085)
+  - 11:30-12:30 ET: h=$324.34, l=**$319.20** — a sharp intra-hour swing (peak-to-low ≈98% of the
+    entry-to-peak gain at that point). **This is exactly the disclosed hourly-check-cadence gap
+    (§16 item 12's own caveat)**: our last actual check before the outage (16:55 UTC / 12:55 ET)
+    landed *after* this hour had already closed and price had recovered to $323.61 in the
+    following hour — so at every point this position was actually observed, the 30%-retracement
+    trigger was never met. No retroactive exit is being applied for an intra-hour move no check
+    ever actually saw; disclosing it here for the record, not as a missed action.
+  - Price then climbed the rest of the session: 12:30-13:30 ET c=$324.84, 13:30-14:30 ET
+    c=$324.12, 14:30-15:30 ET c=$325.30, 15:30-16:00 ET (close) c=$326.61. Session high: **$326.74**.
+  - **Peak-retracement tracking updated**: peak now $326.74. New trigger = 326.74 −
+    0.30×(326.74−319.134) = 326.74 − 2.282 = **$324.46**. Current price ($326.09-326.60 area,
+    regular close $326.595) is comfortably above this — no exit.
+  - **Stop raised** from $319.20 to **$323.64** (14:30-15:30 ET's confirmed low — the highest
+    fully-confirmed higher-low in today's sequence: $319.20 → $321.27 → $323.41 → $323.64 →
+    $325.17-forming). Never lowered, consistent with §16 item 5/6.
+  - **+2R ($324.402) and +3R ($327.036-adjacent) context**: peak $326.74 is comfortably past +2R
+    (+3.03R at peak) but has not yet reached +3R. Per §17, the same-day-trim gate is now **lifted**
+    — today's regular session has closed with the position still open, satisfying "held through at
+    least one regular-session close."
+  - **+2R trim mechanically inapplicable**: the position is a single whole share. §16 item 6's
+    "sell 50%" instruction has no clean whole-share execution on a 1-share position — flagging
+    this as a structural consequence of the UNKNOWN_DEGRADED-halved 1-share sizing at entry, not a
+    skipped step. Full continued profit protection runs through the stop-trailing (now $323.64)
+    and the peak-retracement full-exit mechanism instead, both of which remain live and
+    unconditional.
+  - R-multiple at current price (~$326.30): (326.30-319.134)/2.634 ≈ **2.72R**.
+  - Mode B position count: 1/5, unchanged.
