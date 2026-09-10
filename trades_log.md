@@ -3653,3 +3653,10 @@ Format per entry:
 - **Mode B**: no new candidate surfaced this cycle. **Mode C**: no ORB/VWAP-pullback/mean-
   reversion setup. No new order either lane.
 - Mode B position count: 1/5 (AAPL). Mode C position count: 0/8. Mode C daily P&L: $0.
+
+## 2026-09-10 ~16:37 UTC — AUTONOMOUS — CRYPTO: OBSERVE, NO NEW TRADE
+- §14 Status: ACTIVE, confirmed. No kill phrase. Account (••••8058): 0/2 crypto positions. No
+  circuit breaker active — 0/2 stop-outs today. SPY $758.03 (-0.06% vs. last cycle) — no shock.
+- Screened BTC ($76,934), ETH ($2,437.7), SOL ($99.2), XRP ($1.3442) — continued weakness. None
+  clear §21 item 3.
+- Crypto position count: **0/2**. No order placed, modified, or cancelled this cycle.
