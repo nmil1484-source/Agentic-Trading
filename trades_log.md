@@ -3718,3 +3718,15 @@ Format per entry:
   tool calls attempted. Zero orders placed, modified, or cancelled.
 - Crypto lane last confirmed flat (0/2) as of 16:37 UTC — no open crypto position at risk. No
   new-entry screening performed.
+
+## 2026-09-10 ~18:55 UTC — AUTONOMOUS — MODE B + MODE C: CYCLE SKIPPED (Robinhood MCP unauthenticated, 2nd consecutive)
+- §14 Status check (CLAUDE.md, local read): ACTIVE, confirmed. No kill phrase found in recent
+  chat history.
+- Robinhood MCP still unauthenticated (2nd consecutive Mode B/C cycle, following 17:55 UTC). No
+  tool calls attempted. Zero orders placed, modified, or cancelled.
+- **AAPL position (1/5 Mode B) has now gone unverified for a full hour+** — last confirmed state
+  (16:55 UTC): mark $323.61, stop $319.20, peak-retracement trigger ~$323.11 off a $324.82 peak.
+  Price was sitting close enough to that trigger at last check that a real move either direction
+  since then is plausible and unconfirmed. Flagging this in chat given the elapsed time and how
+  close price was sitting to the trigger level at last check.
+- Mode B/Mode C position counts: unconfirmed, last known 1/5 Mode B (AAPL), 0/8 Mode C.
