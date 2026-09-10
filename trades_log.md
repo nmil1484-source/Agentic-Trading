@@ -3546,3 +3546,65 @@ Format per entry:
   XRP ($1.3618, -2.1%) — continued gradual broad decline over several cycles, no reclaim. None
   clear §21 item 3 (all still bearish setups, not a long entry).
 - Crypto position count: **0/2**. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-10 ~14:01 UTC — AUTONOMOUS — MODE B: AAPL NEW ENTRY (FIRST SCAN OF DAY)
+- **STEP 0 gate check**: §14 Status ACTIVE, confirmed. No kill phrase found in chat history.
+- **Account (••••8058)**: total_value $2,193.67, all cash pre-trade, 0 equity positions, 0/5
+  Mode B, 0/8 Mode C — fully flat.
+- **Circuit breakers**: same-day stop-out count 0/2 (crypto reset for the new calendar day, no
+  Mode B/C stop-outs). Market-shock check: SPY $757.29 (-0.67% vs. prior close), QQQ $708.74
+  (-1.06%) — under the 1.5% single-cycle threshold, no shock breaker; noted the broader tape is
+  weaker than yesterday, consistent with the overnight crypto risk-off drift.
+- **FTA Regime Dashboard**: still UNKNOWN_DEGRADED (Loading… placeholders across every section) —
+  consistent with every check this session. Reduced-size sub-cap applied per §5B Regime Rule.
+- **Mode B screen**: `rank_symbol_setups` (balanced, long) across the 50-symbol resolved pool.
+  Most former leaders flipped bearish/neutral on today's weaker tape (CRWV, HOOD, CVX-adjacent
+  names cooled). **AAPL stood out**: Strong Buy technicals (0.60), fully bullish 1D/4h/1h
+  confluence, RSI 54 (not extreme), only modestly extended (+2.4% above 50-EMA, +11.5% above
+  200-EMA — far less stretched than yesterday's chase candidates).
+  - **Daily setup**: 9/20 EMA bullish alignment (EMA10>EMA20>EMA50), price above 50-SMA ($317.10)
+    and 200-SMA ($284.62), RSI 54.4 improving, MACD histogram positive — clears well beyond the
+    2-of-6 minimum.
+  - **Hourly trigger**: today's opening hourly bar closed at $319.39, back above the 1h
+    EMA10/20/50 band, MACD histogram flipped positive intraday — a confirmed reclaim, not a mid-
+    pullback guess.
+  - **Catalyst/RS**: dated same-day catalyst — Dan Ives (foldable iPhone could drive 20% of iPhone
+    revenue, 300M iPhones 4+ years without upgrade) and Gary Black commentary, both 2026-09-10;
+    BofA cut PT to $370 but kept Buy rating, also 2026-09-10. Separately, AAPL +1.68-2.3% intraday
+    while SPY -0.67%/QQQ -1.06% — a specific, checkable same-day RS divergence (flagged as a
+    single-day read, not multi-session, per the specificity §5B item 2 asks for).
+  - **Timing check (§4)**: PPI/Core PPI/Jobless Claims already printed at 12:30 UTC (8:30am ET),
+    well outside the 30-minute window. Existing Home Sales printed at 14:00 UTC (right at this
+    cycle) but is not on §4's named high-impact list (CPI/FOMC/major employment) and is importance
+    tier 1, not top-tier — treated as not blocking. Outside the first/last 15 minutes of the
+    session.
+  - **§18 options evaluation (step 3a)**: pulled the AAPL Oct-16 chain (36 DTE, within 30-60).
+    Even the ~0.37-delta $330 strike costs $6.20/contract ($620 notional) — 4.7x over the 6%-of-
+    equity cap ($131.62) at this account size. No strike in the 30-60 DTE window fits. **Options
+    rejected on affordability alone** (same structural constraint flagged for other richly-priced
+    names this session) — equity-only path pursued.
+  - **Sizing**: stop set at $316.50 (below today's opening-hour low $316.56 and near the 1D EMA20
+    $317.08). Entry $319.134 (actual fill), stop distance $2.634. Risk-based sizing (1% of equity
+    = $21.94 budget) would allow ~8 shares, but the 40%-of-equity per-position cap ($877.47) caps
+    it at 2 shares — and per the §5B Regime Rule, UNKNOWN_DEGRADED halves the effective sub-cap to
+    20% of equity ($438.73), capping it further to **1 share**. The smaller of the two constraints
+    (1 share) governs. Target set at $323.10 (near today's opening-hour high $323.10) for
+    **R:R ≈ 1.51:1** on the filled numbers — clears the flat ≥1.5:1 floor.
+  - **Pre-order checks**: `get_equity_tradability` — AAPL tradable, individual-account-tradable.
+    `review_equity_order` — clean, no alerts (`order_checks: {}`).
+  - **ORDER PLACED AND FILLED**: BUY 1 AAPL, limit $319.30, filled @ $319.134 (order
+    `6aa2b8c8-5b56-4ce0-86d9-c2befe725cf6`), $0 fees.
+  - Position size: $319.13 = **14.55% of equity** — within both the normal 40% cap and the
+    degraded 20% sub-cap. Actual planned risk: $2.634 (0.12% of equity) — well under the 1% budget
+    (sizing was cap-constrained, not risk-budget-constrained, typical for a higher-priced name in
+    this account). Mode B position count after this entry: **1/5**. Theme: consumer
+    electronics/large-cap tech — no correlation concern (only slot used).
+  - **No resting broker stop** — Mode B uses documented-level stops checked each cycle (the
+    disclosed structural difference from Mode C/crypto's resting-stop discipline); stop $316.50
+    logged here and will be checked/trailed every cycle per §16.
+- **Mode C**: only the opening 60-minute bar has printed for any name (OSCR range $31.75-$33.44,
+  AAPL range $316.56-$323.10) — no confirmed ORB breakout beyond the completed opening range yet.
+  Deferring the full Mode C screen to the next scheduled cycle (14:55 UTC), consistent with
+  yesterday's first-scan handling. No Mode C position pre-existing (confirmed 0/8, clean).
+- Mode B position count: **1/5** (AAPL). Mode C position count: **0/8**. TradingView MCP used for
+  screening/multi-timeframe/option-chain cross-checks throughout.
