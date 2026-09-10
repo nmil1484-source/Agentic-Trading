@@ -3730,3 +3730,12 @@ Format per entry:
   since then is plausible and unconfirmed. Flagging this in chat given the elapsed time and how
   close price was sitting to the trigger level at last check.
 - Mode B/Mode C position counts: unconfirmed, last known 1/5 Mode B (AAPL), 0/8 Mode C.
+
+## 2026-09-10 ~19:37 UTC — AUTONOMOUS — CRYPTO: CYCLE SKIPPED (Robinhood MCP unauthenticated, 3rd consecutive)
+- §14 Status check (CLAUDE.md, local read): ACTIVE, confirmed. No kill phrase found in recent
+  chat history.
+- Robinhood MCP still unauthenticated (3rd consecutive crypto cycle). No tool calls attempted.
+  Zero orders placed, modified, or cancelled.
+- Crypto lane last confirmed flat (0/2) as of 16:37 UTC — no open crypto position at risk from
+  this specific outage. AAPL (Mode B, separate trigger) remains the open item still unverified
+  since 16:55 UTC.
