@@ -3616,3 +3616,22 @@ Format per entry:
 - Screened BTC ($77,315), ETH ($2,441.5), SOL ($100.2), XRP ($1.3648) — continued weakness, no
   reclaim. None clear §21 item 3.
 - Crypto position count: **0/2**. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-10 ~14:55 UTC — AUTONOMOUS — MODE B + MODE C: AAPL STOP TO BREAKEVEN, NO NEW TRADE
+- §14 Status: ACTIVE, confirmed. No kill phrase. Account (••••8058): total_value $2,196.71, cash
+  $1,874.54, equity_value $322.17 (1 AAPL share), 1/5 Mode B, 0/8 Mode C. SPY $758.99 (-0.07% vs.
+  last cycle), QQQ $711.13 (-0.12%) — no shock.
+- **AAPL position management (§16)**: mark $322.10 vs. entry $319.134 → **+$2.966 = +1.126R**
+  (risk was $2.634). **Crossed +1R** — per §16 item 5, moved the documented stop from $316.50 to
+  **breakeven ($319.134)**, no higher technical support yet established to use instead (position
+  opened this morning, no rising intraday swing-low formed beyond entry yet). Not yet at +1.5R
+  (needs $323.085) — no peak-retracement tracking active yet. Not yet at +2R — no trim due.
+- **Mode B**: re-ran `rank_symbol_setups` (momentum) — no new candidate with AAPL's clean hourly-
+  reclaim clarity; broader tape still soft (most names mixed/bearish on today's red session). No
+  new Mode B entry this cycle.
+- **Mode C**: checked AAPL's and OSCR's second hourly bar for an ORB breakout beyond the opening-
+  hour range. AAPL: opening range $316.56-$323.10; second hour high $322.17 — did not close beyond
+  the opening high, no breakout. OSCR: opening range $31.75-$33.44; second hour broke *below* the
+  opening low (l=$31.38, c=$31.60) — a bearish breakdown, not a valid long setup. No Mode C entry.
+- Mode B position count: 1/5 (AAPL, stop now at breakeven). Mode C position count: 0/8. Mode C
+  daily P&L: $0. No new order placed either lane.
