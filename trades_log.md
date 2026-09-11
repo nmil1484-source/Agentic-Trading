@@ -4177,3 +4177,63 @@ Format per entry:
 ### Summary
 - Orders this cycle: **1 placed (CVX buy, filled)**. Mode B position count: **2/5**. Mode C: 0/8.
 - Git push to follow, confirming success below.
+
+## 2026-09-11 ~14:39 UTC — AUTONOMOUS — CRYPTO: **ENTRY — BTC-USD (§21)**
+- §14 Status: ACTIVE, confirmed. No kill phrase. Robinhood MCP live. Account (••••8058): total
+  equity $2,196.73 (crypto lane; Mode B now separately holds AAPL+CVX at $762.55, unaffected by
+  this crypto entry — separate capital pools tracked against the same account per §3/§14/§21).
+  Same-day stop-out count: 1/2 (crypto only). No circuit breaker: SPY +0.88%/QQQ +0.88% today,
+  and only ~-0.17%/-0.16% between this cycle and the last — no market-shock pause.
+- **Broad crypto rally continuing post-CPI**: all 5 allowlist pairs now **fully_bullish** on
+  4h+1h (BTC/ETH/SOL/XRP/LINK all Buy-or-better). ETH (+6.95% since yesterday's close, 1h RSI
+  76.19, Stoch.K 88.77) is the most extended/overbought of the five — deliberately **not**
+  re-entered this cycle despite qualifying technically, to avoid chasing the most extended name
+  right after this morning's ETH stop-out on a similar reclaim thesis. **BTC selected instead**:
+  strong but less extreme (+1.95% since yesterday's close, 1h RSI 65.23), same fully_bullish
+  4h/1h read (Strong Buy MAs both timeframes).
+- **§21 item 3 gate — BTC-USD:**
+  - RS/context: broad-based rally (all 5 pairs bullish) rather than a single-name divergence;
+    BTC's own 4h/1h technicals (Strong Buy MAs, RSI 55/65, positive MACD histogram both TFs) plus
+    the confirmed catalyst — today's CPI print (12:30 UTC) triggered the initial breakout, visible
+    directly in the 1h bars (12:00-13:00 UTC bar: volume 3,531 vs. ~450 avg, price
+    $77,036→$78,033) — followed by continuation to a $79,890 intraday high.
+  - Technical confirmations (3+/6): 9/20 EMA bullish (1h EMA10 77,807.52>EMA20 77,562.95); breakout
+    + volume (CPI-hour spike, above); RSI improving (55→65 across 4h/1h) with MACD histogram
+    positive on both timeframes.
+  - 4h = daily-equivalent setup (Strong Buy). 1h = trigger (post-CPI breakout, now consolidating
+    $78,573-79,890 after the spike).
+  - Not within 30 min of CPI/FOMC (CPI was over 2 hours ago now).
+  - **Spread check applied up front this time** (this morning's process fix, in practice): live
+    quote bid $77,949.82/ask $79,439.26/mark $78,694.54 — same persistent **~1.9% spread** seen on
+    every pair checked today, confirmed structural (Market Maker Routing), not pair-specific.
+    `preview_crypto_order` confirmed a clean $329 buy at ~$79,399-80,201 (near ask).
+  - **Stop set well clear of the live bid this time**: $77,000.00 — below both the live bid
+    ($77,949.82, ~$950/1.2% of cushion) and the confirmed post-spike pullback low ($77,253.80,
+    13:00-13:30 UTC bar), not just a mark-price-derived level. No rejection on placement (unlike
+    this morning's near-miss).
+  - **R:R computed honestly on the actual fill**: entry avg $79,407.839, stop $77,000.00 → risk
+    **$2,407.839/unit** (3.03% of entry, well under the 8% ceiling). Target for 1.5:1 =
+    **$83,019.60** — this sits just above BTC's own 30-day high ($82,300, per daily bars), a real
+    stretch but not absurd given today's breakout already cleared the intraday high on heavy
+    volume; flagging honestly that this target requires a fresh multi-week high, not a retest of
+    known resistance the way this morning's CVX target (open air, fresh 52-week highs) or a
+    tighter setup would offer.
+- **Sizing**: 0.5%-of-equity risk budget ($10.98) ÷ $2,407.839 risk/unit → would allow 0.00456
+  BTC, but the **15%-of-equity cap** ($329.51) is tighter → binds at **~0.00414 BTC**. Filled:
+  **0.00414319 BTC @ avg $79,407.83933** (notional $329.00, fee $0). Actual risk: **$9.98** (0.45%
+  of equity — under budget, consistent with the dollar cap being the binding constraint).
+- **Stop order placed and verified resting**: `place_crypto_order` sell/stop_loss, quantity
+  0.00414319 BTC, stop $77,000.00, `state: confirmed`/`state_group: open` (verified via
+  `get_crypto_orders` by order_id). Order ID `6aa412ac-e477-4f0f-b194-f66f6a8cd569`.
+- **Trade Card (§7/§21 item 9):**
+  - Tag: **CRYPTO**. Pair: BTC-USD. Side: long spot.
+  - Entry: 0.00414319 BTC @ avg $79,407.83933 (notional $329.00, fee $0).
+  - Stop: $77,000.00 (resting, confirmed) — clear of the live bid by design this time.
+  - Max planned loss: $9.98 (0.45% of $2,196.73 equity).
+  - R (risk/unit): $2,407.839. Breakeven-at-+1R: $81,815.68. Peak-retracement arms at +1.5R =
+    **$83,019.60** (not active yet — tracking begins once/if reached).
+  - Time-stop: 7 calendar days → **2026-09-18** if +0.5R ($80,611.76) not reached.
+  - 4H setup / 1H trigger: documented above. Catalyst: today's 12:30 UTC CPI print, visible
+    directly in the volume/price data (no separate news URL needed — the macro print itself is
+    the dated, verifiable catalyst, timestamped in this entry).
+  - Crypto position count: **1/2** (was 0/2 pre-entry).
