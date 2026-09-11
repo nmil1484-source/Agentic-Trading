@@ -4308,3 +4308,38 @@ Format per entry:
   falling — weakening, not a candidate) and AMD (choppy recovery $511→$517.74→consolidating
   ~$515-516, no clean trigger). No candidate clears §20 item 5. No new entry.
 - Orders this cycle: **0** (Mode B and Mode C both). Mode B: 2/5. Mode C: 0/8.
+
+## 2026-09-11 ~16:38 UTC — AUTONOMOUS — CRYPTO: **STOP-OUT — BTC-USD** — **§6 SAME-DAY 2-STOP-OUT CIRCUIT BREAKER NOW ACTIVE**
+- §14 Status: ACTIVE, confirmed. No kill phrase. Robinhood MCP live.
+- **BTC-USD position was stopped out** between the 15:38 UTC and this 16:38 UTC cycle.
+  `get_crypto_orders` (closed) confirms: stop order `6aa412ac...` filled at **11:54:15 ET
+  (~15:54 UTC)** — sell 0.00414319 BTC @ avg **$76,891.957**, notional $318.57, fee $0.
+  - **Realized P&L: −$10.44** (entry cost $329.01 → exit proceeds $318.57) = **0.475% of Agentic
+    Account equity**.
+  - Slippage: fill $76,891.96 vs. stop trigger $77,000.00 — ~$108/unit (0.14%) worse than trigger,
+    unremarkable for a triggered market order in normal crypto volatility.
+  - Rule that triggered: the documented resting stop (§21 item 5) — did its job as designed. The
+    stop had genuine cushion below the bid at entry (this morning's process fix applied
+    correctly); the trade simply didn't work out as the broader crypto rally rolled over on BTC
+    specifically (BTC now reads fully_bearish on 4h+1h at this cycle, while ETH remains
+    fully_bullish — a genuine divergence, not a broad reversal).
+- **🚨 CIRCUIT BREAKER: §6's same-day 2-stop-out cross-mode cooldown is now ACTIVE.** This is the
+  **2nd stop-out today across Mode B/C/Crypto combined** — ETH-USD at ~11:08 UTC (this trigger)
+  and now BTC-USD at ~15:54 UTC (this trigger). Per §6: **no new entries in any mode (Mode B,
+  Mode C, or Crypto) for the remainder of 2026-09-11.** Existing protective exits/trailing stops
+  (AAPL, CVX) stay fully active and unaffected — this is a same-day cooldown on *new* entries
+  only, lifting automatically at the next day's first-scan cycle (tomorrow, 2026-09-12, or the
+  next crypto cycle after local midnight — no manual phrase needed). This does **not** itself
+  trigger DEGRADED_AUTONOMOUS or any correlated-theme lockout (that's §16 item 10's separate,
+  slower 3-in-10-day mechanism, not activated by this).
+- **Screened anyway for completeness, per instructions, even though no new entry is possible this
+  cycle**: ETH-USD remains fully_bullish (4h Strong Buy, 1h Buy) and would otherwise have cleared
+  §21 item 3 — **not entered, solely because the circuit breaker above blocks all new entries for
+  the rest of today**, not a screening failure. BTC now fully_bearish (own stop-out aside — the
+  broader setup itself has flipped). SOL mostly_bullish, XRP/LINK neutral. This divergence (ETH up
+  vs. BTC down) is itself informative for tomorrow's first cycle.
+- Account (••••8058): total equity $2,185.41. Crypto position count: **0/2**. SPY −0.05%/QQQ
+  −0.12% since the last cycle — no market-shock breaker (separate from, and not the cause of,
+  today's stop-out cluster breaker above).
+- **Same-day stop-out tally**: 2/2 — cooldown threshold reached and now enforced for the rest of
+  today, across all three lanes.
