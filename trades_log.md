@@ -3881,3 +3881,86 @@ Format per entry:
 - Robinhood MCP unauthenticated this cycle (new drop, was live at 06:38 UTC). No tool calls
   attempted. Zero orders placed, modified, or cancelled.
 - Crypto lane last confirmed flat (0/2) as of 06:38 UTC — no open position at risk.
+
+## 2026-09-11 ~08:44 UTC — AUTONOMOUS — CRYPTO: **ENTRY — ETH-USD (§21)**
+- §14 Status: ACTIVE, confirmed. No kill phrase. Robinhood MCP access confirmed live this cycle
+  (restored since the 07:37 UTC skip). Account (••••8058/rhs 748688058): 0/2 crypto positions
+  before this entry, no circuit breaker active (0/2 stop-outs today; SPY/QQQ shock-check
+  inapplicable, markets closed overnight; CPI print at 12:30 UTC is >3.5 hrs away, no macro
+  blackout this cycle).
+- **Screening (§21 item 3):** BTC/SOL/XRP mostly_bearish, LINK fully_bearish (TradingView
+  4h/1h multi-timeframe) — none cleared. **ETH-USD: fully_bullish (4h: Buy/Strong-Buy MAs, 1h:
+  Buy/Strong-Buy MAs)** — cleared the gate:
+  - RS driver (checkable): ETH +1.32% vs. prior UTC-day close vs. BTC's +0.70% over the same
+    window; 4h/1h technical ratings fully bullish for ETH vs. mostly bearish for BTC.
+  - Technical confirmations (need 2/6, found 3): (1) 1h 9/20 EMA fresh bullish alignment
+    (EMA10 2462.17 > EMA20 2460.01); (2) RSI(1h) 58.68, above 45 and clearly improving from the
+    30s-40s seen in recent cycles; MACD(1h) histogram positive (+3.67) and rising — both legs of
+    confirmation #6; (3) RS vs. BTC above.
+  - Setup/trigger: 4h = daily-equivalent setup (Strong Buy MAs, broad reclaim off today's
+    ~$2406-2436 shakeout low); 1h = execution trigger (hourly bars show price reclaiming and
+    holding above the 1h EMA10/EMA20 after the shakeout, closing $2478.06 on the last completed
+    bar, testing $2484.62 intraday).
+  - No earnings/macro conflict this hour. Volume on the reclaim bar was roughly average (not
+    ≥1.2x), not a full pass on that specific leg, but no abnormal selling pressure either — logged
+    as the weaker of the 3 confirmations found.
+  - `get_currency_pairs`/`preview_crypto_order` pre-trade check: preview at $330 notional came
+    back clean, no warning/error, estimated fill ~$2500.81 (0.131957 ETH), fee $0.
+- **Order placed:** `place_crypto_order`, market buy, $330.00 notional (= exactly the 15%-of-
+  equity per-position cap on $2,200.083 equity — the binding sizing constraint here, tighter than
+  the 0.5%-risk-budget-implied size). **Filled**: 0.131946 ETH @ avg $2500.88522881, notional
+  $329.99, fee $0.
+- **⚠️ EXECUTION-QUALITY FINDING — spread degraded real R:R below the pre-trade screen, logged
+  plainly, not glossed over:** at order time ETH-USD's Market-Maker-Routing quote showed bid
+  $2454.38 / ask $2501.01 — a ~1.9% spread, unusually wide for this pair. My pre-trade R:R
+  calculation used **mark price** ($2477.69) and a technical stop derived from 1h swing-low
+  structure ($2455), producing a computed 1.5:1 R:R against a ~$2569.53 target near the recent
+  ~$2566.53 resistance. When placing the actual protective stop after the fill, the broker
+  rejected $2455 outright (**"Stop sell orders can't have a stop price above the current bid
+  price, or the order would trigger immediately"**) because the live bid had already dropped to
+  $2454.38 — essentially identical to my intended stop, with zero real cushion. This means the
+  technical stop level was never actually tradable at a safe distance from the live bid; the
+  pre-trade screen didn't check bid/ask spread width, only the mark price and `preview_crypto_order`'s
+  fill/validation status (which does not itself flag "spread is abnormally wide" as a warning).
+  - **Stop was moved to $2430.00** (real cushion below the $2454.38 bid) to get a valid, resting
+    order placed immediately, per §21 item 5's non-negotiable "every crypto entry gets a real
+    resting stop" requirement — not a technical level anymore, a spread-driven placement.
+  - **Real risk, recomputed on the actual stop:** $2500.885 − $2430.00 = $70.885/unit → $9.35
+    total (0.43% of equity) — still inside the 0.5% risk budget in dollar terms, and the stop
+    distance (2.83% of entry) is well inside the 8% hard ceiling (§21 item 4) — no hard-rule
+    violation.
+  - **But real R:R is now compressed below the 1.5:1 floor**: against the same ~$2566.53 realistic
+    resistance target, reward is $65.65 vs. risk $70.885 → **≈0.93:1**, not 1.5:1. The 1.5:1 floor
+    is a pre-entry gate (§21 item 3) that was genuinely satisfied using the data available at
+    screening time; the degradation happened at the execution step, after the gate had already
+    passed, from a factor (bid/ask spread width) the screening step didn't check.
+  - **Disposition:** not exiting immediately — a market sell right now would realize close to the
+    full spread-driven loss for no reason, with the underlying reclaim thesis (fully-bullish 4h/1h,
+    RS vs. BTC, improving RSI/MACD) still intact on a mark-price basis and a real protective stop
+    now resting. Holding with the wider stop and full disclosure, not silently accepting a worse
+    trade than intended.
+  - **Process fix for future crypto cycles, effective immediately**: before sizing/placing a
+    crypto entry, check the live bid/ask spread width itself (not just mark price and
+    `preview_crypto_order`'s pass/fail) and confirm the intended technical stop sits at a real,
+    tradable distance below the current **bid** (since a sell-side stop must clear the bid, not
+    the mark) — treat an abnormally wide spread (spread/mark materially above what's typical for
+    this pair) as its own soft warning akin to a stale quote, prompting either a wider/adjusted
+    stop computed up front or standing aside, rather than discovering the constraint only after
+    the entry has already filled.
+- **Stop order placed and verified resting**: `place_crypto_order` sell/stop_loss, quantity
+  0.131946 ETH, stop $2430.00, `state: confirmed`, `state_group: open` (verified via
+  `get_crypto_orders` by order_id immediately after placement). Order ID
+  `6aa3bf9a-b4d6-4900-8019-9f67d593976d`.
+- **Trade Card (§7/§21 item 9):**
+  - Tag: **CRYPTO**. Pair: ETH-USD. Side: long spot.
+  - Entry: 0.131946 ETH @ avg $2500.88522881 (notional $329.99, fee $0).
+  - Stop: $2430.00 (spread-constrained placement, see finding above — resting, confirmed).
+  - Max planned loss: $9.35 (0.43% of $2,200.083 equity).
+  - R (risk/unit): $70.885. Breakeven-at-+1R level: $2571.77. Peak-retracement tracking arms at
+    +1.5R = $2607.22 (will begin tracking once/if price reaches that level; not active yet).
+  - Time-stop: 7 calendar days → **2026-09-18** if +0.5R ($2536.33) is not reached.
+  - 4H setup / 1H trigger: documented above. Catalyst/RS evidence: ETH vs. BTC RS divergence,
+    documented above with same-cycle timestamps (no dated news catalyst found/used — RS driver
+    alone satisfies §21 item 3's "or" clause).
+  - Crypto position count: **1/2** (was 0/2 pre-entry).
+- Git push to follow this commit, confirming success in the next line of this entry.
