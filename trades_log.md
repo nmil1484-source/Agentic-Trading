@@ -3995,3 +3995,33 @@ Format per entry:
   4h+1h (Strong Sell, RSI 29-42, negative MACD) — unchanged risk-off tone. None clear §21 item 3.
   No new entry.
 - Crypto position count: **1/2**. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-11 ~11:37 UTC — AUTONOMOUS — CRYPTO: **STOP-OUT — ETH-USD (§21 item 5)**
+- §14 Status: ACTIVE, confirmed. No kill phrase. Robinhood MCP live this cycle.
+- **Existing ETH-USD position was stopped out between the 10:38 UTC and this 11:37 UTC cycle.**
+  `get_crypto_orders` (closed) confirms: stop order `6aa3bf9a...` filled at **07:08:10 ET
+  (~11:08 UTC)** — sell 0.131946 ETH @ avg **$2429.874**, notional $320.61, fee $0. The stop
+  triggered essentially at its documented level ($2430.00), no material slippage beyond the
+  original spread-driven placement already disclosed at entry.
+  - **Realized P&L: −$9.38** (entry cost $329.99 → exit proceeds $320.61), = **0.43% of
+    Agentic Account equity** at entry ($2,200.083) — in line with the $9.35 planned max loss
+    computed at entry (§16/§21 exit-rule discipline held as designed).
+  - Rule that triggered: documented resting stop_loss order (§21 item 5), not a discretionary
+    call — hit while unmonitored between hourly cycles, exactly the platform-cadence mechanism
+    this system runs on (checked and confirmed resting every cycle since entry; no failure of
+    process, the stop simply did its job).
+  - Slippage: fill $2429.874 vs. stop trigger $2430.00 — negligible (~$0.13/unit, essentially at
+    the intended level).
+  - Same-day stop-out count: **1/2** (cross-mode cooldown breaker, §6) — one more stop-out
+    anywhere in Mode B/C/Crypto today triggers a same-day new-entry pause across all modes.
+- Account (••••8058): total equity $2,191.60 (down $8.48/0.39% since entry, consistent with the
+  realized loss — no 3%-decline breaker). Crypto position count now **0/2**.
+- **New-entry screen** (capacity fully open): re-screened all 5 allowlist pairs — **BTC, ETH, SOL,
+  XRP, and LINK are now ALL fully_bearish on 4h+1h** (Strong Sell/Sell across the board, RSI
+  28-46 and falling, negative MACD histograms). ETH itself flipped from the bullish setup that
+  justified this morning's entry to bearish alongside the rest of the market — the broader
+  reclaim thesis failed, consistent with the stop doing its job rather than an isolated ETH
+  problem. No candidate clears §21 item 3. No new entry this cycle.
+- Crypto position count: **0/2**. One order this cycle (the stop fill itself, executed
+  autonomously per the resting order — no new agentic order call made this cycle beyond the
+  verification queries).
