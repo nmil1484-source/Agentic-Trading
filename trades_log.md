@@ -4037,3 +4037,40 @@ Format per entry:
   Skipped the allowlist screen for new-entry purposes accordingly; will resume normal screening at
   the next cycle (~13:37 UTC), safely outside the window.
 - No open position to manage. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-11 ~13:38 UTC — AUTONOMOUS — CRYPTO: OBSERVE, NO NEW TRADE (spread-adjusted R:R fails)
+- §14 Status: ACTIVE, confirmed. No kill phrase. Robinhood MCP live. Account (••••8058): total
+  equity $2,198.09 (recovering toward flat). Crypto position count: **0/2**. Same-day stop-out
+  count: 1/2. No circuit breaker active. Outside the 12:30 UTC CPI blackout (67 min post-print).
+- **Post-CPI reversal**: broad crypto bounce. ETH now **fully_bullish** again (4h Strong Buy, 1h
+  Buy; RSI 61.7, MACD histogram positive/rising, breakout on the 12:00-13:00 UTC bar at ~4x normal
+  volume). SOL mostly_bullish. BTC/XRP/LINK mostly_bearish, improved but not clearing.
+- **ETH-USD screened and technically qualifies on confirmations (3+/6: 9/20 EMA bullish, breakout
+  +volume, RSI/MACD improving) and RS vs. BTC (+2.92% vs. +0.47%) — but SKIPPED on an honest,
+  spread-adjusted R:R check, applying the process fix logged at ~08:44 UTC today:**
+  - Live quote: bid $2477.23 / ask $2524.55 / mark $2500.89 — **spread ≈1.9% of mark**, same
+    abnormal width as this morning's entry, not a one-off. `preview_crypto_order` confirmed a
+    $329 buy would fill ~$2524.31 (essentially at ask).
+  - A stop with genuine cushion below the *current bid* (not mark) — required after this
+    morning's near-miss where a mark/candle-derived stop landed almost exactly on the live bid —
+    needs to sit ≈$2440-2450, i.e. **$74-84 below the ask-side entry price** (2.9-3.3% of entry).
+  - Realistic near-term resistance (recent 1-2 week highs, ~$2534-2567) offers only **$10-43** of
+    reward from the elevated entry, against **$74-84** of risk — **R:R well under 1:1**, not the
+    required 1.5:1, once the entry is honestly priced at the ask and the stop is honestly priced
+    off the bid rather than the mark. The mark-price-only version of this calc (used implicitly by
+    a "check preview for errors" approach) would have shown a passing 1.5:1+, which is exactly the
+    trap flagged this morning.
+  - **Not entered.** This is a disciplined "no" — the setup is real, but not at the tradable price
+    this account can actually execute at right now, on this routing.
+  - **SOL-USD checked for comparison**: bid $100.14/ask $102.05, spread ≈1.9% — same structural
+    friction, and a weaker technical read (mostly_bullish, not fully_bullish) than ETH. Skipped on
+    the same grounds without a full workup.
+- **⚠️ Escalating a structural finding, not just a single-cycle note:** the ~1.9% bid/ask spread
+  has now shown up identically on two different pairs (ETH-USD, SOL-USD) at two different times
+  today (04:44 ET and 09:39 ET) under **Market Maker Routing**. This looks like a persistent
+  characteristic of this account's current routing setting, not transient illiquidity — and it
+  structurally raises the real bar for clearing §21's 1.5:1 R:R floor on every crypto entry, not
+  just this one. `preview_crypto_order`'s own guide text notes routing can be switched to
+  **Exchange Routing** in the Robinhood app (Settings → Crypto → Fee Tiers) — worth the user's
+  attention as a possible fix, since this system has no tool to change that setting itself.
+- Crypto position count: **0/2**. No order placed, modified, or cancelled this cycle.
