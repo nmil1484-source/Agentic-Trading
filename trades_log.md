@@ -4074,3 +4074,106 @@ Format per entry:
   **Exchange Routing** in the Robinhood app (Settings → Crypto → Fee Tiers) — worth the user's
   attention as a possible fix, since this system has no tool to change that setting itself.
 - Crypto position count: **0/2**. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-11 ~14:05 UTC — AUTONOMOUS — MODE B/C FIRST SCAN OF DAY — **ENTRY: CVX** + AAPL managed
+- §14 Status: ACTIVE, confirmed. No kill phrase. Robinhood MCP live.
+- **Account (••••8058):** total equity $2,197.21, cash $1,865.16 (pre-CVX), settled/non-margin
+  buying power confirmed via `get_portfolio`. No §6 circuit breaker: same-day stop-out count 1/2
+  (crypto ETH at 11:08 UTC — not yet at the 2-stop-out cooldown threshold); SPY +1.05% / QQQ
+  +1.04% vs. yesterday's close — under the 1.5% market-shock threshold, no pause. FTA Regime
+  Dashboard: checked live, still returns loading placeholders for every data section —
+  **UNKNOWN_DEGRADED** (consistent with every check this session) → halved Mode B position-size
+  sub-cap in effect (20% of equity, not 40%) for any new whole-share entry this cycle.
+- **TradingView MCP used this cycle**: `rank_symbol_setups` (58-symbol watchlist triage),
+  `analyze_multi_timeframe` (CVX daily+1h), `get_news` (CVX catalyst), `get_ohlcv` (CVX/AAPL
+  intraday bars). Fully available, no outage.
+
+### MODE B — existing position managed: AAPL (1/5 → still 1 of the 2 slots, unaffected by CVX)
+- Gapped up at open ($327.63 vs. yesterday's $326.57 close), ran to a fresh intraday high of
+  **$334.27** (13:35-13:40 UTC bar), pulled back to ~$332.08 as of this cycle (+1.69% on the day
+  at last check). No exit rule triggered — well above every protective level.
+- **Peak-retracement tracking updated**: new peak $334.27 (was $326.74) → new trigger =
+  334.27 − 0.30×(334.27−319.134) = **$329.729**.
+- **Stop raised** from $323.64 to **$330.00** — below today's post-spike pullback consolidation
+  (5-min lows clustering $331.01-332.78 after the run to $334.27), a meaningful raise that now
+  sits *tighter* than the peak-retracement trigger, making the ordinary trailing stop the binding
+  protection at this moment. Never lowered, consistent with §16 item 5/6.
+- +2R ($324.402)/+3R ($327.036) both cleared; **50%/25% trim still mechanically inapplicable** —
+  1-share position, same structural note as every prior cycle. Time-stop (7 sessions) not due
+  (only the 2nd session held). No momentum-failure, no gap-down.
+
+### MODE B — new entry: **CVX** (2/5 slot)
+- **Screen**: `rank_symbol_setups` across the full 58-name watchlist ranked **CVX #1** (score 69,
+  Strong Buy). Full §5B verification:
+  1. Liquid NYSE common stock (Energy Minerals sector — no overlap with AAPL's Electronic
+     Technology, correlation cap clear, 1 of 2 per theme).
+  2. **Catalyst, dated/sourced**: oil near $100/bbl; CVX/COP/VLO hit 52-week highs 2026-09-10
+     (Stocktwits, https://www.tradingview.com/news/stocktwits:9191fbf85094b:0-...); Chevron's
+     "$100 oil meets a 2.67-gigawatt AI power hedge," +1.5% on the news, 2026-09-09 (GuruFocus);
+     Barron's energy-sector coverage 2026-09-10/11. **RS driver**: CVX +9.7% trailing month vs.
+     SPY −1.2% over the same window — large, specific, checkable outperformance.
+  3. **Technical confirmations (4+/6, need 2)**: 9/20 EMA bullish (EMA10 210.12>EMA20 206.22,
+     daily); price well above 50-SMA ($214-215 vs. $194.74); breakout to 52-week/3-month highs;
+     RS vs. SPY (above); RSI 69.06 above 45 (hot, but daily MACD 5.15>signal 4.84, both
+     confirming). Volume the one soft leg (10-day vol ratio 0.07x — "low participation" per the
+     screener, not abnormal selling, just a quiet-volume breakout — logged, not disqualifying).
+  4. **Stop/R:R**: today's session low $211.37 (after an early dip from the $211.65 open) →
+     stop **$211.00**. Entry filled $215.4899 → risk/share **$4.49**. Target for 1.5:1 = entry +
+     1.5×4.49 = **$222.22** — no established overhead resistance (name is making fresh highs, "at
+     3-month high" / near 52-week high per the screener), so this target sits in open air rather
+     than fighting a known ceiling, unlike this morning's crypto case. R:R clears 1.5:1.
+  5. Outside the first/last-15-minute window (14:05 UTC = 10:05am ET). ✓.
+  6. No earnings conflict (42 days to CVX earnings) or macro conflict (CPI was 12:30 UTC, well
+     outside the 30-min window by now). ✓.
+  7. **Daily setup + hourly trigger**: daily = breakout to 52-week highs with every daily MA/
+     oscillator bullish, dated catalyst. Hourly = today's first-hour candle: opened $211.65,
+     dipped to $211.37, reclaimed and closed near the session high at $215.32/$215.49 — a clean
+     bullish reclaim-and-run candle on the specific hour that times the entry.
+- **§18 options evaluated per step 3a and explicitly rejected**: CVX is already extended
+  intraday today (session range $211.37→$215.49, +1.9% intraday move already in before this
+  entry) — per this cycle's own instruction ("only pursue options if the underlying is NOT
+  already extended intraday"), options were not pursued. Equity-only entry.
+- **Sizing**: 1%-of-equity risk budget ($21.97) ÷ $4.49/share risk = 4 shares max. **20%-of-equity
+  UNKNOWN_DEGRADED sub-cap** ($439.44) ÷ $215.50 entry = 2 shares max — the **smaller** of the two
+  wins → **2 shares**. `get_equity_tradability` clean, `review_equity_order` returned no alerts
+  (order_checks: {}). **Filled**: 2 shares CVX, limit $215.50, avg fill **$215.4899**, notional
+  $430.98, fee $0.
+- **Trade Card — CVX:**
+  - STRATEGY: SWING_TRADING. Ticker: CVX (Chevron Corp), common stock.
+  - Regime: UNKNOWN_DEGRADED (context; drove the halved sizing sub-cap). LUC: not checked this
+    cycle (optional context only for Mode B, not previously tracked for CVX) — logging as
+    UNKNOWN for this Trade Card, no blocking effect per §5B.
+  - Catalyst: see above, dated/sourced 2026-09-09/09-10/09-11.
+  - Quantity/price: 2 shares @ avg $215.4899 (limit $215.50).
+  - Stop: $211.00 (documented level, not a resting broker order — same mechanism as AAPL).
+  - Target/review: $222.22 (1.5:1), review by time-stop 7 trading sessions out (~2026-09-21) if
+    +0.5R ($217.74) not reached.
+  - R:R: 1.5:1 at target. Concentration: $430.98 = 19.6% of equity (within the 20%-degraded
+    sub-cap); total Mode B deployed now $762.98/34.7% of equity (well under 90% ceiling, 10%
+    cash floor easily met).
+  - Daily setup / hourly trigger: documented above. Sector/theme: Energy — 1 of 2 permitted per
+    theme, no overlap with AAPL.
+  - Settled-cash status: confirmed via `get_portfolio`/`get_accounts`, no unsettled funds, no
+    day-trade/PDT restriction flagged by `review_equity_order`.
+  - Status: **FILLED** (autonomous, §14 AUTONOMOUS_EXECUTE).
+
+### MODE C — no new entry, no existing positions
+- `get_equity_positions` confirms **0 Mode C positions** (only AAPL/CVX, both Mode B) — mandatory
+  same-day flatten discipline holding as designed, nothing to manage.
+- Daily P&L: $0 (flat, no Mode C activity yet) — nowhere near the 2.5% loss/profit limits.
+- **Screened for an ORB/VWAP-pullback/mean-reversion setup**: HOOD showed the cleanest pattern —
+  a decisive 5-minute-bar breakout above its opening-range high ($115.00) on above-average
+  volume, closing $115.39-116.40 in the bar right after the opening range. **Not entered**: the
+  first complete *hourly* bar since open (13:30-14:30 UTC) won't exist until 14:30 UTC — this
+  cycle fires only 35 minutes into the session, too early to apply §20's own hourly-close
+  confirmation honestly. Forcing an entry off 5-minute bars here would be exactly the
+  "misrepresenting an hourly-triggered setup as the literal 1-5-minute version" §20.5 explicitly
+  warns against. AMD and PLTR both showed weaker, failed/marginal breakout attempts (spiked
+  above their opening ranges, closed back inside) — skipped outright regardless.
+  **Revisit HOOD (and re-screen fresh) at the 14:55 UTC cycle**, once a genuine first hourly bar
+  exists.
+- Mode C position count: **0/8**. New-entry count today: 0/5-6. No order placed.
+
+### Summary
+- Orders this cycle: **1 placed (CVX buy, filled)**. Mode B position count: **2/5**. Mode C: 0/8.
+- Git push to follow, confirming success below.
