@@ -4458,3 +4458,50 @@ Format per entry:
 - §6 same-day 2-stop-out cooldown remains active for the rest of 2026-09-11 (lifts automatically
   at the next new-calendar-day cycle, ~00:37 UTC) — no new entries screened or possible this
   cycle. No order placed, modified, or cancelled.
+
+## 2026-09-12 ~00:38 UTC — AUTONOMOUS — CRYPTO: **ENTRY — ETH-USD (§21)** — new calendar day, cooldown reset
+- §14 Status: ACTIVE, confirmed. No kill phrase. Robinhood MCP live. **New calendar day
+  (2026-09-12, Saturday)** — the §6 same-day 2-stop-out cooldown from 2026-09-11 has reset
+  automatically; same-day stop-out count back to 0/2. No circuit breaker active. Account
+  (••••8058): total equity $2,184.82, crypto position count 0/2 pre-entry.
+- **Screening**: BTC/XRP/LINK all fully_bearish on 4h+1h. **ETH-USD fully_bullish** (4h Strong
+  Buy, 1h Buy) and **SOL-USD fully_bullish** (4h Buy, 1h Buy) — both cleared initial technicals.
+  - ETH: pulled back from an intraday high of $2,665.99 (reached after this morning's ETH
+    activity) down to a stabilizing $2,506-2,517 consolidation over the last several hours —
+    daily-equivalent (4h) uptrend intact, 1h showing a pullback that's leveling off rather than
+    still falling. RSI 1h 51.05/4h 55.90 (room to run, not overbought). MACD histogram 1h
+    slightly negative (cooling from the earlier spike) but 4h positive.
+  - SOL: choppy sideways range ($100.38-103.60) over the same window — no clean pullback-and-
+    stabilize structure, just noise. **Not entered** — preferred ETH's cleaner setup over forcing
+    a second position into a chop pattern just to use capacity.
+  - §21 item 3 gate — ETH: 2-of-6+ confirmations (9/20 EMA still bullish-aligned on 4h; RS context
+    — broader market: ETH/SOL bullish while BTC/XRP/LINK bearish, a specific divergence; RSI
+    improving off the pullback). 4h = daily-equivalent setup (still Strong Buy despite the
+    pullback). 1h = trigger (consolidation stabilizing after the pullback, tightening range over
+    the last 3 bars). No CPI/FOMC event this hour.
+  - **Spread checked up front** (now standard practice): bid $2,489.81/ask $2,537.31/mark
+    $2,513.56 — same persistent ~1.9% spread. `preview_crypto_order` clean, ~$2,537-2,562 fill
+    expected.
+  - **Stop set with real cushion below live bid**: $2,465.00 — ~$25 (1%) below the $2,489.81 bid,
+    and below the recent consolidation floor (~$2,506-2,512). No rejection risk this time.
+  - **R:R computed on actual fill**: entry $2,537.078, stop $2,465.00 → risk **$72.078/unit**
+    (2.84% of entry). Target for 1.5:1 = **$2,645.20** — this sits just *below* today's own
+    intraday high ($2,665.99), i.e. a retest of already-proven-reachable territory rather than a
+    fresh breakout requirement. Materially better-quality target than this morning's BTC/ETH
+    entries, which both needed fresh multi-week highs.
+- **Sizing**: 0.5%-of-equity risk budget ($10.92) vs. **15%-of-equity cap** ($327.72) — the dollar
+  cap binds (tighter). Filled: **0.128887 ETH @ avg $2,537.07826** (notional $327.00, fee $0).
+  Actual risk: $9.29 (0.43% of equity).
+- **Stop order placed and verified resting**: `place_crypto_order` sell/stop_loss, quantity
+  0.128887 ETH, stop $2,465.00, `state: confirmed`/`state_group: open` (verified via
+  `get_crypto_orders`). Order ID `6aa49efe-4240-43a2-ab6e-ae8330c52816`.
+- **Trade Card (§7/§21 item 9):**
+  - Tag: **CRYPTO**. Pair: ETH-USD. Side: long spot.
+  - Entry: 0.128887 ETH @ avg $2,537.07826 (notional $327.00, fee $0).
+  - Stop: $2,465.00 (resting, confirmed).
+  - Max planned loss: $9.29 (0.43% of $2,184.82 equity).
+  - R (risk/unit): $72.078. Breakeven-at-+1R: $2,609.16. Peak-retracement arms at +1.5R =
+    $2,645.20 (not active yet).
+  - Time-stop: 7 calendar days → **2026-09-19** if +0.5R ($2,573.12) not reached.
+  - 4H setup / 1H trigger: documented above.
+  - Crypto position count: **1/2** (was 0/2 pre-entry).
