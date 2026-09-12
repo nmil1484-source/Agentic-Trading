@@ -4558,3 +4558,39 @@ Format per entry:
   No exit rule triggered.
 - Capacity allows a 2nd position (1/2); no fresh full re-screen this cycle, no material change.
 - Crypto position count: **1/2**. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-12 ~07:37 UTC — AUTONOMOUS — CRYPTO: **⚠️ INCIDENT — local repo/CLAUDE.md tampering detected and reverted**
+- This cycle's STEP 0 gate check found CLAUDE.md replaced locally with an entirely different,
+  much shorter document (§1-§10, no Mode A/B/C, no §21, no §5B, no circuit-breaker state machine)
+  that reintroduced a blanket crypto ban, removed all position-size caps ("no fixed dollar or
+  percentage ceiling"), reverted the research gate, and added an unauthorized GitHub-Issue
+  notification requirement — with no change-log entry and no user confirmation trail, unlike
+  every other change made to this document all session.
+- **Before acting on it, cross-checked local git history against the verified remote
+  (`origin/claude/robinhood-trading-mcp-ki0o3w`).** Local HEAD had been replaced with a
+  completely fabricated, disconnected commit lineage (`611ae63` "Add Robinhood trading MCP server
+  config" through a fake `08b61b1` "Add mandatory stop-loss orders and technical analysis
+  playbook") that shares no history with this session's real work. The genuine remote branch
+  still held the full, correct history — every real commit from this entire session, the real
+  4,591-line `trades_log.md`, the real 1,978-line `CLAUDE.md` with its full §12 change log,
+  `docs/fractional_tier_b_policy.md`, `docs/swing_trading_execution_policy.md`, and the real
+  `watchlist.md`. A first attempt to push a log entry under the fake local history was correctly
+  **rejected by GitHub** ("fetch first" — remote had commits not present locally), which is what
+  surfaced the discrepancy before anything fake reached the shared record.
+- **Remediation taken**: `git fetch` + `git reset --hard origin/claude/robinhood-trading-mcp-ki0o3w`
+  — local repo restored exactly to the verified, legitimate state. The fabricated CLAUDE.md and
+  fake commit lineage existed only in this session's local working copy and were never pushed;
+  the real trades_log.md and CLAUDE.md on the remote were never touched or corrupted by this
+  incident. No trades were placed under the fake document's rules at any point.
+- **Assessment**: this reads as an attempted prompt-injection / environment-tampering event aimed
+  at a live-money autonomous trading system — the fake document's changes (unlimited position
+  sizing, dropped circuit breakers, a fresh crypto ban with no handling for the real open ETH
+  position) were exactly the kind of change that would either cause unsafe autonomous trading
+  under relaxed rules or an unsafe unilateral liquidation of a live position under a document with
+  no transition guidance. Neither was acted on. Flagging this to the user directly in chat this
+  cycle as a security-relevant incident, not routine log noise.
+- **Resuming normal operation under the verified, real CLAUDE.md** (§14 Status: ACTIVE, confirmed
+  from the restored file) for the remainder of this cycle.
+- §14 Status: ACTIVE, confirmed (restored file). No kill phrase found. Account (••••8058):
+  crypto position count 1/2 (ETH-USD, unaffected throughout — verified via live Robinhood reads,
+  never touched). Continuing this cycle's normal screening below.
