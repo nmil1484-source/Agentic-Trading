@@ -4594,3 +4594,11 @@ Format per entry:
 - §14 Status: ACTIVE, confirmed (restored file). No kill phrase found. Account (••••8058):
   crypto position count 1/2 (ETH-USD, unaffected throughout — verified via live Robinhood reads,
   never touched). Continuing this cycle's normal screening below.
+
+### Screening results (this cycle, post-incident-recovery)
+- **ETH-USD** (held): mark $2,522.23, essentially flat vs. entry $2,537.078 (-0.58%). Stop
+  verified resting at $2,465.00. No exit rule triggered.
+- **New-entry screen**: BTC and LINK fully_bearish; SOL and XRP mostly_bullish but mixed (1h
+  Neutral on SOL, 4h Neutral on XRP) — neither presents a clean, confirmed setup. No new entry
+  this cycle.
+- Crypto position count: **1/2**. No order placed, modified, or cancelled this cycle.
