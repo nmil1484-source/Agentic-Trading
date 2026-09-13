@@ -4921,3 +4921,35 @@ Format per entry:
   2026-09-19 not close.
 - Capacity allows a 2nd position (1/2); no fresh full re-screen this cycle.
 - Crypto position count: **1/2**. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-13 ~09:37 UTC — AUTONOMOUS — CRYPTO: STOP-OUT EXIT (ETH-USD), NO NEW TRADE
+- Repo integrity check: `git fetch` clean, no forced-update warning, working tree clean;
+  §14 "Status: ACTIVE" confirmed present. No kill phrase found in recent history. Robinhood
+  MCP live.
+- **EXIT DETECTED — ETH-USD stop-loss filled since the ~08:37 UTC cycle.** Stop order
+  `6aa49efe-4240-43a2-ab6e-ae8330c52816` (resting since entry, stop $2,465.00) filled in full at
+  **2026-09-13 08:39:41 UTC**, average fill price **$2,464.74184371**, quantity 0.128887 ETH,
+  proceeds $317.67 net. Slippage vs. stop price: ~$0.26/unit (~$0.03 total) — clean execution,
+  essentially no slippage despite the market-maker-routing spread noted earlier this session.
+- **Realized P&L**: entry cost $327.00 (0.128887 ETH @ avg $2,537.07826, filled 2026-09-12
+  ~00:38 UTC) vs. exit proceeds $317.67 → **realized loss $9.33** (≈0.43% of current ~$2,175
+  equity). This matches the planned 1R risk (~$9.29) computed at entry almost exactly — the stop
+  executed as designed, no unplanned loss.
+- Hold duration: ~1 day 8 hours (2026-09-12 00:38 UTC entry → 2026-09-13 08:39 UTC exit).
+- Rule triggered: documented technical stop (§21 item 5), not the peak-retracement rule (position
+  never reached +1.5R) and not the 7-day time-stop (well within window).
+- **Circuit breaker check**: this is stop-out #1 for the day (9/13) across Mode B/C/Crypto
+  combined — the §6 same-day 2-stop-out cooldown is NOT triggered (needs 2). No other circuit
+  breaker active.
+- Account (••••8058, `748688058`): total value $2,175.49 (equity $761.08, crypto $0, cash
+  $1,414.41). Crypto position count now **0/2**.
+- **Re-screened the allowlist given freed capacity**: BTC-USD ($76,677.51 mark, -0.88% today),
+  SOL-USD ($99.72, -2.34%), XRP-USD ($1.3418, -2.01%), LINK-USD ($11.305, -2.28%) — all four
+  checked via TradingView 4H technicals (COINBASE pairs). **All four show "Sell"/"Strong Sell"**
+  moving-average ratings, RSI in the 33-39 range (not >45-and-improving), negative MACD, and
+  price below EMA10/20/50 — broad crypto-market pullback this cycle, not a bullish setup on any
+  name. **None clear §21 item 3's 2-of-6 confirmation bar in the required direction. ETH-USD
+  itself is not re-screened for same-day re-entry after a loss exit, consistent with this
+  system's no-same-day-loss-re-entry discipline (§17 item 4 principle, applied here).**
+- **OBSERVE, no new trade this cycle.**
+- Crypto position count: **0/2**. One order (the stop) filled this cycle; no new order placed.
