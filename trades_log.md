@@ -5848,3 +5848,63 @@ Format per entry:
   SOL), `time_in_force: gtc`. No exit, no stop change.
 - Crypto position count: **2/2** — at cap, no new-entry screening performed this cycle (no
   capacity). No order placed, modified, or cancelled.
+
+## 2026-09-14 ~17:55 UTC — AUTONOMOUS — MODE B/C HOURLY CYCLE — positions managed, no new trade (FUNDING HEADROOM NEARLY EXHAUSTED — FLAGGED)
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at
+  `93fd326`; §14 "Status: ACTIVE" confirmed. No kill phrase. Robinhood MCP live. Not the final
+  cycle of day (STEP 0.5 inapplicable — that's 19:55 UTC).
+- **Account**: total value $2,292.527 (equity $1,453.677, crypto $571.529, cash $267.32). SPY
+  $762.78/QQQ $712.84 — negligible change since the 17:37 UTC crypto cycle, no shock breaker.
+  Same-day cross-mode stop-out count: 0/2 — no cooldown.
+- **AAPL (1/5)**: $334.12 vs. entry $319.134 (+4.70%). Below $335.40 peak, above stop $330.00.
+  No exit.
+- **CVX (2/5)**: $213.52 vs. entry $215.4899 (-0.92%). Above stop $211.00. No exit.
+- **GOOG (3/5)**: $346.2585 vs. entry $342.9799 (+0.96%). Above stop $332.00, ~30% of the way
+  to the $353.96 +1R breakeven trigger. No exit.
+- **New Mode B entry screen**: `rank_symbol_setups` (TradingView MCP, momentum focus) re-run
+  across the watchlist. ZS still top-ranked (score 73, now +15.7% today, 1.2x volume) — still
+  declined, same extension/no-valid-stop reasoning as the last two cycles.
+  - **CRCL (Circle Internet Group) newly surfaced at rank 2 (score 65)** and, on closer review,
+    **clears the full §5B Swing Entry Gate:**
+    - Catalyst: "Circle Faces Back-To-Back Catalysts As Senate Votes On CLARITY Act, And Fed
+      Weighs Rate Hike" (Stocktwits, 2026-09-13) — a specific, dated regulatory catalyst
+      (stablecoin legislation) directly material to Circle's business, with a Senate vote
+      reported for **Tuesday 2026-09-15 — tomorrow**. **Event-risk flag**: this is a binary,
+      market-moving vote occurring within ~24 hours of this cycle; per the §15 item 6 principle
+      (entries allowed ahead of a known event if the risk is explicitly flagged), this would
+      need the event risk called out prominently on any Trade Card, same discipline as an
+      earnings-window entry.
+    - Technical confirmations (daily, TradingView `get_technicals_rating` 1D): **4 of 6** —
+      EMA10 $93.05 > EMA20 $88.93 (bullish alignment); price $96.94 well above 50-day SMA
+      $75.04; a clean pullback/support-bounce structure (10-day range: $103.28 high → $90.14
+      low 3 sessions ago → reversing back up); RSI 59.58, above 45 and rising. (Volume today,
+      10.58M, was below the 10-day average 13.25M — that one confirmation not met.)
+    - Hourly trigger: today's session is a controlled stairstep — 6 consecutive hourly closes
+      higher than the last ($92.79→$93.36→$94.665→$96.19→$96.93→currently $96.94), each holding
+      its gain, reclaiming back through the pre-pullback range.
+    - Stop: today's session low $92.00, distance $4.94 (5.1% of entry $96.94) — within the 6%
+      of-entry-price ceiling (§16 item 2).
+    - Sizing: 1%-of-equity risk budget = $22.93 ÷ $4.94 = 4.64 shares → 4 shares, dollar risk
+      $19.76 (0.86% of equity). Cost ≈ $387.80 (16.9% of equity — comfortably under the 40%
+      per-position cap).
+  - **BLOCKED ON FUNDING, not on §5B: the 90%-total-deployed ceiling has only $38.07 of
+    headroom remaining** (deployed $2,025.21 of a $2,063.27 cap on $2,292.53 total equity —
+    88.3% already deployed between the three Mode B equity positions and this morning's crypto
+    entries). $38.07 is insufficient for even 1 share of CRCL (~$96.94), let alone the
+    risk-sized 4. **CRCL is logged as a qualifying, gate-cleared candidate that could not be
+    taken this cycle purely on funding-headroom grounds** — re-check next cycle in case any
+    position trims or a price pullback in an existing holding frees capacity, or reassess if the
+    Senate vote outcome changes the picture materially before then. §18 options-alternative
+    evaluation (3a) not run for CRCL given the funding block makes it moot either structure.
+  - OSCR (rank 3, still "well extended", declined), NOW (rank 4, already screened for Mode B
+    context, extension-flagged), HOOD — no material change from prior cycles.
+  - TradingView MCP used: `rank_symbol_setups`, `get_news`, `get_technicals_rating`, `get_ohlcv`
+    (CRCL daily + hourly). No outage this cycle.
+- **MODE C**: `get_equity_positions` confirms 0 Mode C positions, $0 daily P&L. NOW already used
+  its one ORB attempt for today (declined last cycle on the volume-confirmation rule); now at
+  $142.64, continuing higher, but even if a fresh VWAP-pullback/mean-reversion setup emerged,
+  **the same 90%-deployment funding block above applies account-wide across Mode B and Mode C
+  alike** — no Mode C entry would be fundable this cycle either. Mode C position count: **0/8**,
+  new-entry count today: 0/5-6.
+- Orders this cycle: **0** (Mode B and Mode C both — CRCL cleared its gate but was blocked on
+  funding headroom, not on §5B/§20). Mode B: 3/5. Mode C: 0/8.
