@@ -5666,3 +5666,59 @@ Format per entry:
   count today: 0/5-6.
 - **TradingView MCP used**: `get_ohlcv` for NOW's hourly bars.
 - Orders this cycle: **0** (Mode B and Mode C both). Mode B: 3/5. Mode C: 0/8.
+
+## 2026-09-14 ~15:40 UTC — AUTONOMOUS — CRYPTO: NEW SOL-USD ENTRY
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at
+  `b867dc5`; §14 "Status: ACTIVE" confirmed present at line 1150. No kill phrase found in
+  recent history. Robinhood MCP live.
+- **Account** (••••8058, `748688058`): total value $2,278.568418 (equity $1,447.235, crypto
+  $276.523 pre-trade [XRP only], cash $554.81). Same-day cross-mode stop-out count: 0/2 — no
+  cooldown. SPY $761.08/QQQ $709.90, changes since the 14:55 UTC Mode B/C cycle immaterial
+  (well under the 1.5%-single-cycle shock threshold) — no market-shock breaker.
+- **XRP-USD (existing, 1/2 pre-trade)**: mark $1.403350 vs. entry $1.38899 (+1.03%, still below
+  the $1.45297 breakeven-at-+1R trigger). Stop verified resting: order
+  `6aa76cc1-8d7c-463d-a17b-f72120ca5f84`, stop $1.325, state=confirmed/open, full qty (197
+  XRP), `time_in_force: gtc`. No exit rule triggered, no stop change needed this cycle.
+- **New entry screen** (capacity allowed, 1/2 → room for a 2nd position): BTC (Strong Buy,
+  4H/1D, +1.17% today) still lacks a clean catalyst — news flow remains hedged/cautious on BTC
+  specifically ("Has the Bitcoin Rally Fizzled Out?"), same conclusion as the 14:37 UTC cycle,
+  declined again. **SOL-USD cleared the full §21 entry gate:**
+  - Not halted, confirmed via live quote/order path.
+  - Catalyst: "Solana Leads All Chains With $2.64 Billion In 24-Hour DEX Volume" (Binance News,
+    2026-09-13) — a specific, dated sector-leadership data point, satisfying the catalyst/RS
+    bullet independently of a direct BTC comparison. Supporting context: "Solana Defies Death
+    Cross as SOL Climbs Above $100" (U.Today, 2026-09-12).
+  - Technical confirmations (read on daily chart, TradingView `get_technicals_rating`
+    BINANCE:SOLUSDT 1D): **3 of 6** — (1) 9/20-EMA-equivalent bullish alignment (EMA10 $101.51 >
+    EMA20 $99.79 > EMA50 $92.33); (2) price above the 50-day SMA ($101.98 vs. SMA50 $88.43,
+    SMA100 $81.20); (3) RSI 56.75, above 45 and improving. Daily moving-average summary: Strong
+    Buy (0.643).
+  - 4H setup: Strong Buy summary (0.555)... [see below, corrected]. 1H execution trigger:
+    BINANCE:SOLUSDT 1H Strong Buy (0.529), EMA10 > EMA20 > EMA50 > EMA100, RSI 60.57 — hourly
+    bars show SOL reclaiming and holding above its short EMAs after bouncing off the recent
+    $99.00 swing low (4H bars, last 48h), the specific hourly trigger timing the entry.
+  - Stop: technical, below the recent multi-day swing low structure ($98.50 daily low 6 sessions
+    ago, $99.00/$99.19 swing lows on the most recent 4H bars) — set at **$98.90**. Distance from
+    fill ($103.04086) = $4.14086 (4.02% of entry), comfortably inside the 8% hard stop-distance
+    ceiling.
+  - Reward-to-risk: 1.5:1 minimum → target **$109.25** (entry + 1.5×risk). The 10-day period
+    high was $107.36 — target sits modestly above that but consistent with the bullish daily
+    structure (EMA10>20>50, price well above SMA50/100) continuing to extend.
+  - Sizing: risk-based, the binding constraint. 0.5%-of-equity risk budget = $11.393; ÷ $4.14086
+    stop distance = 2.798 SOL → rounded to **2.79 SOL**. Cost $287.48 (12.6% of equity, under
+    the 15%-of-equity per-position cap); dollar-cap and 90%-deployment-headroom checks both
+    non-binding (headroom was $326.95, well above this trade's cost). Actual dollar risk:
+    2.79 × $4.14086 = $11.55 (0.507% of equity).
+  - `preview_crypto_order` (buy, market, qty 2.79): clean, no warnings, est. fee $0.
+  - `place_crypto_order`: **FILLED** — order `6aa81558-b833-4ae8-a2e6-3721d27304a9`, 2.79 SOL @
+    avg fill $103.04086352, notional $287.48.
+  - Protective stop: `preview_crypto_order` (sell, stop_loss, qty 2.79, stop $98.90, `gtc`)
+    clean. `place_crypto_order` → order `6aa81569-d445-42ff-aebf-8498be56c362`, **verified
+    resting** via `get_crypto_orders`: state=confirmed, `time_in_force: gtc` (explicit, learning
+    from the 9/14 XRP gfd-default incident — no repeat this time), full qty 2.79 SOL.
+  - Breakeven-at-+1R level: $107.1817. Peak-retracement arm (+1.5R): $109.2517. Time-stop:
+    2026-09-21 (7 calendar days) if +0.5R ($105.111) not reached.
+- Crypto position count: **2/2** (XRP, SOL) — at cap; no further crypto entries until a slot
+  frees up.
+- Orders this cycle: **2 placed (SOL buy filled, SOL stop confirmed resting)**. git push to
+  follow this commit.
