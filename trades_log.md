@@ -5693,10 +5693,11 @@ Format per entry:
     EMA20 $99.79 > EMA50 $92.33); (2) price above the 50-day SMA ($101.98 vs. SMA50 $88.43,
     SMA100 $81.20); (3) RSI 56.75, above 45 and improving. Daily moving-average summary: Strong
     Buy (0.643).
-  - 4H setup: Strong Buy summary (0.555)... [see below, corrected]. 1H execution trigger:
-    BINANCE:SOLUSDT 1H Strong Buy (0.529), EMA10 > EMA20 > EMA50 > EMA100, RSI 60.57 — hourly
-    bars show SOL reclaiming and holding above its short EMAs after bouncing off the recent
-    $99.00 swing low (4H bars, last 48h), the specific hourly trigger timing the entry.
+  - 4H setup: BINANCE:SOLUSDT 4H Strong Buy summary (0.555), MAs Strong Buy (0.929), RSI 53.38
+    — confirms the daily-chart bullish read carries down to the 4H timeframe. 1H execution
+    trigger: BINANCE:SOLUSDT 1H Strong Buy (0.529), EMA10 > EMA20 > EMA50 > EMA100, RSI 60.57 —
+    hourly bars show SOL reclaiming and holding above its short EMAs after bouncing off the
+    recent $99.00 swing low (4H bars, last 48h), the specific hourly trigger timing the entry.
   - Stop: technical, below the recent multi-day swing low structure ($98.50 daily low 6 sessions
     ago, $99.00/$99.19 swing lows on the most recent 4H bars) — set at **$98.90**. Distance from
     fill ($103.04086) = $4.14086 (4.02% of entry), comfortably inside the 8% hard stop-distance
