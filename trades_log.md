@@ -5527,3 +5527,98 @@ Format per entry:
   BTC's +1.79%), so none clears the mandatory catalyst/RS gate condition — the market-wide
   rally alone isn't a name-specific edge. No new trade.
 - Crypto position count: **1/2**. No order placed, modified, or cancelled this cycle.
+
+## 2026-09-14 ~14:01 UTC — AUTONOMOUS — MODE B/C FIRST SCAN OF DAY — **ENTRY: GOOG**
+- §14 Status: ACTIVE, confirmed. No kill phrase. Robinhood MCP live.
+- **Account (••••8058):** total value $2,283.51 (pre-GOOG), equity_value $767.03, crypto_value
+  $275.71 (XRP, separate lane), cash $1,240.77. No §6 circuit breaker: SPY $760.44 (-0.50% vs.
+  Friday 9/11 close $764.29), QQQ $706.45 (-1.18% vs. Friday close $714.88) — this is the first
+  cycle of the day (Monday after a weekend), so there is no same-day prior cycle to compare
+  against for the market-shock breaker; noted as context only, not a trigger. Same-day
+  cross-mode stop-out count: 0/2 (crypto had 1 stop-out on 9/13, not today).
+- **TradingView MCP**: available this cycle — used `rank_symbol_setups` (momentum focus, full
+  57-name watchlist), `analyze_multi_timeframe`, `get_news`, `get_ohlcv` (daily + hourly), and
+  `get_option_chains`/instruments/quotes cross-checked against Robinhood's own option tools.
+
+### MODE B — existing positions managed
+- **AAPL (1/5)**: mark $334.40 vs. entry $319.134. Last confirmed peak $335.40 (9/11), current
+  price below that — no new peak this cycle. Stop unchanged at **$330.00** (documented level).
+  Peak-retracement trigger unchanged at **$330.52** (still above the stop per §16 item 12's
+  "whichever hits first" — the retracement rule would fire before the stop). No exit triggered.
+- **CVX (2/5)**: mark $216.55-216.61 vs. entry $215.4899 (R=$4.49). Gain ≈+0.24R — well short of
+  breakeven (+1R = $219.98). Stop unchanged at **$211.00** (documented level). No exit triggered.
+  Time-stop review not due until ~2026-09-21 (only 2 trading sessions elapsed: 9/11, 9/14).
+
+### MODE B — new entry: **GOOG** (3/5 slot)
+- **Screen**: `rank_symbol_setups` (momentum) across the 57-name watchlist. Most top-ranked names
+  (OSCR, NOW, HOOD, DELL) flagged **extended/parabolic** by the tool itself (OSCR +41.5% above
+  EMA200, HOOD +19.2%, DELL +71.3%) — per §13.E extension-avoidance guidance, preferred a
+  non-extended setup over chasing. **GOOG stood out**: only +5.2% above EMA200 (not extended),
+  -10.3% off its 3-month high (room before resistance), **up +2.05% today while SPY -0.56%/QQQ
+  -1.28%** (per TradingView's own reference) — a clear, specific, checkable RS outperformance
+  during a broad market selloff.
+- **Full §5B verification**:
+  1. Liquid NASDAQ common stock (Technology Services sector) — no overlap with AAPL (Electronic
+     Technology) or CVX (Energy Minerals); 1 of 2 permitted per theme, correlation cap clear.
+  2. **Catalyst, dated/sourced**: "Why Google and Meta Stocks Are the Big Winners From the Latest
+     AI Concerns" (Barron's/Dow Jones Newswires, 2026-09-14, today); "Alphabet Jumps 2.5% After
+     Locking In 22 Years of Nuclear Power" (GuruFocus, 2026-09-11, a real quantified AI-datacenter-
+     power catalyst); weekly recap noting a €13B AI data-center investment. **RS driver**: GOOG
+     +2.05% today vs. SPY -0.56%/QQQ -1.28% — large, specific, checkable outperformance during a
+     down tape.
+  3. **Technical confirmations (2+/6, need 2)**: RS vs. SPY/QQQ (above, confirmed); RSI 52.2 (1D)
+     /58.0 (4H), both above 45 and improving from the prior week's pullback; MACD improving on
+     both 1D and 4H (less negative than signal). EMA10/20 alignment and 50-SMA reclaim were mixed
+     (price above short-term EMAs but 50-SMA sits just above current price on the daily) —
+     logged as not confirming, not counted. Volume soft (0.2x avg per the screener) — logged, not
+     counted, not disqualifying (same treatment as CVX's entry).
+  4. **Stop/R:R**: Friday's (9/11) daily low was $332.55; stop set at **$332.00** (just below
+     that swing low). Entry filled avg $342.9799 → risk/share **$10.98**. Target for 1.5:1 =
+     entry + 1.5×10.98 = **$359.45** — well below the 3-month high (~$381.83 per the screener's
+     -10.3%-from-high figure), sitting in open room rather than fighting an immediate ceiling.
+  5. Outside the first/last-15-minute window (14:05 UTC ≈ 10:05am ET, 35 min past open). ✓.
+  6. No earnings conflict (43 days to GOOG earnings per the screener) or macro conflict. ✓.
+  7. **Daily setup + hourly trigger**: daily = multi-week pullback from ~$343 down to a $325.63
+     low, now reclaiming with a break above Friday's high ($339.95) to a fresh multi-day high
+     ($343.62) today. Hourly = today's first hour opened at $339.11 and pushed straight to new
+     highs, up ~+4.0% from the prior session's late-hour low ($329.44) — the specific hour timing
+     the entry.
+- **§18 options evaluated per step 3a and explicitly rejected on affordability**: pulled the
+  2026-10-16 chain (32 DTE, within 30-60). The $340 strike (delta 0.571, real delta) quoted at
+  mark **$14.10/contract = $1,410 notional**; even the $355 strike (delta 0.376, the outer edge
+  of "real delta") quoted at mark **$7.425/contract = $742.50 notional** — both roughly 5-10x
+  this account's total equity, let alone the 6%-of-equity cap (~$137). No contract with a real
+  delta fits the account at any size. Equity-only entry.
+- **Sizing**: 1%-of-equity risk budget ($22.84 on $2,283.51 total value) ÷ $10.98/share risk =
+  2.08 → 2 shares max. 40%-of-equity per-position cap ($913.40) ÷ ~$342.98 entry = 2.66 → 2
+  shares max. Both constraints agree → **2 shares**. `get_equity_tradability` clean,
+  `review_equity_order` returned no alerts (order_checks: {}). **Filled**: 2 shares GOOG, limit
+  $343.10, avg fill **$342.9799**, notional $685.96, fee $0.
+- **Trade Card — GOOG:**
+  - STRATEGY: SWING_TRADING. Ticker: GOOG (Alphabet Inc. Class C), common stock.
+  - Regime: not separately checked this cycle (context only for Mode B, never a gate). LUC: not
+    checked (optional context only, never a gate for Mode B) — logged UNKNOWN.
+  - Catalyst: see above, dated 2026-09-11/09-14.
+  - Quantity/price: 2 shares @ avg $342.9799 (limit $343.10).
+  - Stop: $332.00 (documented level, not a resting broker order — same mechanism as AAPL/CVX).
+  - Target/review: $359.45 (1.5:1); time-stop review in 7 trading sessions (~2026-09-23) if
+    +0.5R ($348.47) not reached.
+  - R:R: 1.5:1 at target. Concentration: $685.96 = 30.0% of $2,283.51 total value (well under
+    the 40% per-position cap); total Mode B deployed now $1,453.02/63.6% of total value (equity
+    $767.03 pre-trade + $685.96 GOOG, crypto $275.71 separately) — under the shared 90% ceiling,
+    comfortably above the 10% cash floor ($555.21 cash remaining post-trade ≈ 24.3%).
+  - Daily setup / hourly trigger: documented above. Sector/theme: Technology Services — 1 of 2
+    permitted, no overlap with AAPL/CVX.
+- Mode B position count: **3/5** (AAPL, CVX, GOOG).
+
+### MODE C — screened, no candidate (too early in session)
+- `get_equity_positions` confirms **0 Mode C positions** — mandatory same-day-flatten discipline
+  intact (nothing carried overnight). Daily P&L: $0, nowhere near the 2.5%-of-equity limits.
+- Checked AMD (-6.27% today — heavy red, not a candidate), OSCR (+0.30%, flat), NOW (+4.56%,
+  strong but only ~35 minutes into the session). **The market opened at 13:30 UTC; this cycle
+  fired at 14:01 UTC — only ~31 minutes in, so today's first hourly bar (the opening range for
+  §20 item 5's ORB/VWAP-pullback setups) has not yet completed.** Too early for a valid
+  hourly-adapted read on any name — correctly declined rather than forcing a setup on an
+  incomplete range. NOW flagged for a closer look once the first hourly bar closes.
+- Mode C position count: **0/8**. New-entry count today: 0/5-6.
+- Orders this cycle: **1 placed (GOOG buy, filled)**. Mode B: 3/5. Mode C: 0/8.
