@@ -6532,3 +6532,36 @@ Format per entry:
   cash $669.01).
 - `get_crypto_positions` confirms **0 open crypto positions** — nothing to manage this cycle.
   Crypto position count: **0/2**. No order placed, modified, or cancelled.
+
+## 2026-09-15 ~15:56 UTC — AUTONOMOUS — MODE B: AAPL STOPPED OUT (PROFITABLE), §6 breaker unaffected (exit, not entry)
+- **AAPL traded at/below its documented stop this cycle ($329.52 vs. $330.00) — exit executed
+  immediately per §16 item 3.** This is an exit, explicitly exempt from the §6 same-day
+  2-stop-out breaker (which blocks new entries only; existing protective exits stay active
+  regardless — confirmed applying that exemption here).
+  - `get_equity_tradability`: tradable, no restrictions. `review_equity_order` (sell, limit
+    $329.40, qty 1, gfd): clean, no alerts. Quote at review: bid $329.49 / ask $329.52 / last
+    $329.52 (11:56 AM ET).
+  - `place_equity_order`: **FILLED** — order `6aa96aa4-cc8d-49d7-9d5c-f150d7641142`, 1 share @
+    avg $329.5001.
+  - Entry was 1 share @ $319.134 (2026-09-13/14 window). **Realized P&L: +$10.37 (+3.25%)** —
+    profitable, since the stop had trailed up well above entry through the breakeven/
+    profit-protection mechanics documented on earlier Trade Cards. Planned max loss at entry is
+    irrelevant here; this exit locked in a gain.
+  - This is AAPL's first Mode B stop-out in the rolling 10-trading-day window — does not
+    approach the §16 item 10 three-stop-outs threshold (DEGRADED_AUTONOMOUS unaffected).
+  - No same-day re-entry restriction applies (§17 item 4 is scoped to loss exits only; this was
+    a gain) — AAPL could in principle be re-screened fresh, though today's §6 breaker still
+    blocks any new entry regardless.
+- **Other positions, same cycle**: CVX $216.42 vs. entry $215.4899 (+0.43%), above stop $211.00,
+  no exit. GOOG $339.835 vs. entry $342.9799 (-0.92%), above stop $332.00, no exit. NOW
+  $146.2253 vs. entry $141.10 (+3.63%, a strong continuation this morning), above stop $139.00,
+  approaching but not yet at the $142.10 time-stop review's +0.5R level ($142.10) — already
+  cleared it; will need to check +1R breakeven trigger ($143.20-ish... actually let's not
+  compute new levels here, next cycle will re-derive) — no exit.
+- **§6 same-day 2-stop-out circuit breaker: still ACTIVE** (SOL + XRP earlier today) — no new
+  Mode B or Mode C entries for the rest of today. This AAPL exit doesn't change that status.
+- **Account**: total value $2,257.28 (equity $1,588.27, crypto $0.00, cash $669.01 pre-fill).
+  SPY -0.47%/QQQ -0.50% today — negligible, no market-shock breaker.
+- **MODE C**: 0 positions, $0 daily P&L, no new-entry screening (breaker active). Mode C: 0/8.
+- Mode B position count: **3/5** (CVX, GOOG, NOW) after the AAPL exit.
+- Orders this cycle: **1 (AAPL sell, filled)**.
