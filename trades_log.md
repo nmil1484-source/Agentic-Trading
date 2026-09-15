@@ -6387,3 +6387,77 @@ Format per entry:
   unchanged, state=confirmed/open, `time_in_force: gtc`. No exit, no stop change.
 - Crypto position count: **2/2** — at cap, no new-entry screening performed this cycle. No
   order placed, modified, or cancelled.
+
+## 2026-09-15 ~14:00 UTC — AUTONOMOUS — MODE B/C FIRST SCAN OF DAY — new NOW entry, Mode C flat
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at
+  `9d73b91`; §14 "Status: ACTIVE" confirmed. No kill phrase. Robinhood MCP live. First scan of
+  the trading day — full chat report mandatory regardless of outcome.
+- **Account**: total value $2,261.392 (equity $1,443.953, crypto $310.689, cash $506.75 pre-NOW
+  trade). SPY -0.22%/QQQ -0.06% today — negligible, no market-shock breaker. Same-day
+  cross-mode stop-out count: 0/2 (resets daily; yesterday's count doesn't carry over).
+- **FTA Regime Dashboard**: checked live — still "Loading..." placeholders, no live regime
+  reading. Classified **UNKNOWN_DEGRADED** again (every check this session). Reduced-sizing
+  rule applied to the new NOW entry below (see sizing).
+- **Existing Mode B positions**:
+  - **AAPL (was 1/5)**: $330.632 vs. entry $319.134 (+3.61%). **Critically close to stop
+    $330.00 — only $0.632 (0.19%) above.** Still holding, no exit triggered, but flagged for
+    very close monitoring this session; a further small pullback could trigger.
+  - **CVX (2/5)**: $215.42 vs. entry $215.4899 (-0.03%, essentially flat). Above stop $211.00.
+    No exit.
+  - **GOOG (3/5)**: $341.4339 vs. entry $342.9799 (-0.45%). Above stop $332.00. No exit.
+- **New Mode B entry screen**: `rank_symbol_setups` (TradingView MCP, momentum focus) across
+  the 56-name watchlist (43 ranked). **NOW (rank 1, score 60) cleared the full §5B Swing Entry
+  Gate:**
+  - Catalyst: a genuine, dated sector-rotation thesis — "ServiceNow Stock Rises as the
+    SaaS-Pocalypse Fear Reverses Course" (Benzinga, 9/14 13:47 UTC), "ServiceNow Jumps 6.4% as
+    AI Slowdown Flips the Software Trade" (GuruFocus, 9/14 20:58 UTC), "NOW, INTU, ADBE, CRM
+    Stocks Surge As AI Pacing Debate Hammers Chips" (Stocktwits, 9/15 02:25 UTC) — software
+    benefiting as AI-hardware spending fears hit chip names, directly explaining both
+    yesterday's gap and today's continued relative strength.
+  - Technical confirmations (daily, TradingView `get_technicals_rating`): **4 of 6** — bullish
+    EMA alignment (EMA10 $137.16 > EMA20 $133.96 > EMA50 $124.45); price well above 50-day SMA
+    ($120.92); pullback-in-uptrend structure (today pulling back from yesterday's gap high,
+    holding well above the pre-gap $130-134 range); RSI 59.28, above 45.
+  - Daily setup: strong catalyst-driven gap on 9/14 (+3.19%, $137.24→$143.19 range), today
+    consolidating/pulling back while holding the gap.
+  - Hourly trigger: today's opening hour dipped to a session low of $139.21, then reclaimed
+    back to $141.08+ within the same (still-forming) hour — a clean intraday reclaim off the
+    early dip.
+  - **§18 options-alternative evaluation (3a): evaluated and rejected.** Checked the 10/16
+    expiration (31 DTE) chain — even the $150 strike (delta 0.381, closest to the ~0.3+ target)
+    priced at $5.40/share ask = $540/contract, ~4x the 6%-of-equity cap ($135.68) given NOW's
+    ~52% implied volatility. No strike near the target delta fits. Equity-only, same conclusion
+    as yesterday's GOOG evaluation.
+  - Stop: technical, just below today's session low — set at **$139.00**. Distance from fill
+    ($141.10) = $2.10 (1.49% of entry), well inside the 6%-of-entry-price ceiling.
+  - Reward-to-risk: 1.5:1 minimum → target **$143.95**. Yesterday's high ($143.19) sits close
+    to this target, both achievable if the sector-rotation trade continues.
+  - **Sizing: 90%-total-deployed headroom was the binding constraint** (not the risk budget) —
+    pre-trade deployed was $1,754.64 of a $2,035.25 cap (90% of $2,261.39 equity), leaving
+    $280.61 headroom; at ~$141/share only 1-2 shares fit, and 2 shares ($281.97) would have
+    exceeded the cap by $1.36 — sized to **1 share**. The UNKNOWN_DEGRADED reduced-sizing rule
+    (half of the normal risk-based cap) would independently have allowed ~5 shares, so funding
+    headroom, not the regime rule, is what actually bound this trade.
+  - Settled-cash status: confirmed via `get_accounts` — unsettled_funds $0.00 on the Agentic
+    account, full $506.75 cash settled and available.
+  - `get_equity_tradability`: tradable, no restrictions. `review_equity_order` (buy, limit
+    $141.10, qty 1, gfd): clean, no alerts.
+  - `place_equity_order`: **FILLED** — order `6aa95028-de34-4540-8427-5ce4dcd6976d`, 1 share @
+    $141.10.
+  - Max planned loss: $2.10 (0.09% of equity — small purely due to the 1-share size). Time-stop
+    review: 2026-09-24 (~7 trading sessions) if +0.5R ($142.10) not reached. Sector/theme:
+    Technology Services — **now 2 of 2 with GOOG, at the §5B item 2 correlation cap** — no
+    further Technology Services entries until one of these two closes.
+  - Mode B position count: **4/5** (AAPL, CVX, GOOG, NOW).
+- **MODE C**: `get_equity_positions` confirms 0 Mode C positions, $0 daily P&L — mandatory
+  same-day-flatten discipline intact. Market has been open only ~33 minutes at this cycle's
+  fire time (13:30 UTC open, 14:03 UTC now) — **too early for a completed opening range**
+  (§20 item 5's 30-60 minute ORB window). Checked AMD (+3.73% today, already flagged well
+  extended +32.6% above EMA200 — not a candidate) and DELL (+5.85%, flagged "Parabolic +78.7%
+  above EMA200 — sharp pullback risk" — declined, extension too severe even for a momentum
+  play). PLTR flat, HOOD continuing its decline (-3.53%). No valid Mode C setup this cycle;
+  will re-screen once the opening range completes on the next hourly cycle. Mode C position
+  count: **0/8**, new-entry count today: 0/5-6.
+- **TradingView MCP used**: `rank_symbol_setups`, `get_technicals_rating`, `get_ohlcv`,
+  `get_news` (NOW). No outage this cycle.
+- Orders this cycle: **1 placed (NOW buy, filled)**. Mode B: 4/5. Mode C: 0/8.
