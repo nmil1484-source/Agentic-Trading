@@ -6640,3 +6640,30 @@ Format per entry:
   cash $998.51).
 - `get_crypto_positions` confirms **0 open crypto positions**. Crypto position count: **0/2**.
   No order placed, modified, or cancelled.
+
+## 2026-09-15 ~18:55 UTC — AUTONOMOUS — MODE B: NOW STOPPED OUT (small gain, gave back most of today's extension)
+- **NOW traded below its trailed documented stop this cycle ($142.908 vs. $144.00) — exit
+  executed immediately per §16 item 3.** Exit, exempt from the §6 same-day 2-stop-out breaker
+  (still active from earlier today — this doesn't change that status; existing protective exits
+  always stay active).
+  - `get_equity_tradability`: tradable, no restrictions. `review_equity_order` (sell, limit
+    $142.80, qty 1, gfd): clean, no alerts. Quote at review: bid $142.94/ask $142.98/last
+    $142.955 (2:56 PM ET).
+  - `place_equity_order`: **FILLED** — order `6aa994cc-3518-46ee-81b1-113a30c516f8`, 1 share @
+    avg $142.9601.
+  - Entry was 1 share @ $141.10 (2026-09-15 ~14:00 UTC, this morning's first-scan entry).
+    **Realized P&L: +$1.86 (+1.32%)** — a modest but real gain. The position ran as high as
+    $147.57 intraday (past +2R) before fading; the trailed stop ($139.00→$144.00, moved at
+    16:55 UTC on the confirmed higher low) protected against giving back the full move, locking
+    in a positive outcome even though most of the day's peak gain was surrendered on the pullback.
+  - This is NOW's only Mode B stop-out — first in the rolling 10-trading-day window, no
+    proximity to the §16 item 10 three-stop-out threshold.
+- **CVX (1/2 held)**: $216.79 vs. entry $215.4899 (+0.60%). Above stop $211.00. No exit.
+- **GOOG (2/2 held)**: $340.24 vs. entry $342.9799 (-0.80%). Above stop $332.00. No exit.
+- **§6 same-day 2-stop-out circuit breaker: still ACTIVE** (unaffected by exits). No new Mode B
+  or Mode C entries for the rest of today.
+- **Account**: total value $2,255.435 (equity $1,256.925, crypto $0.00, cash $998.51 pre-fill).
+  SPY -0.50%/QQQ -0.66% today — negligible, no market-shock breaker.
+- **MODE C**: 0 positions, $0 daily P&L. No new-entry screening (breaker active). Mode C: 0/8.
+- Mode B position count: **2/5** (CVX, GOOG) after the NOW exit.
+- Orders this cycle: **1 (NOW sell, filled)**.
