@@ -6315,3 +6315,59 @@ Format per entry:
 - **New-entry screen (capacity 1/2):** XRP still Buy but softening slightly (0.295, down from
   0.438). BTC still Sell (-0.276, MAs Strong Sell -0.643). No candidate clears. Declined.
 - Crypto position count: **1/2** (SOL only). No order placed, modified, or cancelled.
+
+## 2026-09-15 ~12:37 UTC — AUTONOMOUS — CRYPTO: NEW XRP-USD ENTRY (fresh setup, CLARITY Act catalyst)
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at
+  `acc7f1c`; §14 "Status: ACTIVE" confirmed. No kill phrase. Robinhood MCP live. Same-day
+  cross-mode stop-out count: 1/2 — one more stop-out today anywhere pauses new entries; this
+  new entry itself does not count against that (only stop-outs do).
+- **Account** (••••8058, `748688058`): total value $2,267.555 (equity $1,442.616, crypto
+  $281.839 pre-trade [SOL only], cash $543.10). Equity markets closed — market-shock breaker
+  check inapplicable overnight.
+- **SOL-USD (existing)**: mark $101.02002 vs. entry $103.04086 (-1.96%). Above stop $98.90.
+  Stop verified resting: order `6aa81569-d445-42ff-aebf-8498be56c362`, unchanged,
+  state=confirmed/open, `time_in_force: gtc`. No exit, no stop change. Unaffected by the new
+  XRP entry.
+- **New entry: XRP-USD cleared the full §21 entry gate on a genuinely fresh, independent
+  setup** (not a reflexive re-entry — ~9 hours after the 03:37 UTC profitable stop-out, and this
+  time backed by real new developments):
+  - **Catalyst**: the **CLARITY Act** — pending US crypto-market-structure legislation directly
+    affecting Ripple/XRP — has a Senate vote reported as imminent today. Multiple dated
+    headlines confirm this is actively moving the market: "XRP and XLM Explode 8% as the
+    CLARITY Act Nears Crucial Vote" (BeInCrypto, 2026-09-15 06:07 UTC), "XRP jumps 6% as traders
+    turn bullish" (Invezz, 07:41 UTC), "Ripple CEO: Don't Kill Crypto Bill" (U.Today, 07:46 UTC),
+    "Key facts: CLARITY Act, Fed May Move XRPUSD" (TradingView, 12:15 UTC) — a specific, dated,
+    verified catalyst clearing §21 item 3's requirement.
+  - Technical confirmations (BINANCE:XRPUSDT 4H, TradingView `get_technicals_rating`): **3+ of
+    6** — bullish EMA alignment (EMA10 $1.4006 > EMA20 $1.3905 > EMA50 $1.3859); RSI 54.73,
+    above 45 and improving; reclaimed a clear support/pullback zone (see structure below).
+    Overall rating improved to Strong Buy (0.529) this cycle, up from a soft Buy (0.295-0.438)
+    over the prior several hours.
+  - **4H setup**: pulled back from today's earlier peak ($1.4961) down to a defended low of
+    $1.386, then reversed — a clean pullback-to-support-and-reclaim structure, not a chase.
+  - **1H execution trigger**: hourly bars bottomed at $1.386, then climbed steadily —
+    $1.398→$1.4023→$1.4025→$1.4012→**$1.4067** (new local high on the most recent closed hour) —
+    a confirmed reclaim trigger.
+  - Stop: technical, just below the defended $1.386 low — set at **$1.380**. Distance from fill
+    ($1.41929) = $0.03929 (2.77% of entry), comfortably inside the 8% hard stop-distance
+    ceiling.
+  - Reward-to-risk: 1.5:1 minimum → target **$1.47823**. Today's earlier high ($1.4961) sits
+    well above this target, so it's realistically achievable if the CLARITY Act rally resumes.
+  - Sizing: **90%-total-deployed headroom was the binding constraint** (not the risk budget or
+    the 15%-of-equity cap) — deployed pre-trade was $1,724.46 of a $2,040.80 cap (90% of
+    $2,267.56 equity), leaving $316.34 headroom → max ≈222 XRP at the fill price; sized to
+    **220 XRP** for a clean round number. Cost $312.24 (13.8% of equity, under the 15% cap).
+    Actual dollar risk: 220 × $0.03929 = $8.64 (0.38% of equity — under the 0.5% target,
+    conservative given the headroom constraint).
+  - `preview_crypto_order` (buy, market, qty 220): clean, no warnings, est. fee $0.
+  - `place_crypto_order`: **FILLED** — order `6aa93c6e-359e-47e7-be0a-b598a2d39336`, 220 XRP @
+    avg fill $1.41928834, notional $312.24.
+  - Protective stop: `preview_crypto_order` (sell, stop_loss, qty 220, stop $1.380, `gtc`)
+    clean. `place_crypto_order` → order `6aa93c79-07b9-44ab-806f-48814e00405a`, **verified
+    resting**: state=confirmed, `time_in_force: gtc`, full qty 220 XRP.
+  - Breakeven-at-+1R level: $1.45858. Peak-retracement arm (+1.5R): $1.47823. Time-stop:
+    2026-09-22 (7 calendar days) if +0.5R ($1.43894) not reached.
+- Crypto position count: **2/2** (SOL, XRP) — at cap, no further crypto entries until a slot
+  frees up.
+- Orders this cycle: **2 placed (XRP buy filled, XRP stop confirmed resting)**. git push to
+  follow this commit.
