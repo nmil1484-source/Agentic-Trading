@@ -6758,3 +6758,26 @@ Format per entry:
   entry gate** — declined across the board. Being flat (0/2) meant this decline had zero impact
   on the account.
 - Crypto position count: **0/2**. No order placed, modified, or cancelled.
+
+## 2026-09-16 ~01:37 UTC — AUTONOMOUS — CRYPTO: Robinhood MCP unauthenticated, cycle halted (§6)
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at `ca9ca72`;
+  §14 "Status: ACTIVE" confirmed via `grep`. No kill phrase present in this chat.
+- **Robinhood MCP connector (`robinhood-trading`) returned an authentication-required error on
+  this cycle** — the platform reports the connector needs re-authorization via claude.ai
+  connector settings before any Robinhood tool call (`get_accounts`, `get_portfolio`,
+  `get_crypto_positions`, `get_crypto_quotes`, `preview_crypto_order`, `place_crypto_order`,
+  etc.) can succeed. This is a full connector-access failure, not a transient error — no
+  Robinhood tool call was attempted or would have been meaningful without live access.
+- **§6 treatment:** this is squarely the "Robinhood MCP returns errors" / "data is
+  unavailable" condition (§6 items 2 and 4) — **no positions/portfolio data could be verified
+  this cycle, so no new entry evaluation, no exit management action, and no order of any kind
+  was attempted.** Per §1/§6, this system cannot itself perform the OAuth reauthorization (it
+  requires a human in the loop via claude.ai → Settings → Connectors); the resting stop orders
+  placed on any existing crypto positions (none currently open per the last confirmed read at
+  00:37 UTC — 0/2) remain the only live protection mechanism if this outage persists, since they
+  are broker-side orders independent of MCP connectivity.
+- **No position/order mismatch confirmed or ruled out this cycle** — that reconciliation simply
+  could not run. Flagged to the user directly in chat as an URGENT connectivity alert requiring
+  reauthorization; this is not a routine no-trade cycle.
+- Crypto position count: **unknown this cycle (last confirmed 00:37 UTC: 0/2)**. No order
+  placed, modified, or cancelled — none was possible.
