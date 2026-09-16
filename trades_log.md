@@ -7134,3 +7134,80 @@ Format per entry:
   bullish reversal. **No candidate clears the entry gate** — declined across the board.
 - Crypto position count: **0/2**. No order placed, modified, or cancelled. Git push confirmed
   below.
+
+## 2026-09-16 ~15:55 UTC — AUTONOMOUS — Mode B ENTRY: ZS (1 share)
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at `4d31634`;
+  §14 "Status: ACTIVE" confirmed. No kill phrase. Robinhood MCP live. Not the final cycle of day
+  (19:55 UTC is).
+- **Cross-mode circuit breakers:** same-day 2-stop-out cooldown — 0/2 today. Market-shock pause
+  — SPY +0.44%, QQQ +0.91% vs. yesterday's close, well under 1.5% — not triggered.
+- **FTA Regime Dashboard**: still UNKNOWN_DEGRADED (placeholder text) — reduced sizing applied
+  per the Regime Rule (see below).
+- **Account before entry** (••••8058, `748688058`): total value $2,250.97 (equity $1,109.50,
+  crypto $0.00, cash $1,141.47). Mode B: 2/5 (CVX, GOOG).
+- **Existing Mode B position review:**
+  - **CVX (2/5)**: $212.31 vs. entry $215.4899 (-0.59%). Above stop $211.00. No exit.
+  - **GOOG (2/5)**: $342.44 vs. entry $342.9799 (-0.16%). Above stop $332.00. No exit.
+- **New-entry screen:** TradingView `rank_symbol_setups` (balanced) re-ranked the prior
+  watchlist. **ZS cleared §5B this cycle** — the first confirmed today's hourly bar (14:00-15:00
+  UTC) closed green ($192.29→$193.56), reclaiming above yesterday's late-session fade low and
+  confirming follow-through into the second hour (open $195.60, trading ~$194.25-195.68) —
+  satisfies §5B item 7's hourly execution trigger. Full gate check:
+  1. Liquid NASDAQ-listed common stock. ✓
+  2. Catalyst: dated 2026-09-14/15, widely reported (Stock Story "HubSpot, ServiceNow, Okta,
+     Workday, and Zscaler Shares Skyrocket" 9/14 16:40 UTC; GuruFocus/Benzinga same-day) — AI-
+     pacing-debate rotation out of chip names into SaaS/software. RS driver: ZS +20.5% over the
+     week vs. SPY -0.5% over the same window — specific, checkable outperformance. ✓
+  3. Technical confirmations (2-of-6 needed, found 4): 9/20-equivalent daily EMA bullish
+     (price +16.0% above 50-EMA), price well above 50/200-day SMA, RS vs. SPY (above), RSI 62.9
+     improving (not overbought). Volume confirmation did NOT clear (`vol_ratio_10d` 0.2-0.3x —
+     low participation) — noted, not required since 2-of-6 already cleared with room to spare.
+  4. Stop/R:R: entry (fill) $194.2599, stop $188.00 (just under 2026-09-15's tested session low
+     $188.10 — a real, tested support level, not today's untested emerging low), risk $6.26/
+     share (3.2% of entry, within the 6% ceiling). Target for ≥1.5:1: $203.65 (1.5R = $9.39).
+     Reward-to-risk ≈1.5:1, computed flat regardless of regime state per §5B item 4. ✓
+  5. Outside first/last 15 min. ✓ (order placed ~15:57 UTC, well clear of the 13:45-14:00 UTC
+     open buffer and the 19:45-20:00 UTC close buffer).
+  6. No earnings (55 days out) or scheduled macro event this window. ✓
+  7. Daily setup (above) + hourly trigger (the 14:00-15:00 UTC reclaim bar). ✓
+  - **§13.E extension note, flagged explicitly**: ZS is trading well extended (+16% above 50-EMA,
+    +10.5% above 200-EMA, up ~18.5% over the last 3 sessions from $164.54 to ~$195) — a real
+    chase-risk flag per §13.E. Per that guidance this is not an automatic disqualifier when the
+    catalyst and confirmations are strong enough — judged sufficient here given the fresh, dated,
+    widely-reported catalyst plus 4-of-6 confirmations plus a genuine confirmed hourly reclaim
+    (the first real trigger of the day across every name screened this session). Documented
+    plainly as the more aggressive, catalyst-driven side of this system's swing entries, not a
+    pullback entry.
+  - **3a — §18 options alternative evaluated and rejected**: checked the 2026-10-16 expiration
+    (30 DTE) chain. Even the lowest-delta strike screened near the 0.3 threshold ($220 strike,
+    delta 0.263) costs $480-500/contract ask — the $210 strike (delta 0.359, closer to the 0.3+
+    target) costs $750/contract. Both far exceed the 6%-of-equity cap (~$135.06) at this account
+    size. **No affordable options structure — defaulted to equity**, same conclusion as the NOW
+    evaluation earlier this session.
+  - **Regime Rule sizing (UNKNOWN_DEGRADED)**: normal sizing = min(1%-of-equity risk budget:
+    floor($22.51/$6.26)=3 shares, 40%-of-equity cap: floor($900.39/$194.26)=4 shares) = **3
+    shares** would be the normal-state size. Per the Regime Rule, whole-share entries size at
+    roughly half of that while UNKNOWN_DEGRADED, rounded down → **1 share**.
+  - **Correlation/theme**: tagged **SaaS/software AI-slowdown-rotation beneficiary** — distinct
+    from GOOG's original entry theme; only 1 of 2 correlation slots used by this theme so far.
+  - **Funding check**: equity after fill ~$1,303.76 of $2,250.97 total (57.9% deployed, well
+    under the 90% ceiling); cash after fill ~$947.21 (42.1%, well above the 10% floor). Settled,
+    non-margin buying power confirmed via `get_portfolio` before the order (§17 item 1).
+  - **Day-trade/settlement check (§17)**: fresh entry, no same-day loss re-entry conflict (ZS was
+    not previously held today), no broker restriction flag on the tradability check.
+- **Order**: `get_equity_tradability` confirmed tradable/individual-account-tradable;
+  `review_equity_order` returned a clean preview, no alerts. `place_equity_order` — BUY 1 share
+  ZS, LIMIT $194.75, GFD, ref_id `8f3e5c1a-2b4d-4e6f-9a7c-1d5e8b3f6a2c` — **FILLED** at
+  $194.2599/share (order `6aaabc7c-c9c5-43d3-9f09-a691edfa8110`).
+- **Mode B position count: 3/5** (CVX, GOOG, ZS) after this fill.
+
+### MODE C
+- Mode C daily P&L: $0.00 (flat, 0 positions). Position count: 0/8. Trade count: 0/5-6.
+- Opening-range (14:00-15:00 UTC bar) established for the watchlist; confirming breakout bar
+  (15:00-15:55 UTC) not yet closed this cycle — no ORB trigger confirmable yet. No qualifying
+  VWAP-pullback or mean-reversion setup found. **Orders this cycle: 0** (Mode C unchanged: 0/8).
+
+### Summary
+- Total orders this cycle: **1** (Mode B, ZS entry). STEP 0.5 flatten: not applicable (not final
+  cycle). TradingView MCP tools used: `rank_symbol_setups`, `get_technicals`/`get_technicals_rating`
+  implicitly via prior cycles. Git push confirmed below.
