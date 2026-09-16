@@ -6740,3 +6740,21 @@ Format per entry:
   cash $1,141.47).
 - `get_crypto_positions` confirms **0 open crypto positions**. Crypto position count: **0/2**.
   No order placed, modified, or cancelled.
+
+## 2026-09-16 ~00:37 UTC — AUTONOMOUS — CRYPTO: broad market selloff, no positions held, no new trade
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at
+  `958cb42`; §14 "Status: ACTIVE" confirmed. No kill phrase. Robinhood MCP live. **New calendar
+  day (2026-09-16) — same-day cross-mode stop-out cooldown counter resets to 0/2.**
+- **Account** (••••8058, `748688058`): total value $2,258.47 (equity $1,117.00 [CVX+GOOG],
+  crypto $0.00, cash $1,141.47).
+- `get_crypto_positions` confirms **0 open crypto positions** — fully in cash, so today's crypto
+  decline (below) has zero impact on this account.
+- **New-entry screen (capacity 2/2 available):** a broad, sharp selloff has hit the whole
+  allowlist since the last check — BTC -2.82%, ETH -4.49%, SOL -5.42%, **XRP -9.31%**, LINK
+  -5.63% (4H, TradingView `get_technicals_rating`). All five pairs now show **Sell or Strong
+  Sell** overall ratings, MAs uniformly Sell/Strong Sell, and RSI clustered in the low-30s
+  (33-35) — oversold within an active downtrend, not a bullish reversal signal (§21 item 3
+  requires RSI above 45 and improving, not just oversold). **No candidate clears any part of the
+  entry gate** — declined across the board. Being flat (0/2) meant this decline had zero impact
+  on the account.
+- Crypto position count: **0/2**. No order placed, modified, or cancelled.
