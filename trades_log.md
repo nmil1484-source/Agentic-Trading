@@ -7837,3 +7837,53 @@ Format per entry:
   `place_equity_order`, `get_equity_orders`, `get_portfolio`, `get_equity_positions`,
   `get_equity_technical_indicators` (NOW, ema9/ema20/rsi, daily).
 - Git push confirmed below.
+
+## 2026-09-17 ~15:39 UTC — AUTONOMOUS — CRYPTO: LINK-USD ENTRY PLACED (order working, unfilled)
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at `20972c2`;
+  §14 "Status: ACTIVE" confirmed. No kill phrase. Robinhood MCP live.
+- **Cross-mode circuit breakers:** same-day 2-stop-out cooldown — 1/2 today (CVX stop-out this
+  morning, ~14:58 UTC) — one more stop-out today triggers the cooldown; does not block new
+  entries yet. Market-shock pause — SPY +0.14%, QQQ +0.10% single-cycle move vs. the 14:58 UTC
+  Mode B/C cycle — not triggered.
+- **Existing position management — SOL-USD (1/2)**: mark $100.869 vs. cost basis $99.85327484
+  (+1.02%). Not yet at +1R ($102.71) — no breakeven move. Protective stop
+  (`6aab36ea-8c81-4b1e-83ef-32492b479f90`, $97.00, gtc) verified still resting/confirmed.
+- **New-entry screen — LINK-USD cleared the §21 gate:**
+  - Not halted: live `get_crypto_quotes`/`preview_crypto_order` succeeded.
+  - RS vs. BTC (checkable comparison, no single dated catalyst found): LINK +1.83% today
+    (open $11.126 → mark $11.331) vs. BTC +0.27% (open $76,363.94 → mark $76,569.15) — clear
+    outperformance.
+  - **3 of 6 technical confirmations** (only 2 required): (1) 1H RSI 66.99, above 45 and
+    improving — sustained climb from the ~$10.61-10.68 4H double-bottom low; (2) volume
+    confirmation — the 4H breakout bar printed 1.34M volume vs. ~247K average (~5.4x), and the
+    1H breakout/continuation bars ran 90K-138K vs. ~78.6K average, both well above 1.2x normal
+    with no abnormal selling pressure; (3) breakout/retest structure — clean 4H double-bottom
+    support at $10.61-10.68 (tested twice), followed by a volume-confirmed breakout and
+    multi-bar continuation to $11.33.
+  - **4H setup**: double-bottom reclaim/breakout from the $10.61-10.68 support zone on the daily-
+    chart-equivalent (4H) timeframe. **1H trigger**: 1H bar at 11:37 UTC-4 (t=1789646400) broke
+    above the $11.09-11.23 consolidation range on rising volume (90K, then 138K, then 117K vs.
+    78.6K average), with continuation holding through the most recent bar ($11.317).
+  - Stop: $10.95 (below the last clear 1H higher-low cluster, ~$11.05-11.10, with buffer).
+    Entry (limit) $11.44. Stop distance $0.49/unit = 4.28% — within the 8% hard ceiling.
+  - Target: ~$11.875 (near recent 4H resistance $11.85-11.96) → R:R ≈ 1.5:1 at minimum, meets
+    the §21 item 3 floor.
+  - Sizing: risk budget 0.5% of equity ($2,287.81) = $11.44; quantity = $11.44/$0.49 ≈ 23.34,
+    entered as **23.3 LINK**. Notional $266.55 (11.6% of equity, under the 15% cap). Crypto
+    position count would become 2/2 (at cap) once filled.
+  - Funding: deployed 71.72% pre-trade ($1,640.88/$2,287.81); post-trade (if filled) ≈84.4% —
+    within the 90% ceiling.
+- `preview_crypto_order`: buy 23.3 LINK, limit $11.44, gtc — no alerts, estimated fee $0.
+- `place_crypto_order`: order `6aac09ab-5fe6-4241-aace-6481ffbc63cc` submitted, state
+  `confirmed`/open. **Checked twice over ~15 seconds — still unfilled (cumulative_quantity 0)**:
+  the ask ticked up to $11.448 immediately after placement (wide ~1.9% spread under Market Maker
+  Routing), just above the $11.44 limit, so the order is resting rather than marketable at this
+  instant. This is a working GTC order, not a failure — left open rather than chased with a
+  higher limit, consistent with not overpaying through a temporarily wide spread.
+  **Action item for the next cycle (crypto or otherwise, whichever fires first): check
+  `get_crypto_orders` for this order_id; if filled, immediately place and verify the $10.95 stop
+  per §21 item 5 before treating the position as protected; if still unfilled after a reasonable
+  window, reassess (adjust or cancel) rather than leaving an entry unprotected indefinitely.**
+- Crypto position count: **1/2 confirmed filled (SOL) + 1 pending entry (LINK, unfilled)**. No
+  URGENT EXIT FAILURE — this is a pending entry, not a filled-but-unprotected position (no stop
+  is owed until the entry itself fills). Git push confirmed below.
