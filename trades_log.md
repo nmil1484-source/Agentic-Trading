@@ -7459,3 +7459,44 @@ Format per entry:
   No name has crossed RSI 45. **No candidate clears the entry gate** — declined across the board.
 - Crypto position count: **0/2**. No order placed, modified, or cancelled. Git push confirmed
   below.
+
+## 2026-09-17 ~00:37 UTC — AUTONOMOUS — CRYPTO ENTRY: SOL-USD (3.26492 SOL)
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at `ccc3ee2`;
+  §14 "Status: ACTIVE" confirmed. No kill phrase. Robinhood MCP live. **New calendar day
+  (2026-09-17) — same-day cross-mode stop-out cooldown counter resets to 0/2.**
+- **Cross-mode circuit breakers:** same-day 2-stop-out cooldown — 0/2 (fresh day). Market-shock
+  pause — SPY/QQQ closed — inapplicable.
+- **Account before entry** (••••8058, `748688058`): total value $2,208.10 (equity $1,300.01,
+  options $357.00 [user's TSLL position, unrelated to this system], crypto $0.00, cash $551.09).
+- **New-entry screen: SOL-USD cleared §21** — the choppy multi-cycle reversal attempt (RSI
+  bouncing 40s-44s for the last several hours) finally confirmed on both timeframes this cycle:
+  1. Liquid, not halted (confirmed via successful quote/trade this session). ✓
+  2. RS driver: SOL +1.76% (4H) vs. BTC's +0.65% (4H) over the same window — specific, checkable
+     outperformance. ✓ (No single dated news catalyst found; RS comparison used instead, per
+     §21 item 3's "OR" clause.)
+  3. Technical confirmations (2-of-6 needed): RSI 46.4 (4H) above 45 and improving (up from
+     40.2/43.6/44.1/44.4 over the preceding cycles — a genuine, sustained climb, not a one-cycle
+     blip); 1H timeframe flipped to **Buy** recommendation with price back above the rising 1H
+     EMA10/20 (bullish EMA alignment) — 2 confirmations, clears the bar.
+  4. Stop/R:R: entry (fill) $99.85, stop $97.00 (below the recent confirmed higher-low structure
+     on the 1H chart — bars show a base forming $97.30-98.38 after the earlier flush to $95.71),
+     risk $2.85/unit (2.9% of entry, within the 8% stop-distance ceiling). Target for 1.5:1:
+     $104.13 (1.5R = $4.27) — within the period's actual range (high $107.36, so plausible).
+     Reward-to-risk ≈1.5:1. ✓
+  5. 4H setup (RSI climb + RS outperformance) + 1H execution trigger (Buy recommendation, EMA
+     reclaim) — both present. ✓
+  - **Sizing**: 0.5%-of-equity risk budget = floor($11.04/$2.85) ≈ 3.87 SOL; 15%-of-equity cap =
+    $331.22 ≈ 3.35 SOL; **90%-total-deployed funding headroom was the tightest constraint** —
+    $1987.29 max deployed − $1657.01 already deployed (equity+options) = $330.28 headroom.
+    Sized conservatively at **$326.00 (3.26492 SOL)** to keep cash comfortably above the 10%
+    floor after the fill (leaves ~$225.09 cash ≈ 10.2% of total equity).
+  - **Order**: `preview_crypto_order` clean (no alerts, $0 fee). `place_crypto_order` — BUY
+    $326.00 market, ref_id `c47d1e92-8b3a-4f6c-9d1e-5a2b8f7c3e60` — **FILLED** 3.26492 SOL @
+    avg $99.85327484 (order `6aab36dd-1f89-4857-9aaf-0847b76953c8`).
+  - **Protective stop placed immediately**: `preview_crypto_order` clean, `place_crypto_order` —
+    SELL 3.26492 SOL, stop_loss, stop $97.00, GTC, ref_id `9d3f6b1a-7c5e-4a8f-b2d1-6e9a3c0f8b45`
+    (order `6aab36ea-8c81-4b1e-83ef-32492b479f90`) — **verified resting** (`state: confirmed`,
+    `state_group: open`) via `get_crypto_orders`. Position is protected.
+- **Crypto position count: 1/2** (SOL-USD). No averaging down; correlation n/a (§21 has no
+  per-coin theme subdivision, just the flat 2-position cap).
+- Git push confirmed below.
