@@ -7500,3 +7500,30 @@ Format per entry:
 - **Crypto position count: 1/2** (SOL-USD). No averaging down; correlation n/a (§21 has no
   per-coin theme subdivision, just the flat 2-position cap).
 - Git push confirmed below.
+
+## 2026-09-17 ~01:37 UTC — AUTONOMOUS — CRYPTO: SOL holding, LINK clears gate but blocked by funding
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at `f9c867c`;
+  §14 "Status: ACTIVE" confirmed. No kill phrase. Robinhood MCP live.
+- **Cross-mode circuit breakers:** same-day 2-stop-out cooldown — 0/2 today. Market-shock pause
+  — SPY/QQQ closed — inapplicable.
+- **Account** (••••8058, `748688058`): total value $2,207.56 (equity $1,300.88, options $357.00
+  [user's TSLL position], crypto $324.61, cash $225.07). Deployed (equity+options+crypto) =
+  $1,982.49 = **89.80% of total** — only **$4.31 of headroom** remains under the 90% ceiling.
+- **Existing position management — SOL-USD (1/2)**: `get_crypto_quotes`/`get_crypto_positions`
+  confirm current value $324.61 vs. $326.02 cost basis (-0.43%, essentially flat). Not yet at
+  +1R ($102.70) — no breakeven move or trailing yet. Verified the protective stop
+  (`6aab36ea-8c81-4b1e-83ef-32492b479f90`, stop $97.00) is still resting (`state: confirmed`,
+  `state_group: open`) via `get_crypto_orders`. Peak-retracement rule not yet applicable (not at
+  +1.5R). Time-stop: entered ~1 hour ago, 7-calendar-day window nowhere close.
+- **New-entry screen (capacity 1/2 remaining)**: re-screened the 4 unheld allowlist pairs — BTC
+  +1.48% (Neutral, RSI 48.0), ETH +1.87% (Sell, RSI 46.2), XRP +2.42% (Sell, RSI 43.0 — still
+  short), **LINK +2.97% (RSI 46.95, oscillators Buy)** — LINK's 1H chart flipped to **Buy**
+  (RSI 60.9, MAs Buy, price above rising 1H EMA10/20) with a clear reclaim off an overnight flush
+  low ($10.611) and a confirmed higher-low structure since. **LINK independently clears the full
+  §21 entry gate** (RS vs. BTC: +2.97% vs. +1.48%; 2+ technical confirmations; valid stop ~$10.85
+  giving ~2.5% risk distance; 4H+1H setup/trigger both present) — **but is blocked by funding**:
+  only $4.31 of headroom remains under the 90% total-deployed ceiling, nowhere near enough for
+  even a minimum-size LINK position. **No order placed** — documenting the missed setup for the
+  record, not a technical rejection.
+- Crypto position count: **1/2** (SOL-USD only). No order placed, modified, or cancelled this
+  cycle beyond the existing SOL stop (unchanged, still resting). Git push confirmed below.
