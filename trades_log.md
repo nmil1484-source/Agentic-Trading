@@ -7887,3 +7887,62 @@ Format per entry:
 - Crypto position count: **1/2 confirmed filled (SOL) + 1 pending entry (LINK, unfilled)**. No
   URGENT EXIT FAILURE — this is a pending entry, not a filled-but-unprotected position (no stop
   is owed until the entry itself fills). Git push confirmed below.
+
+## 2026-09-17 ~15:56 UTC — AUTONOMOUS — MODE B/C HOURLY CYCLE (+ LINK stop follow-up)
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at `9296ef3`;
+  §14 "Status: ACTIVE" confirmed. No kill phrase. Robinhood MCP live.
+- **Cross-mode circuit breakers:** same-day 2-stop-out cooldown — 1/2 today (CVX, ~14:58 UTC).
+  Market-shock pause — SPY +0.18%, QQQ +0.16% single-cycle vs. the 14:58 UTC cycle — not
+  triggered.
+- **Crypto follow-up (action item from the ~15:39 UTC crypto cycle log):** checked the pending
+  LINK-USD buy (order `6aac09ab-5fe6-4241-aace-6481ffbc63cc`) — **filled**, 23.3 LINK @ avg
+  $11.43969395. Immediately placed and verified the §21 item 5 protective stop: `preview_crypto_order`
+  clean → `place_crypto_order` sell 23.3 LINK, stop_loss, stop $10.95, gtc → order
+  `6aac0da1-3175-44f2-8287-7d8304b77c06`, confirmed resting (state_group open) via
+  `get_crypto_orders`. LINK position now fully protected. Crypto capacity now **2/2** (SOL, LINK).
+- **FTA Regime Dashboard**: checked via WebFetch — still "Loading..." placeholder. Classified
+  **UNKNOWN_DEGRADED** (as every check this session) — any new whole-share Mode B entry this
+  cycle would require half-sized positioning per the §5B Regime Rule.
+
+### MODE B — existing positions
+- **GOOG (2/5)**: $342.38 vs. entry $342.9799 (-0.17%). Above stop $332.00. No exit.
+- **ZS (2/5)**: $194.185 vs. entry $194.2599 (-0.04%). Above stop $188.00. Not yet at +1R
+  ($200.52). No exit.
+
+### MODE B — new-entry screen
+- **Funding**: total value $2,276.76 (equity $878.92, options $423 [user's TSLL], crypto
+  $594.47 [SOL+LINK], cash $380.38). Deployed = $1,896.38/$2,276.76 = **83.3%** — only **~$150 of
+  headroom** remains under the 90% ceiling (well down from ~$417 earlier this cycle-block, after
+  the LINK entry consumed most of it).
+- TradingView `rank_symbol_setups` (2 calls, 57 watchlist symbols) surfaced: TEM (71, but "well
+  extended above EMA200 +38.9%" — chase risk, same pattern already pass-overed this session),
+  PLTR (70, extended +18.2%), NVDA (69, trend-aligned +10% above EMA200, least extended of the
+  top names), AMD (67, well extended +41.8%), AAPL (66, extended +15%), NOW (67, extended
+  +11.4%, RSI 57.1) — NOW shares ZS's SaaS/enterprise-software theme (would be 2/2 on that theme
+  if taken).
+- **NOW re-checked against §5B** (re-verified fresh rather than reusing the ~14:58 UTC read):
+  still only 1-of-6 confirmed (9/20 EMA bullish alignment) — RSI improvement and a live hourly
+  reclaim/breakout trigger are not confirmed this cycle either. Does not clear §5B item 7 (needs
+  both a daily setup and an hourly trigger).
+- With only ~$150 headroom, every top-ranked name (TEM $79.62, PLTR $177.13, NVDA $219.14, AMD
+  $545.39, AAPL $333.28, NOW $139.36) would fit at most 1 share even before considering the
+  UNKNOWN_DEGRADED half-size sub-cap — and the higher-scored names are extended (chase risk per
+  §13.E), while the funding-affordable NOW still lacks a qualifying gate. **Stays OBSERVE across
+  the board this cycle** — not forcing a marginal 1-share entry into thin headroom on a
+  not-yet-qualifying or chase-risk name.
+- **3a options evaluation: not applicable** — no equity candidate reached the gate-cleared stage.
+
+### MODE C
+- Mode C daily P&L: $0.00 (flat, 0 positions, 0/8, 0/5-6). No hourly-adapted VWAP-pullback/ORB/
+  mean-reversion setup screened in depth this cycle — the same ~$150 funding headroom would
+  produce a sub-viable position size (0.5% risk budget) regardless of setup quality, so screening
+  effort was directed at Mode B this cycle instead.
+
+### Summary
+- Total new orders this cycle (Mode B/C only, excluding the LINK stop follow-up logged above):
+  **0**. Mode B position count unchanged: 2/5. Mode C: 0/8.
+- STEP 0.5 final-cycle flatten: **not applicable** — this is not the 19:55 UTC final cycle.
+- TradingView MCP tools used: `rank_symbol_setups` (x2, 57 symbols). Robinhood tools:
+  `get_crypto_orders`, `preview_crypto_order`, `place_crypto_order` (LINK stop), `get_portfolio`,
+  `get_equity_quotes`, `get_equity_orders`. WebFetch: FTA Regime Dashboard.
+- Git push confirmed below.
