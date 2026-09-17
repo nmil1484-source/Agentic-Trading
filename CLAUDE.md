@@ -153,6 +153,69 @@ trades. A swing candidate qualifies when **all** of these conditions are met:
 LUC status (GREEN/WHITE/RED/OFF_LIST/UNKNOWN) is still logged on every swing Trade Card for
 context — it is never itself a qualifying or disqualifying condition for Mode B.
 
+#### Bearish Mirror Gate (Put Entries)
+Added 2026-09-17 at explicit user instruction, prompted by the user asking about autonomous
+"shorts" — clarified in the same exchange to mean long put options (§18/§19 already permit these;
+no instrument change here), not literal short selling (which would require a margin account and
+directly conflicts with §1's permanent no-margin/no-borrowing firewall — not proposed or adopted)
+and not inverse ETFs (still banned outright by §2). **The gap this closes**: §5B's six
+confirmations above, and every one of its qualifying conditions, are written entirely in bullish
+language (uptrend reclaim, price above/reclaiming the 50-day SMA, relative *strength* vs.
+SPY/sector, RSI improving) — §18 item 2 requires the underlying to "clear the full §5B Swing Entry
+Gate," which by its own text only tests for a bullish thesis. Nothing in this document previously
+defined an equivalent test for a bearish thesis, so a long put had no gate it could actually clear
+even though it was always a permitted instrument. This subsection is that missing mirror, and §18
+item 2 is amended below to reference it as the alternative underlying-clearance path for a put
+bought on a bearish thesis.
+
+A bearish candidate qualifies when **all** of these conditions are met:
+
+1. It is a liquid, exchange-listed common stock or non-leveraged ETF (§2) — same eligibility as a
+   bullish entry.
+2. It has a verified bearish catalyst, sector headwind, or clear relative-weakness driver —
+   logged with a URL/date when there is one; a relative-weakness driver must be a specific,
+   checkable comparison (e.g. "down X% vs. SPY's Y% over Z sessions"), not a vague assertion.
+3. It has at least **2 of these 6** technical confirmations (the bearish mirror of §5B item 3's
+   six, same 2-of-6 floor):
+   - 9/20 EMA bearish cross or sustained bearish alignment (9 crossing below, or staying below,
+     20);
+   - price below or losing the 50-day SMA;
+   - breakdown/retest of support-turned-resistance, range breakdown, or rejection at a
+     Fibonacci/resistance zone;
+   - relative weakness versus SPY/sector (checkable underperformance, not just a single red day);
+   - volume confirming the decline — at least 1.2x normal on down days, or clear distribution
+     (selling into strength/failed bounces);
+   - RSI below 55 and falling, or MACD deteriorating.
+4. It has a valid technical invalidation level (the price/level that would disprove the bearish
+   thesis) and reward-to-risk of at least **1.5:1**, computed on the **put's own economics**
+   (premium paid vs. a realistic decline target) — same flat floor and same computation method as
+   §18 item 2 already uses for a bullish call, regardless of FTA Regime Dashboard state (same
+   principle as §5B item 4).
+5. It is outside the first 15 minutes after open and the final 15 minutes before close (§4).
+6. It has no earnings or high-impact macro conflict inside the existing §4 timing rule.
+7. **It has both a daily-chart bearish setup and a shorter-timeframe (hourly) execution trigger** —
+   the mirror of §5B item 7. Item 3's 2-of-6 confirmations establish the daily-chart setup; the
+   hourly trigger is the specific candle/level that times the actual entry (e.g., a breakdown
+   candle, a failed bounce/rejection at a resistance level on the hourly chart, an hourly close
+   losing a support level). Both are required; a daily bearish setup without a confirming hourly
+   trigger stays OBSERVE.
+
+LUC status is logged for context on a bearish candidate exactly as it is for a bullish one — never
+itself a gate for Mode B, same principle as §5B's existing treatment. **Scope, explicit**: a
+bearish thesis clearing this gate is executed exclusively through §18 (30-60 DTE) or §19 (9-12
+month LEAPS) single-leg long puts — never short stock, never a put spread, never a naked call,
+never an inverse ETF. Every other §18/§19 mechanic applies unchanged and direction-agnostically: the
+daily-trailing stop (§18 item 4) tracks the option's own value regardless of whether the underlying
+is falling (the intended case) or unexpectedly rising against the thesis, the same 6%/3%
+premium-paid sizing caps, and the same 5-position/2-correlated-theme Mode B caps (a put bought on a
+bearish thesis counts as an ordinary Mode B position, combined with equities and bullish options,
+not in addition to them). **Autonomous authority: granted from day one, no separate
+verification/dry-run**, at explicit user instruction, consistent with the same fast-track pattern
+already used for §18/§19/§20/§21 — flagged before this was confirmed: this is the account's
+first-ever bearish/short-thesis trade of any kind, with no prior track record to validate the
+mechanics against before going live autonomously, the same reality-check every prior fast-tracked
+section carried at its own launch.
+
 #### Regime Rule for Swings
 - The FTA Regime Dashboard is a risk modifier for Mode B, not a hard entry gate (same underlying
   principle as the §6 exception) — it never blocks a swing proposal outright the way LUC/Robinhood
@@ -393,6 +456,33 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-09-17: User instructed adding a bearish/short-thesis entry gate for Mode B, after asking
+  about autonomous authority for "shorts."** Clarified in the same exchange before drafting
+  anything: the user meant long put options (§18/§19 already permit these as an instrument — no
+  change needed there), not literal short selling (would require a margin account, directly
+  conflicting with §1's permanent no-margin/no-borrowing firewall — not proposed, not adopted) and
+  not inverse ETFs (still banned by §2). **The actual gap, surfaced during that clarification**:
+  §5B's Swing Entry Gate is written entirely in bullish language (uptrend reclaim, price
+  above/reclaiming the 50-day SMA, relative *strength*, RSI improving) — §18 item 2 required the
+  underlying to "clear the full §5B Swing Entry Gate," which by its own text only tests a bullish
+  thesis. A long put was always a legal instrument with no gate it could actually clear. New: the
+  **§5B Bearish Mirror Gate (Put Entries)** subsection — the same 2-of-6-confirmations/catalyst-or-
+  RS/valid-stop-with-≥1.5:1-R:R/daily-setup-plus-hourly-trigger structure as the bullish gate, each
+  criterion inverted (bearish EMA cross, price below the 50-day SMA, breakdown/rejection structure,
+  relative *weakness*, volume confirming a decline, RSI below 55 and falling or MACD
+  deteriorating). §18 item 2 amended to reference both gates (bullish for calls, bearish for puts —
+  a put still can't be justified by a bullish §5B pass, nor a call by the bearish gate). §19 item 2
+  (LEAPS) also amended with the weekly/daily-timeframe mirror for a bearish LEAPS put, since the
+  identical bullish-only gap existed there too — not explicitly requested in this exchange, but
+  flagged and filled in rather than left silently inconsistent between §18 and §19. No instrument
+  permission changed anywhere in this edit — still single-leg long calls/puts only, still no
+  spreads/naked/short-stock/inverse-ETF exposure of any kind (§2/§18/§19 unchanged). **Autonomous
+  authority granted from day one, no separate verification/dry-run**, at explicit user instruction
+  after being asked directly and given the same fast-track-vs-manual-first choice every §18/§19/
+  §20/§21 carve-out was offered — the user chose the fast track again, despite this being the
+  account's first-ever bearish/short-thesis trade of any kind with no prior track record. Counts
+  against the same 5-position/2-correlated-theme Mode B caps and 90% deployment ceiling as every
+  other position — not a separate allowance.
 - **2026-09-08: User instructed adopting several risk-tightening changes from a friend's
   independently-written operating-rules document, plus adding a narrow spot-crypto exception.**
   The friend's document (compared earlier the same session) was overall stricter in several
@@ -1508,13 +1598,16 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
    spreads, no multi-leg combinations, no naked/uncovered positions. One option leg per trade, buy
    to open only.
 
-2. **Underlying must still clear the full §5B Swing Entry Gate** — catalyst/relative-strength
-   driver with URL/date, 2-of-6 technical confirmations, daily-chart setup plus hourly execution
-   trigger, and outside the timing windows in §4. An option is a different way to express the same
-   thesis §5B already requires for an equity swing entry — it does not relax any of §5B's
-   conditions. The reward-to-risk floor (≥1.5:1, flat, regardless of regime state) is computed on
-   the option's own economics (premium paid vs. realistic profit target), not the underlying
-   stock's price move.
+2. **Underlying must still clear the full §5B Swing Entry Gate for a long call, or the §5B Bearish
+   Mirror Gate for a long put** (bearish gate added 2026-09-17, see §5B) — catalyst/relative-
+   strength (or relative-weakness) driver with URL/date, 2-of-6 technical confirmations, daily-
+   chart setup plus hourly execution trigger, and outside the timing windows in §4. An option is a
+   different way to express the same thesis one of these two gates already requires for an equity
+   swing entry — it does not relax either gate's conditions, and a call still needs the bullish
+   gate while a put still needs the bearish gate (a put is never justified by a bullish §5B pass,
+   nor a call by the bearish gate). The reward-to-risk floor (≥1.5:1, flat, regardless of regime
+   state) is computed on the option's own economics (premium paid vs. realistic profit target for
+   a call, vs. realistic decline target for a put), not the underlying stock's price move.
 
 3. **Expiration window: 30-60 days to expiration (DTE) at entry** (2026-08-19, explicit user
    instruction). Do not open a new long option position outside this window.
@@ -1612,9 +1705,17 @@ comes back unaffordable.
      (secular trend, sector tailwind, company-specific multi-year catalyst).
    - A clear weekly/daily uptrend or basing structure (higher-highs/higher-lows on the weekly
      chart, or a multi-month base with volume support) — the §13 methodology's market-structure
-     and Fibonacci tools apply here, read on a weekly/daily basis rather than intraday.
+     and Fibonacci tools apply here, read on a weekly/daily basis rather than intraday. **For a
+     LEAPS put on a bearish multi-quarter thesis** (added 2026-09-17, extending that day's §5B
+     Bearish Mirror Gate to this longer-horizon lane — not explicitly requested that day but the
+     identical bullish-only gap existed here too, flagged rather than left silently inconsistent):
+     the mirror image applies instead — a clear weekly/daily downtrend or breakdown structure
+     (lower-highs/lower-lows on the weekly chart, or a multi-month distribution top with volume
+     confirming the breakdown) and a durable bearish multi-quarter thesis (secular headwind,
+     structural decline, company-specific multi-year deterioration), not a single-day catalyst.
    - Reward-to-risk ≥1.5:1 (same flat floor as everywhere else in this document), computed on the
-     option's economics against a realistic multi-month target, not the underlying's price alone.
+     option's economics against a realistic multi-month target (upside for a call, downside for a
+     put), not the underlying's price alone.
    - LUC status logged for context if the underlying is covered, same as every other Mode B entry
      — never itself a gate (§5B's existing principle, carried over here).
 
