@@ -7701,3 +7701,50 @@ Format per entry:
 - **New-entry screen**: skipped detailed re-screen — no funding headroom remains.
 - Crypto position count: **1/2**. No order placed, modified, or cancelled. Git push confirmed
   below.
+
+## 2026-09-17 ~14:01 UTC — AUTONOMOUS — FIRST SCAN OF DAY (Mode B + Mode C)
+- Repo integrity check: `git fetch` clean, working tree clean, HEAD matched remote at `b22d57d`;
+  §14 "Status: ACTIVE" confirmed. No kill phrase. Robinhood MCP live.
+- **Cross-mode circuit breakers:** same-day 2-stop-out cooldown — 0/2 today (fresh day). Market-
+  shock pause — SPY +0.86%, QQQ +1.44% vs. yesterday's close — a strong green open but under the
+  1.5% single-cycle threshold — not triggered.
+- **FTA Regime Dashboard**: checked via WebFetch — still returning placeholder/"Loading..." text.
+  Classified **UNKNOWN_DEGRADED** (context only, not a gate for Mode B).
+
+### FUNDING — BLOCKS ALL NEW ENTRIES THIS CYCLE
+- **Account** (••••8058, `748688058`): total value $2,297.50 (equity $1,300.43 [CVX+GOOG+ZS],
+  options $444.00 [user's TSLL position, appreciated further overnight — not managed by this
+  system], crypto $328.01 [SOL-USD], cash $225.07).
+- **Deployed = equity + options + crypto = $2,072.44 of $2,297.50 total = 90.20%** — already
+  **over** the 90% total-deployed ceiling (§3/§14 item 2), driven by unrealized appreciation on
+  held positions (TSLL, SOL, ZS, GOOG all up), not by new purchases. **No new Mode B, Mode C, or
+  crypto entry can be opened this cycle regardless of technical setup** — this is a passive
+  breach from mark-to-market gains, not a new-order action; existing positions are not force-
+  trimmed for it. Re-check next cycle once prices/positions shift.
+
+### MODE B — existing position review (no new entries possible this cycle)
+- **CVX (3/5)**: $211.13 vs. entry $215.4899 (-2.03%). **Above stop $211.00 by just $0.13
+  (0.06%)** — the closest call of the whole position to date, still not triggered under the
+  literal "at or below" rule. Watching very closely next cycle.
+- **GOOG (3/5)**: $341.40 vs. entry $342.9799 (-0.46%). Above stop $332.00. No exit.
+- **ZS (3/5)**: $195.305 vs. entry $194.2599 (+0.54%). Above stop $188.00. Not yet at +1R
+  ($200.52). No exit.
+- **New-entry screen (informational only, blocked by funding)**: TradingView `rank_symbol_setups`
+  surfaced NOW (score 67, RSI 57.6, +7.0%wk/+16.9%mo — same SaaS-rotation theme as ZS), PLTR
+  (65), AAPL (65), NVDA (65), and a hugely extended TEM (63, +9.1% today, +52.5% month, RSI 69.2
+  — clearly overextended, would need a pullback regardless of funding). None were deep-dived for
+  a full §5B verdict since funding blocks any entry outright this cycle. **3a options evaluation:
+  not applicable** — no equity candidate reached the funding-cleared stage.
+
+### MODE C
+- Mode C daily P&L: $0.00 (flat, 0 positions coming into today). Position/trade count: 0/8,
+  0/5-6. Blocked by the same funding ceiling as Mode B this cycle — no setup screen performed
+  since entry is not possible regardless of outcome.
+
+### Summary
+- Total orders this cycle (both modes): **0**. No fills, no exits, no circuit breaker triggered
+  (the 90%-deployed state is a funding constraint, not one of the §6 circuit breakers, and
+  doesn't require any incident response — just blocks new entries until headroom returns).
+- TradingView MCP tools used: `rank_symbol_setups` (x2). Robinhood tools: `get_portfolio`,
+  `get_equity_positions`, `get_equity_quotes`, `get_accounts`.
+- Git push confirmed below.
