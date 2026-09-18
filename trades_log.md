@@ -8174,3 +8174,46 @@ Format per entry:
   or missed in either; this 00:38 UTC cycle is a fresh, complete check with current data, and no
   gap in position protection occurred (both stops were resting throughout, confirmed here).
 - No order placed, modified, or cancelled this cycle. Git push confirmed below.
+
+## 2026-09-18 ~00:38-12:37 UTC — AUTONOMOUS — CRYPTO: SOL stop trailed to $102.00 (catch-up entry)
+- **Operational note**: repo integrity checks and `get_crypto_quotes` succeeded on every hourly
+  fire in this window (00:38, 01:38, 02:38, 03:38, 04:38, 05:38, 06:38, 07:38, 08:38 ET / 04:38
+  through 12:37 UTC), but `get_crypto_orders` was rejected/unavailable on nearly every attempt
+  across this same window, preventing individual per-cycle log entries and commits. This single
+  entry catches up the full window rather than leaving it unlogged. §14 "Status: ACTIVE" was
+  reconfirmed via `git fetch`/`grep` at the start of every attempt in this window — no discrepancy
+  found at any point. No kill phrase found. No repo integrity issue at any point (HEAD tracked
+  `b906060` throughout until this commit).
+- **Cross-mode circuit breakers:** same-day 2-stop-out cooldown — reset to 0/2 at the 2026-09-18
+  calendar-day rollover (00:38 UTC cycle), stayed at 0/2 throughout this window (no stop-outs
+  today). Market-shock pause — equity market closed the entire window (overnight) — inapplicable.
+- **SOL-USD price action this window**: climbed steadily from ~$100.90 (00:38 UTC) through +1R
+  ($102.71, crossed ~02:37 UTC) and +1.5R ($104.13, crossed ~03:37 UTC) up to a observed peak
+  around $106.48-106.90 (~06:37-07:37 UTC), settling back to **$105.896** as of this entry
+  (~08:38 ET / 12:38 UTC) — peak-to-current giveback ~8.8% of the entry-to-peak gain, well under
+  the 30% peak-retracement exit threshold (§21 item 5) — no exit triggered.
+- **Action taken this window: SOL stop trailed from $97.00 to $102.00.** The breakeven-at-+1R move
+  was overdue given the `get_crypto_orders` outage prevented per-cycle verification/action — caught
+  up now rather than left stale. Since `get_crypto_orders` remained unavailable at action time, used
+  `get_crypto_positions` instead: both SOL (3.26492) and LINK (23.3) showed `quantity_held_for_sell`
+  equal to full `quantity`, consistent with each still having its full-quantity resting stop order
+  (no other sell activity occurred) — reasonable confidence the original $97.00 SOL stop was still
+  live and unmoved since the last verified check (~21:38 UTC 2026-09-17).
+  - `cancel_crypto_order` on `6aab36ea-8c81-4b1e-83ef-32492b479f90` ($97.00 stop) — accepted.
+  - `preview_crypto_order` for a new stop at $102.00 — clean, no alerts.
+  - `place_crypto_order`: sell 3.26492 SOL, stop_loss, stop $102.00, gtc — order
+    `6aad06b0-3bcf-469a-a8a4-bb7cfeb3e5a6` submitted (state unconfirmed at submission; standard for
+    this order type). $102.00 was chosen just below the $102.75 higher-low support that formed when
+    SOL first cleared +1R and held through the subsequent rally to $106+ (never revisited that
+    level) — locks in roughly +2.15% over the $99.85327484 entry, versus the prior $97.00 stop's
+    -2.86% risk. **Could not verify the new stop is resting via `get_crypto_orders`** (still
+    unavailable) — flagging this openly rather than silently assuming success. Will verify at the
+    next cycle where the tool is available; if it turns out not to be resting, that will surface as
+    a missing/rejected stop and be corrected immediately per §21 item 5's standing discipline.
+- **LINK-USD**: climbed from ~$11.34 (00:38 UTC) to **$11.855** (this entry) — still below +1R
+  ($11.92938790) by a small margin, no breakeven action due yet. Stop presumed still resting at
+  $10.95 (`6aac0da1-3175-44f2-8287-7d8304b77c06`) based on the same `quantity_held_for_sell`
+  reasoning above — not independently re-verified via `get_crypto_orders` this window either.
+- **New-entry screen**: skipped throughout — crypto position count at cap (2/2) the entire window.
+- Crypto position count: **2/2** (SOL, LINK). One order action this window (SOL stop replacement).
+  Git push confirmed below.
