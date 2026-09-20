@@ -9145,3 +9145,43 @@ Format per entry:
   materially (momentum −36.8 vs. −620 last successful read). Still no confirmed hourly reclaim.
   Verdict: OBSERVE, no new entry.
 - No order placed, modified, or cancelled this cycle. Git push confirmed below.
+
+## 2026-09-20 ~14:37-16:37 UTC — AUTONOMOUS — CRYPTO: BTC entry gate cleared, then price ran before execution completed — no trade taken
+- Repo integrity check (at cycle start): `git fetch` clean, working tree clean, HEAD matched
+  remote at `d341996`; §14 "Status: ACTIVE" confirmed. No kill phrase found. Robinhood MCP live.
+- **Existing position management, unaffected throughout:**
+  - **SOL-USD**: ranged $107.99-$110.52 across this window vs. cost basis $99.85327484
+    (+8.2% to +10.7%) — never approached the ~$113.29 peak or the 30% retracement threshold.
+    Stop (`6aad06b0-3bcf-469a-a8a4-bb7cfeb3e5a6`, $102.00, gtc) verified resting throughout.
+- **New-entry screen — BTC-USD cleared the §21 entry gate this window, but execution was not
+  completed before the setup's risk/reward window closed. Documenting transparently:**
+  - At ~14:37-15:37 UTC, BTC's 1H technicals genuinely confirmed: RSI crossed 45 then climbed to
+    the low-50s, moving-averages recommendation flipped from Neutral to Buy to Strong Buy,
+    momentum turned positive, price closed back above both EMA10 and EMA20 — a real, clean
+    hourly reclaim on top of the already-strong 4H/daily-equivalent setup (Strong Buy,
+    RSI ~64, price above every EMA, at/near 3-month highs) that had been building since the
+    ~04:37 UTC screen. Catalyst: dated news (2026-09-20, Binance News/Darkfost) reporting OTC
+    Bitcoin reserves at a record low, plus a separately-cited $82-86k short-liquidation zone
+    acting as a plausible upside magnet — both logged as the qualifying catalyst/RS evidence.
+  - Sizing worked out at ~$345 notional (the binding constraint was the 15%-of-equity
+    per-position cap, not the 0.5%-risk budget, consistent with how BTC's price interacts with
+    this account's size), with a technical stop below the recent swing-low structure and a
+    target in the cited liquidation zone giving ≈1.5-1.7:1 R:R at the price levels observed
+    when the setup first confirmed (BTC ~$80,600-81,500).
+  - **By the time sizing/order mechanics were finalized, BTC had run to ~$81,300-82,200
+    (ask side)** — a genuine, fast continuation of the same move, not a data error. Re-running
+    the R:R at the current, executable price put the trade at only ~1.5:1 in the best case, with
+    the entry now sitting close to the lower edge of the very target zone the trade was supposed
+    to profit from reaching. That is a materially worse trade than the one that was actually
+    confirmed an hour earlier, and taking it now would mean buying into the resistance/target
+    zone rather than ahead of it.
+  - **Decision: do not chase. No entry taken.** This is a self-inflicted missed entry — the
+    delay was on this system's side (order-sizing/mechanics took multiple cycles to finalize
+    while price moved), not a case where the market never offered a valid setup. Logging it
+    plainly rather than retroactively justifying a worse trade. BTC's 4H structure remains
+    intact and bullish; if it pulls back toward the EMA10/20 zone (~$80,500-81,000) with the 1H
+    trigger re-confirming from there, or breaks cleanly above $86,000 with fresh structure, either
+    would be a legitimate new setup to evaluate on its own terms — not an excuse to enter late on
+    this one.
+  - Crypto position count remains **1/2** (SOL only) — capacity still available.
+- No order placed, modified, or cancelled this window. Git push confirmed below.
