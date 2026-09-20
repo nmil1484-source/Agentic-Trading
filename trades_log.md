@@ -8922,3 +8922,37 @@ Format per entry:
     breakeven, gtc) verified resting. Watching closely next cycle given the drift.
 - **New-entry screen**: skipped — crypto position count at cap (**2/2**, SOL + LINK).
 - No order placed, modified, or cancelled this cycle. Git push confirmed below.
+
+## 2026-09-20 ~02:37 UTC — AUTONOMOUS — CRYPTO EXIT: LINK-USD PEAK-RETRACEMENT RULE TRIGGERED (§21 item 5)
+- Repo integrity check (at 02:37 UTC cycle start): `git fetch` clean, working tree clean, HEAD
+  matched remote at `73882c8`; §14 "Status: ACTIVE" confirmed. No kill phrase found. Robinhood
+  MCP live.
+- Account (pre-exit): total value $2,313.91, cash $782.20.
+- **Existing position management — LINK-USD peak-retracement exit fired:**
+  - LINK-USD had crossed +1.5R (entry $11.43969395, initial stop $10.95, R=$0.48969, +1.5R =
+    $12.174) back on 2026-09-19 and reached a tracked peak of **$12.605** (~16:37 UTC 9/19).
+  - This cycle's mark was **$12.200**, a giveback of (12.605−12.200)/(12.605−11.43969) =
+    **34.8%** of the entry-to-peak gain — past the 30% full-exit threshold in §21 item 5/§16
+    item 12's mechanism.
+  - Action taken per the rule (full, non-discretionary protective exit): canceled the resting
+    breakeven stop order (`6aad50f8-102b-468e-8311-554be19bd678`, $11.44), then submitted a
+    market sell for the full 23.3 LINK position.
+  - **Fill confirmed**: order `6aaf6566-e25a-4219-9804-020b6d91e8a1`, market sell, 23.3 LINK,
+    average price **$11.9188677**, total credit **$277.70** (fee-inclusive). Price continued to
+    drift down between detection and execution (mark was $12.20 at detection, $12.02-12.07 by
+    the time the order filled a few minutes later — a brief Robinhood MCP reconnect delayed
+    execution; the position was correctly left with no resting stop during that gap since the
+    stop had already been canceled in favor of the market exit, and the full-exit condition only
+    strengthened as price kept falling).
+  - **Realized P&L: +$11.15** (cost basis $266.55 → exit credit $277.70), **+4.18%** — a
+    profitable exit, just capturing materially less than the ~+10% unrealized peak. This is a
+    profit-protection exit, not a stop-out/loss, so it does **not** count toward the §6 same-day
+    2-stop-out cooldown or the §16 item 10 3-stop-outs-in-10-days breaker.
+  - Crypto position count now **1/2** (SOL only) — capacity freed for a new entry on a future
+    cycle if one clears §21's gate.
+- Account (post-exit): total value $2,305.23, cash $1,059.90 (up from $782.20 by the $277.70
+  credit, minus SOL's small mark-to-market drift), crypto_value now reflects SOL only.
+- **SOL-USD** (unaffected by this action): mark $108.803 vs. cost basis $99.85327484 (+8.98%) —
+  off the ~$113.29 peak by ~4.0%, well under 30%. Stop (`6aad06b0-3bcf-469a-a8a4-bb7cfeb3e5a6`,
+  $102.00, gtc) verified still resting throughout.
+- Git push confirmed below.
