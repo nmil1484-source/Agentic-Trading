@@ -9544,3 +9544,32 @@ equity order path is currently blocked, no options-specific pre-check was attemp
 URGENT alert above), 0 exits, 1 stop-trail (ZS → $200.00) + 1 peak-retracement-tracking activation
 (ZS), 0 Mode C trades, Mode B position count unchanged at 2/5, Mode C 0/8.
 Git push confirmed below.
+
+## 2026-09-21 ~14:38-15:10 UTC — AUTONOMOUS — CRYPTO (§21): SOL holding at new highs, no new entry (broad crypto rally = broad chase risk)
+
+- Gate check: §14 Status **ACTIVE** confirmed, no kill phrase found.
+- **Cross-mode circuit breakers**: 0 stop-outs today (no same-day 2-stop-out cooldown). SPY/QQQ
+  moves are today's opening gap, not an inter-cycle delta (equity market only just opened this
+  morning) — market-shock breaker not meaningfully applicable yet. Clear to proceed.
+- **Account**: total value ~$2,351, crypto value $385.35 (SOL only). Crypto position count **1/2**.
+- **SOL-USD position management**: entry $99.85327484, original stop $97.00 (R = $2.85327).
+  Today's daily bar (in progress) shows high **$118.86**, current mark $118.39-118.39 — new
+  session peak. Stop verified **still resting**: order `6ab139b3...`, $110.00, gtc, `state:
+  confirmed`, `state_group: open` (via `get_crypto_orders`). **Peak-retracement tracking (§21 item
+  5)**: peak $118.86, 30%-giveback trigger = 118.86 − 0.30×(118.86−99.85327) = **$113.16** — current
+  price well above, no exit. Breakeven long since satisfied (stop $110.00 >> entry $99.85). No
+  clear new higher-low structure confirmed this cycle to justify tightening the stop further
+  beyond the existing $110.00 — leaving it in place; the peak-retracement rule is now the tighter,
+  more responsive safety net at $113.16 in any case. Position at **+6.66R** unrealized.
+- **New-entry screen** (1/2 capacity open): broad crypto rally today makes every other allowlist
+  name look extended — **all rejected on no-chase grounds**:
+  - BTC-USD: +5.67% today (open $81,418.68 → mark $86,033.74), same extension pattern already
+    flagged and correctly avoided earlier today.
+  - ETH-USD: +6.19% today, **RSI 70.8, Stoch K 93.8** — clearly overbought, textbook chase risk.
+  - XRP-USD: +5.66% today, not deep-dived given the pattern is identical to BTC/ETH.
+  - LINK-USD: +7.41% today, RSI 65.7 — and this is the same coin just exited via peak-retracement
+    a short time ago; re-entering right back into a +7.4% day would be chasing the same name twice
+    in one session. Skipped.
+  No entry this cycle — capacity remains 1/2 open for a future pullback/fresh setup.
+- No order placed, modified, or cancelled this cycle (SOL's existing stop unchanged, still
+  resting). Git push confirmed below.
