@@ -9613,3 +9613,25 @@ Git push confirmed below.
   cycle, no material change. Skipped re-screening in full depth given no new information; **no
   entry** this cycle, same no-chase reasoning as ~14:38 UTC.
 - No order placed, modified, or cancelled this cycle. Git push confirmed below.
+
+## 2026-09-21 ~15:55-16:37 UTC — AUTONOMOUS (Mode B/C hourly trigger) — order-placement error changed character; cycle ran long
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced.
+- **Circuit breakers**: QQQ $736.82→$737.26 inter-cycle (+0.06%) — no breaker. 0 stop-outs today.
+- **GOOG (2/5)**: $352.68 vs. entry $342.9799, stop $332.00 → **+0.88R**. Still below +1R. No action.
+- **ZS (2/5)**: $204.45 vs. entry $194.2599, stop $200.00. Peak still $205.94 (no new high this
+  print) → retracement trigger unchanged $202.44. No exit, no stop change.
+- **NVDA re-attempt**: re-reviewed clean at $225.05 limit (3 sh, stop $218.50 unchanged, target
+  scaled to ~$235.65 for R:R ≈1.62:1). `place_equity_order` this time failed with **`No such tool
+  available` / server does not offer this tool** — a *different* error than the last two cycles'
+  `MCP tool call requires approval`. This looks more like the transient `place_crypto_order`
+  connectivity outage pattern from earlier today (resolved via `ToolSearch` reload) than a fixed
+  permission gate — a genuinely useful diagnostic distinction, logged plainly rather than
+  conflated with the prior error. Reloaded the tool via `ToolSearch` successfully, but by the time
+  it reloaded roughly 40+ minutes had elapsed (a scheduled crypto cycle notification arrived and
+  was processed first per standing priority) — rather than force a now-stale NVDA re-entry this
+  far outside its original analysis window, deferring the fresh attempt to the next scheduled
+  Mode B/C cycle, which will re-price and re-validate the setup from scratch. Confirmed via
+  `get_equity_orders` that no order reached the broker from this attempt either.
+- **Mode C**: unchanged, 0/8, no orders placed today.
+- No order placed, modified, or cancelled this cycle. Git push confirmed below.
