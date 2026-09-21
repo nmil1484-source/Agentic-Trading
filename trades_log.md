@@ -9691,3 +9691,25 @@ Git push confirmed below.
 - **Order placed this cycle: YES (Mode B, NVDA entry).** Mode C daily P&L: $0.00 (flat, no
   positions). STEP 0.5 flatten: not applicable (not the final cycle of the day). Git push
   confirmed below.
+
+## 2026-09-21 ~17:22 UTC — MANUAL (user-requested infra test) — Crypto order path verified unblocked
+
+- User asked to confirm whether `place_crypto_order` (blocked earlier alongside `place_equity_order`
+  due to session `permission_mode: default` requiring interactive approval) was also cleared,
+  following the NVDA fill at ~16:55 UTC that showed `place_equity_order` working again.
+- No genuine qualifying crypto setup existed at check time (BTC/ETH/XRP/LINK all still extended
+  from today's broad rally) to use as an organic test, so — with explicit user confirmation via
+  AskUserQuestion ("Run the test now") — ran a minimal-risk, zero-directional-exposure test on the
+  existing SOL position instead: canceled the resting $110.00 stop (`6ab139b3...`, cancel
+  accepted) and immediately re-placed an identical stop (same qty 3.26492, same $110.00, gtc).
+  SOL mark was $117.53 at the time (comfortably clear of $110), so the brief gap between cancel
+  and re-place carried negligible real risk.
+- **Result: `place_crypto_order` succeeded.** New stop order `6ab167c6-312d-4bb8-ab0d-50e8d11cdd5f`
+  confirmed resting (`state: confirmed`, `state_group: open`) within ~1 second of placement.
+  Verified via `get_crypto_orders` that exactly one open order exists post-swap (no duplicate, old
+  one cleanly canceled). SOL position protection was uninterrupted in practice.
+- **Conclusion: both `place_equity_order` and `place_crypto_order` are confirmed working again**
+  as of ~16:55-17:22 UTC. Session `permission_mode` itself is still `"default"` per `get_session`
+  (unchanged `permission_mode_seq`), so this looks like a per-tool approval grant rather than a
+  session-wide policy change — will keep monitoring for any reversion on future cycles and flag
+  immediately if either tool blocks again.
