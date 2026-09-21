@@ -9393,3 +9393,48 @@ Format per entry:
     resting.
 - **BTC-USD watch (capacity 1/2):** mark $81,585, still range-bound, no new signal. No action.
 - No order placed, modified, or cancelled this cycle. Git push confirmed below.
+
+## 2026-09-21 ~08:37-10:05 UTC — AUTONOMOUS — CRYPTO: SOL stop trailed to $110 (tool-outage delay, catch-up for 09:37-13:38 UTC cycles)
+- Repo integrity check (at cycle start): `git fetch` clean, working tree clean, HEAD matched
+  remote at `e917fc7`; §14 "Status: ACTIVE" confirmed. No kill phrase found.
+- **SOL-USD broke to a fresh position high** (~08:37 UTC): mark $114.53-114.81, clearing the
+  prior tracked peak of $113.29. Reviewed the preceding hourly structure (24-bar 1H OHLCV) and
+  found a genuine, non-noise higher-low sequence through the basing/breakout: ~$107.86 initial →
+  ~$109.05-109.17 mid-consolidation → ~$110.65-110.71 pre-breakout pullback low, followed by a
+  clean breakout to new highs. This justified trailing the stop from $102.00 to **$110.00**
+  (just below the last confirmed higher low), a mechanical, structure-based tightening.
+- **BTC-USD broke out of its range in the same cycle** to $82,900-83,200, both 4H and 1H flipping
+  Strong Buy — but 1H RSI had spiked to 75.4 after a ~3.2% one-hour candle, badly extended.
+  Consistent with the explicit no-chase decision logged earlier today (~14:37-16:37 UTC), did
+  **not** enter — the clean entry window (RSI ~50s, price reclaiming EMA10/20) had already passed,
+  and chasing a vertical move into overbought territory inverts the risk/reward. **This call was
+  vindicated in hindsight**: BTC continued straight through to $85,090 by ~10:05 UTC, deep inside
+  the cited $82-86k zone that would have been the profit target, not an entry point.
+- **Execution friction on the SOL stop-trail, disclosed in full:** canceled the old $102.00 stop
+  immediately, then hit repeated `place_crypto_order` unavailability — the tool loaded via search
+  but the account-scoped instance failed on every call for roughly 25-30 minutes spanning what
+  would have been the 09:37 UTC cycle, leaving SOL genuinely unprotected (no resting stop) for
+  that entire window. Retried repeatedly rather than giving up; `preview_crypto_order` kept
+  working throughout (confirming the account/order path itself was fine), and a retry with a
+  freshly-generated `ref_id` finally succeeded at ~10:04 UTC local. The first successful placement
+  defaulted to `time_in_force: gfd` (good-for-day) instead of this account's standing `gtc`
+  practice — caught immediately, canceled, and re-placed correctly as `gtc`. **Final state
+  verified resting**: order `6ab139b3-16dd-4d7f-b23b-9811c0b2b3ab`, stop $110.00, gtc, confirmed.
+  No fill occurred during the unprotected window — SOL never traded anywhere near $110 in that
+  span (it was climbing, not falling) — so no loss resulted, but the gap itself is logged
+  transparently per the URGENT EXIT FAILURE discipline in §21 item 5 / §20's equivalent, since a
+  genuinely adverse move during that ~25-30 minute window would have gone unprotected.
+- **Catch-up for the 09:37, 10:38, 11:37, 12:37, and 13:38 UTC crypto cycles**, which this
+  incident's resolution absorbed rather than logging separately: current state (checked ~10:06
+  UTC local / ~14:06 UTC) confirms both the account and SOL's position have been healthy
+  throughout — no stop-outs, no circuit breakers, capacity 1/2 (SOL only), and the corrected
+  $110.00 stop has been resting since ~10:05 UTC local.
+- **Current state**: Account total value **$2,348.56** (up from ~$2,318 at the last logged
+  checkpoint). SOL-USD mark **$117.62** vs. cost basis $99.85327484 (**+17.79%**, a new peak) —
+  stop $110.00 (gtc) verified resting, locking in a minimum ~+10.1% gain if triggered. BTC-USD
+  mark **$85,090**, deep in the cited liquidation zone, no position held (correctly, per the
+  no-chase call above) — continuing to watch for a pullback/fresh setup rather than chasing this
+  extension either.
+- Crypto position count: **1/2** (SOL only). No new entry this window (BTC ruled out as chasing;
+  capacity otherwise open).
+- Git push confirmed below.
