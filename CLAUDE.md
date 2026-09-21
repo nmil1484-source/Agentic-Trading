@@ -456,6 +456,33 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-09-21: User shared a proposed alternate instruction set (terse, state-machine-style) for
+  the autonomous trading system and asked for a review before deciding whether to adopt it.**
+  Reviewed and flagged that it would have dropped or loosened several load-bearing controls if
+  adopted wholesale — no R:R floor at entry, no catalyst/RS requirement, no daily+hourly dual-
+  trigger requirement (§5B item 7), no position-count/correlation caps, no day-trade/settlement
+  protection (§17), and a same-day-trim/breakeven coupling at +1.5R that would have reversed the
+  2026-09-03 fix that deliberately decoupled them (see that entry below). It also proposed a
+  harder full-stop-on-any-API-failure behavior that would have reversed the self-healing Automatic
+  Recovery State Machine (§14, added 2026-08-19) the user explicitly built to avoid exactly that.
+  **User chose to merge only two pieces, explicitly declining the rest:**
+  1. **Stop-audit as a standing per-cycle check** — new §20 guardrail item 12: at the start of
+     every Mode C cycle, verify every currently open Mode C position still has a resting stop
+     order (not just the one most recently entered), place/close+alert if missing. **Scoped to
+     Mode C only** — Mode B uses documented-level stops, not resting broker orders (a disclosed
+     structural gap, not something this change touches), so a literal "verify resting stop" check
+     doesn't apply there without a larger design change that was out of scope for this merge.
+     §21 crypto already runs the equivalent check every cycle via its trigger prompt (`get_crypto_orders`
+     verification, item 3) — no CLAUDE.md change needed there, already covered.
+  2. **JSON cycle summary** — new §14 item 9: every autonomous cycle (all three triggers) now
+     embeds a compact JSON object in that cycle's `trades_log.md` entry alongside the existing
+     narrative, for a machine-readable audit trail. The narrative stays authoritative if the two
+     ever disagree — the JSON is a derived summary, never a second source of truth.
+  Everything else in the proposed alternate instruction set — the R:R-floor-free entry gate, the
+  +1.5R trim/breakeven coupling, the hard full-stop failure behavior, and its silence on caps/
+  correlation/day-trade protection — was explicitly **not** adopted; every existing gate, cap, and
+  circuit-breaker mechanic in this document stays exactly as it was before this entry. The three
+  autonomous trigger prompts were updated in the same pass to reflect both merged items.
 - **2026-09-17: User instructed adding a bearish/short-thesis entry gate for Mode B, after asking
   about autonomous authority for "shorts."** Clarified in the same exchange before drafting
   anything: the user meant long put options (§18/§19 already permit these as an instrument — no
@@ -1153,6 +1180,23 @@ order authority.
    intraday equity decline, MCP-error/reconciliation) — those recover automatically with no manual
    phrase needed. It remains the only way to resume after a *manual* pause.
 
+9. **JSON cycle summary (added 2026-09-21, explicit user instruction — merged from a proposed
+   alternate instruction set the user shared for review; see §12 change log).** In addition to,
+   never in place of, the narrative `trades_log.md` entry and any mandatory chat report, every
+   autonomous cycle (Mode B, Mode C, and §21 crypto alike) embeds one compact JSON object in that
+   cycle's `trades_log.md` entry, as a fenced ```json code block, for a machine-readable audit
+   trail alongside the prose. Fields: `cycle` (trigger name), `timestamp_utc`, `modes_covered`
+   (array, e.g. `["B","C"]` or `["crypto"]`), `status_gate` (`"ACTIVE"` or the discrepancy found),
+   `circuit_breakers_active` (array, empty if none), `positions` (object: `mode_b_count`,
+   `mode_c_count`, `crypto_count`), `stop_audit` (object: `checked`, `missing_found`, `placed` —
+   Mode C/crypto only, since Mode B uses documented-level stops, not resting broker orders, per the
+   disclosed gap noted elsewhere in this document; omit or null this field for a Mode-B-only cycle),
+   `exits` (array of `{symbol, reason, realized_pl}`), `entries` (array of `{symbol, mode, qty,
+   price}`), `orders_placed` (integer), `git_push` (`"success"` or `"failed"`). Keep it factual and
+   derived from the same data the narrative entry already reports — never a separate source of
+   truth, never reconciled against the prose if they'd disagree (the prose stays authoritative;
+   fix the JSON to match, not the other way around).
+
 ### Mode B Automatic Recovery State Machine (2026-08-19)
 Added at explicit user instruction ("Continuous Autonomous Operation Amendment"). **Binding
 mandate: once Mode B AUTONOMOUS_EXECUTE is live, it stays continuously active — the system must
@@ -1832,6 +1876,16 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
     already accepted for Mode C's entries, now equally true for this exit rule. Not a new gap —
     disclosed here for completeness since the user asked directly whether a tighter check cadence
     was achievable. It is not.
+12. **Stop-audit (added 2026-09-21, explicit user instruction — merged from a proposed alternate
+    instruction set the user shared for review; see §12 change log).** At the start of every Mode C
+    cycle, before any new screening or entries, verify **every currently open Mode C position**
+    still has a resting stop order — not just the one most recently entered. Call `get_equity_orders`
+    filtered to each open Mode C symbol; if a stop is missing, rejected, or not in an open state,
+    place it immediately (per item 3's placement rules) or, if it cannot be placed and verified, close
+    the position at the earliest eligible execution and log an **URGENT EXIT FAILURE** alert — same
+    discipline as item 1's entry-time check, now run as a standing per-cycle audit rather than only
+    once at entry. This catches a stop that was cancelled, rejected, or otherwise dropped by the
+    broker between cycles, which item 1's one-time entry check alone would miss.
 
 ### 2. Position sizing
 ```
