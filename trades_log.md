@@ -9752,3 +9752,37 @@ Git push confirmed below.
 - **Mode C**: 0/8, no orders today, no setups screened (Mode B screening absorbed the cycle's
   research; no Mode C-specific hourly-adapted setup identified).
 - No order placed, modified, or cancelled this cycle. Git push confirmed below.
+
+## 2026-09-21 ~18:33-18:40 UTC — MANUAL (user-requested scan, ad hoc) — no trade
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced.
+- **Circuit breakers**: QQQ $739.62→$740.27 inter-cycle (+0.09%) — no breaker. 0 stop-outs today.
+- **Account**: total $2,352.88, cash $381.10 (16.2%), deployed 83.8%. Mode B 3/5 (GOOG, ZS, NVDA).
+  Mode C 0/8, confirmed via full order history — no orders today besides the NVDA fill.
+- **GOOG**: $350.96 vs. entry $342.9799, stop $332.00 → +0.73R. No action.
+- **ZS**: $204.51 vs. entry $194.2599, stop $200.00. Peak still $205.94, retracement trigger
+  $202.44 unchanged. No exit.
+- **NVDA**: $227.35 vs. entry $226.2681, stop $218.50 → +0.14R. Below +1R. No action.
+- **Stop-audit (§20 guardrail item 12)**: Mode C has 0 open positions — nothing to audit this
+  cycle (checked: 0, missing: 0, placed: 0).
+- **Screening**: re-ran `rank_symbol_setups` across the same focused candidate set as the prior
+  cycle — essentially unchanged (AMD still +56.6% parabolic, HOOD now +29.5% well extended, both
+  rejected). **TSM re-checked specifically**: 4H Stoch K still 96.07 (vs. 95.998 ~40 min ago) —
+  no pullback/reset materialized, same no-chase call stands. No new qualifying candidate.
+- No order placed, modified, or cancelled this cycle.
+
+```json
+{
+  "cycle": "manual-scan",
+  "timestamp_utc": "2026-09-21T18:40:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 3, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
