@@ -9573,3 +9573,26 @@ Git push confirmed below.
   No entry this cycle — capacity remains 1/2 open for a future pullback/fresh setup.
 - No order placed, modified, or cancelled this cycle (SOL's existing stop unchanged, still
   resting). Git push confirmed below.
+
+## 2026-09-21 ~14:55-15:15 UTC — AUTONOMOUS (Mode B/C hourly trigger) — order-placement blocker CONFIRMED PERSISTENT
+
+- Gate check: `git fetch`/`status` clean, §14 Status **ACTIVE** confirmed, no kill phrase found.
+- **Circuit breakers**: QQQ $732.49→$735.42 between this cycle and the ~14:10 UTC check (+0.40%,
+  inter-cycle) — under the 1.5% market-shock threshold, no breaker. 0 stop-outs today.
+- **GOOG (2/5)**: $351.00 vs. entry $342.9799, stop $332.00 → **+0.73R**. Still below +1R
+  ($353.96). No action.
+- **ZS (2/5)**: $205.515 vs. entry $194.2599, stop $200.00 (trailed last cycle). Peak still
+  $205.94 (this print didn't make a new high) → peak-retracement trigger unchanged at $202.44.
+  Current price well above. No exit, no stop change.
+- **NVDA re-attempt**: re-reviewed (clean, no alerts) at updated market price ($224.95 limit,
+  stop $218.50, target raised slightly to $235.50 for R:R 1.66:1 at the new price, same sizing 3
+  sh). **`place_equity_order` failed again with `MCP tool call requires approval`** — same error
+  as last cycle, fresh `ref_id` (`888ecb86...`), confirmed via `get_equity_orders` that nothing
+  reached the broker. **This is now confirmed a persistent, not transient, blocker** — failed
+  identically on back-to-back cycles ~45 minutes apart. NVDA's setup remains valid and unchanged;
+  the block is purely infrastructure-level. Will keep re-attempting each cycle without spending
+  excessive time re-analyzing an unchanged thesis, and will flag this prominently to the user
+  every cycle it persists.
+- **Mode C**: still 0/8, no orders placed today (equity order path blocked account-wide, not
+  Mode-specific — no point screening new Mode C setups this cycle either).
+- No order placed, modified, or cancelled this cycle. Git push confirmed below.
