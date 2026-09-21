@@ -9726,3 +9726,29 @@ Git push confirmed below.
 - **New-entry screen** (1/2 open): BTC/ETH/XRP/LINK all still similarly elevated vs. this
   morning's opens — no material change from the last several cycles. No entry.
 - No order placed, modified, or cancelled this cycle. Git push confirmed below.
+
+## 2026-09-21 ~17:55-18:05 UTC — AUTONOMOUS (Mode B/C hourly trigger) — no trade
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced.
+- **Circuit breakers**: QQQ $738.82→$739.62 inter-cycle (+0.11%) — no breaker. 0 stop-outs today.
+- **GOOG (3/5)**: $352.20 vs. entry $342.9799, stop $332.00 → +0.84R. No action.
+- **ZS (3/5)**: $204.99 vs. entry $194.2599, stop $200.00. Peak still $205.94 (no new high),
+  retracement trigger $202.44 unchanged. No exit.
+- **NVDA (3/5)**: $227.45 vs. entry $226.2681, stop $218.50 → +0.15R. Below +1R, no action yet.
+- **Screening** (2/5 capacity open): `rank_symbol_setups` re-run across a focused candidate set.
+  Top: QQQ 76 (broad index, no specific catalyst), AMD 74 (parabolic +56.4% above EMA200 —
+  rejected, no-chase), GOOG 73 (held), ZS 70 (held), TSM 70, PLTR 70 (+20.6% extended), HOOD 69
+  (well extended +28.3%, flagged pullback risk — rejected), NVDA 69 (held), SPY 67 (broad index),
+  AAPL 63 (+16.4% extended). **TSM deep-dived**: real, fresh, same-day catalyst (Taiwan advanced-
+  packaging groundbreaking + 1.4nm A14 fab acceleration, both dated 2026-09-21, Reuters/Binance
+  News), fully-bullish 4H/1D/1W confluence, 4+/6 technical confirmations, clear RS vs. SPY
+  (+6.3%wk vs. SPY's +1.76%wk). **Not pursued this cycle**: 4H Stoch K at 96 — the immediate
+  (hourly) timeframe is already stretched, even though the daily-EMA200 extension (+16.5%) itself
+  is moderate, not parabolic. This is a "daily setup confirmed, hourly not yet a clean reclaim"
+  case per §5B item 7 — same no-chase discipline applied to BTC/AMD/HOOD today, extended to the
+  short-timeframe read specifically rather than just the EMA200-extension read. Will revisit on a
+  pullback/reset. No options evaluation attempted (no equity candidate cleared for entry this
+  cycle to evaluate options against).
+- **Mode C**: 0/8, no orders today, no setups screened (Mode B screening absorbed the cycle's
+  research; no Mode C-specific hourly-adapted setup identified).
+- No order placed, modified, or cancelled this cycle. Git push confirmed below.
