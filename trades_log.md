@@ -10885,3 +10885,93 @@ No order placed, modified, or cancelled this cycle. Git push confirmed below.
   "git_push": "success"
 }
 ```
+
+## 2026-09-22 ~18:55-19:00 UTC — AUTONOMOUS — Mode B + Mode C hourly: CRCL ENTRY (4/5), ZS new peak
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced. Not the final cycle of
+  day.
+- **Circuit breakers**: no same-day stop-outs. SPY $774.06 (+0.07% vs. prior close), QQQ $746.37
+  (+0.66% vs. prior close) — no market-shock breaker.
+- **FTA Regime Dashboard**: still UNKNOWN_DEGRADED (unchanged all session) — reduced-size sub-cap
+  applied to the new entry below.
+- **Account (pre-entry)**: total value $2,511.87, equity value $1,594.96, crypto value $385.82,
+  cash $531.10. Deployed (equity+crypto) = 78.85% of equity — 90% ceiling leaves ~$279.90 of
+  headroom, which ended up the binding sizing constraint below. Mode B **3/5** pre-entry.
+
+**Mode B — position management (existing):**
+- **GOOG (3/5)**: $348.52 vs. entry $342.9799, stop $342.98 (breakeven) → +0.505R. Below +1R.
+  No action.
+- **ZS (3/5)**: $209.94 vs. entry $194.2599, stop $200.00 — **new session peak again**
+  ($209.94, above the prior tracked peak $209.15). **Peak-retracement trigger updated**: new
+  peak $209.94, trigger = 209.94 − 0.30×(209.94−194.2599) = **$205.24** (up from $204.68). Now
+  roughly **+2.51R**. Current price at the peak, well above trigger — no exit. Stop unchanged at
+  $200.00.
+- **NVDA (3/5)**: $229.33 vs. entry $226.2681, stop $218.50 → +0.394R. Below +1R. No action.
+
+**CRCL — NEW ENTRY, Mode B, Tier-A (whole-share):**
+- **Re-evaluated against the full §5B Swing Entry Gate** after two prior cycles of "improving but
+  not yet actionable." Pulled fresh hourly bars (TradingView `get_ohlcv`, NYSE:CRCL, 1h, 6 bars)
+  and a 1H technicals snapshot:
+  - Bars now show a genuine 3-bar recovery off today's $93.05/$93.92 lows: closes $94.80 →
+    $94.68 → $95.24, with higher lows ($93.94 → $94.24 → $94.54) — a real reclaim structure, not
+    noise.
+  - 1H technicals: RSI 62.9 (up from mid-50s this morning, improving, not yet overbought),
+    recommendation "Buy" (score 0.445).
+  - Daily-level setup (established this morning's deep-dive, still valid): 4H/1D EMA10/20/50
+    bullish alignment with price above all three; price well above the 1D 50-SMA ($77.91);
+    confluence fully bullish across 4H/1D/1W.
+  - **Catalyst**: Circle expanded its Binance partnership and sold $100M Class A shares to
+    Binance (Dow Jones Newswires/Reuters/Seeking Alpha, published 2026-09-22 ~11:00-12:55 UTC),
+    plus a Senate 1:1-reserve-mandate story and V4 Layer-1 launch context from the prior week.
+    Real, dated, sourced.
+  - **§5B item 3 confirmations (need 2 of 6, have 4)**: (1) 9/20 EMA bullish alignment ✓; (2)
+    price above the 50-day SMA ✓; (3) retest/reclaim of a support level (today's low →
+    higher-low structure) ✓; (4) RSI above 45 and improving ✓. Volume confirmation and RS-vs-SPY
+    were not clearly established — not counted, not needed given 4/6 already clear.
+  - **§5B item 7 (daily setup + hourly trigger)**: both present — this morning's daily-chart
+    setup plus this cycle's 3-bar hourly reclaim as the specific execution trigger.
+  - **Timing**: 18:56 UTC / ~2:56pm ET — outside both the first-15-minutes and last-15-minutes
+    windows (§4). No earnings/macro conflict identified this session.
+  - **Stop/R:R**: entry (fill) $95.3655, stop $94.10 (just below the reclaim structure's most
+    recent higher low, ~$94.24), R = $1.2655/share. Target $97.26 for 1.5:1 (realistic —
+    today's earlier session high was $97.55, so the target sits inside already-traded range, not
+    a stretch).
+  - **Sizing**: 1%-of-equity risk budget ($25.12) and the 40%-per-position cap ($1,004.75) were
+    both far looser than the actual binding constraint — the **90% total-deployed ceiling**
+    (~$279.90 of headroom pre-entry) capped this at 2 shares before the UNKNOWN_DEGRADED
+    reduced-size rule; **halved to 1 share** per the Regime Rule's degraded-sizing sub-cap.
+    Final: **1 share**.
+  - **Theme/correlation**: logged as "stablecoin/crypto-infrastructure equity" — distinct from
+    GOOG (search/AI/advertising), ZS (cybersecurity SaaS), and NVDA (AI/semiconductor
+    infrastructure). No correlation-cap conflict; this is the only position in this theme.
+  - **Settled funds**: paid from settled cash ($531.10 available), no margin, no unsettled
+    proceeds used (§17 item 1).
+  - **No same-day close planned** — designed to be held overnight per Mode B's 1-15 session
+    horizon (§17 item 2).
+  - `get_equity_tradability`: tradable, individual-account-tradable, not halted.
+    `review_equity_order`: clean, no alerts (`order_checks: {}`).
+  - **ORDER PLACED AND FILLED**: BUY 1 CRCL, limit $95.40, filled @ **$95.3655**, 18:56:59 UTC.
+    Mode B position count now **4/5**.
+  - LUC status: not checked this cycle — logged **UNKNOWN** (context only, never a gate for Mode
+    B per §5B).
+
+**Mode C**: daily P&L $0 (0 positions). **Stop-audit**: 0 open Mode C positions, checked=0/
+missing=0/placed=0. No Mode C entries this cycle.
+
+Git push confirmed below.
+
+```json
+{
+  "cycle": "mode-bc-hourly",
+  "timestamp_utc": "2026-09-22T19:00:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 4, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [{"symbol": "CRCL", "mode": "B", "qty": 1, "price": 95.3655}],
+  "orders_placed": 1,
+  "git_push": "success"
+}
+```
