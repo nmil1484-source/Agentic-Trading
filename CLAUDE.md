@@ -456,6 +456,22 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-09-22: User instructed adding AAVE to §21's named crypto allowlist**, after asking for a
+  research-only look at AAVE in chat (price, technicals, catalysts) and being told it wasn't yet
+  tradeable under §21's closed list. **Verified live before drafting this change**, same diligence
+  as the original five pairs (2026-09-08): `get_currency_pairs` confirmed `AAVE-USD` is
+  `tradability: tradable` (individual account), `halted: false`; `preview_crypto_order` (a $10
+  test market buy) returned a clean preview with no rejection, confirming the order-submission
+  path is live for this pair. §21 item 1 updated to add AAVE to the allowlist (now six pairs: BTC,
+  ETH, SOL, XRP, LINK, AAVE); item 4's "only 5 coins" reasoning for the 2-concurrent-position cap
+  updated to reflect six. **No other §21 rule changes** — AAVE trades under the exact same
+  mechanics as the original five: same 0.5%-of-equity risk sizing, same 15%-of-equity per-position
+  cap, same shared 2-concurrent-position cap (not a separate allowance), same 8%-max-stop-distance
+  ceiling, same mandatory resting broker stop with breakeven/trailing/peak-retracement/7-day
+  time-stop mechanics, same entry gate (2-of-6 confirmations, catalyst or RS vs. BTC, ≥1.5:1 R:R,
+  4H-setup-plus-1H-trigger). Covered by the existing dedicated 24/7 hourly crypto trigger — no new
+  trigger needed, that Routine already screens the full §21 allowlist each cycle from CLAUDE.md,
+  not a hardcoded list of the original five.
 - **2026-09-21: User shared a proposed alternate instruction set (terse, state-machine-style) for
   the autonomous trading system and asked for a review before deciding whether to adopt it.**
   Reviewed and flagged that it would have dropped or loosened several load-bearing controls if
@@ -2024,13 +2040,14 @@ BTC-USD, ETH-USD, SOL-USD, XRP-USD, and LINK-USD are all `tradability: tradable`
 halted on this account. `preview_crypto_order` confirmed the order-submission path itself is live
 (rejected only on an intentionally-invalid test price, not on access/permission grounds).
 
-1. **Named allowlist — the only pairs this policy covers:** BTC, ETH, SOL, XRP, LINK (all vs.
-   USD). No other coin, meme token, or newly-listed asset may be traded under this policy without
-   a separate, explicit user instruction adding it here — same "no hard-coded ticker list without
-   independent verification" spirit as §2, but crypto specifically starts from a closed list
-   rather than an open universe, given the size and volatility of what Robinhood's broader crypto
-   catalog actually contains (hundreds of pairs, many thin/volatile meme coins) versus what was
-   actually verified and intended here.
+1. **Named allowlist — the only pairs this policy covers:** BTC, ETH, SOL, XRP, LINK, **AAVE**
+   (added 2026-09-22, see §12 change log) (all vs. USD). No other coin, meme token, or
+   newly-listed asset may be traded under this policy without a separate, explicit user
+   instruction adding it here — same "no hard-coded ticker list without independent verification"
+   spirit as §2, but crypto specifically starts from a closed list rather than an open universe,
+   given the size and volatility of what Robinhood's broader crypto catalog actually contains
+   (hundreds of pairs, many thin/volatile meme coins) versus what was actually verified and
+   intended here.
 2. **Spot only.** Buy-to-open longs only — no shorting, no margin, no leverage, no perpetuals/
    futures, no crypto options. This mirrors §2's equity instrument restrictions applied to crypto.
 3. **Entry gate — adapted from §5B, read on crypto's continuous timeframe:**
@@ -2064,8 +2081,9 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      sub-cap (§15 Tier-B 20%, §18 options 6%, §19 LEAPS 3%).
    - **Max 2 concurrent crypto positions** (its own small cap, separate from Mode B's 5-position
      cap and Mode C's 8-position cap) — crypto behaves as a single, highly-correlated macro asset
-     class much of the time, so 2 is already a meaningful concentration limit given only 5 coins
-     are on the allowlist to begin with; no further per-coin theme subdivision.
+     class much of the time, so 2 is already a meaningful concentration limit given only 6 coins
+     are on the allowlist to begin with (5 originally, plus AAVE added 2026-09-22); no further
+     per-coin theme subdivision.
    - Counts against the shared 90%-total-deployed/10%-cash ceiling (§3/§14 item 2) exactly like
      every other position — not an allowance on top of it.
    - Never average down — same principle as everywhere else in this document.
