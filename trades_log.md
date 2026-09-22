@@ -10462,3 +10462,72 @@ Git push confirmed below.
   "git_push": "success"
 }
 ```
+
+## 2026-09-22 ~14:06-14:20 UTC — AUTONOMOUS — FIRST SCAN OF DAY (Mode B + Mode C): GOOG crosses +1R, breakeven applied; no new entries
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced.
+- **Circuit breakers**: no same-day stop-outs found in today's log. SPY $774.82 (+0.17% vs.
+  $773.50 prior close), QQQ $744.04 (+0.35% vs. $741.47 prior close) at cycle open — well under
+  the 1.5% market-shock threshold. No breaker active.
+- **FTA Regime Dashboard**: checked (WebFetch) — still returning "Loading..." placeholders
+  throughout, no live regime classification available. Classified **UNKNOWN_DEGRADED** per §6 —
+  same as every check this entire session. Reduced-size sub-cap applies to any new whole-share
+  Mode B entry per the Regime Rule; R:R floor stays flat ≥1.5:1 (unaffected).
+- **Account**: total value $2,361.30, equity value $1,596.59, crypto value $383.61, cash/buying
+  power $381.10 (16.1%). Deployed (equity+crypto) = 83.9% — within the 90% ceiling. Mode B
+  position count **3/5** (GOOG, ZS, NVDA). Mode C position count **0/8** (confirmed flat, no
+  Mode C symbols in equity positions — consistent with mandatory same-day flatten).
+
+**Mode B — existing position management:**
+- **GOOG (3/5)**: $355.04 vs. entry $342.9799, stop $332.00 → **+1.098R — crosses +1R for the
+  first time** (prior cycles topped out at +0.88R). **Breakeven rule (§16 item 5) applied
+  mechanically: stop moved up to breakeven $342.98** (documented-level stop, Mode B's standard
+  mechanism — no resting broker order to modify). Never moved lower; this is the new floor going
+  forward. No trim yet (not at +2R). Carries overnight as usual.
+- **ZS (3/5)**: $204.50 vs. entry $194.2599, stop $200.00 (already above breakeven). Down from
+  yesterday's close $207.13 but well above the $203.05 peak-retracement trigger (peak $206.8225,
+  unchanged — no new high today). No exit, no stop change.
+- **NVDA (3/5)**: $227.33 vs. entry $226.2681, stop $218.50 → +0.137R. Below +1R. No action.
+
+**Mode B — new-entry screen:** `rank_symbol_setups` (TradingView, side=long) across the full
+57-symbol watchlist universe. Top-ranked names not already held: PLTR (+22.1% above EMA200,
+already logged as an extended pass-over), QQQ/SPY (both essentially at 3-month highs — thin,
+chase-y entries on an index), AAPL (RSI 68.4, +17.4% above EMA200), TSM (already rejected this
+session, 4H Stoch K 95-96 — hourly-stretched), SHOP (+8% today alone — clearly already chasing),
+AMD (RSI 73, **+57.5% above EMA200 — flagged by the tool itself as "parabolic, sharp pullback
+risk"** — no chase). **CRCL deep-dived** (score 71, RSI mid-50s across timeframes, pulled back
+7.7% from its 3-month high, real catalyst): confirmed a same-day, dated catalyst (Circle
+expanded its Binance partnership + sold $100M Class A shares to Binance, published 2026-09-22
+12:55 UTC) — but **price is fading against its own catalyst today**: opened $96.98, high $97.56,
+now $94.75 (down ~2.3% intraday), consistent with the market reading the $100M share placement
+as dilutive rather than the partnership as bullish. No hourly reclaim/breakout candle — today's
+hourly bars are declining from the open. **Fails §5B item 7's hourly-trigger requirement — stays
+OBSERVE**, watching for stabilization/reclaim on a later cycle. No other candidate clears without
+chasing an already-extended name.
+
+**Mode C:** too early in the session (~35-40 min post-open) for a valid opening-range (needs the
+first 30-60 min to complete) or a meaningful VWAP-pullback/mean-reversion read. **Stop-audit**:
+0 open Mode C positions, trivially checked=0/missing=0/placed=0. No entries this cycle — will
+screen properly on the next hourly cycle once the opening range is established.
+
+**§18 options evaluation (step 3a)**: not applicable — no candidate cleared §5B this cycle.
+
+No order placed, modified (beyond the documented GOOG stop update), or cancelled this cycle
+(GOOG's stop move is a log-level update, not a broker order — Mode B has no resting stop to
+modify). Git push confirmed below.
+
+```json
+{
+  "cycle": "mode-bc-first-scan",
+  "timestamp_utc": "2026-09-22T14:20:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 3, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
