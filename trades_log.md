@@ -10123,3 +10123,43 @@ Git push confirmed below.
   "git_push": "success"
 }
 ```
+
+## 2026-09-22 ~03:37 UTC — AUTONOMOUS — CRYPTO (§21): URGENT — Robinhood MCP unauthenticated, cycle halted
+
+- Gate check: §14 Status **ACTIVE** confirmed, no kill phrase found, repo synced (this part
+  completed before the blocker below was hit).
+- **Blocker**: every Robinhood Agentic tool call this cycle (`get_portfolio`,
+  `get_crypto_quotes`, `get_crypto_orders`) failed — the `robinhood-trading` MCP connector is
+  reporting **unauthenticated / requires reauthorization**, not a transient error. This is a
+  full connector-access loss, not the transient-error case §6 item 2 describes, but the same
+  compensating principle applies: **do not infer a bullish/neutral signal from missing data, and
+  do not treat the SOL-USD position or its resting stop (`6ab167c6...`, last verified resting at
+  $110.00 as of the 02:42 UTC cycle) as confirmed-protected this cycle** — it could not be
+  re-verified.
+- **No new-entry screening performed** — no market data was available to screen BTC/ETH/SOL/XRP/
+  LINK against §21's entry gate this cycle.
+- **No order placed, modified, or cancelled.** No stop-audit could be executed (tool
+  inaccessible, not merely "no missing stop found").
+- **Action required from the user, outside this session**: reauthorize the Robinhood Agentic
+  connector via claude.ai → Settings → Connectors. This session cannot run the OAuth flow itself.
+- Per this cycle's own honest limits: SOL's last *confirmed* state remains the 02:42 UTC snapshot
+  above (mark $117.98, stop resting at $110.00, peak-retracement trigger $113.81) — nothing newer
+  is confirmed. Flagging this prominently in chat as well as here, per §6's "do not infer/do not
+  proceed on missing data" principle, applied to a full connector outage rather than the
+  three-consecutive-error case it was written for.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-22T03:42:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["robinhood_mcp_unauthenticated"],
+  "positions": {"crypto_count": null},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
