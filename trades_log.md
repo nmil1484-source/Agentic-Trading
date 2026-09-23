@@ -11595,3 +11595,111 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-23 ~14:00-14:15 UTC — AUTONOMOUS — FIRST SCAN OF DAY: GOOG + CRCL gap-rule stop-outs, same-day 2-stop-out cooldown now active, no new entries
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `2c5c1c6` clean).
+  **Robinhood MCP connector access restored** as of this cycle (was auth-required during the
+  prior 13:37 UTC crypto cycle) — full tool access confirmed via `get_accounts`.
+- **Circuit breakers checked first**: no stop-outs yet today at cycle start. Equity market just
+  reopened — market-shock check: SPY $769.67 vs. prior close $773.38 (-0.48%), QQQ $740.51 vs.
+  prior close $747.46 (-0.93%), both well under the 1.5% threshold. No breaker at cycle start.
+- **Account state**: total value $2,469.84 (equity $1,701.44 + crypto $374.19), cash $394.21,
+  positions GOOG (2 sh), ZS (1 sh), NVDA (3 sh), CRCL (1 sh) — all Mode B — plus ETHA (2 sh,
+  user's own manual extended-hours buy, not a Mode B position, excluded from the 5-position
+  count). Mode B position count 4/5 entering this cycle.
+
+### POSITION MANAGEMENT — GAP-RULE STOP-OUTS (§16 item 4)
+- **GOOG**: overnight/pre-open gap took price to $338.24 (later $338.01 at execution),
+  **below the $346.90 stop** tightened at last night's final-30-min cycle (§16 item 13). Per the
+  gap rule: do not wait for a bounce, exit immediately at earliest eligible execution.
+  `get_equity_tradability` confirmed tradable/not halted; `review_equity_order` returned a clean
+  preview, no alerts (bid $338.05 × 160 Q · ask $338.10 × 40 V · last $338.075 × 44 D, 10:12am
+  ET). `place_equity_order` — SELL 2 shares GOOG, MARKET — **FILLED** at $338.0101/share avg,
+  fees $0.02 (order `6ab3de51-6151-4167-b348-1e02c033eaeb`).
+  - **Trade Card — EXIT — STRATEGY: SWING_TRADING**: entry $342.9799/share (2 sh, 2026-09-19),
+    documented stop at exit $346.90 (tightened from breakeven $342.98 the prior evening's
+    final-30-min cycle), actual exit $338.0101/share. **Planned outcome at the stop level would
+    have been a ~$7.84/share gain; actual result was a $4.9698/share loss** — the position gapped
+    clean through the tightened stop and back below original entry, a real example of the gap
+    risk §16 item 4 and §16 item 13 both disclose can happen between checks. Realized P&L:
+    -$9.96 total (2 sh × -$4.9698 - $0.02 fee). Slippage vs. documented stop: $8.89/share
+    ($346.90 stop vs. $338.01 fill). Rule triggered: §16 item 4 gap rule. Exit verified filled.
+- **CRCL**: same overnight gap pattern — price at $92.99 (execution $92.93), **below the $94.10
+  stop**. `get_equity_tradability` confirmed tradable/not halted; `review_equity_order` clean, no
+  alerts (bid $93.01 × 100 N · ask $93.16 × 1500 N · last $93.09 × 100 Q, 10:12am ET).
+  `place_equity_order` — SELL 1 share CRCL, MARKET — **FILLED** at $92.9297/share, fees $0.00
+  (order `6ab3de52-543f-4871-a769-f818bad903e7`).
+  - **Trade Card — EXIT — STRATEGY: SWING_TRADING**: entry $95.3655/share (1 sh, 2026-09-22),
+    documented stop $94.10, actual exit $92.9297/share. Realized P&L: **-$2.44** (1 sh ×
+    -$2.4358). Slippage vs. documented stop: $1.17/share ($94.10 stop vs. $92.93 fill). Rule
+    triggered: §16 item 4 gap rule. Exit verified filled. CRCL was a same-day-prior entry
+    (2026-09-22 18:56 UTC) — this is its first full session, invalidated on the very next
+    session's open; a clean example of why the time-stop/momentum-failure rules exist, though
+    here the gap rule fired first.
+- **Wash-sale flag (§6)**: both GOOG and CRCL closed at a realized loss in what this system
+  treats as a standard taxable account (no tax-advantaged flag on record). Per §16 item 9 /
+  §6, do not re-enter either symbol for 30 calendar days unless a fresh setup clears the full
+  §5B gate independently — flagged here as a wash-sale-risk reminder, not tax advice.
+- **Same-day 2-stop-out cooldown (§6, 2026-09-08 addition) — TRIGGERED THIS CYCLE.** Two
+  stop-outs (GOOG, CRCL) occurred within this single calendar day, across Mode B. Per §6: **no
+  new entries in any mode (Mode B, Mode C, or crypto) for the remainder of 2026-09-23.** Existing
+  protective exits/trailing stops on ZS and NVDA remain fully active. This is a same-day-only
+  cooldown, separate from and faster than §16 item 10's 3-stop-outs-in-10-days
+  DEGRADED_AUTONOMOUS trigger (not yet hit — 2 stop-outs today, 2 in the last 10 trading days
+  overall including today). Lifts automatically at tomorrow's first-scan cycle, no manual phrase
+  needed.
+
+### REMAINING MODE B POSITIONS — exit-condition check
+- **ZS (now 2/5)**: $210.835, entry $194.2599, initial stop $188.00 (R=$6.26/share), current stop
+  $208.75 (tightened last night). Gain = $16.5751/share = **+2.648R** — new session peak
+  ($210.835, up from $209.99). Peak-retracement trigger recalculated: $210.835 −
+  0.30×$16.5751 = **$205.8625** (up from $205.27). Current stop $208.75 remains the tighter/
+  binding level (above the retracement trigger), so the stop governs — no retracement exit, no
+  stop change needed this cycle. No exit.
+- **NVDA (now 2/5)**: $226.89, entry $226.2681, stop $218.50 (R=$7.7681/share) → +0.08R. Still
+  below +1R — breakeven/trailing mechanic has not activated. Stop unchanged. No exit.
+- Mode B position count after this cycle's exits: **2/5** (ZS, NVDA).
+
+### NEW-ENTRY SCREENING — SKIPPED (circuit breaker active)
+- Mode B step 3/3a and Mode C step 10 were **not run this cycle** — the same-day 2-stop-out
+  cooldown triggered above blocks all new entries for the rest of today regardless of setup
+  quality. Scanning resumes at tomorrow's first-scan cycle.
+
+### MODE C
+- Mode C daily P&L: $0.00 (flat, 0 positions all day). Position count: 0/8. Trade count: 0/5-6.
+  Stop-audit (§20 item 12): 0 open Mode C positions to check — trivially clean.
+
+### Funding/account state after this cycle
+- `get_portfolio` post-exits: total value $2,463.45 (equity $929.99, crypto $370.32, cash
+  $1,163.14). Decline from cycle-open ($2,469.84) is the two realized losses plus normal
+  intraday marks — well under the 3% intraday-decline breaker. Cash rose to $1,163.14 from the
+  two sale proceeds (all settled same-account, no margin used).
+- TradingView MCP: not used this cycle — screening was skipped due to the active circuit
+  breaker, so no supplementary technicals were needed.
+
+### Summary
+- **Orders placed this cycle: 2** (both Mode B protective exits — GOOG, CRCL). **Stop-audit
+  result**: Mode C trivial (0 positions); Mode B has no resting broker stops by design
+  (documented-level only), so no broker-side audit applies there — both invalidated positions
+  were correctly caught by the documented-level check this cycle instead.
+- Git push confirmed below.
+
+```json
+{
+  "cycle": "mode-bc-first-scan",
+  "timestamp_utc": "2026-09-23T14:15:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["SAME_DAY_2_STOP_OUT_COOLDOWN"],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [
+    {"symbol": "GOOG", "reason": "gap_rule_stop_out", "realized_pl": -9.96},
+    {"symbol": "CRCL", "reason": "gap_rule_stop_out", "realized_pl": -2.44}
+  ],
+  "entries": [],
+  "orders_placed": 2,
+  "git_push": "success"
+}
+```
