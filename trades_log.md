@@ -12803,3 +12803,52 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-24 ~15:55-16:00 UTC — AUTONOMOUS — Mode B + Mode C hourly: ZS new peak, TSM reversing intraday but no confirmed hourly close yet
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `0303b38`).
+- **STEP 0.5**: not the final cycle (15:55 UTC) — no flatten check.
+- **Circuit breakers**: none active. SPY $764.26 vs. prior close $767.81 (-0.46%), QQQ $736.39
+  vs. prior close $741.21 (-0.65%), both under 1.5%.
+- **ZS (2/5)**: $215.505 vs. entry $194.2599, stop $210.40 → **+3.394R — new session peak**
+  ($215.505, up from $215.205). Peak-retracement trigger recalculated: $215.505 −
+  0.30×$21.2451 = **$209.1315** (up from $208.9215) — still below the documented stop $210.40,
+  so the stop remains the binding/tighter protective level. No exit, no stop change.
+- **NVDA (2/5)**: $222.51 vs. entry $226.2681, stop $218.50 → -0.483R, still above stop. No
+  action.
+- No new orders since the last cycle (`get_equity_orders` confirmed zero).
+- **TSM re-check**: reversing intraday — now $446.82, back above yesterday's close ($446.57,
+  +0.06%) and well off today's low (~$443.05 at the 14:00-15:00 UTC bar close). This is a real
+  improvement, but the first hourly bar (14:00-15:00 UTC) closed red ($443.05), and the current
+  hour (15:00-16:00 UTC) is still ~5 minutes from closing — no *confirmed* hourly close exists
+  yet to serve as the §5B item 7 execution trigger. Holding to the same discipline as every prior
+  cycle this session: no entry without a completed confirming candle. **Stays OBSERVE** — will
+  check the 15:00-16:00 UTC bar's actual close on the next cycle (16:55 UTC) to see if it printed
+  as a genuine bullish reclaim.
+
+### MODE C
+- Mode C daily P&L: $0.00 (flat, 0 positions). Position count: 0/8. Stop-audit: 0 open
+  positions, trivially clean.
+- **New-entry screening**: not performed this cycle (time/scope) — historicals data availability
+  has resolved (TSM's hourly bars are now posting normally), so a proper hourly-adapted
+  VWAP-pullback/ORB/mean-reversion screen is feasible starting next cycle.
+
+### Summary
+- **Orders placed this cycle: 0.** Mode B position count unchanged at 2/5. STEP 0.5 flatten: not
+  applicable. TradingView MCP: not used this cycle. Git push confirmed below.
+
+```json
+{
+  "cycle": "mode-bc-hourly",
+  "timestamp_utc": "2026-09-24T16:00:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
