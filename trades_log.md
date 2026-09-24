@@ -12881,3 +12881,102 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-24 ~16:55-17:05 UTC — AUTONOMOUS — Mode B + Mode C hourly: TSM ENTRY (3/5), ZS new peak
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `7167db8`).
+- **STEP 0.5**: not the final cycle (16:55 UTC) — no flatten check.
+- **Circuit breakers**: none active. SPY $768.13 vs. prior close $767.81 (+0.04%), QQQ $741.25
+  vs. prior close $741.21 (+0.02%) — market fully recovered, essentially flat on the day.
+
+### TSM ENTRY — STRATEGY: SWING_TRADING
+- **Confirmed hourly trigger**: the 15:00-16:00 UTC hourly bar closed at $446.3955 (open
+  $443.09, high $447.05, low $442.84) — a genuine bullish reclaim candle off today's low
+  ($442.10 at the prior hour), not an unconfirmed intra-bar spike. Follow-through into the
+  16:00-17:00 UTC hour carried price to $451.64-451.97, confirming the reclaim with real
+  continuation rather than a single-bar fakeout.
+- **Full §5B gate**:
+  1. Liquid NYSE-listed ADR (Taiwan Semiconductor). ✓
+  2. Catalyst/RS: dated news 2026-09-23 (Cadence/TSMC partnership expansion for AI-chip tooling,
+     BusinessWire/Seeking Alpha; TSMC wafer-price-increase reporting, Binance News; A14-node
+     customer traction, Zacks) — supportive newsflow, not one sharp headline. **RS driver (the
+     stronger, more checkable leg)**: TSM +4.2%/wk vs. SPY roughly flat over the same window
+     (per this morning's screen), and today specifically TSM +1.19% ($451.97 vs. $446.57 prior
+     close) vs. SPY +0.04% — real, specific, dated outperformance both on the week and
+     intraday. ✓
+  3. Technical confirmations (2-of-6 needed, found 4-5): price above 50-EMA (+4.2%, this
+     morning's read) ✓; price above 50-day SMA (same relationship) ✓; support/pullback-then-
+     reclaim location (today's hourly reclaim off the session low is itself a retest/reclaim
+     pattern) ✓; RS vs. SPY (above) ✓; RSI 62.5 (hourly)/62.0 (daily), clearly improving from
+     this morning's 57.8 read and well below overbought — ✓. Volume: today's pace (~3.67M
+     shares through ~3.4hrs) is roughly in line with, not clearly above, the 30-day average
+     (9.93M/day) — neutral, not a confirming factor but not a red flag either (no abnormal
+     selling).
+  4. Stop/R:R: stop placed at **$442.50** (small buffer below the confirming hourly candle's low,
+     $442.84 — a real, tested intraday level, not an arbitrary round number). Entry fill $451.97,
+     risk $9.47/share (2.1% of entry price, within the 6% ceiling). Target for 1.5R:
+     **$466.18**. 52-week high is $479 (set 2026-06-30), so the target sits well inside the
+     name's own established range — realistic, not a stretch. R:R ≈1.5:1 at the flat floor,
+     likely better given upside room to the 52-week high. ✓
+  5. Outside first/last 15 min — order placed ~16:56 UTC, market opened 13:30 UTC, well clear of
+     both buffers. ✓
+  6. No earnings (21 days out per this morning's screen) or scheduled macro event this window. ✓
+  7. Daily setup (pullback-in-uptrend, established this morning) + hourly trigger (the confirmed
+     15:00-16:00 UTC reclaim bar, above). ✓ Both required, both present.
+- **3a — options evaluation**: **skipped this cycle** — TSM had already run up meaningfully
+  intraday by the time the trigger confirmed (+1.9% off today's low to entry), which the
+  trigger's own instruction flags as disqualifying for a fresh options structure ("only pursue if
+  the underlying is NOT already extended intraday"). Defaulted to equity only.
+- **Sizing**: 1%-of-equity risk budget = $27.74 → floor($27.74/$9.47) = 3 shares by risk alone.
+  40%-of-equity per-position cap = $1,109.78 → floor($1,109.78/$452.00) = 2 shares. **Binding
+  constraint: the 40% cap, not the risk budget** — sized to **2 shares**, consistent with this
+  session's recurring pattern (GDX/CRCL precedent) of the dollar cap governing before the risk
+  budget at this account size.
+- **Correlation/theme**: tagged **AI/semiconductor infrastructure** — shares this theme with
+  NVDA, bringing that theme to **2/2 positions**, exactly at (not over) the 2-per-theme cap. ZS
+  remains its own theme (SaaS/software), unaffected.
+- **Funding check**: settled buying power $1,503.43 confirmed via `get_accounts`
+  (unsettled_funds $0.00) immediately before the order. Post-fill equity deployment well under
+  the 90% ceiling; cash comfortably above the 10% floor.
+- **Day-trade/settlement check (§17)**: fresh entry, no same-day loss re-entry conflict (TSM has
+  no prior history in this account), no broker restriction flag on the tradability check.
+- **Order**: `get_equity_tradability` confirmed tradable/not halted; `review_equity_order`
+  returned a clean preview, no alerts (bid $451.91 × 40 N · ask $452.02 × 40 V · last $451.96 ×
+  52 V, 12:56pm ET). `place_equity_order` — BUY 2 shares TSM, LIMIT $452.00, GFD, ref_id
+  `c7e9a3f2-1b6d-4e8a-9f3c-5a2d7e4b8c91` — **FILLED** at $451.97/share avg (order
+  `6ab5564c-759d-46af-b19b-e9e88554d4eb`), fees $0.00. Total cost $903.94.
+- **Mode B position count: 3/5** (ZS, NVDA, TSM) after this fill.
+
+### Existing positions
+- **ZS (3/5)**: $216.495 vs. entry $194.2599, stop $210.40 → **+3.552R — new session peak**
+  ($216.495, up from $215.505). Peak-retracement trigger recalculated: $216.495 −
+  0.30×$22.2351 = **$209.8245** (up from $209.1315) — still below the documented stop $210.40,
+  so the stop remains the binding protective level. No exit, no stop change.
+- **NVDA (3/5)**: $224.12 vs. entry $226.2681, stop $218.50 → -0.28R, still above stop. No
+  action.
+
+### MODE C
+- Mode C daily P&L: $0.00 (flat, 0 positions). Position count: 0/8. Stop-audit: 0 open
+  positions, trivially clean. New-entry screening not performed this cycle (focus was the TSM
+  entry workup) — resumes next cycle.
+
+### Summary
+- **Orders placed this cycle: 1** (Mode B, TSM entry). STEP 0.5 flatten: not applicable. Stop-
+  audit: Mode C trivial (0 positions); Mode B has no resting stops by design (documented-level
+  only). TradingView MCP used: `get_technicals` (1H and 1D). Git push confirmed below.
+
+```json
+{
+  "cycle": "mode-bc-hourly",
+  "timestamp_utc": "2026-09-24T17:05:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 3, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [{"symbol": "TSM", "mode": "B", "qty": 2, "price": 451.97}],
+  "orders_placed": 1,
+  "git_push": "success"
+}
+```
