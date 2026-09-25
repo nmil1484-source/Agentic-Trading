@@ -13761,3 +13761,40 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-25 ~14:55-15:00 UTC — AUTONOMOUS — Mode B + Mode C hourly: NVDA/TSM holding, PLTR/HOOD weakened, no new entries
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `d70285a`).
+- **Circuit breakers**: SPY $768.58 vs. prior close $767.18 (+0.18%), QQQ $742.64 vs. prior close
+  $741.10 (+0.21%) — flat, no market-shock breaker. 1 stop-out today (ZS), below 2-stop-out
+  cooldown.
+- **NVDA (2/5)**: $224.37 vs. entry $226.2681, stop $218.50 → -0.244R, small unrealized loss, no
+  action. **TSM (2/5)**: $451.34 vs. entry $451.97, stop $442.50 → -0.067R, essentially flat, no
+  action.
+- **Mode B screening**: PLTR ($190.65, -1.01% today) and HOOD ($118.29, -2.09% today) — both
+  candidates flagged at the first-scan cycle as extended/pullback-risk — are now **red on the
+  day, not confirming a bullish hourly reclaim**. No confirmed hourly trigger for either; both
+  correctly stay OBSERVE. No other new candidates screened this cycle (no material change from
+  the first-scan watchlist pass). §18 options evaluation: N/A, no candidate cleared §5B this
+  cycle.
+- **Mode C**: 0/8 positions. Stop-audit trivial (checked 0, missing 0, placed 0). No qualifying
+  hourly-adapted VWAP-pullback/ORB/mean-reversion setup screened this cycle. Daily P&L: $0 (no
+  positions).
+- **STEP 0.5 final-cycle flatten**: N/A, not the 19:55 UTC cycle.
+- Orders placed this cycle: **0**. Git push confirmed below.
+
+```json
+{
+  "cycle": "mode-bc-hourly",
+  "timestamp_utc": "2026-09-25T15:00:00Z",
+  "modes_covered": ["B","C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
