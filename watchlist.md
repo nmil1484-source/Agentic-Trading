@@ -14,7 +14,7 @@ verification and a verified catalyst before it can appear on a Trade Card. Inclu
 TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL, VRT, PLAB, HIMS,
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
-IGV, CRCL, CBRS, GLD, SLV, PGY
+IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC
 
 **Note on PGY:** added 2026-09-03 per user instruction, after a Slack community call (source:
 "stockinvesting" channel, trader "J-Griff" — context per §9, never a signal) flagged a golden
@@ -130,3 +130,27 @@ discretion rather than by rule. Revisit if priorities change.
 
 **Note on BMNR:** equity, crypto-adjacent (Bitmine Immersion Technologies). Rule-permitted as a
 long common stock; included per explicit user instruction despite the crypto-adjacent theme.
+
+**Note on IWM, TPST, INTC:** added 2026-09-25 per explicit user instruction, sourced from a
+"Market Overview & Charts" investment-group call the user shared as context (per §9, used only as
+a starting pool — never a signal; each still needs its own independent §5B/§18 verification before
+appearing on a Trade Card). Confirmed via `search`/`get_equity_tradability`:
+- **IWM** = iShares Russell 2000 ETF (non-leveraged, rule-permitted small-cap benchmark). Not to
+  be confused with **TNA** (Direxion Daily Small Cap Bull 3X) or **TZA** (Direxion Daily Small Cap
+  Bear 3X) — both leveraged/inverse, excluded per §2.
+- **TPST** = Tempest Therapeutics, Inc. common stock (the call referred to it informally as
+  "Tempest"). Tradable, individual-account tradable; fractional trading is position-closing-only
+  and it is not all-day/extended-hours tradable — fine for a standard whole-share Tier-A entry
+  during regular hours, just not eligible for a Tier-B fractional pilot (§15) or extended-hours
+  order.
+- **INTC** = Intel Corporation common stock. Not **INTW** (GraniteShares 2x Long INTC Daily),
+  **LINT** (Direxion Daily INTC Bull 2X), **INT** (Corgi INTC 2x Daily), or **INYY** (YieldMax
+  INTC Option Income Strategy ETF, a derivative-income product) — all excluded per §2/§18's
+  single-leg-only instrument rules.
+
+None of these three have been verified against §5B yet — same as everything else in this pool,
+all still require full independent verification and a catalyst before appearing on a Trade Card.
+The call's other names (IGV, IWM aside, TSLA, CRCL, INTC aside, ZETA, SOFI, HOOD, RKLB, GOOG) were
+already on this list; two ideas from the call (a specific TSLA June 2027 LEAPS call and a CRCL
+short put) were noted as context only, per §9 — a short (cash-secured) put is not a permitted §18
+instrument (single-leg long calls/puts only) and was not adopted as a proposal.
