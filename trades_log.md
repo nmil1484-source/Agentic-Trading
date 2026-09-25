@@ -13643,3 +13643,90 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-25 ~14:06-14:15 UTC — AUTONOMOUS — FIRST SCAN OF DAY: ZS gap-rule protective exit, PLTR/HOOD watching, no other new entries
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `d2c2c38`).
+- **Circuit breakers**: SPY $766.97 vs. prior close $767.18 (-0.03%), QQQ $742.11 vs. prior close
+  $741.10 (+0.14%) — flat, no market-shock breaker. 1 stop-out today (ZS, below), below the
+  2-stop-out same-day cooldown threshold. No 3%-equity-decline, no MCP errors.
+
+### ZS — §16 item 4 GAP-RULE PROTECTIVE EXIT (Mode B)
+- **STRATEGY: SWING_TRADING.** ZS closed 2026-09-24 at $214.64 with a documented trailing stop at
+  **$214.10** (tightened during yesterday's final-30-min cycle, +3.213R at the time). Overnight the
+  stock gapped hard: today's open/first print was **$195.84** (vs. prior close $214.64, -8.76%),
+  well below the documented stop, with no news/catalyst yet identified for the gap (flagged for
+  follow-up, not required to block the mechanical exit per §16 item 4).
+- Per §16 item 4: **do not wait for a bounce — exit at the earliest eligible execution.**
+  `get_equity_tradability` confirmed ZS tradable, no restrictions. `review_equity_order` (sell,
+  market, qty 1) returned clean, no alerts.
+- **Order placed and filled**: sell 1 share ZS, market order, order id `6ab6802f-df56-4c35-b657-
+  b31239c4eb5c`, filled at **$195.9144**.
+- **Realized P&L**: entry $194.2599 → exit $195.9144 = **+$1.65/share realized gain (+0.85%)**,
+  despite the gap — the position had run to +3.2R before the gap, so even a stop blown through by
+  ~$18/share still closed net profitable. **Slippage vs. documented stop**: $214.10 stop level vs.
+  $195.9144 actual fill = **$18.19/share worse than the stop price** — a large gap, the mechanism
+  working as designed (exit immediately) but a reminder that a documented (non-resting) Mode B
+  stop offers no protection against a gap of this size, a structural gap already disclosed
+  elsewhere in this system's design (Mode B uses documented levels, not resting broker stops).
+- This counts as 1 stop-out today toward the same-day 2-stop-out cross-mode cooldown (§6) — not
+  yet triggered (need 2).
+- Mode B position count: **2/5** (NVDA, TSM) after this exit.
+
+### NVDA (2/5) — holding, no action
+- $224.40 vs. entry $226.2681, stop $218.50 (R=$7.7681) → **-0.240R**, small unrealized loss, not
+  near stop. No breakeven/trailing move (not yet +1R). No action.
+
+### TSM (2/5) — holding, no action
+- $452.27 vs. entry $451.97, stop $442.50 (R=$9.47) → **+0.032R**, essentially flat. No action.
+
+### Mode C — stop-audit and screening
+- **Stop-audit (§20 item 12)**: 0 open Mode C positions — trivial pass, checked 0/missing
+  0/placed 0.
+- **Screening**: too early in the session (first hourly bar of the day has not yet closed, ~37
+  min post-open) for any hourly-adapted VWAP-pullback/ORB/mean-reversion trigger per §20 item 5 —
+  all three setups require a closed hourly bar. **No Mode C entries this cycle** — will screen
+  again at the 14:55 UTC hourly cycle once the first hourly bar closes.
+
+### Mode B new-entry screening (watchlist.md, TradingView `rank_symbol_setups`, balanced focus)
+- Screened 39 names (7 returned "missing" — LMND, PATH, ARKG, HIMS, MU, RDW, ZETA — exchange-
+  prefix resolution still outstanding, flagged previously, not yet fixed).
+- **Top scores**: TSM 70 (held), NVDA 69 (held), **PLTR 68** (Technology Services, bullish, +8.6%
+  wk/+12.8% mo, RSI 67.2, near 3M high, +26.6% above EMA200 — extended, pullback-risk flagged per
+  §13.E), QQQ 68 (broad-market ETF, not a single-name swing idea), SPY 66 (same), AMD 66
+  (Electronic Technology — **same theme as NVDA/TSM, already 2/2 — correlation-capped, skipped
+  regardless of score**), **HOOD 65** (Finance, bullish, +5.6% wk/+8.7% mo, +22.8% above EMA200 —
+  also extended), AAPL 63, NOW 62 (Technology Services — same theme as PLTR).
+- **PLTR and HOOD are the two live candidates** (different themes, capacity available at 2/5 with
+  room). Both have a plausible daily-chart setup (uptrend, buy-rated technicals, RSI in healthy
+  range) but **neither has a confirmed hourly execution trigger yet** — same reason Mode C found
+  nothing: no hourly bar has closed today. §5B item 7 requires both a daily setup AND a confirming
+  hourly trigger; a daily setup alone stays OBSERVE. Catalyst/RS verification also not yet done
+  for either — deferred along with the hourly-trigger check to the next cycle(s) rather than
+  rushed into a same-cycle entry off an unconfirmed early print.
+- **No new Mode B entries this cycle.** PLTR and HOOD carried forward as the top watch candidates
+  for the 14:55 UTC cycle.
+- FTA Regime Dashboard: consistent with every prior check this session, treated as
+  **UNKNOWN_DEGRADED** (JS-rendered/loading placeholder to automated fetch) — logged, non-blocking
+  per §6, reduced-size sub-cap would apply to any new whole-share entry while in this state (moot
+  this cycle, no entry taken).
+
+### Account state
+- Total value **$3,011.93** (equity $1,773.85, crypto $388.59, cash $849.49) at cycle start.
+- Orders placed this cycle: **1** (ZS protective exit). Git push confirmed below.
+
+```json
+{
+  "cycle": "mode-bc-first-scan",
+  "timestamp_utc": "2026-09-25T14:15:00Z",
+  "modes_covered": ["B","C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "ZS", "reason": "gap_rule_stop_breach", "realized_pl": 1.65}],
+  "entries": [],
+  "orders_placed": 1,
+  "git_push": "success"
+}
+```
