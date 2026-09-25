@@ -14008,3 +14008,71 @@ git/status confirmed clean at each restart.
   "note": "consolidated 18:55/19:37 UTC firings due to processing delay; crypto stop-audit tool unavailable again this window"
 }
 ```
+
+## 2026-09-25 ~19:55-20:00 UTC — AUTONOMOUS — FINAL CYCLE OF DAY: Mode C flatten N/A (0 positions), day summary
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `7b2a664`).
+- **STEP 0.5 final-cycle-of-day check**: this is the 19:55 UTC cycle (~3:55pm ET), last before
+  close. Mode C confirmed **0/8** (equity_value consistent with only NVDA+TSM held, both Mode B)
+  — **flatten N/A, nothing open to flatten.**
+- **Circuit breakers**: SPY $771.49 vs. prior close $767.18 (+0.56%), QQQ $744.53 vs. prior close
+  $741.10 (+0.46%) — flat, no market-shock breaker all day. 1 stop-out today (ZS), below the
+  2-stop-out cooldown.
+- **NVDA (2/5)**: $225.29 vs. entry $226.2681, stop $218.50 → -0.126R, small unrealized loss, not
+  holding a profit — §16 item 13 final-30-min tightening does not apply. Stop unchanged. Carries
+  overnight.
+- **TSM (2/5)**: $450.875 vs. entry $451.97, stop $442.50 → -0.116R, small unrealized loss, same
+  as NVDA — item 13 doesn't apply. Stop unchanged. Carries overnight.
+- **Screening**: PLTR/HOOD remained OBSERVE all session (never got a confirmed hourly reclaim);
+  no other new candidates cleared §5B today. No new-entry screen this final cycle — priority was
+  position management/STEP 0.5 check.
+- **Mode C**: confirmed flat all day (0/8), stop-audit trivial (0 positions).
+
+### Day summary (2026-09-25)
+- **Mode B**: 1 exit today — **ZS, §16 item 4 gap-rule protective exit** at 14:07 UTC. ZS gapped
+  from $214.64 close to $195.84 at the open (-8.76%), blowing through its documented $214.10
+  trailing stop; exited at market, filled $195.9144, still **net +$1.65/share (+0.85%)** versus
+  the $194.2599 entry despite the gap, since the position had run to +3.2R before the gap. No new
+  Mode B entries today — PLTR and HOOD were the two live candidates from the first-scan screen but
+  never printed a confirmed hourly reclaim; both stayed OBSERVE the entire session. NVDA and TSM
+  held unchanged all day with small unrealized losses, both comfortably clear of their stops.
+  Mode B ends the day at **2/5** (NVDA, TSM).
+- **Mode C**: flat all day, 0/8, no trades attempted or found (mostly a function of only ~1 hour
+  of post-open time before the first scan, then no qualifying hourly-adapted setups the rest of
+  the day).
+- **Crypto (§21, separate trigger)**: SOL held all day. Stop-audit tool (`get_crypto_orders`) hit
+  repeated MCP connectivity/approval-flow issues this session (16:37, 18:37, 19:37 UTC cycles all
+  logged as unavailable) — each time deferred rather than guessed at, and the two direct
+  confirmations that did succeed (15:37 and 17:37 UTC) both showed the stop still resting at
+  $110.00 with no gap in between, so there's no indication the position was ever actually
+  unprotected. No new crypto entries today (capacity available all day, but live screening was
+  deferred on most cycles pending reliable data).
+- **Circuit breakers today**: none triggered beyond the single ZS gap-rule exit (1 stop-out,
+  below the 2-stop-out cooldown threshold). No market-shock events — SPY/QQQ both grinded higher
+  all session (+0.5% each). Equity decline never approached 3%.
+- **Watchlist**: added IWM, TPST, INTC per explicit user instruction (market-call context, §9).
+  Ran an ad-hoc §5B check on TSLA/IREN per user request (also market-call/social-post context,
+  §9) — both still structurally in an uptrend (above 50-SMA) but no confirmed hourly reclaim
+  amid today's broad pullback; held OBSERVE, no trade.
+- **Account**: total value **$3,020.07** (equity $1,577.27, crypto $397.40, cash $1,045.40) —
+  roughly flat vs. yesterday's $3,021.17 close (ZS's realized gain offset by giving back most of
+  its unrealized run-up in the gap; NVDA/TSM small losses; crypto roughly flat).
+
+### Summary
+- **Orders placed today: 1** (ZS gap-rule exit, Mode B). Git push confirmed below.
+
+```json
+{
+  "cycle": "mode-bc-hourly-final",
+  "timestamp_utc": "2026-09-25T20:00:00Z",
+  "modes_covered": ["B","C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "ZS", "reason": "gap_rule_stop_breach", "realized_pl": 1.65}],
+  "entries": [],
+  "orders_placed": 1,
+  "git_push": "success"
+}
+```
