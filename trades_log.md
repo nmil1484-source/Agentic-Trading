@@ -13860,3 +13860,37 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-25 ~16:37-16:42 UTC — AUTONOMOUS — CRYPTO (§21): stop-audit tool unavailable (MCP churn), no new entry
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `a45a1e5`).
+- **Circuit breakers**: SPY $771.14 vs. prior close $767.18 (+0.52%), QQQ $744.85 vs. prior close
+  $741.10 (+0.51%) — flat, no market-shock breaker. 1 stop-out today (ZS), below 2-stop-out
+  cooldown.
+- **SOL-USD stop-audit**: `get_crypto_orders` repeatedly failed this cycle (MCP server connect/
+  disconnect churn — tool schema dropped and reloaded multiple times, then hit a stale-approval
+  error) — could not verify directly this cycle. No action taken on the position given the
+  inability to verify; deferring to next cycle rather than guessing. `get_portfolio` crypto_value
+  $396.80, up slightly vs. prior cycle ($392.86) — consistent with the position still being held,
+  no indication of an unexpected liquidation.
+- **New-entry screen**: deferred (unrelated to the tool issue — standard deferral this cycle).
+  Crypto position count presumed 1/2 based on crypto_value continuity, not directly re-confirmed.
+- Account total value $3,022.56. Cash unchanged at $1,045.40. No crypto order placed, modified, or
+  cancelled this cycle. Git push confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-25T16:42:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success",
+  "note": "stop-audit tool unavailable this cycle due to MCP connectivity churn; will re-verify next cycle"
+}
+```
