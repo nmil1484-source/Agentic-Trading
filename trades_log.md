@@ -14384,3 +14384,30 @@ git/status confirmed clean at each restart.
   "note": "stop-audit tool unavailable 4 consecutive cycles (04:37-07:37 UTC); persistent stale-approval-card error on get_crypto_orders specifically"
 }
 ```
+
+## 2026-09-26 ~07:50 UTC — RECONCILIATION — CRYPTO (§21): stop-audit tool restored, SOL stop confirmed resting
+
+- User reported fixing the connector approvals. Retried `get_crypto_orders` immediately —
+  **succeeded**. Order `6ab167c6-312d-4bb8-ab0d-50e8d11cdd5f` confirmed **still resting**
+  ($110.00 stop, qty 3.26492, gtc, confirmed/open) — unchanged from the last direct confirmation
+  at 03:37 UTC. This closes out the 4-cycle reconciliation gap (04:37-07:37 UTC): the stop was
+  intact throughout, consistent with the flat/stable crypto_value readings logged every cycle
+  during the gap. **mcp_reconciliation_pending circuit breaker cleared** — new-entry submission
+  resumes normally at the next scheduled cycle.
+
+```json
+{
+  "cycle": "reconciliation",
+  "timestamp_utc": "2026-09-26T07:50:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success",
+  "note": "get_crypto_orders tool restored after user fixed connector approvals; reconciliation gap closed, stop confirmed intact throughout"
+}
+```
