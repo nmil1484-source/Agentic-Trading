@@ -14,7 +14,7 @@ verification and a verified catalyst before it can appear on a Trade Card. Inclu
 TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL, VRT, PLAB, HIMS,
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
-IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC
+IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST
 
 **Note on PGY:** added 2026-09-03 per user instruction, after a Slack community call (source:
 "stockinvesting" channel, trader "J-Griff" — context per §9, never a signal) flagged a golden
@@ -154,3 +154,19 @@ The call's other names (IGV, IWM aside, TSLA, CRCL, INTC aside, ZETA, SOFI, HOOD
 already on this list; two ideas from the call (a specific TSLA June 2027 LEAPS call and a CRCL
 short put) were noted as context only, per §9 — a short (cash-secured) put is not a permitted §18
 instrument (single-leg long calls/puts only) and was not adopted as a proposal.
+
+**Note on VST:** added 2026-09-26 per explicit user instruction, after a screenshot of another
+trader's options/shares portfolio was shared as context (per §9, never a signal — that trader's
+own positions in VST 180C Jan 2027, IGV 110C Jan 2027, CRCL 150C Jan 2027, COIG shares, and UBER
+90C Jan 2027 informed only which tickers to check, not any trade decision). Of that portfolio:
+IGV, CRCL, and UBER were already on this watchlist; **COIG was explicitly not added** — the source
+material itself described it as "2X leveraged COIN" exposure, excluded outright per §2's
+leveraged-instrument ban, no verification needed to reach that conclusion. User confirmed adding
+VST via direct approval ("Yes, add VST"). Confirmed via `search`/`get_equity_tradability`:
+- **VST** = Vistra Corp. common stock (independent power producer/retail electricity). Tradable,
+  fractional-tradable, individual-account tradable, all-day tradable. Not **VSTL** (Tidal Trust II
+  Defiance Daily Target 2X Long VST ETF) — leveraged, excluded per §2.
+
+VST has not been verified against §5B yet — same as everything else in this pool, still requires
+full independent verification, a catalyst, and a confirmed hourly execution trigger before it can
+appear on a Trade Card.
