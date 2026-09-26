@@ -14743,3 +14743,74 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-26 ~20:37-20:50 UTC — AUTONOMOUS — CRYPTO (§21): peak-tracking correction (SOL), full new-entry screen, no trade
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found in trades_log.md or session history.
+  Repo fetched clean, HEAD `79dac64`.
+- **Cross-mode circuit breakers**: same-day 2-stop-out cooldown 0/2 (no stop-outs logged today
+  across Mode B/C/crypto). Market-shock pause — Saturday, SPY/QQQ closed, inapplicable. No
+  reconciliation pause active.
+- **get_portfolio**: total value $3,018.99 (equity $1,577.69, crypto $395.90, cash $1,045.40) —
+  stable vs. prior cycles.
+- **get_crypto_positions**: SOL-USD only, qty 3.26492, quantity_held_for_sell 3.26492 (fully
+  covered by the resting stop). Position count **1/2**.
+- **SOL-USD stop-audit**: `get_crypto_orders` confirmed order `6ab167c6-312d-4bb8-ab0d-50e8d11cdd5f`
+  state **confirmed/open**, stop $110.00, qty 3.26492 — matches position exactly. Checked 1,
+  missing 0, placed 0.
+- **Peak-tracking correction, flagged for audit transparency**: this cycle's mark ($121.20) was a
+  new high vs. the $119.79 peak logged across the last ~30 cycles, so pulled 4H OHLCV
+  (`COINBASE:SOLUSD`) to check for any missed intraday extreme between cycle snapshots. Found the
+  actual traded high was **$122.94** (4H bar high, ~24h ago, within the breakout that ran the
+  position from the prior $116-118 range up to this area) — materially above the $119.79 that had
+  been carried forward as "the peak" since ~2026-09-21. Root cause: peak tracking was done from
+  point-in-time `get_crypto_quotes` snapshots at cycle boundaries, which can miss an intra-cycle
+  wick; OHLCV bar highs are the correct source and will be checked going forward whenever price is
+  making new highs.
+  - Entry $99.85327484, corrected peak $122.94: gain-to-peak $23.0867, 30%-giveback threshold
+    **$116.01** (vs. the stale $113.81 previously logged) — a stricter, more protective number.
+  - **No rule violation occurred**: checked the 4H bars between the peak and now — every
+    subsequent bar low stayed at or above $119.82, never approaching either the old ($113.81) or
+    corrected ($116.01) threshold. The correction changes the logged number, not any past
+    decision.
+  - Current mark $121.20 (COINBASE:SOLUSD via TradingView; Robinhood quote also ~$121.2 bid/ask)
+    is comfortably above $116.01 — **no peak-retracement exit triggered**. Resting stop remains
+    $110.00 (unchanged; still the wider backstop under the tighter retracement check, consistent
+    with every prior cycle's practice of not moving the live stop order except at a deliberate
+    trail step).
+- **New-entry screen (capacity allows, 1/2 open)** — full 6-coin allowlist (BTC, ETH, SOL, XRP,
+  LINK, AAVE; SOL excluded, already held):
+  - **BTC**: 4H Neutral (RSI 50.5, MAs flat), change -0.07% today. No edge.
+  - **ETH**: 4H Neutral (RSI 49.2), change -0.40%. No edge.
+  - **XRP**: 4H Neutral but change -3.46% today, RS **underperforming** BTC — not a long
+    candidate.
+  - **LINK**: 4H **Buy** (MAs Strong Buy, RSI 65.0, EMA10>20>50>100>200 bullish stack), change
+    +0.97% vs. BTC's -0.07% today — genuine, checkable RS outperformance. **1H checked for the
+    execution trigger: oscillators flipped to Sell (RSI 50.3, MACD below signal, momentum
+    negative), and the 1H bar sequence shows a fresh pullback (14.34→14.17→14.12→14.00 over the
+    last 4 hourly closes) with no reclaim candle yet.** Daily/4H setup present, hourly trigger
+    **not yet confirmed** — stays OBSERVE per §5B item 7/§21 item 3's dual-timeframe requirement,
+    same discipline used for PLTR/HOOD on 2026-09-25.
+  - **AAVE**: 4H **Buy** (MAs Strong Buy, RSI 63.2, same bullish EMA stack as LINK), change
+    -0.03% — flat, no clear RS edge vs. BTC today despite the strong 4H trend structure. 1H also
+    Sell-leaning oscillators (RSI 52.7 but MACD below signal, momentum -0.82, price down from an
+    intra-day high). Same verdict: 4H setup present, no confirmed 1H trigger. OBSERVE.
+  - No entry taken. Both LINK and AAVE are worth rechecking next cycle for an hourly reclaim
+    candle confirming the 4H uptrend resumes.
+- No crypto order placed, modified, or cancelled this cycle. Git push confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-26T20:50:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
