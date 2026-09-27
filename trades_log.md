@@ -15187,3 +15187,52 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-27 ~08:37-08:45 UTC — AUTONOMOUS — CRYPTO (§21): SOL stop trailed to $119.50 (new peak), LINK holding, no new entry (2/2 capacity)
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `c50aa72`).
+- **Circuit breakers**: none active. Sunday, SPY/QQQ closed, inapplicable.
+- **SOL-USD — new peak, stop trailed**: mark ticked to $124.27 this cycle, well above the prior
+  $122.94 peak. Pulled 4H/1H OHLCV to find the true intra-cycle high (not just the point-in-time
+  quote, per the discipline established 2026-09-26): confirmed the actual 1H bar high was
+  **$124.93** (the last completed hourly bar). Recomputed peak-retracement threshold: entry
+  $99.85327484, peak $124.93, gain $25.08, 30% giveback $7.52 → new threshold **$117.41** (up from
+  $116.01).
+  - **Stop-trailing action (§21 item 5, "trail under the rising 4H EMA or a confirmed higher low,
+    never lower the stop"):** the resting stop had not been moved since 2026-09-21 ($110.00) while
+    price ran to a fresh high $25/unit above entry — the mechanical continuous-trailing
+    requirement was overdue for an update. 4H EMA20 = $120.19; the last confirmed 1H swing low
+    before this breakout sat at $120.09-120.14 (several bars, 2026-09-27 ~00:00-01:00 UTC).
+    Trailed the stop to **$119.50** (below both references, ample buffer for normal noise).
+    `cancel_crypto_order` on the old $110 stop (`6ab167c6-...`) — confirmed canceled. Then
+    `preview_crypto_order`/`place_crypto_order` for a new stop_loss, SELL 3.26492 SOL, stop
+    $119.50, GTC, ref_id `c9f2a184-6b7e-4d93-8a51-2f6c9e0b4d87` (order `6ab8d609-...`) —
+    **verified resting** (`state: confirmed`, `state_group: open`) via `get_crypto_orders`. This
+    raises locked-in gain from ~$10.15/unit (+3.55R) to ~$19.65/unit (+6.9R) — a large, deliberate
+    tightening, never a widening of risk, consistent with §1's order-modification exception.
+  - Current mark $124.27 is well above both the new stop ($119.50) and the new peak-retracement
+    threshold ($117.41) — no exit triggered.
+- **LINK-USD**: stop-audit confirmed order `6ab881ec-...` still resting ($13.85, confirmed/open).
+  Mark $14.38, essentially at/just above entry ($14.373) but still well below +1R ($14.896) — no
+  breakeven action yet. No change.
+- **Stop-audit summary**: checked 2 (1 pre-existing SOL stop replaced, 1 LINK stop confirmed
+  unchanged), missing 0, placed 1 (the new SOL trailing stop).
+- **New-entry screen**: skipped — crypto position count **2/2**, at cap.
+- Account total value $3,029.19, up on SOL's rally. Cash unchanged $605.46. Git push confirmed
+  below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-27T08:45:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 1},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 2,
+  "git_push": "success"
+}
+```
