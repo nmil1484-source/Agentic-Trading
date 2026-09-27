@@ -14973,3 +14973,60 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-27 ~02:37-02:45 UTC — AUTONOMOUS — CRYPTO (§21): NEW LINK-USD ENTRY
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `a97c090`).
+- **Cross-mode circuit breakers:** same-day 2-stop-out cooldown 0/2. Market-shock pause — Sunday,
+  SPY/QQQ closed, inapplicable.
+- **Account before entry** (••••8058, `748688058`): total value $3,019.66 (equity $1,577.69,
+  crypto $396.57 [SOL only], cash $1,045.40).
+- **SOL-USD position managed first**: stop-audit confirmed order `6ab167c6-...` still resting
+  ($110.00, confirmed/open). Mark $121.46, below the $122.94 peak, above the $116.01
+  peak-retracement threshold (see 2026-09-26 ~20:50 UTC entry for the peak-tracking correction).
+  No action taken on SOL this cycle.
+- **New-entry screen: LINK-USD cleared §21** — both LINK and AAVE showed 4H Strong Buy structure
+  this cycle, but LINK had the cleaner confirmed 1H trigger:
+  1. Liquid, not halted — confirmed via `search`(currency_pair)/`preview_crypto_order` clean. ✓
+  2. RS driver: LINK +1.77% (24h) vs. BTC +0.57%/ETH +0.35% over the same window — specific,
+     checkable outperformance. ✓
+  3. Technical confirmations (2-of-6 needed, 5 present): 9/20 EMA bullish alignment (1H
+     EMA10>EMA20; 4H EMA10>20>50>100>200 full bullish stack); price above the 50-period SMA;
+     breakout above the multi-hour $13.7-14.3 consolidation on a volume-confirmed reclaim candle
+     (last 1H bar volume ~159k vs. ~96k average, ≈1.66x); RS outperformance vs. BTC/ETH; RSI
+     climbing through 45+ (1H RSI 57.7, 4H RSI 68.8) with 4H MACD above signal.
+  4. Stop/R:R: entry (fill) $14.37348891, stop $13.85 (below the last confirmed higher low at
+     $13.883 before the breakout run), risk ≈$0.52/unit (3.6% of entry, within the 8%
+     stop-distance ceiling). Target for 1.5:1: ~$14.85 (1.5R = $0.78) — plausible given the name
+     just broke out of a multi-hour range to fresh local highs. Reward-to-risk ≈1.5:1. ✓
+  5. 4H setup (Strong Buy trend, RSI 68.8, full bullish EMA stack) + 1H execution trigger (breakout
+     candle with volume pickup above the consolidation) — both present. ✓
+  - **Sizing**: 0.5%-of-equity risk budget ≈ floor($15.09/$0.52) ≈ 29 units; 15%-of-equity
+    per-position cap ($452.67) was the tightest constraint — sized at **$440.00 (30.6076 LINK)**.
+    8% stop-distance ceiling and 90%-total-deployed headroom both non-binding.
+  - **Order**: `preview_crypto_order` clean (no alerts, $0 fee). `place_crypto_order` — BUY
+    $440.00 market, ref_id `a7f3c891-2e4d-4b6a-9c1f-8d5e6b3a7f21` — **FILLED** 30.6076 LINK @ avg
+    $14.37348891 (order `6ab881de-c022-4deb-9294-21f7e38fde0f`), total $439.94.
+  - **Protective stop placed immediately**: `preview_crypto_order` clean, `place_crypto_order` —
+    SELL 30.6076 LINK, stop_loss, stop $13.85, GTC, ref_id `b8e4d192-7f3a-4c56-9e8b-1a2d6c4f9e73`
+    (order `6ab881ec-be88-4bfd-afb8-508d356fe349`) — **verified resting** (`state: confirmed`,
+    `state_group: open`) via `get_crypto_orders`. Position is protected.
+- **Crypto position count: 2/2** (SOL-USD, LINK-USD) — cap reached, no further new entries until a
+  position exits. AAVE remains a watch candidate for a future cycle if capacity frees up.
+- Git push confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-27T02:45:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 1},
+  "exits": [],
+  "entries": [{"symbol": "LINK-USD", "mode": "crypto", "qty": 30.6076, "price": 14.37348891}],
+  "orders_placed": 2,
+  "git_push": "success"
+}
+```
