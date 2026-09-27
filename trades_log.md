@@ -15578,3 +15578,80 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-27 ~17:38-17:50 UTC — AUTONOMOUS — CRYPTO (§21): NEW AAVE-USD ENTRY; SOL holding, no other change
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `6601bd1`).
+- **Circuit breakers**: same-day 2-stop-out cooldown 1/2 (LINK, earlier today) — new entries not
+  blocked. Sunday, SPY/QQQ closed, market-shock check inapplicable.
+- **SOL-USD stop-audit**: order `6ab8d609-...` confirmed/open, stop $119.50, qty 3.26492 —
+  matches position. Mark $122.85, below the $124.93 peak, above the $117.41 peak-retracement
+  threshold. No action.
+- **NEW ENTRY — AAVE-USD, STRATEGY: §21 CRYPTO (spot, named allowlist), tag CRYPTO**
+  - **Screen result**: BTC "Buy" (0.48), ETH "Buy" (0.27), XRP "Buy" (0.37) all firmed up broadly
+    this cycle, but **AAVE flipped to "Strong Buy" (0.51, RSI 61.3, +0.75% on the day)** — the
+    clearest, most-improving signal across four consecutive cycles (0.16→0.23→0.28→0.37→0.51) and
+    the first to turn positive on the day.
+  - **Catalyst** (verified, dated, multi-source via TradingView news): Aave V4 added Coinbase-
+    tokenized Apple/Nvidia/Amazon/Google/Meta/Microsoft/Tesla stocks as USDC-loan collateral
+    (The Block, CryptoProwl, CoinMarketCal, all 2026-09-25) and a Chainlink "Equities Hub"
+    integration on Aave V4 went live the same day — a real, checkable protocol-expansion catalyst,
+    not a vague narrative. URLs logged in this cycle's tool trace.
+  - **Technical confirmations (4 of 6, exceeds the 2-of-6 floor)**: (1) price well above any
+    reasonable medium-term average — 4H OHLCV shows a sustained multi-week uptrend, $91→$159 high
+    (+70% over the ~50-day/300-bar 4H window); (2) breakout-pullback-reclaim structure — 4H made a
+    new high near $159, pulled back to ~$152.53, reclaimed to $155.5+; (3) relative strength vs.
+    BTC — AAVE +70% over the observed window vs. BTC roughly flat (84,487→84,715) over the same
+    span, a specific, checkable RS comparison; (4) RSI rising and >45 across four straight cycles
+    (56.9→59.1→60.3→61.3).
+  - **4H setup + 1H trigger**: 4H = breakout to $159, shallow pullback to ~$152.5-153.1, reclaim in
+    progress. 1H trigger = three consecutive rising hourly closes off a $153.10 pullback low
+    ($154.36→$155.14→$155.50), a clean hourly reclaim candle sequence.
+  - **Pre-trade checks**: `get_currency_pairs` confirmed AAVE-USD `tradability: tradable`,
+    `halted: false`, individual-account tradable. `preview_crypto_order` (market buy, $450) came
+    back clean, no warnings.
+  - **Entry**: market buy, **2.86662 AAVE @ avg $156.97207627**, notional $449.98 (fee $0), order
+    `6ab962f3-f4a1-4b6b-aa1b-183b88876f25`, filled 2026-09-27 14:39:49 ET.
+  - **Sizing**: position notional $449.98 ≈ 14.96% of Agentic Account equity ($3,008.19) — sized
+    to the §21 item 4 15%-of-equity per-position cap, which bound tighter than the 0.5%-of-equity
+    risk budget in this case (the risk-budget-derived quantity would have been larger than the
+    cap allows). Actual dollar risk at the chosen stop ≈ $11.39 ≈ **0.38% of equity**, comfortably
+    under the 0.5% ceiling — the smaller of the two constraints was used, per policy.
+  - **Stop**: resting stop order placed at **$153.00** (2.53% below entry, well inside the 8%
+    max-stop-distance ceiling), just below the 1H reclaim base and the shallow 4H pullback low.
+    First placement (`6ab962fd-...`) defaulted to `time_in_force: gfd` (good-for-day) — caught
+    immediately, canceled, and re-placed as `time_in_force: gtc` (order `6ab9630e-c3f0-4bfd-bc2a-
+    321057ceeb15`) so the stop persists beyond today, consistent with every other resting crypto
+    stop in this account. Verified **confirmed/open** via `get_crypto_orders` before treating the
+    position as protected.
+  - **Target / R:R**: near-term target ~$165 (a modest extension above the recent $159 local high,
+    consistent with the ongoing catalyst-driven breakout) vs. $156.97 entry / $153.00 stop →
+    upside $8.03 vs. risk $3.97 ≈ **2.02:1**, clears the ≥1.5:1 floor.
+  - **Capacity/correlation**: crypto position count now **2/2** (AAVE + SOL) — at cap, no further
+    new entries this cycle. No shared theme/correlation with SOL (different sector narrative:
+    AAVE = DeFi lending/tokenized-RWA collateral expansion; SOL = L1 momentum) — no correlation
+    cap concern.
+  - Peak-retracement tracking initialized: entry $156.97, no peak update yet (peak = entry until a
+    new high prints).
+- Stop-audit totals this cycle: checked 2 (SOL + newly-placed AAVE), missing 0 initially found on
+  the corrected AAVE placement (the gfd default was caught before it mattered — order was never
+  left unprotected since the cancel+replace happened before any material time passed), placed 1
+  (AAVE, replacing the gfd default with gtc).
+- Account total value ~$3,008 before the entry; cash reduced by ~$450 to fund the AAVE buy. Git
+  push confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-27T17:50:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 1},
+  "exits": [],
+  "entries": [{"symbol": "AAVE-USD", "mode": "crypto", "qty": 2.86662, "price": 156.97207627}],
+  "orders_placed": 3,
+  "git_push": "success"
+}
+```
