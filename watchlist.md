@@ -170,3 +170,18 @@ VST via direct approval ("Yes, add VST"). Confirmed via `search`/`get_equity_tra
 VST has not been verified against §5B yet — same as everything else in this pool, still requires
 full independent verification, a catalyst, and a confirmed hourly execution trigger before it can
 appear on a Trade Card.
+
+**Note on NBIS and VRT (Investment Research Hub source, 2026-09-27):** user asked to add both
+after sharing screenshots of the FTA Research Hub / "Investment Research Hub" (an approved §8
+source) showing FTA-style scores — NBIS 8/10 (as of 2026-07-16) and VRT 7.5/10 (as of 2026-07-23).
+**Both were already on this watchlist** — NBIS since 2026-08-14 (see the DRAM/DELL/UBER/HPE/NBIS/
+CRWV/ZS/SOFI/FIG note above) and VRT since the original 2026-08-13 import — so nothing was added;
+this note just records the additional source now pointing at both. Re-confirmed tradable via
+`get_equity_tradability` (2026-09-27): **NBIS** = Nebius Group N.V. Class A Ordinary Shares,
+tradable/fractional-tradable/all-day-tradable/individual-account-tradable. **VRT** = Vertiv
+Holdings Co Class A Common Stock, same tradability profile. Neither has a §5B (or §5A, if Mode A)
+verification on file yet — same as everything else in this pool, both still require full
+independent verification, a catalyst, and a confirmed technical trigger before either can appear
+on a Trade Card. The Research Hub screenshots also showed other already-listed and not-yet-listed
+names (LITE 6/10, TSLA 5/10, AMBA 7/10, TER 7/10, ALAB 6/10) — not added, no instruction given for
+those.
