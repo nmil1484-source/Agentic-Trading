@@ -15327,3 +15327,51 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-27 ~12:37 UTC — AUTONOMOUS — CRYPTO (§21): URGENT — Robinhood MCP connector unauthenticated, stop-audit could not run
+
+- Gate check: §14 Status **ACTIVE** in CLAUDE.md (confirmed via repo read), no kill phrase found.
+  Repo synced (HEAD `45b33dc`).
+- **Data gathered at the start of this cycle, before the connector dropped** (last known-good
+  snapshot, ~08:38 ET / ~12:38 UTC): `get_portfolio` — total_value $3,026.82, equity_value
+  $1,577.69, crypto_value $843.67, cash $605.46, buying_power $605.46. `get_crypto_orders` — SOL
+  stop `6ab8d609-41f2-4895-96f9-09d057dd4290` confirmed/open, stop $119.50, qty 3.26492; LINK stop
+  `6ab881ec-be88-4bfd-afb8-508d356fe349` confirmed/open, stop $13.85, qty 30.6076 — both matched
+  the previous cycle, no drift. `get_crypto_quotes` — SOL mark $124.10, LINK mark $14.33.
+- **This cycle, before the audit could be re-verified or completed, the `robinhood-trading` MCP
+  connector returned an authentication-required state** — every Robinhood tool call is currently
+  unavailable pending the user re-authorizing the connector (this is a session/platform-level
+  auth gap, not a `get_accounts`/`get_portfolio` data error against a live connection, so it does
+  not fit §6's literal "three consecutive MCP errors" wording precisely, but it is functionally
+  the same failure mode: **zero live account/order visibility this cycle**). Treating it under the
+  same governing principle as §6/§14's MCP-error handling: **suspend new-entry order submission
+  only; do not treat this as a signal to modify or cancel any resting protective order** (no
+  action was attempted on either stop this cycle — the last-verified state above stands as the
+  most recent confirmed-good snapshot).
+- **Cannot currently do this cycle**: re-verify either resting stop is still confirmed/open,
+  re-check current mark price against the $124.93 SOL peak-retracement threshold ($117.41) or the
+  LINK +1R level ($14.896), re-check account equity/cash, or place/modify/cancel any order.
+  Scanning/logging continues per standing protocol; this entry itself is that log.
+- **URGENT — action needed from the user**: the Robinhood Agentic connector needs to be
+  re-authorized (claude.ai → Settings → Connectors → Robinhood Agentic) before the next cycle can
+  verify or protect either open position. Until reauthorized, every subsequent cycle will log the
+  same gap and continue to suspend new-entry submission, per the standing protocol — this is not a
+  one-cycle retry-and-move-on condition on this platform (no OAuth flow is runnable from inside an
+  autonomous/non-interactive cycle).
+- Git push confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-27T12:42:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "MCP_AUTH_REQUIRED",
+  "circuit_breakers_active": ["robinhood_mcp_unavailable"],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 0, "missing_found": null, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
