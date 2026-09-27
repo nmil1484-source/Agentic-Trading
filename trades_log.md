@@ -15688,3 +15688,72 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-27 ~20:37-20:50 UTC — AUTONOMOUS — CRYPTO (§21): AAVE-USD STOPPED OUT; two circuit breakers triggered
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `18ba948`).
+- **AAVE-USD STOP-OUT (full protective exit, mandatory stop mechanics, not a discretionary
+  decision):**
+  - Resting stop order `6ab9630e-c3f0-4bfd-bc2a-321057ceeb15` (stop $153.00, qty 2.86662, placed
+    2026-09-27 ~14:40 ET, re-placed as `gtc` after the earlier `gfd` correction) triggered and
+    filled at **2026-09-27 16:26:36 ET / 20:26:36 UTC**, average fill price **$152.95882988**,
+    full quantity 2.86662 AAVE, executed notional (net of fee) **$438.47**.
+  - Entry (this cycle-day, ~14:39 ET): bought 2.86662 AAVE @ average $156.97207627, executed
+    notional with fee $449.98.
+  - **Realized P&L: −$11.51** (≈ −0.38% of Agentic Account equity) — matches the planned risk
+    budget almost exactly (the breakout/reclaim thesis simply reversed faster than expected,
+    roughly 1h45m after entry). The stop executed exactly as designed; this is a controlled,
+    budgeted loss, not a rule violation or slippage event.
+- **CIRCUIT BREAKER 1 — Same-day 2-stop-out cross-mode cooldown (§6), TRIGGERED.** Two stop-outs
+  today (2026-09-27): LINK-USD (~15:01 UTC) and AAVE-USD (~20:26 UTC), both crypto. Per §6, **no
+  new entries in any mode (crypto, Mode B, Mode C) for the remainder of this calendar day** —
+  existing protective exits/trailing stops (SOL-USD's resting stop) stay fully active. Lifts
+  automatically at the next day's first-scan cycle with no manual phrase needed, per §6's stated
+  auto-recovery mechanism. Logged prominently for the Mode B/C weekday trigger's awareness when it
+  next fires (tomorrow, Monday, being a trading day).
+- **CIRCUIT BREAKER 2 — Rolling 10-day 3-stop-out DEGRADED_AUTONOMOUS (§16 item 10 / §14 Automatic
+  Recovery State Machine), TRIGGERED.** Three stop-outs in the trailing 10 days: ZS (Mode B,
+  2026-09-25), LINK-USD (crypto, 2026-09-27), AAVE-USD (crypto, 2026-09-27). Per the 2026-08-21
+  change, DEGRADED_AUTONOMOUS's only remaining restriction is a **no-new-entries-in-the-correlated-
+  theme-that-produced-the-stop-outs** lockout (position-count/risk-sizing cuts were removed) —
+  **flagging an honest gap here**: ZS (Mode B, cybersecurity/software), LINK-USD (crypto, oracle/
+  DeFi-infrastructure), and AAVE-USD (crypto, DeFi-lending) do **not** share one common sector,
+  industry, or catalyst theme in any way this system can identify — the mechanic was written
+  assuming a single correlated cluster (its original 2026-08-18 trigger was three same-theme
+  equity stop-outs). With no single shared theme across these three, there is no specific
+  theme to lock out under a literal reading of the rule. **Applying the spirit of the rule rather
+  than forcing an interpretation**: treating this as a heightened-caution flag rather than a
+  concrete lockout, and surfacing it plainly to the user rather than silently picking a theme to
+  block. DEGRADED_AUTONOMOUS is logged as entered; the "five completed regular sessions" recovery
+  clock is itself ambiguous for a 24/7 crypto lane running alongside session-bound equities — using
+  five trading-session-days (Mon-Fri) as the recovery clock, consistent with how the mechanic reads
+  everywhere else in this document, rather than five 24-hour periods. No position-count or
+  risk-sizing change per the 2026-08-21 loosening — this state currently has no concrete
+  enforcement mechanism given the no-shared-theme gap above, beyond the heightened-caution flag.
+  **User attention warranted**: this mechanic may need a documented update for how it applies
+  across Mode B/C/crypto combined when the triggering stop-outs don't share a theme.
+- **SOL-USD stop-audit**: order `6ab8d609-...` confirmed/open, stop $119.50, qty 3.26492 —
+  matches position. Mark $122.75, below the $124.93 peak, above the $117.41 peak-retracement
+  threshold. No action.
+  - Stop-audit totals: checked 2 (1 open — SOL; 1 correctly no-longer-resting — AAVE, filled as
+    designed), missing 0, placed 0.
+- **New-entry screen**: **skipped — blocked by the same-day 2-stop-out cooldown** (circuit breaker
+  1 above), independent of capacity (which is now 1/2, with a slot technically open).
+- Account total value $2,996.38 (down from the AAVE realized loss). Cash $1,017.92 (up from the
+  AAVE sale proceeds). Crypto position count now **1/2**. Git push confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-27T20:50:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["same_day_2_stop_out_cooldown", "rolling_10day_3_stop_out_degraded_autonomous"],
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "AAVE-USD", "reason": "stop_loss_triggered", "realized_pl": -11.51}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
