@@ -16603,3 +16603,60 @@ left unverified and completes the remaining first-scan-of-day work.
   "git_push": "success"
 }
 ```
+
+## 2026-09-28 ~14:55-15:02 UTC — AUTONOMOUS — MODE B/C SCAN: SOL-USD stop-out discovered (1/2 same-day count); $400 cash-only discrepancy noted; no Mode B/C trade
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `660289b`).
+- **Discovery: SOL-USD was stopped out for a real loss between the 14:44 UTC crypto cycle and this
+  cycle.** `get_crypto_orders` shows the $117.00 stop (confirmed/resting as of 14:44 UTC) filled at
+  average **$116.9521121**, full qty 4.30959, between 08:43-10:43 ET. Entry was $120.65872608 →
+  **realized loss ≈ −$15.97** (0.5) per-unit loss $3.70661 × 4.30959). **This IS a genuine
+  stop-out** (unlike today's earlier profitable LINK trailing exit) — counts toward the §6
+  same-day 2-stop-out cross-mode cooldown. **Today's count: 1/2** — not yet at the threshold, but
+  one more stop-out anywhere (Mode B/C/crypto) today pauses all new entries for the rest of the
+  calendar day. Crypto position count is now **0/2** — fully flat.
+- **Cash-only discrepancy identified, logged per the 2026-09-08 §6 rule (does not pause
+  new-entry authority since positions/orders otherwise reconcile cleanly):** expected cash after
+  today's two crypto exits (LINK +$423.17, SOL +$504.01) on top of the 14:07 UTC snapshot
+  ($973.19 cash) is ≈$1,900.37. Actual reported cash is **$2,300.37 — a $400.00 gap**, a clean
+  round number consistent with the same benign-manual-transfer pattern already seen twice this
+  session (2026-09-04 $300, 2026-09-07 $1,000, both confirmed user transfers). Equity_value's
+  small drift (−$11.98, $1,586.375→$1,574.40) is fully explained by ordinary NVDA/TSM
+  mark-to-market, not a reconciliation issue. Positions and orders for every instrument reconcile
+  exactly — this is a pure cash-balance delta, so per the 2026-09-08 rule it is logged and
+  reported, not treated as a pause trigger.
+- **Market check**: SPY $763.75 (−0.99% vs. Friday's close), QQQ $732.00 (−1.68%) — broad
+  continued risk-off since this morning. Single-cycle move vs. the 14:37 UTC check: SPY −0.44%,
+  QQQ −0.54%, both under the 1.5% market-shock threshold — no breaker fires, but the tape is
+  weakening, not improving.
+- **Mode B — NVDA/TSM, no action triggered, both drifting with the weak tape**: NVDA $228.98
+  (entry $226.27, stop $218.50) → **+0.349R**, down from +0.629R at 14:37 UTC as the market
+  pulled back; still below +1R, no breakeven due. TSM $443.73 (entry $451.97, stop $442.50) →
+  **−0.870R**, drifting closer to its stop but not hit; no action, continue monitoring closely
+  next cycle given today's trend.
+- **Mode B watchlist screen**: no material change since the 14:37 UTC reconciliation pass (PLTR/
+  HOOD/INTC all still fail the §5B catalyst/RS gate; today's broader selloff has if anything
+  gotten worse, not better) — **OBSERVE**, no new candidate pursued. Given one stop-out already
+  logged today and a weakening tape, standing down on new longs is the more disciplined call
+  regardless.
+- **Mode C**: `get_equity_positions` confirms zero Mode C positions (only NVDA/TSM, both Mode B).
+  Stop-audit trivially satisfied. Daily P&L n/a. No screening pursued this cycle — same broad
+  risk-off backdrop argues against forcing a fresh long day-trade setup.
+- **No orders placed, modified, or cancelled by the agent this cycle** — SOL's stop fired
+  autonomously at the broker before this cycle began; nothing else required action.
+
+```json
+{
+  "cycle": "mode-b-c-hourly",
+  "timestamp_utc": "2026-09-28T15:02:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["same_day_stop_out_count_1_of_2"],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "SOL-USD", "reason": "stop_loss_hit", "realized_pl": -15.97}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
