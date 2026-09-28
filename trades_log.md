@@ -16971,3 +16971,39 @@ left unverified and completes the remaining first-scan-of-day work.
   "git_push": "success"
 }
 ```
+
+## 2026-09-28 ~19:55-19:59 UTC — AUTONOMOUS — MODE B/C SCAN (FINAL CYCLE OF DAY): NVDA/TSM holding, no Mode C position to flatten, no new entry
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `3ff08d5`).
+- **STEP 0.5 final-cycle check**: this is the last scheduled cycle of the day (19:55 UTC ≈ 3:55pm
+  ET). `get_equity_positions` confirms **zero Mode C positions** — no flatten action required.
+  Mode B positions (NVDA/TSM) are unaffected by this step; Mode B holds overnight by design.
+- **Circuit breakers**: same-day stop-out count remains **1/2**. Market-shock: SPY −0.07%, QQQ
+  −0.07% vs. the 19:41 UTC crypto-cycle check — flat, no breaker. Tape drifted down slightly into
+  the close (SPY −0.85% / QQQ −1.14% off Friday's close).
+- **Mode B — NVDA/TSM, both still holding modest gains, no action triggered**: NVDA $228.485
+  (entry $226.27, stop $218.50) → **+0.285R**. TSM $452.865 (entry $451.97, stop $442.50) →
+  **+0.095R**. Both below +1R breakeven trigger, no action due. Both carry overnight per Mode B's
+  design (§17 item 2).
+- **Mode B watchlist screen**: no material change through the session — **OBSERVE**, no new
+  candidate pursued.
+- **Mode C**: zero positions all session; no entries pursued today, no stop-audit findings.
+- **No orders placed, modified, or cancelled this cycle.** No Mode B/C trades occurred at all
+  today — today's only order activity was on the crypto lane (SOL-USD stop-out ~15:02 UTC,
+  LINK-USD entry ~16:40 UTC), logged separately under the crypto trigger.
+
+```json
+{
+  "cycle": "mode-b-c-hourly",
+  "timestamp_utc": "2026-09-28T19:59:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["same_day_stop_out_count_1_of_2"],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
