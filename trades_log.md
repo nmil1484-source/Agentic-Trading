@@ -16486,3 +16486,75 @@ outage entries above for precedent).
   "git_push": "success"
 }
 ```
+
+## 2026-09-28 ~14:37 UTC — MCP RECONNECTED — reconciliation of the interrupted first-scan cycle; LINK-USD exited profitably during the outage
+
+Robinhood MCP reauthorized by the user. This entry reconciles everything the 14:07 UTC outage
+left unverified and completes the remaining first-scan-of-day work.
+
+- **Discovery: LINK-USD was exited during the outage, via its own resting stop — no agent action
+  needed or possible.** `get_crypto_orders` (symbol=LINK-USD) shows the $14.30 trailing stop
+  placed at 12:40 UTC filled at **10:16 UTC... (fill timestamps in ET: order placed 08:42 ET,
+  filled 09:40-10:16 ET)** — average fill **$14.2995608**, full quantity 29.5937 LINK. Entry was
+  $14.02177269, so this is a **profitable exit, realized gain ≈ +$8.22** (0.27779 × 29.5937) —
+  **not a stop-out** for §6/§16-item-10 circuit-breaker counting purposes, same distinction
+  applied to the SOL exit earlier this session. This is exactly the scenario the mandatory
+  resting-broker-stop design (§21 item 5, distinct from Mode B's documented-level approach) exists
+  for: the stop protected and locked in the gain correctly with zero agent intervention, even
+  through a multi-hour MCP outage that would have left a Mode B-style documented stop completely
+  unmonitored and unenforced over the same window. `get_crypto_positions` confirms LINK-USD is now
+  fully closed (not present in the position list).
+- **SOL-USD**: still holding, unaffected by the outage. Stop order `6aba60f4-...` confirmed/open,
+  $117.00, qty 4.30959, `gtc`. Mark $119.01 (vs. entry $120.65872608, 1R=$3.65873) → **≈ −0.45R**,
+  still above stop, below +1R ($124.317). No action due.
+  - Crypto stop-audit: checked 2 (SOL open + LINK's closed history), missing 0. Crypto position
+    count now **1/2** — one slot freed by the LINK exit.
+- **Mode B — NVDA/TSM reconciled, both unchanged and unaffected by the outage**: NVDA (3 sh @
+  $226.27, stop $218.50) — quote $231.16 → **+0.629R**, below +1R breakeven trigger, no action.
+  TSM (2 sh @ $451.97, stop $442.50) — quote $446.69 → **−0.557R**, small unrealized loss, still
+  clear of stop, no action. Neither at a time-stop boundary (NVDA already past +0.5R; TSM only 2
+  sessions old).
+- **Mode C**: `get_equity_positions` confirms exactly NVDA + TSM open — **zero Mode C positions**.
+  Stop-audit trivially satisfied (nothing to audit). Daily P&L n/a (no Mode C position, no Mode C
+  fill today).
+- **Market/regime re-check**: SPY $767.11 (−0.55% vs. prior close), QQQ $735.97 (−1.14%) — both
+  still under the 1.5% single-cycle shock threshold, but broadly risk-off. TradingView news
+  confirms why: renewed U.S.-Iran tension headlines and a Treasury-market selloff are hitting
+  chip/tech names sector-wide this morning (explains INTC's −4% move flagged at 14:07 UTC — this
+  is macro/sector-wide, not an INTC-specific catalyst, and it's bearish context, not a bullish one).
+- **Mode B candidate conclusion (completes the interrupted §5B screen)**: pulled news for the
+  three strongest pre-screened names.
+  - **INTC**: move is macro/sector risk-off (Iran tensions, Treasury selloff), not a company
+    catalyst, and it's a bearish-direction move — fails §5B item 2, no bullish catalyst/RS driver.
+  - **PLTR**: only soft context (Zacks "Bull of the Day" commentary, a Pentagon-adoption weekly
+    recap) — not a dated, verifiable catalyst event, and PLTR (−0.75%) isn't showing checkable RS
+    outperformance against today's down tape. Fails item 2's specificity bar.
+  - **HOOD**: news this week is neutral-to-negative (CEO insider stock sale, an on-chain
+    rug-pull-linked report) — no bullish catalyst present. Fails item 2.
+  - **No candidate reaches a 2-of-6 technical tally or stop/R:R computation** — all three fail at
+    the catalyst/RS gate first, so that further work isn't reached. **Conclusion: OBSERVE across
+    the Mode B watchlist this cycle** — reasonable given today's broad risk-off tape; standing
+    down rather than forcing a long entry into sector-wide selling pressure.
+  - DELL/IWM's `get_technicals` exchange-prefix failures remain unresolved (not re-attempted this
+    pass — low priority, neither showed a standout signal before failing).
+  - Mode C: given the same risk-off backdrop (chips/tech broadly selling off, not a trending/
+    holding tape), no VWAP-pullback/ORB/mean-reversion setup was pursued in detail this pass —
+    OBSERVE, zero positions, nothing at risk.
+- **No orders placed, modified, or cancelled by the agent this reconciliation** — the only crypto
+  order action (LINK's stop firing) executed autonomously at the broker before reconnection.
+
+```json
+{
+  "cycle": "mode-b-c-first-scan",
+  "timestamp_utc": "2026-09-28T14:37:00Z",
+  "modes_covered": ["B", "C", "crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 1},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "LINK-USD", "reason": "trailing_stop_profitable", "realized_pl": 8.22}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
