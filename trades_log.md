@@ -16789,3 +16789,39 @@ left unverified and completes the remaining first-scan-of-day work.
   "git_push": "success"
 }
 ```
+
+## 2026-09-28 ~16:55-16:59 UTC — AUTONOMOUS — MODE B/C SCAN: TSM turns positive, NVDA holding gains, no action; no new entry
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `adfbdb7`). Not the
+  final cycle of the day.
+- **Circuit breakers**: same-day stop-out count remains **1/2** (SOL-USD, ~15:02 UTC). Market-
+  shock: SPY +0.23%, QQQ +0.29% vs. the 16:37 UTC crypto-cycle check — flat, no breaker. Tape
+  continuing its slow recovery (SPY −0.54% / QQQ −0.93% off Friday's close, best levels of the
+  day so far).
+- **Mode B — NVDA/TSM, both continuing to improve, no action triggered**: NVDA $231.09 (entry
+  $226.27, stop $218.50) → **+0.620R**, still below +1R breakeven trigger. TSM $452.69 (entry
+  $451.97, stop $442.50) → **+0.076R**, **first time back above entry** since this morning's dip,
+  still well below +1R. No breakeven/trailing/time-stop action due for either.
+- **Mode B watchlist screen**: no material change since the 14:37 UTC full pass — **OBSERVE**, no
+  new candidate pursued.
+- **Mode C**: `get_equity_positions` confirms zero Mode C positions. Stop-audit trivially
+  satisfied. No screening pursued.
+- **No Mode B/C orders placed, modified, or cancelled this cycle.** (Crypto's LINK-USD entry this
+  hour was logged separately under the crypto trigger, per the scope split between the two
+  triggers.)
+
+```json
+{
+  "cycle": "mode-b-c-hourly",
+  "timestamp_utc": "2026-09-28T16:59:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["same_day_stop_out_count_1_of_2"],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
