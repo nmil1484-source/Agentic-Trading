@@ -16414,3 +16414,75 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-28 ~14:07 UTC — AUTONOMOUS — MODE B/C FIRST SCAN OF DAY: PARTIAL — Robinhood MCP dropped mid-cycle (URGENT)
+
+**This is the mandatory once-daily first-post-open-cycle report — filed in full per that
+requirement even though the cycle could not complete.** Robinhood MCP (`robinhood-trading`) went
+unauthenticated partway through this cycle, after account/position data had already been pulled
+but before the full §5B gate work, Mode C section, or any order-capable step could run. No
+Robinhood tool calls were attempted after the outage was detected (known-unauthenticated,
+consistent with this session's standing handling of this condition — see the 2026-09-08/09
+outage entries above for precedent).
+
+- Gate check: §14 Status **ACTIVE** (confirmed via `grep` before the outage), no kill phrase
+  found. Repo synced at cycle start (HEAD `a7093de`).
+- **Circuit breakers**: same-day 2-stop-out cooldown 0/2 (not active). Market-shock check: SPY
+  $767.83 (prev close $771.35, −0.46%), QQQ $737.04 (prev close $744.50, −1.00%) — both under the
+  1.5% single-cycle threshold, no breaker.
+- **FTA Regime Dashboard**: checked via WebFetch — returned only "Loading..." placeholder content,
+  no populated classification. Classified **UNKNOWN_DEGRADED** per §6/§9 (not bearish, not
+  blocking) — same result this dashboard has returned on effectively every check this entire
+  session. Reduced-sizing/flat-≥1.5:1-R:R rule would apply to any Mode B entry this cycle, moot
+  since none was reached.
+- **Account snapshot (last known, pre-outage)**: `get_portfolio` (748688058) — total value
+  $3,506.97, equity value $1,586.375, crypto value $947.41, cash $973.19, buying power $973.19.
+  Retail account ••••7533 confirmed excluded (`agentic_allowed: false`); Agentic ••••8058 active.
+  **This snapshot predates the outage and was not re-verified before it hit — treat as stale for
+  any decision requiring live settled buying power.**
+- **Mode B open positions (last known, pre-outage)**: exactly two — NVDA (3 sh @ $226.2681,
+  documented stop $218.50, R=$7.7681/sh) and TSM (2 sh @ $451.97, documented stop $442.50,
+  R=$9.47/sh) — both confirmed via `get_equity_positions`, stop levels reconstructed from this
+  log's history since Mode B carries no resting broker stop (by design, documented gap). No
+  resting equity orders exist for either (`get_equity_orders` state=confirmed/queued both empty —
+  expected). Quotes at last check: NVDA $231.03 (+0.613R, below +1R breakeven trigger), TSM
+  $446.305 (−0.598R, small unrealized loss, still clear of stop). **Neither position's live state
+  has been re-verified since the outage** — no breakeven/trailing/stop/time-stop action could be
+  confirmed or executed this cycle if warranted; this is flagged, not assumed safe.
+- **Mode B watchlist pre-screen (technical snapshot only, TradingView `get_technicals` 1D,
+  incomplete — outage hit before catalyst/2-of-6/stop/R:R/hourly-trigger work began)**: `NASDAQ:PLTR`
+  Buy 0.35/RSI 61.9/$188.245(−0.75%); `NASDAQ:HOOD` Buy 0.40/RSI 56.8/$119.005(−0.33%);
+  `NYSE:CRCL` Sell −0.22/RSI 48.4/$86.51(−2.80%); `NASDAQ:DELL` no technicals (exchange-prefix
+  issue, unresolved); `NYSE:VST` Sell −0.35/RSI 40.8/$137.405(−0.76%); `NYSE:IWM` no technicals
+  (same issue); `NASDAQ:INTC` Buy 0.49/RSI 60.7/$118.0295(−4.04%, notable move, catalyst unchecked);
+  `NASDAQ:TPST` Sell −0.47/RSI 44.9/$0.8232(−0.70%). **None of these cleared or failed §5B — no
+  candidate reached a Trade Card.** No catalyst/news pull, no discrete 2-of-6 confirmation tally,
+  no stop/R:R computation, and no daily+hourly-trigger check were completed for any name before
+  the outage. This work remains outstanding and does not carry over as a standing conclusion —
+  it will need to restart from watchlist screening next cycle, not resume from this partial list.
+- **Mode C**: not reached — no daily P&L check, no stop-audit for any open Mode C position, no
+  screening. Status of any Mode C position is unknown as of this log entry; must be the first
+  action verified once MCP access is restored, per the standing stop-audit discipline.
+- **No orders of any kind were placed, modified, or cancelled this cycle** — impossible without
+  Robinhood MCP access, and none were attempted against a known-unauthenticated connector.
+- **Action needed**: this connector requires reauthorization by the user (claude.ai connector
+  settings) — this cannot be resolved from inside this session. Until reauthorized, no Mode
+  B/C/crypto cycle can verify positions, manage stops, or place orders; protective-exit management
+  is effectively unavailable for the duration of the outage, same structural exposure already
+  disclosed and accepted for prior outages of this same connector.
+
+```json
+{
+  "cycle": "mode-b-c-first-scan",
+  "timestamp_utc": "2026-09-28T14:07:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": null},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
