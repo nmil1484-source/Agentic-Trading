@@ -15912,3 +15912,49 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-28 ~02:37-02:45 UTC (2026-09-27 ~22:37 ET) — AUTONOMOUS — CRYPTO (§21): SOL-USD EXITED PROFITABLY via trailing stop
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `e9b05fd`).
+- **SOL-USD PROFITABLE TRAILING-STOP EXIT (full protective exit, mandatory stop mechanics, not a
+  discretionary decision) — this is a WIN, not a loss/stop-out:**
+  - Resting stop order `6ab8d609-41f2-4895-96f9-09d057dd4290` (trailed up to $119.50 several
+    cycles ago as price ran to a $124.93 peak — see the ~08:37 UTC cycle's stop-trail entry)
+    triggered and filled at **2026-09-27 21:49:20 ET**, average fill price **$119.52190783**, full
+    quantity 3.26492 SOL, executed notional (net of fee) **$390.22**.
+  - Entry (2026-09-16 ~20:39 ET, well before this session window): bought 3.26492 SOL @ average
+    $99.85327484, executed notional with fee $326.02.
+  - **Realized P&L: +$64.20 (+19.7% on the position)** — the trailing-stop mechanic (breakeven at
+    +1R, then trailing under the rising 4H EMA/confirmed higher low as price ran from ~$100 to a
+    $124.93 peak) worked exactly as designed: it gave the trend room to run, then locked in a
+    solid gain once price reversed down through the trailed level. **This does not count as a
+    "stop-out" for the §6 same-day-2-stop-out or §16 item 10 rolling-10-day-3-stop-out circuit
+    breakers** — both are specifically about loss-taking invalidations, not a profitable trailing-
+    stop harvest; this SOL exit is excluded from both counts. The LINK/AAVE circuit breakers from
+    earlier today are unaffected and continue on their own terms below.
+- **Circuit breakers**: same-day 2-stop-out cooldown still **ACTIVE** for the remainder of this ET
+  calendar day (LINK + AAVE, both genuine losses, earlier today) — new entries remain blocked
+  regardless of the SOL exit or the now-fully-open 0/2 capacity. Rolling 10-day 3-stop-out
+  DEGRADED_AUTONOMOUS also remains active and is unaffected by this profitable exit (still ZS +
+  LINK + AAVE = 3 genuine stop-outs in the trailing 10 days). Sunday, SPY/QQQ closed, market-shock
+  check inapplicable.
+- **Stop-audit**: crypto position count now **0/2** — nothing to audit this cycle.
+- **New-entry screen**: skipped — same-day 2-stop-out cooldown still active regardless of capacity.
+- Account total value $2,973.41 (crypto fully liquidated to cash following the SOL exit). Cash
+  $1,408.14. Git push confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-28T02:45:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["same_day_2_stop_out_cooldown", "rolling_10day_3_stop_out_degraded_autonomous"],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "SOL-USD", "reason": "trailing_stop_profitable_exit", "realized_pl": 64.20}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
