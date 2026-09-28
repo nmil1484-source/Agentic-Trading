@@ -16201,3 +16201,74 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-28 ~10:37-10:50 UTC — AUTONOMOUS — CRYPTO (§21): NEW LINK-USD ENTRY (reversal off deepening selloff)
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `be97f5c`... chain
+  continued through `cf5d671`).
+- **Circuit breakers**: same-day 2-stop-out cooldown 0/2. Rolling 10-day 3-stop-out
+  DEGRADED_AUTONOMOUS remains active (no-shared-theme gap still flagged, unaffected by this entry
+  since LINK is a fresh setup, not a re-entry into the correlated cluster). No SPY/QQQ market-shock
+  check yet meaningful.
+- **NEW ENTRY — LINK-USD, STRATEGY: §21 CRYPTO (spot, named allowlist), tag CRYPTO**
+  - **Screen context**: broad crypto selloff had been deepening across every allowlist name for
+    several consecutive cycles (BTC/ETH/SOL/XRP all still red). LINK was the first to show a real
+    reversal: RSI crossed back above 50 (53.6, up from 39-46 range over prior cycles), and — most
+    notably — **LINK's mark price ($13.8907) was essentially back to its own daily open
+    ($13.8926)**, meaning it had fully round-tripped the day's decline while BTC/ETH/SOL/XRP/AAVE
+    all remained deeply negative — a real, checkable relative-strength divergence from the rest of
+    the allowlist, not just an oscillator reading.
+  - **Catalyst** (verified, dated, multi-source via TradingView news): "DTCC Q4 App to Use
+    Chainlink / U.S. dollar; $56.7M Inflows" (TradingView, 2026-09-26), "Chainlink (LINK) Open
+    Interest Hits 25% in Last 24 Hours: Breakout Is Happening" (U.Today, 2026-09-25), plus the
+    Aave V4 Equities Hub integration (2026-09-25, shared with the earlier AAVE catalyst) and an
+    Infosys/CCIP institutional-adoption partnership (2026-09-22). A real, dated institutional-
+    adoption catalyst cluster, not a vague narrative.
+  - **Technical confirmations (4 of 6)**: (1) price holding well above the broader multi-week base
+    (4H window shows +67% net change over ~50 days, $8.29→$13.86) — structural strength intact
+    despite the pullback; (2) pullback-to-support-and-reclaim structure — 4H/1H pulled back from a
+    $14.49 recent high to a $13.515 swing low, then reclaimed sharply; (3) relative strength vs.
+    BTC and vs. the rest of the allowlist — LINK round-tripped its entire daily decline while every
+    other coin stayed deeply red, a specific and checkable divergence; (4) RSI rising and above 45
+    (53.6, up from ~39-47 over the prior several cycles). Volume on the exact reclaim candle was
+    below its recent average (soft/inconclusive on confirmation #5), so not counted as a clean
+    pass, but no abnormal selling pressure either.
+  - **4H setup + 1H trigger**: 4H = pullback from $14.49 to $13.515 within an intact multi-week
+    uptrend. 1H trigger = a sharp reclaim candle off the $13.515/$13.56 swing low, closing at
+    $13.853 (+2.1% on that single hourly bar), the specific candle that timed this entry.
+  - **Pre-trade checks**: `get_currency_pairs` confirmed LINK-USD `tradability: tradable`,
+    `halted: false`. `preview_crypto_order` (market buy, $415) came back clean, no warnings.
+  - **Entry**: market buy, **29.5937 LINK @ avg $14.02177269**, notional $414.96 (fee $0), order
+    `6aba43ec-e62d-4517-acb5-1e3a7a052196`, filled 2026-09-28 06:39:41 ET.
+  - **Sizing**: position notional $414.96 ≈ 11.96% of Agentic Account equity ($3,470.53) — bound by
+    the 0.5%-of-equity risk budget this time (the risk-budget-derived size came in under the 15%
+    per-position cap, unlike the AAVE trade where the cap bound tighter).
+  - **Stop**: resting stop order placed at **$13.55** (3.36% below entry, well inside the 8%
+    max-stop-distance ceiling), just below the swing-low close that preceded the reclaim candle.
+    Placed directly with `time_in_force: gtc` this time (no gfd-default correction needed). Order
+    `6aba43fc-c57f-477d-996d-4d3941bac2a2`, verified **confirmed/open** via `get_crypto_orders`
+    before treating the position as protected. Planned dollar risk ≈ $13.96 ≈ **0.40% of equity**.
+  - **Target / R:R**: near-term target ~$14.75 (a modest breakout above the recent $14.49 high,
+    consistent with the catalyst-driven reversal) vs. $14.02 entry / $13.55 stop → upside $0.73
+    vs. risk $0.47 ≈ **1.55:1**, clears the ≥1.5:1 floor.
+  - **Capacity/correlation**: crypto position count now **1/2**. No shared theme with any other
+    open position (none currently open besides this).
+  - Peak-retracement tracking initialized: entry $14.02, no peak update yet.
+- Account total value ~$3,470.53 before the entry; cash reduced by ~$415 to fund the buy. Git push
+  confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-28T10:50:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["rolling_10day_3_stop_out_degraded_autonomous"],
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 1},
+  "exits": [],
+  "entries": [{"symbol": "LINK-USD", "mode": "crypto", "qty": 29.5937, "price": 14.02177269}],
+  "orders_placed": 2,
+  "git_push": "success"
+}
+```
