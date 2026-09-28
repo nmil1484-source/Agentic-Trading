@@ -16306,3 +16306,69 @@ git/status confirmed clean at each restart.
   "git_push": "success"
 }
 ```
+
+## 2026-09-28 ~12:37-12:55 UTC — AUTONOMOUS — CRYPTO (§21): LINK stop moved to breakeven (+1R); NEW SOL-USD ENTRY
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `b370258`).
+- **Circuit breakers**: same-day 2-stop-out cooldown 0/2. Rolling 10-day 3-stop-out
+  DEGRADED_AUTONOMOUS remains active. No SPY/QQQ market-shock check yet meaningful. Noted: a
+  scheduled Trump Oval Office speech is reported for ~2:00pm ET today — well outside this cycle's
+  30-minute blackout window (current time ~08:43 ET), no timing conflict for either action below.
+- **LINK-USD — BREAKEVEN STOP MOVE (mandatory mechanic, §16 item 5 / §21 item 5 principle):**
+  - Position cleared **+1R**: entry $14.02177269, 1R level $14.4935, mark reached $14.567 this
+    cycle. Per the breakeven rule, moved the stop from $13.55 up to **$14.02** (entry price) —
+    the position is now risk-free.
+  - Old stop `6aba43fc-...` canceled and confirmed canceled; new stop `6aba60a4-3d91-4b01-b5c7-
+    46075ae01be6` placed directly with `time_in_force: gtc`, verified **confirmed/open**.
+- **NEW ENTRY — SOL-USD, STRATEGY: §21 CRYPTO (spot, named allowlist), tag CRYPTO**
+  - **Screen result**: SOL flipped to "Buy" (0.31, RSI 49.6, up from the 44-47 range over the
+    prior several cycles) — the strongest signal remaining after LINK. 1H OHLCV showed three
+    consecutive rising closes off a $117.53 swing low (the pullback low from a recent $124.93
+    peak), closing at $119.42 on the last bar before this cycle's live check — a genuine reclaim
+    pattern, same structure as the LINK entry two cycles ago.
+  - **Catalyst** (verified, dated, via TradingView news): "Solana Sees Biggest ETF Week Since
+    Launch" and "U.S. Spot Solana ETFs Draw Record Weekly Inflows of $188.21 Million Since Launch"
+    (both U.Today/Bloomingbit, 2026-09-27) — a real, dated, institutional-inflow catalyst specific
+    to SOL, not shared with the rest of the allowlist's broader weakness.
+  - **Technical confirmations (4 of 6)**: (1) price well above its multi-week base (+23% over the
+    observed 1H window, ~$97→~$120); (2) pullback-to-swing-low-and-reclaim structure ($124.93 peak
+    → $117.53 low → reclaim); (3) relative strength — SOL's technical score and catalyst-driven
+    reversal outpaced BTC/ETH/XRP, which all remained "Neutral"/weaker this same cycle; (4) RSI
+    rising and above 45 (49.6). Volume on the reclaim bars ran slightly below average — not counted
+    as a clean confirmation, but no abnormal selling pressure either.
+  - **4H setup + 1H trigger**: 4H = pullback from the $124.93 peak to $117.53 within an intact
+    uptrend. 1H trigger = three consecutive rising hourly closes off the $117.53 low.
+  - **Entry**: market buy, **4.30959 SOL @ avg $120.65872608**, notional $519.99 (fee $0), order
+    `6aba60e8-75cc-4cb0-b232-fc201aa5db6b`, filled 2026-09-28 08:43:22 ET.
+  - **Sizing**: position notional $519.99 ≈ 14.82% of Agentic Account equity ($3,508.47) — bound
+    by the 15%-of-equity per-position cap (the risk-budget-derived size would have been larger).
+    Actual dollar risk at the chosen stop ≈ $15.77 ≈ **0.45% of equity**, under the 0.5% ceiling.
+  - **Stop**: resting stop order placed at **$117.00** (3.03% below entry, well inside the 8%
+    max-stop-distance ceiling), just below the $117.53 swing low. Placed directly with
+    `time_in_force: gtc`. Order `6aba60f4-4126-4f74-b05f-f17cf1ff8fa6`, verified
+    **confirmed/open** before treating the position as protected.
+  - **Target / R:R**: near-term target ~$126.50 (a modest breakout above the recent $124.93 peak,
+    consistent with the ETF-inflow-driven momentum) vs. $120.66 entry / $117.00 stop → upside
+    $5.84 vs. risk $3.66 ≈ **1.60:1**, clears the ≥1.5:1 floor.
+  - **Capacity/correlation**: crypto position count now **2/2** (LINK + SOL) — at cap. No shared
+    theme with LINK (LINK = institutional/oracle-infrastructure adoption; SOL = L1/ETF-inflow
+    momentum) — no correlation cap concern.
+  - Peak-retracement tracking initialized: entry $120.66, no peak update yet.
+- Account total value ~$3,508.47 before the SOL entry; cash reduced by ~$520 to fund the buy. Git
+  push confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-28T12:55:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["rolling_10day_3_stop_out_degraded_autonomous"],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 2},
+  "exits": [],
+  "entries": [{"symbol": "SOL-USD", "mode": "crypto", "qty": 4.30959, "price": 120.65872608}],
+  "orders_placed": 4,
+  "git_push": "success"
+}
+```
