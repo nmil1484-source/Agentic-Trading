@@ -17365,7 +17365,7 @@ left unverified and completes the remaining first-scan-of-day work.
   "positions": {"crypto_count": 2},
   "stop_audit": {"checked": 2, "missing_found": 0, "placed": 1},
   "exits": [],
-  "entries": [{"symbol": "AAVE-USD", "mode": "crypto", "qty": 2.18, "price": 157.66310644},
+  "entries": [{"symbol": "AAVE-USD", "mode": "crypto", "qty": 2.18, "price": 157.66310644}],
   "orders_placed": 2,
   "git_push": "success"
 }
