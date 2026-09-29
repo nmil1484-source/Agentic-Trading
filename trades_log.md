@@ -17313,3 +17313,60 @@ left unverified and completes the remaining first-scan-of-day work.
   "git_push": "success"
 }
 ```
+
+## 2026-09-29 ~06:37-06:40 UTC — AUTONOMOUS — CRYPTO (§21): NEW AAVE-USD ENTRY (base breakout, fresh tokenomics catalyst)
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `05604cc`).
+- **Circuit breakers**: same-day stop-out count **0/2** — new entries permitted. Market-shock
+  check inapplicable (equity markets closed).
+- **LINK-USD stop-audit**: order `6aba984c-...` confirmed/open, stop $14.35, qty 22.07 — matches
+  position. Mark $14.97341 vs. entry $15.27868872 → **≈ −0.329R**, recovered somewhat from last
+  cycle's closer approach to the stop. Still above it, no action due.
+- **AAVE-USD — genuine base-breakout setup with a fresh, dated catalyst.** News: Aave founder
+  Stani Kulechov reported considering a token-burn mechanism for "Aavenomics 3" (published today,
+  00:14 UTC) — real tokenomics catalyst, not stale. `get_ohlcv` (4H) shows AAVE **based in a
+  $145-150 range for ~28 hours** (7 consecutive 4H bars: 150.25, 146.95, 147.86, 145.88, 146.78,
+  149.41, 147.52), then the most recent 4H bar broke out to a new high of $156.15. On the 1H
+  chart, the breakout unfolded over three consecutive bars (147.52→149.49→154.12→155.95 closes)
+  with **rising volume on each breakout bar** (2752, 3168, 2451 units vs. a ~1565 12-bar average)
+  — a real accumulation-then-breakout structure, not a single-bar spike. Relative strength: AAVE
+  +5.8% today vs. BTC ~+0.9% — clear outperformance.
+  - **Confirmations (clears well past the 2-of-6 floor)**: (1) structure/breakout — new high above
+    the multi-hour base; (2) volume — rising through the breakout sequence; (3) relative strength
+    vs. BTC.
+  - **4H setup**: the $145-150 consolidation base. **1H trigger**: the three-bar breakout sequence
+    with volume confirmation, most recently closing $155.95-156+ near session highs.
+  - **Stop**: $148.80, just below the low of the first breakout-acceleration candle — a
+    technically tight invalidation (a fall back into the base would negate the breakout thesis).
+  - **Preview clean** (`preview_crypto_order`, no warnings/errors) — entry filled at
+    **$157.66310644**, qty **2.18 AAVE**, notional **$343.71** (order
+    `6abb5d05-589e-4d40-ac00-a08e8ea77116`).
+  - **Stop placed and verified resting immediately after fill**: `place_crypto_order` (stop_loss,
+    sell, qty 2.18, stop $148.80, `gtc`) → confirmed via `get_crypto_orders`
+    (order `6abb5d0f-d913-43ae-a10b-934983e5f664`, state=confirmed/open).
+  - **Risk**: $8.8631/unit × 2.18 ≈ **$19.32 (≈0.50% of $3,883.40 equity)** — right at target.
+    Stop distance 5.62% of entry, within the 8% ceiling. Position notional $343.71 = 8.85% of
+    equity, within the 15% per-position cap.
+  - **Target/R:R**: ~$170.96 conservative target → R:R ≈ **1.50:1**, clears the floor. Actual exit
+    governed by §21's trailing/peak-retracement mechanics.
+  - Theme: DeFi (lending protocol) — distinct enough from LINK's oracle/infrastructure focus that
+    no correlation concern applies, and §21 doesn't subdivide crypto by theme beyond the shared
+    2-position cap regardless.
+- Crypto position count now **2/2 — at cap.** No further new entries until a slot frees up. Git
+  push confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-29T06:40:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 1},
+  "exits": [],
+  "entries": [{"symbol": "AAVE-USD", "mode": "crypto", "qty": 2.18, "price": 157.66310644},
+  "orders_placed": 2,
+  "git_push": "success"
+}
+```
