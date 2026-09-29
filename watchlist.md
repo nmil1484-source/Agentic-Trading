@@ -190,10 +190,10 @@ those.
 is a cryptocurrency, not an equity — it doesn't fit this file's equity/ETF Mode A/B candidate
 pool, but is recorded here as the tracking note per the user's request. Confirmed via
 `get_crypto_quotes`: HBAR-USD is listed and quotable on Robinhood (mark ≈$0.1177, up ~24% vs.
-today's open ≈$0.0952). **Important: HBAR is NOT on the §21 named crypto allowlist** (BTC, ETH,
-SOL, XRP, LINK, AAVE only) — being tradable on the platform and being listed here does not grant
-it any autonomous trading authority. Per §21 item 10, adding a coin to that allowlist requires its
-own explicit user instruction and a dated §12 change-log entry (verified tradability/haltedness
-check, sizing/cap confirmation) — this system does not expand its own crypto universe
-unilaterally. Until/unless that happens, HBAR is tracked here for context only; the autonomous
-crypto trigger will not screen or trade it.
+today's open ≈$0.0952). **Update, same day:** the user then separately instructed making HBAR
+tradeable — verified via `preview_crypto_order` (clean $10 test buy, no rejection) and added to
+the §21 named crypto allowlist (CLAUDE.md §21 item 1, dated §12 change-log entry). HBAR is now
+live under the same mechanics as every other allowlisted pair (0.5%-of-equity risk sizing, 15%
+per-position cap, shared 2-concurrent-position cap, 8%-max-stop-distance ceiling, mandatory
+resting stop, the full §21 entry gate) — the autonomous crypto trigger will screen and may trade
+it starting with its next scheduled cycle.
