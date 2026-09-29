@@ -17724,3 +17724,44 @@ left unverified and completes the remaining first-scan-of-day work.
   "git_push": "success"
 }
 ```
+
+## 2026-09-29 ~15:42-15:48 UTC — AUTONOMOUS — CRYPTO (§21): AAVE new peak ($176.21), threshold recalculated, price came very close to peak-retracement exit but recovered; LINK pulled back to ≈-0.51R, no action; at capacity (2/2)
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `0266f90`).
+- **Circuit breakers**: same-day stop-out count **0/2**. Market-shock: SPY $763.86 vs. prior
+  equity-cycle check $764.38 (−0.07%) — flat, no breaker.
+- **AAVE-USD stop-audit**: order `6abbb174-...` confirmed/open, stop $165.50, qty 2.18 — matches
+  position. **New peak identified via `get_ohlcv` (1H): $176.21**, up from the previously tracked
+  $174.48. Recalculated peak-retracement threshold: $176.21 − 30%×($176.21−$157.66311) =
+  **$170.6459**. The bar that printed this peak reversed sharply the same hour — low $169.31,
+  which is *below* the new threshold — meaning price briefly traded through the exit level before
+  this cycle's check. Current mark **$171.269** (as of 15:42:42 UTC) sits **$0.62 above** the
+  threshold — the exit condition is not met at this check point, so no forced exit was executed
+  (per the disclosed platform-cadence caveat, a check only evaluates price at cycle time, not
+  every intra-cycle tick). **This is now flagged as very close** — if the next cycle finds price
+  at or below $170.6459, an immediate full exit is mandatory regardless of any other condition.
+  Stop left unchanged at $165.50 (not trailed further this cycle — the $169.31 dip is a fresh,
+  unconfirmed low, not yet a base to trail under; moving the stop up on an unconfirmed single-bar
+  low risks a whipsaw stop-out on ordinary volatility).
+- **LINK-USD stop-audit**: order `6aba984c-...` confirmed/open, stop $14.35, qty 22.07 — matches
+  position. Mark $14.809 vs. entry $15.27868872, stop $14.35 → **≈ −0.506R**, a real pullback but
+  still $0.46 above the stop, no trigger. Not at the 7-calendar-day time-stop (entered 2026-09-28,
+  1 day elapsed).
+- **New-entry screen**: skipped — crypto position count **2/2**, at cap.
+- Git push confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-29T15:48:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
