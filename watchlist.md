@@ -185,3 +185,15 @@ independent verification, a catalyst, and a confirmed technical trigger before e
 on a Trade Card. The Research Hub screenshots also showed other already-listed and not-yet-listed
 names (LITE 6/10, TSLA 5/10, AMBA 7/10, TER 7/10, ALAB 6/10) — not added, no instruction given for
 those.
+
+**Note on HBAR (2026-09-29):** user asked to add HBAR to the watchlist. HBAR (Hedera Hashgraph)
+is a cryptocurrency, not an equity — it doesn't fit this file's equity/ETF Mode A/B candidate
+pool, but is recorded here as the tracking note per the user's request. Confirmed via
+`get_crypto_quotes`: HBAR-USD is listed and quotable on Robinhood (mark ≈$0.1177, up ~24% vs.
+today's open ≈$0.0952). **Important: HBAR is NOT on the §21 named crypto allowlist** (BTC, ETH,
+SOL, XRP, LINK, AAVE only) — being tradable on the platform and being listed here does not grant
+it any autonomous trading authority. Per §21 item 10, adding a coin to that allowlist requires its
+own explicit user instruction and a dated §12 change-log entry (verified tradability/haltedness
+check, sizing/cap confirmation) — this system does not expand its own crypto universe
+unilaterally. Until/unless that happens, HBAR is tracked here for context only; the autonomous
+crypto trigger will not screen or trade it.
