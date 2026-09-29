@@ -17941,3 +17941,52 @@ left unverified and completes the remaining first-scan-of-day work.
   "git_push": "success"
 }
 ```
+
+## 2026-09-29 ~18:37-18:45 UTC — AUTONOMOUS — CRYPTO (§21): LINK-USD STOPPED OUT (realized loss) between cycles; same-day stop-out count now 1/2; no new entry, crypto flat (0/2)
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `8d47c68`).
+- **LINK-USD — STOP-LOSS TRIGGERED AND FILLED (discovered this cycle, executed by the broker
+  between cycles).** `get_crypto_positions` returned empty and `get_crypto_orders` (open) showed
+  no LINK order — pulled the order by id (`6aba984c-...`) and confirmed **state: filled**,
+  executed at **2026-09-29T17:51:08 UTC** (roughly 9 minutes after the prior ~17:42 UTC cycle
+  confirmed it still open and resting). Full position (22.07 LINK) sold at average price
+  **$14.34751431**, notional **$316.64**. Entry was 22.07 LINK @ $15.27868872 avg (cost basis
+  $337.21, 2026-09-28). **Realized loss ≈ −$20.57 (−6.10%)** — the documented stop worked exactly
+  as designed; no slippage of consequence (filled essentially at the stop price). This is a normal
+  stop-out, not a system failure — logged plainly per §16/§21's discipline of recording every exit
+  with planned vs. actual loss.
+- **Same-day stop-out cooldown (§6): now 1/2** (Mode B/C/Crypto combined) — one more stop-out
+  anywhere today triggers the cross-mode no-new-entries-for-the-rest-of-the-day cooldown. Not yet
+  triggered.
+- **Circuit breakers**: market-shock: SPY $764.51 vs. $765.61 prior close (−0.14%), QQQ $738.24 vs.
+  $736.53 (+0.23%) — flat, no breaker.
+- **Account snapshot**: total value **$3,904.82**, cash $2,302.78, crypto_value **$0** (both
+  crypto positions now closed — AAVE via peak-retracement profit exit ~16:45 UTC, LINK via this
+  stop-out).
+- **New-entry screen (0/2 capacity, fully open)**: re-ranked the full 7-coin allowlist. **AAVE**
+  still top-ranked but still the position just exited on a protective rule and +43.8% above its
+  200-EMA — declined (chase). **HBAR** still fading, −16.5% today — declined. **LINK** itself now
+  shows +27.5% monthly / +39.9% above its 200-EMA per this screen despite today's stop-out — but
+  it is the same pair that stopped this system out hours ago; re-entering it the same day would be
+  chasing a whipsaw with no fresh setup, same discipline principle as Mode B's same-day-loss
+  re-entry rule even though §21 has no identical explicit clause — declined. **ETH/BTC/XRP/SOL**
+  all still extended pullbacks-in-uptrend with no fresh 4H-setup-plus-1H-trigger. **Conclusion:
+  OBSERVE, no new crypto entry this cycle** — crypto book is flat (0/2) heading into the next
+  cycle.
+- Git push confirmed below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-29T18:45:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["same_day_stop_out_count_1_of_2"],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "LINK-USD", "reason": "stop_loss_hit", "realized_pl": -20.57}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
