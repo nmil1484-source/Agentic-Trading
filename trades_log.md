@@ -17609,3 +17609,87 @@ left unverified and completes the remaining first-scan-of-day work.
   "git_push": "pending"
 }
 ```
+
+## 2026-09-29 ~14:48-15:05 UTC — AUTONOMOUS — MODE B/C FIRST SCAN OF DAY: NVDA/TSM holding below +1R, CBRS/STM screened and passed (extension/liquidity), no new entry; Mode C flat, no setup
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `e1d77c1`, after
+  fetch retried through a transient GitHub 503 on the credential service — succeeded on 3rd
+  attempt, no repo-side issue).
+- **Robinhood MCP note**: the ~13:40 UTC crypto cycle logged a connector authentication failure
+  (URGENT alert, commit `e1d77c1`). Access was confirmed restored this cycle — `get_accounts` and
+  all subsequent Robinhood tool calls succeeded normally. No further action needed on that alert;
+  flagging for continuity.
+- **Circuit breakers**: same-day stop-out count **0/2** (reset at today's first cycle, confirmed
+  against crypto-trigger log). Market-shock check: SPY $764.96 vs. prior close $765.61 (−0.09%),
+  QQQ $739.14 vs. $736.53 (+0.35%) — flat, no breaker.
+- **FTA Regime Dashboard**: checked live — still **UNKNOWN_DEGRADED** (loading placeholders, no
+  live regime label). Reduced-sizing rule applies to any new entry today; flat ≥1.5:1 R:R floor
+  unaffected (§5B/§6).
+- **Account snapshot** (••••8058): total value **$3,938.96**, cash $1,619.45, equity_value
+  $1,605.845 (NVDA+TSM), crypto_value $713.66 (LINK+AAVE, managed under the separate crypto
+  trigger). Deployed (equity+crypto) ≈ **58.9%** of equity — well inside the 90% ceiling, 41.1%
+  cash well above the 10% floor.
+- **Mode B — existing positions, both below +1R, no action triggered:**
+  - **NVDA** (3 sh, entry $226.27, stop $218.50): mark $231.215 → **≈ +0.636R**. No breakeven
+    action due (needs +1R).
+  - **TSM** (2 sh, entry $451.97, stop $442.50): mark $456.44 → **≈ +0.472R**. No breakeven
+    action due.
+  - Neither near its 7-trading-session time-stop (NVDA ~6 sessions since entry but already cleared
+    +0.5R weeks ago per prior logs; TSM ~3 sessions since entry) — no time-stop review triggered.
+- **Mode B — new-entry screen.** Used TradingView `rank_symbol_setups` (focus=momentum, side=long)
+  across the full `watchlist.md` pool (63 names, resolved to TV `EXCHANGE:TICKER` format) to
+  triage before deep-diving. Top non-held, non-broad-index candidates: **CBRS** (score 54),
+  **STM** (score 61), **NBIS** (51, flagged "well extended... pullback risk"), **ZS** (51, still
+  10.6% above its own 50-EMA despite a weekly pullback label), **PLTR/TEM/AMD/DELL/HPE/INTC** all
+  flagged parabolic/well-extended-above-EMA200 — passed over on extension per §13.E guidance.
+  - **CBRS deep-dive**: real, dated catalyst — Reuters/Stocktwits, "Cerebras to supply AI systems
+    to cloud computing startup Gimlet Labs" (2026-09-28). Daily EMA9 ($201.31) > EMA20 ($199.37,
+    as of 9/28 close) — bullish alignment. MACD positive and above signal. RSI 54, improving.
+    Today's 1H chart shows a genuine breakout on real volume (first hourly bar: 210,703 shares vs.
+    ~82K 30-day average, ~2.6x) off yesterday's catalyst, running from a $198.89 low to a $214
+    high, last mark ~$212.51 (+6% on the day vs. SPY flat) — clears at least 5-6 of the §5B item 3
+    confirmations (EMA alignment, RS vs. SPY, volume, RSI/MACD, breakout structure). **Passed on
+    entry**: the nearest technically valid stop (below today's breakout-candle low, ~$198.50) sits
+    ~6.6-7% below a ~$212.50 entry — outside the §16 item 2 6%-of-entry-price risk cap. Tightening
+    the stop to fit the 6% budget (~$199.75) would sit inside price levels CBRS has already traded
+    through today, which is not a technically valid stop, just a number forced to fit — per §16
+    item 2, "if no technically valid stop fits inside the risk budget, do not take the trade."
+    This is a chase, not a clean pullback entry. **§18 options alternative checked per 3a**:
+    11/06 exp (~38 DTE) calls — $200 strike (delta 0.645) mark $27.35/contract = $2,735,
+    $210 strike (delta ~0.57) $2,200, $220 strike (delta 0.498) $1,845 — all far above the
+    6%-of-equity premium cap (~$236 at this account size), and open interest on all three is
+    single-digit (2-7 contracts) — thin, wide spreads. Options are not a viable alternative either
+    (unaffordable and illiquid). **Conclusion: OBSERVE — watch for a pullback to the 9/20 EMA
+    zone (~$199-201) with a confirming hourly reclaim candle**, which would offer a materially
+    tighter, valid stop.
+  - **STM deep-dive**: sitting almost exactly at its 50-EMA (+0.5%), RSI 56.8, weak-but-positive
+    daily EMA9/EMA20 alignment ($51.58 vs. $51.33, barely separated). News is generic sector
+    strength only ("European Chip Stocks Rise After Monday Pressure," a 9/14 image-sensor product
+    announcement) — no fresh, dated, company-specific catalyst. Does not clear the §5B catalyst/RS
+    requirement cleanly enough to justify an entry today. **Conclusion: OBSERVE.**
+  - No other candidate screened above justified a deep-dive (extension risk or neutral/bearish
+    direction per the screener). **Net result: OBSERVE, no new Mode B entry this cycle.**
+- **Mode C — stop-audit**: `get_equity_positions` confirms **zero Mode C positions** (only
+  NVDA/TSM, both Mode B) — no resting stops to audit.
+  - **New-entry screen**: no name in the scanned pool matched a clean VWAP-pullback, ORB, or
+    mean-reversion setup on the hourly chart this cycle (CBRS's move was a pure catalyst breakout
+    continuation, not a pullback-reclaim or opening-range pattern — declined to force a mismatched
+    setup per §20 item 5's guidance). **Conclusion: OBSERVE, no new Mode C entry.**
+- **No orders placed, modified, or cancelled this cycle.**
+- Git push confirmed below.
+
+```json
+{
+  "cycle": "mode-b-c-first-scan",
+  "timestamp_utc": "2026-09-29T15:05:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
