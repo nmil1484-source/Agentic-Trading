@@ -17568,3 +17568,44 @@ left unverified and completes the remaining first-scan-of-day work.
   "git_push": "success"
 }
 ```
+
+## 2026-09-29 ~13:37-13:40 UTC — AUTONOMOUS — CRYPTO (§21): URGENT — Robinhood MCP unavailable (authentication required), no account access this cycle
+
+- Gate check: §14 Status **ACTIVE** (confirmed in CLAUDE.md), no kill phrase found. Repo synced (HEAD `ff0f74b`).
+- **URGENT RISK ALERT**: the Robinhood Agentic MCP connector returned an authentication-required
+  error this cycle — every Robinhood tool (`get_crypto_positions`, `get_crypto_orders`,
+  `get_crypto_quotes`, `preview_crypto_order`, `place_crypto_order`, etc.) is unavailable, not
+  merely erroring on a specific call. This is a connector-authorization failure, not a data/quote
+  problem — no account, position, order, or price data could be retrieved this cycle.
+- **Per §6/§14's MCP-error handling** (three-consecutive-errors / access-failure provision): new-
+  entry order submission is suspended this cycle by necessity (no data to screen or submit against
+  regardless). **No order of any kind was placed, modified, or canceled this cycle** — not a
+  choice, a hard capability block.
+- **Existing positions (LINK-USD, AAVE-USD) could not be verified this cycle.** Their resting
+  stop-loss orders were confirmed resting as of the prior cycle (~12:41 UTC: LINK stop $14.35
+  order `6aba984c-...`; AAVE stop $165.50 order `6abbb174-...`) and a broker-resting stop order is
+  not contingent on this session's connector access — it continues to protect the position at the
+  broker regardless of whether this session can currently query it. This is stated as the
+  reasonable assumption, not a verified fact this cycle; both stops must be re-verified as soon as
+  MCP access is restored.
+- **New-entry screening**: not attempted — no data source available.
+- **Action required**: the user needs to re-authorize the Robinhood Agentic connector (claude.ai
+  → Settings → Connectors → Robinhood Agentic, or equivalent re-auth flow) before the next cycle
+  can verify or manage positions. Flagged directly in chat this cycle.
+- Git push: this entry itself, pending below.
+
+```json
+{
+  "cycle": "crypto-24-7",
+  "timestamp_utc": "2026-09-29T13:40:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["ROBINHOOD_MCP_AUTH_FAILURE"],
+  "positions": {"crypto_count": null},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
