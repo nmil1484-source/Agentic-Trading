@@ -18666,3 +18666,59 @@ left unverified and completes the remaining first-scan-of-day work.
   "git_push": "success"
 }
 ```
+
+## 2026-09-30 ~14:55-15:00 UTC — AUTONOMOUS — Mode B + Mode C hourly: ZS-USD... **ZS EQUITY ENTRY** (3/5 positions), NVDA/TSM holding below +1R
+
+- Gate check: §14 Status **ACTIVE**, no kill phrase found. Repo synced (HEAD `26c0e71`).
+- **Circuit breakers**: same-day stop-out count **0/2**. Market-shock: SPY $769.15 vs. $764.20
+  prior close (+0.65%), QQQ $744.15 vs. $737.93 (+0.84%) — flat, no breaker.
+- **Mode B — ZS (Zscaler) NEW ENTRY.** Flagged as the top watch-item at the ~14:20 UTC first-scan
+  (daily setup cleared, no hourly trigger yet). This cycle confirms the hourly trigger: two
+  consecutive hourly closes reclaiming and holding above the $198-199 resistance zone that had
+  capped the stock all week ($199.40 → $199.86 → live $200.09+), on the same catalyst logged
+  earlier today (Barclays PT raise to $220, sector-wide cybersecurity strength, fresh ZS threat
+  report). `get_equity_tradability` clean (tradable, no restrictions). `review_equity_order`
+  clean (no alerts). **Filled**: 3 shares @ **$200.0868** avg (limit $200.50, `ref_id`
+  `d8f3a1c6-4e29-4b8a-9c15-7e6d2a8f3b41`), cost **$600.26** (≈15.3% of equity, well inside the 40%
+  per-position cap — sized to half the normal risk-based allocation per the UNKNOWN_DEGRADED
+  reduced-sizing rule, §5B Regime Rule).
+  - **Stop**: $196.50 (documented level, below today's session low $196.77 — Mode B tracks stops
+    at the documented level each cycle, not a resting broker order, per this system's known
+    structural gap). Risk/share $3.5868, total risk **$10.76** (≈0.28% of equity — well under the
+    1%-of-equity budget; sized down further by the degraded-regime halving).
+  - **Target**: ~$210 (recent multi-week swing-high zone). Reward/share $9.913. **R:R ≈ 2.76:1**,
+    comfortably above the 1.5:1 floor.
+  - **§5B confirmations (3-4 of 6)**: 9/20 EMA bullish alignment (EMA9 $199.60 > EMA20 $192.52 as
+    of 9/29 close); price above 50-EMA (+10.9%); sector relative-strength driver ("PANW, CRWD, ZS
+    Lead Nasdaq-100 Gains," 9/29, AI-threat-driven cybersecurity rally); RSI 56.6, above 45.
+  - **Daily setup + hourly trigger (§5B item 7)**: daily setup established at the 14:20 UTC first
+    scan; hourly trigger confirmed this cycle (two consecutive higher hourly closes breaking the
+    week's resistance).
+  - **Timing/correlation**: well outside the first/last-15-minute windows (10:57am ET). No
+    earnings conflict (ZS earnings ~62 days out). Theme: cybersecurity/software — distinct from
+    the existing NVDA/TSM semiconductor/AI-hardware theme, no correlation-cap conflict. Position
+    count now **3/5**.
+  - **§18 options evaluation (3a)**: not pursued — the underlying had already moved (+0.9% on the
+    day at entry) off its reclaim, and given the account's small size, this equity entry captures
+    the thesis directly without the added premium-decay/liquidity risk of an options structure;
+    equity-only was judged sufficient here.
+- **Mode B — NVDA/TSM, both below +1R, no action triggered**: NVDA $231.12 (entry $226.27, stop
+  $218.50) → **≈ +0.624R**. TSM $458.72 (entry $451.97, stop $442.50) → **≈ +0.713R**.
+- **Mode C**: zero positions (`get_equity_positions` confirms NVDA/TSM/ZS, all Mode B) — no
+  stop-audit findings, no entries pursued.
+
+```json
+{
+  "cycle": "mode-b-c-hourly",
+  "timestamp_utc": "2026-09-30T15:00:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 3, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [{"symbol": "ZS", "mode": "B", "qty": 3, "price": 200.0868}],
+  "orders_placed": 1,
+  "git_push": "success"
+}
+```
