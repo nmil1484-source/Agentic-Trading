@@ -20317,3 +20317,36 @@ Quiet cycle (pending-order check only) — no new entry, no exit, no circuit bre
   "note": "BTC limit entry order (6abf35ce...) still resting/unfilled ~2hrs; AAVE now +56.7% above EMA200, RSI 73.6"
 }
 ```
+
+## 2026-10-02 ~07:38 UTC — AUTONOMOUS CRYPTO (§21, trig_01UUXAtYHjn7nBgzkdvZU4Rv) — BTC ENTRY ORDER CANCELED
+
+**Gate check:** git fetch/pull clean, HEAD at `2961218` prior to this cycle. §14 Status: ACTIVE confirmed at CLAUDE.md line 1318. No kill phrase found in trades_log.md history.
+
+**Account (before cancel):** total_value $3,751.88, cash $1,535.22, buying power $973.51 (reserved for the resting BTC order). Crypto positions: 0/2.
+
+**BTC order review and decision to cancel (`6abf35ce-3592-4d32-8d20-703e987a3885`):** Still unfilled after ~3 hours (limit $86,550, mark now $85,806.11, spread still ~1.9%). Pulled the 1H bars since the breakout candle to check whether the thesis still holds: the breakout bar itself closed at $86,652.12 (high $86,912.75), but the three hourly bars since have printed **three consecutive lower closes** — $86,002.01 → $85,992.95 → $85,819.57 — a clear post-breakout fade/consolidation-down pattern, not continuation. Price has drifted ~$730 below the resting limit with momentum now pointed the wrong way for this entry. Mark was also only ~0.53% above the planned $85,350 stop at this point, i.e. getting uncomfortably close without the position (or its protection) ever having existed. **Judgment call: canceled the stale entry order** rather than continue leaving a limit chasing a fading move — cancelling an unfilled entry reduces risk exposure (no position to protect) and is ordinary order-lifecycle management under the same autonomous authority that placed it; this is not a "modify an order" action under §1's stop/exit-only restriction, since no position or protective order existed to modify. `cancel_crypto_order` → `get_crypto_orders` confirmed final state: `canceled`, `state_group: closed`, `canceled_quantity: 0.00649`, no fill raced the cancel. Buying power restored to the full $1,535.22.
+
+**Cross-mode circuit breakers:** same-day stop-out count 0/2 (this was a canceled entry, not a stop-out — no position ever existed, so this does not count toward the stop-out cluster breaker). Equity market closed — inapplicable.
+
+**Re-screen after cancellation (capacity restored, 0/2):** AAVE now +56.7% above EMA200, RSI 73.6, +11.6% today — still the most extreme extension read all session, declined. SOL (+26.6%), LINK (+35.3%) still "well extended." HBAR/ETH/XRP unchanged in character, volume-unconfirmed. No new candidate. OBSERVE.
+
+**Stop-audit:** N/A — no open position.
+
+This is an order-management action (cancellation) worth narrating per the spirit of §21 item 9, even though no trade filled — closing the loop on the entry attempt opened at 04:37 UTC.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-02T07:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending",
+  "note": "canceled stale unfilled BTC entry order (6abf35ce...) after 3hrs — post-breakout momentum faded (3 consecutive lower hourly closes), price drifted ~$730 below the $86,550 limit, getting close to the $85,350 planned stop with no position/protection ever in place; buying power restored to $1,535.22; no fill, no stop-out, no circuit breaker"
+}
+```
