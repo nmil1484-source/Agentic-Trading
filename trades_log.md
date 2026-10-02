@@ -20350,3 +20350,37 @@ This is an order-management action (cancellation) worth narrating per the spirit
   "note": "canceled stale unfilled BTC entry order (6abf35ce...) after 3hrs — post-breakout momentum faded (3 consecutive lower hourly closes), price drifted ~$730 below the $86,550 limit, getting close to the $85,350 planned stop with no position/protection ever in place; buying power restored to $1,535.22; no fill, no stop-out, no circuit breaker"
 }
 ```
+
+## 2026-10-02 ~08:37 UTC — AUTONOMOUS CRYPTO (§21, trig_01UUXAtYHjn7nBgzkdvZU4Rv) — BTC RE-ENTRY ORDER PLACED (RESTING, UNFILLED)
+
+**Gate check:** git fetch/pull clean, HEAD at `e914569` prior to this cycle. §14 Status: ACTIVE confirmed at CLAUDE.md line 1318. No kill phrase found in trades_log.md history.
+
+**Account:** total_value $3,758.717, cash $1,535.22 (unchanged), buying power $1,535.22 (fully restored since the prior cycle's cancellation). Crypto positions: 0/2 before this cycle.
+
+**Cross-mode circuit breakers:** same-day stop-out count 0/2. Equity market closed — inapplicable.
+
+**BTC — fresh re-entry, not a chase of the canceled order:** re-screened the allowlist; BTC and ETH both reappeared as "Strong Buy" (BTC +3.6% today, back at a 3M high (-1.0%); ETH +3.0%, also at a 3M high (-1.6%)), SOL +4.1% — broad market strength, not an isolated bounce. Pulled 1H bars for BTC: after the fade flagged and acted on last cycle (three lower closes down to a $85,767–85,993 consolidation), the most recent hourly candle reclaimed higher (open $86,089.64 → high $86,640.61 → close $86,442.67) — a genuine **retest-and-reclaim** structure (breakout → pullback to a higher low → renewed push), not the same stale setup. **Fresh catalyst cluster, all within the last ~2 hours:** "Bitcoin ETFs kick off 'Uptober' with $103M inflow" (Cointelegraph, 08:20 UTC); "Bitcoin Lifted by Reduced U.S. Rate-Rise Bets" (DJ Newswires, 07:11 UTC); "Bitcoin Already Passed Citi's Old $82,000 Target. Meet the New One" (Beincrypto, 06:41 UTC — a raised analyst price target); "Why Is the Crypto Market Up Today?" (Coinpedia, 06:37 UTC). Technical confirmations: EMA/SMA bullish alignment (+10.3%/+15.8% above 50/200-EMA, least-extended allowlist name again), the retest-and-reclaim structure itself, and RS vs. peers (BTC near 3M highs alongside ETH/SOL, broad-based strength). 4H setup (original breakout + retest) plus 1H trigger (the reclaim candle) both present.
+- **Trade parameters:** entry limit $86,480 (near mark $86,436.15, not crossing the still-wide ~1.9% bid/ask spread); stop $85,700 (below the pullback low $85,767.45); stop distance $780 = 0.90% of entry (well inside the 8% ceiling); target ≈$89,600 (same 1.618x Fibonacci extension of the original breakout leg used at 04:37 UTC, since the measured-move structure is unchanged); R:R ≈4.0:1.
+- **Sizing:** risk budget 0.5% × $3,758.717 = $18.79; risk-based quantity would cost far more than the 15%-of-equity cap ($563.81) — **dollar cap binding again**, same as the first attempt. Sized to 0.00651 BTC (~$562.98 notional); actual dollar risk ≈$5.08 (0.135% of equity).
+- **Order:** `preview_crypto_order` clean. `place_crypto_order`: BUY 0.00651 BTC, LIMIT $86,480, GTC. Order id `6abf6dba-7077-4f4a-ade2-6286cf66ac97`, ref_id `f4a2c8d1-6e93-4b57-9c1a-8d3f0e7b2a45`. State at end of cycle: **confirmed, resting, unfilled** (same wide-spread dynamic as the prior attempt — ask still above the limit).
+- **Not averaging down / not same-day loss re-entry:** the prior BTC order was canceled unfilled, not stopped out — no loss was realized and no position existed, so neither §16/§21's no-averaging-down rule nor §17 item 4's no-same-day-loss-re-entry principle applies. This is treated as an independent, freshly-qualifying entry decision on new structure, not a repeat of the same trade.
+- **Disclosed monitoring gap (same as before):** a resting, non-marketable limit may fill before the next hourly check with no stop in place in the interim; next cycle checks fill status first and places the stop immediately if filled.
+
+No circuit breaker fired. Narrating to chat per §21 item 9 (order placed).
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-02T08:37:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [{"symbol": "BTC-USD", "mode": "crypto", "qty": "0.00651 (pending fill)", "price": "86480 limit, unfilled"}],
+  "orders_placed": 1,
+  "git_push": "pending",
+  "note": "BTC re-entry (retest-and-reclaim) limit order placed and resting, not yet filled as of cycle end; stop ($85,700) to follow immediately on confirmed fill"
+}
+```
