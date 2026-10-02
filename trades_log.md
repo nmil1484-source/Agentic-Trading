@@ -20734,7 +20734,7 @@ One order placed this cycle (TSM partial profit-take, not a new position). Narra
   "exits": [{"symbol": "TSM", "reason": "+2R profit trim (50%)", "realized_pl": 21.43}],
   "entries": [],
   "orders_placed": 1,
-  "git_push": "pending",
+  "git_push": "success",
   "note": "TSM: sold 1 of 2 shares at +2R ($473.40 fill), 1 share remains with peak-retracement tracker updated to new peak $473.52; NVDA +1.16R/ZS -0.42R unchanged; no new Mode B/C entries; same-day stop-out count still 1/2"
 }
 ```
