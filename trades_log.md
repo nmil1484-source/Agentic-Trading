@@ -20700,3 +20700,41 @@ Quiet cycle — no new entry, no exit, no circuit breaker (1/2 stop-outs, not ye
   "note": "cash change (-$10.80) fully reconciled to this morning's BTC stop-out, no discrepancy; declined to re-enter BTC same-day without a fresh catalyst; same-day stop-out count 1/2"
 }
 ```
+
+## 2026-10-02 ~15:55 UTC — AUTONOMOUS (Mode B/C cycle, trig_01KrBsTt9mssjU4hPGtM3cBe) — TSM +2R PROFIT TRIM
+
+**Gate check:** git fetch/pull clean, HEAD at `2d8bb63` prior to this cycle. §14 Status: ACTIVE confirmed at CLAUDE.md line 1318. No kill phrase found in trades_log.md history. Same-day stop-out count 1/2 (crypto BTC exit, 14:54 UTC) — below the 2-stop-out cooldown threshold, new entries still permitted.
+
+**Account:** total_value $3,773.0067, cash $1,524.42 (unchanged from the crypto stop-out).
+
+**Mode B open positions — exit-rule check:**
+- **ZS**: last $198.565 → ≈ −0.42R (stop $196.50). No trigger.
+- **NVDA**: last $235.2839 → ≈ +1.16R (stop breakeven $226.27). No new trigger.
+- **TSM**: last $473.52 (new high) → **+2.275R, crossing the +2R profit-trim threshold** (2R level = $470.91). Already held through multiple regular-session closes (entered days ago, not a same-day position), so §16 item 6's same-day-hold gate doesn't apply — **trim executed**: `get_equity_tradability` clean, `review_equity_order` clean (no alerts), SELL 1 TSM (50% of the 2-share position) LIMIT $473.00 (marketable, bid $473.39/ask $473.48 at review time) — **filled at $473.4001**. Order id `6abfd437-0f18-4311-bc0e-dbd915deb8eb`. Realized gain on the trimmed share: **+$21.43 (+2.26R)**. **1 TSM share remains**, stop still at breakeven $451.97, peak-retracement tracker updated to the new peak **$473.52** (retracement trigger ≈$467.06 — 30% giveback from this peak), continuing to trail the remainder per item 6.
+
+**Mode C:** 0 positions, $0 daily P&L, stop-audit N/A. STEP 0.5 final-cycle check: not applicable (this is the 15:55 UTC cycle, not the 19:55 UTC close).
+
+**Market-shock check:** SPY $768.73 vs. last cycle ($768.91) ≈ flat; QQQ $749.66 vs. ($749.20) ≈ flat. No breaker.
+
+**Mode B screening:** STM continues extending — now $56.73 (+6.0% today), volume ratio climbing to 0.923 (approaching but still under the 1.2x confirmation threshold), still +15.1% above EMA200. Three cycles in a row of further extension without a pullback reinforces the decision not to chase it this morning. AMD/HPE remain parabolic (+55.2%/+67.5% above EMA200). AMZN and GOOG have flipped to "Sell signal" readings — no longer even candidates. No new Mode B entry.
+
+**Mode C screening:** no qualifying hourly-adapted setup. No new Mode C entry.
+
+One order placed this cycle (TSM partial profit-take, not a new position). Narrating to chat — a §16 exit-rule trigger (the +2R trim) fired.
+
+```json
+{
+  "cycle": "Mode B/C hourly scan",
+  "timestamp_utc": "2026-10-02T15:55:00Z",
+  "modes_covered": ["B","C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 3, "mode_c_count": 0, "crypto_count": null},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "TSM", "reason": "+2R profit trim (50%)", "realized_pl": 21.43}],
+  "entries": [],
+  "orders_placed": 1,
+  "git_push": "pending",
+  "note": "TSM: sold 1 of 2 shares at +2R ($473.40 fill), 1 share remains with peak-retracement tracker updated to new peak $473.52; NVDA +1.16R/ZS -0.42R unchanged; no new Mode B/C entries; same-day stop-out count still 1/2"
+}
+```
