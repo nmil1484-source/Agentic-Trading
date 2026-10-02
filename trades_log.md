@@ -20207,3 +20207,47 @@ Quiet cycle — no trade, no exit, no circuit breaker.
   "git_push": "success"
 }
 ```
+
+## 2026-10-02 ~04:37 UTC — AUTONOMOUS CRYPTO (§21, trig_01UUXAtYHjn7nBgzkdvZU4Rv) — BTC ENTRY ORDER PLACED (RESTING, UNFILLED)
+
+**Gate check:** git fetch/pull clean, HEAD at `072a8a7` prior to this cycle. §14 Status: ACTIVE confirmed at CLAUDE.md line 1318. No kill phrase found in trades_log.md history.
+
+**Account:** total_value $3,748.34, cash $1,535.22 (unchanged). Crypto positions: 0/2 before this cycle.
+
+**Cross-mode circuit breakers:** same-day stop-out count 0/2. Equity market closed — SPY/QQQ shock check inapplicable.
+
+**Macro timing check:** Non-Farm Payrolls + Unemployment Rate scheduled 2026-10-02T12:30:00Z (~8 hours from this cycle) — outside the §4 30-minute pre/post blackout for *opening* this entry, but disclosed as event risk the position will hold through unless stopped/targeted out first.
+
+**BTC — first candidate to clear the full §21 gate this session:**
+- **Catalyst cluster (all same-day, 2026-10-02 00:33–02:24 UTC):** "Bitcoin Sell Wall Above Market Disappears After Buyers Absorb $85,000 Level" (Binance News, 00:33 UTC); "Analyst Says BTC Is 'Finally Breaking Upwards'" (Benzinga, 02:05 UTC, also covering ETH/XRP gains and Treasury yields retreating from 24-year highs); "Bitcoin Rises Ahead of U.S. Jobs Data" (DJ Newswires, 02:24 UTC); "US Treasury Buys $6 Billion of Bonds as Bitcoin Battles 24-Year-High Yields" (01:47 UTC) — a risk-on tailwind from easing yields plus a specific, dated resistance-absorption event.
+- **Technical confirmations (2-of-6 minimum, cleared with 3):**
+  1. EMA/SMA bullish alignment — price +10.3% above 50-EMA, +15.8% above 200-EMA (daily).
+  2. Structure/breakout — `analyze_swing_tool` (4H) shows the current unconfirmed `recent_leg` breaking from the confirmed 9/28 swing low ($82,563) up through the repeated LH resistance cluster ($85,159–85,255) to a new high ($86,912.75), i.e. a genuine breakout past the prior swing-high ceiling.
+  3. Volume on the breakout hourly candle — the triggering 1H bar (open $85,512.89 → high $86,912.75 → close $86,418.01) printed ~1,998 BTC-equivalent volume vs. ~685 average of the preceding 11 hourly bars (~2.9x) — read at the correct execution timeframe rather than the multi-day `vol_ratio_10d` composite (which stayed at its structurally-low ~0.02x baseline as it has every cycle this session and does not capture a single breakout candle).
+  - Note: unlike every other candidate screened this session (AMD/PLTR/AAVE/LINK/SOL/HBAR etc.), BTC is the *least* extended of the allowlist this cycle (+15.8% above EMA200 vs. AAVE's +54.7% "parabolic" read this same cycle) — extension-avoidance discipline does not flag it.
+- **4H setup + 1H trigger:** 4H breakout structure (above) is the daily-equivalent setup; the specific 1H breakout/reclaim candle described above is the execution trigger.
+- **Execution-risk finding, material:** `get_crypto_quotes` showed an unusually wide spread for BTC-USD at this hour — bid $85,676.96 / ask $87,307.46 / mark $86,492.21 (~1.9% spread, "Market Maker Routing"), far wider than BTC's normal sub-0.1% spread. A market order would have crossed the full spread and compressed R:R below the 1.5:1 floor. **Used a limit order instead, priced near mark ($86,550) rather than crossing to the ask**, to control slippage — consistent with the same marketable-limit discipline already used on the GOOG exit (2026-09-30).
+- **Trade parameters:** entry limit $86,550; stop (to be placed as a resting `stop_loss` sell immediately on fill) $85,350 — just below the breakout candle's low ($85,453.36), stop distance $1,200 = 1.39% of entry (well inside the 8% max-stop-distance ceiling); target ~$89,580 (≈1.618x Fibonacci extension of the breakout leg); R:R ≈ 2.44:1, clears the 1.5:1 floor.
+- **Sizing (§21 item 4):** risk budget = 0.5% × $3,748.34 = $18.74; risk-based quantity ($18.74/$1,200 = 0.01562 BTC, cost ≈$1,352) would have exceeded the 15%-of-equity per-position cap ($562.25) — **the dollar cap is binding, per the "whichever constraint produces the smaller position wins" rule**. Sized to 0.00649 BTC (≈$561.71 notional), actual dollar risk ≈$7.79 (0.21% of equity, well under the 0.5% budget since the cap bound tighter than the risk formula here).
+- **Order:** `preview_crypto_order` clean (no warnings/errors). `place_crypto_order`: BUY 0.00649 BTC, LIMIT $86,550, GTC. Order id `6abf35ce-3592-4d32-8d20-703e987a3885`, ref_id `e3f8a1c2-9d47-4b6e-8a12-5c7f0e9b3d61`. State at end of cycle: **confirmed, resting, unfilled** (cumulative_quantity 0) — the limit sits below the current ask given the wide spread, so it has not yet executed.
+- **Disclosed monitoring gap:** because this is a resting (non-marketable) limit rather than a market order, the entry may fill at any point before the next hourly cycle with no stop in place in the interim — the standing §21 stop-placement discipline (place immediately on fill, verify resting) cannot be executed until a fill is actually observed, and this trigger only re-checks hourly. This is the same structural 1-hour-floor limitation already disclosed throughout this document (§20/§21), now applying to the fill→stop sequencing specifically rather than only to in-position exit timing. The alternative (a marketable order crossing the ~1.9% spread) was rejected because it would have failed the R:R floor outright — judged the better of two imperfect options and flagged here rather than silently accepted.
+- **Next cycle action required:** check order state first. If filled: immediately place the $85,350 stop_loss sell, verify resting, and post the full CRYPTO Trade Card. If still unfilled: reassess (cancel/reprice or continue resting) against the then-current market.
+
+No circuit breaker fired. This is a trade action (order placed) — narrating to chat per §21 item 9.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-02T04:37:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [{"symbol": "BTC-USD", "mode": "crypto", "qty": "0.00649 (pending fill)", "price": "86550 limit, unfilled"}],
+  "orders_placed": 1,
+  "git_push": "pending",
+  "note": "BTC limit entry order placed and resting, not yet filled as of cycle end; stop to follow immediately on confirmed fill"
+}
+```
