@@ -21146,7 +21146,7 @@ Quiet cycle — no new entry, no exit, no circuit breaker.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "pending",
+  "git_push": "success",
   "note": "same-day 2-stop-out cooldown still active (BTC+ZS today); crypto book flat 0/2; screening skipped; cash unchanged, no discrepancy; cooldown resets at next UTC calendar day's first scan"
 }
 ```
