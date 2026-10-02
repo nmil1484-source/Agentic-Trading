@@ -20624,3 +20624,48 @@ Quiet cycle — no new entry, no exit, no circuit breaker. Note: BTC mark now on
   "note": "BTC re-entry limit order (6abf6dba...) still resting/unfilled ~6hrs; mark pulled back to $85,799.30, now only ~$99 above the $85,700 stop level — watching closely"
 }
 ```
+
+## 2026-10-02 ~14:55 UTC — AUTONOMOUS (Mode B/C cycle, trig_01KrBsTt9mssjU4hPGtM3cBe) — CRYPTO STOP-OUT DISCOVERED AND HANDLED MID-CYCLE
+
+**Gate check:** git fetch/pull clean, HEAD at `96c912d` prior to this cycle. §14 Status: ACTIVE confirmed at CLAUDE.md line 1318. No kill phrase found in trades_log.md history.
+
+**Note on scope:** this Mode B/C cycle's routine `get_portfolio` call revealed `crypto_value: $557.13` — the BTC limit order from the §21 crypto trigger (resting since 04:37 UTC) had filled at 10:54:19 EDT (14:54:19 UTC), one minute before this cycle, between crypto-trigger firings. Handling the resulting unprotected position immediately (rather than waiting up to an hour for the next crypto cycle) was necessary and is logged here since this is the cycle that caught it; the §21 crypto trigger's own log carries the entry-order history.
+
+**CRYPTO — BTC fill and immediate stop-out:**
+- Entry order `6abf6dba...` confirmed **filled**: 0.00651 BTC @ avg $86,465.905484, cost basis $562.90.
+- Immediately attempted the planned protective stop (`stop_loss` sell, stop_price $85,700) — **rejected by the API**: "Stop sell orders can't have a stop price above the current bid price, or the order would trigger immediately." Current quote at that moment: bid $84,805.04 / ask $86,409.71 / mark $85,607.38 — price had already dropped through the planned stop level in the ~1 hour between order placement intent and fill confirmation (the position was unprotected during that gap, a disclosed structural risk of the resting-limit-then-stop sequencing used for this entry).
+- Per gap-rule discipline (exit immediately at the earliest eligible execution rather than waiting for a bounce once price has already breached the documented stop): placed a marketable limit sell (0.00651 BTC, limit $84,700, comfortably through the bid to ensure execution). **Filled immediately**: avg $84,808.51870967, proceeds $552.10. Order id `6abfc621-97e5-43ed-a702-392fe5442fbe`.
+- **Realized P&L: −$10.80** (cost $562.90 → proceeds $552.10), vs. a planned-risk budget of $5.08 — roughly 2.1x the planned loss, the cost of the gap/wide-spread slippage disclosed when this entry was placed. As % of equity (~$3,778): −0.29%.
+- Crypto position count back to **0/2**. This counts as **stop-out 1 of 2** today under the §6 same-day 2-stop-out cross-mode cooldown (Mode B/C/Crypto combined) — one more stop-out anywhere today pauses all new entries for the rest of the day.
+
+**Mode B open positions (3/5) — exit-rule check:**
+- **ZS**: last $199.88 → ≈ −0.06R (stop $196.50, unchanged). No trigger.
+- **NVDA**: last $236.83 → ≈ +1.36R (stop at breakeven $226.27 since this morning). Below +1.5R, no new trigger.
+- **TSM**: last $469.38 → below the tracked peak ($470.35 from 14:07 UTC); retracement trigger level = peak − 0.30×(peak−entry) ≈ $464.84. Current price is above that — no peak-retracement exit. Peak unchanged (peaks only ratchet up).
+
+**Mode C:** 0 positions, $0 daily P&L, stop-audit N/A.
+
+**Market-shock check:** SPY $771.31 vs. last cycle ($771.81) ≈ −0.06%; QQQ $752.16 vs. last cycle ($753.41) ≈ −0.17%. No breaker.
+
+**Mode B screening:** Re-ran the shortlist from the first-scan cycle given the continued gap-up. STM now +5.7% today ($56.56, up further from this morning), vol_ratio climbing (0.647) but still under 1.2x, extended +14.8% above EMA200 — still the same gap-chase situation flagged at 14:07 UTC, now more extended, not less. AMD/HPE/PLTR/INTC all still "parabolic"/"well extended" (+56.4%/+65.7%/+26.0%/+46.2% above their 200-EMAs respectively). No new Mode B entry.
+
+**Mode C screening:** no qualifying hourly-adapted setup. No new Mode C entry.
+
+No order placed in Mode B or Mode C this cycle. Narrating to chat given the crypto stop-out (an exit-rule trigger) occurred during this cycle's handling.
+
+```json
+{
+  "cycle": "Mode B/C hourly scan",
+  "timestamp_utc": "2026-10-02T14:55:00Z",
+  "modes_covered": ["B","C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 3, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "BTC-USD", "reason": "gap-through-stop, immediate marketable exit", "realized_pl": -10.80}],
+  "entries": [],
+  "orders_placed": 1,
+  "git_push": "pending",
+  "note": "crypto BTC position (filled 14:54 UTC) found unprotected on discovery, exited immediately per gap-rule discipline; same-day stop-out count now 1/2 across all modes; NVDA/TSM holding at +1.36R/peak-tracked, no new triggers; no new Mode B/C entries (STM still a gap-chase, more extended than this morning)"
+}
+```
