@@ -20967,3 +20967,33 @@ Quiet cycle — no new entry, no exit, no circuit breaker.
   "note": "same-day stop-out count 1/2 (BTC); continued broad crypto softness, no pair clears gate (BTC spread/post-stop-out, AAVE/SOL/LINK/HBAR extended, ETH/XRP thin volume + no catalyst); crypto book flat 0/2"
 }
 ```
+
+---
+
+## 2026-10-02 ~19:43 UTC — USER MESSAGE (funding deposit disclosed + XRP priority request)
+
+**User reported:** "I just transferred more money to agentic. My xrp sold. I'm very interested in it. Please make it one of the priorities."
+
+**Verified live:**
+- **Cash deposit confirmed**: Agentic Account (••••8058) cash $1,997.82 → **$3,597.82** (+$1,600.00). Total account value $3,766.225 → **$5,365.155**. Buying power now $3,597.82. This is a user-disclosed, expected increase — **not** a §6 cash-only discrepancy (no pause triggered; nothing to reconcile against, consistent with the §6 cash-only-discrepancy policy treating this system as permanently walled off from moving money itself). Funding policy (§10) is already dynamic ("full current equity, re-checked at proposal time") — no CLAUDE.md edit needed, the existing mechanism picks this up automatically on the next sizing calculation. New headroom: 90%-of-equity deployment ceiling is now ≈$4,828.64 (10% cash floor ≈$536.52), up from ≈$3,389.60 — more capacity for Mode B/C and crypto position sizing going forward.
+- **"My xrp sold"**: confirmed via `get_crypto_orders` (symbol XRP) — this refers to a historical position from **2026-09-13 to 09-15** (bought 220 XRP @ avg $1.41929 on 09/15 08:39 ET, stopped out @ avg $1.37893 on 09/15 10:35 ET same day, small realized loss ≈ -$17.90 + an earlier 197-unit round trip 09/13-09/14 that was roughly breakeven/small loss). Crypto book has been flat 0/2 for the remainder of this session (confirmed again just now — 0 open crypto positions). Not a new event from this chat message; the user is referencing/recalling that prior stop-out.
+- **Current XRP snapshot** (as of ~19:48 UTC, same data as the 19:37 UTC autonomous cycle): mark $1.4705 (bid $1.457/ask $1.484, ~1.84% spread via Market Maker Routing — the same wide-spread condition affecting all 7 allowlist pairs today). Pullback in uptrend (-4.1% wk, +8.9% mo), RSI 53.4 (neutral-improving), price_vs_ema200 +7.1% (not extended), but **volume confirmation fails (vol_ratio_10d 0.04x, far below the 1.2x bar)** and no verified dated catalyst identified yet — does not currently clear the full §21 entry gate (2-of-6 + catalyst/RS + valid stop ≥1.5:1 R:R + 4H+1H trigger).
+
+**Action taken:** none (no order placed). Per §1, a chat request to "prioritize" a name is not trade authorization and does not bypass §21's entry gate. Noted for all future crypto cycles: give XRP priority/deeper-look screening each hourly cycle (catalyst search, 4H/1H structure, volume re-check) ahead of the other 6 allowlist pairs, without lowering or skipping any gate condition. If XRP clears the gate on a future cycle, the existing dedicated 24/7 crypto trigger (§21, autonomous from day one) already has standing authority to act on it — no new permission required. User informed in chat that an immediate manual buy right now would still require an explicit order confirmation (ticker/quantity/price), per §1.
+
+```json
+{
+  "cycle": "user_message",
+  "timestamp_utc": "2026-10-02T19:43:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 3, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending",
+  "note": "user disclosed a $1,600 cash deposit (cash $1,997.82->$3,597.82, total equity ->$5,365.155, new 90% deployment ceiling ~$4,828.64) and asked that XRP be prioritized in crypto screening; verified XRP's referenced prior sale is the historical 09/15 stop-out, crypto book still flat 0/2; XRP currently still fails the §21 gate on volume+catalyst; no order placed, no gate bypassed"
+}
+```
