@@ -456,6 +456,32 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-03 (later same day): User instructed extending the same risk increase to crypto (§21)
+  and options (§18), after the Mode B change directly below.** Two changes:
+  1. **Crypto per-trade risk (§21 item 4) raised from 0.5% to 1% of Agentic Account equity** — a
+     clean doubling, same mechanism as the Mode B change (sized from entry-to-stop distance). At
+     the account's equity then (~$5,360), per-trade crypto risk moves from ≈$27 to ≈$54. **Mode
+     C's own risk per trade (§20 item 2) was explicitly not touched** — the user asked for crypto
+     and options only, not Mode C, so Mode C stays at 0.5%, now the odd one out at half of both
+     Mode B and crypto. All other §21 numbers unchanged: 15%-of-equity per-position cap, 8%-max
+     stop-distance ceiling, 2-concurrent-position cap, ≥1.5:1 R:R floor, mandatory resting broker
+     stop mechanics.
+  2. **Options position-size ceiling (§18 item 5) raised from 6% to 12% of Agentic Account
+     equity** — doubled the same way, but flagged as a less direct analog before making the
+     change: options' cap was never a risk-per-trade number like the other two (the document's
+     own text calls it "a sizing ceiling, not a precise 1%-equity-risk calculation, since the
+     daily-trailing mechanic structurally caps realized loss tighter than a flat-percentage stop
+     would"). Doubling it means the **worst-case single-trade exposure if a gap bypasses the
+     15%-cushion/30%-trailing stop** goes from 6% to 12% of equity (≈$322 → ≈$643 at the account's
+     equity then) — on an instrument that can already lose 100% of premium through time decay
+     alone, this is a proportionally larger tail risk than either the Mode B or crypto changes.
+     Disclosed plainly before making the edit; user chose to proceed. §19's separate LEAPS cap
+     (3% of equity) was **not** touched — the user said "options," and LEAPS is documented
+     throughout this file as its own distinct lane from §18, not an instrument the request swept
+     in by implication.
+  Scoped narrowly to these two numbers — not touched by either change: position/correlation caps,
+  reward-to-risk floors, circuit-breaker thresholds, the stop mechanics themselves (§16/§18/§20/
+  §21's trailing/breakeven/peak-retracement rules), or any other instrument's sizing.
 - **2026-10-03: User instructed raising Mode B's per-trade risk sizing from 1% to 2% of Agentic
   Account equity** (§16 item 2, and the cross-referencing §5B item 3 which derives its number from
   §16 item 2 — both updated together to avoid an internal contradiction). Prompted by the user
@@ -1733,15 +1759,19 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
      of exact execution — if the option's value gaps through the stop level, exit at the earliest
      eligible execution rather than waiting for a better price.
 
-5. **Position-size ceiling: maximum premium paid per position ≤ 6% of current Agentic Account
-   equity** (raised 2026-08-19 from 2%, at explicit user instruction, to make single-name options
-   on richly-priced growth names affordable at this account's size — see §12 change log). The
-   item 4 15%-cushion entry-day floor structurally caps realized loss well below what an
-   unstructured position would see in normal conditions (absent a gap — see item 4's gap-risk
-   note), but 6% of equity is now the realistic worst-case single-trade exposure if a gap bypasses
-   the stop — meaningfully larger than the 1%-of-equity risk budget every equity position uses.
-   Treat 6% of equity as the hard maximum commitment per position regardless of how tight the
-   effective day-one risk is. Round down to whole contracts.
+5. **Position-size ceiling: maximum premium paid per position ≤ 12% of current Agentic Account
+   equity** (raised 2026-10-03 from 6%, at explicit user instruction extending the same doubling
+   applied to Mode B and crypto — see §12 change log for the disclosed tradeoff). Originally
+   raised 2026-08-19 from 2% to 6%, at explicit user instruction, to make single-name options on
+   richly-priced growth names affordable at this account's size. The item 4 15%-cushion entry-day
+   floor structurally caps realized loss well below what an unstructured position would see in
+   normal conditions (absent a gap — see item 4's gap-risk note), but 12% of equity is now the
+   realistic worst-case single-trade exposure if a gap bypasses the stop — on an instrument that
+   can already lose 100% of premium, this is a materially larger tail risk in relative terms than
+   the risk-per-trade numbers used elsewhere in this document (meaningfully larger than the
+   2%-of-equity risk budget every Mode B equity position now uses). Treat 12% of equity as the
+   hard maximum commitment per position regardless of how tight the effective day-one risk is.
+   Round down to whole contracts.
 
 6. **Autonomous authority (2026-08-19, explicit user instruction): the Mode B AUTONOMOUS_EXECUTE
    trigger may trade options under this policy from activation, with no separate verification
@@ -2111,8 +2141,11 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      apply — there is no open/close for a 24/7 market.
 4. **Position sizing and caps, tighter than the general equity structure given crypto's higher
    volatility and this account's now-24/7 (but only hourly-checked) exposure window:**
-   - Risk per trade: **0.5% of Agentic Account equity** (matching Mode C's tighter number, not
-     Mode B's 1%), sized from the entry-to-stop distance, same formula as §20 item 2.
+   - Risk per trade: **1% of Agentic Account equity** (raised 2026-10-03 from 0.5%, at explicit
+     user instruction extending the same doubling applied to Mode B — see §12 change log),
+     sized from the entry-to-stop distance, same formula as §20 item 2. Mode C's own risk per
+     trade (§20 item 2) is unaffected by this change and remains 0.5% — not raised alongside
+     crypto.
    - **Hard stop-distance ceiling: the stop may not sit farther than 8% below entry.** If the
      technically valid invalidation needs more room than that, reduce size or skip the trade —
      do not widen the stop to fit. (Distinct from, and in addition to, the risk-dollar sizing
