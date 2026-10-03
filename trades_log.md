@@ -21573,3 +21573,38 @@ Both autonomous trigger prompts (Mode B/C `trig_01KrBsTt9mssjU4hPGtM3cBe` and Cr
 - **Crypto trigger**: added the same portfolio-heat-cap check (cross-mode, pulling Mode B/C's open-risk from trades_log.md if needed); added a risk-sizing note (crypto now 1%, was 0.5%); updated the allowlist reference from 5 to the current 7 coins (BTC/ETH/SOL/XRP/LINK/AAVE/HBAR — the prompt had drifted to only listing the original 5 even though CLAUDE.md itself was already current); cross-referenced the new Mode B stop-audit for consistency in the stop-audit discipline note.
 
 Both updates confirmed successful (`updated_at` timestamps changed, no `needs_device_approval` status). Next scheduled fires (crypto ~09:37 UTC today, Mode B/C Monday 2026-10-05 14:55 UTC) will run under the updated prompts.
+
+---
+## 2026-10-03 (later same day) — MANUAL/SYSTEM (user instruction, "4" — selected from prior ROI research list) — PROFIT-FACTOR TRACKING ADDED (CLAUDE.md §16 item 16)
+
+**Change implemented**: new §16 item 16 — a running win-count/loss-count/win-rate/gross-profit/gross-loss/profit-factor tally, tracked per mode (Mode B, Mode C, crypto) and combined, updated incrementally at every realized exit and logged alongside that exit's Trade Card going forward. Cross-referenced from §20 item 9 (Mode C) and §21 item 9 (crypto). **Pure reporting addition — no entry gate, position cap, or sizing rule changed.** Committed and pushed to CLAUDE.md (`d88699c`).
+
+**First cumulative tally — backfilled from this log's own historical records, not tracked live as it happened.** Flagged explicitly as a **best-effort reconstruction**, not a guaranteed-exact figure: a few older entries' tickers were ambiguous in the surrounding text, and the 2026-08-18 RKLB/DRAM/IREN triple stop-out was only ever logged as a combined $18.08 total (not split per name), so it's counted here as 3 loss-events sharing that one combined figure. From this point forward, every realized exit updates this tally incrementally and exactly from real-time data — this backfill is a one-time starting point, not the ongoing method.
+
+| Mode | Wins | Losses | Win rate | Gross profit | Gross loss | Profit factor |
+|---|---|---|---|---|---|---|
+| Mode B (equities) | 13 | 10 | 56.5% | $166.23 | $132.64 | 1.25 |
+| Mode C | 1 | 0 | 100% | $0.87 | $0.00 | — (no losses yet) |
+| Crypto | 2 | 10 | 16.7% | $66.35 | $122.08 | 0.54 |
+| **Combined** | **16** | **20** | **44.4%** | **$233.45** | **$254.72** | **0.92** |
+
+**Read plainly**: combined profit factor is **0.92 — net-losing by roughly $21 across every realized exit on record**, driven almost entirely by crypto (profit factor 0.54). Mode B is the only lane currently profitable on this tally (1.25); Mode C has too few closed trades (1) to read anything into yet. Crypto's 16.7% win rate alone is in the ballpark the trend-following research expects (~20%), but profit factor below 1 shows the winners haven't yet been big enough or frequent enough to offset the losers — that gap is real today, not just a theoretical risk, and this is exactly the kind of thing win rate alone would have hidden.
+
+```json
+{
+  "cycle": "manual_system_change",
+  "timestamp_utc": "2026-10-03T21:00:00Z",
+  "modes_covered": ["B", "C", "crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "change": "added CLAUDE.md §16 item 16 (profit-factor/win-rate tracking)",
+  "backfill_tally": {
+    "mode_b": {"wins": 13, "losses": 10, "win_rate_pct": 56.5, "gross_profit": 166.23, "gross_loss": 132.64, "profit_factor": 1.25},
+    "mode_c": {"wins": 1, "losses": 0, "win_rate_pct": 100.0, "gross_profit": 0.87, "gross_loss": 0.00, "profit_factor": null},
+    "crypto": {"wins": 2, "losses": 10, "win_rate_pct": 16.7, "gross_profit": 66.35, "gross_loss": 122.08, "profit_factor": 0.54},
+    "combined": {"wins": 16, "losses": 20, "win_rate_pct": 44.4, "gross_profit": 233.45, "gross_loss": 254.72, "profit_factor": 0.92}
+  },
+  "backfill_confidence": "best_effort_reconstruction_not_exact",
+  "git_push": "success"
+}
+```
