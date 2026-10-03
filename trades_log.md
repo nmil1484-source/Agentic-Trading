@@ -21290,3 +21290,32 @@ Quiet cycle — no new entry, no exit, no circuit breaker.
   "note": "overnight rangebound, no new catalysts; same gate failures as prior cycles; crypto book flat 0/2"
 }
 ```
+
+---
+
+## 2026-10-03 ~05:00 UTC — USER-INSTRUCTED RULE CHANGE: Mode B risk sizing 1% → 2%
+
+**User instruction (exact):** "Change §16 item 2 from 1% to 2%" — following a chat exchange where the 1%-vs-2% tradeoff was modeled in dollars and against this account's circuit breakers before the change was made.
+
+**Change applied:** CLAUDE.md §16 item 2 (initial stop / max planned loss) and the cross-referencing §5B item 3 (per-trade risk sizing, which explicitly derives its number from §16 item 2) both updated from 1% to **2% of current Agentic Account equity**. Mirrored in `docs/fractional_tier_b_policy.md` item 2 and `docs/swing_trading_execution_policy.md` item 5. Dated §12 change-log entry added documenting the before/after and the disclosed tradeoff. Commit `58187ce`, pushed clean.
+
+**Scope:** Mode B only. Not touched: Mode C risk (0.5%, §20 item 2), crypto risk (0.5%, §21 item 4), the ≥1.5:1 R:R floor, position/correlation caps, total-deployment ceiling, or any circuit-breaker threshold itself (§6) — those are reached faster now only as a mechanical consequence of larger per-trade dollar swings.
+
+**Effective immediately for all future Mode B entries, including the autonomous trigger** — no separate re-verification step was requested or required (consistent with how every other risk-parameter change in this account's history has taken effect immediately upon the dated CLAUDE.md edit).
+
+```json
+{
+  "cycle": "user_instructed_rule_change",
+  "timestamp_utc": "2026-10-03T05:00:00Z",
+  "modes_covered": ["B"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success",
+  "note": "CLAUDE.md §16 item 2 and §5B item 3 updated 1%->2% Mode B per-trade risk, per explicit user instruction; mirrored in both standalone docs; change-log entry added; commit 58187ce"
+}
+```
