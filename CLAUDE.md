@@ -479,6 +479,49 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-03 (later same day): User selected recommendation #4 from a "how do we maximize ROI,
+  look at top swing/day/crypto traders" research pass earlier the same day — added profit-factor
+  tracking alongside win rate.** New §16 item 16 (cross-referenced from §20 item 9 and §21 item
+  9): a running win-count/loss-count/win-rate/gross-profit/gross-loss/profit-factor tally,
+  tracked per mode (Mode B, Mode C, crypto) and combined, updated incrementally at every realized
+  exit and logged alongside that exit's Trade Card. **Pure reporting addition — no entry gate,
+  position cap, or sizing rule changed by this entry.** Motivation, stated directly in §16 item
+  16: win rate alone is structurally misleading for crypto, since the account's own
+  trend-following research (logged in chat, not yet a separate written artifact in this repo)
+  expects crypto to run a lower win rate than equity swings while still being net-profitable on
+  a few large winners — profit factor, not win rate, is what actually tells crypto's approach
+  whether it's working.
+
+  **First cumulative tally, backfilled from `trades_log.md`'s existing per-exit records** (every
+  realized exit logged under this system's history to date, reconstructed by reading the log
+  rather than tracked live as it happened — flagged explicitly as a **best-effort reconstruction,
+  not a guaranteed-exact figure**: a few older entries' tickers were ambiguous in the surrounding
+  log text, and the 2026-08-18 RKLB/DRAM/IREN triple stop-out was logged only as a combined
+  $18.08 total, not split per name, so it's counted as 3 loss-events sharing that combined dollar
+  figure rather than 3 individually-verified numbers). Every exit from this point forward updates
+  this tally incrementally and exactly, from real-time data — this backfill is a one-time
+  starting point, not an ongoing method.
+
+  | Mode | Wins | Losses | Win rate | Gross profit | Gross loss | Profit factor |
+  |---|---|---|---|---|---|---|
+  | Mode B (equities) | 13 | 10 | 56.5% | $166.23 | $132.64 | 1.25 |
+  | Mode C | 1 | 0 | 100% | $0.87 | $0.00 | — (no losses yet) |
+  | Crypto | 2 | 10 | 16.7% | $66.35 | $122.08 | 0.54 |
+  | **Combined** | **16** | **20** | **44.4%** | **$233.45** | **$254.72** | **0.92** |
+
+  **Read plainly, not softened:** combined profit factor is currently **0.92 — net-losing by
+  about $21 across every realized exit on record**, driven almost entirely by crypto (profit
+  factor 0.54 — losing roughly twice what it's won despite 2 real wins including the +$64.20 SOL
+  trailing-stop trade). Mode B is the only lane currently profitable on this tally (profit factor
+  1.25), Mode C has too few closed trades (1) to read anything into yet. This is consistent with,
+  and adds detail to, the sample-size concern already on record in this document's chat history
+  (too few total closed trades — order of a few dozen — to treat any of these numbers as a
+  validated edge rather than a noisy early read) — it does not mean the system is miscalibrated,
+  but it is a direct, disclosed answer to "is this actually working," not just "how much are we
+  risking." Crypto's low win rate (16.7%) alone looks concerning but is in the ballpark the
+  trend-following research expects (~20%); what the research didn't promise and this tally shows
+  plainly is that crypto's winners haven't yet been big enough, or frequent enough, to offset its
+  losers — profit factor below 1 means that gap is real today, not just a theoretical risk.
 - **2026-10-03 (later same day): User instructed two loss-limiting additions, after asking what
   else could be done to limit loss given the same-day risk-sizing doubling above.** Both are
   tightening/structural additions, not changes to any risk-sizing number:
@@ -1642,6 +1685,10 @@ Items 3, 5, 6, and 13 were each given a small cross-reference update to reflect 
 moves are now real order actions, not just documentation updates — none of their substantive
 triggers or thresholds changed. See §12 change log for the full context.
 
+**Change note (2026-10-03, later same day):** item 16 added — profit-factor and win-rate
+tracking, a pure reporting addition (no new gate/cap/sizing rule), cross-referenced from §20
+item 9 and §21 item 9. See §12 change log.
+
 1. Every entry must have an exit plan before the order is placed. The Trade Card must record:
    entry price, initial stop/invalidation, maximum planned loss in dollars, first profit target,
    and a time-stop date.
@@ -1798,6 +1845,29 @@ triggers or thresholds changed. See §12 change log for the full context.
     any Mode B position already open when this item was added (2026-10-03) gets a real resting
     stop placed at its current documented stop price on the very next cycle this audit runs,
     exactly as if it were missing one — there is no grandfather exception.
+
+16. **Profit-factor and win-rate tracking (added 2026-10-03, explicit user instruction — a
+    reporting addition only, not a risk-sizing or gating change).** In addition to the per-exit
+    record item 11 already requires, maintain a running cumulative tally updated at every realized
+    exit, **tracked separately per mode** (Mode B — equities, §18 options, and §19 LEAPS combined;
+    Mode C; crypto/§21) **and combined across all three**, since the modes' expected shapes
+    genuinely differ (see the purpose note below). A partial trim/profit-take (e.g. a §16 item 6
+    +2R/+3R trim) counts as its own realized exit event for this tally, same granularity §16
+    item 11's existing log already uses. Fields: win count, loss count, win rate % (wins ÷
+    wins+losses), gross profit $ (sum of every winning exit's realized P&L), gross loss $ (absolute
+    sum of every losing exit's realized P&L), and profit factor (gross profit ÷ gross loss; leave
+    undefined/"—" if gross loss is $0). Carry the tally forward incrementally from the last logged
+    value at each new exit (`trades_log.md` is the system of record — never fully recomputed from
+    scratch each time, only updated) and log the updated per-mode and combined figures alongside
+    that exit's Trade Card/`trades_log.md` entry. **Purpose, stated explicitly**: win rate alone is
+    misleading, especially for crypto — the trend-following research referenced in this date's
+    §12 change-log entry expects crypto to run a structurally *lower* win rate than equity swing
+    trading while still being net-profitable on a few large winners, so profit factor (not win
+    rate) is the number that actually tells crypto's approach whether it's working; a mode posting
+    a low win rate with profit factor ≥1 is healthy, one posting profit factor <1 is losing money
+    net regardless of how its win rate looks in isolation. This item adds no new entry gate,
+    position cap, or sizing rule of any kind — purely a logging/reporting requirement, cross-
+    referenced from §20 item 9 (Mode C Trade Cards) and §21 item 9 (crypto Trade Cards).
 
 ## 17. Day-Trade and Settlement Protection (Mode B)
 Added 2026-08-13 at explicit user instruction, alongside the §3/§12 removal of Mode B's 1/day,
@@ -2213,7 +2283,9 @@ separate design was intended). Log the theme on the Trade Card so this is checka
 8. At end of regular session (or immediately if the daily loss limit triggers first): flatten
    every open Mode C position and stop calling Mode C entry logic for the rest of that session.
 9. After any fill (entry or exit): full Trade Card per §7's Mode C fields, posted to chat, and a
-   `trades_log.md` entry, same mandatory-every-cycle discipline as Mode B (§14 item 10).
+   `trades_log.md` entry, same mandatory-every-cycle discipline as Mode B (§14 item 10). Every
+   realized exit also updates the running Mode C and combined-across-modes profit-factor/win-rate
+   tally (§16 item 16, added 2026-10-03) alongside the Trade Card.
 
 ### 8. What the Routine refuses to do under Mode C, even if asked mid-session
 Same category as §14 item 8's existing refusal list, extended:
@@ -2349,7 +2421,10 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
 9. **Every crypto entry/exit requires a full Trade Card** per §7's format, tagged `CRYPTO`,
    including: the pair, exact quantity and average fill price, stop order ID and confirmed status,
    4H setup + 1H trigger evidence, catalyst/relative-strength evidence with date, maximum planned
-   loss in dollars and % of equity, current peak-retracement tracking state once ≥+1.5R, and a
+   loss in dollars and % of equity, current peak-retracement tracking state once ≥+1.5R, the
+   updated running crypto and combined-across-modes profit-factor/win-rate tally (§16 item 16,
+   added 2026-10-03 — win rate alone is expected to understate a working crypto approach, per
+   that item's purpose note), and a
    `trades_log.md` entry with the same mandatory-every-cycle discipline as every other instrument
    in this document.
 10. **Change control, same as everywhere else:** adding a coin to item 1's allowlist, or any
