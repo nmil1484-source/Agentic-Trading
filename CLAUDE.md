@@ -456,6 +456,14 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-03 (later same day): User instructed extending the same risk increase to §19 LEAPS
+  as well, after crypto/options directly below.** **§19 item 4 (LEAPS position-size ceiling)
+  raised from 3% to 6% of Agentic Account equity** (≈$161 → ≈$322 at the account's equity then).
+  Same doubling, same worst-case-gap-exposure caveat already disclosed for §18 options (LEAPS
+  carries the identical 100%-loss-of-premium profile, just over a 9-12 month hold instead of
+  30-60 days) — flagged in chat before the edit. §18's own 12% cap and §21's 1% crypto risk
+  (both set the same day, directly below) are unaffected by this entry; this one touches only
+  §19 item 4.
 - **2026-10-03 (later same day): User instructed extending the same risk increase to crypto (§21)
   and options (§18), after the Mode B change directly below.** Two changes:
   1. **Crypto per-trade risk (§21 item 4) raised from 0.5% to 1% of Agentic Account equity** — a
@@ -1867,13 +1875,14 @@ comes back unaffordable.
    - Gap/slippage risk note carries over from §18 item 4: a documented stop is not a guaranteed
      execution price.
 
-4. **Position-size ceiling: maximum premium paid per LEAPS position ≤ 3% of current Agentic
-   Account equity** (filled in by Claude, not explicitly specified by the user — flag if a
-   different number is wanted). Set slightly above §18's 2% short-dated cap to reflect the longer
-   conviction horizon, but still modest given the account's size — at ~$2,600 equity this is
-   roughly $78, which will not afford a LEAPS contract on many genuinely large-cap names (see the
-   reality check above). Round down to whole contracts; if the cap can't afford one contract on a
-   given underlying, the trade doesn't happen — do not stretch the cap to force a fill.
+4. **Position-size ceiling: maximum premium paid per LEAPS position ≤ 6% of current Agentic
+   Account equity** (raised 2026-10-03 from 3%, at explicit user instruction extending the same
+   doubling applied to Mode B/crypto/§18 options the same day — see §12 change log for the
+   disclosed tradeoff; same worst-case-gap-exposure caveat as §18 item 5 applies here, over a
+   longer 9-12 month hold). Originally set by Claude (not explicitly specified) at 3%, slightly
+   above §18's then-2% short-dated cap to reflect the longer conviction horizon. Round down to
+   whole contracts; if the cap can't afford one contract on a given underlying, the trade doesn't
+   happen — do not stretch the cap to force a fill.
 
 5. **Autonomous authority: same as §18 — the Mode B AUTONOMOUS_EXECUTE trigger may trade LEAPS
    under this policy from activation, no separate verification procedure** (assumed consistent
@@ -2152,7 +2161,7 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      above — both must be satisfied.)
    - **Per-position cap: 15% of Agentic Account equity** — tighter than §3's general 40% cap,
      same pattern as every other asset-class carve-out in this document having its own tighter
-     sub-cap (§15 Tier-B 20%, §18 options 6%, §19 LEAPS 3%).
+     sub-cap (§15 Tier-B 20%, §18 options 12% as of 2026-10-03, §19 LEAPS 6% as of 2026-10-03).
    - **Max 2 concurrent crypto positions** (its own small cap, separate from Mode B's 5-position
      cap and Mode C's 8-position cap) — crypto behaves as a single, highly-correlated macro asset
      class much of the time, so 2 is already a meaningful concentration limit given only 7 coins
