@@ -21429,3 +21429,34 @@ Quiet cycle — no new entry, no exit, no circuit breaker.
   "note": "still flat/rangebound, no new catalysts; crypto book flat 0/2"
 }
 ```
+
+---
+
+## 2026-10-03 ~09:00 UTC — USER-INSTRUCTED RULE CHANGE: crypto + options risk doubled
+
+**User instruction (exact):** "Extend the same risk increase to crypto and options" — following the Mode B 1%→2% change earlier today.
+
+**Changes applied:**
+- **§21 item 4 (crypto per-trade risk)**: 0.5% → **1% of Agentic Account equity** (≈$27 → ≈$54 at current equity $5,360.14). Clean doubling, same mechanism as Mode B. Mode C's own 0.5% risk (§20 item 2) explicitly **not** touched — user scoped this to crypto and options only.
+- **§18 item 5 (options position-size ceiling)**: 6% → **12% of Agentic Account equity** (≈$322 → ≈$643). Flagged before editing: this cap is a worst-case-gap-exposure ceiling, not a direct risk-per-trade number like the other two lanes (realized loss is otherwise bounded by the 15%-cushion/30%-trailing stop) — doubling it is proportionally a bigger tail-risk increase given options can already lose 100% of premium. §19's separate LEAPS 3% cap explicitly **not** touched (LEAPS is its own distinct lane, not swept in by "options").
+
+Dated §12 change-log entry added with full tradeoff disclosure (same discipline as the Mode B entry). No mirrored standalone doc needed updates (neither references the crypto/options numbers). Commit `60cb3e4`, pushed clean.
+
+**Scope, explicit:** position/correlation caps, reward-to-risk floors, circuit-breaker thresholds, and all stop mechanics (trailing/breakeven/peak-retracement) in every lane are unchanged — only the two sizing numbers above moved. Effective immediately for the autonomous crypto trigger and the Mode B/C trigger's options-evaluation step (§5B item 3a) — no separate re-verification requested or required.
+
+```json
+{
+  "cycle": "user_instructed_rule_change",
+  "timestamp_utc": "2026-10-03T09:00:00Z",
+  "modes_covered": ["crypto", "options"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success",
+  "note": "CLAUDE.md §21 item 4 (crypto risk 0.5%->1%) and §18 item 5 (options cap 6%->12%) updated per explicit user instruction extending the Mode B change; Mode C (0.5%) and LEAPS (3%) explicitly untouched; change-log entry added; commit 60cb3e4"
+}
+```
