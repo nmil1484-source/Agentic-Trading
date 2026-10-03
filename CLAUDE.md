@@ -447,6 +447,25 @@ per §5B — the ordering below is unchanged by the mode refactor.)
    used and the query time in the Trade Card/`trades_log.md`, same discipline as every other source.
    https://www.tradingview.com/ (data via the tvremix MCP connector, not a page fetch)
 
+8. **Politician Trading Disclosures — added 2026-10-03 at explicit user instruction.** Robinhood MCP's
+   `get_politician_trades` tool (source: Tip Ranks, built on public STOCK Act filings) surfaces
+   disclosed equity/option trades by members of Congress, queryable by ticker or by name. **Use as a
+   research-prioritization trigger only, never as a catalyst, technical confirmation, or signal of
+   any kind, and never to bypass any existing gate.** When a ticker already on the watchlist or under
+   active screening (Mode A, Mode B, §18/§19 options, or Mode C) shows a recent disclosed buy from a
+   sitting member of Congress, that is a prompt to do a deeper research pass on that name this cycle
+   (closer look at catalyst, technicals, news) — not a reason to relax or skip any requirement in
+   §5A/§5B/§18/§19/§20. **Mandatory caveat, baked into this rule because the tool's own data makes it
+   necessary**: `disclosure_date` can lag `transaction_date` by up to 45 days, and disclosed amounts
+   are ranges, not exact figures — a disclosure surfacing today can describe a trade placed over a
+   month ago. This is historical context, not a real-time or "trading at the right time" signal, and
+   must never be presented or acted on as one. **Equities/options only** — the STOCK Act doesn't
+   cover crypto, so this has no bearing on §21 screening. Log which politician/ticker query was run
+   and its timestamp in the Trade Card/`trades_log.md` when it factored into a deeper-dive decision,
+   same discipline as every other source. Does not apply to the President or other executive-branch
+   officials — `get_politician_trades` covers congressional STOCK Act disclosures specifically; a
+   query for a non-Congress-member name returns no match (verified 2026-10-03 querying "Trump").
+
 ## 9. Source integrity rule
 - Do not treat YouTube titles, social-media posts, or prediction-market odds as a primary trade signal.
 - Use them only as context after checking the approved sources, price/volume data, and a verifiable catalyst.
@@ -479,6 +498,20 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-03 (later same day): User instructed adding politician trading disclosures as a
+  research-prioritization trigger**, after asking whether Pelosi/Trump-style congressional trades
+  could be seen at all (answered: yes, via `get_politician_trades`, Tip Ranks/STOCK Act data) and
+  then asking that a disclosed buy on a watchlist/screening name "trigger a closer watch" and
+  prioritized deep research. **New §8 item 8.** Corrected one framing point before implementing:
+  the user's stated reason ("they are trading at the right time") doesn't hold — `disclosure_date`
+  can lag `transaction_date` by up to 45 days, so this is historical context surfacing late, not a
+  timing edge — flagged plainly, then built the rule around that reality rather than the original
+  framing. **Scoped narrowly, as requested**: a recent disclosed buy on an in-scope name prompts a
+  deeper research pass that cycle (catalyst/technicals/news) — it is explicitly **not** a catalyst,
+  technical confirmation, or signal of any kind, and does not relax or bypass any existing §5A/§5B/
+  §18/§19/§20 gate requirement. Equities/options only (STOCK Act doesn't cover crypto) — no effect
+  on §21. Mode B/C weekday trigger prompt updated in the same pass to actually run this check each
+  screening cycle, not just document it as available.
 - **2026-10-03 (later same day): User selected recommendation #4 from a "how do we maximize ROI,
   look at top swing/day/crypto traders" research pass earlier the same day — added profit-factor
   tracking alongside win rate.** New §16 item 16 (cross-referenced from §20 item 9 and §21 item
