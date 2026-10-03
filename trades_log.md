@@ -22037,3 +22037,34 @@ User shared two screenshots from an external macro/credit research app (not a §
 ## 2026-10-03 ~20:14 UTC — Mode B/C trigger prompt updated (news/sentiment)
 
 `update_trigger` for `trig_01KrBsTt9mssjU4hPGtM3cBe` succeeded on retry (first attempt errored "MCP tool call requires approval" at ~19:10 UTC; no partial change was made, confirmed by re-reading the trigger before retrying). The prompt now includes the §8 item 9 News and Sentiment Monitoring step alongside the existing §8 item 8 politician-trades step, wired into both the Mode B (step 3) and Mode C (step 10) screening sections, and referenced in the step 15 logging requirement and step 16 chat-report trigger list. No change to risk/gate/cap logic — documentation/research-source wiring only, matching the CLAUDE.md §8 item 9 addition from ~20:10 UTC.
+
+---
+## 2026-10-03 (later same day) — INCIDENT: Robinhood MCP connector unauthorized
+
+**Trigger:** attempting to act on the user's "also add to Robinhood's own watchlist" instruction (retroactive BE/DIS sync), this session received a system-level notice that the `robinhood-trading` connector requires reauthorization before any of its tools (`get_watchlists`, `add_to_watchlist`, and — critically — `get_accounts`/`get_portfolio`/`place_equity_order`/`place_crypto_order`/every other Robinhood tool used by the standing autonomous cycles) can be called. This is a non-interactive session; the OAuth flow cannot be run from here.
+
+**Scope of impact, per §6 circuit breaker (Robinhood MCP unreachable → cease new-entry trading until reconciliation verified):**
+- New-entry order submission is suspended across all three modes (Mode B, Mode C, crypto §21) until live access is reconfirmed.
+- Existing protective exits/resting stop orders already placed at the broker (NVDA, TSM, AAVE) are **not affected** by this session's inability to call tools — they live at the broker independently and remain fully in force. This session simply cannot verify or manage them (stop-audit, trailing, breakeven moves) until access is restored.
+- The watchlist-sync task (BE/DIS → Robinhood watchlist) is deferred, not abandoned.
+- No order was placed, modified, or cancelled incorrectly — this is a clean access-loss, not a data/logic error.
+
+**Action taken:** disclosed plainly to the user in chat; asked them to reauthorize via claude.ai → Settings → Connectors → Robinhood Agentic (same path used for the original 2026-08-14 reauthorization per §14's verification history). No autonomous order or data call attempted while unauthorized.
+
+**Next step:** on the next autonomous trigger firing (or user confirmation of reauthorization), re-verify live access via `get_accounts` before resuming any new-entry logic, same discipline as §14's original verification procedure. If a trigger fires while still unauthorized, log that cycle as a gate-check failure (no trade, no false OBSERVE) rather than silently skipping the log entry.
+
+```json
+{
+  "cycle": "incident",
+  "timestamp_utc": "2026-10-03T20:20:00Z",
+  "modes_covered": ["B", "C", "crypto"],
+  "status_gate": "ROBINHOOD_MCP_UNAUTHORIZED",
+  "circuit_breakers_active": ["robinhood_mcp_unreachable"],
+  "positions": null,
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
