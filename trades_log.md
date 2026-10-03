@@ -21910,3 +21910,18 @@ Both updates confirmed successful (`updated_at` timestamps changed, no `needs_de
   "git_push": "success"
 }
 ```
+
+---
+## 2026-10-03 ~10:13am user-local — MANUAL (user-shared screenshots) — ONE-OFF REGIME READ, NOT A §8 SOURCE CHANGE
+
+User shared two screenshots from an external macro/credit research app (not a §8 approved source — Member Chat/Weekly Report style product, name not disclosed). User confirmed via AskUserQuestion: **"Use it for a one-off regime read right now"** — explicitly not asking to add it as a standing §8 source, not asking for any CLAUDE.md edit. Logged here only so the next autonomous cycle (which starts from a fresh context reading this file, not this chat) sees the same one-off caution read.
+
+**Key readings from the screenshots:**
+- **Duration risk: TRIGGERED.** 10Y yield 5.24%, 10Y real 2.88%, real rate +26bps over 10 days — a meaningfully fast real-yield repricing, historically a headwind for long-duration/high-multiple risk assets and, separately, for crypto (which trades as a long-duration/liquidity-sensitive asset much of the time).
+- **Credit: WATCH, with real stress underneath.** HY OAS 3.24% (+58bps/10d, +59bps/30d), **CCC OAS 12.15% (+138bps/10d) decompressing hard against IG OAS 0.86% (+9bps/10d)** — CCC-vs-IG decompression is a classic early-warning credit signal that historically leads broader risk-asset drawdowns, not just a lagging indicator.
+- **Refinancing: WATCH but not yet acute** (RRP cushion depleted, no downstream stress yet).
+- **Weekly summary context:** 2-year yield overreaction unwinding (mildly constructive — market had priced more Fed hikes than the Fed itself signals), but Iran-related geopolitical/oil risk remains a live, unresolved binary; labor market showed one soft print (payrolls 29K vs. 90K expected, unemployment 4.2%) without yet being a confirmed trend; breadth washed out, small caps/financials crushed, **MOVE index elevated**. The source's own stated posture: cautious, nibbling gold, keeping a shopping list ready rather than deploying into an unresolved setup.
+
+**How this is being applied (one-off, this session only, no document change):** CLAUDE.md §5B's existing Regime Rule for Swings already says *"If credit/volatility data shows clear market stress... do not open new swing trades"* — these readings (CCC decompression, HY OAS widening 58bps/10d, elevated MOVE) are a real, current instance of exactly that condition, independent of the FTA Regime Dashboard's own UNKNOWN_DEGRADED status. Applying the same underlying principle to Mode C and crypto for the **remainder of today's session (2026-10-03) only**: hold new entries in all three lanes to a meaningfully higher bar than a routine 2-of-6/1.5:1 pass — a candidate needs to be unusually clean (strong catalyst, strong RS, tight valid stop) to justify sizing into a session where duration and credit both flagged real stress in the same window. This is **not** a circuit-breaker trip, **not** a change to §6/§5B's actual numbers, and **not** persisted beyond today — next session's cycles return to the normal bar unless a genuine §6 breaker is independently active then.
+
+**Existing AAVE position** (entry $182.6646, stop $175.50, last mark ≈$179.42 per the 16:38 UTC cycle): no change to its mechanics — the resting stop is still the only thing that closes it; this macro read doesn't trigger an exit on its own. Worth noting only that AAVE's slow drift down over today's cycles is directionally consistent with this broader risk-off tone, not a contradiction of it.
