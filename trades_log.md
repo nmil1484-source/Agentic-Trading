@@ -22068,3 +22068,28 @@ User shared two screenshots from an external macro/credit research app (not a §
   "git_push": "pending"
 }
 ```
+
+---
+## 2026-10-03 (later same day) — Robinhood MCP reauthorized; watchlist-mirroring task resumed and completed
+
+**Reauthorization confirmed:** user reauthorized the `robinhood-trading` connector via claude.ai Connectors. Live access re-verified: `get_accounts` — retail ••••7533 correctly `agentic_allowed: false`; Agentic ••••8058 (`748688058`) `agentic_allowed: true`. `get_portfolio` (748688058) — total_value $5,349.32, equity $1,175.72, crypto $791.08, cash $3,382.52, buying_power $3,382.52. No reconciliation issue found. New-entry trading authority is restored as of this check.
+
+**Watchlist-mirroring task (deferred from the earlier incident) completed:** `get_watchlists` found an existing custom list **"TradingView Pool"** (`list_id 768af0c3-09db-46ac-80a0-692f424e669e`, 43 items, description "Candidate pool synced from watchlist.md / TradingView") already set up for exactly this purpose from earlier session work. Called `add_to_watchlist(list_id=768af0c3-09db-46ac-80a0-692f424e669e, symbols=["BE","DIS"])` — status `ok`. CLAUDE.md §8 item 6 updated with a new sub-bullet documenting this as a standing practice (every future `watchlist.md` addition also gets mirrored here via `add_to_watchlist`), with a dated §12 change-log entry. Commits: `054d26c` (CLAUDE.md), `34db2fd` (incident log, pushed just before reauthorization landed).
+
+**No trade/position impact:** no orders were placed or missed during the reauthorization gap. NVDA, TSM, and AAVE stops were unaffected throughout (resting at the broker independently of this session's tool access). Standing autonomous cycle processing resumes normally from this point.
+
+```json
+{
+  "cycle": "incident_recovery",
+  "timestamp_utc": "2026-10-03T20:35:00Z",
+  "modes_covered": ["B", "C", "crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 1},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
