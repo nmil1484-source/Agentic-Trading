@@ -21562,3 +21562,14 @@ Dated §12 change-log entry added covering both changes together. Commit `c55714
   "note": "implemented portfolio heat cap (§3, 6% of equity cross-mode) and mandatory resting broker stops for Mode B (§16 items 14-15); retroactively placed real stop_market orders for NVDA (id 6ac0c4f0...) and TSM (id 6ac0c4f1...), both confirmed queued/resting (weekend, activates Monday open); commit c557148"
 }
 ```
+
+---
+
+## 2026-10-03 ~09:08 UTC — Autonomous trigger prompts updated to reflect today's changes
+
+Both autonomous trigger prompts (Mode B/C `trig_01KrBsTt9mssjU4hPGtM3cBe` and Crypto 24/7 `trig_01UUXAtYHjn7nBgzkdvZU4Rv`) were updated via `update_trigger` to explicitly reference today's changes, consistent with how every prior structural CLAUDE.md change (e.g. the 2026-09-21 stop-audit merge) got mirrored into the trigger text itself rather than relying solely on "read CLAUDE.md fresh each cycle":
+
+- **Mode B/C trigger**: added an explicit portfolio-heat-cap check before any new entry (Mode B or Mode C); added step 2a, a Mode B stop-audit mirroring Mode C's existing 9a; added explicit instructions to place a real resting stop immediately on a Mode B equity fill (§16 item 14) and to execute breakeven/trailing/final-30-min moves as real cancel-and-replace order actions (not documentation updates); added a risk-sizing note with today's new numbers (Mode B 2%, Mode C 1%, options 12%, LEAPS 6%) so the cycle doesn't rely on memory of the old figures; updated the JSON stop_audit field description to cover Mode B and Mode C combined.
+- **Crypto trigger**: added the same portfolio-heat-cap check (cross-mode, pulling Mode B/C's open-risk from trades_log.md if needed); added a risk-sizing note (crypto now 1%, was 0.5%); updated the allowlist reference from 5 to the current 7 coins (BTC/ETH/SOL/XRP/LINK/AAVE/HBAR — the prompt had drifted to only listing the original 5 even though CLAUDE.md itself was already current); cross-referenced the new Mode B stop-audit for consistency in the stop-audit discipline note.
+
+Both updates confirmed successful (`updated_at` timestamps changed, no `needs_device_approval` status). Next scheduled fires (crypto ~09:37 UTC today, Mode B/C Monday 2026-10-05 14:55 UTC) will run under the updated prompts.
