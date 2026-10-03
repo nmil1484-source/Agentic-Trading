@@ -21608,3 +21608,81 @@ Both updates confirmed successful (`updated_at` timestamps changed, no `needs_de
   "git_push": "success"
 }
 ```
+
+---
+## 2026-10-03 ~09:40 UTC — AUTONOMOUS CRYPTO (trig_01UUXAtYHjn7nBgzkdvZU4Rv, §21) — NEW ENTRY: AAVE
+
+**Gate check:** git fetch/pull clean, HEAD `7a533c8`. §14 Status: ACTIVE, confirmed. No kill phrase found in recent history.
+
+**Account state:** total_value $5,360.1403, equity_value $1,175.72, cash $4,184.42, crypto_value $0 pre-trade. 0/2 crypto positions open entering this cycle.
+
+**Circuit breakers:** Same-day stop-out count: 0/2 (no stop-outs logged today across Mode B/C/Crypto). Market-shock check: inapplicable — Saturday, equities closed, SPY/QQQ don't trade. No breaker active.
+
+**Portfolio heat cap (§3):** Mode B open positions (NVDA 3sh, TSM 1sh, per the 2026-10-02 ~19:55 UTC Mode B/C cycle) both sit at breakeven-or-better stops → $0 heat each. Crypto: $0 (no positions pre-trade). Total pre-trade heat: $0. Headroom: full 6% of equity ($321.61) available.
+
+**Screen (7-coin allowlist):** `get_crypto_quotes` on all 7 pairs + TradingView `get_technicals_rating` (4h) on each:
+- BTC: Buy (0.28), flat day (-0.13%)
+- ETH: Sell (-0.15%), flat (-0.01%... ~flat)
+- SOL: Buy (0.25), flat
+- XRP: Sell (-0.20), -0.48%
+- LINK: Sell (-0.20), -0.08%
+- **AAVE: Strong Buy (0.51), moving averages Strong Buy (0.93)** — clears gate, see below
+- HBAR: Neutral (-0.06), -0.40%
+
+**AAVE — §21 item 3 entry gate:**
+1. Allowlisted, liquid, not halted — confirmed via `get_crypto_quotes` (clean bid/ask).
+2. **Catalyst + RS, both present.** Catalyst: "AAVE Price Surges 8% as Whale Activity Spikes" (Coinpedia, 2026-10-02) + "Aave Prints Enormous 68% Volume Increase" (U.Today, 2026-10-02) — both dated, both consistent with the OHLCV impulse move ($159→$187.23 over the prior ~20 4h-bars). Noted for completeness: a separate 2026-10-02 story reported a ~$305K hack of an AAVE-linked external adapter, explicitly **not** affecting Aave V3 — not treated as disqualifying. RS: AAVE 4h change -1.10% vs. BTC -2.06% / ETH -2.40% / SOL -2.11% / XRP -3.61% / LINK -3.08% / HBAR -4.81% over the same window — outperforming every other allowlist coin today.
+3. **4+ of 6 technical confirmations**: 9/20-equivalent EMA bullish alignment (ema10 178.13 > ema20 173.30 > ema50 163.25, 4h) ✓; price above 50-SMA ($180.51 vs sma50 $161.37) ✓; breakout/retest/range-contraction structure (impulse $159→$187.23, pullback/consolidation $176-184, now basing near range top) ✓; RSI 68.3 (>45) and MACD 6.34 > signal 6.09, both improving ✓.
+4. **Stop and R:R**: stop $175.50, placed just below the clear 4h/1h swing low $176.28 (the pullback low, confirmed on both 4h and 1h OHLCV). Target $198.18 (measured-move continuation: prior high $187.23 + pullback depth $10.95, a standard breakout-retest technique). At actual limit entry $182.90: risk/unit $7.40 (4.05% stop distance, within the 8% ceiling), reward/unit $15.28, **R:R ≈ 2.06:1** — clears the 1.5:1 floor.
+5-6. Outside any timing restriction (weekend, no scheduled macro print this hour).
+7. **4H setup + 1H trigger, both present.** 4H: the EMA/SMA/RSI/MACD confirmations above. 1H: price dipped to the $176.28 swing low, then the very next 1h bar closed back at $178.99 (reclaim), followed by $180.23/$179.81/$180.79/$180.80 — holding above the rising 1h EMA10 ($180.15)/EMA20 ($180.03), 1h moving-averages rating Strong Buy. This is the hourly-reclaim trigger required by item 3.
+
+**Sizing:** 1%-of-equity risk budget = $53.60; per-position cap (15% of equity) = $804.02 — the dollar cap binds tighter given the 4.05% stop distance, consistent with "whichever constraint produces the smaller position wins." Sized to the cap: 4.39 AAVE at a $182.90 marketable limit.
+
+**ORDER PLACED AND FILLED**: BUY 4.39 AAVE, limit $182.90, filled avg **$182.66459589**, notional (incl. fee, fee $0) **$801.90** (order id `6ac0cd89-970e-4c51-80bd-023c821a958a`, ref_id `a3f1e4c2-9b6d-4e8a-8f3c-1d2b5a6e7f90`). Position value = 14.96% of equity, just under the 15% cap.
+
+**STOP PLACED AND VERIFIED RESTING**: SELL 4.39 AAVE STOP_LOSS, trigger $175.50, GTC (order id `6ac0cd98-65b2-439f-b411-a44028808d0d`, ref_id `c7e2b9a4-3d5f-4a1c-9e8b-2f6a8d4c1b35`) — confirmed `state: confirmed`, `state_group: open` via `get_crypto_orders`.
+
+**Actual risk**: (182.66459589 − 175.50) × 4.39 = **$31.45** (≈0.59% of equity — under the 1% budget, as expected since the per-position cap was the binding sizing constraint). Portfolio heat after this trade: $0 (Mode B) + $31.45 (AAVE) = $31.45, well inside the 6%/$321.61 cap.
+
+**Profit-factor/win-rate tally (§16 item 16):** unchanged by this entry (tally updates only at realized exits) — still Mode B 13W/10L (1.25 PF), Mode C 1W/0L, crypto 2W/10L (0.54 PF), combined 16W/20L (0.92 PF), per the backfill logged earlier today.
+
+**Trade Card — AAVE ENTRY — STRATEGY: SWING_TRADING (crypto, §21)**
+
+| Field | Value |
+|---|---|
+| Tag | `CRYPTO` |
+| Pair | AAVE-USD |
+| Quantity / avg fill | 4.39 AAVE @ $182.66459589 |
+| Notional | $801.90 |
+| Catalyst | Whale-activity surge + 68% volume increase, Coinpedia/U.Today, 2026-10-02 |
+| Relative strength | -1.10% (4h) vs. BTC -2.06%, worst of allowlist -4.81% (HBAR) |
+| 4H setup | Bullish EMA/SMA alignment, breakout-retest structure, RSI/MACD improving |
+| 1H trigger | Reclaim of $176.28 swing low, holding above rising 1h EMA10/20 |
+| Stop | $175.50 (order `6ac0cd98-65b2-439f-b411-a44028808d0d`, confirmed resting) |
+| Target | $198.18 |
+| R:R | ≈2.06:1 |
+| Max planned loss | $31.45 (≈0.59% of equity) |
+| Position % of equity | 14.96% |
+| Portfolio heat after trade | $31.45 / 6% cap ($321.61) |
+| Peak-retracement tracking | Not yet active (position just opened, +0R) |
+| Status | **EXECUTED (autonomous, AUTONOMOUS_EXECUTE)** |
+
+**Stop-audit:** N/A this cycle (no pre-existing crypto position to audit; this is a fresh entry).
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-10-03T09:40:40Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 1},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 1},
+  "portfolio_heat": {"pre_trade": 0.00, "post_trade": 31.45, "cap": 321.61},
+  "exits": [],
+  "entries": [{"symbol": "AAVE", "mode": "crypto", "qty": 4.39, "price": 182.66459589}],
+  "orders_placed": 2,
+  "git_push": "success"
+}
+```
