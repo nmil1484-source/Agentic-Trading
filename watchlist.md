@@ -14,7 +14,7 @@ verification and a verified catalyst before it can appear on a Trade Card. Inclu
 TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL, VRT, PLAB, HIMS,
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
-IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST
+IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS
 
 **Note on PGY:** added 2026-09-03 per user instruction, after a Slack community call (source:
 "stockinvesting" channel, trader "J-Griff" — context per §9, never a signal) flagged a golden
@@ -197,3 +197,20 @@ live under the same mechanics as every other allowlisted pair (0.5%-of-equity ri
 per-position cap, shared 2-concurrent-position cap, 8%-max-stop-distance ceiling, mandatory
 resting stop, the full §21 entry gate) — the autonomous crypto trigger will screen and may trade
 it starting with its next scheduled cycle.
+
+**Note on BE and DIS (2026-10-03):** added per explicit user instruction, sourced from CLAUDE.md
+§8 item 8's politician-trades research trigger (added the same day) — both appeared in Rep. Nancy
+Pelosi's recently disclosed trades (BE: multiple equity/option buys, 2026-07-23 through 2026-07-28;
+DIS: equity sell, 2025-12-30), pulled via `get_politician_trades`. Per §8 item 8, this is a
+research-prioritization source only, never a catalyst or signal — both still require full
+independent §5B verification before appearing on a Trade Card, same as everything else in this
+pool. Confirmed via `get_equity_tradability`:
+- **BE** = Bloom Energy Corporation, tradable, fractional-tradable, individual-account-tradable,
+  all-day tradable. Searching "BE" by company name surfaces only leveraged derivative ETFs
+  (**BEX** 2x long, **BEZ** 2x short, **BEG** 2x long, **BEC** 2x daily) — all excluded per §2; the
+  base ticker itself was confirmed clean via a direct tradability check, not the name search.
+- **DIS** = The Walt Disney Company, tradable, fractional-tradable, individual-account-tradable,
+  all-day tradable. Single unambiguous match.
+
+Most other tickers in Pelosi's disclosed trades (INTC, UBER, TEM, NVDA, AAPL, AMZN, GOOG) were
+already on this watchlist — only BE and DIS were new additions.
