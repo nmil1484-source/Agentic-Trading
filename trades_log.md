@@ -21925,3 +21925,35 @@ User shared two screenshots from an external macro/credit research app (not a §
 **How this is being applied (one-off, this session only, no document change):** CLAUDE.md §5B's existing Regime Rule for Swings already says *"If credit/volatility data shows clear market stress... do not open new swing trades"* — these readings (CCC decompression, HY OAS widening 58bps/10d, elevated MOVE) are a real, current instance of exactly that condition, independent of the FTA Regime Dashboard's own UNKNOWN_DEGRADED status. Applying the same underlying principle to Mode C and crypto for the **remainder of today's session (2026-10-03) only**: hold new entries in all three lanes to a meaningfully higher bar than a routine 2-of-6/1.5:1 pass — a candidate needs to be unusually clean (strong catalyst, strong RS, tight valid stop) to justify sizing into a session where duration and credit both flagged real stress in the same window. This is **not** a circuit-breaker trip, **not** a change to §6/§5B's actual numbers, and **not** persisted beyond today — next session's cycles return to the normal bar unless a genuine §6 breaker is independently active then.
 
 **Existing AAVE position** (entry $182.6646, stop $175.50, last mark ≈$179.42 per the 16:38 UTC cycle): no change to its mechanics — the resting stop is still the only thing that closes it; this macro read doesn't trigger an exit on its own. Worth noting only that AAVE's slow drift down over today's cycles is directionally consistent with this broader risk-off tone, not a contradiction of it.
+
+---
+## 2026-10-03 ~17:38 UTC — AUTONOMOUS CRYPTO (trig_01UUXAtYHjn7nBgzkdvZU4Rv, §21)
+
+**Gate check:** git fetch/pull clean, HEAD `491e02b`. §14 Status: ACTIVE, confirmed. No kill phrase found.
+
+**Account state:** total_value $5,342.7506, crypto_value $784.51, cash $3,382.52. 1/2 crypto positions open (AAVE).
+
+**Circuit breakers:** same-day stop-out count 0/2. Market-shock check inapplicable (weekend). No breaker active. **Elevated-caution bar still in effect for the rest of today** per the ~10:13am user-local one-off regime read logged earlier this cycle-set (credit decompression + duration-risk triggered on an external dashboard) — higher bar for any new entry across Mode B/C/crypto, not a circuit breaker.
+
+**Position management — AAVE** (4.39 AAVE, entry $182.6646, stop $175.50): mark $178.710 (≈-0.55R, its lowest mark yet since entry, but still $3.21/1.8% above the $175.50 stop — within normal noise, no breach). Stop-audit: confirmed resting (order `6ac0cd98...`). No breakeven/trailing/peak-retracement/time-stop trigger.
+
+**Portfolio heat:** unchanged, $31.45 vs. $321.61 cap.
+
+**New-entry screen:** BTC/ETH/SOL/XRP/LINK/HBAR all flat-to-slightly-up, no new catalyst, nothing close to clearing even the normal bar — well short of today's elevated one. **No second entry** — OBSERVE.
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-10-03T17:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 1},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "portfolio_heat": {"current": 31.45, "cap": 321.61},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
