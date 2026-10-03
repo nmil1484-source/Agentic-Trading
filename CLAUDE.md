@@ -466,6 +466,26 @@ per §5B — the ordering below is unchanged by the mode refactor.)
    officials — `get_politician_trades` covers congressional STOCK Act disclosures specifically; a
    query for a non-Congress-member name returns no match (verified 2026-10-03 querying "Trump").
 
+9. **News and Sentiment Monitoring — added 2026-10-03 at explicit user instruction**, after being
+   asked whether news/sentiment was being checked and whether it should be, "maybe through Yahoo
+   Financial." **No Yahoo Finance connector exists in this environment** — flagged plainly rather
+   than invented; this item instead wires up the equivalent capability already available through
+   the already-approved TradingView MCP source (§8 item 7): `get_news`/`get_news_story` (latest
+   headlines plus full article text for a symbol) and the `news_sentiment` widget (headlines
+   synthesized into a Positive/Neutral/Negative read plus a catalyst summary). A general
+   `web_search` tool is also available for broader macro/market context when a specific symbol
+   query isn't enough, capped at 3 results per call with a daily quota — use it sparingly, not as
+   a per-cycle sweep. **Use as a supplementary catalyst-verification source, not a standalone
+   signal**: for any candidate close to or clearing §5B item 2 / §20 item 5 / §21 item 3's catalyst
+   requirement, pull `get_news` (and the sentiment synthesis where useful) to confirm and
+   strengthen that existing catalyst — a Positive sentiment read is never itself a catalyst or
+   technical confirmation, and does not relax or substitute for any §5B/§18/§19/§20/§21 gate
+   requirement, same principle as §8 item 8's politician-trades trigger and §9's existing
+   source-integrity rule (headlines/sentiment are context after the approved sources and a
+   verifiable catalyst, never a primary signal on their own). Log which headlines/sentiment were
+   reviewed and the query time in the Trade Card/`trades_log.md` when they factored into a
+   decision, same discipline as every other source.
+
 ## 9. Source integrity rule
 - Do not treat YouTube titles, social-media posts, or prediction-market odds as a primary trade signal.
 - Use them only as context after checking the approved sources, price/volume data, and a verifiable catalyst.
@@ -498,6 +518,20 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-03 (later same day): User instructed wiring news/sentiment checks into the standing
+  autonomous cycles**, after asking whether news and overall sentiment were being checked and
+  suggesting Yahoo Finance as a source. **No Yahoo Finance connector exists in this session** —
+  disclosed directly rather than guessed at; the capability was instead wired up through the
+  already-approved TradingView MCP source (§8 item 7), which already has `get_news`/
+  `get_news_story` and a `news_sentiment` widget. **New §8 item 9.** Scoped identically to §8 item
+  8 (politician trades, added the same day): a supplementary catalyst-verification source, never a
+  standalone signal — does not relax or substitute for any existing gate. Mode B/C weekday trigger
+  prompt updated in the same pass to actually pull news/sentiment for any candidate close to
+  clearing the gate, not just document the capability as available. The same user message also
+  asked to add politicians' traded tickers to the watchlist — handled by adding **BE** and **DIS**
+  (the two names from Pelosi's disclosures not already on the list) to `watchlist.md`, verified
+  tradable via `get_equity_tradability`; most other disclosed tickers (INTC, UBER, TEM, NVDA, AAPL,
+  AMZN, GOOG) were already present.
 - **2026-10-03 (later same day): User instructed adding politician trading disclosures as a
   research-prioritization trigger**, after asking whether Pelosi/Trump-style congressional trades
   could be seen at all (answered: yes, via `get_politician_trades`, Tip Ranks/STOCK Act data) and
