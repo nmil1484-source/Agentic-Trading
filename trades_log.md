@@ -21492,3 +21492,37 @@ Dated §12 change-log entry added with full tradeoff disclosure (same discipline
   "note": "CLAUDE.md §19 item 4 (LEAPS cap 3%->6%) updated per explicit user instruction; fixed stale §21 item 4 comparison text; commit cbdb6ce; Mode C (0.5%) remains the only lane not doubled today"
 }
 ```
+
+---
+
+## 2026-10-03 ~09:10 UTC — USER-INSTRUCTED RULE CHANGE: Mode C risk doubled (final lane)
+
+**User instruction (exact):** "Also raise Mode C to match" — completing the doubling across every mode in this session.
+
+**Change applied:** §20 item 2 (Mode C risk per trade): 0.5% → **1% of Agentic Account equity** (≈$27 → ≈$54 at current equity $5,360.14). The §20.2 position-sizing formula's literal `0.005` constant updated to `0.01` to match — a computed value, not just prose. Also corrected the §21 item 4 cross-reference that previously said Mode C's risk was unaffected by the crypto change — it no longer is. Dated §12 change-log entry added. Commit `fc7b7a9`, pushed clean.
+
+**Final tally — every risk-sizing number in the account doubled today, all explicit user instructions, in this order:**
+1. Mode B equity risk/trade: 1% → 2%
+2. Crypto risk/trade (§21): 0.5% → 1%
+3. Options position cap (§18): 6% → 12%
+4. LEAPS position cap (§19): 3% → 6%
+5. Mode C risk/trade (§20): 0.5% → 1%
+
+No lane left at its original number. Position/correlation caps, reward-to-risk floors, total-deployment ceiling, circuit-breaker thresholds, and every stop mechanic (trailing/breakeven/peak-retracement/gap rule) are unchanged across all five modes — only the five sizing numbers above moved, each modeled and disclosed before the edit, each logged separately in §12.
+
+```json
+{
+  "cycle": "user_instructed_rule_change",
+  "timestamp_utc": "2026-10-03T09:10:00Z",
+  "modes_covered": ["C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success",
+  "note": "CLAUDE.md §20 item 2 (Mode C risk 0.5%->1%) and the §20.2 position-sizing formula constant updated per explicit user instruction, completing today's session-wide doubling across Mode B/crypto/options/LEAPS/Mode C; commit fc7b7a9"
+}
+```
