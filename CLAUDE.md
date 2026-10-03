@@ -422,6 +422,17 @@ per §5B — the ordering below is unchanged by the mode refactor.)
    still requires full verification appropriate to its mode per §5A/§5B before it can appear on a
    Trade Card)
    https://www.tradingview.com/watchlists/190302653/
+   - **Robinhood-watchlist mirroring (added 2026-10-03, explicit user instruction).** The user
+     asked that every new `watchlist.md` addition also be added to their TradingView list — no
+     write tool exists for that in this session (confirmed via two separate tool searches; only
+     read tools `my_watchlists`/`my_watchlist_symbols` exist for TradingView). As a substitute,
+     chosen by the user when offered the choice, every ticker added to `watchlist.md` going
+     forward is also added to the Robinhood-native watchlist named **"TradingView Pool"**
+     (`list_id 768af0c3-09db-46ac-80a0-692f424e669e`) via `add_to_watchlist`. This is a mirroring
+     convenience only — inclusion on this Robinhood watchlist, exactly like `watchlist.md`
+     inclusion itself, grants no trading authority and is never a substitute for the full §5A/§5B
+     verification a symbol still needs before it can appear on a Trade Card. TradingView itself
+     remains the user's own manual step if they want parity there too.
 
 7. **TradingView MCP ("tvremix") — added 2026-09-05 at explicit user instruction, after the user
    connected their TradingView account via the tvremix Chrome extension connector.** A live data/
@@ -518,6 +529,27 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-03 (later same day, after a brief Robinhood MCP reauthorization gap): User instructed
+  that new watchlist additions also sync to their TradingView list; implemented as a Robinhood-
+  watchlist mirror instead, since no TradingView write tool exists.** Prompted by the user asking
+  that any new `watchlist.md` ticker also be added to TradingView — confirmed via two tool
+  searches that only read tools (`my_watchlists`/`my_watchlist_symbols`) exist for TradingView in
+  this session, no write path. Offered three options; user chose mirroring to Robinhood's own
+  watchlist instead. **New §8 item 6 sub-bullet**: every `watchlist.md` addition going forward
+  also gets added to the Robinhood-native watchlist "TradingView Pool"
+  (`list_id 768af0c3-09db-46ac-80a0-692f424e669e` — already existed from earlier session setup,
+  not newly created) via `add_to_watchlist`. Retroactively synced **BE** and **DIS** (this date's
+  two newest `watchlist.md` additions, from the politician-trades feature) to that list
+  immediately. **Scoped narrowly**: this is a convenience mirror only — Robinhood-watchlist
+  inclusion grants no trading authority, exactly like `watchlist.md` inclusion itself; every
+  symbol still needs full §5A/§5B verification before a Trade Card. TradingView parity itself
+  remains manual on the user's end. **Unrelated incident noted for the record**: earlier the same
+  day this session temporarily lost Robinhood MCP authorization (a connector-session issue, not a
+  data or logic error); the user reauthorized it via claude.ai Connectors and access was
+  reconfirmed (`get_accounts`/`get_portfolio`) before this change was implemented. No order was
+  placed, modified, or missed during the gap — see `trades_log.md` for the incident entry;
+  existing resting stops (NVDA, TSM, AAVE) were unaffected throughout since they live at the
+  broker independently of this session's tool access.
 - **2026-10-03 (later same day): User instructed wiring news/sentiment checks into the standing
   autonomous cycles**, after asking whether news and overall sentiment were being checked and
   suggesting Yahoo Finance as a source. **No Yahoo Finance connector exists in this session** —
