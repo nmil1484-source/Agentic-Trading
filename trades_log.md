@@ -22032,3 +22032,8 @@ User shared two screenshots from an external macro/credit research app (not a §
   "git_push": "success"
 }
 ```
+
+---
+## 2026-10-03 ~20:14 UTC — Mode B/C trigger prompt updated (news/sentiment)
+
+`update_trigger` for `trig_01KrBsTt9mssjU4hPGtM3cBe` succeeded on retry (first attempt errored "MCP tool call requires approval" at ~19:10 UTC; no partial change was made, confirmed by re-reading the trigger before retrying). The prompt now includes the §8 item 9 News and Sentiment Monitoring step alongside the existing §8 item 8 politician-trades step, wired into both the Mode B (step 3) and Mode C (step 10) screening sections, and referenced in the step 15 logging requirement and step 16 chat-report trigger list. No change to risk/gate/cap logic — documentation/research-source wiring only, matching the CLAUDE.md §8 item 9 addition from ~20:10 UTC.
