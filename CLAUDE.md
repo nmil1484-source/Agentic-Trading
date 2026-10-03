@@ -456,6 +456,18 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-03 (later same day): User instructed raising Mode C to match, completing the same
+  doubling across every mode in one session.** **§20 item 2 (Mode C risk per trade) raised from
+  0.5% to 1% of Agentic Account equity** (≈$27 → ≈$54 at the account's equity then), and the
+  §20.2 position-sizing formula's literal `0.005` constant updated to `0.01` to match — a
+  computed value, not just narrative text, so this one had an actual mechanical edit beyond the
+  prose. Same mechanism as the crypto change (sized from entry-to-stop distance). This closes the
+  gap flagged right after the crypto/options change earlier today, where Mode C was left as the
+  one lane still at the old number; the user chose to bring it in line rather than leave it
+  deliberately lower. With this, **every mode's risk-sizing number doubled in this single
+  session**: Mode B 1%→2%, crypto 0.5%→1%, options 6%→12%, LEAPS 3%→6%, Mode C 0.5%→1%. Also
+  corrected a now-stale cross-reference in §21 item 4 that still said Mode C's risk was
+  unaffected by the crypto change — it no longer is, as of this entry.
 - **2026-10-03 (later same day): User instructed extending the same risk increase to §19 LEAPS
   as well, after crypto/options directly below.** **§19 item 4 (LEAPS position-size ceiling)
   raised from 3% to 6% of Agentic Account equity** (≈$161 → ≈$322 at the account's equity then).
@@ -1922,9 +1934,11 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
    manually." Robinhood Agentic has no bracket/OCO order type — entry and stop are two separate
    orders placed in sequence, and the Routine is responsible for verifying the stop is actually
    resting (`get_equity_orders` filtered to that symbol) before treating the position as protected.
-2. **Risk per trade ≤ 0.5% of Agentic Account equity** — this account is well under the pasted
-   framework's own $10k threshold for the tighter figure (currently ~$2,100-2,200), so 0.5% is the
-   operative number, not 1%. Position size is derived from the stop distance, never conviction.
+2. **Risk per trade ≤ 1% of Agentic Account equity** (raised 2026-10-03 from 0.5%, at explicit
+   user instruction, completing the same doubling applied to every other lane the same day — see
+   §12 change log). The original 0.5% reasoning (this account being well under the pasted
+   framework's own $10k threshold for the tighter figure) is superseded by that explicit
+   instruction. Position size is derived from the stop distance, never conviction.
 3. **Daily loss limit: 2.5% of Agentic Account equity** (midpoint of the pasted 2-3% range,
    filled in by Claude — flag if a different point in that range was intended). The moment
    realized + open unrealized Mode C loss for the day hits this number: flatten every Mode C
@@ -1984,7 +1998,7 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
 
 ### 2. Position sizing
 ```
-dollar_risk = agentic_account_equity × 0.005        (0.5%, per item 2 above)
+dollar_risk = agentic_account_equity × 0.01        (1%, per item 2 above — raised 2026-10-03 from 0.5%)
 stop_distance = entry_price − stop_price             (per share, absolute value)
 shares = floor(dollar_risk / stop_distance)
 ```
@@ -2153,8 +2167,7 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
    - Risk per trade: **1% of Agentic Account equity** (raised 2026-10-03 from 0.5%, at explicit
      user instruction extending the same doubling applied to Mode B — see §12 change log),
      sized from the entry-to-stop distance, same formula as §20 item 2. Mode C's own risk per
-     trade (§20 item 2) is unaffected by this change and remains 0.5% — not raised alongside
-     crypto.
+     trade (§20 item 2) was raised to match on the same date, later the same day — see §12.
    - **Hard stop-distance ceiling: the stop may not sit farther than 8% below entry.** If the
      technically valid invalidation needs more room than that, reduce size or skip the trade —
      do not widen the stop to fit. (Distinct from, and in addition to, the risk-dollar sizing
