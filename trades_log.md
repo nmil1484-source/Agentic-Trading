@@ -21957,3 +21957,14 @@ User shared two screenshots from an external macro/credit research app (not a §
   "git_push": "success"
 }
 ```
+
+---
+## 2026-10-03 ~18:38 UTC — MANUAL/SYSTEM (user instruction) — POLITICIAN TRADES RESEARCH-PRIORITIZATION ADDED (CLAUDE.md §8 item 8)
+
+**Change implemented**: new §8 item 8 — `get_politician_trades` (Tip Ranks/STOCK Act data) added as a research-prioritization trigger, equities/options only (not crypto). A disclosed congressional buy on a watchlist/screening name prompts a deeper research pass that cycle — explicitly never a catalyst, technical confirmation, or signal substitute, and never a bypass of any §5A/§5B/§18/§19/§20 gate. Committed and pushed to CLAUDE.md (`2b03f7f`).
+
+**Correction made before implementing**: the user's framing ("they are trading at the right time") doesn't hold up — `disclosure_date` can lag `transaction_date` by up to 45 days, so this is late-arriving historical context, not a timing edge. Flagged directly in chat, then built the rule around that reality.
+
+**Trigger prompt updated** (`trig_01KrBsTt9mssjU4hPGtM3cBe`, Mode B/C weekday trigger) to actually run this check each cycle for names close to clearing §5B/§20, not just document it as available. Crypto trigger (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`) unchanged — STOCK Act doesn't cover crypto, no relevance there.
+
+**Demonstrated live in chat**: `get_politician_trades` pulled Nancy Pelosi's recent disclosed trades (BE, INTC, UBER, TEM, NVDA, GOOGL, DIS, AAPL, AMZN — all ranges, not exact amounts) and confirmed "Trump" returns no match (STOCK Act covers Congress, not the executive branch).
