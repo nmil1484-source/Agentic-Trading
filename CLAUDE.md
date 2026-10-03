@@ -92,6 +92,25 @@ pattern §18/§19 already used for options).
   above** — sized within whatever headroom remains under the 90%-total-deployed / 10%-minimum-cash
   ceiling on this line, not in addition to it. (The 1/day, 3/week count Tier-B pilots used to also
   share is removed for Mode B per the quota change above — see §15 item 7 for the current text.)
+- **Portfolio heat cap (added 2026-10-03, explicit user instruction, immediately following the
+  same-day risk-sizing doubling across every mode — see §12 change log).** Before opening any new
+  position in **any** mode (Mode B, Mode C, or crypto — this is an aggregate, cross-mode ceiling,
+  not a per-mode one), compute **total portfolio heat**: the sum, across every currently open
+  position in all three modes combined, of each position's *current* open-risk dollars — the
+  loss that would actually be realized if that position's current stop were hit right now. A
+  position already moved to breakeven or better (§16 item 5, §20 item 3's breakeven rule, §21 item
+  5's breakeven rule) contributes **$0** to heat, not its original planned risk — heat measures
+  real remaining downside, not historical risk budget. Total portfolio heat plus the new trade's
+  own planned risk may not exceed **6% of Agentic Account equity**. If the new trade's full
+  per-trade-risk-budget size would push heat over this cap, **reduce the position size to fit the
+  remaining headroom** — the same resize-down pattern already used for the per-position and
+  total-deployment caps elsewhere on this list — rather than skip outright; skip only if there is
+  no headroom left (heat is already at or above the cap). This is additional to, and independent
+  of, each mode's own per-position/per-trade-risk caps and the shared 90%-deployed/10%-cash
+  ceiling above — those bound how much capital can be committed; this bounds how much can
+  actually be lost at once if several stops hit the same day. Checked every cycle, before any
+  new-entry screening proceeds, in Mode B (§5B item 3), Mode C (§20 item 2), and crypto (§21 item
+  4) alike.
 
 ## 4. Timing and market-event rules
 - Do not open new positions during the first 15 minutes or final 15 minutes of regular U.S. market hours.
@@ -257,7 +276,10 @@ Tier-B allocation formula remain unchanged and still apply on top of these:
    implied by the already-determined technical stop** (§13/§16 item 2). Compute share (or
    fractional-share) quantity from the entry-to-stop distance against that risk budget, then round
    down to fit within the existing §3/§15 allocation cap — whichever constraint (the 2%-of-equity
-   risk budget or the dollar allocation cap) produces the smaller position wins.
+   risk budget or the dollar allocation cap) produces the smaller position wins. **Also check the
+   §3 portfolio heat cap (added 2026-10-03) before finalizing size** — if the account's total
+   current open-risk across all modes plus this trade's own risk would exceed 6% of equity,
+   reduce size to fit the remaining heat headroom, same resize-down pattern as the other caps.
 4. **Pacing: removed (2026-08-19, explicit user instruction — see §12 change log).** The prior
    "one new entry per scheduled scan cycle" limit no longer applies. A single scan cycle may now
    take every candidate that clears §5B and still fits within the remaining position-count (item
@@ -352,8 +374,9 @@ Every proposal must be presented before any confirmation request:
 - **For Mode B swing entries/exits (2026-08-13, see §5B/§17), also include:** the daily-chart
   setup and the specific hourly execution trigger (§5B item 7); sector/industry/catalyst theme
   (for the §5B two-correlated-positions check); settled-cash status at order time (§17 item 1);
-  and whether the action involved a same-day protective exception (tag `SAME_DAY_PROTECTIVE_EXIT`
-  per §17 item 3) if applicable
+  whether the action involved a same-day protective exception (tag `SAME_DAY_PROTECTIVE_EXIT`
+  per §17 item 3) if applicable; and, as of 2026-10-03 (§16 item 14), the resting stop order's id
+  and confirmed-resting status
 - **For §18 options entries/exits (2026-08-19), also include:** `OPTIONS` tag; call or put;
   strike; expiration date and DTE at entry; premium paid per contract and total; breakeven price;
   current documented trailing-stop level (dollar value, and whether it's still the entry-day
@@ -456,6 +479,31 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-03 (later same day): User instructed two loss-limiting additions, after asking what
+  else could be done to limit loss given the same-day risk-sizing doubling above.** Both are
+  tightening/structural additions, not changes to any risk-sizing number:
+  1. **Portfolio heat cap, new §3 bullet.** No rule previously bounded *total* risk across all
+     simultaneously open positions — only each mode's own per-trade/per-position caps. New rule:
+     before any new entry in any mode, total portfolio heat (sum of *current* open-risk dollars —
+     not original planned risk — across every open Mode B/C/crypto position combined; a position
+     already at breakeven or better contributes $0) plus the new trade's own risk may not exceed
+     **6% of Agentic Account equity**. Resize down to fit remaining headroom rather than skip
+     outright, same pattern as the existing per-position/total-deployment caps; skip only if no
+     headroom remains. Cross-referenced from §5B item 3, §20 item 2, and §21 item 4.
+  2. **Mandatory resting broker stop for Mode B, new §16 items 14-15.** Mode B equities previously
+     used only a documented stop level, checked against price once per hourly cycle — a real,
+     disclosed gap versus Mode C and crypto, which already place real stop orders at the broker.
+     New: every Mode B position now gets a real `stop_market`/`stop_limit` sell order placed
+     immediately on entry (item 14), verified resting, with breakeven/trailing/final-30-minute
+     moves executed as real cancel-and-replace order actions rather than documentation updates;
+     a per-cycle stop-audit (item 15) mirrors Mode C's existing guardrail 12 and crypto's item 5,
+     and retroactively applies to positions already open when this landed (NVDA, TSM) — both got
+     real resting stops placed the same cycle this was implemented, not deferred to the next
+     autonomous firing. Item 3 (the old stop-execution mechanism) is retained as the gap-case
+     fallback only. §18 options and §19 LEAPS keep their own separate daily-trailing
+     documented-stop mechanic, untouched — scoped to Mode B stock/ETF positions only. The §14
+     item 9 JSON `stop_audit` field and the §21 item 5 comparison text were both updated to
+     reflect that Mode B is no longer the odd one out on this mechanic.
 - **2026-10-03 (later same day): User instructed raising Mode C to match, completing the same
   doubling across every mode in one session.** **§20 item 2 (Mode C risk per trade) raised from
   0.5% to 1% of Agentic Account equity** (≈$27 → ≈$54 at the account's equity then), and the
@@ -1289,9 +1337,11 @@ order authority.
    (array, e.g. `["B","C"]` or `["crypto"]`), `status_gate` (`"ACTIVE"` or the discrepancy found),
    `circuit_breakers_active` (array, empty if none), `positions` (object: `mode_b_count`,
    `mode_c_count`, `crypto_count`), `stop_audit` (object: `checked`, `missing_found`, `placed` —
-   Mode C/crypto only, since Mode B uses documented-level stops, not resting broker orders, per the
-   disclosed gap noted elsewhere in this document; omit or null this field for a Mode-B-only cycle),
-   `exits` (array of `{symbol, reason, realized_pl}`), `entries` (array of `{symbol, mode, qty,
+   **as of 2026-10-03, this covers Mode B too** (§16 item 15), now that Mode B places real
+   resting stop orders like Mode C and crypto do; before that date it was Mode C/crypto only
+   since Mode B used documented-level stops — omit or null this field only for a cycle with no
+   open positions in any mode to audit), `exits` (array of `{symbol, reason, realized_pl}`),
+   `entries` (array of `{symbol, mode, qty,
    price}`), `orders_placed` (integer), `git_push` (`"success"` or `"failed"`). Keep it factual and
    derived from the same data the narrative entry already reports — never a separate source of
    truth, never reconciled against the prose if they'd disagree (the prose stays authoritative;
@@ -1585,6 +1635,13 @@ protective exit: full sell if price gives back 30% of the gain from entry to pea
 overriding the §17 same-day gate) and item 13 (final-30-minutes tighter trailing). Mirrored for
 Mode C in §20 (guardrail item 11 and the existing Chandelier Exit note). See §12 change log.
 
+**Change note (2026-10-03):** two new items added — item 14 (mandatory resting broker stop,
+replacing the documented-level-only approach with a real order at the broker, mirroring Mode C
+and crypto) and item 15 (the matching per-cycle stop-audit, mirroring §20 guardrail item 12).
+Items 3, 5, 6, and 13 were each given a small cross-reference update to reflect that stop
+moves are now real order actions, not just documentation updates — none of their substantive
+triggers or thresholds changed. See §12 change log for the full context.
+
 1. Every entry must have an exit plan before the order is placed. The Trade Card must record:
    entry price, initial stop/invalidation, maximum planned loss in dollars, first profit target,
    and a time-stop date.
@@ -1595,12 +1652,16 @@ Mode C in §20 (guardrail item 11 and the existing Chandelier Exit note). See §
    after and the disclosed tradeoff), whichever is smaller. If no technically valid stop fits
    inside that risk budget, do not take the trade.
 
-3. Stop execution: when last price trades at or below the documented invalidation, immediately
-   call `get_equity_tradability` and `review_equity_order`, then submit an exit for the full
-   remaining position (fractional or whole-share). Do not widen, remove, or lower the stop. If the
-   exit cannot be verified or submitted, create an URGENT EXIT FAILURE alert and halt all new
-   entries of that position's tier (Tier-A is unaffected by a Tier-B failure and vice versa,
-   unless a §6 circuit breaker independently triggers).
+3. Stop execution: **as of 2026-10-03, the primary mechanism is the real resting broker stop order
+   required by item 14 — it executes on its own at the broker when price trades through it,
+   without waiting for a cycle check.** This item now describes the fallback: if for any reason
+   no resting stop order is in force (not yet placed, rejected, or found missing before the next
+   item-15 audit catches it) and last price trades at or below the documented invalidation,
+   immediately call `get_equity_tradability` and `review_equity_order`, then submit an exit for
+   the full remaining position (fractional or whole-share). Do not widen, remove, or lower the
+   stop. If the exit cannot be verified or submitted, create an URGENT EXIT FAILURE alert and halt
+   all new entries of that position's tier (Tier-A is unaffected by a Tier-B failure and vice
+   versa, unless a §6 circuit breaker independently triggers).
 
 4. Gap rule: if price opens below the stop, do not wait for a bounce — review and exit the full
    position at the earliest available eligible execution. Log actual slippage. **For a Mode B
@@ -1615,7 +1676,9 @@ Mode C in §20 (guardrail item 11 and the existing Chandelier Exit note). See §
    higher technical support, whichever is higher. Never move the stop lower afterward. **This
    applies unconditionally, same-day entry or not** (2026-09-03, see change note below) — the
    breakeven move and everything in item 6's *trailing* language happen mechanically as price
-   rises, regardless of the §17 day-trade-protection trim gate.
+   rises, regardless of the §17 day-trade-protection trim gate. **As of 2026-10-03, this move is
+   executed as a real cancel-and-replace order action at the broker (item 14), not just an
+   updated documented number.**
 
 6. Profit protection: at +2R, sell 50% of the position **only if it has been held through at
    least one regular-session close** (2026-08-13, day-trade protection — see §17), and trail the
@@ -1634,7 +1697,8 @@ Mode C in §20 (guardrail item 11 and the existing Chandelier Exit note). See §
    have its stop actively climbing toward the current price all session even though the actual
    50%/25% share reduction still waits until after close if entered that day — unrealized gains
    get progressively locked in as price rises instead of sitting exposed at breakeven from +1R
-   all the way to the close.
+   all the way to the close. **As of 2026-10-03, every trailing move described in this item is a
+   real cancel-and-replace order action at the broker (item 14), not just a documented update.**
 
 7. Momentum failure: exit the full remaining position if price closes below the 20-EMA for two
    consecutive sessions and RSI/MACD are both deteriorating, unless the original stop would
@@ -1691,7 +1755,49 @@ Mode C in §20 (guardrail item 11 and the existing Chandelier Exit note). See §
     inside this 30-minute window — this is a single tighter check at that last cycle, not
     continuous monitoring across the full 30 minutes. This does not force a flatten the way Mode
     C's item 9 does — Mode B still holds overnight by design unless a stop is actually hit; this
-    item only tightens where that stop sits going into the close.
+    item only tightens where that stop sits going into the close. **As of 2026-10-03, this
+    tighter level is applied as a real cancel-and-replace order action per item 14, not just an
+    updated documented number.**
+
+14. **Mandatory resting broker stop (added 2026-10-03, explicit user instruction, closing the gap
+    between Mode B's documented-level approach and Mode C's/crypto's real resting-order approach
+    — see §12 change log).** Every Mode B equity position (Tier-A whole-share or Tier-B
+    fractional) gets a real `stop_market` (or `stop_limit` if the name is thin/volatile enough
+    that slippage risk favors a limit — same judgment call as §20 item 3) sell order placed
+    immediately after the entry fills, at the item 2 stop price. Robinhood Agentic has no
+    bracket/OCO order type — entry and stop are two separate orders placed in sequence, same
+    mechanic already used by Mode C (§20.1 item 1) and crypto (§21 item 5). Verify the stop is
+    actually resting via `get_equity_orders` (state=confirmed, that symbol) before treating the
+    position as protected; if it cannot be placed or verified, create an URGENT EXIT FAILURE
+    alert and do not treat the position as protected until resolved. **Every subsequent breakeven
+    move (item 5), trailing move (item 6), and final-30-minutes tightening (item 13) is now
+    executed as a real order action — cancel the existing resting stop order and place a new one
+    at the updated price — not just an updated documented number.** The stop only ever moves up
+    (cancel-and-replace to a higher price), never down, same principle as before. **Orphaned-order
+    cleanup:** whenever any other exit rule in this section (gap rule item 3/4, momentum failure
+    item 7, time stop item 8, or the peak-retracement exit item 12) closes the position by a
+    direct sell before the resting stop would have filled, cancel the now-orphaned resting stop
+    order in the same action — never leave a resting stop order pointing at a closed position.
+    This materially closes the latency gap the documented-level approach carried: a resting order
+    can execute the moment price trades through it at the broker, rather than waiting for the next
+    hourly cycle to detect the breach and submit an exit manually (item 3's mechanism, now the
+    gap-case fallback described there). **Scope: Mode B stock/ETF equity positions only** —
+    options (§18) and LEAPS (§19) keep their own separate daily-trailing documented-stop
+    mechanic, untouched by this item.
+
+15. **Stop-audit (added 2026-10-03, same discipline as §20 guardrail item 12 and §21 item 5's
+    equivalent check).** At the start of every Mode B/C cycle, before any new screening or
+    entries, verify every currently open Mode B position still has a resting stop order — not
+    just the one most recently entered. Call `get_equity_orders` filtered to each open Mode B
+    symbol; if a stop is missing, rejected, or not in an open state, place it immediately (per
+    item 14's placement rules) or, if it cannot be placed and verified, close the position at the
+    earliest eligible execution and log an URGENT EXIT FAILURE alert — same discipline as item
+    14's entry-time check, now run as a standing per-cycle audit rather than only once at entry.
+    This catches a stop that was cancelled, rejected, or otherwise dropped by the broker between
+    cycles, which item 14's one-time entry check alone would miss. **Retroactive application**:
+    any Mode B position already open when this item was added (2026-10-03) gets a real resting
+    stop placed at its current documented stop price on the very next cycle this audit runs,
+    exactly as if it were missing one — there is no grandfather exception.
 
 ## 17. Day-Trade and Settlement Protection (Mode B)
 Added 2026-08-13 at explicit user instruction, alongside the §3/§12 removal of Mode B's 1/day,
@@ -1938,7 +2044,9 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
    user instruction, completing the same doubling applied to every other lane the same day — see
    §12 change log). The original 0.5% reasoning (this account being well under the pasted
    framework's own $10k threshold for the tighter figure) is superseded by that explicit
-   instruction. Position size is derived from the stop distance, never conviction.
+   instruction. Position size is derived from the stop distance, never conviction. **Also check
+   the §3 portfolio heat cap (added 2026-10-03)** — reduce size to fit remaining heat headroom if
+   this trade's risk plus the account's existing cross-mode open-risk would exceed 6% of equity.
 3. **Daily loss limit: 2.5% of Agentic Account equity** (midpoint of the pasted 2-3% range,
    filled in by Claude — flag if a different point in that range was intended). The moment
    realized + open unrealized Mode C loss for the day hits this number: flatten every Mode C
@@ -2168,6 +2276,9 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      user instruction extending the same doubling applied to Mode B — see §12 change log),
      sized from the entry-to-stop distance, same formula as §20 item 2. Mode C's own risk per
      trade (§20 item 2) was raised to match on the same date, later the same day — see §12.
+     **Also check the §3 portfolio heat cap (added 2026-10-03)** — reduce size to fit remaining
+     heat headroom if this trade's risk plus the account's existing cross-mode open-risk would
+     exceed 6% of equity.
    - **Hard stop-distance ceiling: the stop may not sit farther than 8% below entry.** If the
      technically valid invalidation needs more room than that, reduce size or skip the trade —
      do not widen the stop to fit. (Distinct from, and in addition to, the risk-dollar sizing
@@ -2183,10 +2294,11 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
    - Counts against the shared 90%-total-deployed/10%-cash ceiling (§3/§14 item 2) exactly like
      every other position — not an allowance on top of it.
    - Never average down — same principle as everywhere else in this document.
-5. **Mandatory resting broker stop, same discipline as Mode C (§20 item 1/3), not Mode B's
-   documented-level approach** — given crypto trades continuously, a stop that's only checked
-   once an hour (Mode B's current mechanism) is a materially bigger gap here than for equities,
-   which at least close overnight/weekends. Every crypto entry gets a real
+5. **Mandatory resting broker stop, same discipline as Mode C (§20 item 1/3) and, as of
+   2026-10-03, Mode B too (§16 item 14)** — given crypto trades continuously, a stop that's only
+   checked once an hour would be a materially bigger gap here than for equities, which at least
+   close overnight/weekends; crypto got this mechanism first for that reason, before it was
+   extended to Mode B. Every crypto entry gets a real
    `place_crypto_order`-submitted stop (`type: stop_loss`, side=sell) for the full filled quantity
    immediately after the entry fills, verified resting via `get_crypto_orders` before the position
    is considered protected. If the stop cannot be placed and verified, close the position at the
