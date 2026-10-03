@@ -21460,3 +21460,35 @@ Dated §12 change-log entry added with full tradeoff disclosure (same discipline
   "note": "CLAUDE.md §21 item 4 (crypto risk 0.5%->1%) and §18 item 5 (options cap 6%->12%) updated per explicit user instruction extending the Mode B change; Mode C (0.5%) and LEAPS (3%) explicitly untouched; change-log entry added; commit 60cb3e4"
 }
 ```
+
+---
+
+## 2026-10-03 ~09:05 UTC — USER-INSTRUCTED RULE CHANGE: LEAPS risk doubled
+
+**User instruction (exact):** "Also apply it to LEAPS" — extending the same doubling to §19 after the Mode B/crypto/options changes earlier this session.
+
+**Change applied:** §19 item 4 (LEAPS position-size ceiling): 3% → **6% of Agentic Account equity** (≈$161 → ≈$322 at current equity $5,360.14). Same worst-case-gap-exposure caveat as §18 options disclosed before editing (LEAPS carries the identical 100%-loss-of-premium risk, over a longer 9-12 month hold). Also corrected the now-stale §21 item 4 comparison bullet that still cited the old 6%/3% options/LEAPS numbers. Dated §12 change-log entry added. Commit `cbdb6ce`, pushed clean.
+
+**Running tally of today's risk-sizing changes, all explicit user instructions:**
+- Mode B equity risk/trade: 1% → 2%
+- Crypto risk/trade (§21): 0.5% → 1%
+- Options position cap (§18): 6% → 12%
+- LEAPS position cap (§19): 3% → 6%
+- **Unaffected, by explicit scoping choice**: Mode C risk/trade stays 0.5% (§20 item 2) — now the only lane not doubled today.
+
+```json
+{
+  "cycle": "user_instructed_rule_change",
+  "timestamp_utc": "2026-10-03T09:05:00Z",
+  "modes_covered": ["options", "leaps"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success",
+  "note": "CLAUDE.md §19 item 4 (LEAPS cap 3%->6%) updated per explicit user instruction; fixed stale §21 item 4 comparison text; commit cbdb6ce; Mode C (0.5%) remains the only lane not doubled today"
+}
+```
