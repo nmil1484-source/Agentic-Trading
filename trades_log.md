@@ -21526,3 +21526,39 @@ No lane left at its original number. Position/correlation caps, reward-to-risk f
   "note": "CLAUDE.md §20 item 2 (Mode C risk 0.5%->1%) and the §20.2 position-sizing formula constant updated per explicit user instruction, completing today's session-wide doubling across Mode B/crypto/options/LEAPS/Mode C; commit fc7b7a9"
 }
 ```
+
+---
+
+## 2026-10-03 ~09:05 UTC — USER-INSTRUCTED RULE CHANGE: portfolio heat cap + mandatory Mode B resting stops
+
+**User instruction (exact):** "Implement #1 and #3" — referring to the two loss-limiting recommendations given earlier (portfolio heat cap, and a real resting broker stop for Mode B).
+
+**Change 1 — Portfolio heat cap (new §3 bullet):** total current open-risk across every open Mode B/C/crypto position combined (positions at breakeven or better contribute $0, not their original planned risk) plus a new trade's own risk may not exceed **6% of Agentic Account equity**. Resize down to fit remaining headroom rather than skip outright — same pattern as existing per-position/total-deployment caps. Cross-referenced into §5B item 3, §20 item 2, §21 item 4.
+
+**Change 2 — Mandatory resting broker stop for Mode B (new §16 items 14-15):** closes the disclosed structural gap where Mode B relied on a documented stop level checked once per hourly cycle, versus Mode C/crypto's real resting broker orders. Every Mode B position now gets a real `stop_market`/`stop_limit` sell order placed immediately on entry, verified resting via `get_equity_orders`; breakeven (item 5), trailing (item 6), and final-30-minutes tightening (item 13) moves are now executed as real cancel-and-replace order actions, not documentation updates; a per-cycle stop-audit (item 15) mirrors Mode C's existing guardrail 12. §16 item 3 (the old mechanism) is retained as the gap-case fallback only. §18 options and §19 LEAPS are unaffected — they keep their own separate daily-trailing documented-stop mechanic.
+
+**Retroactive application — done immediately, not deferred to the next autonomous cycle:**
+- **NVDA** (3 sh, entry $226.27): placed `stop_market` sell, qty 3, stop $226.27, GTC. Order id `6ac0c4f0-83f5-4076-88c6-4f6f7ac993e9`. State: `queued` (weekend — markets closed; will activate at Monday's regular-hours open). Confirmed resting via `get_equity_orders`.
+- **TSM** (1 sh, entry $451.97): placed `stop_market` sell, qty 1, stop $451.97, GTC. Order id `6ac0c4f1-8c50-47c5-ad10-5a577910d47f`. State: `queued` (same reason). Confirmed resting via `get_equity_orders`.
+- Both orders placed under the existing autonomous §1 exception (place/modify an order strictly to execute documented §16 stop/exit mechanics) — no live CONFIRM ORDER needed, this is implementing the newly-documented item 14 mechanic on existing protected positions, not a new discretionary trade.
+
+**Also fixed while making this change:** §14 item 9's JSON `stop_audit` field description and §21 item 5's comparison text, both of which referenced the now-outdated "Mode B uses documented-level stops, not resting broker orders" gap. §7 Trade Card format updated to include the resting stop order id/status for Mode B.
+
+Dated §12 change-log entry added covering both changes together. Commit `c557148`, pushed clean.
+
+```json
+{
+  "cycle": "user_instructed_rule_change",
+  "timestamp_utc": "2026-10-03T09:05:00Z",
+  "modes_covered": ["B"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 2, "missing_found": 2, "placed": 2},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 2,
+  "git_push": "success",
+  "note": "implemented portfolio heat cap (§3, 6% of equity cross-mode) and mandatory resting broker stops for Mode B (§16 items 14-15); retroactively placed real stop_market orders for NVDA (id 6ac0c4f0...) and TSM (id 6ac0c4f1...), both confirmed queued/resting (weekend, activates Monday open); commit c557148"
+}
+```
