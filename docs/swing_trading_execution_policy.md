@@ -84,9 +84,10 @@ existing hard limits (CLAUDE.md §3 dollar caps) plus these are satisfied:
    itself had been raised 2026-08-19 from four — see CLAUDE.md §12).
 3. **No more than two open positions share one sector, industry, or catalyst theme.**
 4. The existing per-position/fractional-pilot cap remains in force (§3/§15).
-5. **Maximum planned loss per new trade is the lower of 1% of current Agentic Account equity or
-   the loss implied by the defined technical stop.** Calculate share/fractional-share quantity
-   from the entry-to-stop distance; round down within the existing allocation cap.
+5. **Maximum planned loss per new trade is the lower of 2% of current Agentic Account equity
+   (raised 2026-10-03 from 1% — see CLAUDE.md §12) or the loss implied by the defined technical
+   stop.** Calculate share/fractional-share quantity from the entry-to-stop distance; round down
+   within the existing allocation cap.
 6. Never average down. A later add is allowed only after the original position is profitable, the
    setup remains valid, and all capacity tests above remain clear.
 7. **Pacing limit removed (2026-08-19)** — a scan cycle may take every qualifying candidate that

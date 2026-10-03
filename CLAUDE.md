@@ -252,12 +252,12 @@ Tier-B allocation formula remain unchanged and still apply on top of these:
    entries until the count drops back under five.)
 2. **Correlation cap**: no more than **two** open positions may share one sector, industry, or
    catalyst theme — log the sector/theme on the Trade Card so this is checkable, not eyeballed.
-3. **Per-trade risk sizing**: maximum planned loss on any new trade is the **lower of 1% of
-   current Agentic Account equity or the loss implied by the already-determined technical stop**
-   (§13/§16 item 2). Compute share (or fractional-share) quantity from the entry-to-stop distance
-   against that risk budget, then round down to fit within the existing §3/§15 allocation cap —
-   whichever constraint (the 1%-of-equity risk budget or the dollar allocation cap) produces the
-   smaller position wins.
+3. **Per-trade risk sizing**: maximum planned loss on any new trade is the **lower of 2% of
+   current Agentic Account equity (raised 2026-10-03 from 1% — see §12 change log) or the loss
+   implied by the already-determined technical stop** (§13/§16 item 2). Compute share (or
+   fractional-share) quantity from the entry-to-stop distance against that risk budget, then round
+   down to fit within the existing §3/§15 allocation cap — whichever constraint (the 2%-of-equity
+   risk budget or the dollar allocation cap) produces the smaller position wins.
 4. **Pacing: removed (2026-08-19, explicit user instruction — see §12 change log).** The prior
    "one new entry per scheduled scan cycle" limit no longer applies. A single scan cycle may now
    take every candidate that clears §5B and still fits within the remaining position-count (item
@@ -456,6 +456,26 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-03: User instructed raising Mode B's per-trade risk sizing from 1% to 2% of Agentic
+  Account equity** (§16 item 2, and the cross-referencing §5B item 3 which derives its number from
+  §16 item 2 — both updated together to avoid an internal contradiction). Prompted by the user
+  asking how to grow weekly dollar returns faster; modeled in chat before the change, with the
+  tradeoff explicitly disclosed: at the account's equity then (~$5,360), per-trade risk moves from
+  ≈$54 to ≈$107. Raising this doesn't change the system's win rate or R:R — it only scales dollar
+  outcomes linearly in both directions — but it materially shrinks the cushion before this
+  document's own circuit breakers trigger: **two ordinary same-day stop-outs now cost ≈4% of
+  equity instead of ≈2%, which alone can trip the §6 3%-intraday-decline HARD_OBSERVE breaker**
+  where it previously would not; three losses in a row (≈6% instead of ≈3%) now exceeds the §3
+  5%-weekly-loss risk-reduction throttle on its own. Gap risk is not hypothetical here — the BTC
+  stop-out earlier this session (2026-10-02) already realized ≈2.1x its planned risk when price
+  gapped through the stop before the next hourly check; at 2% risk the same kind of gap overshoots
+  by a proportionally larger dollar amount. **Scoped narrowly to Mode B's per-trade risk-sizing
+  number only** — not touched by this change: the per-position/total-deployment caps (§3), Mode C's
+  0.5% risk (§20 item 2), crypto's 0.5% risk (§21 item 4), the ≥1.5:1 reward-to-risk floor (§5B item
+  4), position/correlation caps (§5B items 1-2), and every circuit-breaker threshold itself (§6) —
+  those breakers are simply reached faster now as a mechanical consequence of bigger per-trade
+  dollar swings, not because their own percentages changed. Mirrored in
+  `docs/fractional_tier_b_policy.md` item 2 and `docs/swing_trading_execution_policy.md` item 5.
 - **2026-09-29: User instructed adding HBAR to §21's named crypto allowlist**, after first asking
   to add HBAR to `watchlist.md` for tracking (done, with an explicit note that watchlist inclusion
   grants no trading authority), then separately instructing it be made tradeable. **Verified live
@@ -1524,8 +1544,10 @@ Mode C in §20 (guardrail item 11 and the existing Chandelier Exit note). See §
    and a time-stop date.
 
 2. Initial stop: set the technical invalidation at the nearest valid support break, but never let
-   the planned loss exceed 6% of entry price or 1% of total Agentic Account equity, whichever is
-   smaller. If no technically valid stop fits inside that risk budget, do not take the trade.
+   the planned loss exceed 6% of entry price or **2% of total Agentic Account equity** (raised
+   2026-10-03 from 1%, at explicit user instruction — see §12 change log for the modeled before/
+   after and the disclosed tradeoff), whichever is smaller. If no technically valid stop fits
+   inside that risk budget, do not take the trade.
 
 3. Stop execution: when last price trades at or below the documented invalidation, immediately
    call `get_equity_tradability` and `review_equity_order`, then submit an exit for the full

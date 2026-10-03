@@ -98,9 +98,9 @@ unchanged and independently of this section.
    loss in dollars, first profit target, and a time-stop date.
 
 2. **Initial stop sizing.** Set the technical invalidation at the nearest valid support break, but
-   never let the planned loss exceed 6% of entry price or 1% of total Agentic Account equity,
-   whichever is smaller. If no technically valid stop fits inside that risk budget, do not take
-   the trade.
+   never let the planned loss exceed 6% of entry price or 2% of total Agentic Account equity
+   (raised 2026-10-03 from 1% — see CLAUDE.md §12), whichever is smaller. If no technically valid
+   stop fits inside that risk budget, do not take the trade.
 
 3. **Stop execution.** When last price trades at or below the documented invalidation,
    immediately call `get_equity_tradability` and `review_equity_order`, then submit an exit for
