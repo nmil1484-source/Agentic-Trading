@@ -22808,3 +22808,49 @@ Attempted `update_trigger` on `trig_01KrBsTt9mssjU4hPGtM3cBe` to refresh the emb
   "git_push": "success"
 }
 ```
+
+---
+## 2026-10-04 ~18:37 UTC — AUTONOMOUS CRYPTO (trig_01UUXAtYHjn7nBgzkdvZU4Rv, §21)
+
+**Gate check:** §14 Status: ACTIVE (per CLAUDE.md, unchanged). No kill phrase found.
+
+**INCIDENT — Robinhood MCP connector unauthenticated this cycle.** The session reported the
+`robinhood-trading` connector requires re-authentication before any of its tools can be called,
+and that this is a non-interactive session that cannot run the OAuth flow itself. No
+`get_accounts`/`get_portfolio`/`get_crypto_positions`/`get_crypto_orders`/`get_crypto_quotes` calls
+were attempted this cycle, since the tool-loading step itself returned the auth requirement before
+any call was made — consistent with the 2026-09-08/2026-10-03 pattern already on record in
+CLAUDE.md's change log ("a connector-session issue, not a data or logic error").
+
+**Per §6/§14's MCP-error handling (treated as equivalent to a reconciliation gap, since account
+state cannot be verified at all this cycle):** new-entry order submission is suspended for this
+cycle — no screening was possible without live data, so this is moot in practice (no new entry
+would have been evaluated regardless). **Existing protective stop (AAVE, order `6ac0cd98...`,
+last confirmed resting at $175.50 as of the 17:37 UTC cycle) is presumed to remain active** — it
+lives at the broker independently of this session's tool/connector access, same reasoning
+documented for the 2026-10-03 reauthorization gap (NVDA/TSM/AAVE stops unaffected throughout that
+incident). This is a presumption, not a live-verified fact, since the stop-audit itself could not
+run this cycle.
+
+**No order-related action taken. Reconciliation deferred to the next cycle** — if the connector is
+still unauthenticated at the next firing, this incident continues; if access is restored, the next
+cycle's stop-audit should explicitly re-confirm the AAVE stop before anything else. This requires
+the user to reauthorize the `robinhood-trading` connector via claude.ai Settings → Connectors (the
+same remedy as the prior incidents) — this system has no mechanism to do that itself.
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-10-04T18:37:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "MCP_UNAUTHENTICATED",
+  "circuit_breakers_active": ["mcp_connector_unauthenticated"],
+  "positions": {"mode_b_count": null, "mode_c_count": null, "crypto_count": null},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "portfolio_heat": {"current": null, "cap": null},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
