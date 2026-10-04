@@ -64,7 +64,8 @@ A Mode B swing entry requires, per §5B:
    says a name is worth watching; the hourly trigger is the specific candle/level that times the
    actual entry.
 3. A verified catalyst, sector tailwind, or relative-strength driver.
-4. At least **2 of 6** technical confirmations (lowered 2026-08-14 from 3-of-6, see CLAUDE.md §12):
+4. At least **1 of 6** technical confirmations (lowered 2026-10-04 from 2-of-6, which itself had
+   been lowered 2026-08-14 from 3-of-6, see CLAUDE.md §12):
    9/20 EMA bullish alignment/reclaim; price above/reclaiming the 50-day SMA; breakout/retest/
    range-contraction/Fib-pullback location; relative strength vs. benchmark/sector; volume ≥1.2x
    normal or no abnormal selling; RSI >45 and improving or MACD improving.
@@ -80,14 +81,15 @@ existing hard limits (CLAUDE.md §3 dollar caps) plus these are satisfied:
 
 1. Total deployed capital remains at or below 90% of Agentic Account equity after the order
    (raised 2026-08-19 from 80%, see CLAUDE.md §12).
-2. **No more than five Mode B positions simultaneously open** (lowered 2026-08-26 from ten, which
-   itself had been raised 2026-08-19 from four — see CLAUDE.md §12).
+2. **No more than ten Mode B positions simultaneously open** (raised 2026-10-04 from five, which
+   had been lowered 2026-08-26 from ten, which itself had been raised 2026-08-19 from four — see
+   CLAUDE.md §12).
 3. **No more than two open positions share one sector, industry, or catalyst theme.**
 4. The existing per-position/fractional-pilot cap remains in force (§3/§15).
-5. **Maximum planned loss per new trade is the lower of 2% of current Agentic Account equity
-   (raised 2026-10-03 from 1% — see CLAUDE.md §12) or the loss implied by the defined technical
-   stop.** Calculate share/fractional-share quantity from the entry-to-stop distance; round down
-   within the existing allocation cap.
+5. **Maximum planned loss per new trade is the lower of 3% of current Agentic Account equity
+   (raised 2026-10-04 from 2%, which itself was raised 2026-10-03 from 1% — see CLAUDE.md §12) or
+   the loss implied by the defined technical stop.** Calculate share/fractional-share quantity
+   from the entry-to-stop distance; round down within the existing allocation cap.
 6. Never average down. A later add is allowed only after the original position is profitable, the
    setup remains valid, and all capacity tests above remain clear.
 7. **Pacing limit removed (2026-08-19)** — a scan cycle may take every qualifying candidate that

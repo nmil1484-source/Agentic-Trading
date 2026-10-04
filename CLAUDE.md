@@ -139,9 +139,10 @@ trades. A swing candidate qualifies when **all** of these conditions are met:
 2. It has a verified catalyst, sector tailwind, or clear relative-strength driver — logged with a
    URL/date when there is one; a relative-strength driver must be a specific, checkable comparison
    (e.g. "up X% vs. SPY's Y% over Z sessions"), not a vague assertion.
-3. It has at least **2 of these 6** technical confirmations (lowered 2026-08-14 from 3-of-6 at
-   explicit user instruction — not all 6; this replaces the old §13.B hard 9/20-EMA-only gate for
-   swing candidates; §13 remains the reference methodology for *how* to read each one):
+3. It has at least **1 of these 6** technical confirmations (lowered 2026-10-04 from 2-of-6, which
+   itself had been lowered 2026-08-14 from 3-of-6 — both at explicit user instruction; not all 6;
+   this replaces the old §13.B hard 9/20-EMA-only gate for swing candidates; §13 remains the
+   reference methodology for *how* to read each one):
    - 9/20 EMA bullish alignment or reclaim;
    - price above or reclaiming the 50-day SMA;
    - breakout/retest, range contraction, or support/Fibonacci pullback location;
@@ -162,8 +163,8 @@ trades. A swing candidate qualifies when **all** of these conditions are met:
 5. It is outside the first 15 minutes after open and the final 15 minutes before close (§4).
 6. It has no earnings or high-impact macro conflict inside the existing §4 timing rule.
 7. **It has both a daily-chart setup and a shorter-timeframe (hourly) execution trigger**
-   (2026-08-13, user instruction). Item 3's 2-of-6 confirmations establish the daily-chart setup;
-   the hourly trigger is the specific candle/level that times the actual entry (e.g., an hourly
+   (2026-08-13, user instruction). Item 3's technical confirmation(s) establish the daily-chart
+   setup; the hourly trigger is the specific candle/level that times the actual entry (e.g., an hourly
    close reclaiming a level, a range breakout on the hourly chart, an hourly pullback holding a
    rising short-term average) — the daily setup says a name is worth watching, the hourly trigger
    says now is the moment to act on it. Both are required; a daily setup without a confirming
@@ -194,8 +195,9 @@ A bearish candidate qualifies when **all** of these conditions are met:
 2. It has a verified bearish catalyst, sector headwind, or clear relative-weakness driver —
    logged with a URL/date when there is one; a relative-weakness driver must be a specific,
    checkable comparison (e.g. "down X% vs. SPY's Y% over Z sessions"), not a vague assertion.
-3. It has at least **2 of these 6** technical confirmations (the bearish mirror of §5B item 3's
-   six, same 2-of-6 floor):
+3. It has at least **1 of these 6** technical confirmations (the bearish mirror of §5B item 3's
+   six, same floor — lowered to 1-of-6 in the same 2026-10-04 change, since this subsection's own
+   text always described itself as sharing §5B item 3's floor exactly):
    - 9/20 EMA bearish cross or sustained bearish alignment (9 crossing below, or staying below,
      20);
    - price below or losing the 50-day SMA;
@@ -213,7 +215,7 @@ A bearish candidate qualifies when **all** of these conditions are met:
 5. It is outside the first 15 minutes after open and the final 15 minutes before close (§4).
 6. It has no earnings or high-impact macro conflict inside the existing §4 timing rule.
 7. **It has both a daily-chart bearish setup and a shorter-timeframe (hourly) execution trigger** —
-   the mirror of §5B item 7. Item 3's 2-of-6 confirmations establish the daily-chart setup; the
+   the mirror of §5B item 7. Item 3's technical confirmation(s) establish the daily-chart setup; the
    hourly trigger is the specific candle/level that times the actual entry (e.g., a breakdown
    candle, a failed bounce/rejection at a resistance level on the hourly chart, an hourly close
    losing a support level). Both are required; a daily bearish setup without a confirming hourly
@@ -264,16 +266,19 @@ above, see §3/§12) with risk-based capacity limits instead. All existing §3 d
 (per-position 80%, total-deployed 90%/10%-cash, no averaging down, loss throttles) and §15's
 Tier-B allocation formula remain unchanged and still apply on top of these:
 
-1. **Simultaneous-position cap**: no more than **five** Mode B positions open at once (whole-share
-   and fractional combined). (Lowered 2026-08-26 from ten — raised to ten on 2026-08-19 from four
-   before that — at explicit user instruction, to shift capacity toward Mode C; see §12 change
-   log. Existing Mode B positions above the new cap are not force-closed, they just block new
-   entries until the count drops back under five.)
+1. **Simultaneous-position cap**: no more than **ten** Mode B positions open at once (whole-share
+   and fractional combined). (Raised 2026-10-04 from five, at explicit user instruction, to try to
+   grow faster given the account's near-breakeven combined profit factor — see §12 change log.
+   Before that: lowered 2026-08-26 from ten — raised to ten on 2026-08-19 from four before that —
+   to shift capacity toward Mode C. Existing Mode B positions above whatever the cap was at the
+   time are never force-closed by a lower cap; they just block new entries until the count drops
+   back under the current cap.)
 2. **Correlation cap**: no more than **two** open positions may share one sector, industry, or
    catalyst theme — log the sector/theme on the Trade Card so this is checkable, not eyeballed.
-3. **Per-trade risk sizing**: maximum planned loss on any new trade is the **lower of 2% of
-   current Agentic Account equity (raised 2026-10-03 from 1% — see §12 change log) or the loss
-   implied by the already-determined technical stop** (§13/§16 item 2). Compute share (or
+3. **Per-trade risk sizing**: maximum planned loss on any new trade is the **lower of 3% of
+   current Agentic Account equity (raised 2026-10-04 from 2%, which itself was raised 2026-10-03
+   from 1% — see §12 change log) or the loss implied by the already-determined technical stop**
+   (§13/§16 item 2). Compute share (or
    fractional-share) quantity from the entry-to-stop distance against that risk budget, then round
    down to fit within the existing §3/§15 allocation cap — whichever constraint (the 2%-of-equity
    risk budget or the dollar allocation cap) produces the smaller position wins. **Also check the
@@ -529,6 +534,53 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-04: User instructed loosening three Mode B levers at once, after asking directly "when
+  are we going to make money" given the near-breakeven combined profit factor (0.92) and the real
+  $41.78 YTD figure.** Offered three candidate levers with disclosed tradeoffs via a structured
+  question; user selected all three rather than one:
+  1. **§5B item 3 (and its Bearish Mirror Gate mirror) technical-confirmation floor lowered from
+     2-of-6 to 1-of-6.** Mode B is the only currently-profitable lane (profit factor 1.25) — this
+     loosens its own quality filter specifically, not crypto's (crypto's separately-stated 2-of-6
+     floor in §21 item 3 is unaffected; it cites §5B item 3 only for the list of six confirmations,
+     not for its own threshold count). Disclosed tradeoff: more candidates will qualify each
+     cycle, but each one individually has weaker technical support — this is the most direct risk
+     to the 1.25 profit factor that's currently working, since a confirmation floor this low
+     (previously lowered 2026-08-14 from 3-of-6 to 2-of-6 for a different reason — the regime
+     dashboard never returning a live reading) has not been tested at this looseness before.
+  2. **§5B item 1 simultaneous-position cap raised from 5 back to 10** (reversing the 2026-08-26
+     lowering that had shifted capacity toward Mode C). Disclosed tradeoff: unlike item 1, this
+     doesn't lower any quality bar — every position still has to clear §5B — it only lets more
+     *simultaneously-qualifying* setups be held at once. Real-world effect is bounded by the §3
+     portfolio heat cap (6% of equity, unchanged), which resizes or skips new entries once
+     aggregate open risk is already at the cap, so this mostly increases diversification capacity
+     rather than aggregate risk.
+  3. **§16 item 2 (and the cross-referencing §5B item 3) per-trade risk sizing raised from 2% to
+     3% of Agentic Account equity** — the same number used for both, kept in sync as always. Pure
+     linear scaling of dollar outcomes in both directions, same principle as the 2026-10-03
+     1%→2% change; shrinks the cushion before circuit breakers trip further still (now three
+     ordinary same-day stop-outs costs ≈9% of equity instead of ≈6%, closer to tripping the §6
+     3%-intraday-decline breaker on fewer losses, and the §3 5%-weekly-loss throttle trips on
+     two losses instead of needing three).
+  **Combined-effect disclosure given before implementing, since the three stack**: a weaker
+  quality filter (1) producing more candidates, that can now be held in greater numbers (2), each
+  sized larger (3), is a real combined loosening — but the 6% portfolio heat cap (§3, unchanged)
+  remains the hard ceiling on simultaneous dollar risk regardless of how items 2-3 are set, so the
+  actual tail risk this adds is concentrated in trade *quality* (item 1), not blown-out aggregate
+  sizing. **Scoped narrowly to Mode B only** — not touched by this change: crypto (§21) and Mode C
+  (§20) keep their own separate risk/position/confirmation numbers entirely; Mode B's own
+  reward-to-risk floor (≥1.5:1), correlation cap (2-per-theme), and every §16 exit mechanic
+  (breakeven, trailing, peak-retracement, time-stop) are also unchanged — this touches only the
+  entry-quality bar and the position-count/sizing caps. **Narrative cross-references updated to
+  match** everywhere the old "5-position"/"2%" numbers were live-referenced: §18 item 7 (options
+  capacity), §20 item 5 (Mode C's comparison to Mode B's cap), §21 item 4 (crypto's comparison).
+  **Two pre-existing stale cross-references fixed as a drive-by correction while editing this
+  area** (not caused by this change, just found and fixed in the same pass): §13.B still said
+  "need 3 of 6" for Mode B's confirmation count even though the floor had already moved to 2-of-6
+  on 2026-08-14 and was never corrected there; and §14's Automatic Recovery State Machine "Scope"
+  bullet said "ten-position... caps in normal state" even while the actual cap was 5 (post-
+  2026-08-26) — that one is now accurate again purely because this change restored the cap to 10,
+  not because it was separately edited. Mirrored in `docs/swing_trading_execution_policy.md`
+  Section 3 item 4, Section 4 items 2 and 5.
 - **2026-10-03 (later same day, after a brief Robinhood MCP reauthorization gap): User instructed
   that new watchlist additions also sync to their TradingView list; implemented as a Robinhood-
   watchlist mirror instead, since no TradingView write tool exists.** Prompted by the user asking
@@ -1313,8 +1365,10 @@ computed number and which rule below produced it.
 ### B. 9/20 EMA (or SMA) trend and pullback rules
 - For Mode A: only propose a long entry when the 9-period average is above the 20-period average
   on the daily chart ("green zone") — if 9 is below 20, status stays OBSERVE regardless of other
-  signals. **For Mode B, this is one of six possible confirmations (§5B item 3, need 3 of 6), not
-  a standalone hard gate** (2026-08-13, see §12 change log).
+  signals. **For Mode B, this is one of six possible confirmations (§5B item 3, need 1 of 6 as of
+  2026-10-04 — this reference had gone stale at "3 of 6" even before that change, since the actual
+  floor had already moved to 2-of-6 on 2026-08-14 and was never corrected here; fixed in the same
+  pass as the 2026-10-04 edit), not a standalone hard gate** (2026-08-13, see §12 change log).
 - Entry trigger (both modes, as a read on the signal itself): a bullish daily candle closing back
   above the 9-average after a pullback — don't enter blind mid-pullback before that close confirms.
 - Stop-loss: below the swing low of the pullback, or below the 20-average, whichever is tighter.
@@ -1793,10 +1847,11 @@ item 9 and §21 item 9. See §12 change log.
    and a time-stop date.
 
 2. Initial stop: set the technical invalidation at the nearest valid support break, but never let
-   the planned loss exceed 6% of entry price or **2% of total Agentic Account equity** (raised
-   2026-10-03 from 1%, at explicit user instruction — see §12 change log for the modeled before/
-   after and the disclosed tradeoff), whichever is smaller. If no technically valid stop fits
-   inside that risk budget, do not take the trade.
+   the planned loss exceed 6% of entry price or **3% of total Agentic Account equity** (raised
+   2026-10-04 from 2%, which itself was raised 2026-10-03 from 1% — both at explicit user
+   instruction, see §12 change log for the modeled before/after and the disclosed tradeoff),
+   whichever is smaller. If no technically valid stop fits inside that risk budget, do not take
+   the trade.
 
 3. Stop execution: **as of 2026-10-03, the primary mechanism is the real resting broker stop order
    required by item 14 — it executes on its own at the broker when price trades through it,
@@ -2080,7 +2135,7 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
    discipline as equity orders (§14 item 5).
 
 7. **Capacity and correlation:** an open long option position counts as one ordinary Mode B
-   position against the 5-position cap (§5B) and the 2-per-theme correlation cap — combined with
+   position against the 10-position cap (§5B) and the 2-per-theme correlation cap — combined with
    equity positions, not in addition to them. Premium paid counts against the 90% total-deployed
    ceiling (§3/§14 item 2) exactly like an equity position's cost basis.
 
@@ -2226,9 +2281,9 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
    trailing stop (item 6) rather than being force-closed. Locking in a good day is profit
    protection, not a hard ceiling on the day's total gain.
 5. **Max concurrent Mode C positions: 8** (raised 2026-08-26 from 3, at explicit user instruction,
-   paired with lowering Mode B's cap from 10 to 5 — see §12 change log). Combined with Mode B's own
-   5-position cap and the shared §3 deployment ceiling — Mode C's 8-position cap is additional,
-   not instead of, those.
+   paired with lowering Mode B's cap from 10 to 5 at the time — see §12 change log; Mode B's cap
+   was later raised back to 10 on 2026-10-04). Combined with Mode B's own 10-position cap and the
+   shared §3 deployment ceiling — Mode C's 8-position cap is additional, not instead of, those.
 6. **Max new Mode C entries per day: 5-6.** Managing an existing Mode C stop/trailing doesn't
    count against this. Once hit, no new Mode C entries for the rest of the day regardless of setup
    quality — that setup is tomorrow's trade.
@@ -2457,7 +2512,7 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
    - **Per-position cap: 15% of Agentic Account equity** — tighter than §3's general 40% cap,
      same pattern as every other asset-class carve-out in this document having its own tighter
      sub-cap (§15 Tier-B 20%, §18 options 12% as of 2026-10-03, §19 LEAPS 6% as of 2026-10-03).
-   - **Max 2 concurrent crypto positions** (its own small cap, separate from Mode B's 5-position
+   - **Max 2 concurrent crypto positions** (its own small cap, separate from Mode B's 10-position
      cap and Mode C's 8-position cap) — crypto behaves as a single, highly-correlated macro asset
      class much of the time, so 2 is already a meaningful concentration limit given only 7 coins
      are on the allowlist to begin with (5 originally, plus AAVE added 2026-09-22, plus HBAR added
