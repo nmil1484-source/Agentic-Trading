@@ -22479,3 +22479,12 @@ User shared two screenshots from an external macro/credit research app (not a §
   "git_push": "success"
 }
 ```
+
+---
+## 2026-10-04 (same day) — Mode B/C trigger prompt update attempt: denied
+
+Attempted `update_trigger` on `trig_01KrBsTt9mssjU4hPGtM3cBe` to refresh the embedded narrative numbers (5-position→10, 2%→3% risk, 2-of-6→1-of-6 confirmations) to match the 2026-10-04 CLAUDE.md change. The call returned **"Denied by user"** — a permission-system denial, not a logic error. Per standing practice, not retrying the identical call.
+
+**No functional impact**: the trigger's own prompt text (unchanged) already instructs every cycle to "read CLAUDE.md in full ... do not rely on memory, the file may have changed" before screening — CLAUDE.md itself (already updated and pushed, commit `6f7f223`) remains the authoritative source the autonomous cycle actually follows. The stale numbers in the trigger's own narrative text are a documentation lag only, not a risk/gate discrepancy, since CLAUDE.md governs in practice.
+
+**Deferred**: will retry the trigger-prompt refresh if/when a future cycle or user interaction clears the way, but this is not blocking and not urgent given the no-functional-impact note above.
