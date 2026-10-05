@@ -24226,3 +24226,7 @@ change since. **No second entry** — OBSERVE.
   "git_push": "pending"
 }
 ```
+
+## 2026-10-05 — User-confirmed cash withdrawal (manual account activity, not a trade)
+
+User stated in chat they withdrew cash from the Agentic Account to send to their wife for house expenses. Per §1, this system has no withdrawal/transfer authority and did not initiate or process this — it was the user's own direct action outside this system. Per §6's cash-only discrepancy handling, a pure cash-balance change with positions/orders otherwise consistent does not pause new-entry authority; this is now explicitly user-confirmed (stronger than the usual presumed-benign case), so the next cycle's portfolio pull will simply reflect the lower cash/total-equity figure as the new baseline — no reconciliation pause, no action needed. Noting here so a future cycle doesn't re-flag the resulting balance drop as an unexplained discrepancy.
