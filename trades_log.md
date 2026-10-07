@@ -25509,3 +25509,63 @@ No coin shows a breakout, reclaim, or fresh catalyst since the last cycle — al
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-10-07 02:37 UTC — AUTONOMOUS (Crypto 24/7 Scan, §21) — STOP-OUT EXIT: AAVE
+
+**Gate check:** §14 Status = ACTIVE. No kill phrase found. Cycle proceeds.
+
+**Cross-mode circuit breakers:** Same-day stop-out count: this is stop-out #1 today (2026-10-07 UTC) — below the 2-stop-out cooldown threshold, no new-entry pause triggered by this alone. SPY/QQQ market-shock check inapplicable (equity markets closed).
+
+**EXIT DETECTED — AAVE resting stop filled between cycles.** `get_crypto_positions` returned empty (0 AAVE held) and `get_crypto_orders` (open) returned empty; `get_crypto_orders` (closed, symbol=AAVE) confirmed order `6ac0cd98-65b2-439f-b411-a44028808d0d` (the mandatory resting stop placed 2026-10-03 at entry per §21 item 5) transitioned to **state=filled** at 2026-10-07T01:46:30Z — i.e. during the gap between the 01:37 UTC and this 02:37 UTC cycle, exactly the hourly-floor latency gap already disclosed for this mechanism. This is the resting broker stop executing on its own, not a cycle-detected manual exit.
+
+**Trade Card — CRYPTO, AAVE, closed:**
+- Entry: 2026-10-03, buy limit, qty 4.39, avg fill $182.6646, cost basis $801.90 (incl. fee)
+- Stop: $175.50 (resting `stop_loss` sell, order `6ac0cd98-65b2-439f-b411-a44028808d0d`), placed immediately on entry per §21 item 5
+- Exit: stop filled 2026-10-07 01:46:30 UTC, avg fill price $175.4365, qty 4.39, proceeds $770.16 (incl. fee)
+- Planned max loss: (182.6646−175.50)×4.39 ≈ **$31.46**
+- Actual realized loss: $801.90 − $770.16 = **$31.74**
+- Slippage: ≈$0.28 unfavorable (avg fill $175.4365 vs. stop trigger $175.50) — clean execution, negligible slippage, the resting-stop mechanism worked as designed
+- Rule triggered: §16 item 3/§21 item 5 — hard technical invalidation hit; mechanical resting-order fill, no cycle intervention needed
+- Cash increase this cycle ($3,203.52 → $3,973.68, +$770.16) is fully explained by this sale — **no §6 cash-discrepancy flag warranted**, reconciles exactly to the fill proceeds
+
+**Profit-factor/win-rate tally (§16 item 16) — updated incrementally:**
+| Mode | Wins | Losses | Win rate | Gross profit | Gross loss | Profit factor |
+|---|---|---|---|---|---|---|
+| Mode B | 13 | 10 | 56.5% | $166.23 | $132.64 | 1.25 |
+| Mode C | 1 | 0 | 100% | $0.87 | $0.00 | — |
+| Crypto | 2 | **11** | **15.4%** | $66.35 | **$153.82** | **0.43** |
+| **Combined** | 16 | **21** | **43.2%** | $233.45 | **$286.46** | **0.82** |
+
+Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consecutive AAVE stop-outs in its recent history (2026-09-27, 2026-09-29 partial, now this full exit) against only 2 wins total. Flagging plainly, not softening: crypto remains the weakest-performing lane on this account by a wide margin.
+
+**Account:** Agentic (••••8058). Total value $5,175.88 (equity $1,202.20, crypto $0, cash $3,973.68).
+
+**Position count:** 0 of 2 crypto cap — full capacity available.
+
+**Screen — full 7-coin allowlist, broad selloff in progress:** BTC $83,835.67 (-1.95% vs. prior-day open), ETH $2,613.97 (-3.14%), SOL $118.08 (-1.59%), XRP $1.4600 (-2.54%), LINK $13.540 (-1.66%), AAVE $174.46 (-4.05%), HBAR $0.09622 (-4.69%) — a clear broad-based crypto decline this cycle, materially sharper than prior cycles' noise. No coin shows a bullish 4H setup + 1H trigger; AAVE specifically is not eligible for immediate re-entry (just stopped out, actively declining, no fresh qualifying structure). OBSERVE across the board — this is exactly the environment to avoid chasing a bounce into.
+
+**Portfolio heat cap:** 0 crypto risk, Mode B at breakeven ($0). Total heat $0 vs. ~$310.55 cap — full headroom, but no qualifying candidate to deploy it on this cycle.
+
+**Orders placed:** 0 new entries. **Exits:** 1 (AAVE, stop-out, -$31.74). **Entries:** none.
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-10-07T02:37:34Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "AAVE", "reason": "stop_loss_filled", "realized_pl": -31.74}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending",
+  "tally_update": {
+    "crypto": {"wins": 2, "losses": 11, "win_rate_pct": 15.4, "gross_profit": 66.35, "gross_loss": 153.82, "profit_factor": 0.43},
+    "combined": {"wins": 16, "losses": 21, "win_rate_pct": 43.2, "gross_profit": 233.45, "gross_loss": 286.46, "profit_factor": 0.82}
+  }
+}
+```
