@@ -26038,3 +26038,62 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-10-07 14:55 UTC — AUTONOMOUS (Mode B/C hourly) — NVDA PEAK-RETRACEMENT EXIT
+
+**Gate check:** §14 Status = ACTIVE. No kill phrase found. Cycle proceeds.
+
+**Cross-mode circuit breakers:** Same-day stop-out count 1/2 (AAVE) — this cycle's exit is a profit-protection exit, not a stop-out, no change. SPY $773.96 vs. $779.09 (-0.66%); QQQ $753.69 vs. $759.66 (-0.79%) — no market-shock breaker.
+
+**§6 cash-only discrepancy flagged:** cash rose from $4,447.18 (last cycle) to $6,147.18 at this cycle's start — a clean **+$1,700.00** increase, no corresponding order. Verified clean: `get_equity_positions` showed NVDA unchanged (3 sh) before this cycle's action, `get_equity_orders` (confirmed) showed only the pre-existing NVDA stop — positions/orders fully reconcile. Per §6, this does not pause new-entry authority; logged here prominently and in the chat report, presumed the user's own account activity (e.g. a deposit).
+
+**Mode B stop-audit (pre-action):** NVDA stop `6ac0c4f0...` confirmed/open at $226.27 (breakeven) — then cancelled this cycle as part of the exit below.
+
+**NVDA — PEAK-RETRACEMENT EXIT TRIGGERED.** Per the corrected tracker established last cycle (true peak $243.37 on 2026-10-06, entry $226.2681, trigger = $243.37 − 0.30×(243.37−226.2681) = **$238.24**): price fell to **$237.17-237.19** this cycle, through the trigger (last cycle it was $238.76, just above). Action taken:
+1. Cancelled the orphaned resting breakeven stop (`6ac0c4f0-83f5-4076-88c6-4f6f7ac993e9`) — confirmed cancelled.
+2. `get_equity_tradability` clean. `review_equity_order` clean (no alerts) at bid $237.16/ask $237.19.
+3. Placed SELL 3 NVDA LIMIT $236.50 (marketable) — **filled at avg $237.1601**, fees $0.02, order `6ac65d91-0563-4502-baba-e61e2f30ead1`.
+4. Realized gain: (237.1601−226.27)×3 − $0.02 fee = **+$32.65**. **NVDA position now fully closed, 0 shares.**
+
+**Mode B position count: 0/10** — both NVDA and TSM (exited this morning's first-scan cycle) are now fully closed. Full capacity and full heat-cap headroom available.
+
+**Profit-factor/win-rate tally (§16 item 16) — updated for the NVDA exit:**
+| Mode | Wins | Losses | Win rate | Gross profit | Gross loss | Profit factor |
+|---|---|---|---|---|---|---|
+| Mode B | **15** | 10 | **60.0%** | **$220.41** | $132.64 | **1.66** |
+| Mode C | 1 | 0 | 100% | $0.87 | $0.00 | — |
+| Crypto | 2 | 11 | 15.4% | $66.35 | $153.82 | 0.43 |
+| **Combined** | **18** | 21 | **46.2%** | **$287.63** | $286.46 | **1.00** |
+
+Combined profit factor crosses to breakeven (1.00) for the first time this session, driven entirely by today's two Mode B profit-protection exits.
+
+**New-entry screening (both modes):** CBRS $172.92 (-2.36%, continuing to break down, RSI still sub-45) — declined. ZETA $32.81 (-0.42%) — standing rejection stands. HPE $72.53 (+2.91%, now even more extended than the first-scan check) — still declined, chase risk. OSCR $32.86 (+1.60%, healthier structure but still no verified dated catalyst) — declined. No material change from the first-scan screen; no new Mode B or Mode C candidate.
+
+**Mode C:** 0/8 positions, $0.00 daily P&L. Stop-audit n/a (no positions). No qualifying VWAP-pullback/ORB/mean-reversion setup — broad market still soft.
+
+**Account post-action:** total value $6,858.64, 100% cash, no open positions in any mode.
+
+**Orders placed:** 2 (NVDA stop cancel + NVDA exit sell). **Exits:** 1 (NVDA, peak-retracement, +$32.65). **Entries:** none. STEP 0.5 final-cycle flatten: not applicable (not the 19:55 UTC cycle).
+
+```json
+{
+  "cycle": "mode_b_c_hourly",
+  "timestamp_utc": "2026-10-07T14:55:24Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "NVDA", "reason": "peak_retracement_30pct", "realized_pl": 32.65}],
+  "entries": [],
+  "orders_placed": 2,
+  "git_push": "pending",
+  "tally_update": {
+    "mode_b": {"wins": 15, "losses": 10, "win_rate_pct": 60.0, "gross_profit": 220.41, "gross_loss": 132.64, "profit_factor": 1.66},
+    "combined": {"wins": 18, "losses": 21, "win_rate_pct": 46.2, "gross_profit": 287.63, "gross_loss": 286.46, "profit_factor": 1.00}
+  },
+  "cash_discrepancy_note": "+$1,700.00 unexplained cash increase, logged per §6, positions/orders otherwise consistent, trading continues normally"
+}
+```
