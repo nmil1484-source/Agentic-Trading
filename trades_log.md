@@ -25943,3 +25943,64 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-10-07 14:06 UTC — AUTONOMOUS (Mode B/C — FIRST SCAN OF DAY) — TSM PEAK-RETRACEMENT EXIT (missed-peak correction)
+
+**Gate check:** §14 Status = ACTIVE. No kill phrase found. Cycle proceeds.
+
+**Cross-mode circuit breakers:** Same-day stop-out count 1/2 (AAVE, crypto trigger, 01:46 UTC) — below cooldown. Market-shock check: SPY $774.61 vs. prior close $779.09 (-0.57%); QQQ $752.56 vs. prior close $759.66 (-0.93%) — both under 1.5%, no breaker, but a genuinely soft broad-market open.
+
+**Account:** Agentic (••••8058). Pre-action: total value $5,162.79 (equity $1,189.11, cash $3,973.68). FTA Regime Dashboard: not re-fetched this cycle — classified UNKNOWN_DEGRADED on every check this entire project's history with no exception; treated as such per §6's standing non-blocking exception, reduced-sizing rule applies to any new entry (none occurred).
+
+**Mode B stop-audit:** NVDA stop `6ac0c4f0...` confirmed/open at $226.27 (breakeven). TSM stop `6ac0c4f1...` confirmed/open at $451.97 (breakeven) — see correction below, this stop was cancelled this cycle as part of an orphaned-order cleanup.
+
+**CORRECTION — TSM peak-retracement tracker had been stale since the 2026-10-02 +2R trim.** Prior cycles tracked the TSM peak at $473.52 (a cycle-snapshot price at the moment of the trim), but `get_equity_historicals` pulled this cycle shows the *actual* intraday high since then reached **$487.47 on 2026-10-05** (10/6 high was $486.00) — neither was ever captured as a new peak. Recomputing correctly: entry (remaining share) $451.97, true peak $487.47, retracement trigger = 487.47 − 0.30×(487.47−451.97) = **$476.82**. Current price at check time: **$473.48**, already **below** the corrected trigger — the §16 item 12 peak-retracement protective exit condition was met and had likely been met since early in today's decline (10/6's low of $481.48 was still above $476.82, so the breach happened intraday today, 10/7, not earlier). This is a genuine tracking gap (cycle-snapshot prices substituting for true intrabar highs) — flagged plainly, not glossed over; **the same substitution error was also found and corrected for NVDA this cycle** (see below), though NVDA's corrected trigger was not breached.
+
+**ACTION TAKEN — full protective exit, TSM (1 remaining share):**
+1. Cancelled the stale resting breakeven stop (`6ac0c4f1-8c50-47c5-ad10-5a577910d47f`, accepted, confirmed cancelled) — required first since the full share was held for that sell order (`EQUITY_MAX_SELL_SHARES_EXCEEDED` on initial review).
+2. `get_equity_tradability` clean. `review_equity_order` clean (no alerts) at bid $473.34/ask $473.43.
+3. Placed SELL 1 TSM LIMIT $472.00 (marketable) — **filled at $473.5001**, order `6ac652f4-71fd-411d-ba08-acc4a7562d60`.
+4. Realized gain this exit: $473.5001 − $451.97 = **+$21.53** (this is a *second*, separate win on TSM — the first 1-share +2R trim on 2026-10-02 at $473.4001/+$21.43 was already counted in the 2026-10-03 tally backfill). **TSM position now fully closed, 0 shares.**
+
+**Mode B — NVDA (same correction applied, no action needed):** entry $226.2681, original stop $218.50 (risk $7.7681/sh). True peak since entry (via `get_equity_historicals`): **$243.37 on 2026-10-06** (never previously captured — prior logs cited a lower cycle-snapshot peak). Corrected retracement trigger = 243.37 − 0.30×(243.37−226.2681) = **$238.24**. Current price **$238.76** — still above the trigger, but by only ~$0.52, a genuinely close call. No action this cycle; flagging for close attention next cycle. Breakeven stop unchanged at $226.27, confirmed resting.
+
+**Mode B — new-entry screening (watchlist.md, full 73-name pool quoted):** broad soft tape — nearly every name red. Relative-strength standouts: **HPE** ($71.64, +1.65%, new 52-week high) — but RSI 69.5 (near overbought) and price +8.8%/+14.6% above its 9/20-day EMA — a clear extension-avoidance case (§13.E) with no verified fresh catalyst identified; declined, prefer a pullback. **OSCR** ($32.60, +0.80%) — healthier structure (RSI 56.5, only ~4.7% above its 9/20 EMA) but no verified dated catalyst and only a single-day RS data point, not the specific checkable multi-session comparison §5B item 2 requires; declined. **INTC** (+1.00%) — same AI-semiconductor theme as NVDA, correlation-constrained similarly to CBRS. **CBRS** ($173.38, -2.10%) — correlation slot now technically open (TSM exited), but RSI 42.6 (below the 45 floor, declining) and price ~8.5% *below* its 20-day EMA — this is a breakdown, not a healthy pullback-to-support; declined on technical grounds, not the correlation cap. **ZETA** ($32.60, -1.06%) — standing rejection stands. No candidate clears §5B this cycle.
+
+**§18 options evaluation (per step 3a):** no equity candidate cleared §5B this cycle, so no options chain was pursued (nothing to evaluate options against).
+
+**Mode C:** 0/8 positions, 0 trades today. Stop-audit: n/a (no open positions). Too early in the session (~38 min post-open) for a reliable ORB range; broad market weakness doesn't favor a VWAP-pullback long read either. No qualifying setup. Mode C daily P&L: $0.00.
+
+**Profit-factor/win-rate tally (§16 item 16) — updated for the TSM exit:**
+| Mode | Wins | Losses | Win rate | Gross profit | Gross loss | Profit factor |
+|---|---|---|---|---|---|---|
+| Mode B | **14** | 10 | **58.3%** | **$187.76** | $132.64 | **1.42** |
+| Mode C | 1 | 0 | 100% | $0.87 | $0.00 | — |
+| Crypto | 2 | 11 | 15.4% | $66.35 | $153.82 | 0.43 |
+| **Combined** | **17** | 21 | **44.7%** | **$254.98** | $286.46 | **0.89** |
+
+**Account post-action:** total value $5,162.97, equity $715.79 (NVDA only), cash $4,447.18.
+
+**Orders placed:** 2 (TSM stop cancel + TSM exit sell). **Exits:** 1 (TSM, peak-retracement, +$21.53). **Entries:** none.
+
+```json
+{
+  "cycle": "mode_b_c_first_scan",
+  "timestamp_utc": "2026-10-07T14:06:52Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "TSM", "reason": "peak_retracement_30pct", "realized_pl": 21.53}],
+  "entries": [],
+  "orders_placed": 2,
+  "git_push": "pending",
+  "tally_update": {
+    "mode_b": {"wins": 14, "losses": 10, "win_rate_pct": 58.3, "gross_profit": 187.76, "gross_loss": 132.64, "profit_factor": 1.42},
+    "combined": {"wins": 17, "losses": 21, "win_rate_pct": 44.7, "gross_profit": 254.98, "gross_loss": 286.46, "profit_factor": 0.89}
+  },
+  "correction_note": "TSM and NVDA peak-retracement trackers were found stale (using cycle-snapshot prices instead of true intrabar highs via get_equity_historicals); recomputed both from actual highs. TSM's corrected trigger was already breached -> executed. NVDA's was not breached (close call, $238.76 vs $238.24 trigger)."
+}
+```
