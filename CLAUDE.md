@@ -188,6 +188,17 @@ even though it was always a permitted instrument. This subsection is that missin
 item 2 is amended below to reference it as the alternative underlying-clearance path for a put
 bought on a bearish thesis.
 
+**Standing per-cycle screen, formalized 2026-10-08 (explicit user instruction, see §12 change
+log).** This gate existed from 2026-09-17 but was only run opportunistically — when a bearish
+structure happened to catch attention during the bullish §5B pass — rather than as a standing
+step every eligible Mode B/C cycle. A real missed case surfaced this way: ASTS (2026-10-0x) showed
+a bearish pullback-short setup with a computed reward-to-risk of 1.94:1 (clears item 4's floor
+below) that was never formally run through this gate, because the cycle's bullish screen found
+the signal "mixed" and didn't attempt the separate bearish pass. **This gate must now be run on
+the watchlist every eligible screening cycle, alongside the bullish §5B pass, not only when a
+breakdown is noticed in passing** — doubles the effective candidate surface for puts with no
+condition below loosened.
+
 A bearish candidate qualifies when **all** of these conditions are met:
 
 1. It is a liquid, exchange-listed common stock or non-leveraged ETF (§2) — same eligibility as a
@@ -534,6 +545,37 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-08 (later same day): User asked for further research on getting into more options
+  positions, after the sourcing/DTE/delta change directly below.** Investigated the actual trade
+  history rather than guessing at more levers: found (a) the Bearish Mirror Gate (§5B, added
+  2026-09-17) was only ever run opportunistically, not as a standing per-cycle step — a real missed
+  case, ASTS (2026-10-0x, bearish R:R 1.94:1, clears the floor), was never formally passed through
+  it because the cycle's bullish screen read the signal as "mixed" and didn't attempt the separate
+  bearish pass; and (b) §19 LEAPS has carried full autonomous authority since 2026-08-19 with zero
+  logged trades in `trades_log.md` — a completely dormant lane. Also checked whether Mode B's
+  10-position/2-correlated-theme caps were crowding out options against equities — they are not;
+  the account sits flat or near-flat most cycles, so capacity isn't the actual constraint right
+  now. Offered four options (two fixes, one explicitly-not-recommended further gate loosening, and
+  a wait-and-see option); user selected the two fixes:
+  1. **§5B Bearish Mirror Gate: standing per-cycle screen, formalized.** New paragraph in the
+     Bearish Mirror Gate subsection: this gate must now run on the watchlist every eligible
+     screening cycle, alongside the bullish §5B pass — not only when a breakdown is noticed in
+     passing. No condition inside the gate itself (catalyst, 1-of-6 confirmation, ≥1.5:1 R:R,
+     daily+hourly trigger) was loosened; this is a consistency fix that doubles the effective
+     candidate surface for puts at no added risk.
+  2. **§19 LEAPS: new item 8, dormant-lane activation.** Proactive sourcing (durable multi-quarter
+     theses checked on their own terms, independent of whether a name is a live §5B swing
+     candidate today — the main reason this lane never fired) plus a delta floor formalized at
+     ~0.20+, mirroring §18 item 11's number and tradeoff. Disclosed plainly: this activates a lane
+     with zero prior trade history on this account, now compounded by a 9-12 month hold and the
+     item 4 6%-of-equity premium cap tying up that capital for the duration — same category of
+     caveat §18 carried at its own 2026-08-19 launch. The item 4 cap itself is unchanged.
+  **Not adopted, per explicit user choice**: further loosening §5B's own technical-confirmation/
+  catalyst requirements beyond their current 1-of-6 floor (set just 4 days earlier, 2026-10-04,
+  specifically to find more candidates) — flagged as directly risking Mode B's one currently-
+  profitable lane (1.25 profit factor) and declined accordingly. Trigger prompts for the weekday
+  Mode B/C cycles to be updated in the same pass to actually run the standing bearish screen and
+  the LEAPS sourcing step, not just document them as available.
 - **2026-10-08: User instructed being "more proactive with options" and asked for research on
   loosening rules to get into more options positions, after asking earlier the same session
   whether §18/§19 were strict or had already been loosened for reward.** Reviewed the actual
@@ -2303,6 +2345,28 @@ comes back unaffordable.
 7. **Every LEAPS entry/exit requires a full Trade Card** (§7's options fields, plus explicit
    labeling as `LEAPS` distinct from the `OPTIONS` tag used for §18's shorter-dated trades) and a
    `trades_log.md` entry tagged `LEAPS`.
+
+8. **Dormant-lane activation and delta floor (added 2026-10-08, explicit user instruction — see
+   §12 change log).** This section has carried full autonomous authority since 2026-08-19 with
+   zero LEAPS trades logged in that time — `trades_log.md` shows no actual LEAPS fill, only the
+   rule-change entries. Two changes aimed at this specific lane, mirroring §18 item 11's logic but
+   adapted for a long-horizon hold:
+   - **Proactive sourcing, every eligible cycle**: alongside whatever Mode B/C already screens for
+     a swing thesis, proactively check watchlist names (and names surfaced by the §8 item 8
+     politician-trades trigger) for a *durable multi-quarter* thesis specifically — a name doesn't
+     need to be a live swing candidate today to qualify here; item 2's weekly/daily structure and
+     multi-quarter catalyst are the test, independent of §5B's hourly-trigger requirement. This is
+     the main reason this lane has never fired: it was only ever considered as an afterthought on
+     top of a swing scan, never actively sourced on its own longer-horizon terms.
+   - **Delta floor formalized at ~0.20 or higher**, same number and same disclosed tradeoff as
+     §18 item 11 (weaker per-dollar directional exposure, loosened specifically so more contracts
+     fit the item 4 premium cap on richly-priced names) — LEAPS had no delta guidance at all
+     before this.
+   - **Disclosed plainly**: this activates a lane with no prior trade history on this account to
+     validate the mechanics against (same caveat §18 carried at its own 2026-08-19 launch), now
+     compounded by a 9-12 month hold and the item 4 6%-of-equity premium cap tying up that capital
+     for the duration. The item 4 cap itself is unchanged by this item — it bounds single-trade
+     exposure regardless of how sourcing or delta selection work.
 
 ## 20. Mode C — DAY_TRADING (Intraday, Hourly-Adapted)
 Added 2026-08-25 at explicit user instruction, adapted from a full external "Agentic Day-Trading
