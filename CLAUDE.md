@@ -534,6 +534,41 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-08: User instructed being "more proactive with options" and asked for research on
+  loosening rules to get into more options positions, after asking earlier the same session
+  whether §18/§19 were strict or had already been loosened for reward.** Reviewed the actual
+  bottleneck first rather than guessing: a scan of `trades_log.md`'s history showed the
+  overwhelming majority of Mode B/C cycles log "no candidate clears §5B" — options were never
+  specifically restricted beyond that; they ride on the same underlying-gate requirement as
+  equities, and that gate is what's rarely clearing. Offered three distinct, disclosed-tradeoff
+  levers via a structured question plus a "leave as-is" option; user selected all three levers:
+  1. **§18 item 11 (new): proactive options candidate sourcing.** Every eligible Mode B/C cycle
+     now actively pulls option chains for earnings-calendar names, §8 item 8 politician-trade-
+     flagged names, and high-implied-volatility watchlist names with a fresh catalyst — not just
+     whatever already clears §5B for an equity-vs-option comparison (the 2026-08-27 scan-behavior
+     fix, folded into this item). Every sourced candidate still must clear the full §5B/Bearish
+     Mirror Gate in item 2 before a trade — this broadens where candidates are found, not the
+     entry-quality bar itself. Lowest-risk of the three levers.
+  2. **§18 item 3: DTE window widened from 30-60 days to 21-75 days.** Catches more available
+     strikes/expirations, especially on thinly-covered names. Tradeoff: the 21-30 day end decays
+     faster (worse theta per day held), the 60-75 day end ties up premium longer before a typical
+     2-15-session swing thesis resolves.
+  3. **§18 item 11 (new): delta floor formalized and loosened from the informal ~0.3 (used since
+     2026-08-27) to ~0.20.** Lets more contracts fit the item 5 12%-of-equity premium cap on
+     richly-priced names. Disclosed plainly: a 0.20-delta contract moves roughly a fifth as much
+     as the underlying per dollar of stock move — meaningfully weaker, more speculative
+     directional exposure than the prior informal floor.
+  **Combined-effect disclosure, given before all three were adopted together**: broader sourcing
+  finds more candidates, the wider DTE window catches more strikes on those candidates, and the
+  lower delta floor lets more of those strikes fit the cap — stacked together this is a real
+  loosening of average options trade *quality*, not just frequency, similar in character to the
+  2026-10-04 three-lever Mode B change below. **Scoped narrowly to §18 only** — not touched by this
+  change: §19 LEAPS keeps its own untouched DTE window (9-12 months) and sizing; the §18 item 2
+  entry gate itself (catalyst, 1-of-6 confirmation, ≥1.5:1 R:R, daily+hourly trigger) is unchanged;
+  the item 5 12%-of-equity position cap and the §3 6%-of-equity portfolio heat cap are unchanged
+  and remain the hard ceilings on single-trade and aggregate dollar risk. Trigger prompts for the
+  weekday Mode B/C cycles updated in the same pass to actually perform the new sourcing/delta
+  steps, not just document them as available.
 - **2026-10-04: User instructed loosening three Mode B levers at once, after asking directly "when
   are we going to make money" given the near-breakeven combined profit factor (0.92) and the real
   $41.78 YTD figure.** Offered three candidate levers with disclosed tradeoffs via a structured
@@ -2085,8 +2120,12 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
    state) is computed on the option's own economics (premium paid vs. realistic profit target for
    a call, vs. realistic decline target for a put), not the underlying stock's price move.
 
-3. **Expiration window: 30-60 days to expiration (DTE) at entry** (2026-08-19, explicit user
-   instruction). Do not open a new long option position outside this window.
+3. **Expiration window: 21-75 days to expiration (DTE) at entry** (widened 2026-10-08 from the
+   original 30-60 set 2026-08-19, at explicit user instruction — see §12 change log for the
+   disclosed tradeoff: the wider window catches more available strikes/expirations, especially on
+   names with sparse monthly chains, but the 21-30 day end decays faster (worse theta per day held)
+   and the 60-75 day end ties up premium longer before a swing thesis typically resolves). Do not
+   open a new long option position outside this window.
 
 4. **Mandatory daily-trailing stop, checked at least once every trading day** (2026-08-19,
    explicit user instruction, refined twice mid-session — first from a flat 50%-premium stop to a
@@ -2155,6 +2194,33 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
     (manual-only start; tighter pilot-style cap). Options can lose 100% of premium and decay with
     time in a way equities structurally cannot — worth remembering the first time this section
     actually executes a trade.
+
+11. **Options candidate sourcing and delta floor (added 2026-10-08, explicit user instruction —
+    see §12 change log).** Two changes, both aimed at finding more legitimate options setups
+    without lowering the entry-quality gate in item 2:
+    - **Proactive sourcing, every eligible Mode B/C cycle, not just a default-to-equity check**:
+      actively pull option chains for (a) watchlist/earnings-calendar names reporting within the
+      item 3 DTE window, (b) any name flagged this cycle by the §8 item 8 politician-trades
+      trigger, and (c) watchlist names showing unusually elevated implied volatility alongside a
+      fresh catalyst — in addition to, not instead of, checking every name that already clears
+      §5B/the Bearish Mirror Gate for an equity-vs-option comparison (the existing 2026-08-27
+      scan-behavior fix, folded into this item). Every one of these candidates still has to clear
+      the full §5B/Bearish-Mirror gate in item 2 before an option is bought — this only broadens
+      *where* candidates are looked for, it does not create a second, easier path to a trade.
+    - **Delta floor formalized and loosened**: the informal ~0.3-delta guidance used since
+      2026-08-27 is now codified at **~0.20 delta or higher** for the contract selected. Flagged
+      plainly: a 0.20-delta contract moves roughly a fifth as much as the underlying per dollar of
+      stock move — meaningfully weaker, more speculative directional exposure than 0.3+, accepted
+      specifically to let more affordable contracts fit under the item 5 premium cap on
+      richly-priced names. This loosens contract *quality* within a clearing trade, not the
+      entry gate itself.
+    - **Combined-effect disclosure, given before this item was adopted**: broader sourcing finds
+      more candidates, the widened item 3 DTE window (above) catches more strikes on those
+      candidates, and this lower delta floor lets more of those strikes fit the cap — stacked
+      together this is a real loosening of average options trade quality, not just frequency. The
+      item 5 12%-of-equity position cap and the §3 6%-of-equity portfolio heat cap are unchanged
+      and remain the hard ceilings on single-trade and aggregate dollar risk; this item touches
+      candidate-finding and strike selection only.
 
 ## 19. LEAPS Options Policy (Mode B, Long-Horizon Lane)
 Added 2026-08-19 at explicit user instruction, immediately after §18, as a separate long-duration
