@@ -28507,3 +28507,47 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-10-09 19:42 UTC (12:42pm PT) — MANUAL ENTRY (user-confirmed, Mode B §18 OPTIONS)
+
+**STRATEGY: SWING_TRADING — OPTIONS**
+
+**Trigger:** User-initiated in chat, not an autonomous cycle. Exact confirmation phrase received: "CONFIRM ORDER: BUY 1 PLTR $230 CALL EXP 2026-11-20 LIMIT 7.50".
+
+**Underlying:** PLTR, cleared §5B in full (see the 19:36 UTC manual equity entry above — same catalyst/technical/hourly-trigger evidence; underlying does not need to be re-screened for the options leg, same thesis).
+
+**Contract:** PLTR $230 Call, exp 2026-11-20 (42 DTE at entry — within the 21-75 DTE window). Delta 0.327 (clears the ~0.20+ floor). Option id `519ea086-e08f-4b30-aaa4-4b535aa74bbc`.
+
+**Fill:** 1 contract @ $7.40 ($740 total + $0.04 fees). Order id `6ac943c3-722b-4591-91d6-b73f95a622f9`.
+
+**Breakeven:** $237.40.
+
+**Entry-day stop (§18 item 4):** 15% below premium paid = $6.29 → max planned loss **$111** (0.15% of equity) until the position turns profitable, at which point it ratchets to 30%-below-peak trailing. Checked once per trading day, not a resting broker order (options use the documented daily-trailing mechanic, not §16 item 14's broker-stop mechanism — that's equities-only).
+
+**Time-stop backstop:** close by 5 trading sessions before expiration (~2026-11-13) regardless of trailing-stop level.
+
+**Position size:** $740 = 9.7% of Agentic Account equity ($7,649.43) — under the 12%-of-equity cap ($917.93).
+
+**Capacity:** counts as an ordinary Mode B position against the 5-position/2-per-theme caps (now 2 Mode B positions open: PLTR equity + PLTR options — same underlying/theme, both AI/data-analytics, within the 2-per-theme cap). Premium counts against the 90%/10% deployment ceiling.
+
+**Portfolio heat cap:** $41.86 (PLTR equity) + $111 (this option's entry-day-floor risk) = ~$153 vs. the $458.97 (6%-of-equity) cap — ample headroom.
+
+**STRATEGY: SWING_TRADING. Final status: FILLED.**
+
+```json
+{
+  "cycle": "manual_entry",
+  "timestamp_utc": "2026-10-09T19:42:59Z",
+  "modes_covered": ["B"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [{"symbol": "PLTR_230C_20261120", "mode": "B", "qty": 1, "price": 7.40}],
+  "orders_placed": 1,
+  "git_push": "pending"
+}
+```
