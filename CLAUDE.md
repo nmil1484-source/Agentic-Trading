@@ -43,7 +43,11 @@ pattern §18/§19 already used for options).
   no longer a blanket prohibition either** — see §21 (Crypto Trading Policy, Mode B), added
   2026-09-08 at explicit user instruction, for the narrow, named-allowlist, spot-only exception.
   Perpetuals, crypto leverage, crypto options, margin/borrowed-funds crypto positions, and any
-  coin not on §21's named list remain fully prohibited even under §21.
+  coin not on §21's named list remain fully prohibited even under §21. **Leveraged/inverse ETFs
+  are no longer a blanket prohibition either** — see §22 (Leveraged/Inverse ETF Policy, Mode B),
+  added 2026-10-09 at explicit user instruction, for a full unlock (no named allowlist, unlike
+  options/crypto) subject to §22's own tighter sizing caps. Short selling and margin remain fully
+  prohibited — a leveraged/inverse ETF is still only ever bought long (buy-to-open), never shorted.
 - Do not use fractional-share limit orders for a standard entry in either mode. Every equity limit order must use an exact whole-share quantity and an explicit limit price. (Scoped exception: the Fractional Tier-B Pilot Policy, §15 — untouched by this refactor, including its own LUC GREEN/WHITE requirement, item 3, which still governs the fractional order-permission mechanism specifically regardless of mode.)
 - Do not hard-code a ticker list in either mode — every candidate still requires independent, current verification appropriate to its mode, per §5A (Mode A) or §5B (Mode B), before it can appear on a Trade Card.
 
@@ -545,6 +549,37 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-09: User instructed unlocking leveraged/inverse ETFs, after seeing a third party's
+  (Marilee's) TNA position shared via the FTA Trade Tracker and asking to "bypass rule 2" for
+  ETFs.** New §22 (Leveraged/Inverse ETF Policy, Mode B) — a scoped carve-out of §2's blanket ban,
+  same structural pattern as §18/§20/§21. Two explicit choices made via direct questions before
+  drafting, each offered a more conservative alternative:
+  1. **Allowlist scope: full unlock chosen over a named allowlist.** Unlike options (single-leg
+     calls/puts only) and crypto (7-coin named list), any leveraged or inverse ETF is in scope —
+     no closed list. Still bought long only; short selling/margin remain fully banned (§1/§2
+     unchanged) — an inverse ETF bought long is the permitted way to take a bearish position here,
+     mirroring how a long put already works under §18.
+  2. **Autonomous authority: full/immediate chosen over manual-only-first.** The weekday Mode B/C
+     autonomous trigger gets authority to screen and trade leveraged/inverse ETFs starting next
+     cycle — same fast-track pattern as every other §18/§19/§20/§21 launch, no staged dry-run.
+  3. **Sizing: tighter sub-cap chosen over Mode B's ordinary numbers** (the third, non-question
+     default once the first two were picked) — §22 item 4 sets a 15%-of-equity per-position cap
+     (vs. Mode B's ordinary 40%) and 1%-of-equity per-trade risk (vs. 3%), an 8%-max stop-distance
+     ceiling, and a 2-concurrent-position cap, mirroring the Tier-B/options/crypto pattern of each
+     carve-out having its own tighter numbers. These specific figures were filled in by Claude, not
+     separately specified.
+  **Risk disclosed before adoption**: leveraged ETFs reset daily, causing structural decay versus
+  the underlying index in choppy/range-bound conditions over a multi-day hold, even when the index
+  itself is flat — a real characteristic of these products, not a system defect, and directly
+  relevant given Mode B's 2-15 session horizon. The user chose to proceed with full scope and
+  immediate autonomous authority despite this account having zero prior leveraged-ETF trade
+  history to validate the decay dynamics against. **Scoped to Mode B only** — Mode C was not
+  extended to cover these (not requested; flagged in §22 item 10 as a distinct decision not made
+  here, despite Mode C's same-day flatten mechanic arguably sidestepping the decay concern
+  entirely). The triggering context (TNA) is itself ineligible regardless of this change in one
+  respect worth noting for the record — TNA remains a legitimate candidate under the new §22 rules
+  exactly like any other leveraged ETF; it was never independently screened against §5B in this
+  session, so no trade in it has been proposed or taken.
 - **2026-10-08 (later same day): User asked for further research on getting into more options
   positions, after the sourcing/DTE/delta change directly below.** Investigated the actual trade
   history rather than guessing at more levers: found (a) the Bearish Mirror Gate (§5B, added
@@ -2715,3 +2750,88 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
     change to this section's sizing/stop/cap rules, requires explicit user instruction and a
     dated §12 change-log entry — this system does not expand its own crypto universe or loosen
     its own crypto risk controls unilaterally.
+
+## 22. Leveraged/Inverse ETF Policy (Mode B)
+Added 2026-10-09 at explicit user instruction, prompted by the user pointing out a 3x leveraged
+ETF (TNA) held by a third party (Marilee, via the FTA Trade Tracker) and asking to unlock
+leveraged/inverse ETFs here too. **This is a scoped carve-out of §2's blanket leveraged/inverse-ETF
+ban — not a removal of the ban itself; §2's prohibition stays the default and this section is the
+exception, same structural pattern as §18 (options), §20 (Mode C), and §21 (crypto).** Offered the
+user a choice between a named allowlist (mirroring §21's approach) and a full unlock; **the user
+chose a full unlock — no named list, any leveraged or inverse ETF is in scope**, unlike options'
+and crypto's closed-list approach. Short selling and margin remain fully banned by §1/§2 regardless
+— a leveraged or inverse ETF is only ever bought long (buy-to-open); an inverse ETF bought long is
+the permitted way to express a bearish thesis here, the same role a long put plays under §18's
+Bearish Mirror Gate pairing.
+
+**Risk disclosed before this was adopted, at the user's explicit choice to proceed anyway:**
+leveraged ETFs reset their leverage daily. Over a multi-day hold in a choppy or range-bound
+market, this causes structural decay versus the underlying index even when the index itself is
+roughly flat — a known characteristic of these products, not a defect in this system's mechanics.
+Mode B's horizon is 2-15 trading days, so this decay risk is real and disclosed, not hidden. The
+user was offered a tighter sizing sub-cap (reflecting the extra volatility/decay risk) versus
+Mode B's ordinary numbers, and chose the tighter sub-cap, below.
+
+1. **Instrument scope: any leveraged or inverse ETF, no named allowlist.** Both bull/leveraged-long
+   products (e.g. 2x/3x index or sector funds) and inverse/bear products are in scope — bought long
+   in both cases, never shorted. Still must independently clear §5A/§5B's "no hard-coded ticker
+   list, every candidate requires independent current verification" principle (§2) — broad
+   eligibility is not the same as a pre-approved name.
+2. **Entry gate:** a leveraged-long ETF (e.g. a 3x bull fund) clears through the ordinary §5B Swing
+   Entry Gate (bullish), read on the ETF's own chart. An inverse/bear ETF clears through the §5B
+   Bearish Mirror Gate, also read on the ETF's own chart (its chart already moves opposite the
+   underlying index, so a "bearish" technical read on the inverse ETF's own price corresponds to a
+   bullish read on the underlying it shorts — read the confirmations directly off the traded
+   instrument's own chart, not the underlying index's, to avoid a sign error). Same flat ≥1.5:1
+   reward-to-risk floor as everywhere else in this document, computed on the ETF's own price
+   action.
+3. **Stop/invalidation computed on the ETF's own ATR/price action, not the underlying index's** —
+   leverage changes the ETF's own volatility and noise band, so a stop sized off the underlying
+   index would be systematically wrong (too tight, given 2-3x the underlying's daily range).
+4. **Tighter sizing sub-cap (chosen by the user over Mode B's ordinary numbers), mirroring the
+   same pattern as Tier-B (§15)/options (§18)/crypto (§21) each having their own tighter sub-cap**:
+   - Per-position cap: **15% of Agentic Account equity** (vs. Mode B's ordinary 40%).
+   - Per-trade risk: **1% of Agentic Account equity** (vs. Mode B's ordinary 3%), sized from the
+     entry-to-stop distance on the ETF's own price, same formula as §20 item 2/§21 item 4.
+   - Hard stop-distance ceiling: **the stop may not sit farther than 8% below entry** on the ETF's
+     own price (same number and same principle as §21 item 4's crypto ceiling) — if the
+     technically valid invalidation needs more room than that, reduce size or skip the trade,
+     never widen the stop to fit.
+   - Max **2 concurrent leveraged/inverse ETF positions** (own small cap, separate from Mode B's
+     general position cap, same pattern as crypto's 2-concurrent cap given these products behave
+     as a more correlated, higher-volatility bucket than ordinary equities).
+   - These numbers were filled in by Claude (not separately specified by the user beyond choosing
+     "tighter, like Tier-B/crypto/options" over Mode B's ordinary sizing) — flag if different
+     numbers were intended.
+5. **Mandatory resting broker stop, same discipline as Mode B equities (§16 item 14)**: a real
+   `stop_market`/`stop_limit` sell order placed immediately after entry fills, verified resting via
+   `get_equity_orders` before the position is considered protected. Breakeven at +1R, trailing, and
+   the +1.5R peak-retracement rule all apply exactly as they do for an ordinary Mode B equity
+   position (§16 items 5/6/12), computed off the ETF's own price. Same per-cycle stop-audit
+   discipline (§16 item 15) covers these positions too — no separate audit mechanism needed.
+6. **Counts against the shared caps, not in addition to them:** Mode B's 5-position/2-per-theme
+   caps (a leveraged/inverse ETF position is an ordinary Mode B position for this purpose), the
+   90%/10% deployment ceiling (§3/§14 item 2), and the §3 portfolio heat cap (6% of equity,
+   checked before sizing any new entry here exactly as for every other instrument).
+7. **No averaging down** — same principle as everywhere else in this document.
+8. **Autonomous authority: granted from day one, no separate verification/dry-run**, at explicit
+   user instruction after being offered the more conservative manual-only-first option and
+   declining it — same fast-track pattern as every other §18/§19/§20/§21 carve-out. **Disclosed
+   plainly before this was confirmed**: this is the account's first-ever leveraged/inverse-ETF
+   trade of any kind, with no prior track record on this account to validate the daily-decay
+   dynamics against before going live autonomously — the same reality-check every prior
+   fast-tracked section carried at its own launch. The weekday Mode B/C autonomous trigger screens
+   leveraged/inverse ETF candidates under this section's rules starting next cycle; no new trigger
+   was created — this rides on the existing weekday trigger, same as equities and options.
+9. **Every leveraged/inverse ETF entry/exit requires a full Trade Card** per §7's format, tagged
+   `LEVERAGED_ETF`, including which underlying index/sector it tracks and its leverage factor
+   (e.g. "3x Russell 2000"), plus the same fields an ordinary Mode B equity entry requires (daily
+   setup, hourly trigger, catalyst/RS, resting stop order id/status), and a `trades_log.md` entry
+   with the same mandatory-every-cycle discipline as every other instrument in this document.
+10. **Scope: Mode B only.** Not extended to Mode C in this change — the user's request and the
+    triggering context (a multi-day swing position, TNA) were Mode B-scoped; Mode C's same-day
+    flatten mechanic would actually sidestep the daily-decay concern entirely (a single-day hold
+    doesn't compound), but that's a distinct decision this entry does not make. Flag if Mode C
+    inclusion was also intended.
+11. **Change control, same as everywhere else:** any change to this section's sizing/stop/cap
+    rules requires explicit user instruction and a dated §12 change-log entry.
