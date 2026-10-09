@@ -28417,3 +28417,59 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-10-09 19:36 UTC (12:36pm PT) — MANUAL ENTRY (user-confirmed, Mode B)
+
+**STRATEGY: SWING_TRADING**
+
+**Trigger:** User-initiated in chat, not an autonomous cycle. Exact confirmation phrase received: "CONFIRM ORDER: BUY 14 PLTR LIMIT 208.75".
+
+**Ticker/instrument:** PLTR (Palantir Technologies), common stock, NASDAQ.
+
+**Regime/LUC/FTA:** LUC not covered/checked (optional metadata only, Mode B). FTA Regime Dashboard not re-verified this trade — historically UNKNOWN_DEGRADED all session; non-gating for Mode B (flat 1.5:1 R:R floor regardless of regime state).
+
+**Catalyst:** Barclays initiated Overweight, $265 price target (Dow Jones Newswires, 2026-10-09 ~6:26am PT); Goldman Sachs backing the "sovereign AI" theme on PLTR (GuruFocus, 2026-10-09 ~11:14am PT). Both same-day, dated, sourced.
+
+**Daily-chart setup:** Breakout to a fresh multi-month high on the catalyst, clearing the prior Nov-2025 swing high ($207.52), elevated volume, +17.9%/+32.9% above the 50/200-day EMA, RS vs. SPY +20.8% over the prior month.
+
+**Hourly execution trigger:** The 7am-8am PT hours today broke out on 2.5-3x normal hourly volume, clearing the prior consolidation zone; price made a clean series of higher hourly lows through the session ($205.00→205.16→205.51→206.99→fill).
+
+**Extension caveat (§13.E, disclosed, non-blocking):** RSI 75.3 (overbought) and +32.9% above EMA200 at the time of the original screen — tool-flagged "pullback risk." Not treated as disqualifying given the fresh dual-analyst catalyst.
+
+**Fill:** 14 shares @ average $207.8599 ($2,910.04 total). Order id `6ac94251-5e12-42d3-8bab-b8cfa4501cfd`, ref `03f1a441-8245-4506-820a-6db93438dff4`.
+
+**Resting stop (§16 item 14):** stop_market, 14 sh @ $204.50, order id `6ac9425d-d8f9-4476-8e57-0def7bf5f39d` — confirmed resting via `get_equity_orders` immediately after fill.
+
+**Max planned loss:** $47.04 (14 × $3.3599), 0.61% of Agentic Account equity ($7,654.64).
+
+**Target:** $219.63 (1.272 Fibonacci extension of the current leg, conservative); stretch target $235.03 (daily measured-move projection).
+
+**Reward-to-risk:** ($219.63 − $207.8599) / $3.3599 = **3.50:1** — clears the 1.5:1 floor.
+
+**Time-stop:** 7 trading sessions from entry (review by ~2026-10-20).
+
+**Concentration/caps:** $2,910.04 = 38.0% of equity (under the 40% per-position cap). 0 prior Mode B positions — no correlation conflict (theme: AI/data-analytics software). Portfolio heat: $47.04 planned vs. the $459.28 (6%-of-equity) cap — ample headroom.
+
+**Settled-cash status (§17 item 1):** 100% cash, fully settled, no unsettled funds, no broker restriction flags (`review_equity_order` clean both legs).
+
+**Account note:** total equity $7,654.64 at time of trade (up $96 from the prior cycle's $7,558.64 — a cash-only discrepancy already flagged this session per §6, non-blocking).
+
+**STRATEGY: SWING_TRADING. Final status: FILLED.**
+
+```json
+{
+  "cycle": "manual_entry",
+  "timestamp_utc": "2026-10-09T19:36:49Z",
+  "modes_covered": ["B"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 1},
+  "exits": [],
+  "entries": [{"symbol": "PLTR", "mode": "B", "qty": 14, "price": 207.8599}],
+  "orders_placed": 2,
+  "git_push": "pending"
+}
+```
