@@ -549,6 +549,27 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-10: User instructed adding AVAX to §21's named crypto allowlist**, after a manual
+  chat research look at AVAX earlier the same session (catalyst: Goldman Sachs Treasury fund
+  joining the AVAX-based Lynq network, Sept 29; Avalanche's tokenized-treasury market reaching
+  $545M, Oct 8 — real but not same-day; technicals at the time showed no generated long setup,
+  deep/overextended-pullback trend read, price below its own golden-pocket reclaim zone — not a
+  qualifying candidate on its own terms that cycle). **Verified live before drafting this
+  change**, same diligence as every prior allowlist addition: `get_currency_pairs` confirmed
+  `AVAX-USD` is `tradability: tradable` (individual account), `halted: false`;
+  `preview_crypto_order` (a $10 test market buy) returned a clean preview with no rejection,
+  confirming the order-submission path is live for this pair. §21 item 1 updated to add AVAX to
+  the allowlist (now eight pairs: BTC, ETH, SOL, XRP, LINK, AAVE, HBAR, AVAX); item 4's
+  coin-count reasoning for the 2-concurrent-position cap updated to reflect eight. **No other
+  §21 rule changes** — AVAX trades under the exact same mechanics as the other seven: same
+  1%-of-equity risk sizing, same 15%-of-equity per-position cap, same shared 2-concurrent-position
+  cap (not a separate allowance), same 8%-max-stop-distance ceiling, same mandatory resting
+  broker stop with breakeven/trailing/peak-retracement/7-day time-stop mechanics, same entry gate
+  (1-of-6 confirmations, catalyst or RS vs. BTC, ≥1.5:1 R:R, 4H-setup-plus-1H-trigger). Covered
+  by the existing dedicated 24/7 hourly crypto trigger — no new trigger needed, that Routine
+  already screens the full §21 allowlist each cycle from CLAUDE.md, not a hardcoded list of the
+  prior seven. **Autonomous authority: granted from day one, no separate verification/dry-run**,
+  at explicit user instruction, same fast-track pattern as every prior §21 allowlist addition.
 - **2026-10-09: User instructed unlocking leveraged/inverse ETFs, after seeing a third party's
   (Marilee's) TNA position shared via the FTA Trade Tracker and asking to "bypass rule 2" for
   ETFs.** New §22 (Leveraged/Inverse ETF Policy, Mode B) — a scoped carve-out of §2's blanket ban,
@@ -2633,7 +2654,8 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
 (rejected only on an intentionally-invalid test price, not on access/permission grounds).
 
 1. **Named allowlist — the only pairs this policy covers:** BTC, ETH, SOL, XRP, LINK, AAVE
-   (added 2026-09-22), **HBAR** (added 2026-09-29, see §12 change log) (all vs. USD). No other
+   (added 2026-09-22), HBAR (added 2026-09-29), **AVAX** (added 2026-10-10, see §12 change log)
+   (all vs. USD). No other
    coin, meme token, or
    newly-listed asset may be traded under this policy without a separate, explicit user
    instruction adding it here — same "no hard-coded ticker list without independent verification"
@@ -2679,9 +2701,9 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      sub-cap (§15 Tier-B 20%, §18 options 12% as of 2026-10-03, §19 LEAPS 6% as of 2026-10-03).
    - **Max 2 concurrent crypto positions** (its own small cap, separate from Mode B's 10-position
      cap and Mode C's 8-position cap) — crypto behaves as a single, highly-correlated macro asset
-     class much of the time, so 2 is already a meaningful concentration limit given only 7 coins
-     are on the allowlist to begin with (5 originally, plus AAVE added 2026-09-22, plus HBAR added
-     2026-09-29); no further per-coin theme subdivision.
+     class much of the time, so 2 is already a meaningful concentration limit given only 8 coins
+     are on the allowlist to begin with (5 originally, plus AAVE added 2026-09-22, HBAR added
+     2026-09-29, and AVAX added 2026-10-10); no further per-coin theme subdivision.
    - Counts against the shared 90%-total-deployed/10%-cash ceiling (§3/§14 item 2) exactly like
      every other position — not an allowance on top of it.
    - Never average down — same principle as everywhere else in this document.
