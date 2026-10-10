@@ -549,6 +549,41 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-10 (later same day): User instructed loosening three more §21 crypto levers, prompted
+  by a near-miss LINK setup discussed in chat (a 1H range breakout with real volume confirmation
+  that stalled right around 1.4:1 R:R against the nearest overhead resistance — not a clean pass
+  under the then-current 1.5:1 floor).** Offered four candidate levers via a structured question
+  (confirmation floor, R:R floor, stop-distance ceiling, concurrent-position cap), each with a
+  disclosed tradeoff, and explicitly recommended against the confirmation floor given it was
+  already tried and reverted earlier today with no improvement to the session's actual rejected
+  names. User selected three of the four, declining the confirmation-floor option:
+  1. **R:R floor (§21 item 3): 1.5:1 → 1.3:1.** A second round-trip on this number today (it had
+     already gone 1.5:1 → 1.2:1 → back to 1.5:1 earlier) — this time landing at a middle point
+     rather than either extreme. Offered 1.3:1/1.2:1/1.0:1 as options with disclosed tradeoffs;
+     user chose the most conservative of the three loosening options. Chosen specifically because
+     it would have cleared the LINK stall that prompted this conversation (~1.4:1 — actually just
+     above even this new floor, so that exact setup still falls marginally short, but future
+     setups of the same shape now have a real path to qualifying) without dropping to the 1.2:1
+     level already shown not to help the session's other rejected names (AAVE sat at 0.5-0.6:1,
+     nowhere near either floor).
+  2. **Hard stop-distance ceiling (§21 item 4): 10% → 15%.** The highest this number has been
+     today (8% → 12% → 10% → now 15%). Lets a wider technically-valid stop qualify before a trade
+     is resized/skipped; the position is still sized to the same dollar risk via the per-trade
+     risk-sizing formula, so this changes which setups pass the ceiling check, not the dollar risk
+     per trade itself.
+  3. **Concurrent-position cap (§21 item 4): 5 → 6.** Partial re-raise after today's 2 → 7 → 5
+     sequence — splits toward the middle rather than returning to 7. 6 of the 8 allowlisted coins
+     can now be held open at once.
+  **Not adopted, per explicit user choice**: the technical confirmation floor (2-of-6) stays at
+  its current, already-restored value — not re-lowered to 1-of-6 a second time today.
+  **What still binds regardless, unchanged by any of this**: the §3 portfolio heat cap (6% of
+  equity, aggregate across every mode) remains the hard ceiling on total simultaneous dollar risk;
+  the 30%-of-equity per-position cap, the risk-per-trade sizing (1.5% of equity), the mandatory
+  resting-stop/breakeven/peak-retracement exit mechanics (§21 item 5), and the named-allowlist
+  structure itself (§21 item 1) are all untouched by this entry. **Drive-by correction**: item 4's
+  concurrent-position-cap bullet had a stale cross-reference to the per-position cap as "25%"
+  (leftover from before today's earlier 20%→30% raise) — corrected to 30% in the same edit, not a
+  substantive change.
 - **2026-10-10 (later same day): User instructed increasing the portfolio share available to
   crypto "when there's opportunities."** No single "total % of portfolio in crypto" cap exists
   in this document — crypto capacity is set indirectly by the per-position cap × the
@@ -2769,8 +2804,12 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      lowered to 1-of-6 — see §12 change log for the partial walk-back), same list as
      §5B item 3, read on the coin's own chart (EMA/SMA alignment, structure/breakout, relative
      strength, volume, RSI/MACD).
-   - A valid technical stop and reward-to-risk of at least **1.5:1** (restored 2026-10-10, same
-     day it was briefly lowered to 1.2:1 — see §12 change log).
+   - A valid technical stop and reward-to-risk of at least **1.3:1** (lowered 2026-10-10 from
+     1.5:1, at explicit user instruction — the same day 1.5:1 had itself been restored from a
+     brief 1.2:1 dip earlier the same day; see §12 change log. A modest loosening relative to the
+     1.2:1 level already tried and reverted — chosen specifically to catch near-miss setups like
+     that day's LINK breakout stall (~1.4:1) without dropping to the floor used nowhere else in
+     this document).
    - **Daily-chart-equivalent setup plus a shorter-timeframe trigger, crypto-adapted for a market
      that never closes**: the 4-hour chart establishes the setup (in place of §5B's daily chart),
      the 1-hour chart supplies the specific execution trigger (in place of §5B's hourly trigger on
@@ -2788,24 +2827,26 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      **Also check the §3 portfolio heat cap (added 2026-10-03)** — reduce size to fit remaining
      heat headroom if this trade's risk plus the account's existing cross-mode open-risk would
      exceed 6% of equity.
-   - **Hard stop-distance ceiling: the stop may not sit farther than 10% below entry** (pulled
-     back 2026-10-10 from 12%, the same day it was raised from 8% — see §12 change log). If the
-     technically valid invalidation needs more room than that, reduce size or skip the trade —
-     do not widen the stop to fit. (Distinct from, and in addition to, the risk-dollar sizing
-     above — both must be satisfied.)
+   - **Hard stop-distance ceiling: the stop may not sit farther than 15% below entry** (raised
+     2026-10-10 from 10%, at explicit user instruction, the highest this number has been today —
+     started at 8%, raised to 12%, pulled back to 10%, now raised again to 15% — see §12 change
+     log). Accommodates crypto's normal ATR swings, which run wider than equities, at the cost of
+     letting in setups with more technical slack. If the technically valid invalidation needs
+     more room than that, reduce size or skip the trade — do not widen the stop to fit. (Distinct
+     from, and in addition to, the risk-dollar sizing above — both must be satisfied.)
    - **Per-position cap: 30% of Agentic Account equity** (raised 2026-10-10 from 20%, at explicit
      user instruction, to increase the portfolio share available to crypto when a genuine
      opportunity clears the entry gate — see §12 change log; 20% itself was a same-day partial
      walk-back from a brief 25% high) — still tighter than §3's general 40% cap, same pattern as
      every other asset-class carve-out in this document having its own tighter sub-cap (§15
      Tier-B 20%, §18 options 12% as of 2026-10-03, §19 LEAPS 6% as of 2026-10-03).
-   - **Max 5 concurrent crypto positions** (lowered 2026-10-10 from 7, at explicit user
-     instruction, same day the cap was first raised from 2 to 7 — see §12 change log; own small
-     cap, separate from Mode B's 10-position cap and Mode C's 8-position cap). Crypto still
-     behaves as a single, highly-correlated macro asset class much of the time — with 5 of 8
+   - **Max 6 concurrent crypto positions** (raised 2026-10-10 from 5, at explicit user
+     instruction — same day the cap went 2→7→5, now partially back up to 6; see §12 change log;
+     own small cap, separate from Mode B's 10-position cap and Mode C's 8-position cap). Crypto
+     still behaves as a single, highly-correlated macro asset class much of the time — with 6 of 8
      allowlisted coins allowed open at once, this is a partial, not full, concentration limit —
      but the §3 portfolio heat cap (6% of equity, aggregate across every mode) and the
-     25%-of-equity per-position cap both remain the hard ceilings on simultaneous dollar risk
+     30%-of-equity per-position cap both remain the hard ceilings on simultaneous dollar risk
      regardless of how many positions are open; no further per-coin theme subdivision.
    - Counts against the shared 90%-total-deployed/10%-cash ceiling (§3/§14 item 2) exactly like
      every other position — not an allowance on top of it.
