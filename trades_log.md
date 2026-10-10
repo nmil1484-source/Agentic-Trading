@@ -29309,3 +29309,13 @@ AAVE (+2.00%) and AVAX (+1.65%) are the day's biggest movers but both remain "we
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-10-10 ~17:50 UTC — FUNDING UPDATE (user-reported deposit)
+
+User reported adding funds to the Agentic Account. Verified via `get_portfolio`/`get_accounts` (••••8058 / rhs 748688058): cash **$4,004.56 → $5,454.56** (+$1,450.00), total account value **$7,718.66 → $9,168.66** (+$1,450.00, exact match). Equity holdings ($2,921.10) and options value ($793.00) unchanged — no position/order mismatch, clean reconciliation. Not a §6 cash-discrepancy event (user-reported, fully explained, exact match) — logged for the funding audit trail per §10/§14 item 2.
+
+All position/risk caps in this document are already equity-% based (dynamic, recalculated each cycle per §14 item 2 and §21 item 4) — no CLAUDE.md edit needed. New dollar references at this equity level: §3 portfolio heat cap 6% = **$550.12** (was $463.12); §21 item 4 per-position cap 30% = **$2,750.60**; per-trade risk 1.5% = **$81.82**. These will be used automatically in every subsequent cycle's calculations.
+
+No order placed. No circuit breaker implicated.
