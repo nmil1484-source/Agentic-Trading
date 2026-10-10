@@ -549,6 +549,22 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-10 (later same day): User instructed increasing the portfolio share available to
+  crypto "when there's opportunities."** No single "total % of portfolio in crypto" cap exists
+  in this document — crypto capacity is set indirectly by the per-position cap × the
+  concurrent-position cap, bounded by the shared 90% all-modes deployment ceiling. Offered three
+  concrete levers (a new explicit crypto-total ceiling, raising the per-position cap again, or
+  raising the concurrent-position cap again); user chose to raise the per-position cap.
+  **§21 item 4 per-position cap raised from 20% to 30% of Agentic Account equity** — the highest
+  this number has been today (started at 15%, raised to 25%, walked back to 20%, now raised again
+  to 30%), still below §3's general 40% single-position cap. Combined with the concurrent-position
+  cap (5, see the relevant entry above), this raises the theoretical maximum total crypto
+  exposure, though the §3 portfolio heat cap (6% of equity, aggregate across every mode) and the
+  90%/10% deployment ceiling remain the actual backstops on realized risk and total capital
+  committed — a position still only gets this large if it genuinely clears the entry gate
+  (§21 item 3) and the risk-per-trade sizing (1.5% of equity) independently supports it; this cap
+  only raises the ceiling on how big a single clearing position's dollar allocation can be, not
+  how easily one qualifies. Scoped narrowly to item 4's per-position number only.
 - **2026-10-10 (later same day): User instructed partially walking back the six §21 parameters
   loosened earlier the same day**, mirroring the position-cap partial walk-back (7→5) directly
   below rather than a full reversion to pre-tonight values. Offered a direct choice (pull back
@@ -2777,11 +2793,12 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      technically valid invalidation needs more room than that, reduce size or skip the trade —
      do not widen the stop to fit. (Distinct from, and in addition to, the risk-dollar sizing
      above — both must be satisfied.)
-   - **Per-position cap: 20% of Agentic Account equity** (pulled back 2026-10-10 from 25%, the
-     same day it was raised from 15% — see §12 change log for the partial walk-back) — still
-     tighter than §3's general 40% cap, same pattern as every other asset-class carve-out in
-     this document having its own tighter sub-cap (§15 Tier-B 20%, §18 options 12% as of
-     2026-10-03, §19 LEAPS 6% as of 2026-10-03).
+   - **Per-position cap: 30% of Agentic Account equity** (raised 2026-10-10 from 20%, at explicit
+     user instruction, to increase the portfolio share available to crypto when a genuine
+     opportunity clears the entry gate — see §12 change log; 20% itself was a same-day partial
+     walk-back from a brief 25% high) — still tighter than §3's general 40% cap, same pattern as
+     every other asset-class carve-out in this document having its own tighter sub-cap (§15
+     Tier-B 20%, §18 options 12% as of 2026-10-03, §19 LEAPS 6% as of 2026-10-03).
    - **Max 5 concurrent crypto positions** (lowered 2026-10-10 from 7, at explicit user
      instruction, same day the cap was first raised from 2 to 7 — see §12 change log; own small
      cap, separate from Mode B's 10-position cap and Mode C's 8-position cap). Crypto still
