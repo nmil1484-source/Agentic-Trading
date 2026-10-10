@@ -549,6 +549,12 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-10 (later same day): User instructed lowering §21's concurrent-crypto-position cap
+  from 7 to 5**, same day it was first raised from 2 to 7 (see the entry two below). A partial
+  walk-back, not a full reversion — 5 of the 8 allowlisted coins can still be held open at once,
+  still a looser concentration limit than the original 2, just not as loose as 7. All other §21
+  numbers from the same-day batch below (risk per trade, per-position cap, stop-distance
+  ceiling, confirmation floor, R:R floor, time-stop) are unaffected by this entry.
 - **2026-10-10 (later same day): User instructed loosening six more §21 crypto parameters at
   once, immediately after the concurrent-position-cap raise directly below.** Offered as two
   structured questions (sizing levers, quality/gate levers); user selected all six:
@@ -2753,14 +2759,14 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      explicit user instruction — see §12 change log) — still tighter than §3's general 40% cap,
      same pattern as every other asset-class carve-out in this document having its own tighter
      sub-cap (§15 Tier-B 20%, §18 options 12% as of 2026-10-03, §19 LEAPS 6% as of 2026-10-03).
-   - **Max 7 concurrent crypto positions** (raised 2026-10-10 from 2, at explicit user
-     instruction — see §12 change log; own small cap, separate from Mode B's 10-position cap and
-     Mode C's 8-position cap). Crypto still behaves as a single, highly-correlated macro asset
-     class much of the time — this cap no longer imposes a meaningful concentration limit on its
-     own given the allowlist is 8 coins — but the §3 portfolio heat cap (6% of equity, aggregate
-     across every mode) and the 15%-of-equity per-position cap both remain the hard ceilings on
-     simultaneous dollar risk regardless of how many positions are open; no further per-coin
-     theme subdivision.
+   - **Max 5 concurrent crypto positions** (lowered 2026-10-10 from 7, at explicit user
+     instruction, same day the cap was first raised from 2 to 7 — see §12 change log; own small
+     cap, separate from Mode B's 10-position cap and Mode C's 8-position cap). Crypto still
+     behaves as a single, highly-correlated macro asset class much of the time — with 5 of 8
+     allowlisted coins allowed open at once, this is a partial, not full, concentration limit —
+     but the §3 portfolio heat cap (6% of equity, aggregate across every mode) and the
+     25%-of-equity per-position cap both remain the hard ceilings on simultaneous dollar risk
+     regardless of how many positions are open; no further per-coin theme subdivision.
    - Counts against the shared 90%-total-deployed/10%-cash ceiling (§3/§14 item 2) exactly like
      every other position — not an allowance on top of it.
    - Never average down — same principle as everywhere else in this document.
