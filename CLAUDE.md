@@ -549,6 +549,20 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-10 (later same day): User instructed raising §21's concurrent-crypto-position cap
+  from 2 to 7**, immediately after the AVAX allowlist addition directly below. Flagged before
+  implementing: the 2-position cap existed specifically because crypto "behaves as a single,
+  highly-correlated macro asset class much of the time" (§21 item 4's own stated reasoning) — in
+  a real risk-off move most of the 8 allowlisted coins tend to move together, so holding many at
+  once doesn't diversify risk the way it would across unrelated equity sectors. Raising to 7
+  effectively removes that concentration limit (nearly the full allowlist could be held at once).
+  **What still binds regardless**: the §3 portfolio heat cap (6% of equity, aggregate across
+  every mode — Mode B, Mode C, and crypto combined) and the 15%-of-equity per-position cap both
+  remain unchanged and are the hard ceilings on simultaneous dollar risk; this change mainly
+  raises diversification capacity across more coins, it does not let crypto's total simultaneous
+  risk exceed what the heat cap already allows. User chose to proceed after this was disclosed.
+  Scoped narrowly to item 4's position-count number only — no other §21 rule (risk-per-trade,
+  per-position cap, stop-distance ceiling, entry gate, stop mechanics) touched by this change.
 - **2026-10-10: User instructed adding AVAX to §21's named crypto allowlist**, after a manual
   chat research look at AVAX earlier the same session (catalyst: Goldman Sachs Treasury fund
   joining the AVAX-based Lynq network, Sept 29; Avalanche's tokenized-treasury market reaching
@@ -2699,11 +2713,14 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
    - **Per-position cap: 15% of Agentic Account equity** — tighter than §3's general 40% cap,
      same pattern as every other asset-class carve-out in this document having its own tighter
      sub-cap (§15 Tier-B 20%, §18 options 12% as of 2026-10-03, §19 LEAPS 6% as of 2026-10-03).
-   - **Max 2 concurrent crypto positions** (its own small cap, separate from Mode B's 10-position
-     cap and Mode C's 8-position cap) — crypto behaves as a single, highly-correlated macro asset
-     class much of the time, so 2 is already a meaningful concentration limit given only 8 coins
-     are on the allowlist to begin with (5 originally, plus AAVE added 2026-09-22, HBAR added
-     2026-09-29, and AVAX added 2026-10-10); no further per-coin theme subdivision.
+   - **Max 7 concurrent crypto positions** (raised 2026-10-10 from 2, at explicit user
+     instruction — see §12 change log; own small cap, separate from Mode B's 10-position cap and
+     Mode C's 8-position cap). Crypto still behaves as a single, highly-correlated macro asset
+     class much of the time — this cap no longer imposes a meaningful concentration limit on its
+     own given the allowlist is 8 coins — but the §3 portfolio heat cap (6% of equity, aggregate
+     across every mode) and the 15%-of-equity per-position cap both remain the hard ceilings on
+     simultaneous dollar risk regardless of how many positions are open; no further per-coin
+     theme subdivision.
    - Counts against the shared 90%-total-deployed/10%-cash ceiling (§3/§14 item 2) exactly like
      every other position — not an allowance on top of it.
    - Never average down — same principle as everywhere else in this document.
