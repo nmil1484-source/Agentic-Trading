@@ -549,6 +549,41 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-10 (later same day): User instructed loosening six more §21 crypto parameters at
+  once, immediately after the concurrent-position-cap raise directly below.** Offered as two
+  structured questions (sizing levers, quality/gate levers); user selected all six:
+  1. **Risk per trade: 1% → 2% of equity** (§21 item 4) — same doubling pattern already applied
+     to every other mode's risk number this session/month; scales dollar outcomes linearly,
+     shrinks the cushion before the same-day 2-stop-out cooldown (§6) trips.
+  2. **Per-position cap: 15% → 25% of equity** (§21 item 4) — still tighter than §3's general 40%
+     cap; raises worst-case single-crypto-name exposure, bounded by the unchanged 90%/10%
+     deployment ceiling and 6% portfolio heat cap.
+  3. **Hard stop-distance ceiling: 8% → 12%** (§21 item 4) — lets a wider technically-valid stop
+     qualify before a trade is resized/skipped; position is still sized down to hold the same
+     2%-of-equity risk, so this changes which setups qualify, not the dollar risk per trade.
+  4. **Technical confirmation floor: 2-of-6 → 1-of-6** (§21 item 3) — brings crypto in line with
+     Mode B's own 2026-10-04 floor, which had explicitly left crypto untouched at the time.
+     Disclosed plainly: crypto's combined profit factor (0.54, per §16 item 16's tally) is
+     already the weakest-performing lane on record, and this is the most direct quality-bar
+     loosening of the six — more candidates will clear each cycle with weaker individual
+     technical support.
+  5. **Reward-to-risk floor: 1.5:1 → 1.2:1** (§21 item 3) — loosens the R:R bar on every future
+     crypto trade. Flagged at the time: AAVE, the session's most active near-miss, had been
+     sitting around 0.5-0.6:1 all night — even this lowered floor would not have let it through;
+     this loosening mainly affects marginal future setups, not tonight's specific rejected names.
+  6. **Time-stop: 7 → 14 calendar days** (§21 item 5) — gives a stagnant position twice as long
+     before a mandatory exit review; keeps capital tied up longer in a trade that isn't working.
+  **Combined-effect disclosure, given before all six were adopted together**: stacked with the
+  same-day position-cap raise (2→7) directly below, this is a substantial simultaneous loosening
+  of crypto's entire risk/quality framework — weaker technical/R:R bar (4-5) finds more
+  candidates, which can now be held in greater number (the earlier cap raise) and larger size
+  (1-3) for longer before a time-stop forces a review (6). **What still binds regardless, unchanged
+  by any of this**: the §3 portfolio heat cap (6% of equity, aggregate across every mode) is the
+  hard ceiling on total simultaneous dollar risk no matter how the per-trade numbers above are
+  set; the mandatory resting-stop/breakeven/peak-retracement exit mechanics (§21 item 5) and the
+  named-allowlist structure itself (§21 item 1) are also untouched. **Scoped narrowly to §21
+  only** — Mode B, Mode C, and §18/§19 options keep their own separate, already-set numbers; none
+  of those were touched by this change.
 - **2026-10-10 (later same day): User instructed raising §21's concurrent-crypto-position cap
   from 2 to 7**, immediately after the AVAX allowlist addition directly below. Flagged before
   implementing: the 2-position cap existed specifically because crypto "behaves as a single,
@@ -2686,9 +2721,13 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      relative-strength comparison against BTC or a broad crypto benchmark over the prior sessions
      — same specificity requirement as §5B item 2, adapted since crypto catalysts are looser and
      less consistently dated than equity catalysts.
-   - At least **2 of 6** technical confirmations, same list as §5B item 3, read on the coin's own
-     chart (EMA/SMA alignment, structure/breakout, relative strength, volume, RSI/MACD).
-   - A valid technical stop and reward-to-risk of at least 1.5:1, same flat floor as §5B item 4.
+   - At least **1 of 6** technical confirmations (lowered 2026-10-10 from 2-of-6, at explicit
+     user instruction — see §12 change log; brings crypto's floor in line with Mode B's own
+     2026-10-04 lowering, which had explicitly left crypto untouched at the time), same list as
+     §5B item 3, read on the coin's own chart (EMA/SMA alignment, structure/breakout, relative
+     strength, volume, RSI/MACD).
+   - A valid technical stop and reward-to-risk of at least **1.2:1** (lowered 2026-10-10 from
+     1.5:1, at explicit user instruction — see §12 change log).
    - **Daily-chart-equivalent setup plus a shorter-timeframe trigger, crypto-adapted for a market
      that never closes**: the 4-hour chart establishes the setup (in place of §5B's daily chart),
      the 1-hour chart supplies the specific execution trigger (in place of §5B's hourly trigger on
@@ -2699,18 +2738,19 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      apply — there is no open/close for a 24/7 market.
 4. **Position sizing and caps, tighter than the general equity structure given crypto's higher
    volatility and this account's now-24/7 (but only hourly-checked) exposure window:**
-   - Risk per trade: **1% of Agentic Account equity** (raised 2026-10-03 from 0.5%, at explicit
-     user instruction extending the same doubling applied to Mode B — see §12 change log),
-     sized from the entry-to-stop distance, same formula as §20 item 2. Mode C's own risk per
-     trade (§20 item 2) was raised to match on the same date, later the same day — see §12.
+   - Risk per trade: **2% of Agentic Account equity** (raised 2026-10-10 from 1%, at explicit
+     user instruction — see §12 change log; 1% itself was raised 2026-10-03 from 0.5%),
+     sized from the entry-to-stop distance, same formula as §20 item 2.
      **Also check the §3 portfolio heat cap (added 2026-10-03)** — reduce size to fit remaining
      heat headroom if this trade's risk plus the account's existing cross-mode open-risk would
      exceed 6% of equity.
-   - **Hard stop-distance ceiling: the stop may not sit farther than 8% below entry.** If the
+   - **Hard stop-distance ceiling: the stop may not sit farther than 12% below entry** (raised
+     2026-10-10 from 8%, at explicit user instruction — see §12 change log). If the
      technically valid invalidation needs more room than that, reduce size or skip the trade —
      do not widen the stop to fit. (Distinct from, and in addition to, the risk-dollar sizing
      above — both must be satisfied.)
-   - **Per-position cap: 15% of Agentic Account equity** — tighter than §3's general 40% cap,
+   - **Per-position cap: 25% of Agentic Account equity** (raised 2026-10-10 from 15%, at
+     explicit user instruction — see §12 change log) — still tighter than §3's general 40% cap,
      same pattern as every other asset-class carve-out in this document having its own tighter
      sub-cap (§15 Tier-B 20%, §18 options 12% as of 2026-10-03, §19 LEAPS 6% as of 2026-10-03).
    - **Max 7 concurrent crypto positions** (raised 2026-10-10 from 2, at explicit user
@@ -2739,7 +2779,8 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
    - **Peak-retracement protective exit**, identical mechanism to §16 item 12/§20 item 11: once
      unrealized gain reaches +1.5R, track the peak and exit the full position if price gives back
      30% of the entry-to-peak gain.
-   - **Time-stop: 7 calendar days** (not trading sessions — crypto has none) if the position
+   - **Time-stop: 14 calendar days** (raised 2026-10-10 from 7, at explicit user instruction —
+     see §12 change log; not trading sessions — crypto has none) if the position
      hasn't reached +0.5R, mirroring §16 item 8's principle on a calendar basis appropriate to a
      market that trades every day.
 6. **Autonomous authority: its own dedicated 24/7 hourly trigger, granted from day one, no
