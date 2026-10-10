@@ -549,6 +549,28 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-10 (later same day): User instructed partially walking back the six §21 parameters
+  loosened earlier the same day**, mirroring the position-cap partial walk-back (7→5) directly
+  below rather than a full reversion to pre-tonight values. Offered a direct choice (pull back
+  partway vs. loosen further); user chose to pull back partway, with the specific split given in
+  that question's preview:
+  1. **Risk per trade: 2% → 1.5% of equity** (§21 item 4) — splits the difference with the
+     original 1%, retaining half of the same-day doubling.
+  2. **Per-position cap: 25% → 20% of equity** (§21 item 4) — splits the difference with the
+     original 15%.
+  3. **Hard stop-distance ceiling: 12% → 10%** (§21 item 4) — splits the difference with the
+     original 8%.
+  4. **Technical confirmation floor: 1-of-6 → 2-of-6** (§21 item 3) — full reversion to the
+     original (no meaningful partial value exists between 1 and 2 of 6 discrete confirmations).
+  5. **Reward-to-risk floor: 1.2:1 → 1.5:1** (§21 item 3) — full reversion to the original flat
+     floor used everywhere else in this document.
+  6. **Time-stop: 14 → 10 calendar days** (§21 item 5) — partial walk-back toward the original 7.
+  **Net effect**: crypto's framework now sits between its pre-10/10 and its briefly-loosened
+  state on every numeric parameter, while the two discrete quality-gate conditions (items 4-5)
+  reverted fully — the user's stated priority was pulling back the entry-quality bar completely
+  while only partially retreating on sizing. The concurrent-position cap (5, see the entry
+  directly below) and everything else in §21 (allowlist, stop mechanics, autonomous authority)
+  are unaffected by this entry specifically — already addressed in the position-cap entry.
 - **2026-10-10 (later same day): User instructed lowering §21's concurrent-crypto-position cap
   from 7 to 5**, same day it was first raised from 2 to 7 (see the entry two below). A partial
   walk-back, not a full reversion — 5 of the 8 allowlisted coins can still be held open at once,
@@ -2727,13 +2749,12 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      relative-strength comparison against BTC or a broad crypto benchmark over the prior sessions
      — same specificity requirement as §5B item 2, adapted since crypto catalysts are looser and
      less consistently dated than equity catalysts.
-   - At least **1 of 6** technical confirmations (lowered 2026-10-10 from 2-of-6, at explicit
-     user instruction — see §12 change log; brings crypto's floor in line with Mode B's own
-     2026-10-04 lowering, which had explicitly left crypto untouched at the time), same list as
+   - At least **2 of 6** technical confirmations (restored 2026-10-10, same day it was briefly
+     lowered to 1-of-6 — see §12 change log for the partial walk-back), same list as
      §5B item 3, read on the coin's own chart (EMA/SMA alignment, structure/breakout, relative
      strength, volume, RSI/MACD).
-   - A valid technical stop and reward-to-risk of at least **1.2:1** (lowered 2026-10-10 from
-     1.5:1, at explicit user instruction — see §12 change log).
+   - A valid technical stop and reward-to-risk of at least **1.5:1** (restored 2026-10-10, same
+     day it was briefly lowered to 1.2:1 — see §12 change log).
    - **Daily-chart-equivalent setup plus a shorter-timeframe trigger, crypto-adapted for a market
      that never closes**: the 4-hour chart establishes the setup (in place of §5B's daily chart),
      the 1-hour chart supplies the specific execution trigger (in place of §5B's hourly trigger on
@@ -2744,21 +2765,23 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      apply — there is no open/close for a 24/7 market.
 4. **Position sizing and caps, tighter than the general equity structure given crypto's higher
    volatility and this account's now-24/7 (but only hourly-checked) exposure window:**
-   - Risk per trade: **2% of Agentic Account equity** (raised 2026-10-10 from 1%, at explicit
-     user instruction — see §12 change log; 1% itself was raised 2026-10-03 from 0.5%),
+   - Risk per trade: **1.5% of Agentic Account equity** (pulled back 2026-10-10 from 2%, the
+     same day it was raised from 1% — see §12 change log for the partial walk-back; 1% itself was
+     raised 2026-10-03 from 0.5%),
      sized from the entry-to-stop distance, same formula as §20 item 2.
      **Also check the §3 portfolio heat cap (added 2026-10-03)** — reduce size to fit remaining
      heat headroom if this trade's risk plus the account's existing cross-mode open-risk would
      exceed 6% of equity.
-   - **Hard stop-distance ceiling: the stop may not sit farther than 12% below entry** (raised
-     2026-10-10 from 8%, at explicit user instruction — see §12 change log). If the
+   - **Hard stop-distance ceiling: the stop may not sit farther than 10% below entry** (pulled
+     back 2026-10-10 from 12%, the same day it was raised from 8% — see §12 change log). If the
      technically valid invalidation needs more room than that, reduce size or skip the trade —
      do not widen the stop to fit. (Distinct from, and in addition to, the risk-dollar sizing
      above — both must be satisfied.)
-   - **Per-position cap: 25% of Agentic Account equity** (raised 2026-10-10 from 15%, at
-     explicit user instruction — see §12 change log) — still tighter than §3's general 40% cap,
-     same pattern as every other asset-class carve-out in this document having its own tighter
-     sub-cap (§15 Tier-B 20%, §18 options 12% as of 2026-10-03, §19 LEAPS 6% as of 2026-10-03).
+   - **Per-position cap: 20% of Agentic Account equity** (pulled back 2026-10-10 from 25%, the
+     same day it was raised from 15% — see §12 change log for the partial walk-back) — still
+     tighter than §3's general 40% cap, same pattern as every other asset-class carve-out in
+     this document having its own tighter sub-cap (§15 Tier-B 20%, §18 options 12% as of
+     2026-10-03, §19 LEAPS 6% as of 2026-10-03).
    - **Max 5 concurrent crypto positions** (lowered 2026-10-10 from 7, at explicit user
      instruction, same day the cap was first raised from 2 to 7 — see §12 change log; own small
      cap, separate from Mode B's 10-position cap and Mode C's 8-position cap). Crypto still
@@ -2785,10 +2808,10 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
    - **Peak-retracement protective exit**, identical mechanism to §16 item 12/§20 item 11: once
      unrealized gain reaches +1.5R, track the peak and exit the full position if price gives back
      30% of the entry-to-peak gain.
-   - **Time-stop: 14 calendar days** (raised 2026-10-10 from 7, at explicit user instruction —
-     see §12 change log; not trading sessions — crypto has none) if the position
-     hasn't reached +0.5R, mirroring §16 item 8's principle on a calendar basis appropriate to a
-     market that trades every day.
+   - **Time-stop: 10 calendar days** (pulled back 2026-10-10 from 14, the same day it was raised
+     from 7 — see §12 change log for the partial walk-back; not trading sessions — crypto has
+     none) if the position hasn't reached +0.5R, mirroring §16 item 8's principle on a calendar
+     basis appropriate to a market that trades every day.
 6. **Autonomous authority: its own dedicated 24/7 hourly trigger, granted from day one, no
    separate staged verification procedure** — consistent with how §18 (options) and §20 (Mode C)
    were both activated immediately at explicit user instruction rather than going through §14's
