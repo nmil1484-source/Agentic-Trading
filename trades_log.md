@@ -31434,3 +31434,56 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-10-12 23:37 UTC (4:37pm PT, 7:37pm ET) — AUTONOMOUS (Crypto 24/7 Scan, §21) — **STOP-OUT EXIT**
+
+**Gate check:** Git sync verified (IN SYNC). §14 Status = ACTIVE. No kill phrase found.
+
+**AVAX position stopped out.** `get_crypto_positions` returned zero AVAX holdings (crypto_value $0 in the portfolio call) and `get_crypto_orders` (open) returned empty — the resting stop order `6acb91ac-053b-435b-b900-3f86cca45ab0` (stop $10.15) triggered and filled. Confirmed via the closed-orders query: **state=filled, average_price $10.1472833, full quantity 257.8704, executed notional $2,616.68, filled at 2026-10-12T19:01:50-04:00 (23:01:50 UTC)** — sometime between the 22:37 UTC cycle (price was $10.3568, still above stop) and this cycle, consistent with the continued decline tracked across the last several cycles.
+
+**TRADE CARD — CRYPTO EXIT**
+- **Pair:** AVAX-USD
+- **Entry:** 257.8704 AVAX @ avg $10.66411695 (2026-10-11, cost basis $2,749.97)
+- **Exit:** 257.8704 AVAX @ avg $10.1472833 (stop-loss order, filled 2026-10-12 23:01:50 UTC), proceeds $2,616.68
+- **Realized P&L: −$133.29** (−4.85%)
+- **Planned max loss (entry-to-stop):** $132.59 — actual loss was $0.70 worse than planned, consistent with normal stop-triggered market-order slippage below the $10.15 trigger, not a stop-execution failure
+- **Exit rule:** documented technical stop (§21 item 5), resting broker order, verified resting every cycle since entry — executed correctly and as designed
+- **Hold duration:** ~37.4 hours (2026-10-11 09:39 ET → 2026-10-12 19:01 ET), within the 10-calendar-day time-stop window (never reached, stop hit first)
+- **R-multiple at exit:** −1.00R (full planned risk realized, as expected for a stop-loss fill)
+
+**Same-day stop-out count:** 1/2 (this is the first stop-out across Mode B/C/Crypto today) — the §6 2-stop-out same-day cooldown does **not** trigger. No Mode B or Mode C stop-outs occurred today either (both lanes finished the day flat, per the 19:55 UTC Mode B/C close-of-day entry). §16 item 10's 3-stop-outs-in-10-trading-days breaker: no other stop-outs are visible in this session's own cycle history over the relevant window — not triggered.
+
+**Profit-factor/win-rate tally (§16 item 16) — updated for this exit** (baseline carried forward from the last logged table: Mode B 15W/10L $220.41/$132.64 PF 1.66; Mode C 1W/0L; Crypto 2W/11L $66.35/$153.82 PF 0.43; Combined 18W/21L $287.63/$286.46 PF 1.00):
+
+| Mode | Wins | Losses | Win rate | Gross profit | Gross loss | Profit factor |
+|---|---|---|---|---|---|---|
+| Mode B | 15 | 10 | 60.0% | $220.41 | $132.64 | 1.66 |
+| Mode C | 1 | 0 | 100% | $0.87 | $0.00 | — |
+| Crypto | 2 | **12** | **14.3%** | $66.35 | **$287.11** | **0.23** |
+| **Combined** | **18** | **22** | **45.0%** | **$287.63** | **$419.75** | **0.69** |
+
+**Read plainly:** crypto's profit factor continues to deteriorate (0.43 → 0.23) and combined falls back below breakeven (1.00 → 0.69) after briefly touching parity on yesterday's Mode B exits. Crypto remains this account's weakest lane by a wide margin, now 2 wins against 12 losses. This AVAX trade followed every mechanical rule correctly (resting stop placed on entry, verified every cycle, breakeven/peak-retracement rules never triggered because the position never reached +1R) — the loss is a normal, correctly-executed outcome of the entry gate accepting a trade that didn't work out, not a process failure.
+
+**New-entry screening — full 7-coin allowlist (capacity now 0/6, full headroom restored):** Conditions have deteriorated further and broadly — **BTC itself has now flipped to a bearish "Sell" signal** (score 61, RSI 47.2, -2.17% just this cycle), joining every other coin already bearish (SOL, LINK, ETH, HBAR, XRP all "Sell"; only AAVE "Neutral" but still down -8.6% today). **Every single allowlisted coin is now red and technically bearish or neutral-at-best — the broadest, most unanimous risk-off reading of the entire session.** No bullish candidate of any kind. **OBSERVE, no new crypto entry** — not remotely a time to add new risk.
+
+**Portfolio heat cap:** Crypto open-risk = **$0** (flat). Mode B open-risk ≈ $159 (equities closed for the day, unchanged from the 19:55 UTC close). Total ≈ **$159** vs. $509.25 (6%-of-equity) cap — ample headroom, moot given no new entry.
+
+**Orders placed this cycle:** 0 (the stop fill itself executed autonomously at the broker between cycles — this cycle only detected and reconciled it). **Exits: 1** (AVAX, stop-loss, −$133.29). **Entries:** none. Git push follows.
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-10-12T23:37:42Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "AVAX-USD", "reason": "stop_loss", "realized_pl": -133.29}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
