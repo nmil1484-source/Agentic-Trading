@@ -31903,3 +31903,58 @@ Total ≈ **$159** vs. ~$507 (6%-of-equity) cap — ample headroom, moot given n
   "note": "ad hoc user-requested cycle screen; PLTR option repriced 7.55->6.95 intraday, stop correctly unchanged at $6.29 floor"
 }
 ```
+
+---
+
+## 2026-10-13 14:40 UTC — AD HOC (user-requested comprehensive check: "any positions we should be
+getting into?")
+
+**Scope:** Full account/position check plus an extended Mode B screen beyond this morning's First
+Scan — deep-dived every remaining top-ranked bullish name from the 14:06 `rank_symbol_setups`
+triage that hadn't yet been individually verified (AAPL, AMZN, VST, ZS), on top of the names
+already rejected this morning (GOOG, DIS, CVX, NBIS, CBRS, MU, HOOD) and the crypto allowlist
+(BTC/AAVE, re-confirmed unchanged at 14:35).
+
+**Account:** Total value ≈$8,440 (PLTR equity $207.46, -0.74% today — essentially flat to
+slightly negative vs. entry $207.86; SPY -0.10%, QQQ -0.46% — broad market drifting slightly red
+this morning, not a circuit-breaker-level move). PLTR stop order `6ac9425d-d8f9-4476-8e57-0def7bf5f39d`
+re-confirmed resting at $204.50 — no action needed.
+
+**Extended Mode B verification results:**
+- **AAPL**: strong bullish trend, but **no computed setup** — price already at/above recent highs
+  with no active pullback to enter from. Reject.
+- **AMZN**: setup exists (`pullback_long`) but **R:R only 0.25:1** — far below the 1.5:1 floor.
+  Reject.
+- **VST**: confirmed structure now reads **bearish** (moderate) — directly conflicting with its
+  "Buy" screener tag from this morning — and no computed setup. Reject.
+- **ZS**: confirmed structure also reads **bearish** (moderate), same screener-vs-structure
+  conflict, no computed setup. Reject.
+
+**Net result across every name checked today** (GOOG, DIS, CVX, NBIS, CBRS, MU, HOOD, AAPL, AMZN,
+VST, ZS, plus BTC/AAVE in crypto): **zero produced a live, confirmed setup clearing the 1.5:1
+reward-to-risk floor.** Several screener "Buy" tags (DIS, VST, ZS, NBIS) were directly contradicted
+by the underlying confirmed swing structure once independently verified — consistent with this
+session's recurring finding that the screener's short-term technicals score and the actual
+pivot/trend structure frequently disagree, and structure governs. The one borderline case (HOOD,
+R:R 1.62:1) was already rejected this morning for lacking a confirmed entry trigger and showing
+bearish RSI divergence — unchanged since.
+
+**Conclusion: no new entry recommended in any mode at this time.** Both open PLTR positions remain
+protected and unchanged. No orders placed. Git push follows.
+
+```json
+{
+  "cycle": "ad_hoc_comprehensive_check",
+  "timestamp_utc": "2026-10-13T14:40:00Z",
+  "modes_covered": ["B", "C", "crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending",
+  "note": "user-requested deep check; AAPL/AMZN/VST/ZS added to today's rejected list, no qualifying entry found anywhere"
+}
+```
