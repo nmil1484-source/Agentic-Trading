@@ -33138,3 +33138,84 @@ on the same structural grounds. **OBSERVE, no new crypto entry.**
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-10-14 13:37 UTC — AUTONOMOUS (Crypto 24/7 Scan, §21, trigger-fired) + **MATERIAL EVENT: PLTR EQUITY STOP-OUT EXIT DISCOVERED**
+
+**Gate check:** Git sync verified (IN SYNC). §14 Status = ACTIVE. No kill phrase found.
+
+**Cross-mode circuit breakers:** Market-shock: SPY -0.38%, QQQ -0.88% vs. 10/13 close — under
+threshold. No breaker active from this alone.
+
+**Material discovery this cycle:** the account pull showed equity_value dropped to **$0.00** and
+cash jumped from $4,691.27 → $7,554.04 (+$2,862.77) since the last check. Investigated immediately
+— the PLTR equity resting stop order (`6ac9425d-d8f9-4476-8e57-0def7bf5f39d`) **filled overnight**
+at 13:35:39 UTC today, executing the Mode B §16 protective exit mechanically at the broker (no
+cycle action required — this is exactly what a resting stop order is for).
+
+### PLTR Equity — STOP-OUT EXIT (Trade Card, §7)
+- **STRATEGY: SWING_TRADING (Mode B)**
+- Ticker: PLTR common stock, 14 shares
+- Entry: 2026-10-09, avg fill $207.8599/share, cost basis $2,910.04
+- Exit: stop-loss order, 2 partial fills — 6 sh @ $204.50 + 8 sh @ $204.48, avg $204.4886/share,
+  proceeds $2,862.84 net of $0.07 fees = $2,862.77
+- **Realized P&L: -$47.27** (planned risk at entry was $3.36/share × 14 = $47.04 — actual loss
+  essentially matched plan, ~$0.23 of normal slippage/fees, a clean mechanical stop execution)
+- Exit rule triggered: documented technical stop ($204.50), hit directly — no gap, no peak-
+  retracement override needed (position never reached +1R; current price action over the hold
+  never gave a profit cushion to protect)
+- Stop order status: filled as designed, no orphaned order to cancel
+- PLTR equity position now fully closed: 0 shares held
+
+**Same-day stop-out count: 1/2** — first stop-out across Mode B/C/Crypto today (2026-10-14). The
+§6 2-stop-out cooldown does **not** trigger. §16 item 10's 3-stop-outs-in-10-trading-days breaker:
+no other Mode B stop-outs visible in recent session history — not triggered.
+
+**Profit-factor/win-rate tally (§16 item 16) — updated for this exit** (baseline carried forward:
+Mode B 15W/10L $220.41/$132.64 PF 1.66; Mode C 1W/0L $0.87/$0; Crypto 2W/12L $66.35/$287.11 PF
+0.23; Combined 18W/22L $287.63/$419.75 PF 0.69):
+
+| Mode | Wins | Losses | Win rate | Gross profit | Gross loss | Profit factor |
+|---|---|---|---|---|---|---|
+| Mode B | 15 | **11** | **57.7%** | $220.41 | **$179.91** | **1.23** |
+| Mode C | 1 | 0 | 100% | $0.87 | $0.00 | — |
+| Crypto | 2 | 12 | 14.3% | $66.35 | $287.11 | 0.23 |
+| **Combined** | 18 | **23** | **43.9%** | $287.63 | **$467.02** | **0.62** |
+
+**Read plainly:** Mode B's profit factor eased from 1.66 to 1.23 on this loss — still the only
+lane solidly above 1.0, but less comfortably so. This was a correctly-executed stop, not a process
+failure: the resting-stop mechanism (§16 item 14, added 2026-10-03 specifically to close the
+latency gap the old documented-level approach had) worked exactly as designed, filling at the
+broker the moment price traded through the level, with no cycle-detection delay.
+
+**Remaining open positions:** PLTR $230C option only (1 contract, avg $7.40/share, mark now $6.35,
+exp 2026-11-20) — unaffected by the equity stop-out, its own separate §18 daily-trailing
+documented-stop mechanic continues (floor still $6.29, mark $6.35 sits just above it, no breach).
+Mode B equity book is now flat (0 stock positions).
+
+**Portfolio heat cap:** Mode B equity open-risk now **$0** (no stock position open). Crypto
+open-risk $0. Total heat ≈$0 — full headroom restored for the next Mode B/C entry cycle.
+
+**Crypto new-entry screening (this cycle's actual §21 scope):** BTC $82,841 (-0.9% today), AAVE
+$158.41 (-2.0% today) — continuing the mild broad softness from recent cycles. No new catalyst or
+structural change. BTC/AAVE remain standing-rejected. **OBSERVE, no new crypto entry.**
+
+**No crypto order placed.** Git push follows.
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-10-14T13:37:42Z",
+  "modes_covered": ["crypto", "B"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "PLTR", "reason": "stop_loss", "realized_pl": -47.27}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending",
+  "note": "PLTR equity stop-out discovered during routine crypto cycle check; resting stop filled overnight at broker, exit mechanics worked as designed; options position (PLTR call) unaffected and still open"
+}
+```
