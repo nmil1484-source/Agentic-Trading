@@ -34988,3 +34988,51 @@ own 3-month chart the user is looking at (-$420.01, -4.98%), this tally is the t
 explanation for a meaningful share of that decline — not the whole story (fees, the fact several
 losses were larger than planned risk due to gaps/the missed stop, and normal variance in a small
 sample all contribute too), but directionally consistent with it.
+
+---
+
+## 2026-10-15 17:55:17Z — AUTONOMOUS (Mode B/C weekday hourly, trigger `trig_01KrBsTt9mssjU4hPGtM3cBe`)
+
+**STEP 0 gate check:** §14 Status = ACTIVE, no kill phrase. Git sync clean. **STEP 0.5: not
+applicable** (not the 19:55 UTC last cycle).
+
+**Admin note:** a user-directed deep-research pass into improving CLAUDE.md's trading rules
+(prompted by this date's profit-factor diagnostic) is running in parallel this session —
+research notes and a synthesis report are being added to `research_notes/` and `reports/` in
+this repo as they complete; no rule changes have been made yet, pending the user's review of
+that report's recommendations.
+
+**Account (748688058):** Total value $8,018.99 — cash $8,018.99, equity $0, options $0, crypto
+$0. **0 open Mode B equity positions, 0 open Mode C positions, 0 open §18/§19 options/LEAPS
+positions** — step 2b options/LEAPS stop-check: 0 positions, nothing to check. Stop-audits
+moot.
+
+**Cross-mode circuit breakers:** Same-day stop-out count still 1/2. Market-shock: SPY +0.23%,
+QQQ -0.40% vs. 10/14 close — small continued bounce, still nowhere near the 1.5% threshold. No
+breaker.
+
+**Portfolio heat cap:** $0 heat (0 positions open). Full headroom.
+
+**Mode B/C screen:** No material change since the 16:55 UTC cycle's screen — SPY/QQQ both still
+well under 1% net move since this morning's first-scan conclusions. Carrying forward OBSERVE.
+Mode C: 0 positions, no fresh trigger.
+
+**No order placed this cycle.**
+
+```json
+{
+  "cycle": "mode_b_c_weekday_hourly",
+  "timestamp_utc": "2026-10-15T17:55:17Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": null},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending",
+  "note": "deep-research pass into CLAUDE.md rule improvements running in parallel (user-requested, prompted by today's profit-factor review); market continues small bounce, no material re-screen needed; no trade"
+}
+```
