@@ -34956,3 +34956,35 @@ nothing to re-verify. **No pair clears §21's gate. No crypto trade.**
   "note": "crypto rally stalled into a narrow range for ~2hrs now, all 8 pairs flat-to-marginally-higher vs last cycle; no material change from 15:37 UTC structure checks; no trade"
 }
 ```
+
+---
+
+## 2026-10-15 17:40 UTC — ADMIN CORRECTION (§16 item 16 tally retroactively updated)
+
+**Gap found and fixed:** the 15:37 UTC PLTR options exit entry this date (missed §18 stop,
+corrected mid-cycle, realized loss -$275.00) never updated the §16 item 16 profit-factor/win-rate
+tally — a second, smaller process gap from the same incident, caught only when the user asked
+about account performance directly and I went to check the real numbers. Corrected now, carried
+forward from the last logged table (2026-10-14 PLTR-equity-stop-out entry: Mode B 15W/11L
+$220.41/$179.91 PF 1.23; Mode C 1W/0L; Crypto 2W/12L $66.35/$287.11 PF 0.23; Combined
+18W/23L $287.63/$467.02 PF 0.62):
+
+| Mode | Wins | Losses | Win rate | Gross profit | Gross loss | Profit factor |
+|---|---|---|---|---|---|---|
+| Mode B | 15 | **12** | **55.6%** | $220.41 | **$454.91** | **0.48** |
+| Mode C | 1 | 0 | 100% | $0.87 | $0.00 | — |
+| Crypto | 2 | 12 | 14.3% | $66.35 | $287.11 | 0.23 |
+| **Combined** | 18 | **24** | **42.9%** | $287.63 | **$742.02** | **0.39** |
+
+**Read plainly, not softened — this is the honest answer to "have we made any money":** no.
+Combined profit factor is **0.39** — for every $1 this system has made across every realized
+exit on record, it has lost about $2.56. Mode B (equities + options + LEAPS combined), the one
+lane that had been solidly profitable all session (PF as high as 1.66 a day ago), just flipped
+**below 1.0 (0.48)** on today's two losses — the ordinary PLTR equity stop-out (-$47.27,
+correctly executed) and the missed-stop PLTR options exit (-$275.00, a process failure, not a
+normal trade outcome). Crypto remains the weakest lane by a wide margin (PF 0.23, 12 losses
+against 2 wins). Mode C has a single $0.87 win and no real sample size to judge. On the account's
+own 3-month chart the user is looking at (-$420.01, -4.98%), this tally is the trading-specific
+explanation for a meaningful share of that decline — not the whole story (fees, the fact several
+losses were larger than planned risk due to gaps/the missed stop, and normal variance in a small
+sample all contribute too), but directionally consistent with it.
