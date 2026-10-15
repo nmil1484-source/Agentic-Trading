@@ -34677,3 +34677,82 @@ C: 0 positions, no fresh trigger. Options/LEAPS: no equity cleared §5B, nothing
   "note": "market recovering slightly intraday; no material change from first-scan conclusions, no trade"
 }
 ```
+
+---
+
+## 2026-10-15 15:37:25Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`)
+
+**STEP 0 gate check:** §14 Status = ACTIVE, no kill phrase. Git sync clean.
+
+**URGENT — missed §18 options stop, found and corrected this cycle.** While pulling full
+account state (standard practice every cycle, not scoped only to crypto), found the PLTR Nov-20
+$230 long call (1 contract, opened 2026-10-09 at $7.40/share = $740 total premium, `agentic`-
+placed) sitting at a current mark of $4.725/share ($472.50) — **35.8% below the $629 (15%-below-
+entry) §18 item 4 stop floor that should have forced an exit once the position fell that far.**
+Checking the last several `trades_log.md` entries: the 10/14 close was $5.15 (already -30.4%,
+already past the stop) and the 14:56 UTC Mode B/C cycle today logged this position's value
+($435, also past the stop) merely as "ticking up slightly" with no stop-check performed against
+it — this position's §18 daily-trailing stop was not actually being checked in the Mode B/C
+cycles, only its dollar value was being narrated. **Root cause: process gap, not a broker/data
+failure** — §18 options use a documented-level daily-trailing stop (not a resting broker order
+like Mode B equities/Mode C/crypto), and that check was not actually being run against this
+position in recent cycles, only observed in passing.
+
+**Corrective action taken immediately, this cycle:** `review_option_order` (clean, no alerts,
+`customer_approval_required: false`) then `place_option_order` — sell to close, limit $4.65,
+GFD. Filled in full at $4.65/share. Order id `6ad0f463-c9d8-4b53-9c6b-4b9034206b22`.
+- Entry: $740.00 (1 contract, $7.40/share, 2026-10-09)
+- Exit: $465.00 (1 contract, $4.65/share, 2026-10-15)
+- **Realized loss: -$275.00 (-37.2% of premium paid)** — materially worse than the 15% the §18
+  stop mechanic is designed to cap losses at, directly because the check was missed for at least
+  one full session.
+- This executes under the standing autonomous Routine's protective-exit authority (§1 exception,
+  §16 item 3/§18 item 4's gap-handling principle: "if the option's value gaps through the stop
+  level, exit at the earliest eligible execution rather than waiting for a better price") — no
+  live CONFIRM ORDER needed for a protective exit.
+
+**Going forward:** every cycle (crypto, Mode B/C weekday, and first-scan) must explicitly check
+any open §18/§19 options position's current value against its documented daily-trailing stop
+level and act immediately if breached — not just narrate the dollar value. Flagging this
+plainly to the user in chat this cycle as a real process miss, now fixed.
+
+**Account (748688058), post-exit:** cash $7,554.04 → proceeds from this sale not yet reflected
+in the pre-exit pull; equity $0, crypto $0, options $0 (PLTR now fully closed). **0 open Mode B
+equity positions, 0 Mode C positions, 0 crypto positions.**
+
+**Cross-mode circuit breakers:** Same-day stop-out count — this PLTR options exit **does** count
+as a same-day realized loss for the §6 2-stop-out cooldown purposes (1/2 now used today). Market
+data unaffected (not a market-shock event, a missed-stop event). No breaker tripped yet; one more
+same-day stop-out today triggers the cooldown.
+
+**Crypto §21 screen (8-coin allowlist):** Broad rally continuing — BTC +1.95%, ETH +3.59%, SOL
++3.53%, XRP +3.03%, LINK +4.23%, AAVE +4.33%, HBAR +2.55%, AVAX +4.75% vs. prior close. Per the
+user's "keep watching" instruction, independently verified the four strongest movers (AVAX, LINK,
+AAVE, SOL) via `analyze_swing_tool` (4H) rather than trusting the percentage move alone:
+- **AVAX**: trend bullish but weak, pullback 84.1% (overextended), **no computed setup**,
+  golden pocket not touched. A bounce, not a structural entry.
+- **LINK**: trend **ranging**, bias neutral/low-confidence, **no computed setup** despite a
+  golden-pocket touch on the unconfirmed leg.
+- **AAVE**: trend bullish moderate, pullback 80.8% (overextended), **no computed setup**.
+- **SOL**: trend is actually **bearish** (weak) on the 4H structure despite today's +3.5% green
+  candle; one computed setup exists (`pullback_short`, R:R 0.52:1) but fails the R:R floor badly
+  and crypto has no bearish/short instrument under §21 (long-only) — not actionable either way.
+No pair clears §21 item 3's gate. 0 open crypto positions, capacity/heat fully open (6-position
+cap, $0 heat), nothing to size against anyway. **No crypto trade.**
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-10-15T15:37:25Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 1, "placed": 0},
+  "exits": [{"symbol": "PLTR", "reason": "missed §18 daily-trailing stop, corrected this cycle", "realized_pl": -275.00}],
+  "entries": [],
+  "orders_placed": 1,
+  "git_push": "pending",
+  "note": "URGENT: found and closed a PLTR long call that had breached its §18 15% stop by ~36% due to a process gap in options-stop checking during recent Mode B/C cycles; realized loss -$275 (-37.2%) vs. the ~15% the stop should have capped it at; crypto rally continuing across all 8 pairs but none clear §21's structural gate on independent verification (AVAX/AAVE overextended pullbacks with no computed setup, LINK ranging, SOL structurally bearish with failing R:R) — no crypto trade"
+}
+```
