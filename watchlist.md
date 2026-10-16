@@ -14,7 +14,7 @@ verification and a verified catalyst before it can appear on a Trade Card. Inclu
 TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL, VRT, PLAB, HIMS,
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
-IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS
+IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA
 
 **Note on PGY:** added 2026-09-03 per user instruction, after a Slack community call (source:
 "stockinvesting" channel, trader "J-Griff" — context per §9, never a signal) flagged a golden
@@ -214,3 +214,19 @@ pool. Confirmed via `get_equity_tradability`:
 
 Most other tickers in Pelosi's disclosed trades (INTC, UBER, TEM, NVDA, AAPL, AMZN, GOOG) were
 already on this watchlist — only BE and DIS were new additions.
+
+**Note on IBIT and ETHA:** added 2026-10-16 per explicit user instruction, after asking for my
+take on the two tickers in chat. **Scope, explicit:** these are spot-crypto-tracking **equity
+ETFs** (iShares Bitcoin Trust, iShares Ethereum Trust), not crypto pairs — they are NOT added to
+§21's crypto allowlist (that section is wired to crypto-specific tools — `get_crypto_quotes`,
+`place_crypto_order`, the dedicated 24/7 trigger — none of which apply to a NASDAQ-listed share).
+They sit in this pool as ordinary Mode B equity candidates instead, subject to the full §5B Swing
+Entry Gate like every other name here — inclusion grants no trading authority. Confirmed via
+`get_equity_tradability`:
+- **IBIT** = iShares Bitcoin Trust ETF, tradable, fractional-tradable, individual-account-tradable,
+  all-day tradable.
+- **ETHA** = iShares Ethereum Trust ETF, tradable, fractional-tradable, individual-account-tradable.
+  `all_day_tradability: untradable` — regular-hours trading only, no extended-hours session for
+  this one specifically (distinct from IBIT).
+No independent §5B technical/catalyst screen run yet — that happens on whichever cycle actually
+considers these as a live candidate, same as any other new watchlist addition.
