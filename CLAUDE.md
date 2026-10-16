@@ -143,16 +143,28 @@ trades. A swing candidate qualifies when **all** of these conditions are met:
 2. It has a verified catalyst, sector tailwind, or clear relative-strength driver — logged with a
    URL/date when there is one; a relative-strength driver must be a specific, checkable comparison
    (e.g. "up X% vs. SPY's Y% over Z sessions"), not a vague assertion.
-3. It has at least **1 of these 6** technical confirmations (lowered 2026-10-04 from 2-of-6, which
-   itself had been lowered 2026-08-14 from 3-of-6 — both at explicit user instruction; not all 6;
-   this replaces the old §13.B hard 9/20-EMA-only gate for swing candidates; §13 remains the
-   reference methodology for *how* to read each one):
-   - 9/20 EMA bullish alignment or reclaim;
-   - price above or reclaiming the 50-day SMA;
-   - breakout/retest, range contraction, or support/Fibonacci pullback location;
-   - relative strength versus SPY/sector;
-   - volume at least 1.2x normal or no abnormal selling pressure;
-   - RSI above 45 and improving, or MACD improving.
+3. It has at least **2 of these 5 distinct confirmation role-groups** (restructured 2026-10-15 at
+   explicit user instruction, following a deep-research pass into why Mode B's edge had decayed —
+   see §12 change log. Replaces the 2026-10-04 "1 of 6 confirmations" raw count: treating six
+   signals as independent evidence is the problem that count had, since several are correlated
+   restatements of the same underlying trend/momentum fact — e.g. RSI-improving and MACD-improving
+   are both momentum-role signals that move together in a genuine trend, so "1 of 6" let a single
+   momentum reading pass on its own with nothing else confirming it. The six original confirmations
+   are unchanged in substance; they are grouped below by the distinct *role* each plays, and a pass
+   now requires signals from **2 different groups**, not 1 signal drawn from an undifferentiated
+   pool of 6. §13 remains the reference methodology for *how* to read each one):
+   - **Trend/State** — 9/20 EMA bullish alignment or reclaim; price above or reclaiming the 50-day
+     SMA;
+   - **Location** — breakout/retest, range contraction, or support/Fibonacci pullback location;
+   - **Relative strength** — relative strength versus SPY/sector;
+   - **Volume** — volume at least 1.2x normal or no abnormal selling pressure;
+   - **Momentum** — RSI above 45 and improving, or MACD improving.
+
+   A candidate passing on, say, both RSI-improving and MACD-improving (both Momentum-role) does
+   **not** qualify alone on those two — it needs a confirmation from a second, distinct group (e.g.
+   Volume or Relative Strength) as well. This is a restructuring of a correlated raw count into
+   independent evidence, not a reversion to the pre-2026-10-04 "2-of-6"/"3-of-6" raw-count floors —
+   those retired numbers belonged to the count method being replaced, not to this one.
 4. It has a valid technical stop (computed per §13's methodology) and reward-to-risk of at least
    **1.5:1, regardless of FTA Regime Dashboard state** (flattened 2026-08-14 at explicit user
    instruction — see §12 change log; this reverses the 2026-08-13 correction that had deliberately
@@ -210,18 +222,22 @@ A bearish candidate qualifies when **all** of these conditions are met:
 2. It has a verified bearish catalyst, sector headwind, or clear relative-weakness driver —
    logged with a URL/date when there is one; a relative-weakness driver must be a specific,
    checkable comparison (e.g. "down X% vs. SPY's Y% over Z sessions"), not a vague assertion.
-3. It has at least **1 of these 6** technical confirmations (the bearish mirror of §5B item 3's
-   six, same floor — lowered to 1-of-6 in the same 2026-10-04 change, since this subsection's own
-   text always described itself as sharing §5B item 3's floor exactly):
-   - 9/20 EMA bearish cross or sustained bearish alignment (9 crossing below, or staying below,
-     20);
-   - price below or losing the 50-day SMA;
-   - breakdown/retest of support-turned-resistance, range breakdown, or rejection at a
-     Fibonacci/resistance zone;
-   - relative weakness versus SPY/sector (checkable underperformance, not just a single red day);
-   - volume confirming the decline — at least 1.2x normal on down days, or clear distribution
-     (selling into strength/failed bounces);
-   - RSI below 55 and falling, or MACD deteriorating.
+3. It has at least **2 of these 5 distinct confirmation role-groups** (the bearish mirror of §5B
+   item 3's restructured gate — restructured the same day, 2026-10-15, for the identical reason:
+   this subsection's own text always described itself as sharing §5B item 3's floor exactly, and
+   that includes the restructure, not just the old raw count):
+   - **Trend/State** — 9/20 EMA bearish cross or sustained bearish alignment (9 crossing below, or
+     staying below, 20); price below or losing the 50-day SMA;
+   - **Location** — breakdown/retest of support-turned-resistance, range breakdown, or rejection at
+     a Fibonacci/resistance zone;
+   - **Relative weakness** — relative weakness versus SPY/sector (checkable underperformance, not
+     just a single red day);
+   - **Volume** — volume confirming the decline, at least 1.2x normal on down days, or clear
+     distribution (selling into strength/failed bounces);
+   - **Momentum** — RSI below 55 and falling, or MACD deteriorating.
+
+   Same rule as the bullish gate: 2 signals from the same group (e.g. both Trend/State sub-signals)
+   do not qualify alone — a second, distinct group's confirmation is required.
 4. It has a valid technical invalidation level (the price/level that would disprove the bearish
    thesis) and reward-to-risk of at least **1.5:1**, computed on the **put's own economics**
    (premium paid vs. a realistic decline target) — same flat floor and same computation method as
@@ -290,9 +306,11 @@ Tier-B allocation formula remain unchanged and still apply on top of these:
    back under the current cap.)
 2. **Correlation cap**: no more than **two** open positions may share one sector, industry, or
    catalyst theme — log the sector/theme on the Trade Card so this is checkable, not eyeballed.
-3. **Per-trade risk sizing**: maximum planned loss on any new trade is the **lower of 3% of
-   current Agentic Account equity (raised 2026-10-04 from 2%, which itself was raised 2026-10-03
-   from 1% — see §12 change log) or the loss implied by the already-determined technical stop**
+3. **Per-trade risk sizing**: maximum planned loss on any new trade is the **lower of 2% of
+   current Agentic Account equity (reverted 2026-10-15 from 3%, at explicit user instruction
+   following a deep-research-informed review of streak-survivability math — see §12 change log;
+   3% itself had been raised 2026-10-04 from 2%, which had been raised 2026-10-03 from 1%) or the
+   loss implied by the already-determined technical stop**
    (§13/§16 item 2). Compute share (or
    fractional-share) quantity from the entry-to-stop distance against that risk budget, then round
    down to fit within the existing §3/§15 allocation cap — whichever constraint (the 2%-of-equity
@@ -549,6 +567,113 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-15: User instructed a batch of risk/gate-restructuring changes across Mode B and
+  crypto, following a deep-research pass this session into why the system's combined profit factor
+  had fallen to 0.39 (net-losing across 42 realized trades).** Prompted directly by the user asking
+  "we need to be making a daily profit" after reviewing the account's own 3-month performance chart
+  and a live profit-factor diagnostic that found crypto specifically running a 0.23 profit factor
+  (2 wins, 12 losses, 14.3% win rate) against Mode B's 0.48 (itself freshly depressed by two losses,
+  one a since-fixed process bug). The user explicitly instructed: find ways to make money **without
+  loosening** any entry-quality or risk gate — only tighten, refine, or restructure. A full deep-
+  research pass (six parallel research threads, synthesized into one report, both committed to this
+  repo under `research_notes/` and `reports/Trading rules profitability improvements.md`) was run
+  before any rule was touched, specifically to avoid repeating this account's own documented pattern
+  of re-tuning numbers same-day against a sample too small to support the conclusion (see the new
+  §23 this entry adds, for exactly that concern). **Six changes adopted, all tightening/restructuring,
+  none loosening any gate:**
+  1. **§21 item 3 — crypto reward-to-risk floor raised from 1.3:1 to 2:1.** The single most
+     rigorously corroborated finding in the research: applying the standard breakeven-win-rate
+     formula (`p = 1/(1+R)`) to this account's own realized 14.3% crypto win rate gives a breakeven
+     R:R near 6:1; even generously assuming the true win rate sits at the *optimistic* end of the
+     95% Wilson confidence interval on that 14-trade sample (39.9%), breakeven R:R is still ~1.5:1 —
+     above the 1.3:1 floor being replaced. The Kelly criterion, applied independently, reaches the
+     same verdict from a different formula. **Strongly evidence-backed** in direction; the specific
+     2:1 landing point (versus an immediate jump to 6:1) is this document's own calibration, with
+     explicit room to escalate further if win rate doesn't improve under the new §23 lock.
+  2. **§21 item 3 — new regime/trend-strength filter added** (ADX(14) materially above ~20-25, or
+     `analyze_swing_tool`'s trend-strength field reading "moderate"/"strong," required in addition
+     to the existing 4H-setup-plus-1H-trigger). **Judgment-based**: strong academic/theoretical
+     grounding for the concept (regime-switching trend-following literature), but the one quantified
+     improvement claim found in the research was a single unverified vendor source, so this is
+     adopted as a defensible hypothesis to test forward under §23, not a proven fix.
+  3. **§21 item 4 — crypto per-trade risk converted from a static 1.5% to an automatically
+     throttled number** (halved to 0.75% whenever crypto's trailing 10-trade profit factor, per the
+     existing §16 item 16 tally, sits below 1.0; restored to 1.5% once a later 10-trade window
+     clears 1.0). **Moderately evidence-backed**: equity-curve-based throttling is a named,
+     documented technique for exactly this situation; the specific 10-trade window and 50% cut are
+     this document's own calibration, not an externally validated figure.
+  4. **§21 item 4 — crypto's flat 15%-below-entry stop-distance ceiling replaced with a per-coin
+     ATR(14)-multiple ceiling (2-2.5× ATR).** The ATR/volatility literature is consistent that a
+     flat percentage applied across a basket of coins with genuinely different volatility (BTC
+     versus a more volatile smaller-cap alt) is structurally mismatched — notably, Mode C (§20 item
+     3) already uses exactly this ATR-scaled design, so this brings crypto in line with a pattern
+     already validated elsewhere in this same document. **Moderately evidence-backed**: the
+     architectural case is practitioner consensus, but no source supplied a rigorous head-to-head
+     backtest quantifying the improvement.
+  5. **§21 item 4 — crypto's concurrent-position cap lowered from 6 back to 2**, reversing the
+     entire 2026-10-10 same-day run-up (2→7→5→6). Crypto is well-documented to behave as a single,
+     highly-correlated macro asset class, with correlations between major pairs (e.g. BTC-ETH,
+     BTC-XRP) measurably rising, not falling, during stress events — exactly when a position-count
+     cap is supposed to provide protection. **Strongly evidence-backed in direction** (multiple
+     independent sources plus concrete correlation-under-stress data for this exact coin set); the
+     precise number (2 versus 3) reflects a convergence range across sources rather than one
+     authoritative figure.
+  6. **§5B item 3 (and its Bearish Mirror Gate mirror) — the 1-of-6 technical-confirmation count
+     restructured into 2-of-5-distinct-role-groups.** The entry-gate-design literature is explicit
+     that a raw N-of-M confirmation count implicitly treats each signal as independent evidence,
+     when several of the six (e.g. RSI-improving and MACD-improving, both momentum-role) are
+     correlated restatements of the same underlying trend fact — meaning the 2026-10-04 "1 of 6"
+     floor could pass on a single momentum reading alone, with nothing independent confirming it.
+     The six original confirmations are unchanged; they're now grouped into five distinct roles
+     (Trend/State, Location, Relative Strength, Volume, Momentum), with a pass requiring signals
+     from two different roles rather than any one signal from an undifferentiated pool. This is a
+     restructuring of how evidence is counted, not a return to the pre-2026-10-04 "2 of 6"/"3 of 6"
+     raw-count floors. **Moderately evidence-backed**: the architectural critique and role-based
+     remedy are converged-upon across multiple independent practitioner sources, but no source
+     supplied a quantified backtest for this exact restructuring.
+  **Two further changes, reverting prior same-direction raises rather than introducing anything
+  new:**
+  7. **§16 item 2 (and the mirrored Position Capacity and Sizing subsection item 3) — Mode B
+     per-trade risk reverted from 3% back to 2%** of Agentic Account equity. The 2026-10-04 raise to
+     3% was made explicitly "to grow faster," not in response to risk evidence; streak-survivability
+     math (a losing streak's cumulative drawdown scales with per-trade risk, and the margin before
+     this document's own 3%-intraday/5%-weekly circuit breakers trip narrows as per-trade risk
+     rises) supports pulling back toward the more conventional 1-2% range. **Judgment-based**: the
+     general 1-3% convention and the streak math are well-established, but tying this specific
+     reversion to Mode B's reported profit-factor decline is this report's own inference from
+     timing, not an independently proven causal link — the decline may be partly or fully
+     attributable to the already-identified, now-fixed options-stop-check process bug instead.
+  **One structural/process change, converting existing infrastructure from passive to active:**
+  8. **§16 item 16 — the existing profit-factor/win-rate tally converted from passive reporting
+     into an active per-sleeve throttle** for all three modes (Mode B, Mode C, crypto), automatically
+     halving a mode's per-trade risk and position cap whenever that mode's trailing profit factor
+     (20-trade window for Mode B/Mode C, 10-trade for crypto) falls below 1.0, restoring once a
+     subsequent window clears 1.0. The system was already tracking exactly which sleeve was losing
+     money without ever mechanically acting on that fact — this closes that specific gap.
+     **Moderately evidence-backed**: the throttling technique itself is documented and recommended
+     for multi-sleeve systems; the window lengths and 50% magnitude are this document's own
+     calibration.
+  **One new meta-rule, added specifically because of how this account's own change history looks:**
+  9. **New §23 (Rule-Change Cadence Lock).** No further adjustment to any risk-sizing number,
+     position cap, or confirmation/R:R threshold for a mode is made until that mode logs at least 30
+     new closed trades (20 for crypto) under today's revised rules — mirroring Van Tharp's 30-trade
+     minimum-sample convention, and directly motivated by this document's own history of reversing
+     the same crypto parameters multiple times within a single day (2026-10-10's R:R floor and
+     stop-distance ceiling both moved three times in one session). **Strongly evidence-backed** in
+     underlying premise (multiple converging minimum-sample-size citations, plus the formal
+     confidence-interval math computed directly on this account's own results); the specific 30/20
+     count is this report's own translation of that general guidance into an operational number.
+     The §16 item 16 automatic throttle is the explicit release valve during the lock period — it
+     continues to adjust sizing mechanically without counting as a manual rule change.
+  **Explicitly not adopted, flagged as research gaps rather than acted on:** whether the existing
+  §16 item 6 +2R/+3R scale-out structure helps or hurts crypto's realized reward-to-risk (the
+  research found this is better measured by replaying this account's own `trades_log.md` history
+  than guessed at — left as a future measurement step, not a rule change); and the §18/§19 options/
+  LEAPS premium-based position-size ceilings (12%/6% of equity), which the research found have no
+  comparable external benchmark in the retail risk-management literature reviewed. **Full reasoning,
+  citations, and the complete research trail are preserved in this repo** at
+  `research_notes/Trading rules profitability improvements/` and
+  `reports/Trading rules profitability improvements.md`.
 - **2026-10-10 (later same day): User instructed loosening three more §21 crypto levers, prompted
   by a near-miss LINK setup discussed in chat (a 1H range breakout with real volume confirmation
   that stalled right around 1.4:1 R:R against the nearest overhead resistance — not a clean pass
@@ -2108,11 +2233,14 @@ item 9 and §21 item 9. See §12 change log.
    and a time-stop date.
 
 2. Initial stop: set the technical invalidation at the nearest valid support break, but never let
-   the planned loss exceed 6% of entry price or **3% of total Agentic Account equity** (raised
-   2026-10-04 from 2%, which itself was raised 2026-10-03 from 1% — both at explicit user
-   instruction, see §12 change log for the modeled before/after and the disclosed tradeoff),
-   whichever is smaller. If no technically valid stop fits inside that risk budget, do not take
-   the trade.
+   the planned loss exceed 6% of entry price or **2% of total Agentic Account equity** (reverted
+   2026-10-15 from 3%, at explicit user instruction following a deep-research-informed review of
+   streak-survivability math — see §12 change log; 3% itself had been raised 2026-10-04 from 2%,
+   which had been raised 2026-10-03 from 1%), whichever is smaller. **Subject to the §16 item 16
+   active throttle (added 2026-10-15)**: automatically halved to 1% whenever Mode B's trailing
+   profit factor over its last 20 closed trades falls below 1.0, restoring to 2% once a subsequent
+   trailing window clears 1.0 again. If no technically valid stop fits inside that risk budget, do
+   not take the trade.
 
 3. Stop execution: **as of 2026-10-03, the primary mechanism is the real resting broker stop order
    required by item 14 — it executes on its own at the broker when price trades through it,
@@ -2261,28 +2389,44 @@ item 9 and §21 item 9. See §12 change log.
     stop placed at its current documented stop price on the very next cycle this audit runs,
     exactly as if it were missing one — there is no grandfather exception.
 
-16. **Profit-factor and win-rate tracking (added 2026-10-03, explicit user instruction — a
-    reporting addition only, not a risk-sizing or gating change).** In addition to the per-exit
-    record item 11 already requires, maintain a running cumulative tally updated at every realized
-    exit, **tracked separately per mode** (Mode B — equities, §18 options, and §19 LEAPS combined;
-    Mode C; crypto/§21) **and combined across all three**, since the modes' expected shapes
-    genuinely differ (see the purpose note below). A partial trim/profit-take (e.g. a §16 item 6
-    +2R/+3R trim) counts as its own realized exit event for this tally, same granularity §16
-    item 11's existing log already uses. Fields: win count, loss count, win rate % (wins ÷
-    wins+losses), gross profit $ (sum of every winning exit's realized P&L), gross loss $ (absolute
-    sum of every losing exit's realized P&L), and profit factor (gross profit ÷ gross loss; leave
-    undefined/"—" if gross loss is $0). Carry the tally forward incrementally from the last logged
-    value at each new exit (`trades_log.md` is the system of record — never fully recomputed from
-    scratch each time, only updated) and log the updated per-mode and combined figures alongside
-    that exit's Trade Card/`trades_log.md` entry. **Purpose, stated explicitly**: win rate alone is
-    misleading, especially for crypto — the trend-following research referenced in this date's
-    §12 change-log entry expects crypto to run a structurally *lower* win rate than equity swing
-    trading while still being net-profitable on a few large winners, so profit factor (not win
-    rate) is the number that actually tells crypto's approach whether it's working; a mode posting
-    a low win rate with profit factor ≥1 is healthy, one posting profit factor <1 is losing money
-    net regardless of how its win rate looks in isolation. This item adds no new entry gate,
-    position cap, or sizing rule of any kind — purely a logging/reporting requirement, cross-
-    referenced from §20 item 9 (Mode C Trade Cards) and §21 item 9 (crypto Trade Cards).
+16. **Profit-factor and win-rate tracking (added 2026-10-03, explicit user instruction; converted
+    from passive reporting to an active per-sleeve throttle 2026-10-15, moderately evidence-backed
+    — see §12 change log).** In addition to the per-exit record item 11 already requires, maintain
+    a running cumulative tally updated at every realized exit, **tracked separately per mode**
+    (Mode B — equities, §18 options, and §19 LEAPS combined; Mode C; crypto/§21) **and combined
+    across all three**, since the modes' expected shapes genuinely differ (see the purpose note
+    below). A partial trim/profit-take (e.g. a §16 item 6 +2R/+3R trim) counts as its own realized
+    exit event for this tally, same granularity §16 item 11's existing log already uses. Fields:
+    win count, loss count, win rate % (wins ÷ wins+losses), gross profit $ (sum of every winning
+    exit's realized P&L), gross loss $ (absolute sum of every losing exit's realized P&L), and
+    profit factor (gross profit ÷ gross loss; leave undefined/"—" if gross loss is $0). Carry the
+    tally forward incrementally from the last logged value at each new exit (`trades_log.md` is the
+    system of record — never fully recomputed from scratch each time, only updated) and log the
+    updated per-mode and combined figures alongside that exit's Trade Card/`trades_log.md` entry.
+    **Purpose, stated explicitly**: win rate alone is misleading, especially for crypto — crypto is
+    expected to run a structurally *lower* win rate than equity swing trading while still being
+    net-profitable on a few large winners, so profit factor (not win rate) is the number that
+    actually tells each mode's approach whether it's working; a mode posting a low win rate with
+    profit factor ≥1 is healthy, one posting profit factor <1 is losing money net regardless of how
+    its win rate looks in isolation.
+
+    **Active throttle (added 2026-10-15):** this tally is no longer purely a reporting mechanism.
+    For every mode, compute a **trailing profit factor over that mode's last 20 closed trades** (10
+    if 20 haven't yet accumulated for a lower-frequency sleeve). If the trailing figure falls below
+    1.0, automatically halve that mode's current per-trade risk percentage and its concurrent-
+    position cap until a subsequent same-length trailing window clears 1.0 again — crypto's own
+    version of this (0.75%/1.5% risk, tied to a 10-trade trailing window) is specified directly in
+    §21 item 4; the same mechanism applies to Mode B (§16 item 2 / the Position Capacity and Sizing
+    subsection item 3) and Mode C (§20 item 2) using a 20-trade trailing window given their lower
+    trade frequency relative to crypto. This is equity-curve-based throttling, a documented
+    technique for exactly this gap: the system was tracking which sleeve was losing money without
+    ever mechanically acting on that fact, relying instead on the user noticing and manually
+    re-tuning rules after the fact — which is what this document's own change log shows happening
+    repeatedly, sometimes within the same day. The specific window length (20/10 trades) and
+    throttle magnitude (half) are this operating document's own calibration, not an independently
+    published benchmark — flagged as moderately, not strongly, evidence-backed for that reason; the
+    underlying technique itself is well-documented. Cross-referenced from §20 item 9 (Mode C Trade
+    Cards) and §21 item 9 (crypto Trade Cards).
 
 ## 17. Day-Trade and Settlement Protection (Mode B)
 Added 2026-08-13 at explicit user instruction, alongside the §3/§12 removal of Mode B's 1/day,
@@ -2582,8 +2726,11 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
    user instruction, completing the same doubling applied to every other lane the same day — see
    §12 change log). The original 0.5% reasoning (this account being well under the pasted
    framework's own $10k threshold for the tighter figure) is superseded by that explicit
-   instruction. Position size is derived from the stop distance, never conviction. **Also check
-   the §3 portfolio heat cap (added 2026-10-03)** — reduce size to fit remaining heat headroom if
+   instruction. Position size is derived from the stop distance, never conviction. **Subject to
+   the §16 item 16 active throttle (added 2026-10-15)**: automatically halved to 0.5% whenever
+   Mode C's trailing profit factor over its last 20 closed trades (10 if 20 haven't accumulated
+   yet) falls below 1.0, restoring to 1% once a subsequent trailing window clears 1.0 again. **Also
+   check the §3 portfolio heat cap (added 2026-10-03)** — reduce size to fit remaining heat headroom if
    this trade's risk plus the account's existing cross-mode open-risk would exceed 6% of equity.
 3. **Daily loss limit: 2.5% of Agentic Account equity** (midpoint of the pasted 2-3% range,
    filled in by Claude — flag if a different point in that range was intended). The moment
@@ -2804,12 +2951,25 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      lowered to 1-of-6 — see §12 change log for the partial walk-back), same list as
      §5B item 3, read on the coin's own chart (EMA/SMA alignment, structure/breakout, relative
      strength, volume, RSI/MACD).
-   - A valid technical stop and reward-to-risk of at least **1.3:1** (lowered 2026-10-10 from
-     1.5:1, at explicit user instruction — the same day 1.5:1 had itself been restored from a
-     brief 1.2:1 dip earlier the same day; see §12 change log. A modest loosening relative to the
-     1.2:1 level already tried and reverted — chosen specifically to catch near-miss setups like
-     that day's LINK breakout stall (~1.4:1) without dropping to the floor used nowhere else in
-     this document).
+   - A valid technical stop and reward-to-risk of at least **2:1** (raised 2026-10-15 from 1.3:1,
+     at explicit user instruction following a deep-research pass into crypto's weak track record
+     — see §12 change log. This is a direct, math-driven correction: at this account's own realized
+     crypto win rate (14.3% as of this date), the breakeven reward-to-risk is approximately 6:1,
+     and even at the optimistic end of the 95% confidence interval on that sample (up to ~39.9%),
+     breakeven is still ~1.5:1 — the 1.3:1 floor this replaces was below breakeven under every
+     statistically plausible reading of the account's own results, not just at the point estimate.
+     2:1 is set as an immediate floor with real margin above the optimistic-case breakeven, not the
+     final word — if win rate does not measurably improve as more trades accumulate under the new
+     §23 trade-count lock, escalate further toward the 3:1-6:1 range the point estimate implies).
+   - **Regime filter (added 2026-10-15, judgment-based — see §12 change log):** in addition to the
+     4H-setup-plus-1H-trigger requirement below, the 4H chart must also show a trend-strength
+     reading consistent with an actual trending (not choppy/range-bound) regime — e.g. ADX(14)
+     materially above ~20-25 on the 4H chart, or `analyze_swing_tool`'s own trend-strength field
+     reading "moderate" or "strong" rather than "weak." Crypto is documented to spend extended
+     stretches range-bound/choppy, and un-gated trend-following signals are expected to produce
+     more false positives in exactly that condition. This is a defensible hypothesis to test
+     forward under the §23 lock, not a validated fix — no rigorous quantified backtest for this
+     specific gate was found in the research behind this change.
    - **Daily-chart-equivalent setup plus a shorter-timeframe trigger, crypto-adapted for a market
      that never closes**: the 4-hour chart establishes the setup (in place of §5B's daily chart),
      the 1-hour chart supplies the specific execution trigger (in place of §5B's hourly trigger on
@@ -2820,32 +2980,44 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      apply — there is no open/close for a 24/7 market.
 4. **Position sizing and caps, tighter than the general equity structure given crypto's higher
    volatility and this account's now-24/7 (but only hourly-checked) exposure window:**
-   - Risk per trade: **1.5% of Agentic Account equity** (pulled back 2026-10-10 from 2%, the
-     same day it was raised from 1% — see §12 change log for the partial walk-back; 1% itself was
-     raised 2026-10-03 from 0.5%),
-     sized from the entry-to-stop distance, same formula as §20 item 2.
-     **Also check the §3 portfolio heat cap (added 2026-10-03)** — reduce size to fit remaining
-     heat headroom if this trade's risk plus the account's existing cross-mode open-risk would
-     exceed 6% of equity.
-   - **Hard stop-distance ceiling: the stop may not sit farther than 15% below entry** (raised
-     2026-10-10 from 10%, at explicit user instruction, the highest this number has been today —
-     started at 8%, raised to 12%, pulled back to 10%, now raised again to 15% — see §12 change
-     log). Accommodates crypto's normal ATR swings, which run wider than equities, at the cost of
-     letting in setups with more technical slack. If the technically valid invalidation needs
-     more room than that, reduce size or skip the trade — do not widen the stop to fit. (Distinct
-     from, and in addition to, the risk-dollar sizing above — both must be satisfied.)
-   - **Per-position cap: 30% of Agentic Account equity** (raised 2026-10-10 from 20%, at explicit
-     user instruction, to increase the portfolio share available to crypto when a genuine
-     opportunity clears the entry gate — see §12 change log; 20% itself was a same-day partial
-     walk-back from a brief 25% high) — still tighter than §3's general 40% cap, same pattern as
-     every other asset-class carve-out in this document having its own tighter sub-cap (§15
-     Tier-B 20%, §18 options 12% as of 2026-10-03, §19 LEAPS 6% as of 2026-10-03).
-   - **Max 6 concurrent crypto positions** (raised 2026-10-10 from 5, at explicit user
-     instruction — same day the cap went 2→7→5, now partially back up to 6; see §12 change log;
-     own small cap, separate from Mode B's 10-position cap and Mode C's 8-position cap). Crypto
-     still behaves as a single, highly-correlated macro asset class much of the time — with 6 of 8
-     allowlisted coins allowed open at once, this is a partial, not full, concentration limit —
-     but the §3 portfolio heat cap (6% of equity, aggregate across every mode) and the
+   - **Risk per trade: tied to trailing crypto profit factor, not a static number (restructured
+     2026-10-15, moderately evidence-backed — see §12 change log).** Base risk is **1.5% of
+     Agentic Account equity** (unchanged base level from 2026-10-10), sized from the entry-to-stop
+     distance, same formula as §20 item 2 — **but automatically halved to 0.75% whenever crypto's
+     trailing profit factor over its last 10 closed trades (per the §16 item 16 tally) is below
+     1.0**, restoring to the full 1.5% only once a subsequent 10-trade trailing window clears 1.0
+     again. This is equity-curve-based throttling, a documented technique for exactly this
+     situation (a sleeve with a demonstrated run of net-losing trades): it lets the system's own
+     already-tracked profit-factor tally de-risk crypto automatically rather than relying on the
+     user to notice and manually re-tune after the fact. **Also check the §3 portfolio heat cap
+     (added 2026-10-03)** — reduce size to fit remaining heat headroom if this trade's risk plus
+     the account's existing cross-mode open-risk would exceed 6% of equity.
+   - **Hard stop-distance ceiling: replaced with a per-coin ATR-based ceiling (restructured
+     2026-10-15 from a flat 15%-below-entry number, moderately evidence-backed — see §12 change
+     log).** The stop may not sit farther than **2-2.5× that coin's own ATR(14)** (as a percentage
+     of entry price) below entry — computed independently per allowlisted coin via
+     `get_crypto_historicals`/`analyze_swing_tool`'s ATR output, not one flat percentage applied
+     uniformly across all 8 coins. This mirrors Mode C's already-validated ATR-based stop design
+     (§20 item 3) — a flat percentage ceiling misprices a basket of coins with genuinely different
+     volatility (a calmer major like BTC versus a more volatile smaller-cap alt), either too tight
+     for the volatile names or uninformatively wide for the calm ones. If the technically valid
+     invalidation needs more room than that coin's own ATR-based ceiling allows, reduce size or
+     skip the trade — do not widen the stop to fit. (Distinct from, and in addition to, the
+     risk-dollar sizing above — both must be satisfied.)
+   - **Per-position cap: 30% of Agentic Account equity** (unchanged from 2026-10-10) — still
+     tighter than §3's general 40% cap, same pattern as every other asset-class carve-out in this
+     document having its own tighter sub-cap (§15 Tier-B 20%, §18 options 12%, §19 LEAPS 6%).
+   - **Max 2 concurrent crypto positions** (lowered 2026-10-15 from 6, at explicit user
+     instruction following a deep-research pass — see §12 change log; reverses the entire
+     2026-10-10 run-up from 2→7→5→6 in one day). Crypto is well-documented to behave as a single,
+     highly-correlated macro asset class, with correlations between major pairs rising further,
+     not falling, during exactly the stress events a position-count cap is meant to protect
+     against (a real example: BTC-ETH and BTC-XRP correlations both rose over the eight days
+     following the October 2025 liquidation event). A 6-of-8-coin cap left too little real
+     concentration limit given that documented behavior; 2 restores the cap to treating the
+     allowlist as a correlated basket rather than 8 independent bets. Own small cap, separate from
+     Mode B's 10-position cap and Mode C's 8-position cap. The §3 portfolio heat cap (6% of
+     equity, aggregate across every mode) and the
      30%-of-equity per-position cap both remain the hard ceilings on simultaneous dollar risk
      regardless of how many positions are open; no further per-coin theme subdivision.
    - Counts against the shared 90%-total-deployed/10%-cash ceiling (§3/§14 item 2) exactly like
@@ -3002,3 +3174,52 @@ Mode B's ordinary numbers, and chose the tighter sub-cap, below.
     inclusion was also intended.
 11. **Change control, same as everywhere else:** any change to this section's sizing/stop/cap
     rules requires explicit user instruction and a dated §12 change-log entry.
+
+## 23. Rule-Change Cadence Lock (Trade-Count Lock)
+Added 2026-10-15 at explicit user instruction, following a deep-research pass into why this
+system's trading rules weren't producing profit — see §12 change log for the full context. This
+section is a meta-rule about how this document itself gets changed going forward, not a trading
+gate or risk cap on any mode's own entries.
+
+**The problem this closes:** statistically, a strategy's realized win rate or profit factor cannot
+be reliably distinguished from normal variance until a meaningful number of trades have
+accumulated — informal practitioner floors cluster around 20-30 trades as a bare minimum, with
+100+ preferred for real confidence, and the formal math (binomial confidence intervals) shows this
+account's own small samples (14 crypto trades, 27 Mode B trades) carry 95% confidence intervals
+30-40 percentage points wide — wide enough to be consistent with a genuinely broken strategy, a
+genuinely working one, or anything between. Despite this, this document's own change log shows the
+same crypto risk parameters reversed multiple times within a single calendar day (e.g. the R:R
+floor moved 1.5:1→1.2:1→1.5:1→1.3:1, and the stop-distance ceiling moved 8%→12%→10%→15%, both on
+2026-10-10 alone) — tuning a number against noise that the sample size available at the time could
+not actually distinguish from signal, then tuning it again hours later against the next batch of
+noise. This is the exact failure mode a trade-count lock exists to prevent.
+
+1. **Trade-count lock, in force starting 2026-10-15.** Once a batch of risk-sizing, position-cap,
+   or confirmation-gate changes is adopted for a given mode (Mode B, Mode C, or crypto/§21) —
+   including the 2026-10-15 batch of changes this section was added alongside — no further
+   adjustment to any risk-sizing number, position cap, or confirmation/R:R threshold for that mode
+   is made until that mode has logged at least **30 new closed trades** under the revised rules
+   (**20 new closed trades for crypto specifically**, given its materially faster 24/7 trade
+   cadence relative to the weekday-only modes). This mirrors Van Tharp's commonly-cited 30-trade
+   minimum floor for trusting a system's expectancy, translated into an operational rule for this
+   specific system.
+2. **What the lock does not restrict.** This lock governs *risk-sizing numbers, position caps, and
+   confirmation/R:R gate thresholds* only — it does not prevent fixing a genuine process bug (e.g.
+   the 2026-10-15 §18 options stop-check fix), does not prevent adding a new instrument/allowlist
+   coin under its own already-established sizing rules, does not override an active §6 circuit
+   breaker, and does not prevent the automatic §16 item 16 profit-factor throttle (§16 item 2, §20
+   item 2, §21 item 4) from halving/restoring a sizing number — that throttle is itself part of the
+   locked rule set, not a change to it, and it fires mechanically without re-litigating the
+   underlying numbers it adjusts.
+3. **The §16 item 16 active throttle is the intended release valve during the lock.** Precisely
+   because manual re-tuning is paused for 20-30 trades, the automatic per-sleeve throttle added the
+   same date carries real weight during this window — it is how an underperforming mode gets
+   de-risked in the meantime without anyone re-opening the numbers themselves.
+4. **After the lock period, a normal review is expected, not optional.** Once the relevant trade
+   count is reached, review that mode's updated §16 item 16 tally against its pre-change figures
+   and decide, with the user, whether the 2026-10-15 changes (or any other locked parameter) should
+   be kept, further adjusted, or reverted — this is a prompt to revisit deliberately, not a
+   standing ban that lasts forever.
+5. **Change control:** any change to this section's own mechanics (the 30/20-trade thresholds,
+   what counts as "locked") requires explicit user instruction and a dated §12 change-log entry,
+   same as every other section.
