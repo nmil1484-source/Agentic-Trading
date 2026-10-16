@@ -35751,3 +35751,86 @@ No other pair clears §21's gate under currently-active rules. **No crypto trade
   "note": "AAVE deep-dive: real catalyst (Aave V4 Arc Markets launch) + 4H bullish structure (R:R 1.31:1, barely clears 1.3:1 floor) but 1H chart reads bearish with no setup -- fails the mandatory 4H+1H pairing, declined; pending rule-improvement diff still stashed; no trade"
 }
 ```
+
+---
+
+## 2026-10-16 08:37:46Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`) — FIRST CYCLE UNDER 2026-10-15 REVISED RULES
+
+**STEP 0 gate check:** §14 Status = ACTIVE, no kill phrase. Git sync clean (HEAD = origin, `16e9b30`).
+
+**Admin note:** this is the first crypto cycle to fire since the 2026-10-15 CLAUDE.md diff
+(commit `16e9b30`) was confirmed and pushed — the stash is gone, rules below are the live,
+current §21 text, not the pending diff. **The fired trigger's own stored prompt text is now
+stale**: it still describes 7 coins (missing AVAX), a flat 1.5:1 R:R floor, a flat 8%
+stop-distance ceiling, and static 1% risk — all superseded by the 2026-10-15 revision (8 coins,
+2:1 R:R floor + ADX/trend-strength regime filter, per-coin ATR-based stop ceiling, 0.75%/1.5%
+throttled risk, 2-concurrent cap). Per the trigger's own "do not rely on memory, read CLAUDE.md
+in full" instruction, this cycle ran on the live file's current §21, not the stale embedded
+numbers. Flagging the drift here and updating the trigger's stored prompt text in this same
+session so future cycles aren't silently relying on outdated embedded numbers while CLAUDE.md
+has moved on.
+
+**Account (748688058):** Total value $8,018.99 — cash $8,018.99 (100%), equity $0, options $0,
+crypto $0. **0 open crypto positions** (0/2 cap under the new 2026-10-15 concurrent-position
+limit) — stop-audit moot, nothing resting. 0 Mode B, 0 Mode C positions either (checked via
+get_equity_positions/get_option_positions — both empty).
+
+**Cross-mode circuit breakers:** Same-day stop-out count 0/2 (10/16, all triggers). Market-shock:
+N/A, equities closed (~04:38am ET). No breaker active.
+
+**Portfolio heat cap:** $0 heat (0 positions open anywhere). Full 6%-of-equity headroom.
+
+**Crypto §21 screen — full 8-coin allowlist, under the new 2:1 R:R + regime-filter + per-coin-ATR
+rules:**
+- **BTC/ETH/SOL/XRP:** muted single-day drift vs. open (+0.39%, +0.89%, +1.48%, +0.79%) — no
+  deep-dive run this cycle; nothing in the quote data suggested a structural change worth a full
+  `analyze_swing_tool` pass on four names simultaneously showing only ordinary daily noise.
+- **LINK** (`analyze_swing_tool`, 4H/1H): 4H shows a real `pullback_long` setup, golden pocket
+  touched, entry $12.611/stop $12.0997/target $13.748, **R:R 2.22:1 — clears the new 2:1 floor**
+  on paper. But 4H trend strength reads **"weak"** (9 aligned swings) — **fails the new §21 item
+  3 regime filter**, which requires moderate/strong trend strength (or ADX materially above
+  ~20-25), precisely the condition this filter was added to catch (a technically-passing R:R
+  inside a weak/directionless trend). 1H independently reads bearish moderate with `setup: null`
+  — contradicts the 4H bullish case outright, so this also fails the mandatory 4H+1H alignment
+  on its own. Double fail. **Declined.**
+- **HBAR** (4H/1H): 4H reads ranging/weak, `setup: null`, bias neutral/low confidence — no
+  bullish case exists at all. 1H shows a bearish `pullback_short` (R:R 2.42:1) — a real bearish
+  structure, but crypto under §21 is spot-long-only (no shorting permitted), so a short setup is
+  not a tradeable signal here regardless of its R:R. **Declined** — no long setup on either
+  timeframe.
+- **AAVE:** already deep-dived last cycle (07:37 UTC) and declined (1H bearish contradicting a
+  barely-passing 4H R:R). Current drift (+2.31% vs. open) is consistent with, not materially
+  different from, that check — under the new 2:1 floor the prior 1.31:1 4H R:R fails by an even
+  wider margin than before. No re-deep-dive needed; still declined.
+- **AVAX** (4H/1H): 4H trend reads bullish **moderate** — actually clears the new regime filter —
+  but the computed `pullback_long` setup's R:R is only **1.66:1**, and the tool's own quality
+  flag reads `"low_rr"` against its internal 2.0 floor, matching our own new 2:1 requirement
+  almost exactly. 1H independently reads bearish weak with a `pullback_short` setup — contradicts
+  the 4H bullish case. Fails both the R:R floor and the dual-timeframe alignment. **Declined.**
+
+**No pair clears §21's full gate (2-of-6 confirmations + catalyst/RS + 2:1 R:R + regime filter +
+4H-setup-plus-1H-trigger, all mandatory) under the 2026-10-15 revised rules. No crypto trade.**
+This is also the first live illustration of the new regime filter and 2:1 floor actually binding
+(LINK and AVAX would very likely have been taken under the pre-10/15 rules — LINK's 2.22:1 R:R
+cleared the old 1.3:1 floor easily, and AVAX's "moderate" trend would have cleared the (nonexistent)
+old regime filter) — exactly the tightening the 2026-10-15 research-driven change was designed to
+produce.
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-10-16T08:37:46Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending",
+  "note": "first cycle under 2026-10-15 revised §21 rules (2:1 R:R, ADX regime filter, ATR stops, 2-pos cap, throttled risk); LINK passed R:R (2.22:1) but failed new regime filter (weak trend) and 1H contradicted; AVAX passed regime filter (moderate trend) but failed new R:R floor (1.66:1) and 1H contradicted; HBAR no long setup either timeframe; AAVE already declined last cycle, fails new floor by wider margin; no trade; flagged trigger's own stored prompt text as stale vs current CLAUDE.md, updating it this cycle"
+}
+```
+
+---
