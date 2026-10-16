@@ -14,7 +14,7 @@ verification and a verified catalyst before it can appear on a Trade Card. Inclu
 TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL, VRT, PLAB, HIMS,
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
-IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA
+IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA, CORZ, CAI
 
 **Note on PGY:** added 2026-09-03 per user instruction, after a Slack community call (source:
 "stockinvesting" channel, trader "J-Griff" — context per §9, never a signal) flagged a golden
@@ -230,3 +230,30 @@ Entry Gate like every other name here — inclusion grants no trading authority.
   this one specifically (distinct from IBIT).
 No independent §5B technical/catalyst screen run yet — that happens on whichever cycle actually
 considers these as a live candidate, same as any other new watchlist addition.
+
+**Note on CORZ and CAI (2026-10-16):** added per explicit user instruction, sourced from an
+investment-group "Market Overview & Charts" call shared as context (per §9, never a signal — the
+call's own framing, including its specific trade recommendations, has no bearing on whether either
+name actually clears §5B; each still needs its own independent verification before appearing on a
+Trade Card). Confirmed via `search`/`get_equity_tradability`:
+- **CORZ** = Core Scientific, Inc. Common Stock (the call referred to it informally as "Core
+  Scientific," in the same AI-compute/data-center theme as IREN/CRWV/NBIS, already on this list).
+  Tradable, fractional-tradable, individual-account-tradable, all-day tradable. Not **CORZW**/
+  **CORZZ** (Core Scientific warrants — not a permitted instrument type) or **COZX** (Tradr 2x
+  Long CORZ Daily ETF — leveraged, excluded per §2 unless/until screened under §22's full unlock,
+  which would require its own separate decision; the plain long common stock CORZ is what was
+  added here).
+- **CAI** = Caris Life Sciences, Inc. Common Stock (the call's "biotech" reference — a molecular
+  science/diagnostics company, confirmed as the correct match over several other CAI-adjacent
+  tickers: **CAIE**/**CAIQ**, Calamos autocallable-income ETFs, and **CAII**, an unrelated SPAC).
+  Tradable, fractional-tradable, individual-account-tradable; `all_day_tradability: untradable` —
+  regular-hours trading only, same limitation already noted for ETHA.
+
+Neither has a §5B verification on file yet. Per the same user instruction, the next eligible
+screening cycle(s) will also specifically prioritize checking **IREN, KEEL, TPST, and HIMS** for a
+Morning Star (or other bullish reversal) candle pattern at the next session open — the call's
+suggested setup after yesterday's capitulation-style flush in AI/compute names. This is a
+prioritization instruction only: any resulting trade still requires full, independent §5B
+verification (catalyst, confirmation role-groups, valid stop, reward-to-risk, daily-setup-plus-
+hourly-trigger) exactly as for any other candidate — the call's bullish framing does not substitute
+for or relax any of that.
