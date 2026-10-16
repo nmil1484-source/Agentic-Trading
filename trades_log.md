@@ -36292,3 +36292,58 @@ clears §21's gate. **No crypto trade.**
 ```
 
 ---
+
+---
+
+## 2026-10-16 15:56:16Z — AUTONOMOUS (Mode B/C Hourly Scan, trigger `trig_01KrBsTt9mssjU4hPGtM3cBe`)
+
+**STEP 0 gate check:** §14 Status = ACTIVE, no kill phrase. Git sync clean. Not the final cycle
+of day (19:55 UTC) — STEP 0.5 flatten does not apply.
+
+**Account (748688058):** Total value $8,018.99 — cash $8,018.99, equity $0, options $0, crypto
+$0. **0 open Mode B positions, 0 open Mode C positions.**
+
+**Step 2b — options/LEAPS stop-check:** 0 open options/LEAPS positions, nothing to check.
+
+**Stop-audit (Mode B equities + Mode C):** 0 positions in either lane — moot.
+
+**Cross-mode circuit breakers:** Same-day stop-out count 0/2. Market-shock: SPY -0.46%, QQQ
+-1.44% vs. prior close — inter-cycle move from the last Mode B/C cycle (-0.97%→-1.44%, ~0.47pp)
+still under the 1.5% threshold. No breaker, but the tape is weakening steadily; watching closely
+next cycle.
+
+**Portfolio heat cap:** $0 heat. Full headroom.
+
+**Mode B:** CRWV/NBIS/IREN/TEM continued extending lower — CRWV -9.75% (was -8.06%), NBIS -8.76%
+(was -7.51%), IREN -8.23% (was -6.60%), TEM -6.78% (was -5.60%). Still no active pullback/defined
+zone — these are trending declines making fresh lows, not retracements. No valid Mode B setup.
+**OBSERVE.**
+
+**Mode C:** Hourly RSI(14) now computable with one bar of real data — CRWV 30.3, NBIS 26.9, IREN
+23.5, TEM 45.3. Dropping toward oversold but **none below the 20 mean-reversion trigger
+threshold yet**, and even if one were, §20 item 5's mean-reversion entry requires the *following*
+bar's close back inside the Bollinger Band, not the extreme bar itself — only one extreme-case
+bar exists so far. No valid Mode C setup yet. **OBSERVE.** Worth a close look next cycle if IREN
+in particular pushes through 20.
+
+**No order placed in Mode B or Mode C this cycle.**
+
+```json
+{
+  "cycle": "mode_b_c_hourly",
+  "timestamp_utc": "2026-10-16T15:56:16Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending",
+  "note": "CRWV/NBIS/IREN/TEM continued extending lower, no valid Mode B setup; hourly RSI approaching but not yet below 20 oversold trigger for Mode C mean-reversion; market weakening (QQQ -1.44%) but under shock threshold; no trade"
+}
+```
+
+---
