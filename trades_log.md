@@ -37483,3 +37483,45 @@ setup to act on. Nothing clears §21's gate. **No crypto trade.**
 ```
 
 ---
+
+## 2026-10-17 16:37:34Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`)
+
+**STEP 0 gate check:** §14 Status = ACTIVE, no kill phrase. Git sync clean (HEAD matched origin
+at `40b2110` before this cycle). Followed current CLAUDE.md §21.
+
+**Account (748688058):** Total value $8,018.99 — cash $8,018.99, equity $0, options $0, crypto
+$0. **0 open crypto positions** (0/2 cap) — stop-audit moot.
+
+**Cross-mode circuit breakers:** Same-day stop-out count 0/2. Market-shock: equities closed,
+inapplicable (and in any case this is a multi-hour drift, not a single-cycle gap, so the §6
+market-shock breaker's own trigger condition — inter-cycle, not cumulative — would not fire even
+if equities were open).
+
+**Portfolio heat cap:** $0 heat. Full headroom.
+
+**Crypto §21 screen:** Weakness has now broadened to BTC itself and deepened for a 7th straight
+cycle — BTC -0.34%, ETH -0.91%, SOL -1.56%, XRP -1.40%, LINK -3.49%, AAVE -2.58%, HBAR -1.63%,
+AVAX -2.03%, all vs. today's daily open. This reads as a genuine risk-off drift across the whole
+allowlist rather than isolated alt weakness. Still spot-only/buy-to-open-longs-only (§21 item 2)
+— no instrument exists to act on a broad decline, and nothing here constitutes a qualifying
+bullish setup (the opposite, if anything — further from one). Nothing clears §21's gate. **No
+crypto trade.**
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-10-17T16:37:34Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending",
+  "note": "basket-wide risk-off drift deepening 7th cycle straight, BTC now red too; no setup, no trade"
+}
+```
+
+---
