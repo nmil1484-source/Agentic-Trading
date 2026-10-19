@@ -14,7 +14,7 @@ verification and a verified catalyst before it can appear on a Trade Card. Inclu
 TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL, VRT, PLAB, HIMS,
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
-IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA, CORZ, CAI
+IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA, CORZ, CAI, AMDG
 
 **Note on PGY:** added 2026-09-03 per user instruction, after a Slack community call (source:
 "stockinvesting" channel, trader "J-Griff" — context per §9, never a signal) flagged a golden
@@ -257,3 +257,20 @@ prioritization instruction only: any resulting trade still requires full, indepe
 verification (catalyst, confirmation role-groups, valid stop, reward-to-risk, daily-setup-plus-
 hourly-trigger) exactly as for any other candidate — the call's bullish framing does not substitute
 for or relax any of that.
+
+**Note on AMDG (2026-10-19):** added per explicit user instruction, after the user shared a trade
+post from a third party (Marilee Cordova, via a "Trades" community feed) showing a long AMDG
+position with a $98 stop — context per §9, never a signal; the post's framing has no bearing on
+whether AMDG clears any gate here. Confirmed via `search`/`get_equity_tradability`: **AMDG** =
+Themes ETF Trust Leverage Shares 2X Long AMD Daily ETF — a **leveraged** (2x) single-stock ETF,
+tradable, fractional-tradable, individual-account-tradable; `all_day_tradability: untradable`
+(regular-hours only). This is **not** the old blanket-banned category it would have been before
+2026-10-09 — §22 (Leveraged/Inverse ETF Policy, Mode B) unlocked leveraged/inverse ETFs with no
+named allowlist, bought long only, subject to §22's own tighter sub-caps (15%-of-equity
+per-position, 1%-of-equity per-trade risk, 8%-max stop-distance ceiling, 2-concurrent-position
+cap) rather than Mode B's ordinary numbers. AMDG has **no §5B/§22 verification on file yet** — same
+as everything else in this pool, it still requires its own independent entry-gate clearance (read
+on AMDG's own chart/ATR, not AMD's) before it can appear on a Trade Card. The RDDT short put also
+shown in the same post was not considered for adoption — a short (cash-secured) put is not a
+permitted §18 instrument (single-leg long calls/puts only) and selling options to open is banned
+outright regardless of underlying.
