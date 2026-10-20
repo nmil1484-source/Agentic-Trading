@@ -40580,3 +40580,20 @@ recovery attempt, not yet a qualifying setup. Nothing clears §21's gate. **No c
 ```
 
 ---
+
+## 2026-10-20 ~13:45Z — USER-DISCLOSED CASH ACTIVITY (not a trigger cycle)
+
+User stated in chat: "I had to move some money around fyi." Per §6's cash-only discrepancy
+handling, checked `get_accounts`/`get_portfolio` immediately: cash dropped from $7,320.95 (prior
+cycle, 13:37:57Z) to $7,070.95 (-$250.00), and a new $1,000.00 `pending_deposits` entry appeared
+— consistent with the user's own disclosed transfer activity (a withdrawal plus a pending
+deposit), not a data error. **Positions and orders reconcile cleanly** — still exactly 1 open
+option position (CBRS put, unchanged), no order mismatches. Per §6, this is explicitly **not**
+the position/order-mismatch trigger (that still pauses new-entry authority) — a cash-only change
+with an explicit, user-confirmed benign cause does not pause trading. **No action taken, no
+pause** — continuing standing autonomous operation normally per §6's existing policy. Logging
+prominently here per that policy's requirement. Total account value now $7,810.95 (equity $0,
+options $740 — CBRS mark ticked down slightly intraday, cash $7,070.95, pending deposit $1,000).
+Next cycle's portfolio-heat-cap % will be recomputed against this new equity base as always.
+
+---
