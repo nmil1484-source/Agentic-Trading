@@ -40932,3 +40932,54 @@ wait for a better entry (pullback or fresh breakout), not abandoned.
 ```
 
 ---
+
+## 2026-10-20 16:37:52Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`)
+
+**STEP 0 gate check:** §14 Status = ACTIVE, no kill phrase. Git sync clean (HEAD matched origin
+at `6a8466a` before this cycle). Followed current CLAUDE.md §21.
+
+**Cash-only discrepancy flagged (§6):** Total account value dropped from $7,735.95 (last cycle)
+to **$6,740.95** (-$995.00). Breakdown: cash fell from $7,070.95 to $6,070.95 (exactly -$1,000.00),
+**pending_deposits dropped from $1,000.00 to $0.00** — the previously-pending $1,000 deposit
+appears to have been reversed/cancelled rather than settled, not a new withdrawal. Options value
+$670 (CBRS put, in line with normal price movement — not a mismatch). **Positions and orders
+reconcile cleanly** — still exactly 1 open option position, 0 crypto, 0 equity — this is a pure
+cash-side change, not the position/order-mismatch trigger. Plausibly the other side of the
+cash-movement activity the user flagged in chat earlier today ("I had to move some money around").
+Per §6, this does not pause new-entry authority — logging prominently here and surfacing in chat
+per that policy, then continuing normally. **Portfolio heat recomputed against the new, smaller
+equity base.**
+
+**Account (748688058):** Total value $6,740.95 — cash $6,070.95, pending deposit $0, options $670
+(CBRS put), equity $0, crypto $0. **0 open crypto positions** (0/2 cap).
+
+**Cross-mode circuit breakers:** Same-day stop-out count 0/2. Market-shock: SPY +0.02% this
+cycle, QQQ +0.06% this cycle — no breaker.
+
+**Portfolio heat cap:** CBRS max planned loss still $105, now ~1.56% of the smaller $6,740.95
+equity base (up from ~1.36%, purely from the smaller equity denominator, not a worse stop).
+Headroom ≈ 4.44%.
+
+**Crypto §21 screen:** Basket modestly green across the board vs. today's open — BTC +0.57%, ETH
++1.22%, SOL +0.73%, XRP +1.42% (best), LINK +1.24%, AAVE +0.10%, HBAR +0.04%, AVAX +0.42%. Mild,
+broad-based strength consistent with the equity market's own rally today, but nothing extreme or
+breakout-shaped on any pair. Nothing clears §21's gate. **No crypto trade.**
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-10-20T16:37:52Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending",
+  "note": "cash-only discrepancy flagged: $1,000 pending deposit reversed, account equity now $6,740.95 (was $7,735.95); positions reconcile cleanly, no pause per §6; crypto basket mildly green, nothing qualifies; no crypto trade"
+}
+```
+
+---
