@@ -14,7 +14,7 @@ verification and a verified catalyst before it can appear on a Trade Card. Inclu
 TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL, VRT, PLAB, HIMS,
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
-IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA, CORZ, CAI, AMDG
+IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA, CORZ, CAI, AMDG, SE
 
 **Note on PGY:** added 2026-09-03 per user instruction, after a Slack community call (source:
 "stockinvesting" channel, trader "J-Griff" — context per §9, never a signal) flagged a golden
@@ -274,3 +274,14 @@ on AMDG's own chart/ATR, not AMD's) before it can appear on a Trade Card. The RD
 shown in the same post was not considered for adoption — a short (cash-secured) put is not a
 permitted §18 instrument (single-leg long calls/puts only) and selling options to open is banned
 outright regardless of underlying.
+
+**Note on SE (2026-10-21):** added per explicit user instruction, after the user shared a post from
+trader "J-Griff" in the "stockinvesting" Slack channel ("Adding to $SE here. An incredible entry
+opp on an incredible- yet misunderstood- company, IMO") — context per §9, never a signal; the
+post's framing has no bearing on whether SE clears any gate here. Confirmed via `search`/
+`get_equity_tradability`: **SE** = Sea Limited American Depositary Shares (each representing one
+Class A Ordinary Share) — single unambiguous match, no leveraged/inverse-derivative ticker
+confusion risk. Tradable, fractional-tradable, individual-account-tradable, all-day tradable.
+SE has **no §5B verification on file yet** — same as everything else in this pool, it still
+requires its own independent catalyst/technical confirmation/stop/reward-to-risk clearance before
+it can appear on a Trade Card.
