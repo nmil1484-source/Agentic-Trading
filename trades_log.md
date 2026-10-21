@@ -41891,3 +41891,43 @@ Basket continuing its modest overnight grind higher; XRP (+2.51%) and HBAR (+2.1
   "git_push": "pending"
 }
 ```
+
+## 2026-10-21 11:38:10Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`)
+
+**STEP 0 gate check**: git fetch confirmed local HEAD matching origin at `06f7b1e` before this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase present. Proceeding.
+
+**Account snapshot** (`get_portfolio`, account 748688058): total_value $6,835.95, cash $6,070.95, equity_value $0, crypto_value $0, options_value $765 (CBRS put). 0 of 2 crypto-position cap used, no resting stops to audit.
+
+**Circuit breakers**: none active. **Portfolio heat**: ≈1.54% of equity (CBRS), ≈4.46% headroom under the 6% cap.
+
+**§21 crypto screen** — vs. current `open_price`:
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC-USD | 83,343.60 | 82,647.64 | +0.84% |
+| ETH-USD | 2,458.58 | 2,442.19 | +0.67% |
+| SOL-USD | 106.65 | 105.75 | +0.86% |
+| XRP-USD | 1.3566 | 1.3309 | +1.93% |
+| LINK-USD | 12.372 | 12.315 | +0.46% |
+| AAVE-USD | 156.02 | 154.98 | +0.67% |
+| HBAR-USD | 0.08481 | 0.08334 | +1.76% |
+| AVAX-USD | 9.690 | 9.691 | -0.01% |
+
+No material regime change vs. last cycle — same modest-green basket, XRP/HBAR still the relative leaders but within the confirmed bearish daily structure established last cycle (no re-run of the structural analysis needed given no material move). No candidate clears the §21 entry gate.
+
+**Conclusion**: OBSERVE. No trade.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-21T11:38:10Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
