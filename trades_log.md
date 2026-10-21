@@ -42354,3 +42354,67 @@ No candidate clears the §21 entry gate this cycle.
   "git_push": "pending"
 }
 ```
+
+## 2026-10-21 17:38:08Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`) — **SPCX STOP-OUT DISCOVERED + crypto screen**
+
+**STEP 0 gate check**: git fetch confirmed local HEAD matching origin at `626f8c9` before this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase present. Proceeding.
+
+**Account snapshot** (`get_portfolio`, account 748688058): total_value $6,902.10, cash $3,436.06, equity_value $2,661.04, options_value $805 (CBRS put, mark $8.05). **equity_value dropped sharply from the 16:55 cycle's ~$5,400+ (SPCX+CRCL combined) — investigated immediately rather than assumed benign.**
+
+**FINDING: SPCX's resting breakeven stop (order `6ad8e126-5f22-4c5c-b8d3-6e654ecfee9b`, $160.60) filled at 2026-10-21T17:11:43Z**, average execution $160.58, 17 shares, $0.06 fee — the position was fully closed by its own resting order between the 16:55 and this 17:38 cycle (no trigger needed to act; a resting broker stop executes on its own). `get_equity_positions` confirms SPCX no longer held; only CRCL (29 shares) remains open in Mode B equities.
+
+**SPCX — EXIT RECORD (§16 item 11):**
+- Entry: 17 shares @ $160.5998 (2026-10-21 14:58:27Z)
+- Exit: 17 shares @ $160.58 (2026-10-21 17:11:43Z), stop_market, GTC, triggered by the breakeven stop moved at the 15:55 Mode B cycle (§16 item 5, after the position crossed +1R)
+- Planned max loss at entry: ≈$44.20 (before the breakeven move); actual realized: **-$0.34 price slippage + $0.06 fee = -$0.40 total** — essentially a scratch, consistent with a breakeven-stop exit doing exactly what it's designed to do (give back the position's unrealized gain back to roughly flat rather than let a full reversal happen)
+- Rule that triggered: §16 item 5 breakeven stop, hit after SPCX faded from its post-earnings highs (~$166) back through $160.60
+- Order submitted and filled successfully, no execution issues
+- **No orphaned stop to cancel** — this order was itself the resting stop; nothing else was resting against this position
+
+### TRADE CARD — SPCX EXIT
+- **STRATEGY: SWING_TRADING (Mode B)** — exit
+- Ticker: SPCX, 17 shares
+- Exit price: $160.58 (stop_market fill)
+- Entry price: $160.5998 (2026-10-21 14:58:27Z)
+- Realized P&L: **-$0.40** (essentially breakeven)
+- Exit rule: §16 item 5 breakeven stop (moved up from the original $158.00 entry-day stop after the position crossed +1R at the 15:55 cycle)
+- Holding period: ≈2h13m (same-day — exempt from §17's no-same-day-close-by-design rule since this was a stop/invalidation hit, not a discretionary close)
+- Final status: **CLOSED**
+
+**§18 options stop-check**: CBRS mark $8.05, operative stop unchanged at $5.933 (15%-below-entry floor still exceeds 30%-below-peak). Not breached.
+
+**Portfolio heat (§3) after this exit**: CBRS ≈$104.70 (1.52%) + CRCL ≈$41.89 (0.61%, not yet at breakeven) ≈ **2.13% of equity**, ≈3.87% headroom under the 6% cap. (SPCX no longer contributes — position closed.)
+
+**Circuit breakers**: SPY $773.70 (+0.60%), QQQ $726.73 (+1.27%) — no shock breaker.
+
+**§21 crypto screen** — vs. current `open_price`, basket continuing to extend modestly:
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC-USD | 84,620.10 | 82,647.64 | +2.39% |
+| ETH-USD | 2,516.77 | 2,442.03 | +3.06% |
+| SOL-USD | 108.63 | 105.75 | +2.73% |
+| XRP-USD | 1.3849 | 1.3306 | +4.08% |
+| LINK-USD | 12.721 | 12.315 | +3.29% |
+| AAVE-USD | 159.38 | 154.98 | +2.84% |
+| HBAR-USD | 0.08617 | 0.08333 | +3.41% |
+| AVAX-USD | 9.956 | 9.691 | +2.74% |
+
+No new catalyst found for BTC or any pair since the 16:37 check; XRP continues to extend (+4.08%) but its daily structure remains confirmed bearish per the 15:37 cycle's analysis. No candidate clears the §21 entry gate.
+
+**Conclusion**: SPCX exited (scratch), CRCL still open and healthy. No crypto trade. 0 of 2 crypto-position cap used.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-21T17:38:08Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [{"symbol": "SPCX", "reason": "breakeven_stop", "realized_pl": -0.40}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
