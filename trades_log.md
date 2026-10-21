@@ -42206,3 +42206,68 @@ Unlike prior cycles (where only HBAR/XRP led a modest grind), every pair is now 
   "git_push": "pending"
 }
 ```
+
+## 2026-10-21 15:55:00Z — AUTONOMOUS (Mode B/C Hourly Scan, trigger `trig_01KrBsTt9mssjU4hPGtM3cBe`) — **TWO ACTIONS THIS CYCLE: breakeven stop move + new trade**
+
+**STEP 0 gate check**: git fetch confirmed local HEAD matching origin at `8dd1104` before this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase present. Not the final cycle of day (15:55, not 19:55) — STEP 0.5 N/A.
+
+**Circuit breakers**: SPY $772.70 (+0.47%), QQQ $726.33 (+1.21%) — no shock breaker. No stop-out cluster, no 3% decline.
+
+**§18 options stop-check (step 2b)**: CBRS $110 put, entry $6.98, mark $8.25 (profitable). Operative stop unchanged at **$5.933** (15%-below-entry floor still exceeds 30%-below-peak-to-date ≈$5.88). Not breached. No action.
+
+**Mode B equity stop-audit (2a)**: SPCX resting stop confirmed present (`get_equity_orders`, state=confirmed) before any new action this cycle.
+
+**ACTION 1 — SPCX breakeven move (§16 item 5):** SPCX crossed +1R (price $163.25 vs. entry $160.5998, stop $158.00 → +1.02R). Cancelled the original $158.00 stop (order `6ad8d322-...`, confirmed cancelled) and placed a new resting stop at **$160.60** (at/slightly above entry, never-lower principle), order id `6ad8e126-5f22-4c5c-b8d3-6e654ecfee9b`, confirmed resting. SPCX now contributes **$0** to portfolio heat per the breakeven rule.
+
+**ACTION 2 — CRCL cleared the §5B gate this cycle (new entry):**
+- CRCL broke decisively through the resistance band ($86.97-88.04) that had rejected it all morning (per the 14:07 and 14:56 cycle notes) — **two consecutive confirmed bullish hourly closes**: hour 1 (13:30-14:30 UTC, aggregated) closed $88.35; hour 2 (14:30-15:30 UTC) closed $90.48, both decisively above the prior band. Current price ≈$90.84-91.01 (+5.8-6.0% on the day).
+- **Fresh catalyst found via `get_news`**: "OCC Finalizes GENIUS Act Stablecoin Rules As Bessent Compares Law To Lincoln's National Currency Act" (Stocktwits, 2026-10-21T15:09:06Z, `related_symbols` includes NYSE:CRCL) — a real, dated, specific regulatory catalyst directly relevant to Circle as a stablecoin issuer, timed exactly with the hour-2 acceleration. This supersedes the already-logged Needham/Citi notes as the actual driver of today's move.
+- Confirmations (2-of-5 required, cleared on at least 2): Location (clean breakout/retest of the multi-day resistance band, now twice-confirmed on the hourly close); Relative strength (CRCL +6.0% vs. SPY's +0.47% today, explicit/checkable).
+- Politician trades (§8 item 8) checked for CRCL: no disclosures found — no bearing.
+- Stop: $89.40, just below the defended hour-2 consolidation low ($89.50, tested and held twice at 15:00 and 15:15 UTC) — a real, already-tested structural level.
+- R:R at fill ($90.8446 avg): risk $1.4446/share; 1.5:1 target ≈$93.01, well within reach given today's momentum and no overhead resistance (fresh highs).
+- Sizing: 2% risk budget would allow far more shares, but the binding constraint was the **90%-of-equity total-deployed ceiling** (headroom ≈$2,646.62 after SPCX+CBRS) — **29 shares**. Actual risk ≈$1.4446×29 ≈ **$41.89 (0.60% of equity)**.
+- Timing: ~2h29m post-open, clear of timing windows; no macro event in the next 30 minutes beyond the catalyst itself (already resolved, not forward-looking).
+- Day-trade/settlement (§17): fully settled cash, no restriction flags.
+- Correlation/capacity: CRCL (stablecoin/crypto-adjacent equity theme) — no conflict with SPCX (space/aerospace) or CBRS (AI chips); 2 of 10 Mode B position-cap slots now used.
+
+**ORDER PLACED AND FILLED**: BUY 29 CRCL @ limit $91.00, filled @ avg $90.8446. Order id `6ad8e168-4376-4155-8a9f-46358abc7d8f`. `review_equity_order` clean (no alerts).
+
+**PROTECTIVE STOP PLACED AND VERIFIED RESTING**: SELL 29 CRCL stop_market @ $89.40, GTC. Order id `6ad8e172-9f86-45d9-bcd5-3c2b23f1c768`, confirmed resting.
+
+### TRADE CARD — CRCL
+- **STRATEGY: SWING_TRADING (Mode B)**
+- Ticker/instrument: CRCL (Circle Internet Group, Inc.), common stock, long
+- Regime/LUC/FTA: LUC not covered — context only
+- Catalyst: OCC finalizes GENIUS Act stablecoin rules (2026-10-21T15:09 UTC, Stocktwits, verified via TradingView `get_news`)
+- Quantity/price: 29 shares, filled avg $90.8446 (limit $91.00)
+- Invalidation/stop: $89.40 (resting stop_market, confirmed)
+- Target/review date: $93.01 (1.5:1 R:R) / 7-trading-session time-stop review ≈2026-10-30
+- Reward-to-risk: ≈1.5:1 to target; max planned loss ≈$41.89 (0.60% of equity)
+- Daily setup: all-session rejection at the $86.97-88.04 band, finally broken through with two confirmed bullish hourly closes
+- Hourly trigger: 13:30-14:30 close $88.35, 14:30-15:30 close $90.48 — both above the breakout level
+- Sector/theme: stablecoin/crypto-adjacent equity — no other open position in this theme
+- Settled-cash status: fully settled, no restriction flags
+- Concentration: $2,634.49 position / $6,941.34 equity ≈ 38.0%
+- Final status: **FILLED**
+
+**Mode C**: 0 positions, no setup actionable.
+
+**Portfolio heat after this cycle's actions**: CBRS ≈$105 (1.51%) + SPCX $0 (breakeven) + CRCL ≈$41.89 (0.60%) ≈ **2.12% of equity**, ≈3.88% headroom remains under the 6% cap.
+
+```json
+{
+  "cycle": "Mode B/C Hourly Scan",
+  "timestamp_utc": "2026-10-21T15:55:00Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 2},
+  "options_stop_check": {"checked": 1, "breached": 0, "exited": 0},
+  "exits": [],
+  "entries": [{"symbol": "CRCL", "mode": "B", "qty": 29, "price": 90.8446}],
+  "orders_placed": 3,
+  "git_push": "pending"
+}
+```
