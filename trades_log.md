@@ -42739,3 +42739,49 @@ No new catalyst. No candidate clears the §21 gate.
   "git_push": "pending"
 }
 ```
+
+## 2026-10-21 23:37:43Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`) — **CRCL flagged: after-hours price below stop**
+
+**STEP 0 gate check**: git fetch confirmed local HEAD matching origin at `c3265bd` before this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase present. Proceeding.
+
+**Account snapshot**: total_value $6,863.58, cash $3,436.06, equity_value $2,577.52 (CRCL — implied ≈$88.88/share), options_value $850 (CBRS). 0 of 2 crypto-position cap used.
+
+**IMPORTANT FLAG — CRCL discovered below its stop in after-hours trading, investigated immediately:** `get_equity_quotes` shows `last_non_reg_trade_price` $88.88 at 23:35:47 UTC (extended hours) vs. the regular-session close of $89.72 (19:59:59 UTC). Current after-hours bid/ask: $88.90/$89.25 — both below the $89.40 resting stop. **`get_equity_orders` confirms the resting stop order (`6ad8e172-...`, $89.40) is still `state: confirmed` (resting, unfilled)** — it is a `market_hours: regular_hours` order, so it correctly has not triggered on an extended-hours print; it will only execute once the regular session resumes. Position remains open (29 shares, confirmed via `get_equity_positions`), not stopped out.
+
+**Action/handoff note**: no action taken this cycle — extending the stop to cover after-hours trading would be a discretionary change to the exit mechanism not called for by any triggered rule, and the resting regular-hours stop is functioning exactly as designed. **Flagging for the next Mode B/C cycle (first one after regular-hours resume, ~14:00 UTC tomorrow):** if CRCL opens below $89.40 tomorrow, §16 item 4's gap rule applies — review and exit the full position at the earliest available eligible execution rather than waiting for the resting stop to catch a now-invalid level. This is a real, disclosed gap in after-hours coverage (same category as the platform's existing hourly-cadence caveats), not a new system failure.
+
+**§18 options stop-check context**: CBRS mark steady ≈$8.50 (options_value $850 ÷ 100), well above its $6.055 stop — unaffected by CRCL's move.
+
+**Portfolio heat**: CBRS ≈$104.70 (1.53%) + CRCL ≈$41.89 (0.61%, stop unchanged — still the original $89.40, never having reached breakeven) ≈ **2.14% of equity**, ≈3.86% headroom.
+
+**§21 crypto screen** — basket continuing to fade overnight:
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC-USD | 84,252.29 | 82,643.27 | +1.95% |
+| ETH-USD | 2,475.97 | 2,442.19 | +1.38% |
+| SOL-USD | 106.91 | 105.75 | +1.10% |
+| XRP-USD | 1.3647 | 1.3309 | +2.53% |
+| LINK-USD | 12.503 | 12.315 | +1.52% |
+| AAVE-USD | 155.13 | 154.98 | +0.10% |
+| HBAR-USD | 0.08401 | 0.08334 | +0.80% |
+| AVAX-USD | 9.671 | 9.691 | -0.21% |
+
+No new catalyst. No candidate clears the §21 gate.
+
+**Conclusion**: OBSERVE on crypto. CRCL below-stop-in-after-hours flagged for tomorrow's first regular-hours cycle. No crypto trade.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-21T23:37:43Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
