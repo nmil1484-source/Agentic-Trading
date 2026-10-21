@@ -42162,3 +42162,47 @@ Whole basket extending gains, led by BTC (+1.74%) and XRP (now +2.99%, still cli
   "git_push": "pending"
 }
 ```
+
+## 2026-10-21 15:37:49Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`)
+
+**STEP 0 gate check**: git fetch confirmed local HEAD matching origin at `0eef5a3` before this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase present. Proceeding.
+
+**Account snapshot** (`get_portfolio`, account 748688058): total_value $6,957.87, cash $3,340.75, equity_value $2,777.12 (the new SPCX position from the 14:56 Mode B cycle, now at $163.34 vs. $160.60 entry), options_value $840 (CBRS put), crypto_value $0. 0 of 2 crypto-position cap used, no resting stops to audit.
+
+**Circuit breakers**: SPY $772.63 (+0.47% vs. prior close), QQQ $726.06 (+1.17%) — no shock breaker. No stop-out cluster, no 3% decline.
+
+**Portfolio heat (§3)**: CBRS max planned loss ≈$105 (1.51%) + SPCX max planned loss ≈$44.20 (0.64%, stop not yet moved to breakeven — that move is pending the next Mode B/C hourly cycle at 15:55 UTC, since SPCX just crossed +1R) ≈ **2.15% of equity**, ≈3.85% headroom under the 6% cap. **Note for the 15:55 Mode B/C cycle**: SPCX is now at ≈+1.05R (entry $160.60, stop $158.00, current $163.34) — the §16 item 5 breakeven-stop move (cancel-and-replace to $160.60) is due and should execute there, not here (this trigger doesn't manage Mode B equities).
+
+**§21 crypto screen** — vs. current `open_price`, basket **broadening and accelerating** vs. prior cycles:
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC-USD | 84,560.95 | 82,643.27 | +2.32% |
+| ETH-USD | 2,513.02 | 2,442.03 | +2.91% |
+| SOL-USD | 108.76 | 105.74 | +2.86% |
+| XRP-USD | 1.3790 | 1.3306 | +3.63% |
+| LINK-USD | 12.678 | 12.315 | +2.95% |
+| AAVE-USD | 158.74 | 154.98 | +2.43% |
+| HBAR-USD | 0.08585 | 0.08334 | +3.01% |
+| AVAX-USD | 9.925 | 9.691 | +2.42% |
+
+Unlike prior cycles (where only HBAR/XRP led a modest grind), every pair is now up 2.3-3.6% — ran `analyze_swing_tool` on BINANCE:BTCUSDT to check whether this is a genuine structural shift rather than basket-wide noise. **Finding: BTC's daily trend is confirmed bullish (moderate strength)** — a clear reversal from the bearish-biased reads on LINK/AAVE/AVAX/XRP/HBAR found earlier this session. Price is in a shallow (21.7%) pullback that has just touched and bounced from its golden-pocket zone ($84,494-84,737, `golden_pocket_touched: true`, today's low $84,728 printed the retrace extreme) — a textbook §13.C Fibonacci-pullback-location signal. The regime/trend-strength filter (§21 item 3, added 2026-10-15) is satisfied (`strength: moderate`). Using the pullback's actual swing low (≈$79,800) as a tighter structural stop instead of the tool's own far swing-low stop, and the 1.618 extension (≈$95,076) as a realistic target, computes to ≈2.21:1 R:R — above the 2:1 floor.
+
+**Not yet acted on, held at OBSERVE**: (1) the tool's timeframe parameter did not honor "4h" and returned daily (1D) data again, same limitation noted in the 2026-10-20T14:38 cycle — no genuine 4H/1H data available this cycle to confirm the §21 item 3 4H-setup-plus-1H-trigger requirement; today's steady intraday grind is suggestive but not a confirmed hourly reclaim/breakout candle. (2) No catalyst or relative-strength-vs-benchmark check has been run yet (BTC is the benchmark itself for other pairs, so this leg of the gate needs a genuine macro/crypto-market catalyst, not RS-vs-BTC). Given two unverified gate legs, this is flagged as the strongest crypto development of the session so far and should be re-checked next cycle with real 4H/1H data (if the tool cooperates) and a news/catalyst pull — not acted on this cycle on an incomplete picture.
+
+**Conclusion**: OBSERVE. No trade. BTC flagged as the top watch item for the next crypto cycle (16:37 UTC).
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-21T15:37:49Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
