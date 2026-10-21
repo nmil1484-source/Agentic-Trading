@@ -41971,3 +41971,43 @@ Basket grinding modestly higher across the board, basically unchanged in charact
   "git_push": "pending"
 }
 ```
+
+## 2026-10-21 13:38:13Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`)
+
+**STEP 0 gate check**: git fetch confirmed local HEAD matching origin at `9e13a6a` before this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase present. Proceeding.
+
+**Account snapshot** (`get_portfolio`, account 748688058): total_value $6,820.95 (down $15 from last cycle's $6,835.95), cash $6,070.95 (unchanged), equity_value $0, crypto_value $0, options_value $750 (down $15 from $765 — the CBRS put's own mark-to-market move, not a cash/position discrepancy; cash is unchanged so this is explained entirely by the option's price fluctuation, nothing requiring a §6 check). 0 of 2 crypto-position cap used, no resting stops to audit.
+
+**Circuit breakers**: none active. **Portfolio heat**: CBRS max planned loss ≈$105 ÷ $6,820.95 ≈ 1.54% of equity — essentially unchanged, ≈4.46% headroom remains under the 6% cap.
+
+**§21 crypto screen** — vs. current `open_price`:
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC-USD | 83,466.38 | 82,643.27 | +1.00% |
+| ETH-USD | 2,465.18 | 2,442.19 | +0.94% |
+| SOL-USD | 106.67 | 105.75 | +0.88% |
+| XRP-USD | 1.3564 | 1.3306 | +1.94% |
+| LINK-USD | 12.395 | 12.315 | +0.65% |
+| AAVE-USD | 155.30 | 154.98 | +0.21% |
+| HBAR-USD | 0.08525 | 0.08334 | +2.28% |
+| AVAX-USD | 9.673 | 9.691 | -0.19% |
+
+Same basket character as the prior several cycles — modest grind, XRP/HBAR still leading within the already-confirmed bearish daily structure, nothing clearing the §21 gate.
+
+**Conclusion**: OBSERVE. No trade.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-21T13:38:13Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
