@@ -14,7 +14,8 @@ verification and a verified catalyst before it can appear on a Trade Card. Inclu
 TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL, VRT, PLAB, HIMS,
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
-IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA, CORZ, CAI, AMDG, SE
+IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA, CORZ, CAI, AMDG, SE,
+SPCX, LLY
 
 **Note on PGY:** added 2026-09-03 per user instruction, after a Slack community call (source:
 "stockinvesting" channel, trader "J-Griff" — context per §9, never a signal) flagged a golden
@@ -285,3 +286,34 @@ confusion risk. Tradable, fractional-tradable, individual-account-tradable, all-
 SE has **no §5B verification on file yet** — same as everything else in this pool, it still
 requires its own independent catalyst/technical confirmation/stop/reward-to-risk clearance before
 it can appear on a Trade Card.
+
+**Note on SPCX and LLY (2026-10-21):** added per explicit user instruction, after two more posts
+in the same "stockinvesting" Slack channel — context per §9, never a signal:
+- **SPCX** — Nick Lowry shared a Yahoo Finance (X/Twitter) post on SPCX's (SpaceX) earnings
+  results: revenue $14.58B vs. $12.87B estimated, space revenue $1.8B vs. $1.4B estimated, AI
+  revenue $7.56B vs. $6.3B estimated, net income $4.40B vs. $1.88B estimated — a real, dated
+  earnings beat, but still just a research-prioritization trigger, not a gate-clearing catalyst on
+  its own. Confirmed via `search`: **SPCX** = Space Exploration Technologies Corp. Class A Common
+  Stock. A name/company search for "SpaceX" surfaces only a long list of leveraged derivative
+  products on SPCX (**SPCH** 2x long, **SSPC** 2x short, **DSPC** 1x short, **SPAX** 2x long,
+  **SPCU** 2x long, **SPCQ** 2x short, **YSPC** option-income, **ELOL** TSLA+SPCX combo, **LOFF**
+  2x bull, **LOFD** 2x bear, **SPCF** "ProShares Ultra SpaceX") — the plain base stock itself only
+  resolved via a direct ticker search. All of those derivative tickers are excluded per §2 unless
+  separately screened under §22 (not done here — the base SPCX common stock is what was added).
+  Confirmed tradable, fractional-tradable, individual-account-tradable, all-day tradable via
+  `get_equity_tradability`.
+- **LLY** — a separate long-form research piece ("The GLP-1 Manhattan Project," a bullish
+  multi-year thesis on Eli Lilly's metabolic-drug cash flow and AI ambitions) was also shared in
+  the same channel. Confirmed via `search`: **LLY** = Eli Lilly & Co. — same pattern as SPCX, a
+  name search surfaces mostly leveraged derivatives (**LLYX** 2x long, **ELIL** 2x bull) plus two
+  unrelated Liberty Live Holdings share classes (LLYVK/LLYVA, coincidental ticker collision, not
+  Eli Lilly at all); the plain **LLY** ticker itself is the correct, unambiguous match. Confirmed
+  tradable, fractional-tradable, individual-account-tradable, all-day tradable, and extended-hours
+  fractional-tradable (distinct from most names in this pool).
+
+Neither SPCX nor LLY has a §5B verification on file yet — same as everything else in this pool,
+both still require full independent gate clearance (their own catalyst/technical confirmation/
+stop/reward-to-risk, read on each name's own chart) before either can appear on a Trade Card. The
+Eli Lilly piece in particular reads as a multi-quarter thesis rather than a single-day catalyst —
+worth evaluating against §19's LEAPS research gate (durable thesis, weekly/daily structure) in
+addition to the ordinary §5B swing gate, on whichever future cycle actually considers it.
