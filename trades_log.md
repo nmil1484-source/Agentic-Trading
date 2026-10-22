@@ -43755,3 +43755,44 @@ Decline accelerating this cycle (vs. -1.1% to -2.8% last cycle) — broad crypto
   "git_push": "success"
 }
 ```
+
+## 2026-10-22 17:55:24Z — AUTONOMOUS (Mode B/C Hourly Scan, trigger `trig_01KrBsTt9mssjU4hPGtM3cBe`)
+
+**STEP 0 gate check:** git HEAD synced with origin at `c5fc19c` prior to this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase issued. Not the STEP 0.5 final cycle.
+
+**Account snapshot:** total_value $7,073.40, equity_value $0, options_value $1,155 (CBRS), crypto_value $0. 0 Mode B equity positions, 0 Mode C positions.
+
+**Circuit breakers:** 1 stop-out today — cooldown not triggered. SPY $762.90 vs. prior close $773.09 (-1.32%); QQQ $705.325 vs. prior close $725.20 (-2.74%) — little changed vs. last cycle, no shock.
+
+**§18/§19 options stop-check (2b):** CBRS mark $11.55 — a new peak (above the $11.45 basis of the last ratchet). Per the user's 15%-below-peak override: **new stop = 11.55 × 0.85 = $9.8175 → $9.82** (up from $9.73). Mark $11.55 vs. stop $9.82 — not breached.
+
+**Mode B §5B Bearish Mirror Gate — NBIS/IREN/CRWV/CORZ, broad acceleration this cycle:** all four now confirming/deepening together as the equity selloff persists. Fresh prices (17:56 UTC): NBIS $156.84 (-8.6% today, well past the $160.25 level across 3 consecutive hourly closes — a clean sustained breakdown); IREN $25.26 (-9.3% today, has actually closed below its $25.59 swing low every hour since 14:00, including through today's brief midday bounce — reassessed from the last cycle's characterization); CRWV $55.33 (-10.5% today, breaking down further each hour); CORZ $13.135 (now below its $13.18 swing low too — newly confirmed).
+
+**R:R re-checked on IREN and CRWV with current pricing (delta-gamma/2nd-order approximation, same method as last two cycles) — still short of 1.5:1, though IREN is closing the gap as the stock keeps falling:**
+- IREN $22 strike (29 DTE), delta -0.238, mark $1.475, target $21 (~17% further decline): est. reward $133 vs. $147.50 risk → **R:R ≈0.90:1** — the closest read yet, improving each cycle as the stock declines and cheapens the breakeven distance.
+- CRWV $53-56 strikes (29 DTE), deltas -0.43 to -0.49, marks $6.60-$8.65, target $50 (~9.6% further decline): est. reward consistently **R:R ≈0.35-0.40:1** — still a clear miss, improving only marginally despite today's large move, since CRWV's own decline has already richened these strikes' premiums roughly in proportion.
+
+**Conclusion: still no options entry — neither name clears the floor, though IREN is the one to watch most closely now.** No bullish Mode B setup (broad risk-off). §19 LEAPS / §22 leveraged-ETF: no new candidate.
+
+**Mode C (§20):** 0 positions, $0 P&L today. Stop-audit: nothing to audit. No qualifying setup. **OBSERVE.**
+
+**Portfolio heat:** CBRS at breakeven-or-better, $0. Heat ≈0%.
+
+**Conclusion: OBSERVE — no trade.** CBRS stop ratcheted to $9.82.
+
+```json
+{
+  "cycle": "Mode B/C Hourly Scan",
+  "timestamp_utc": "2026-10-22T17:55:24Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 1, "breached": 0, "exited": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
