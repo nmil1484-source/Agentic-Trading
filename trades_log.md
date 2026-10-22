@@ -43318,3 +43318,55 @@ All 8 pairs still negative on the day, decline deepening slightly vs. last cycle
   "git_push": "success"
 }
 ```
+
+## 2026-10-22 13:38:03Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`)
+
+**STEP 0 gate check:** git HEAD synced with origin at `99fed33` prior to this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase issued.
+
+**MATERIAL EVENT DISCOVERED — CRCL resting stop filled at the regular-session open (gap-rule exit, §16 item 4).** This is a Mode B equity position, not a crypto-lane event — flagged here because it was discovered while pulling account data for this cycle's portfolio-heat check, and the weekday Mode B/C trigger has not yet fired today (first scan due ~14:00-14:07 UTC). Full detail for the permanent Mode B record:
+- **Order:** id `6ad8e172-9f86-45d9-bcd5-3c2b23f1c768`, stop_market sell, stop_price $89.40, trigger: stop, market_hours: regular_hours, state: filled.
+- **Fill:** 29 shares @ avg $85.60, executed 2026-10-22T13:30:02.152Z — the instant regular trading opened (9:30:02am ET).
+- **Context:** CRCL's after-hours price had been testing below the $89.40 stop for several cycles overnight (last documented after-hours print ≈$85.21-85.69 at the 08:37/09:38 cycles) without triggering, since the resting order is regular-hours-only. The regular session opened with price still at that depressed level, so the stop fired immediately at market **and filled below its own trigger price** — the gap-through scenario flagged repeatedly across the overnight cycles.
+- **P&L:** entry 29 sh @ $90.8446 (2026-10-21, cost $2,634.49) vs. exit 29 sh @ $85.60 (proceeds $2,482.34 net of $0.06 fees) → **realized loss ≈ $152.15**. Slippage vs. the documented $89.40 stop level: $3.80/share × 29 = **$110.20** of additional loss beyond a theoretical fill at the stop — a real, concrete illustration of regular-hours-only stop gap risk.
+- **Circuit breaker check:** this is the account's 1st stop-out today (Mode B/C/crypto combined) — the §6 same-day 2-stop-out cooldown is NOT triggered (threshold is 2). No other circuit breaker active.
+- Mode B equity_count now 0 (no open Mode B equity positions). The next Mode B/C cycle will log this independently with a full Trade Card; this entry exists so the record isn't silent on the gap between discovery and that cycle's own log.
+
+**CBRS (§18 options) note, also discovered this cycle, for the next Mode B/C options-stop-check:** options_value is now $1,010 (mark ≈$10.10/contract), up sharply from $8.50 last cycle — a new peak. Current documented stop remains at $6.055 (last ratchet) — unchanged this cycle since the options-stop-check/ratchet action belongs to the Mode B/C trigger, not this one. Flagging that the next Mode B/C cycle should ratchet to 30% below the new peak (≈$7.07) per §18 item 4.
+
+**Account snapshot (`get_portfolio`, 748688058):** total_value $6,928.40 (up from $6,771.65 — the CRCL loss was more than offset by CBRS's appreciation and no other change), equity_value $0 (CRCL position closed), options_value $1,010 (CBRS), crypto_value $0, cash $5,918.40. `get_crypto_positions` confirms 0 open crypto positions — 0 of 2 concurrent-position cap used, no stop-audit needed.
+
+**Cross-mode circuit breakers:** SPY $767.06 vs. prior close $773.09 (-0.78%) — no shock. QQQ $713.54 vs. prior close $725.20 (-1.61%) — this is an overnight/opening gap vs. yesterday's close, not a single-hour move between two intraday checks (markets just opened, no prior intraday reading exists yet today), so the literal §6 inter-cycle shock-pause mechanism doesn't cleanly apply here — but it's flagged as real market stress consistent with the crypto basket's own overnight weakness. No new crypto entry was going to occur this cycle regardless (no candidate clears the gate), so this doesn't change today's outcome.
+
+**§21 crypto screen — all 8 allowlisted pairs vs. today's open_price:**
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC-USD | 81,644.86 | 82,857.74 | -1.46% |
+| ETH-USD | 2,403.53 | 2,442.585 | -1.60% |
+| SOL-USD | 104.70 | 105.4405 | -0.70% |
+| XRP-USD | 1.32536 | 1.34434 | -1.41% |
+| LINK-USD | 12.0272 | 12.25979 | -1.90% |
+| AAVE-USD | 147.18 | 150.25 | -2.04% |
+| HBAR-USD | 0.080884 | 0.0825604 | -2.03% |
+| AVAX-USD | 9.2087 | 9.366025 | -1.68% |
+
+All 8 pairs negative, consistent with overnight trend — no candidate clears the §21 gate.
+
+**Portfolio heat:** CBRS open-risk vs. its current documented stop ($6.98 entry − $6.055 stop) × 100 = $92.50 (≈1.33% of equity); no open Mode B equity position (CRCL just closed); no crypto position. Aggregate heat ≈1.33% of equity, well inside the 6% cap — ample headroom, moot since no candidate qualifies.
+
+**Conclusion: OBSERVE — no new crypto trade.** Material event this cycle is the CRCL stop-out (Mode B), not a crypto action.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-22T13:38:03Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [{"symbol": "CRCL", "reason": "gap-rule stop fill at regular-session open (resting stop $89.40, filled $85.60)", "realized_pl": -152.15}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
