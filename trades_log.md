@@ -43620,3 +43620,45 @@ All 8 pairs negative, HBAR now the weakest (-2.94%). No candidate clears the §2
 - **Tradeoff disclosed**: this materially raises the odds of being stopped out on an ordinary pullback/bounce in CBRS's underlying, in exchange for protecting more of the already-large unrealized gain (+63% at the $11.40 peak). No change to the entry, quantity, or the 5-trading-session-before-expiration time-stop backstop.
 - **Carries forward**: every subsequent Mode B/C cycle's §18 options-stop-check (step 2b) will ratchet this position's stop at **15% below each new peak**, not 30%, until the user says otherwise. If CBRS makes a new peak above $11.40, the stop recomputes as 0.85 × that new peak.
 - Not an order placed or modified at the broker — §18's documented-stop mechanic has no resting order for options; this is a tracked risk parameter, checked and compared manually every cycle, same mechanism as before, just tighter.
+
+## 2026-10-22 16:38:16Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`)
+
+**STEP 0 gate check:** git HEAD synced with origin at `0234cf2` prior to this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase issued.
+
+**Account snapshot (`get_portfolio`, 748688058):** total_value $7,023.40, equity_value $0, options_value $1,105 (CBRS, mark ≈$11.05 — below its $11.40 peak, not a new high; well above the just-tightened $9.69 stop, see the user-instructed override logged above), crypto_value $0, cash $5,918.40. 0 open crypto positions — 0 of 2 concurrent-position cap used, no stop-audit needed.
+
+**Circuit breakers:** 1 stop-out today — cooldown not triggered. SPY $763.995 vs. prior close $773.09 (-1.18%); QQQ $708.01 vs. prior close $725.20 (-2.37%) — little changed vs. the last cycle (SPY -1.09%, QQQ -2.20%), no shock.
+
+**§21 crypto screen — all 8 allowlisted pairs vs. today's open_price:**
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC-USD | 81,455.83 | 82,857.74 | -1.69% |
+| ETH-USD | 2,388.16 | 2,442.775 | -2.24% |
+| SOL-USD | 104.28 | 105.4405 | -1.10% |
+| XRP-USD | 1.32451 | 1.344455 | -1.52% |
+| LINK-USD | 11.977 | 12.25979 | -2.31% |
+| AAVE-USD | 146.79 | 150.25 | -2.30% |
+| HBAR-USD | 0.080266 | 0.0825604 | -2.78% |
+| AVAX-USD | 9.1619 | 9.366025 | -2.18% |
+
+All 8 pairs negative, basket deepening slightly vs. the last cycle. No candidate clears the §21 gate.
+
+**Portfolio heat:** CBRS at breakeven-or-better (new $9.69 stop still above $6.98 entry) — contributes $0. No other positions. Heat ≈0%.
+
+**Conclusion: OBSERVE — no trade.**
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-22T16:38:16Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
