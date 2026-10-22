@@ -42867,3 +42867,45 @@ No new catalyst. No candidate clears the §21 gate.
   "git_push": "pending"
 }
 ```
+
+## 2026-10-22 02:37:31Z — AUTONOMOUS (Crypto 24/7 Scan §21, trigger `trig_01UUXAtYHjn7nBgzkdvZU4Rv`) — **basket reversed + CRCL gap widening**
+
+**STEP 0 gate check**: git fetch confirmed local HEAD matching origin at `0ae2887` before this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase present. Proceeding.
+
+**Account snapshot**: total_value $6,808.19, cash $3,436.06, equity_value $2,522.13 (CRCL), options_value $850 (CBRS). 0 of 2 crypto-position cap used.
+
+**CRCL gap update — widening, flagged more strongly this cycle**: after-hours price now **$86.97-86.99** (02:38 UTC), down **-3.05%** from yesterday's regular-session close of $89.71 and well below the $89.40 resting stop (still `regular_hours`-only, still `state: confirmed`/unfilled, position still open per `get_equity_positions`). This is no longer a marginal dip — if CRCL opens anywhere near this level during tomorrow's regular session, **§16 item 4's gap rule applies directly and unambiguously**: exit the full position at the earliest eligible execution, do not wait for a bounce or for the stale $89.40 stop to catch it. This is now the single most important item for the next Mode B/C cycle (first-scan-of-day, ~14:00-14:07 UTC).
+
+**§21 crypto screen — basket has reversed from green to flat/red**, a real shift from every prior cycle tonight:
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC-USD | 82,878.09 | 82,647.64 | +0.28% |
+| ETH-USD | 2,440.74 | 2,442.03 | -0.05% |
+| SOL-USD | 105.41 | 105.75 | -0.31% |
+| XRP-USD | 1.3456 | 1.3309 | +1.10% |
+| LINK-USD | 12.316 | 12.313 | +0.01% |
+| AAVE-USD | 150.34 | 154.98 | **-2.99%** |
+| HBAR-USD | 0.08277 | 0.08334 | -0.68% |
+| AVAX-USD | 9.354 | 9.690 | **-3.47%** |
+
+No §21 circuit breaker triggered mechanically (no stop-outs today, equity shock-check inapplicable overnight), but this reversal is worth naming plainly: AAVE and AVAX both down ~3%, erasing a meaningful chunk of the overnight rally. No bearish/short mechanism exists in §21 (spot-long-only) — this is pure context, not an actionable signal for this lane. No candidate clears the §21 entry gate.
+
+**Portfolio heat**: CBRS ≈$104.70 (1.54%) + CRCL ≈$41.89 (0.62%, stop unchanged) ≈ **2.16% of equity**, ≈3.84% headroom.
+
+**Conclusion**: OBSERVE on crypto, no trade. CRCL gap-risk flag escalated for tomorrow's first equity cycle.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-22T02:37:31Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
