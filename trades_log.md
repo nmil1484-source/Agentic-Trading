@@ -43558,3 +43558,54 @@ All 8 pairs negative, HBAR now the weakest (-2.94%). No candidate clears the §2
   "git_push": "success"
 }
 ```
+
+## 2026-10-22 15:56:17Z — AUTONOMOUS (Mode B/C Hourly Scan, trigger `trig_01KrBsTt9mssjU4hPGtM3cBe`)
+
+**STEP 0 gate check:** git HEAD synced with origin at `0d0769f` prior to this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase issued. Not the STEP 0.5 final cycle.
+
+**Account snapshot:** total_value $7,053.40, equity_value $0, options_value $1,135 (CBRS), crypto_value $0. 0 Mode B equity positions, 0 Mode C positions.
+
+**Circuit breakers:** 1 stop-out today — cooldown not triggered. SPY $764.64 vs. prior close $773.09 (-1.09%); QQQ $709.23 vs. prior close $725.20 (-2.20%) — slight continued bounce off the lows, no shock.
+
+**§18/§19 options stop-check (2b):** CBRS mark $11.35 (down slightly from last cycle's $11.40 peak — not a new high, no ratchet). Documented stop remains $7.98 (set off the $11.40 peak). Mark $11.35 vs. stop $7.98 — not breached. No action.
+
+**Mode B §5B Bearish Mirror Gate — NBIS/IREN/CRWV/CORZ, first full hourly bar (14:00-15:00Z) now closed:**
+| Ticker | Hourly close | Recent swing low | Confirmed breakdown? |
+|---|---|---|---|
+| NBIS | $160.24 | $160.25 (10/20) | **No — essentially at the level** ($0.01 difference, within noise), close recovered off the hour's $159.19 low. Not a clean confirmation. |
+| IREN | $25.205 | $25.59 (10/20) | **Yes — decisive close below**, a fresh multi-week low (hour's low $25.06). |
+| CRWV | $57.38 | $57.235 (10/20) | No — close recovered back above the level (hour's low $57.12 dipped through intra-bar only). |
+| CORZ | $13.44 | $13.18 (10/20) | No — well above, hasn't threatened the level. |
+
+**IREN clears the full Bearish Mirror Gate on confirmation/catalyst/timing:**
+- Catalyst ✓ (Reuters neocloud/AI-debt-fears story, today, names IREN directly).
+- Confirmation groups: **Trend/State** ✓ (price ~$25.2 well below declining EMA9 ~$30.5); **Location** ✓ (confirmed hourly close below the 10/20 swing low, fresh multi-week low); **Relative weakness** ✓ (IREN -9.5% today vs. SPY -1.1%/QQQ -2.2% — a specific, severe underperformance); **Momentum** (RSI 24-28 over the last 3 days, deeply oversold and falling) ✓. Four of five groups — well past the 2-of-5 floor.
+- Timing ✓ (15:56 UTC, outside first/last 15 min; no CPI/FOMC/NFP-class event within 30 min). Next earnings 2026-11-05 (tentative), 14 days out — inside a 21-75 DTE option's life, a real event-risk factor disclosed below, not itself disqualifying.
+- Daily setup + hourly trigger ✓ (multi-week downtrend; confirmed hourly close through support).
+
+**R:R on the put's own economics — NOT clearly established, trade withheld.** Pulled the `IREN` 2026-11-20 (29 DTE) put chain: $19 strike (delta -0.224, $1.325 mark), $20 (delta -0.266, $1.655), $21 (delta -0.311, $2.035), $22 (delta -0.357, $2.47) — all comfortably fit the 12%-of-equity premium cap (~$846 max) for 1 contract. Computed reward using a straightforward intrinsic-value-at-target method for a near-term (~1-2 week) target of $21.50-23 (a continuation of today's move, not an extreme projection): reward came out **well under** the premium paid at every strike checked (≈0.3-1:1), not clearing the ≥1.5:1 floor. A more aggressive 29-day target ($19-20, a round support level) could plausibly clear 1.5:1 given the stock's realized volatility (-30% in the last 10 sessions already), but that relies on a materially more aggressive assumption than the near-term continuation already priced into the setup, and isn't a reward-to-risk figure I can defend as "computed," only "assumed." **Per §5B item 4 / §18 item 2's flat ≥1.5:1 floor (no exception for a strong catalyst/technical read alone), declining to force this trade on an uncertain R:R estimate.** Holding IREN as OBSERVE — will reassess with fresh pricing next cycle; if the stock extends further (improving intrinsic value at a defensible nearer-term target) or a cleaner target emerges, this could clear cleanly within 1-2 more cycles.
+
+**§19 LEAPS / §22 leveraged-ETF sourcing:** no new candidate.
+
+**Mode C (§20):** 0 positions, $0 P&L today. Stop-audit: nothing to audit. No qualifying setup — still broadly risk-off, no clean intraday reversal structure. **OBSERVE.**
+
+**Portfolio heat:** CBRS at breakeven-or-better, $0. No other positions. Heat ≈0%.
+
+**Conclusion: OBSERVE — no trade in Mode B or Mode C.** IREN is the clearest bearish candidate on record this session but is being held on R:R discipline, not entered on a marginal/assumed number.
+
+```json
+{
+  "cycle": "Mode B/C Hourly Scan",
+  "timestamp_utc": "2026-10-22T15:56:17Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 1, "breached": 0, "exited": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
