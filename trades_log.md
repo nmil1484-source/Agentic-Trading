@@ -43662,3 +43662,54 @@ All 8 pairs negative, basket deepening slightly vs. the last cycle. No candidate
   "git_push": "success"
 }
 ```
+
+## 2026-10-22 16:56:11Z — AUTONOMOUS (Mode B/C Hourly Scan, trigger `trig_01KrBsTt9mssjU4hPGtM3cBe`)
+
+**STEP 0 gate check:** git HEAD synced with origin at `c02664e` prior to this cycle. CLAUDE.md §14 Status = ACTIVE. No kill phrase issued. Not the STEP 0.5 final cycle.
+
+**Account snapshot:** total_value $7,063.40, equity_value $0, options_value $1,145 (CBRS), crypto_value $0. 0 Mode B equity positions, 0 Mode C positions.
+
+**Circuit breakers:** 1 stop-out today — cooldown not triggered. SPY $763.36 vs. prior close $773.09 (-1.26%); QQQ $706.22 vs. prior close $725.20 (-2.62%) — continuing to deepen, but the move since the last cycle (SPY -0.17%, QQQ -0.42%) stays well under the 1.5% single-cycle shock threshold.
+
+**§18/§19 options stop-check (2b):** CBRS mark **$11.45 — a new peak** (above the prior $11.40). Per the user's explicit 2026-10-22 instruction, this position uses a **15%-below-peak** trailing stop (not the standard 30%), going forward until the user says otherwise. Ratcheting: **new stop = 11.45 × 0.85 = $9.7325 → $9.73** (up from $9.69). Mark $11.45 vs. stop $9.73 — not breached. No action.
+
+**Mode B §5B Bearish Mirror Gate — NBIS/IREN/CRWV/CORZ, second hourly bar (15:00-16:00Z) now closed too:**
+| Ticker | 1st hr close | 2nd hr close | vs. swing low | Status |
+|---|---|---|---|---|
+| NBIS | $160.24 | $160.01 | $160.25 (10/20) | Still hovering right at the level — no clean confirmation either way. |
+| IREN | $25.205 | $25.58 | $25.59 (10/20) | **Bounced back up** toward the level — the breakdown weakened, not strengthened, this hour. |
+| CRWV | $57.38 | $56.83 | $57.235 (10/20) | **Confirmed breakdown** — second consecutive close lower, now clearly through support. Current (16:56): $56.12, -9.2% today. |
+| CORZ | $13.44 | $13.40 | $13.18 (10/20) | Still well above, no confirmation. |
+
+**CRWV now the strongest bearish candidate** — re-ran the full gate: catalyst ✓ (same Reuters neocloud/AI-debt-fears story, directly names CRWV; reinforced by independent color from a shared macro-lab session citing a ~50-60% 5-year default probability and ~16% bond yield on CoreWeave specifically — logged as corroborating context per §9, not a separate catalyst). Confirmation groups: Trend/State ✓ (price $56.12 deeply below declining EMA9 ~$68.3/EMA20 ~$75.3/50-SMA ~$85.35), Location ✓ (confirmed 2-bar breakdown through the 10/20 swing low), Relative weakness ✓ (CRWV -9.2% vs. SPY -1.26%/QQQ -2.62%) — 3+ groups, clears 2-of-5. Earnings 2026-11-09 (18 days out, inside a 21-75 DTE option's life — disclosed event risk, not disqualifying). Timing clear.
+
+**R:R on the put's own economics — checked carefully, still does not clear 1.5:1.** Pulled the CRWV 2026-11-20 (29 DTE) put chain, strikes $50-$62, deltas -0.30 to -0.56, all affordable under the 12%-of-equity cap. Computed reward two ways for a realistic near-term (~11% further decline) target of $50:
+- **Intrinsic-value-at-target method** (conservative, ignores remaining time value): every strike checked showed reward at or below the premium paid — R:R ≤1:1 across the board (e.g., $58 strike, premium $8.225, intrinsic at $50 target = $8.00 → already a loss on this method alone).
+- **Delta-gamma (2nd-order Taylor) approximation** (more realistic, accounts for convexity as the option moves further ITM): $55 strike, delta -0.409, gamma 0.022306, premium $6.20 → estimated value at $50 target ≈ $6.20 + [(-0.409)(-6.12) + 0.5(0.022306)(6.12)²] ≈ $9.12, reward ≈$2.92/share vs. $6.20 risk → **R:R ≈0.47:1**. Even allowing for upside bias from IV expansion in a continued selloff (not quantified), this is well short of 1.5:1.
+
+**Conclusion: CRWV technically/catalyst-qualifies but is held on the same R:R discipline as IREN.** Both near-term-target methods land materially below the floor — this isn't a marginal/close call like IREN's earlier check, it's a clearer miss. Not pursuing this cycle. Will keep monitoring; a cheaper premium (IV compression) or a materially lower target becoming defensible (further technical deterioration) could change this.
+
+**§19 LEAPS / §22 leveraged-ETF sourcing:** no new candidate.
+
+**Mode C (§20):** 0 positions, $0 P&L today. Stop-audit: nothing to audit. No qualifying setup. **OBSERVE.**
+
+**Portfolio heat:** CBRS at breakeven-or-better, $0. No other positions. Heat ≈0%.
+
+**Conclusion: OBSERVE — no trade in Mode B or Mode C.** CBRS stop ratcheted to $9.73 under the user's tightened (15%) rule for this position only.
+
+```json
+{
+  "cycle": "Mode B/C Hourly Scan",
+  "timestamp_utc": "2026-10-22T16:56:11Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 1, "breached": 0, "exited": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
