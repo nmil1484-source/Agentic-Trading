@@ -43609,3 +43609,14 @@ All 8 pairs negative, HBAR now the weakest (-2.94%). No candidate clears the §2
   "git_push": "success"
 }
 ```
+
+## 2026-10-22 ~15:58Z — USER-INSTRUCTED: CBRS trailing-stop tightened (manual override, this position only)
+
+**User instruction, via direct chat request and clarifying questions**: tighten the CBRS trailing stop to protect more of the current unrealized gain, rather than the standard §18 item 4 30%-below-peak rule. User selected **15% below peak**, applied immediately and **going forward for all future ratchets on this specific CBRS position** (not a change to §18's general 30% rule for other/future options positions — scoped to this one position only, per explicit user instruction).
+
+- Current peak: $11.40 (set at the 14:56 UTC cycle).
+- **New stop: 15% below peak = $11.40 × 0.85 = $9.69** (up from the standard-rule $7.98 that was in force).
+- Locks in ≈+38.8% over the $6.98 entry if hit, vs. ≈+14.3% under the old 30% rule.
+- **Tradeoff disclosed**: this materially raises the odds of being stopped out on an ordinary pullback/bounce in CBRS's underlying, in exchange for protecting more of the already-large unrealized gain (+63% at the $11.40 peak). No change to the entry, quantity, or the 5-trading-session-before-expiration time-stop backstop.
+- **Carries forward**: every subsequent Mode B/C cycle's §18 options-stop-check (step 2b) will ratchet this position's stop at **15% below each new peak**, not 30%, until the user says otherwise. If CBRS makes a new peak above $11.40, the stop recomputes as 0.85 × that new peak.
+- Not an order placed or modified at the broker — §18's documented-stop mechanic has no resting order for options; this is a tracked risk parameter, checked and compared manually every cycle, same mechanism as before, just tighter.
