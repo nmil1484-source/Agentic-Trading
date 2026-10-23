@@ -44933,3 +44933,27 @@ Deeper than the last cycle across LINK/AAVE/HBAR/AVAX, despite equities recoveri
   "git_push": "success"
 }
 ```
+
+## 2026-10-23 ~15:58 UTC — ADMIN CORRECTION (§16 item 16 tally updated, retroactive gap found)
+
+**Gap found while updating the tally for today's CBRS exit:** the 2026-10-22 CRCL gap-rule stop-out
+(-$152.15 realized loss, logged in full at 13:38 UTC that day) never updated the §16 item 16
+profit-factor/win-rate tally — no tally table was posted between the 2026-10-15 PLTR correction
+and today. Fixing both in one update now, carried forward from the last logged table (2026-10-15:
+Mode B 15W/12L $220.41/$454.91 PF 0.48; Mode C 1W/0L $0.87/$0.00; Crypto 2W/12L $66.35/$287.11 PF
+0.23; Combined 18W/24L $287.63/$742.02 PF 0.39):
+
+| Mode | Wins | Losses | Win rate | Gross profit | Gross loss | Profit factor |
+|---|---|---|---|---|---|---|
+| Mode B | **16** | **13** | **55.2%** | **$462.41** | **$607.06** | **0.76** |
+| Mode C | 1 | 0 | 100% | $0.87 | $0.00 | — |
+| Crypto | 2 | 12 | 14.3% | $66.35 | $287.11 | 0.23 |
+| **Combined** | **19** | **25** | **43.2%** | **$529.63** | **$894.17** | **0.59** |
+
+**Read plainly:** Mode B's profit factor recovers meaningfully (0.48 → 0.76) on today's CBRS win
+(+$242.00, the account's largest single realized gain on record) but remains below breakeven —
+the CRCL loss (-$152.15) the same week partly offsets it. Combined profit factor also improves
+(0.39 → 0.59) but the account is still net-losing across every realized exit to date. Crypto and
+the broader picture are unchanged by today's events. Per §23 (Rule-Change Cadence Lock, added
+2026-10-15), no risk-sizing/cap/threshold change is being proposed off this single data point —
+Mode B has not yet logged 30 new closed trades under the 2026-10-15 revised rules.
