@@ -446,6 +446,24 @@ per §5B — the ordering below is unchanged by the mode refactor.)
 
 2. FTA Regime Dashboard (macro risk gate)
    https://fta-regime-dashboard.onrender.com/
+   - **Access method, corrected 2026-10-24 (see §12 change log).** This page is a client-side
+     (JavaScript-rendered) app — a plain page-fetch tool that doesn't execute JS only ever sees the
+     loading shell ("Regime Read: Loading...", "Regime Signal: --"), which is exactly what produced
+     this session's unbroken run of UNKNOWN_DEGRADED classifications. **The dashboard was never
+     actually down or unavailable** — its data has been live and current the entire time, served
+     from `https://fta-regime-dashboard.onrender.com/api/dashboard-data` (plain JSON, no auth,
+     confirmed reachable via a direct HTTP fetch) alongside companion endpoints
+     (`/api/sector-breadth`, `/api/inflation-model`, `/api/regime-engine`, `/api/scorecard`,
+     `/api/credit-funding`, `/api/structural-risk`, `/api/regional-surveys`,
+     `/api/correlation-explorer`). **Check this JSON endpoint directly (e.g., via a Bash `curl`)
+     instead of fetching the HTML page going forward** — a tool that renders the live page (or a
+     JSON-aware fetch) also works; the HTML-only path is what was actually broken, not the data
+     source. `dashboard-data`'s `regime.call` field is the live classification (a short read like
+     "cautious", not a flat GREEN/RED label — map it to the existing bullish/neutral/bearish
+     framework by its plain-English meaning) alongside `inflation`, `macro` (CFNAI, GDPNow, ISM
+     history, HY OAS, Fed balance sheet), `regime_signals` (rates, FX, hard assets, volatility), and
+     `sectors` (sector-ETF YTD performance, see item 10 below). Classify UNKNOWN_DEGRADED only when
+     this JSON endpoint itself is actually unreachable or errors — not from the HTML shell alone.
 
 3. FTA Research Hub (fundamental and thesis research)
    https://marileegrace.github.io/fta-research-hub/
@@ -535,6 +553,31 @@ per §5B — the ordering below is unchanged by the mode refactor.)
    reviewed and the query time in the Trade Card/`trades_log.md` when they factored into a
    decision, same discipline as every other source.
 
+10. **Sector Rotation Context (soft tilt only) — added 2026-10-24 at explicit user instruction**,
+    prompted by the user sharing FTA Regime Dashboard screenshots (Inflation & Rates / Growth /
+    Liquidity views) and asking whether the system should "adjust for these rotations." **Scoped
+    narrowly, per the user's explicit choice between a soft tilt and a new hard gate**: this is a
+    discretionary research input only, same tier as §8 item 8 (politician trades) and §8 item 9
+    (news/sentiment) — it never relaxes, substitutes for, or blocks any §5B/§18/§19/§20/§21 gate
+    requirement, and it is not itself a catalyst or technical confirmation.
+    - **Source**: the FTA Regime Dashboard's `/api/sector-breadth` endpoint and the `sectors` array
+      in `/api/dashboard-data` (item 2 above) — sector-ETF YTD performance (XLE, XLK, XLV, XLP,
+      XLB, XLRE, XLI, XLF, XLU, XLY, XLC). Read per item 2's corrected JSON-endpoint access method.
+    - **Use**: when triaging watchlist.md each Mode B/C cycle, treat a candidate's sector as a
+      secondary prioritization signal, not a filter — all else equal, a name in a leading sector
+      (cyclicals/growth outperforming, e.g. Energy/Technology/Health Care when those lead YTD) gets
+      looked at before a name in a lagging/defensive-led sector, and a defensive-sector name
+      screened under a cyclical-leading regime is a reason for extra scrutiny of its catalyst, not
+      an automatic pass or fail. This never overrides §5B's own bullish/bearish technical and
+      catalyst requirements — a leading-sector name still has to clear the full gate, and a
+      lagging-sector name that genuinely clears the gate is not rejected for its sector alone.
+    - **Logging**: when sector context factored into prioritizing or deprioritizing a candidate
+      this cycle, note the sector, its YTD rank, and the access timestamp on the Trade Card /
+      `trades_log.md`, same discipline as every other §8 source.
+    - **Not adopted, per the user's explicit choice**: a new binding sector-rotation gate or
+      sizing rule (the alternative offered alongside this soft-tilt option) — this remains purely
+      advisory, with no §12-logged numeric threshold of its own.
+
 ## 9. Source integrity rule
 - Do not treat YouTube titles, social-media posts, or prediction-market odds as a primary trade signal.
 - Use them only as context after checking the approved sources, price/volume data, and a verifiable catalyst.
@@ -567,6 +610,32 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-24: User shared FTA Regime Dashboard screenshots (phone app view, showing live
+  Inflation & Rates / Growth / Liquidity data) and asked whether the system should "adjust for
+  these rotations."** This surfaced a session-spanning tooling gap, found and fixed in the same
+  exchange: every FTA Regime Dashboard check this entire session (logged throughout `trades_log.md`
+  as UNKNOWN_DEGRADED) was checking the page via a plain HTML fetch, which only ever sees the
+  client-rendered loading shell ("Regime Read: Loading...") because the dashboard is a JavaScript
+  app. **The dashboard was never actually down** — its data has been live the whole time, served as
+  plain JSON (no auth) from `/api/dashboard-data` and sibling endpoints, confirmed by a direct HTTP
+  fetch during this exchange that returned a full live reading (current regime call "cautious",
+  inflation, liquidity, macro, sector YTD performance, etc.). §8 item 2 corrected to document the
+  JSON-endpoint access method going forward — UNKNOWN_DEGRADED should now only ever be classified if
+  that endpoint itself is unreachable, not from the HTML shell alone. **No past trade was affected**
+  (Mode A has never been authorized to execute, and no Mode B whole-share swing entry was ever
+  placed/sized under the UNKNOWN_DEGRADED reduced-size sub-cap this session), but every prior
+  UNKNOWN_DEGRADED log entry should be read as a tooling artifact, not a genuine data outage.
+  **Two choices offered and selected by explicit user instruction:**
+  1. **Scope of the sector-rotation adjustment: soft screening tilt chosen over a new binding
+     gate.** New §8 item 10 (Sector Rotation Context) — sector YTD performance from this same
+     dashboard is now a discretionary prioritization input when triaging watchlist.md each cycle
+     (favor leading-sector candidates, add scrutiny to lagging-sector ones), same tier as the
+     existing politician-trades/news-sentiment inputs — never a gate, never a catalyst or technical
+     confirmation substitute. The declined alternative (a new hard sector-rotation filter/sizing
+     rule, weighted like the FTA Regime Dashboard mechanic in §6) was not adopted.
+  2. **Cadence: standing per-cycle source chosen over a one-off look.** This is now checked every
+     eligible Mode B/C screening cycle via the corrected §8 item 2 access method, not just reviewed
+     this one time.
 - **2026-10-15: User instructed a batch of risk/gate-restructuring changes across Mode B and
   crypto, following a deep-research pass this session into why the system's combined profit factor
   had fallen to 0.39 (net-losing across 42 realized trades).** Prompted directly by the user asking
