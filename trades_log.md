@@ -50561,3 +50561,49 @@ User issued the exact confirmation phrase `CONFIRM ORDER: BUY 154 SOFI LIMIT 16.
   "git_push": "success"
 }
 ```
+
+---
+### 2026-10-28T15:39:22Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
+
+**STEP 0 — Gate check:** §14 Status = ACTIVE. No kill phrase since last cycle. Proceeding. (Note: this trigger's stored prompt text is stale — references a 7-coin allowlist, 2-of-6 confirmations, 2:1 R:R, 15% per-position cap. Read live from CLAUDE.md instead: 8 coins incl. AVAX, 1-of-6 confirmations (loosened 2026-10-28), 1.5:1 R:R (loosened 2026-10-28), 30% per-position cap, ADX regime filter removed 2026-10-28, 2-concurrent-position cap.)
+
+**Account state:** total_value $6,540.67 (equity_value $2,595.67 — the SOFI position opened manually this cycle window, cash $3,945.00). `get_crypto_positions`: 0 open crypto positions.
+
+**Circuit breakers:** Same-day 2-stop-out cooldown — N/A, no stop-outs today. Market-shock check — SPY $771.48 vs. prior close $769.66 (+0.24%), QQQ $722.43 vs. $721.25 (+0.16%) — no shock, clear. 3%-equity-decline — N/A. MCP reconciliation — clean.
+
+**Portfolio heat cap (§3):** 1 open position account-wide (SOFI, Mode B, manual entry this window) — current open risk $30.80 (not yet at breakeven: entry $16.8399, stop $16.70, current price ~$16.84-16.85, +1R not yet reached at ~$16.98). $30.80 against the 6%-of-equity cap ($392.44) — **$361.64 headroom remaining** for any new crypto entry this cycle.
+
+**Stop-audit (§21 item 5):** N/A — no open crypto positions.
+
+**Allowlist screen** (`get_crypto_quotes`, mark vs. today's `open_price`):
+
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC | 80,527.92 | 81,037.215 | -0.63% |
+| ETH | 2,331.39 | 2,357.065 | -1.09% |
+| SOL | 100.9588 | 101.901 | -0.92% |
+| XRP | 1.311318 | 1.335059 | -1.78% |
+| LINK | 11.56292 | 11.738485 | -1.50% |
+| AAVE | 132.8343 | 135.1475 | -1.71% |
+| HBAR | 0.075799 | 0.0767687 | -1.26% |
+| AVAX | 8.877884 | 9.02095 | -1.59% |
+
+**Narrative:** Still broadly red across all 8 pairs, a continuation of the multi-hour decline — modestly less severe than the last cycle's deepest point but no pair shows anything resembling a bullish base, even under today's loosened 1-of-6 confirmation floor. No catalyst identified for any pair. No trade.
+
+**Status: OBSERVE, no trade.** No order placed. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: clear, $361.64 headroom.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-28T15:39:22Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
