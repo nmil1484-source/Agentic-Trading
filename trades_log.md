@@ -50358,3 +50358,8 @@ Basket drifting mildly red across the board after the rollover, no dispersion. N
   "git_push": "success"
 }
 ```
+
+---
+### 2026-10-28 (user confirmation, in-chat) — Cash discrepancy resolved
+
+User confirmed in chat that the $320.00 cash decrease flagged in the 14:23:33Z first-scan-of-day entry above (account total_value/cash $6,858.34 → $6,538.34) was their own withdrawal, unrelated to any trading activity (explicitly noted: no trade has been placed in ~5 days). This matches the presumption already logged under §6's cash-only discrepancy rule — positions/orders were otherwise fully consistent (0 of each), so no pause in new-entry authority was triggered and none is warranted now. Logged for the record; no other action required.
