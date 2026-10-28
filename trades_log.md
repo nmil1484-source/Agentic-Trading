@@ -50509,3 +50509,55 @@ mechanics, mandatory same-day flatten, ATR-based stop computation — same scope
 Mode B/crypto change earlier today. Drive-by corrected two pre-existing stale cross-references
 (a "3-concurrent" reference in the reject list and in §7's Trade Card format) that predated
 today's change — both now read the current number.
+
+---
+### 2026-10-28T15:39Z — MANUAL (user CONFIRM ORDER, in-chat) — SOFI entry
+
+**STRATEGY: SWING_TRADING**
+
+User issued the exact confirmation phrase `CONFIRM ORDER: BUY 154 SOFI LIMIT 16.90` in response to a Trade Card presented earlier this cycle (from the "check everything" manual account review).
+
+**Fill:** BUY 154 SOFI @ limit $16.90 — filled in full at avg price **$16.8399**, total cost **$2,593.34**. Order id `6ae21717-143d-4c8a-9c9e-f65632a8782c`, state filled, 0 fees.
+
+**Catalyst:** SOFI Q3 earnings beat, reported 2026-10-27 (am), EPS $0.18 actual vs. $0.17 estimate — verified via Robinhood `get_earnings_results`.
+
+**§5B item 3 confirmations (3 of 5 distinct role-groups, clears the 2026-10-28-loosened 1-of-5 floor comfortably):**
+- Trend/State — price above both 9-day EMA ($15.09) and 20-day EMA ($15.35) as of 10/27 close, 9>20 bullish alignment.
+- Momentum — RSI 57.5 and improving; MACD histogram positive and strengthening (0.008 → 0.138 over two sessions).
+- Volume — 10/27 volume 160,995,075 vs. ~35-50M normal (~3-4x).
+
+**§5B item 7 — daily setup + hourly trigger:**
+- Daily setup: the 10/27 earnings-gap-and-hold session (gapped $14.46→open $15.98, closed $16.40, high-volume).
+- Hourly trigger: the 15:00-15:30 UTC 30-min bar closed $16.855 (up from the bar's own $16.745 open), reclaiming the prior bar's close and holding a tested double-bottom at $16.730 (touched on both the 14:00-14:30 and 14:30-15:00 bars) — a support-hold-and-reclaim pattern following the morning's post-earnings spike-and-fade.
+
+**Reward-to-risk:** Entry $16.90, stop $16.70, target $17.25 (today's already-tested intraday high) → **R:R = 1.75:1**, clears the 2026-10-28-lowered 1.3:1 floor.
+
+**Sizing:** Per-trade risk budget (2% of $6,538.34 = $130.77 → 653 shares) vs. 40%-of-equity position cap ($2,615.34 → 154 shares) — the smaller (position cap) governed. Final: 154 shares, max planned loss at stop ≈ **$30.80** (well under the 2% risk budget — the binding constraint here was the dollar allocation cap, not the risk-per-trade formula).
+
+**Portfolio heat cap:** $0 prior open risk (0 positions anywhere) + this trade's $30.80 risk = $30.80, far under the 6%-of-equity ($392.30) cap.
+
+**Sector/theme:** Fintech/consumer lending — 1 of 3 allowed per the 2026-10-28-raised correlation cap, no conflict (0 other positions).
+
+**Settled cash:** $6,538.34 total, 100% cash, fully settled, no restrictions — confirmed via `get_portfolio` immediately before the order.
+
+**Resting stop (§16 item 14):** `stop_market` sell, 154 shares, stop $16.70, GTC. Order id `6ae21734-1270-4714-97a2-8f96497c9194`, **state confirmed/resting** — verified via `get_equity_orders` immediately after placement.
+
+**Time-stop (§16 item 8):** 7 trading sessions from entry → review by **2026-11-06** if +0.5R hasn't been reached.
+
+**Mode B position count:** 1 of 15. **LUC status:** not checked this cycle (optional context only for Mode B).
+
+```json
+{
+  "cycle": "Manual CONFIRM ORDER (in-chat)",
+  "timestamp_utc": "2026-10-28T15:39:03Z",
+  "modes_covered": ["B"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 1},
+  "exits": [],
+  "entries": [{"symbol": "SOFI", "mode": "B", "qty": 154, "price": 16.8399}],
+  "orders_placed": 2,
+  "git_push": "success"
+}
+```
