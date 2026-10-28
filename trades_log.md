@@ -50837,3 +50837,52 @@ No broader re-sweep this cycle (last full sweep 15:55Z; re-running every cycle h
   "git_push": "success"
 }
 ```
+
+---
+### 2026-10-28T18:37:46Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
+
+**STEP 0 — Gate check:** §14 Status = ACTIVE. No kill phrase since last cycle. Proceeding.
+
+**Account state:** total_value $6,561.44 (equity_value $2,616.44 — SOFI, cash $3,945.00). 0 open crypto positions.
+
+**Circuit breakers:** Market-shock — SPY $772.58 vs. last cycle $771.37 (+0.16%), QQQ $724.98 vs. $722.66 (+0.32%) — clear (well under 1.5%). Same-day 2-stop-out — N/A. 3%-equity-decline — N/A (account up). MCP reconciliation — clean.
+
+**Mode B exit-management note (out-of-cycle but time-sensitive, logged here for the record — full Mode B/C screening stays on the other trigger):** while pulling SPY/QQQ for the shock check, live SOFI data showed price at $17.015 — above the +1R breakeven trigger ($16.9798, entry $16.8399/stop $16.70). Per §16 item 5 (breakeven move, applies unconditionally, mechanical, not discretionary) and item 14 (real cancel-and-replace order action), executed immediately rather than waiting ~17 min for the next Mode B/C cycle: cancelled the original $16.70 stop (order `6ae21734...`, confirmed cancelled), checked recent hourly swing lows since entry (15:00Z low $16.730, 16:00Z low $16.780, 17:00Z low $16.850 — the most recent swing low, $16.850, exceeds breakeven $16.8399, so it governs per "entry price or nearest higher technical support, whichever is higher"), and placed a new resting stop at **$16.85** (order `6ae24143-9e2c-4bea-b6ad-e946af827948`, state=confirmed/resting, verified via `get_equity_orders`). SOFI is now risk-free (stop above entry) with a locked-in minimum gain of ~$1.54/share if hit. This is an exit-management action on an already-open position, not new Mode B screening — scope boundary respected.
+
+**Portfolio heat cap:** SOFI now contributes **$0** (stop $16.85 > entry $16.8399 — position is risk-free/breakeven-or-better per §3's heat-cap definition). Total portfolio heat = $0. Full $393.69 (6% of equity) headroom available for any new crypto entry this cycle.
+
+**Stop-audit (§21 item 5):** N/A — no open crypto positions.
+
+**Allowlist screen** (mark vs. today's open):
+
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC | 81,080.87 | 81,037.22 | +0.05% |
+| ETH | 2,358.16 | 2,357.57 | +0.02% |
+| SOL | 102.07 | 101.88 | +0.18% |
+| XRP | 1.3268 | 1.3351 | -0.62% |
+| LINK | 11.693 | 11.738 | -0.38% |
+| AAVE | 134.49 | 135.15 | -0.48% |
+| HBAR | 0.07549 | 0.07677 | -1.66% |
+| AVAX | 8.937 | 9.021 | -0.93% |
+
+**Narrative:** A real reversal this cycle — BTC/ETH/SOL have clawed back to flat/slightly positive after sliding all morning, and every other pair has meaningfully narrowed its loss. This is the first constructive move of the day. However, no crypto-historicals tool is available in this session to confirm an actual 4H-setup-plus-1H-reclaim-candle structure (Robinhood MCP has no OHLCV endpoint for crypto; TradingView MCP wasn't queried this cycle to conserve its daily call quota for a clearer signal), and no catalyst was identified for the bounce. A move back to flat is not by itself the confirmed basing/reclaim trigger §21 item 3 requires. **Status: OBSERVE, no trade** — flagging this as the clearest "watch for a cleaner trigger" setup of the day so far; will check candle structure via TradingView next cycle if the bounce holds or extends.
+
+Crypto position count: 0/2.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-28T18:37:46Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 2,
+  "notes": "2 orders placed were the SOFI breakeven stop cancel+replace (exit management on existing Mode B position, not a crypto entry)",
+  "git_push": "success"
+}
+```
