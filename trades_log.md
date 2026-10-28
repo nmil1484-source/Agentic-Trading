@@ -50482,3 +50482,30 @@ LEAPS, §20 Mode C, Mode A, and every circuit-breaker/exit-mechanic rule are unt
   "git_push": "success"
 }
 ```
+
+---
+### 2026-10-28 (user instruction, in-chat) — Rule-change entry: Mode C loosened to mirror Mode B
+
+User instructed loosening Mode C "like B" after asking what else was needed for day-trade success.
+Was told plainly first: Mode C's real constraint is structural, not gate-tightness — its setups
+are 1-5 minute edges translated onto this platform's hard 1-hour minimum trigger interval, a
+mismatch no threshold change fixes — and offered a diagnostic pass instead of loosening blind.
+User chose to loosen anyway.
+
+**Changes made directly to CLAUDE.md §20, full detail in the new §12 entry dated 2026-10-28
+(later same day), added above the Mode B/crypto entry from earlier today:**
+- Mean-reversion reward-to-risk target: 1.5:1 → 1.3:1 (direct Mode B R:R-floor analog).
+- The "Reject the trade if" list's volume-confirmation condition removed outright (Mode C's
+  closest analog to Mode B's confirmation-count floor — Mode C has no role-group system to lower
+  a count on, so this is the nearest equivalent).
+- Concurrent-position cap: 8 → 12; daily entry cap: 5-6 → 8-9 (same proportional raise as Mode B's
+  10→15).
+- Correlation cap: 2 → 3 per theme (exact same change as Mode B).
+
+**Explicitly logged as a further §23 lock override for Mode C** — the mode has exactly one closed
+trade in its entire history (RGTI), nowhere near the 30-trade threshold. Not touched: Mode C's 1%
+risk-per-trade, 2.5% daily loss/profit limits, resting-stop/Chandelier-Exit/peak-retracement exit
+mechanics, mandatory same-day flatten, ATR-based stop computation — same scope discipline as the
+Mode B/crypto change earlier today. Drive-by corrected two pre-existing stale cross-references
+(a "3-concurrent" reference in the reject list and in §7's Trade Card format) that predated
+today's change — both now read the current number.

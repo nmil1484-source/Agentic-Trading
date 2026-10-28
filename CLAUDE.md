@@ -434,7 +434,7 @@ Every proposal must be presented before any confirmation request:
   which setup fired (VWAP-pullback / ORB / mean-reversion, hourly-adapted per §20); the ATR(14)
   value used and the computed stop distance; current running daily P&L (realized + open
   unrealized) against the 2-3%-of-equity daily loss/profit limits; position count against the
-  3-concurrent cap and trade count against the 5-6/day cap; and explicit confirmation the position
+  12-concurrent cap and trade count against the 8-9/day cap; and explicit confirmation the position
   is flagged for same-day flatten (§20 has no overnight-hold exception, unlike Mode B).
 
 ## 8. Approved live research sources
@@ -611,6 +611,38 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-28 (later same day): User instructed loosening Mode C the same way as the Mode B
+  change directly below ("loosen C like B"), after being told Mode C's real constraint is
+  structural (its VWAP-pullback/ORB/mean-reversion edges are designed for 1-5 minute charts,
+  translated onto this platform's hard 1-hour minimum trigger interval — a timeframe mismatch no
+  threshold change fixes) and being offered a diagnostic pass instead. The user chose to loosen
+  anyway.** Mode C has essentially no trade history to judge against — one single closed trade
+  ever (RGTI) per the §16 item 16 tally — so this is also an explicit §23 lock override for Mode
+  C, same as the Mode B/crypto entry below, with the same caveat: this is a response to
+  frustration over inactivity, not new evidence Mode C's design was wrong. Translated Mode B's
+  four loosened levers onto Mode C's own structure (Mode C has no confirmation role-group system
+  like §5B/§21, so each lever maps to its closest Mode C analog, filled in by Claude since "like
+  B" doesn't specify exact Mode C numbers):
+  1. **§20 item 5 — mean-reversion reward-to-risk target lowered from 1.5:1 to 1.3:1** — the
+     direct Mode C analog of §5B item 4's floor, same new number.
+  2. **§20 item 5 "Reject the trade if" list — the volume-confirmation condition removed
+     outright** ("volume on the reclaim/breakout/reversion bar is lower than the bar(s) before it"
+     no longer blocks a trade). This was Mode C's one hard technical-confirmation-style gate
+     beyond the setup pattern itself, making it the closest analog to §5B item 3's confirmation
+     count — removing it is the Mode C equivalent of lowering that count to 1-of-5. Volume is
+     still logged for context.
+  3. **§20 item 5 (guardrail 5) — concurrent-position cap raised from 8 to 12**, and **item 6 —
+     daily entry cap raised from 5-6 to 8-9** — same +50%-ish proportional raise as Mode B's
+     10→15 position cap.
+  4. **§20 section 6 — correlation cap raised from 2 to 3 per theme** — exact same change as
+     Mode B's correlation cap.
+  **Not touched, matching the Mode B entry's own scope**: Mode C's 1%-per-trade risk sizing (§20
+  item 1.2), the 2.5%-of-equity daily loss/profit limits, the mandatory resting-stop/Chandelier-
+  Exit/peak-retracement exit mechanics, the mandatory same-day flatten, and the ATR-based stop
+  computation itself — none of those were in scope for the Mode B change either, so none were
+  mirrored here. **Drive-by correction**: the "Reject the trade if" list's last bullet and a §7
+  Trade Card field both still referenced Mode C's pre-2026-08-26 "3-concurrent" cap even before
+  today — both corrected to the current number (now 12) in the same pass.
 - **2026-10-28: User instructed loosening Mode B and crypto entry/sizing rules, following a
   multi-day stretch (since the 2026-10-15 batch) with zero qualifying trades in either lane and
   the user asking directly "how are we not making daily profits."** Context given plainly before
@@ -2877,12 +2909,15 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
    stop opening *new* Mode C entries for the day — existing winners keep running under their
    trailing stop (item 6) rather than being force-closed. Locking in a good day is profit
    protection, not a hard ceiling on the day's total gain.
-5. **Max concurrent Mode C positions: 8** (raised 2026-08-26 from 3, at explicit user instruction,
-   paired with lowering Mode B's cap from 10 to 5 at the time — see §12 change log; Mode B's cap
+5. **Max concurrent Mode C positions: 12** (raised 2026-10-28 from 8, at explicit user
+   instruction mirroring the same-day Mode B cap raise — see §12 change log. Before that: raised
+   2026-08-26 from 3,
+   paired with lowering Mode B's cap from 10 to 5 at the time; Mode B's cap
    was later raised back to 10 on 2026-10-04, then to 15 on 2026-10-28). Combined with Mode B's
    own 15-position cap and the
-   shared §3 deployment ceiling — Mode C's 8-position cap is additional, not instead of, those.
-6. **Max new Mode C entries per day: 5-6.** Managing an existing Mode C stop/trailing doesn't
+   shared §3 deployment ceiling — Mode C's 12-position cap is additional, not instead of, those.
+6. **Max new Mode C entries per day: 8-9** (raised 2026-10-28 from 5-6, same instruction as item
+   5 above). Managing an existing Mode C stop/trailing doesn't
    count against this. Once hit, no new Mode C entries for the rest of the day regardless of setup
    quality — that setup is tomorrow's trade.
 7. **No averaging down** into a losing Mode C position. Adding size only happens on a fresh,
@@ -2996,8 +3031,9 @@ setup described in the original material.
   extreme (<20 or >80) and volume >1.5× average.
 - Entry: on the following hourly bar's close back inside the band, not on the extreme bar itself.
 - Stop: 2× ATR(14) beyond the entry.
-- Target: the mean (VWAP or 20-period MA) or 1.5:1 R:R, whichever is closer; if the stop distance
-  produces less than 1.5:1, reduce size rather than widen the stop.
+- Target: the mean (VWAP or 20-period MA) or 1.3:1 R:R (lowered 2026-10-28 from 1.5:1, mirroring
+  the same-day Mode B R:R floor change — see §12 change log), whichever is closer; if the stop
+  distance produces less than 1.3:1, reduce size rather than widen the stop.
 - No mean-reversion entries within 2 weeks of earnings; never against a strong prevailing trend.
 
 **Which one fires:** check the first hour of price action each morning — trending and holding a
@@ -3006,14 +3042,21 @@ parallel across the watchlist scan each cycle; use whichever matches what that n
 structure is actually showing, don't force a mismatched setup onto a name.
 
 **Reject the trade if any of these are true, regardless of how good the setup otherwise looks:**
-- Volume on the reclaim/breakout/reversion bar is lower than the bar(s) before it
+- **(Removed 2026-10-28, mirroring the same-day Mode B confirmation-floor loosening — see §12
+  change log)** ~~Volume on the reclaim/breakout/reversion bar is lower than the bar(s) before
+  it~~ — this was Mode C's one hard technical-confirmation-style reject condition; it no longer
+  blocks a trade on its own. Volume is still logged on the Trade Card for context.
 - No clear invalidation level tighter than 2× ATR(14)
 - Inside the first/last 15 minutes of the session (§4)
 - A scheduled high-impact catalyst is due within 30 minutes (§4)
-- The 5-6/day or 3-concurrent-position caps are already hit
+- The 8-9/day or 12-concurrent-position caps are already hit (drive-by corrected 2026-10-28 — this
+  line was already stale at "3-concurrent" even before today's raise, since the cap had moved to
+  8 back on 2026-08-26 and was never corrected here)
 
 ### 6. Correlation cap
-No more than 2 concurrent Mode C positions may share one sector/industry/catalyst theme — carried
+No more than 3 concurrent Mode C positions may share one sector/industry/catalyst theme (raised
+2026-10-28 from 2, mirroring the same-day Mode B correlation-cap raise — see §12 change log) —
+carried
 over from Mode B's §5B item 2 for consistency (not in the pasted source material; flag if a
 separate design was intended). Log the theme on the Trade Card so this is checkable.
 
