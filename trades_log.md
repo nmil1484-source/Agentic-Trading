@@ -50657,3 +50657,49 @@ CAI/TEM/DRAM/ARKG not deep-dived further this cycle — CAI's move tracks a stri
   "git_push": "success"
 }
 ```
+
+---
+### 2026-10-28T16:38:38Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
+
+**STEP 0 — Gate check:** §14 Status = ACTIVE. No kill phrase since last cycle. Proceeding.
+
+**Account state:** `get_portfolio` — total_value $6,536.05 (equity_value $2,591.05 — SOFI, cash $3,945.00). `get_crypto_positions`: 0 open crypto positions.
+
+**Circuit breakers:** Same-day 2-stop-out cooldown — N/A, no stop-outs today. Market-shock check — SPY $771.17 vs. last cycle's $771.30 (-0.02%), QQQ $722.15 vs. $722.16 (flat) — no shock, clear. 3%-equity-decline — N/A. MCP reconciliation — clean (brief auth gap earlier this hour, reauthorized and reconciled before the 15:55 Mode B/C cycle; confirmed clean again this cycle).
+
+**Portfolio heat cap (§3):** 1 open position account-wide (SOFI) — current open risk ≈$18.63 (entry $16.8399, stop $16.70, current $16.821 — price has drifted down toward the stop since the last cycle, narrowing distance-to-stop, not yet at breakeven). $18.63 against the 6%-of-equity cap ($392.16) — $373.53 headroom remaining for any new crypto entry this cycle.
+
+**Stop-audit (§21 item 5):** N/A — no open crypto positions.
+
+**Allowlist screen** (`get_crypto_quotes`, mark vs. today's `open_price`):
+
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC | 80,409.68 | 81,027.05 | -0.76% |
+| ETH | 2,329.36 | 2,357.07 | -1.18% |
+| SOL | 100.91 | 101.88 | -0.95% |
+| XRP | 1.3090 | 1.3351 | -1.95% |
+| LINK | 11.521 | 11.738 | -1.85% |
+| AAVE | 131.71 | 135.15 | -2.54% |
+| HBAR | 0.07516 | 0.07677 | -2.10% |
+| AVAX | 8.851 | 9.018 | -1.85% |
+
+**Narrative:** Decline has deepened further across all 8 pairs vs. the last two cycles (deepest point of the day so far on AAVE/HBAR/XRP) — no pair shows any basing/reclaim structure even under the loosened 1-of-6 confirmation floor; this still reads as a straight-line continuation, not a pullback-to-support pattern. No catalyst identified for any pair. No trade.
+
+**Status: OBSERVE, no trade.** No order placed. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: clear, $373.53 headroom.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-28T16:38:38Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
