@@ -50409,3 +50409,36 @@ User confirmed in chat that the $320.00 cash decrease flagged in the 14:23:33Z f
   "git_push": "success"
 }
 ```
+
+---
+### 2026-10-28 (user instruction, in-chat) — Rule-change entry: Mode B/crypto loosened, §23 lock overridden
+
+User instructed loosening Mode B and crypto entry/sizing rules after being told the account's
+documented combined profit factor (0.92, net-losing) and asking directly why no daily profit was
+being made. Offered three choices (leave rules as-is under the §23 lock; loosen specific levers
+now; add a separate faster-turnover mode) — user chose to loosen now. Offered two structured
+per-lever questions (Mode B, crypto) with disclosed tradeoffs on each option — user selected every
+offered lever in both.
+
+**Changes made directly to CLAUDE.md, full detail and reasoning in the new §12 entry dated
+2026-10-28 (added at the top of the change log):**
+- §5B item 3 / Bearish Mirror Gate item 3: confirmation floor 2-of-5 distinct role-groups → 1-of-5.
+- §5B item 4 / Bearish Mirror Gate item 4 / Regime Rule / §13.A: reward-to-risk floor 1.5:1 → 1.3:1
+  (Mode B equity/put swing-thesis gate only; §18/§19 options/LEAPS floor unchanged at 1.5:1).
+- §5B Position Capacity and Sizing: simultaneous-position cap 10 → 15; correlation cap 2 → 3
+  per theme. Cross-references updated in §14, §18 item 7, §20 item 5.
+- §21 item 3: technical-confirmation floor 2-of-6 → 1-of-6; reward-to-risk floor 2:1 → 1.5:1; the
+  2026-10-15 ADX/trend-strength regime filter removed outright. Cross-reference updated in §22
+  item 2 (leveraged/inverse ETF policy, which ties its own R:R floor to §5B's).
+
+**Explicitly logged as an acknowledged override of §23 (Rule-Change Cadence Lock)** — close to
+zero new trades have closed in either lane since the 2026-10-15 batch this reopens, nowhere near
+the 30/20-trade threshold §23 itself requires before further adjustment. Flagged directly to the
+user before implementing: this combination is a direct reversal of the 2026-10-15 batch's own
+"none loosening any gate" framing, made in response to a short frustrated stretch of zero trades
+rather than new evidence the 10/15 tightening was wrong — close to the exact reactive-tuning
+pattern §23 was created to prevent. User was told this plainly and chose to proceed. The 30/20
+trade-count clock for Mode B/crypto restarts from today under these newly-revised numbers.
+
+Scoped narrowly to Mode B and crypto per the user's own framing — §15 Tier-B, §18/§19 options/
+LEAPS, §20 Mode C, Mode A, and every circuit-breaker/exit-mechanic rule are untouched.

@@ -143,16 +143,13 @@ trades. A swing candidate qualifies when **all** of these conditions are met:
 2. It has a verified catalyst, sector tailwind, or clear relative-strength driver — logged with a
    URL/date when there is one; a relative-strength driver must be a specific, checkable comparison
    (e.g. "up X% vs. SPY's Y% over Z sessions"), not a vague assertion.
-3. It has at least **2 of these 5 distinct confirmation role-groups** (restructured 2026-10-15 at
-   explicit user instruction, following a deep-research pass into why Mode B's edge had decayed —
-   see §12 change log. Replaces the 2026-10-04 "1 of 6 confirmations" raw count: treating six
-   signals as independent evidence is the problem that count had, since several are correlated
-   restatements of the same underlying trend/momentum fact — e.g. RSI-improving and MACD-improving
-   are both momentum-role signals that move together in a genuine trend, so "1 of 6" let a single
-   momentum reading pass on its own with nothing else confirming it. The six original confirmations
-   are unchanged in substance; they are grouped below by the distinct *role* each plays, and a pass
-   now requires signals from **2 different groups**, not 1 signal drawn from an undifferentiated
-   pool of 6. §13 remains the reference methodology for *how* to read each one):
+3. It has at least **1 of these 5 distinct confirmation role-groups** (loosened 2026-10-28 from
+   2-of-5, at explicit user instruction after a multi-day stretch with zero qualifying candidates
+   in either mode — see §12 change log. This is an explicit §23 lock override: the 2026-10-15
+   restructuring this reopens was adopted specifically to stop a single correlated signal from
+   passing alone, and lowering the count back to 1 reopens exactly that gap, now with a role-group
+   label on it rather than a raw count — the role grouping itself is retained, only the threshold
+   count is lowered. §13 remains the reference methodology for *how* to read each one):
    - **Trend/State** — 9/20 EMA bullish alignment or reclaim; price above or reclaiming the 50-day
      SMA;
    - **Location** — breakout/retest, range contraction, or support/Fibonacci pullback location;
@@ -160,17 +157,14 @@ trades. A swing candidate qualifies when **all** of these conditions are met:
    - **Volume** — volume at least 1.2x normal or no abnormal selling pressure;
    - **Momentum** — RSI above 45 and improving, or MACD improving.
 
-   A candidate passing on, say, both RSI-improving and MACD-improving (both Momentum-role) does
-   **not** qualify alone on those two — it needs a confirmation from a second, distinct group (e.g.
-   Volume or Relative Strength) as well. This is a restructuring of a correlated raw count into
-   independent evidence, not a reversion to the pre-2026-10-04 "2-of-6"/"3-of-6" raw-count floors —
-   those retired numbers belonged to the count method being replaced, not to this one.
+   A single role-group confirmation is now sufficient on its own (2026-10-28) — the grouping still
+   avoids double-counting two sub-signals from the *same* role (e.g. both RSI-improving and
+   MACD-improving, both Momentum) as if they were two independent confirmations, but a single
+   group's confirmation alone now clears this item.
 4. It has a valid technical stop (computed per §13's methodology) and reward-to-risk of at least
-   **1.5:1, regardless of FTA Regime Dashboard state** (flattened 2026-08-14 at explicit user
-   instruction — see §12 change log; this reverses the 2026-08-13 correction that had deliberately
-   split the floor into 1.5:1-live/2:1-degraded, because in practice the dashboard has returned
-   UNKNOWN_DEGRADED on every check all session, so the split floor was functionally always the
-   stricter 2:1 with no realistic path to the easier one). Reduced position sizing while
+   **1.3:1, regardless of FTA Regime Dashboard state** (lowered 2026-10-28 from 1.5:1, at explicit
+   user instruction — see §12 change log; this is an explicit §23 lock override, adopted before
+   the 2026-10-15 batch's 30-trade count was reached). Reduced position sizing while
    UNKNOWN_DEGRADED is unchanged — see the Regime Rule below; only the reward-to-risk distinction
    between live/degraded is removed. This replaces the old §13.A floor (≥1:2, ≥1:3 while
    UNKNOWN_DEGRADED) for Mode B. That older floor is retained for Mode A if/when it's authorized to
@@ -222,10 +216,10 @@ A bearish candidate qualifies when **all** of these conditions are met:
 2. It has a verified bearish catalyst, sector headwind, or clear relative-weakness driver —
    logged with a URL/date when there is one; a relative-weakness driver must be a specific,
    checkable comparison (e.g. "down X% vs. SPY's Y% over Z sessions"), not a vague assertion.
-3. It has at least **2 of these 5 distinct confirmation role-groups** (the bearish mirror of §5B
-   item 3's restructured gate — restructured the same day, 2026-10-15, for the identical reason:
-   this subsection's own text always described itself as sharing §5B item 3's floor exactly, and
-   that includes the restructure, not just the old raw count):
+3. It has at least **1 of these 5 distinct confirmation role-groups** (loosened 2026-10-28 from
+   2-of-5, same change and same reasoning as §5B item 3 — see §12 change log; this subsection's own
+   text always described itself as sharing §5B item 3's floor exactly, and that includes this
+   loosening, not just the 2026-10-15 restructure):
    - **Trend/State** — 9/20 EMA bearish cross or sustained bearish alignment (9 crossing below, or
      staying below, 20); price below or losing the 50-day SMA;
    - **Location** — breakdown/retest of support-turned-resistance, range breakdown, or rejection at
@@ -236,13 +230,16 @@ A bearish candidate qualifies when **all** of these conditions are met:
      distribution (selling into strength/failed bounces);
    - **Momentum** — RSI below 55 and falling, or MACD deteriorating.
 
-   Same rule as the bullish gate: 2 signals from the same group (e.g. both Trend/State sub-signals)
-   do not qualify alone — a second, distinct group's confirmation is required.
+   Same rule as the bullish gate: a single role-group's confirmation is now sufficient on its own;
+   the grouping only prevents two sub-signals from the *same* role being double-counted as two.
 4. It has a valid technical invalidation level (the price/level that would disprove the bearish
-   thesis) and reward-to-risk of at least **1.5:1**, computed on the **put's own economics**
-   (premium paid vs. a realistic decline target) — same flat floor and same computation method as
-   §18 item 2 already uses for a bullish call, regardless of FTA Regime Dashboard state (same
-   principle as §5B item 4).
+   thesis) and reward-to-risk of at least **1.3:1**, computed on the **put's own economics**
+   (premium paid vs. a realistic decline target) — same computation method as §18 item 2 uses for
+   a bullish call, regardless of FTA Regime Dashboard state (same principle as §5B item 4, lowered
+   2026-10-28 — see §12 change log). **Note: §18/§19's own options-specific floor is unchanged at
+   1.5:1** — this 2026-10-28 loosening is scoped to the equity-thesis gate only (§5B bullish and
+   this bearish mirror); an option expressing the same thesis still needs to clear §18/§19's own
+   unchanged 1.5:1 floor on the option's economics, not just this gate's 1.3:1.
 5. It is outside the first 15 minutes after open and the final 15 minutes before close (§4).
 6. It has no earnings or high-impact macro conflict inside the existing §4 timing rule.
 7. **It has both a daily-chart bearish setup and a shorter-timeframe (hourly) execution trigger** —
@@ -273,9 +270,9 @@ section carried at its own launch.
   principle as the §6 exception) — it never blocks a swing proposal outright the way LUC/Robinhood
   data unavailability still does.
 - **If regime data is available and live/valid (not UNKNOWN_DEGRADED)**, use normal approved swing
-  sizing and the standard ≥1.5:1 reward-to-risk floor (§5B item 4).
+  sizing and the standard ≥1.3:1 reward-to-risk floor (§5B item 4, lowered 2026-10-28 from 1.5:1).
 - **If regime data is unavailable, stale, or UNKNOWN/UNKNOWN_DEGRADED, every new swing entry
-  requires reduced position size, at the same ≥1.5:1 reward-to-risk floor** (flattened 2026-08-14
+  requires reduced position size, at the same ≥1.3:1 reward-to-risk floor** (flattened 2026-08-14
   at explicit user instruction — reverses the 2026-08-13 correction that had required ≥2:1 while
   degraded; see §5B item 4 and §12 change log for the reasoning: the dashboard has never once
   returned a live reading all session, so the split floor was functionally always the stricter
@@ -297,15 +294,19 @@ above, see §3/§12) with risk-based capacity limits instead. All existing §3 d
 (per-position 80%, total-deployed 90%/10%-cash, no averaging down, loss throttles) and §15's
 Tier-B allocation formula remain unchanged and still apply on top of these:
 
-1. **Simultaneous-position cap**: no more than **ten** Mode B positions open at once (whole-share
-   and fractional combined). (Raised 2026-10-04 from five, at explicit user instruction, to try to
-   grow faster given the account's near-breakeven combined profit factor — see §12 change log.
+1. **Simultaneous-position cap**: no more than **fifteen** Mode B positions open at once
+   (whole-share and fractional combined). (Raised 2026-10-28 from ten, at explicit user
+   instruction, as part of a broader loosening after a multi-day stretch with zero qualifying
+   trades — see §12 change log. Raised 2026-10-04 from five before that, to try to
+   grow faster given the account's near-breakeven combined profit factor.
    Before that: lowered 2026-08-26 from ten — raised to ten on 2026-08-19 from four before that —
    to shift capacity toward Mode C. Existing Mode B positions above whatever the cap was at the
    time are never force-closed by a lower cap; they just block new entries until the count drops
-   back under the current cap.)
-2. **Correlation cap**: no more than **two** open positions may share one sector, industry, or
-   catalyst theme — log the sector/theme on the Trade Card so this is checkable, not eyeballed.
+   back under the current cap. Note: with the account at 0 positions, this cap was not the actual
+   constraint on recent trade frequency — raised anyway per explicit instruction.)
+2. **Correlation cap**: no more than **three** open positions may share one sector, industry, or
+   catalyst theme (raised 2026-10-28 from two, same instruction as item 1 above) — log the
+   sector/theme on the Trade Card so this is checkable, not eyeballed.
 3. **Per-trade risk sizing**: maximum planned loss on any new trade is the **lower of 2% of
    current Agentic Account equity (reverted 2026-10-15 from 3%, at explicit user instruction
    following a deep-research-informed review of streak-survivability math — see §12 change log;
@@ -610,6 +611,67 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-28: User instructed loosening Mode B and crypto entry/sizing rules, following a
+  multi-day stretch (since the 2026-10-15 batch) with zero qualifying trades in either lane and
+  the user asking directly "how are we not making daily profits."** Context given plainly before
+  any change: the account's last full tally (2026-10-03) showed a combined profit factor of
+  0.92 — net-losing by ~$21 across every realized trade — driven almost entirely by crypto (0.54),
+  with Mode B the only profitable lane (1.25). The 2026-10-15 batch tightened both lanes
+  specifically to stop that bleeding, under an explicit no-further-loosening instruction and the
+  new §23 rule-change lock (30 new Mode B trades / 20 new crypto trades required before any
+  further adjustment). **This entry is an explicit, acknowledged override of that lock** — fewer
+  than 30/20 new trades have closed under the 2026-10-15 rules (realistically close to zero, given
+  the account has sat at 0 positions this entire stretch) — made at the user's explicit choice
+  after being offered three alternatives (leave the tighter rules in place and let the lock's
+  sample accumulate; loosen specific levers now, accepting the disclosed risk of drifting back
+  toward the pre-10/15 losing track record; or add a separate faster-turnover mode alongside the
+  existing gates) and two rounds of structured per-lever tradeoff disclosures. The user selected
+  every offered lever in both lanes. **Six changes adopted, all loosening — the direct inverse of
+  the 2026-10-15 batch's own "none loosening" framing:**
+  1. **§5B item 3 (and its Bearish Mirror Gate mirror) — technical-confirmation floor lowered from
+     2-of-5 distinct role-groups to 1-of-5.** The role-group structure from 2026-10-15 is retained
+     (two sub-signals from the same role still count as one), but a single group's confirmation is
+     now sufficient alone — this directly reopens the correlated-single-signal gap the 2026-10-15
+     restructuring existed to close.
+  2. **§5B item 4 (and its Bearish Mirror Gate mirror, the Regime Rule bullets, and the Position
+     Capacity subsection's own reference) — Mode B reward-to-risk floor lowered from 1.5:1 to
+     1.3:1.** Scoped to the equity/put swing-thesis gate only — §18/§19's own options-specific
+     floor stays at 1.5:1, unchanged, so an option expressing the same thesis still needs to clear
+     the higher bar on the option's own economics.
+  3. **§5B Position Capacity and Sizing — simultaneous-position cap raised from 10 to 15, and the
+     correlation cap raised from 2 to 3 per theme.** Disclosed at the time this was offered: with
+     the account sitting at 0 Mode B positions, neither cap was the actual binding constraint on
+     recent trade frequency — this loosens capacity without loosening entry quality, and mainly
+     matters once more candidates start clearing the gate above.
+  4. **§21 item 3 — crypto technical-confirmation floor lowered from 2-of-6 to 1-of-6.** The exact
+     same number was tried briefly on 2026-10-10 and reverted the same day with no measurable
+     improvement to that session's rejected names (AAVE, specifically) — flagged to the user as a
+     real precedent before this was re-adopted; the user proceeded anyway given the longer stretch
+     of zero trades this time.
+  5. **§21 item 3 — crypto reward-to-risk floor lowered from 2:1 to 1.5:1.** Flagged plainly: 1.5:1
+     was the *optimistic-end-of-confidence-interval* breakeven figure computed on 2026-10-15, not
+     a cushion above it — the point estimate from that same research put true breakeven closer to
+     6:1. This floor change carries the most direct, evidence-backed risk of the six changes here;
+     it is set at the edge of defensibility the prior research actually found, not below it, but
+     with none of the margin the 2:1 floor was deliberately calibrated to keep.
+  6. **§21 item 3 — the 2026-10-15 ADX/trend-strength regime filter removed outright.** Judged the
+     least evidence-backed of the 2026-10-15 additions (one unverified source) and so the lowest
+     comparative-risk lever to remove, though it was also specifically added to reduce false
+     positives during crypto's documented choppy stretches — removing it reopens that exposure
+     with no replacement filter.
+  **Not adopted — out of scope for this entry, per the narrower framing of what was asked:** §15
+  Tier-B's own separate 1.5:1/2:1-degraded floor, §18/§19 options/LEAPS sizing and R:R, §20 Mode C,
+  Mode A, and every circuit-breaker/exit-mechanic/no-averaging-down rule elsewhere in this
+  document — none of those were touched by this entry. **§23 itself was not edited** — this entry
+  is logged as the acknowledged override its own item 1 anticipates ("no further adjustment... is
+  made until..."); the practical effect is that the 30/20-trade clock for Mode B/crypto restarts
+  from today under these newly-revised numbers, per §23 item 1's own "under the revised rules"
+  framing applied recursively. **Full disclosure given to the user before implementing, not just
+  logged after the fact**: this combination of changes is a direct reversal of the "none loosening
+  any gate" framing that defined the entire 2026-10-15 batch, adopted in direct response to a
+  short, frustrated stretch of zero trades rather than new evidence that the 10/15 tightening was
+  wrong — which is, by this document's own account, close to the exact failure pattern that
+  prompted creating §23 in the first place. The user was told this directly and chose to proceed.
 - **2026-10-24: User shared FTA Regime Dashboard screenshots (phone app view, showing live
   Inflation & Rates / Growth / Liquidity data) and asked whether the system should "adjust for
   these rotations."** This surfaced a session-spanning tooling gap, found and fixed in the same
@@ -1796,7 +1858,8 @@ per §5B — the ordering below is unchanged by the mode refactor.)
 Added 2026-08-13 at user instruction as a required hard gate; **refactored 2026-08-13** so it
 remains the shared reference methodology for *how* to read market structure, EMAs, Fibonacci zones,
 and chart patterns in both modes, but is no longer itself the mandatory gate for Mode B swing
-entries — that's now §5B's 2-of-6 test. It's still the direct, unmodified gate for Mode A if/when
+entries — that's now §5B's 1-of-5-distinct-role-group test (as of 2026-10-28; this reference was
+stale at "2-of-6" even before that, drive-by corrected here). It's still the direct, unmodified gate for Mode A if/when
 authorized to execute (see §5A, §12 change log). This expands on the §5A/old-§5.3 FTA scorecard and
 the §7 "Invalidation or stop level" / "Reward-to-risk" fields — those fields must show the actual
 computed number and which rule below produced it.
@@ -1807,8 +1870,9 @@ computed number and which rule below produced it.
 - For Mode A (and Tier-A generally, if Mode A is ever authorized to execute): reward-to-risk must
   be at least 1:2 (distance to target ≥ 2x distance to stop); this rises to ≥1:3 while the FTA
   Regime Dashboard is UNKNOWN_DEGRADED (§6). **For Mode B swing trades, the reward-to-risk floor is
-  the §5B test instead: a flat ≥1.5:1 regardless of regime dashboard state** (flattened 2026-08-14
-  at explicit user instruction, reversing the 2026-08-13 1.5:1-live/2:1-degraded split — see §5B
+  the §5B test instead: a flat ≥1.3:1 regardless of regime dashboard state** (lowered 2026-10-28
+  from 1.5:1; originally flattened 2026-08-14 at explicit user instruction, reversing the 2026-08-13
+  1.5:1-live/2:1-degraded split — see §5B
   item 4 and §12 change log). Reduced position sizing while UNKNOWN_DEGRADED still applies; only
   the reward-to-risk distinction was removed. Tier-B fractional pilots (§15) keep their own
   separate 1.5:1/2:1-degraded floor, unaffected by this change. §15's own numbered rules are
@@ -1820,8 +1884,10 @@ computed number and which rule below produced it.
 ### B. 9/20 EMA (or SMA) trend and pullback rules
 - For Mode A: only propose a long entry when the 9-period average is above the 20-period average
   on the daily chart ("green zone") — if 9 is below 20, status stays OBSERVE regardless of other
-  signals. **For Mode B, this is one of six possible confirmations (§5B item 3, need 1 of 6 as of
-  2026-10-04 — this reference had gone stale at "3 of 6" even before that change, since the actual
+  signals. **For Mode B, this is a Trend/State-role signal within §5B item 3's 5 distinct
+  role-groups, need 1 of 5 groups as of 2026-10-28 (previously 2-of-5 role-groups since the
+  2026-10-15 restructuring, before that a raw count last corrected on 2026-10-04 — this reference
+  had gone stale at "3 of 6" even before that change, since the actual
   floor had already moved to 2-of-6 on 2026-08-14 and was never corrected here; fixed in the same
   pass as the 2026-10-04 edit), not a standalone hard gate** (2026-08-13, see §12 change log).
 - Entry trigger (both modes, as a read on the signal itself): a bullish daily candle closing back
@@ -1859,14 +1925,14 @@ computed number and which rule below produced it.
 ### E. Confluence, chart-anchoring, and extension guidance (2026-08-20)
 Added at explicit user instruction, sourced from an external chart-markup framework the user
 shared as reference material (per §9, context informing methodology, not a trading signal in
-itself). **Soft/informational — none of this raises the §5B 2-of-6 bar or blocks an entry that
+itself). **Soft/informational — none of this raises the §5B 1-of-5-role-group bar or blocks an entry that
 otherwise qualifies; it adds context to the Trade Card, nothing more, per explicit user choice.**
 Flag if a stricter, hard-gate version (confluence required, not just noted) is wanted later.
 - **Confluence note:** when logging which §5B item 3 confirmations a candidate has, also note
   whether they cluster at the same price zone (e.g., a Fibonacci level, a prior support/resistance
   line, and the 9/20 EMA all sitting near the same price) or are scattered across unrelated levels.
   Confluence is the stronger case; scattered confirmations are the weaker one — log which it is,
-  but a 2-of-6 pass is a pass either way.
+  but a qualifying pass is a pass either way.
 - **Chart-anchoring convention:** when reading a chart for support/resistance vs. trend lines vs.
   Fibonacci levels, anchor support/resistance to candle bodies and anchor trend lines and Fibonacci
   retracements to wicks. Clarifies how these levels are measured; doesn't change what counts as a
@@ -2034,8 +2100,8 @@ are for audit and notification only and create no confirmation requirement.
 
 All other hard controls are unaffected and remain in force exactly as elsewhere in this document:
 Agentic-account-only wall (§1), dynamic 90% deployment ceiling (§14 item 2), confirmed
-settled/non-margin buying power only, ten-position/two-correlated-position caps in normal state
-(§5B), no averaging down (§3/§16), no options/crypto/margin/shorting/leverage in the Agentic
+settled/non-margin buying power only, fifteen-position/three-correlated-position caps in normal
+state (§5B, raised from ten/two on 2026-10-28 — see §12 change log), no averaging down (§3/§16), no options/crypto/margin/shorting/leverage in the Agentic
 account (§2), initial stop at entry (§16 item 2), breakeven at +1R (§16 item 5), 50% profit-take at
 +2R (§16 item 6), and the exact emergency phrase `PAUSE AUTONOMOUS TRADING`.
 
@@ -2613,7 +2679,8 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
    discipline as equity orders (§14 item 5).
 
 7. **Capacity and correlation:** an open long option position counts as one ordinary Mode B
-   position against the 10-position cap (§5B) and the 2-per-theme correlation cap — combined with
+   position against the 15-position cap (§5B, raised from 10 on 2026-10-28) and the 3-per-theme
+   correlation cap (raised from 2 the same day) — combined with
    equity positions, not in addition to them. Premium paid counts against the 90% total-deployed
    ceiling (§3/§14 item 2) exactly like an equity position's cost basis.
 
@@ -2812,7 +2879,8 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
    protection, not a hard ceiling on the day's total gain.
 5. **Max concurrent Mode C positions: 8** (raised 2026-08-26 from 3, at explicit user instruction,
    paired with lowering Mode B's cap from 10 to 5 at the time — see §12 change log; Mode B's cap
-   was later raised back to 10 on 2026-10-04). Combined with Mode B's own 10-position cap and the
+   was later raised back to 10 on 2026-10-04, then to 15 on 2026-10-28). Combined with Mode B's
+   own 15-position cap and the
    shared §3 deployment ceiling — Mode C's 8-position cap is additional, not instead of, those.
 6. **Max new Mode C entries per day: 5-6.** Managing an existing Mode C stop/trailing doesn't
    count against this. Once hit, no new Mode C entries for the rest of the day regardless of setup
@@ -3016,29 +3084,33 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      relative-strength comparison against BTC or a broad crypto benchmark over the prior sessions
      — same specificity requirement as §5B item 2, adapted since crypto catalysts are looser and
      less consistently dated than equity catalysts.
-   - At least **2 of 6** technical confirmations (restored 2026-10-10, same day it was briefly
-     lowered to 1-of-6 — see §12 change log for the partial walk-back), same list as
-     §5B item 3, read on the coin's own chart (EMA/SMA alignment, structure/breakout, relative
+   - At least **1 of 6** technical confirmations (lowered 2026-10-28 from 2-of-6, at explicit user
+     instruction after a multi-day stretch with zero qualifying crypto candidates — see §12 change
+     log. This is an explicit §23 lock override, adopted well before the 2026-10-15 batch's
+     20-trade count was reached; this exact number was already tried briefly on 2026-10-10 and
+     reverted the same day with no improvement to that session's actual rejected names — flagged
+     here as a real precedent worth watching, not a reason this was declined this time), same list
+     as §5B item 3, read on the coin's own chart (EMA/SMA alignment, structure/breakout, relative
      strength, volume, RSI/MACD).
-   - A valid technical stop and reward-to-risk of at least **2:1** (raised 2026-10-15 from 1.3:1,
-     at explicit user instruction following a deep-research pass into crypto's weak track record
-     — see §12 change log. This is a direct, math-driven correction: at this account's own realized
-     crypto win rate (14.3% as of this date), the breakeven reward-to-risk is approximately 6:1,
-     and even at the optimistic end of the 95% confidence interval on that sample (up to ~39.9%),
-     breakeven is still ~1.5:1 — the 1.3:1 floor this replaces was below breakeven under every
-     statistically plausible reading of the account's own results, not just at the point estimate.
-     2:1 is set as an immediate floor with real margin above the optimistic-case breakeven, not the
-     final word — if win rate does not measurably improve as more trades accumulate under the new
-     §23 trade-count lock, escalate further toward the 3:1-6:1 range the point estimate implies).
-   - **Regime filter (added 2026-10-15, judgment-based — see §12 change log):** in addition to the
-     4H-setup-plus-1H-trigger requirement below, the 4H chart must also show a trend-strength
-     reading consistent with an actual trending (not choppy/range-bound) regime — e.g. ADX(14)
-     materially above ~20-25 on the 4H chart, or `analyze_swing_tool`'s own trend-strength field
-     reading "moderate" or "strong" rather than "weak." Crypto is documented to spend extended
-     stretches range-bound/choppy, and un-gated trend-following signals are expected to produce
-     more false positives in exactly that condition. This is a defensible hypothesis to test
-     forward under the §23 lock, not a validated fix — no rigorous quantified backtest for this
-     specific gate was found in the research behind this change.
+   - A valid technical stop and reward-to-risk of at least **1.5:1** (lowered 2026-10-28 from 2:1,
+     at explicit user instruction — see §12 change log; this is an explicit §23 lock override,
+     adopted before the 2026-10-15 batch's 20-trade count was reached. **Flagged plainly**: the
+     2:1 floor this replaces was itself calibrated as a floor *above* the optimistic-case breakeven
+     (~1.5:1) implied by this account's own realized 14.3% crypto win rate at the time — 1.5:1 is
+     not a cushion above that breakeven estimate, it sits *at* the optimistic edge of it. If the
+     account's true win rate is anywhere below the optimistic end of that confidence interval
+     (which the point estimate suggests is more likely — true breakeven was closer to 6:1), this
+     floor is undersized relative to the account's own documented track record, not just a smaller
+     margin of safety.)
+   - **Regime filter (ADX/trend-strength, added 2026-10-15) — removed 2026-10-28 at explicit user
+     instruction, see §12 change log.** The requirement that the 4H chart also show a trending
+     (not choppy/range-bound) regime via ADX(14) or `analyze_swing_tool`'s trend-strength field is
+     no longer a condition — only the 4H-setup-plus-1H-trigger requirement below remains. This was
+     the least evidence-backed of the 2026-10-15 changes (one unverified source), so removing it
+     carries comparatively less-documented downside than the confirmation-count or R:R changes
+     above — but it was also specifically designed to reduce false positives during crypto's
+     well-documented choppy stretches, so removing it reopens exposure to exactly that failure
+     mode with no replacement filter.
    - **Daily-chart-equivalent setup plus a shorter-timeframe trigger, crypto-adapted for a market
      that never closes**: the 4-hour chart establishes the setup (in place of §5B's daily chart),
      the 1-hour chart supplies the specific execution trigger (in place of §5B's hourly trigger on
@@ -3085,7 +3157,7 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      following the October 2025 liquidation event). A 6-of-8-coin cap left too little real
      concentration limit given that documented behavior; 2 restores the cap to treating the
      allowlist as a correlated basket rather than 8 independent bets. Own small cap, separate from
-     Mode B's 10-position cap and Mode C's 8-position cap. The §3 portfolio heat cap (6% of
+     Mode B's 15-position cap and Mode C's 8-position cap. The §3 portfolio heat cap (6% of
      equity, aggregate across every mode) and the
      30%-of-equity per-position cap both remain the hard ceilings on simultaneous dollar risk
      regardless of how many positions are open; no further per-coin theme subdivision.
@@ -3190,8 +3262,8 @@ Mode B's ordinary numbers, and chose the tighter sub-cap, below.
    Bearish Mirror Gate, also read on the ETF's own chart (its chart already moves opposite the
    underlying index, so a "bearish" technical read on the inverse ETF's own price corresponds to a
    bullish read on the underlying it shorts — read the confirmations directly off the traded
-   instrument's own chart, not the underlying index's, to avoid a sign error). Same flat ≥1.5:1
-   reward-to-risk floor as everywhere else in this document, computed on the ETF's own price
+   instrument's own chart, not the underlying index's, to avoid a sign error). Same flat ≥1.3:1
+   reward-to-risk floor as §5B (lowered 2026-10-28 from 1.5:1 — see §12 change log), computed on the ETF's own price
    action.
 3. **Stop/invalidation computed on the ETF's own ATR/price action, not the underlying index's** —
    leverage changes the ETF's own volatility and noise band, so a stop sized off the underlying
