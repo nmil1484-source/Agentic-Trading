@@ -50363,3 +50363,49 @@ Basket drifting mildly red across the board after the rollover, no dispersion. N
 ### 2026-10-28 (user confirmation, in-chat) — Cash discrepancy resolved
 
 User confirmed in chat that the $320.00 cash decrease flagged in the 14:23:33Z first-scan-of-day entry above (account total_value/cash $6,858.34 → $6,538.34) was their own withdrawal, unrelated to any trading activity (explicitly noted: no trade has been placed in ~5 days). This matches the presumption already logged under §6's cash-only discrepancy rule — positions/orders were otherwise fully consistent (0 of each), so no pause in new-entry authority was triggered and none is warranted now. Logged for the record; no other action required.
+
+---
+### 2026-10-28T14:39:35Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
+
+**STEP 0 — Gate check:** §14 Status = ACTIVE. No kill phrase issued since last cycle. Proceeding.
+
+**Account state** (`get_portfolio`, account_number 748688058): total_value $6,538.34, cash $6,538.34, equity/crypto/options value $0.00 — unchanged from the confirmed-withdrawal level logged this cycle's chat (user confirmed the $320 decrease was a manual withdrawal, unrelated to trading). `get_crypto_positions`: 0 open positions.
+
+**Circuit breakers:** Same-day 2-stop-out cooldown — N/A. Market-shock check — SPY $770.365 vs. prior close $769.66 (+0.09%), QQQ $721.41 vs. prior close $721.25 (+0.02%), both flat — no shock, clear; confirms the crypto weakness below is still crypto-specific, not macro. 3%-equity-decline — N/A, cash account with 0 positions, and the only change today was the already-explained withdrawal. MCP reconciliation — clean.
+
+**Portfolio heat cap (§3):** $0 open risk anywhere. Full ~$392.30 (6% of equity) headroom available.
+
+**Stop-audit (§21 item 5):** N/A — no open crypto positions.
+
+**Allowlist screen** (`get_crypto_quotes`, mark vs. today's `open_price`):
+
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC | 80,405.47 | 81,037.215 | -0.78% |
+| ETH | 2,326.24 | 2,357.565 | -1.33% |
+| SOL | 100.5618 | 101.901 | -1.31% |
+| XRP | 1.308784 | 1.335059 | -1.97% |
+| LINK | 11.496305 | 11.738485 | -2.06% |
+| AAVE | 131.0885 | 135.1475 | -3.01% |
+| HBAR | 0.0751491 | 0.0767715 | -2.11% |
+| AVAX | 8.815374 | 9.017875 | -2.25% |
+
+**Narrative:** The selloff flagged over the last two cycles (12:41Z, 13:46Z) has deepened further still — AAVE now -3.01% (vs. -2.42% last cycle), AVAX -2.25%, HBAR -2.11%, LINK -2.06%, XRP -1.97%, all worse than an hour ago. SPY/QQQ remain essentially flat, reconfirming this is a crypto-specific drawdown, not a broad macro risk-off move. With 0 positions held, no circuit breaker or exit rule is implicated. No catalyst identified; no pair qualifies for a §21 entry (spot-long-only, no mechanism to act on sustained weakness).
+
+**Status: OBSERVE, no trade.** No order placed. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: clear, full headroom.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-28T14:39:35Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
