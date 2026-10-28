@@ -50926,3 +50926,67 @@ Crypto position count: 0/2.
   "git_push": "success"
 }
 ```
+
+---
+### 2026-10-28T19:37:50Z — AUTONOMOUS (Crypto 24/7 Scan, §21) — SOFI stopped out (breakeven+ winner)
+
+**STEP 0 — Gate check:** §14 Status = ACTIVE. No kill phrase since last cycle. Proceeding.
+
+**SOFI EXIT (discovered this cycle via `get_portfolio` showing equity_value dropped to $0):** The $16.85 breakeven+ stop placed last cycle (18:38:59Z) filled at **19:10:34Z** — price dipped back through $16.85 after the earlier spike-and-fade, triggering the resting `stop_market` sell. Order `6ae24143-9e2c-4bea-b6ad-e946af827948`, state=filled, 154 shares @ avg **$16.85**, fee $0.06.
+
+**TRADE CARD — SOFI EXIT**
+- STRATEGY: SWING_TRADING (Mode B)
+- Entry: 154 sh @ avg $16.8399 (2026-10-28 15:39:04Z)
+- Exit: 154 sh @ avg $16.85 (2026-10-28 19:10:34Z), fee $0.06
+- Exit rule: §16 item 14/5 resting breakeven+ stop (moved from original $16.70 to $16.85 at 18:38:59Z after price crossed +1R at $16.98)
+- **Realized P&L: +$1.50** (entry cost $2,593.34, exit proceeds $2,594.84)
+- Held ~3h31m — intraday, same-calendar-day exit via a hard stop hit, correctly tagged `SAME_DAY_PROTECTIVE_EXIT` per §17 item 3 (does not violate the no-same-day-close-by-design rule)
+- Note: price has since continued higher (back to ~$17.02 by this cycle's quote) — the breakeven+ stop did its job (converted a planned $30.80 max loss into a small locked-in gain) even though the stock kept running after the whipsaw; this is the expected tradeoff of a tight breakeven-plus stop, not a process error.
+
+**Circuit breakers:** 1 stop-out today (SOFI, Mode B — a winning stop-out, same convention as the 2026-10-23 CBRS precedent of counting any stop-order fill) — below the 2-stop-out same-day cooldown threshold. Market-shock — SPY $770.82 vs. last cycle $770.37 (+0.06%), QQQ $722.96 vs. $722.26 (+0.10%) — clear.
+
+**Account state:** total_value $6,539.84, 100% cash, 0 open positions in any mode.
+
+**Portfolio heat cap:** $0 open risk anywhere — full $392.39 (6% of equity) headroom.
+
+**§16 item 16 tally update** (carried forward from the last logged table, 2026-10-23: Mode B 16W/13L $462.41/$607.06 PF 0.76; Mode C 1W/0L $0.87/$0.00; Crypto 2W/12L $66.35/$287.11 PF 0.23; Combined 19W/25L $529.63/$894.17 PF 0.59 — no closed trades in between):
+
+| Mode | Wins | Losses | Win rate | Gross profit | Gross loss | Profit factor |
+|---|---|---|---|---|---|---|
+| Mode B | **17** | 13 | **56.7%** | **$463.91** | $607.06 | 0.76 |
+| Mode C | 1 | 0 | 100% | $0.87 | $0.00 | — |
+| Crypto | 2 | 12 | 14.3% | $66.35 | $287.11 | 0.23 |
+| **Combined** | **20** | 25 | **44.4%** | **$531.13** | $894.17 | **0.59** |
+
+**Read plainly:** a small win (+$1.50), barely moves Mode B's profit factor (0.76→0.76 at this precision). The real value of this trade wasn't the $1.50 — it's that the breakeven+ stop mechanic (§16 items 5/14) converted what could have been a planned $30.80 loss into a (tiny) gain, exactly as designed. No rule change proposed off one data point (§23 lock still in force).
+
+**§21 crypto allowlist screen** (mark vs. today's open) — now at **0/2 positions, 0 heat, full headroom** after the SOFI exit:
+
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC | 81,202.80 | 81,037.22 | +0.20% |
+| ETH | 2,358.15 | 2,357.07 | +0.05% |
+| SOL | 102.18 | 101.90 | +0.27% |
+| XRP | 1.3268 | 1.3354 | -0.64% |
+| LINK | 11.741 | 11.733 | +0.06% |
+| AAVE | 135.38 | 135.15 | +0.17% |
+| HBAR | 0.07551 | 0.07677 | -1.65% |
+| AVAX | 8.9466 | 9.0179 | -0.79% |
+
+**Narrative:** The recovery continues to broaden — BTC/ETH/SOL/LINK/AAVE are now all flat-to-positive on the day (5 of 8 pairs), only XRP/HBAR/AVAX remain negative. Still, a return to flat is price direction, not one of §21 item 3's six listed technical confirmations (EMA alignment, breakout/structure, relative strength, volume, RSI/MACD) — no crypto-historicals tool is available this session to compute an actual indicator read, and TradingView wasn't queried this cycle to conserve its quota. No catalyst identified. **Status: OBSERVE, no trade** — will pull a TradingView-assisted technical read next cycle if this broadening recovery holds, since it's now the most constructive setup of the day.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-28T19:37:50Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [{"symbol": "SOFI", "mode": "B", "reason": "breakeven_plus_stop_hit", "realized_pl": 1.50}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
