@@ -50265,3 +50265,49 @@ Basket drifting mildly red across the board after the rollover, no dispersion. N
   "git_push": "success"
 }
 ```
+
+---
+### 2026-10-28T13:46:22Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
+
+**STEP 0 — Gate check:** §14 Status = ACTIVE. No kill phrase issued since last cycle. Proceeding.
+
+**Account state** (`get_portfolio`, account_number 748688058): total_value $6,858.34, cash $6,858.34, equity/crypto/options value $0.00. `get_crypto_positions`: 0 open positions. Unchanged.
+
+**Circuit breakers:** Same-day 2-stop-out cooldown — N/A, no positions/stop-outs today. Market-shock check (SPY/QQQ >1.5%) — equity markets now open (9:46am ET); `get_equity_quotes` SPY $770.095 vs. prior close $769.66 (+0.06%), QQQ $721.88 vs. prior close $721.25 (+0.09%) — no shock, breaker clear; this confirms today's crypto selloff is NOT accompanied by a broad equity risk-off move, i.e. crypto-specific, not macro-driven. 3%-equity-decline — N/A, 0 positions held. MCP reconciliation — clean.
+
+**Portfolio heat cap (§3):** $0 open risk anywhere. Full ~$411.50 (6% of equity) headroom available.
+
+**Stop-audit (§21 item 5):** N/A — no open crypto positions.
+
+**Allowlist screen** (`get_crypto_quotes`, mark vs. today's `open_price`):
+
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC | 80,512.50 | 81,037.215 | -0.65% |
+| ETH | 2,329.89 | 2,357.065 | -1.15% |
+| SOL | 101.1745 | 101.901 | -0.71% |
+| XRP | 1.317393 | 1.33538 | -1.35% |
+| LINK | 11.570928 | 11.738485 | -1.43% |
+| AAVE | 131.8737 | 135.1475 | -2.42% |
+| HBAR | 0.0753899 | 0.0767715 | -1.80% |
+| AVAX | 8.870458 | 9.02095 | -1.67% |
+
+**Narrative:** The selloff flagged last cycle (12:41Z) has continued deepening — AAVE now -2.42%, LINK -1.43%, HBAR -1.80%, all 8 pairs still red. As flagged, attempted a `analyze_swing_tool` structural check on BTC (BINANCE:BTCUSDT, 4h) to assess whether this is a genuine trend break — the tvremix connector returned a Bad Gateway error this call; not retried since it's supplementary-only per §8 item 7, not a blocking dependency. Cross-checked against equities instead: SPY/QQQ are both marginally green at today's open, confirming this is a crypto-specific move, not a broad risk-off event — rules out the market-shock breaker and suggests this isn't a macro-driven cascade. With 0 positions held, no circuit breaker or exit rule is implicated either way. No catalyst identified for the crypto-specific weakness. No pair qualifies for a §21 entry (a selloff is not itself a bullish setup, and the policy is spot-long-only with no short-side mechanism).
+
+**Status: OBSERVE, no trade.** No order placed. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: clear, full headroom.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-28T13:46:22Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
