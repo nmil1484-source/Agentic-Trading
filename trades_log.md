@@ -50442,3 +50442,43 @@ trade-count clock for Mode B/crypto restarts from today under these newly-revise
 
 Scoped narrowly to Mode B and crypto per the user's own framing — §15 Tier-B, §18/§19 options/
 LEAPS, §20 Mode C, Mode A, and every circuit-breaker/exit-mechanic rule are untouched.
+
+---
+### 2026-10-28T14:58:10Z — AUTONOMOUS (Mode B/C Hourly Scan)
+
+**STEP 0 — Gate check:** §14 Status = ACTIVE. No kill phrase since last cycle. Proceeding. (Note: CLAUDE.md was edited this cycle window per explicit user instruction — confirmation floors, R:R floors, and position caps loosened for Mode B and crypto; read live from the file, not from this trigger prompt's now-stale numbers.)
+
+**Account state:** $6,538.34, 100% cash, 0 positions (equity or options). Unchanged.
+
+**Circuit breakers:** SPY $770.39 vs. prior close $769.66 (+0.09%), QQQ $721.60 vs. $721.25 (+0.05%) — no shock. No stop-outs today. Clear.
+
+**Portfolio heat cap:** $0 open risk anywhere. Full headroom.
+
+**Stop-audit (§16 item 15, Mode B equities):** 0 open positions — N/A.
+**Options/LEAPS stop-check (§18/§19 step 2b):** `get_option_positions` (nonzero=true) — 0 open options/LEAPS positions, nothing to check.
+**Mode C stop-audit (§20 item 12):** 0 open Mode C positions — N/A.
+
+**SOFI/HOOD follow-up (user specifically asked to check both this cycle):**
+- **SOFI** — intraday structure since the open has faded, not reclaimed: 13:30-14:00 UTC bar closed $17.035 (high $17.25), 14:00-14:30 closed $16.865, 14:30-15:00 closed $16.735, now $16.815 — three consecutive lower closes off the morning spike, with volume tapering (11.1M → 3.9M → 3.6M). The daily setup (3 confirmation groups, real catalyst) still stands and now clears even more easily under today's loosened 1-of-5 floor, but §5B item 7 still requires a confirmed hourly trigger candle alongside the daily setup — that requirement wasn't loosened, and this is a fade, not a reclaim. **Still OBSERVE** — no trigger yet.
+- **HOOD** — the first-scan's failed-bounce read didn't hold: 13:30-14:00 bar closed $90.53 (low $89.15, high $92.25 — the rejection I flagged), but 14:00-14:30 closed $91.215 (higher low $90.37) and 14:30-15:00 closed $91.81 with a new intraday high ($92.33, above the morning's rejection high) — now $91.88. The bounce is extending, not failing. This directly invalidates this morning's bearish rejection-candle read. **Downgraded to OBSERVE / thesis currently invalidated** — not pursuing the put from the first-scan cycle; would need a fresh breakdown below today's low to re-qualify.
+
+**Broader screen:** VRT still extremely extended (+13.05%, barely off its post-earnings peak) — no pullback entry. OKLO/ASTS/TSLA/CRCL all recovering off this morning's lows (consistent with the broad market's own flat-to-slightly-green tape) rather than continuing their breakdowns — no fresh bearish trigger on any of them. No new §18/§19 options/LEAPS sourcing candidate identified this cycle. Mode C: no clean VWAP-pullback/ORB/mean-reversion setup found across the names checked — today's first 90 minutes has been choppy recovery, not a clean trend to adapt a setup to.
+
+**Status: OBSERVE, no trade in Mode B or Mode C.** No order placed either lane. Stop-audits: N/A both lanes (0 positions). Options/LEAPS stop-check: 0 positions, nothing breached. Heat-cap: clear, full headroom.
+
+```json
+{
+  "cycle": "Mode B/C Hourly Scan",
+  "timestamp_utc": "2026-10-28T14:58:10Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
