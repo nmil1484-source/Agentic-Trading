@@ -50219,3 +50219,49 @@ Basket drifting mildly red across the board after the rollover, no dispersion. N
   "git_push": "success"
 }
 ```
+
+---
+### 2026-10-28T12:41:06Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
+
+**STEP 0 — Gate check:** §14 Status = ACTIVE. No kill phrase issued since last cycle. Proceeding.
+
+**Account state** (`get_portfolio`, account_number 748688058): total_value $6,858.34, cash $6,858.34, equity/crypto/options value $0.00. `get_crypto_positions`: 0 open positions. Unchanged.
+
+**Circuit breakers:** Same-day 2-stop-out cooldown — N/A, no positions/stop-outs today. Market-shock check (SPY/QQQ >1.5%) — inapplicable, equity markets not yet open (pre-market, ~08:41 ET). 3%-equity-decline — N/A, cash account unaffected by crypto price moves with 0 positions held. MCP reconciliation — clean.
+
+**Portfolio heat cap (§3):** $0 open risk anywhere. Full ~$411.50 (6% of equity) headroom available.
+
+**Stop-audit (§21 item 5):** N/A — no open crypto positions.
+
+**Allowlist screen** (`get_crypto_quotes`, mark vs. today's `open_price`):
+
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC | 80,634.57 | 81,037.215 | -0.50% |
+| ETH | 2,336.62 | 2,357.065 | -0.87% |
+| SOL | 101.4206 | 101.901 | -0.47% |
+| XRP | 1.312649 | 1.33538 | -1.70% |
+| LINK | 11.595219 | 11.738485 | -1.22% |
+| AAVE | 132.2021 | 135.1475 | -2.18% |
+| HBAR | 0.07533 | 0.0767687 | -1.87% |
+| AVAX | 8.874892 | 9.02095 | -1.62% |
+
+**Narrative:** A materially sharper and broader selloff this cycle than anything in the prior several hours — all 8 pairs red, several meaningfully deeper (AAVE -2.18%, HBAR -1.87%, XRP -1.70%, AVAX -1.62%), a clear break from the choppy-mild-uptrend pattern logged 07:38Z-11:38Z. Still below the magnitude of a confirmed account-wide shock breaker (that check is SPY/QQQ-based and inapplicable pre-market regardless), and with 0 positions held this does not itself trigger any circuit breaker or loss limit. No bullish setup is implicated by a selloff of this kind, and the account holds no long positions to protect or exit. Not treating this as a new-entry signal in either direction — no catalyst identified this cycle, and §21 is spot-long-only with no short-side mechanism. Worth flagging for continuity: if this deepens further or a clear catalyst surfaces, the next cycle should spend a TradingView structural check on BTC to confirm whether this is a genuine trend change or a sharper instance of the same overnight chop.
+
+**Status: OBSERVE, no trade.** No order placed. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: clear, full headroom.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-28T12:41:06Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
