@@ -611,6 +611,39 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-29: User instructed two changes after a live, same-day frustration exchange over a
+  zero-trade stretch across Mode B/C/crypto, prompted directly by GOOG and NOW (both post-earnings-
+  crash that day, -12%/-26%) clearing every §5B Bearish Mirror Gate requirement except a usable
+  reward-to-risk, and by the user asking "what are we loosening" after an initial push-back
+  exchange where no gate was loosened.** New §13.F (Post-Gap/Crash Target Methodology and
+  RSI-Exhaustion Clarification, Mode B equities/options). Three options were laid out with honest
+  tradeoffs (an ATR-based post-crash target method flagged as the recommended, lowest-risk fix
+  since it addresses a real target-availability gap rather than lowering any threshold; dropping an
+  unwritten RSI-exhaustion caution, flagged as a real risk-acceptance change; and lowering the R:R
+  floor further, flagged as the weakest-evidence option since it would not have changed either of
+  that day's actual outcomes) plus a no-change option (just stop over-applying TradingView's
+  `setup: null` field as an informal extra veto, free, no tradeoff). **User selected the first two.**
+  1. **ATR-based reward target for a same-day ≥8% catalyst-driven gap/crash**, when existing
+     swing-structure targets are stale or already touched: 1.5× the name's own ATR(14) (same
+     timeframe as the entry), tagged `ATR_TARGET` on the Trade Card for separate outcome tracking.
+     Not a change to any existing R:R floor or confirmation count — a new target-computation method
+     for a specific, narrow edge case (price has moved into technical "air" past its own known
+     structure).
+  2. **Removed the informal RSI-exhaustion veto** (blocking an otherwise-qualifying trade solely
+     for extreme RSI) that had been applied as unwritten caution beyond §5B item 3's actual Momentum
+     text. Disclosed plainly before adoption: this is a genuine risk-acceptance change, not a free
+     correction — entering at a true RSI extreme carries real elevated bounce/reversal risk, which
+     the user chose to accept.
+  **Not adopted**: lowering the R:R floor further (§5B item 4/§13.A, §18/§19's own floor) — flagged
+  as the weakest-evidence lever since neither of the day's real misses was close enough to any
+  realistic floor for that to have mattered, and left untouched per the user's selection (only the
+  first two options were chosen). **Explicit §23 scope note**: this entry does not touch any locked
+  risk-sizing number, position cap, or confirmation/R:R threshold — the 1.3:1/1.5:1 R:R floors, the
+  1-of-5 confirmation count, and every position/sizing cap are unchanged — so this is not logged as
+  a §23 lock override; it is a new methodology for a gap this document's existing structural-target
+  tools (fib/measured-move) don't cover, plus a judgment-practice correction. Scoped to Mode B
+  equities/options only (§13.F item 3) — Mode C and crypto already have their own ATR-based stop
+  designs and are not touched by this entry.
 - **2026-10-28 (later same day): User instructed loosening Mode C the same way as the Mode B
   change directly below ("loosen C like B"), after being told Mode C's real constraint is
   structural (its VWAP-pullback/ORB/mean-reversion edges are designed for 1-5 minute charts,
@@ -1981,6 +2014,64 @@ Flag if a stricter, hard-gate version (confluence required, not just noted) is w
   gauge — e.g. whether the documented stop is tight or wide relative to the name's normal daily
   range. Soft/informational only, same treatment as the rest of this subsection: does not change
   §5B's 2-of-6 bar, the stop-placement methodology in §13.A-D, or any sizing rule.
+
+### F. Post-Gap/Crash Target Methodology and RSI-Exhaustion Clarification (Mode B equities/options, 2026-10-29)
+Added at explicit user instruction, following a live session where GOOG and NOW (both post-
+earnings-crash that same day, -12% and -26% respectively) cleared every other §5B Bearish Mirror
+Gate requirement — verified catalyst, confirmation role-groups, a real volume-confirmed hourly
+failed-bounce/breakdown trigger — but produced no usable reward-to-risk: their existing
+swing-structure (fib retracement, measured-move) reference levels were stale pre-crash numbers,
+and the one real support level within reach of current price had already been touched intraday
+same-day, leaving computed R:R around 0.5:1. This is a target-*availability* gap specific to a
+same-day outsized gap/crash, not a sign the gate itself was too strict — fixed directly rather than
+by lowering any existing R:R floor (§5B item 4/§13.A, §18/§19's own floor) or confirmation count
+(§5B item 3), neither of which is touched by this entry. **Not a §23 lock override**: §23 locks
+risk-sizing numbers, position caps, and confirmation/R:R *thresholds* for a mode; this entry adds a
+target-computation method for a specific edge case and clarifies an unwritten practice, it does not
+change any locked number (the 1.3:1/1.5:1 R:R floors, 1-of-5 confirmation count, and every
+position/sizing cap remain exactly as they were).
+
+1. **ATR-based post-gap/crash reward target.** When a candidate has moved at least 8% intraday or
+   overnight on a verified, dated catalyst (earnings, major news) and every existing swing-structure
+   target (§13.A-D: fib retracement/extension, measured-move, confirmed swing high/low) is either
+   already touched since the gap or was computed from swing points that predate the gap and no
+   longer reflect the new price regime, compute the reward target instead as **1.5× the name's own
+   ATR(14)** (read on the same timeframe used for the entry — 4H for an ordinary swing/Bearish-
+   Mirror-Gate thesis), projected from entry in the direction of the thesis. Use 1.5x, not a wider
+   multiple, as the standing default — the tighter of the two multiples considered when this was
+   adopted (1.5x vs. 2x) — unless the catalyst is unusually strong, in which case up to 2x may be
+   used with that reasoning stated explicitly on the Trade Card. This supplements §13.A-D; use a
+   real structural target whenever one actually exists and hasn't been invalidated by the gap — this
+   method applies only when the structural target is genuinely unavailable (price has moved into
+   "air" past its own known structure), not as a routine substitute. **Flagged plainly, least-tested
+   piece of methodology in this document**: Mode C (§20 item 3, 1.5-2x ATR) and crypto (§21 item 4,
+   2-2.5x ATR) already use an ATR multiple for *stop distance*, where the logic is "don't place the
+   stop inside normal noise." Using the same kind of multiple for a *reward target* is a different
+   claim — that price can plausibly travel that distance within the swing's 2-15 session window —
+   and has no backtest or prior track record on this account. Treat a trade that only clears R:R via
+   this method as a real trade, not a formality, but log it distinctly (tag `ATR_TARGET` on the
+   Trade Card) so its outcomes can be tracked separately from structurally-targeted trades once
+   enough close.
+2. **RSI-exhaustion caution removed as an independent block.** Several near-misses this session
+   (GOOG RSI 16.6, NOW RSI 8.0) were held at OBSERVE specifically because RSI was extremely
+   overbought/oversold, on top of every §5B Bearish Mirror Gate / §18 requirement already being
+   met — this was never a written rule; it was judgment layered on top of §5B item 3's actual
+   Momentum text ("RSI below 55 and falling, or MACD deteriorating" for bearish; "RSI above 45 and
+   improving" for bullish), which does not exclude extreme readings. **Removed as an automatic
+   block, at explicit user instruction, with the tradeoff stated plainly before adoption and
+   accepted anyway**: entering while RSI sits at a genuine extreme (sub-20 or above-80) carries
+   real, elevated risk of a sharp counter-move/bounce before the thesis plays out — that risk is
+   being knowingly accepted, not argued away. RSI is still logged on every Trade Card as context
+   and still feeds the Momentum confirmation role-group test exactly as §5B item 3 already defines
+   it; only the *extra*, undocumented veto on top of a passing read is removed.
+3. **Scope**: both changes apply to Mode B equities and the options/LEAPS positions that ride on an
+   equity's §5B/Bearish-Mirror-Gate clearance (§18/§19) — not Mode C (§20 already uses its own
+   ATR-based stop/Chandelier-Exit design and ORB/VWAP/mean-reversion setups, a different problem
+   shape) and not crypto (§21 already uses ATR-scaled stops as of 2026-10-15; this entry does not
+   extend ATR-based *targets* to crypto, which would need its own separate decision).
+4. **Change control, same as everywhere else**: any further adjustment to this subsection's
+   multiple (1.5x/2x), the 8% gap threshold, or the RSI-caution removal requires explicit user
+   instruction and a dated §12 change-log entry.
 
 ### References consulted 2026-08-13
 - [Fibonacci Retracement Strategy — QuantifiedStrategies](https://www.quantifiedstrategies.com/fibonacci-trading-strategy/)
