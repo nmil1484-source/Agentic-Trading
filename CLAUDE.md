@@ -20,11 +20,20 @@ first time, and it must be kept in sync with those sections whenever a real thre
 - **Permitted assets — no single flat list; by instrument class:**
   - Equities / non-leveraged ETFs: no fixed ticker list by design (§2) — every candidate
     independently verified each cycle against §5B before it can appear on a Trade Card.
-  - Leveraged/inverse ETFs: no fixed list, full unlock, long-only, never shorted (§22).
   - Options (single-leg long calls/puts) and LEAPS (same, 9-12mo DTE): underlying must
-    independently clear §5B or the Bearish Mirror Gate first (§18/§19) — no separate list.
+    independently clear §5B or the Bearish Mirror Gate first (§18/§19) — no separate list. Every
+    ticker in the equities candidate pool (`watchlist.md`) is eligible for a call or a put once
+    it clears the applicable gate; there is no narrower options-only sub-list (confirmed
+    explicitly 2026-10-29, see §12 change log).
+  - Leveraged/inverse ETFs: **named allowlist only** (converted 2026-10-29 from the original
+    full unlock, at explicit user instruction — see §12 change log) — TQQQ, SQQQ, SOXL, SOXS,
+    SPXL, SPXU, TNA, TZA, AMDG (§22). No other leveraged/inverse ETF without a separate,
+    explicit, dated addition to that list.
   - Crypto: **named allowlist only, spot, long-only** — BTC, ETH, SOL, XRP, LINK, AAVE, HBAR,
-    AVAX (§21). No other coin without a separate, explicit, dated addition to that list.
+    AVAX (§21). No other coin without a separate, explicit, dated addition to that list. Entry
+    gating is driven by chart/technical analysis (§21 item 3's confirmation role-groups and the
+    4H-setup-plus-1H-trigger requirement) — affirmed 2026-10-29 as the correct design, not
+    loosened toward a catalyst-only or sentiment-only standard (see §12 change log).
 - **Permitted order types:** equity/ETF limit orders at an exact whole-share quantity (standard
   entry); fractional limit orders only under the Tier-B pilot exception (§15); `stop_market`/
   `stop_limit` sell orders for protective stops (equities, Mode C, crypto); single-leg options
@@ -43,7 +52,9 @@ first time, and it must be kept in sync with those sections whenever a real thre
   2-concurrent-position cap, R:R ≥1.5:1, ≥1-of-6 confirmations (§21) · leveraged/inverse ETFs:
   1%-of-equity per-trade risk, 15%-of-equity per-position cap, 8%-max stop distance,
   2-concurrent-position cap (§22).
-- **Policy version/date:** EP-v1.0, 2026-10-29. Bump the version marker here every time a §12
+- **Policy version/date:** EP-v1.1, 2026-10-29 (later same day — leveraged/inverse ETFs moved
+  from full unlock to a named allowlist; options/crypto scope clarified; nothing else in this
+  block changed). Bump the version marker here every time a §12
   change-log entry changes a number this snapshot quotes — this block is a reading aid, not an
   independent source of truth, and a stale snapshot is worse than no snapshot.
 
@@ -726,6 +737,39 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-29 (later same day): User gave three directives in one message, after being shown the
+  crypto allowlist and the equities/options candidate pool from `watchlist.md` and asked whether
+  options should get a tighter named list like crypto's.** Each handled individually since they
+  touch different sections and, in one case, required live verification before anything was
+  written:
+  1. **"Make every stock that we watchlist available for options and puts."** No rule change —
+     §18 item 2 never named a narrower options-only sub-list; every `watchlist.md` ticker was
+     already eligible for a call or a put the moment it independently clears §5B or the Bearish
+     Mirror Gate, exactly like an ordinary equity entry. Added an explicit confirming sentence to
+     §18 item 2 and to the Effective Policy block's options bullet so this is stated plainly
+     rather than left implicit — this closes the ambiguity the user's question surfaced, not a
+     substantive change to what's permitted.
+  2. **"Yes etfs need to be stricter."** Converted §22 (Leveraged/Inverse ETF Policy) from its
+     original 2026-10-09 full-unlock design (any leveraged/inverse ETF, no named list) to a
+     **named allowlist**, mirroring crypto's §21 structure. **Verified live before drafting**,
+     same diligence as every §21 allowlist addition: `get_equity_tradability` confirmed all nine
+     candidates (TQQQ, SQQQ, SOXL, SOXS, SPXL, SPXU, TNA, TZA, AMDG) tradable, individual-account
+     tradable, active, not halted. The specific nine tickers were **filled in by Claude** — the
+     user specified direction, not individual names — chosen as a liquid, major-index/sector
+     starting set (Nasdaq-100, S&P 500, semiconductors, small-cap, each in both bull and bear
+     form) plus AMDG, the one leveraged ETF already active on `watchlist.md`. Flag if a
+     different list was intended. None of §22's other mechanics were touched by this entry — the
+     15%-of-equity per-position cap, 1%-of-equity per-trade risk, 8%-max stop-distance ceiling,
+     2-concurrent-position cap, and the ordinary §5B/Bearish-Mirror-Gate entry test on the ETF's
+     own chart all remain exactly as they were; this is purely a tightening of *which* ETFs are
+     eligible, not how one is sized or entered once it qualifies.
+  3. **"Crypto should follow chart analysis."** No rule change — §21 item 3 already requires at
+     least 1-of-6 technical confirmations plus a 4H-setup-plus-1H-trigger before any crypto entry,
+     on top of the catalyst/relative-strength requirement; chart-based technical analysis was
+     already the operative entry standard, never a catalyst-only or sentiment-only one. Logged
+     here as an explicit affirmation that this design is correct and should not be loosened away
+     from, not as a new or changed mechanism — added a short confirming clause to the Effective
+     Policy block's crypto bullet for the same reason as item 1 above.
 - **2026-10-29 (later same day): User asked for a clean, current-values-only summary of this
   document, then directly instructed adding three new structural sections — Effective Policy,
   Universal Safety Kernel, and Conflict Resolution — placed at the very top of this file, above
@@ -2978,6 +3022,11 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
    nor a call by the bearish gate). The reward-to-risk floor (≥1.5:1, flat, regardless of regime
    state) is computed on the option's own economics (premium paid vs. realistic profit target for
    a call, vs. realistic decline target for a put), not the underlying stock's price move.
+   **Confirmed explicitly 2026-10-29** (at explicit user instruction — "make every stock that we
+   watchlist available for options and puts" — see §12 change log): this item never named a
+   narrower options-only sub-list, so every ticker in the Mode B candidate pool (`watchlist.md`)
+   was already eligible for a call or a put the moment it clears the applicable gate, exactly
+   like an equity entry. This entry states that plainly rather than leaving it implicit.
 
 3. **Expiration window: 21-75 days to expiration (DTE) at entry** (widened 2026-10-08 from the
    original 30-60 set 2026-08-19, at explicit user instruction — see §12 change log for the
@@ -3604,7 +3653,9 @@ ban — not a removal of the ban itself; §2's prohibition stays the default and
 exception, same structural pattern as §18 (options), §20 (Mode C), and §21 (crypto).** Offered the
 user a choice between a named allowlist (mirroring §21's approach) and a full unlock; **the user
 chose a full unlock — no named list, any leveraged or inverse ETF is in scope**, unlike options'
-and crypto's closed-list approach. Short selling and margin remain fully banned by §1/§2 regardless
+and crypto's closed-list approach. **Reversed 2026-10-29 — see item 1 below and §12 change log**:
+the user directed that ETFs specifically "need to be stricter," and this section was converted
+to a named allowlist, matching crypto's structure after all. Short selling and margin remain fully banned by §1/§2 regardless
 — a leveraged or inverse ETF is only ever bought long (buy-to-open); an inverse ETF bought long is
 the permitted way to express a bearish thesis here, the same role a long put plays under §18's
 Bearish Mirror Gate pairing.
@@ -3617,11 +3668,34 @@ Mode B's horizon is 2-15 trading days, so this decay risk is real and disclosed,
 user was offered a tighter sizing sub-cap (reflecting the extra volatility/decay risk) versus
 Mode B's ordinary numbers, and chose the tighter sub-cap, below.
 
-1. **Instrument scope: any leveraged or inverse ETF, no named allowlist.** Both bull/leveraged-long
-   products (e.g. 2x/3x index or sector funds) and inverse/bear products are in scope — bought long
-   in both cases, never shorted. Still must independently clear §5A/§5B's "no hard-coded ticker
-   list, every candidate requires independent current verification" principle (§2) — broad
-   eligibility is not the same as a pre-approved name.
+1. **Named allowlist only (converted 2026-10-29 from the original full unlock, at explicit user
+   instruction — "yes etfs need to be stricter" — see §12 change log).** The 2026-10-09 launch
+   deliberately chose a full unlock over a named allowlist; this entry reverses that choice.
+   **Only these nine leveraged/inverse ETFs are in scope, bought long only, never shorted:**
+   - **TQQQ** (ProShares UltraPro QQQ) — 3x Nasdaq-100 bull
+   - **SQQQ** (ProShares UltraPro Short QQQ) — 3x Nasdaq-100 bear/inverse
+   - **SOXL** (Direxion Daily Semiconductor Bull 3X ETF)
+   - **SOXS** (Direxion Daily Semiconductor Bear 3X ETF)
+   - **SPXL** (Direxion Daily S&P 500 Bull 3x ETF)
+   - **SPXU** (ProShares UltraPro Short S&P 500)
+   - **TNA** (Direxion Daily Small Cap Bull 3x ETF) — the name that originally prompted this
+     section's creation on 2026-10-09 (a third party's TNA position via the FTA Trade Tracker);
+     still never independently screened against §5B in this account, same as before
+   - **TZA** (Direxion Daily Small Cap Bear 3x ETF)
+   - **AMDG** (Themes ETF Trust Leverage Shares 2X Long AMD Daily ETF) — already on
+     `watchlist.md` since 2026-10-19, already verified
+   All nine confirmed live via `get_equity_tradability` (2026-10-29): tradable, individual-account
+   tradable, active, not halted. **Filled in by Claude** — the user specified direction
+   ("stricter") not individual tickers — as a defensible, liquid, major-index/sector starting set
+   spanning the same broad exposure categories (Nasdaq-100, S&P 500, semiconductors, small-cap)
+   in both bull and bear form, plus the one leveraged ETF already in active use on this
+   account's watchlist. Flag if a different list was intended. Any further addition or removal
+   requires the same live-verification-before-adding discipline §21 already uses for crypto,
+   plus a dated §12 entry — this system does not expand its own leveraged/inverse-ETF universe
+   unilaterally, same principle as §21 item 10. Still must independently clear §5A/§5B's "no
+   hard-coded ticker list, every candidate requires independent current verification" principle
+   (§2) on top of allowlist membership — being on this list is eligibility, not a pre-approved
+   trade, same relationship watchlist.md has to equities.
 2. **Entry gate:** a leveraged-long ETF (e.g. a 3x bull fund) clears through the ordinary §5B Swing
    Entry Gate (bullish), read on the ETF's own chart. An inverse/bear ETF clears through the §5B
    Bearish Mirror Gate, also read on the ETF's own chart (its chart already moves opposite the
