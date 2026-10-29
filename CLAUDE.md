@@ -611,6 +611,33 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## 12. Change log
+- **2026-10-29 (later same day): User asked to "loosen triggers to get into more stocks," after**
+  **the GOOG/NOW options fills earlier this hour and a side conversation about the hourly trigger**
+  **scheduling floor (confirmed unchanged — platform scheduler rejects sub-hourly intervals, tested
+  live again this session).** Diagnosed the actual blocker on today's equity misses before touching
+  anything: TSLA, DIS, ZS, and LLY were each rejected for a specific, real reason (no pullback to
+  anchor an entry; no catalyst/contradicted catalyst; wrong-direction RSI divergence; a fading gap
+  with no clean reclaim) — none were blocked by the R:R floor or confirmation count, both already
+  at their loosest values (1.3:1, 1-of-5) as of 2026-10-28. Offered three levers with disclosed
+  tradeoffs (a breakout-continuation entry method addressing the one gap with real evidence behind
+  it — TSLA's "no pullback" problem; lowering the R:R floor again, flagged as the weakest option
+  since it wouldn't have changed any of today's outcomes and would be the third adjustment to this
+  number in about a week; loosening §13.E's extension-avoidance guidance into an actual non-block,
+  flagged as accepting entries with no technically-grounded stop). **User expressed no preference
+  between the three, deferring to the recommended option.** New **§13.G** (Breakout-Continuation
+  Entry Method, Mode B equities/options): when a candidate clears §5B's catalyst/confirmation
+  requirements but has no active pullback (making a fresh high/low, so §13.A-D's pullback-based
+  stop/target methodology has nothing to measure from), compute the entry instead off the broken
+  level itself — stop just beyond it, target via the existing §13.F `ATR_TARGET` method when no
+  further structural target exists. **Volume confirmation on the breakout bar is made mandatory,
+  not optional, specifically to prevent this from reopening the thin-volume chasing problem that
+  disqualified TSLA itself that same session** — this entry explicitly does not claim it would have
+  gotten TSLA in; TSLA's own volume (0.3x average) remains a real, independent disqualifier under
+  this new method too. No R:R floor, confirmation count, or position/sizing cap touched — same
+  explicit **not a §23 lock override** framing as §13.F, since this adds a target/stop-computation
+  method for a structural gap rather than changing a locked threshold. Scoped to Mode B
+  equities/options only, same as §13.F — Mode C and crypto keep their own separate entry designs,
+  untouched by this entry.
 - **2026-10-29: User instructed two changes after a live, same-day frustration exchange over a
   zero-trade stretch across Mode B/C/crypto, prompted directly by GOOG and NOW (both post-earnings-
   crash that day, -12%/-26%) clearing every §5B Bearish Mirror Gate requirement except a usable
@@ -2072,6 +2099,50 @@ position/sizing cap remain exactly as they were).
 4. **Change control, same as everywhere else**: any further adjustment to this subsection's
    multiple (1.5x/2x), the 8% gap threshold, or the RSI-caution removal requires explicit user
    instruction and a dated §12 change-log entry.
+
+### G. Breakout-Continuation Entry Method (Mode B equities/options, 2026-10-29)
+Added at explicit user instruction, following the same session's screening: TSLA cleared a bullish
+read (catalyst, trend/relative-strength confirmation) but `analyze_swing_tool` returned `setup:
+null` because it was not in an active pullback — making a fresh high with no dip to measure an
+entry/stop from. §13.A-D's fib/measured-move methodology structurally requires a defined pullback
+leg to produce a stop or target, so a genuinely strong, catalyst-backed name making new highs with
+no pullback had no computable entry at all, independent of §5B's own confirmation/R:R thresholds.
+**Explicitly not what fixed TSLA specifically** — TSLA's own volume was thin (0.3x average) that
+day, which remains a real, independent disqualifier under this method (see item 2) — this closes
+the structural gap for a *future* name that has both a genuine breakout and real volume behind it.
+
+1. **When this method applies**: a candidate has a verified, dated catalyst and clears at least one
+   §5B/Bearish-Mirror-Gate confirmation role-group, but `pullback.active` is false (or no structural
+   pullback exists) because price is making a fresh high (bullish) or fresh low (bearish) with no
+   defined pullback leg — i.e., the gap is "no pullback to measure," not "the thesis doesn't hold."
+   Still subject to all of §5B's existing requirements in full — catalyst, confirmation, timing,
+   daily-setup-plus-hourly-trigger (item 3 below defines what the trigger is here specifically).
+2. **Volume confirmation is mandatory, not optional, for this method specifically** — a fresh
+   high/low with thin participation (the TSLA case) is chasing, not a breakout, and stays OBSERVE
+   regardless of catalyst strength. Require real volume on the breakout bar itself (the §5B item 3
+   Volume role-group test: ≥1.2x normal, or clear accumulation/distribution), not just the general
+   trend. This is the one condition that cannot be waived under this method.
+3. **Hourly trigger**: the specific hourly bar that closes above (bullish) or below (bearish) the
+   level being broken — the most recent meaningful consolidation high/low, prior swing high/low, or
+   round-number resistance/support the name was basing under/over. A mid-breakout print with no
+   confirmed hourly close beyond the level stays OBSERVE (same daily-setup-plus-hourly-trigger
+   principle as §5B item 7, applied to a breakout instead of a pullback-reclaim).
+4. **Stop**: placed just beyond the broken level itself (below it for a bullish breakout, above it
+   for a bearish one) — the level that, if reclaimed against the thesis, invalidates the breakout.
+5. **Target**: use the §13.F `ATR_TARGET` method (1.5x the name's own ATR(14), same timeframe as
+   the entry) when there is no overhead/underfoot structural target — the common case for a fresh
+   high/low, since by definition there's no prior resistance/support above/below current price to
+   aim for. If a real structural target does exist (e.g. a prior high well above the breakout on a
+   bullish move), use that instead per §13.A-D; this is the same real-target-first principle §13.F
+   already establishes, just applied to the opposite direction (upside/downside room instead of
+   downside-only).
+6. **R:R floor**: unchanged — ≥1.3:1 (equity thesis, §5B item 4) or ≥1.5:1 (options/LEAPS economics,
+   §18/§19), exactly as everywhere else. This method changes how the stop/target are computed when
+   no pullback structure exists; it does not touch any threshold.
+7. **Scope and change control**: same as §13.F item 3/4 — Mode B equities and the options/LEAPS
+   positions riding on an equity's §5B/Bearish-Mirror-Gate clearance; not Mode C or crypto, which
+   have their own entry designs. Any further adjustment requires explicit user instruction and a
+   dated §12 change-log entry.
 
 ### References consulted 2026-08-13
 - [Fibonacci Retracement Strategy — QuantifiedStrategies](https://www.quantifiedstrategies.com/fibonacci-trading-strategy/)
