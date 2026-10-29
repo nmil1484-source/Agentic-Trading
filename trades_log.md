@@ -51233,3 +51233,47 @@ Crypto position count: 0/2.
   "git_push": "success"
 }
 ```
+
+---
+### 2026-10-29T02:38:14Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
+
+**STEP 0 — Gate check:** §14 Status = ACTIVE. No kill phrase since last cycle. Proceeding.
+
+**Account state:** total_value $6,539.84, 100% cash, 0 positions anywhere/0 crypto positions.
+
+**Circuit breakers:** Same-day 2-stop-out cooldown — not triggered (0 today). Market-shock (SPY/QQQ) — equities closed overnight, inapplicable; no equivalent crypto-only shock breaker exists in §6, so nothing mechanically blocks new entries despite the move below — noting it for the record regardless.
+
+**Portfolio heat cap:** $0 open risk — full $392.39 headroom (moot this cycle — no position open to be affected by the move below).
+
+**Allowlist screen** (mark vs. open) — **a real acceleration lower this cycle, the sharpest of the overnight session by a wide margin:**
+
+| Pair | Mark | Open | % chg |
+|---|---|---|---|
+| BTC | 79,718.77 | 81,037.22 | -1.63% |
+| ETH | 2,294.86 | 2,357.07 | -2.64% |
+| SOL | 99.33 | 101.90 | -2.52% |
+| XRP | 1.2895 | 1.3351 | -3.41% |
+| LINK | 11.302 | 11.738 | -3.72% |
+| AAVE | 128.74 | 135.15 | -4.74% |
+| HBAR | 0.07334 | 0.07677 | -4.47% |
+| AVAX | 8.6005 | 9.0210 | -4.66% |
+
+**Narrative:** Every pair down meaningfully more than any prior cycle tonight — the alts (AAVE/HBAR/AVAX/LINK) now down 3.7-4.7%, BTC itself down over 1.6%. This reads as a genuine risk-off move across the crypto complex, not noise. No qualifying long entry obviously (nothing is basing — this is active selling), and the §21 entry gate is long-only (no shorting) so there's no bearish-mirror equivalent for crypto in this policy. No trade. Will watch closely next cycle for whether this stabilizes or keeps accelerating.
+
+**Status: OBSERVE, no trade.** Crypto position count: 0/2.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-10-29T02:38:14Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": null,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
