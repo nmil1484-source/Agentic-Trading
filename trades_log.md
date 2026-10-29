@@ -51852,3 +51852,15 @@ Other 14 screened names: weak/mixed scores, several with earnings event risk (IR
 ```json
 {"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T17:38:13Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+## 2026-10-29T17:48Z — MANUAL (user-requested re-check: GOOG/NOW hourly re-screen)
+
+User asked to re-check GOOG and NOW once a fresh hourly candle closed. Pulled 3 completed hourly bars for both (14:00, 15:00, 16:00 UTC) plus current quotes/technicals.
+
+**GOOG**: Consolidated 14:00-15:00 (O282.20/H282.90/L281.81/C282.35), bounced to a high of $286.43 in 15:00-16:00, then reversed hard and closed near the hour's low ($282.37) in 16:00-17:00 **on rising volume (3.2M→3.8M)** — now trading $280.48, below the entire prior range. This is a real, volume-confirmed failed-bounce/breakdown — a materially stronger hourly trigger than the 15:04/16:03 cycles found (tight consolidation, no breakdown). However: 1H RSI has dropped to **16.6** (deeply oversold) and `analyze_swing_tool` (4H) still returns **`setup: null`** — no tool-confirmed short setup despite the cleaner trigger. **Verdict unchanged: OBSERVE.** Entering a put now, at RSI 16.6 with no confirmed structural setup, risks chasing into bounce-risk territory rather than a clean continuation.
+
+**NOW**: Continued grinding to new lows ($110.57, below the 16:00 hour's low of $111.02), but on **thinning volume** (5.9M→3.5M→0.66M) — reads as drift/exhaustion, not confirmed selling pressure. 1H RSI now **8.0** (even more extreme than GOOG). `setup: null` persists. **Verdict unchanged: OBSERVE.**
+
+Both still fail on the same grounds as prior cycles: real catalyst + relative weakness, but no tool-confirmed setup and RSI deep in exhaustion territory — the disqualifying combination applied consistently to every extended/crashed name this session (AAVE, LINK, TSLA, LLY included). No trade. Not logged as a scheduled-cycle entry (user-initiated check between cycles) but recorded here per the materiality rule for a check that re-evaluated and refined a prior OBSERVE call.
+
+Status: OBSERVE, no trade. No circuit breaker, no position change (still 0 positions everywhere).
