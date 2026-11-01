@@ -53505,3 +53505,12 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 ```json
 {"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T06:38:06Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+## 2026-11-01T06:47Z — OPERATIONAL: DST changeover trigger reschedule
+
+US clocks fell back to EST (UTC-5) overnight (confirmed via the -05:00 offset appearing in this session's crypto quote timestamps starting ~04:37 UTC). Per the explicit DST note already embedded in the "Mode B/C First Scan of Day" trigger's own stored prompt ("Revisit this cron to 15:00 UTC before/at that DST changeover... Flag this to the user if the changeover date arrives and the cron hasn't been updated yet"), rescheduled both weekday equity/options triggers so they keep firing at the same ET wall-clock times now that EDT (UTC-4) has reverted to EST (UTC-5):
+
+- **"Mode B/C First Scan of Day"** (`trig_01RN6ZbtgxKpoDApzmGswWAs`): cron changed from `0 14 * * 1-5` to `0 15 * * 1-5` — stays at 10:00am ET (was about to become 9:00am ET, inside the §4 first-15-minutes-after-open no-new-entry window).
+- **"Mode B Swing Scan"** hourly trigger (`trig_01KrBsTt9mssjU4hPGtM3cBe`): cron changed from `55 14-19 * * 1-5` to `55 15-20 * * 1-5` — stays at 10:55am-3:55pm ET, so the mandatory STEP 0.5 Mode C flatten still fires at ~3:55pm ET (5 minutes before the 4:00pm ET close) instead of drifting an hour earlier to 2:55pm ET.
+
+The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence with no ET anchoring. No trading rule, cap, or gate was touched by this change — pure scheduling maintenance, next due firings: First Scan Mon 2026-11-02 15:00 UTC, hourly scan starting Mon 2026-11-02 15:55 UTC.
