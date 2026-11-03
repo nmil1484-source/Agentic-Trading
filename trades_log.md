@@ -56122,3 +56122,54 @@ equity position open (PATH); 0 Mode C, 0 options/LEAPS, 0 crypto positions.
 ```json
 {"cycle":"Manual entry (CONFIRM ORDER)","timestamp_utc":"2026-11-03T16:15:18Z","modes_covered":["B"],"status_gate":"ACTIVE","entries":[{"symbol":"PATH","mode":"B","qty":119,"price":13.2491}],"exits":[],"orders_placed":2,"stop_audit":{"checked":1,"missing_found":0,"placed":1},"positions":{"mode_b_count":1,"mode_c_count":0},"risk_dollars":61.84,"risk_pct_of_equity":0.96,"rr_actual":1.81,"portfolio_heat_used":61.84,"portfolio_heat_cap":387.28,"git_push":"success"}
 ```
+
+---
+### 2026-11-03 (same day, post-fill) — PATH STOP RE-VERIFICATION + SCHEDULED-CYCLE METHODOLOGY CHECK (user request, no new scan)
+
+**Stop re-verification (fresh `get_equity_orders`/`get_equity_positions` call, not reused from
+the entry-time check):**
+- Order id `6aea08a9-54de-45c6-b211-0f7927661717`: **state `confirmed` (resting)**, side sell,
+  type `stop_market` (reported as type=market/trigger=stop), stop price **$12.73**, quantity
+  **119.000000**, `cumulative_quantity: 0` (not triggered), time-in-force **GTC**.
+- Position: PATH quantity 119, `shares_held_for_sells: 119`, `shares_available_for_sells: 0` —
+  consistent with the full position being held against the one resting stop order, not split or
+  duplicated.
+- Only two orders exist for PATH total: the filled buy (119 @ avg $13.2491) and this one resting
+  sell stop. **No duplicate entry or protective order found.** Protection-failure procedure not
+  invoked — verification succeeded.
+
+**Scheduled-cycle methodology check — does the stored Mode B/C trigger prompt already use the
+same Robinhood-native fallback and fresh-data discipline used to find PATH?** Pulled the actual
+saved trigger definition (`trig_01KrBsTt9mssjU4hPGtM3cBe`, "Mode B Swing Scan
+(AUTONOMOUS_EXECUTE — ACTIVE)") directly — **yes, verbatim, already there:**
+> "If unavailable this cycle, proceed with Robinhood MCP's own `get_equity_historicals`/
+> `get_equity_technical_indicators` alone and note the outage — it is supplementary, never a
+> blocker; a Stage-1 outage is logged as a tool failure per the coverage methodology above, not
+> as '0 candidates found.'"
+
+> "**Data reuse, within-cycle only:** ... Never carry a prior cycle's structure read forward to
+> qualify a new entry this cycle — each new-entry decision uses this cycle's own fresh call
+> only."
+
+> Screening Coverage Methodology (referenced directly): least-recently-fully-evaluated-first
+> rotation, per-symbol labeling of "evaluated" / "rejected with evidence" / "not evaluated, with
+> reason" every cycle — the exact mechanism that queued TTD/TSLA/PATH earlier today rather than
+> dropping them.
+
+**Conclusion: no process correction needed.** The manual evaluation that found PATH used the same
+fallback-and-freshness rules already saved in the trigger's own stored prompt — it was not a
+one-off manual exception. **Next scheduled Mode B/C cycle: 2026-11-03T16:55:00Z** (`next_run_at`,
+read directly from the trigger). The separate crypto trigger's next run is 2026-11-03T16:37:00Z.
+
+**Reconciliation into scheduled management:** no separate sync step exists or is needed — the
+scheduled cycle reads live broker state (`get_equity_positions`/`get_equity_orders`, just
+confirmed accurate above) plus this file's own history for rotation tracking, both of which
+already reflect the PATH fill and its resting stop via the two entries already committed/pushed
+this session. Nothing further to reconcile.
+
+**No CLAUDE.md edit, no budget spent (Robinhood-native reads only), no change to authority, risk
+limits, or the manual-chat CONFIRM ORDER requirement.**
+
+```json
+{"cycle":"PATH stop re-verification + methodology check (user request, no new scan)","timestamp_utc":"2026-11-03T16:20:00Z","modes_covered":["B"],"status_gate":"ACTIVE","stop_audit":{"checked":1,"missing_found":0,"placed":0},"path_stop_verified":{"order_id":"6aea08a9-54de-45c6-b211-0f7927661717","state":"confirmed","type":"stop_market","stop_price":12.73,"quantity":119,"time_in_force":"gtc","duplicate_found":false},"scheduled_trigger_methodology_match":true,"next_mode_bc_cycle":"2026-11-03T16:55:00Z","next_crypto_cycle":"2026-11-03T16:37:00Z","process_correction_needed":false,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
+```
