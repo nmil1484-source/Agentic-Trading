@@ -1011,6 +1011,44 @@ a live value. This banner does not mean the material below was moved — it was 
 a dated log; this makes its non-operative status explicit rather than merely implied.
 
 ## 12. Change log
+- **2026-11-03 (later same day): User authorized resuming autonomous NEW-ENTRY authority for Mode
+  B, Mode C, and crypto, and in the same instruction directed resolving §16 item 16's counting-unit
+  ambiguity before any new entry, with an explicit requirement that missing/irreconcilable history
+  not be treated as favorable and that any undefined insufficient-history rule be reported as a
+  blocker rather than silently assumed.** This entry documents that resolution; the resumption of
+  new-entry authority itself is an operational state change (tracked via the PAUSE AUTONOMOUS
+  TRADING log mechanism and each trigger's own next scheduled cycle), not a document edit, and is
+  not re-logged here beyond this note. **§16 item 16 rewritten:**
+  1. **Counting unit resolved to complete economic round-trip positions**, not per-exit-events —
+     every add and every partial/final exit on one ticker/contract, from open to zero net
+     quantity, is now one single tally entry (one win or one loss), using the same position
+     definition as item 17's rollup. This answers, in the direction the user specified, the
+     ambiguity the 2026-11-02 Policy Reconciliation entry left open ("whether 'closed trades'
+     means complete round-trip positions or the same partial-exit-event granularity").
+  2. **Pre-2026-11-03 historical tally data is explicitly NOT relabeled.** Every figure logged
+     under this item through 2026-11-02 was computed under the old per-exit-event granularity and
+     is not the same number as a round-trip-position count; mechanically relabeling it would
+     misstate how many actual positions those events came from. A genuine round-trip-based
+     trailing tally has not been reconstructed from raw fill history — some of that history (e.g.
+     the 2026-08-18 RKLB/DRAM/IREN triple stop-out, logged as one combined $18.08 figure across
+     three tickers) is irreconcilable at the per-position level as originally recorded, without
+     inventing a split that was never made at the time.
+  3. **New insufficient-history default, filling a previously undefined gap, at the user's explicit
+     instruction that missing/irreconcilable history must not be treated as favorable:** until a
+     mode's own round-trip-based trailing window (20 positions for Mode B/Mode C, 10 for crypto)
+     is populated with genuinely reconstructed data, that mode's trailing profit factor is
+     **unverified, not assumed ≥1.0**, and is treated the same as a trailing profit factor below
+     1.0 for the Active Throttle — i.e. the halved per-trade risk percentage applies by default.
+     Concretely: because no round-trip reconstruction has been performed for any of the three
+     modes, **Mode B, Mode C, and crypto each start their first resumed entry at the halved
+     risk-per-trade figure** (1% Mode B, 0.5% Mode C, 0.75% crypto) until enough genuine round-trip
+     closes accumulate under the new counting rule to compute a real trailing figure. The window
+     lengths, the 1.0 threshold, and the halving magnitude are unchanged — only the counting unit
+     and this insufficient-history default were resolved.
+  No risk-sizing *number*, position cap, confirmation count, or instrument permission was changed
+  by this entry — it resolves how an existing tally counts and what it assumes when data is
+  missing, consistent with the user's own framing of the request as a counting-method resolution,
+  not a new risk-tolerance change.
 - **2026-11-03: User directed a coverage/measurement reconciliation pass — read-only policy and
   trigger-prompt reconciliation only, explicitly scoped to exclude any risk-sizing, position-cap,
   R:R-floor, confirmation-count, or instrument-permission change, per the user's own stated scope
@@ -3510,56 +3548,95 @@ item 9 and §21 item 9. See §12 change log.
     exactly as if it were missing one — there is no grandfather exception.
 
 16. **Profit-factor and win-rate tracking (added 2026-10-03, explicit user instruction; converted
-    from passive reporting to an active per-sleeve throttle 2026-10-15, moderately evidence-backed
-    — see §12 change log).** In addition to the per-exit record item 11 already requires, maintain
-    a running cumulative tally updated at every realized exit, **tracked separately per mode**
-    (Mode B — equities, §18 options, and §19 LEAPS combined; Mode C; crypto/§21) **and combined
-    across all three**, since the modes' expected shapes genuinely differ (see the purpose note
-    below). A partial trim/profit-take (e.g. a §16 item 6 +2R/+3R trim) counts as its own realized
-    exit event for this tally, same granularity §16 item 11's existing log already uses. Fields:
-    win count, loss count, win rate % (wins ÷ wins+losses), gross profit $ (sum of every winning
-    exit's realized P&L), gross loss $ (absolute sum of every losing exit's realized P&L), and
-    profit factor (gross profit ÷ gross loss; leave undefined/"—" if gross loss is $0). Carry the
-    tally forward incrementally from the last logged value at each new exit (`trades_log.md` is the
-    system of record — never fully recomputed from scratch each time, only updated) and log the
-    updated per-mode and combined figures alongside that exit's Trade Card/`trades_log.md` entry.
-    **Purpose, stated explicitly**: win rate alone is misleading, especially for crypto — crypto is
-    expected to run a structurally *lower* win rate than equity swing trading while still being
-    net-profitable on a few large winners, so profit factor (not win rate) is the number that
-    actually tells each mode's approach whether it's working; a mode posting a low win rate with
-    profit factor ≥1 is healthy, one posting profit factor <1 is losing money net regardless of how
-    its win rate looks in isolation.
+    from passive reporting to an active per-sleeve throttle 2026-10-15; counting unit resolved to
+    complete round-trip positions 2026-11-03, explicit user instruction — see §12 change log).**
+    In addition to the per-exit record item 11 already requires, maintain a running cumulative
+    tally updated at every position close, **tracked separately per mode** (Mode B — equities,
+    §18 options, and §19 LEAPS combined; Mode C; crypto/§21) **and combined across all three**,
+    since the modes' expected shapes genuinely differ (see the purpose note below).
 
-    **Active throttle (added 2026-10-15):** this tally is no longer purely a reporting mechanism.
-    For every mode, compute a **trailing profit factor over that mode's last 20 closed trades** (10
-    if 20 haven't yet accumulated for a lower-frequency sleeve). If the trailing figure falls below
-    1.0, automatically halve that mode's current per-trade risk percentage — crypto's own version
-    of this (0.75%/1.5% risk, tied to a 10-trade trailing window) is specified directly in §21
-    item 4; the same mechanism applies to Mode B (§16 item 2 / the Position Capacity and Sizing
+    **Counting unit (resolved 2026-11-03, explicit user instruction, replacing the prior per-
+    exit-event granularity and the ambiguity that was left open about it on 2026-11-02):** one
+    entry in this tally — one "closed trade" — is one **complete economic round-trip position**,
+    using the same position definition as item 17's rollup (every fill on one ticker/contract,
+    from the original entry through every add and every partial/final exit, until net quantity
+    returns to zero). Every add and every partial exit on that position is combined into that
+    position's **single final realized result, net of recorded fees/slippage/commissions**
+    (item 17's rollup fields) — a position that was trimmed at +2R and then fully closed at +3R
+    is one win, not two win-events; a position added to once and exited once is one trade. The
+    tally updates once, when the position reaches zero net quantity, not at each intermediate
+    partial fill. This resolves, in the direction the user specified, the ambiguity flagged in
+    the 2026-11-02 Policy Reconciliation entry ("whether 'closed trades' means complete round-trip
+    positions or the same partial-exit-event granularity") — round-trip positions is now the
+    answer, for both the tally fields below and the Active Throttle's trailing window.
+
+    Fields: win count, loss count, win rate % (wins ÷ wins+losses), gross profit $ (sum of every
+    winning position's net realized P&L), gross loss $ (absolute sum of every losing position's
+    net realized P&L), and profit factor (gross profit ÷ gross loss; leave undefined/"—" if gross
+    loss is $0). Carry the tally forward incrementally from the last logged value at each position
+    close (`trades_log.md` is the system of record — never fully recomputed from scratch each
+    time, only updated) and log the updated per-mode and combined figures alongside that closing
+    fill's Trade Card/`trades_log.md` entry. **Purpose, stated explicitly**: win rate alone is
+    misleading, especially for crypto — crypto is expected to run a structurally *lower* win rate
+    than equity swing trading while still being net-profitable on a few large winners, so profit
+    factor (not win rate) is the number that actually tells each mode's approach whether it's
+    working; a mode posting a low win rate with profit factor ≥1 is healthy, one posting profit
+    factor <1 is losing money net regardless of how its win rate looks in isolation.
+
+    **Pre-2026-11-03 historical data, flagged explicitly rather than silently relabeled:** every
+    figure logged under this item before today (including the 2026-10-03 backfilled cumulative
+    tally and every subsequent update through 2026-11-02) was computed under the prior per-
+    exit-event granularity, which counts a multi-step position's trims as separate win/loss
+    events. That is **not** the same number as a round-trip-position count, and this reconciliation
+    pass does not mechanically relabel the old figures as if they were — doing so would misstate
+    how many actual round-trip positions those events came from. **A genuine round-trip-based
+    trailing tally has not yet been reconstructed from the raw fill history in `trades_log.md`**;
+    doing so would require replaying each mode's fills position-by-position, which this pass does
+    not perform. Some of that raw history is itself irreconcilable at the per-position level as
+    logged — the 2026-08-18 RKLB/DRAM/IREN triple stop-out was recorded only as one combined
+    $18.08 total across three different tickers, not split per position, so it cannot be cleanly
+    assigned to three separate round-trip-position results without inventing a split that was
+    never recorded at the time.
+
+    **Insufficient/irreconcilable history must not be treated as favorable (explicit user
+    instruction, 2026-11-03):** until a mode's own trailing window is populated with genuinely
+    reconstructed round-trip-position results, that mode's trailing profit factor is **unverified,
+    not assumed ≥1.0**. An unverified trailing profit factor is treated the same as a trailing
+    profit factor below 1.0 for purposes of the Active Throttle below — i.e., **the halved
+    per-trade risk percentage applies by default** for any mode whose round-trip-based trailing
+    tally is not yet populated with genuine data, until enough real round-trip closes accumulate
+    under this item's new counting rule to compute an actual trailing figure. This is the specific
+    resolution to what was, before this edit, an undefined insufficient-history rule for the
+    below-the-window-minimum case (the prior text said what window size to use once 10/20 trades
+    exist, but never stated a default for fewer than that) — flagged to the user as the gap-filling
+    decision this edit makes, not merely a restatement of something already defined.
+
+    **Active throttle (added 2026-10-15, window-counting unit resolved 2026-11-03):** this tally is
+    not purely a reporting mechanism. For every mode, compute a **trailing profit factor over that
+    mode's last 20 closed round-trip positions** (10 if 20 haven't yet accumulated for a lower-
+    frequency sleeve). If the trailing figure falls below 1.0, **or is unverified per the rule
+    above**, automatically halve that mode's current per-trade risk percentage — crypto's own
+    version of this (0.75%/1.5% risk, tied to a 10-trade trailing window) is specified directly in
+    §21 item 4; the same mechanism applies to Mode B (§16 item 2 / the Position Capacity and Sizing
     subsection item 3) and Mode C (§20 item 2) using a 20-trade trailing window given their lower
-    trade frequency relative to crypto. **Corrected 2026-11-02 (see §12 Policy Reconciliation
-    entry): this item previously also claimed the throttle halves "its concurrent-position cap" —
-    none of the three per-mode implementations cited above (§16 item 2, §20 item 2, §21 item 4)
-    actually do that; each only halves the risk percentage. That phrase is removed here to match
-    what is actually implemented, rather than silently adding a new capacity restriction to three
-    live modes to make this summary match instead.** If per-trade risk and position capacity were
-    both meant to throttle together, that is a new mechanic requiring its own explicit edit to
-    §16/§20/§21, including a rounding convention for the resulting fractional cap — not something
-    this reconciliation pass will add unilaterally; flagged for the user's decision. **Also
-    flagged as ambiguous and left unresolved by this pass:** whether "closed trades" for the
-    trailing window above means complete round-trip positions, or the same partial-exit-event
-    granularity the win/loss tally itself uses (a §16 item 6 +2R/+3R trim counts as its own event
-    there) — the two readings make the throttle react at different speeds, and this document does
-    not currently say which one governs the window's own trade count. This is equity-curve-based
-    throttling, a documented technique for exactly this gap: the system was tracking which sleeve
-    was losing money without ever mechanically acting on that fact, relying instead on the user
-    noticing and manually re-tuning rules after the fact — which is what this document's own
+    trade frequency relative to crypto. The window length (20/10 positions) and throttle magnitude
+    (half) are unchanged by this edit — only the counting unit (round-trip positions, not exit-
+    events) and the insufficient-history default (halved, not assumed-normal) were resolved.
+    **Corrected 2026-11-02 (see §12 Policy Reconciliation entry): this item previously also
+    claimed the throttle halves "its concurrent-position cap" — none of the three per-mode
+    implementations cited above (§16 item 2, §20 item 2, §21 item 4) actually do that; each only
+    halves the risk percentage.** If per-trade risk and position capacity were both meant to
+    throttle together, that is a new mechanic requiring its own explicit edit to §16/§20/§21,
+    including a rounding convention for the resulting fractional cap — not something this
+    reconciliation pass adds unilaterally; flagged for the user's decision. This is equity-curve-
+    based throttling, a documented technique for exactly this gap: the system was tracking which
+    sleeve was losing money without ever mechanically acting on that fact, relying instead on the
+    user noticing and manually re-tuning rules after the fact — which is what this document's own
     change log shows happening repeatedly, sometimes within the same day. The specific window
     length (20/10 trades) and throttle magnitude (half) are this operating document's own
-    calibration, not an independently
-    published benchmark — flagged as moderately, not strongly, evidence-backed for that reason; the
-    underlying technique itself is well-documented. Cross-referenced from §20 item 9 (Mode C Trade
-    Cards) and §21 item 9 (crypto Trade Cards).
+    calibration, not an independently published benchmark — flagged as moderately, not strongly,
+    evidence-backed for that reason; the underlying technique itself is well-documented.
+    Cross-referenced from §20 item 9 (Mode C Trade Cards) and §21 item 9 (crypto Trade Cards).
 
 17. **Complete-economic-position rollup, fee/slippage logging, and daily mark-to-market tracking
     (added 2026-11-03, read-only policy reconciliation — does not change item 16's per-exit-event
