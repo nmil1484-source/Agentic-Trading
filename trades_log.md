@@ -56080,3 +56080,45 @@ bounces, not confirmed reversals, with one flagged risk:**
 ```json
 {"cycle":"Manual gate evaluation (user-requested)","timestamp_utc":"2026-11-03T16:12:00Z","modes_covered":["B"],"status_gate":"ACTIVE","coverage":{"universe_size":12,"triaged":0,"full_gate_evaluated":12,"rejected_with_evidence":10,"qualified_pending_confirmation":1,"flagged_event_risk_not_advanced":1,"not_evaluated":[],"tool_failures":2},"trade_card":{"symbol":"PATH","side":"BUY","qty":119,"limit":13.27,"stop":12.73,"target":14.19,"rr":1.70,"risk_pct_of_equity":1.0,"status":"AWAITING_EXACT_CONFIRMATION"},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+---
+### 2026-11-03T16:15:18Z — MANUAL ENTRY FILLED: PATH (CONFIRM ORDER phrase received)
+
+**User issued the exact confirmation phrase**: `CONFIRM ORDER: BUY 119 PATH LIMIT 13.27` —
+matches §1's required format exactly. Pre-order re-verification run immediately before
+submission (Universal Safety Kernel item 7): `get_accounts` (both accounts active, Agentic
+••••8058 confirmed `agentic_allowed: true`), fresh quote (PATH ask $13.26, essentially unchanged
+from the proposed Trade Card), `get_equity_tradability` (tradable, individual-account tradable,
+active), `review_equity_order` (clean, `order_checks: {}`, no approval flag).
+
+**Entry filled**: BUY 119 PATH, limit $13.27, **filled at $13.2491 average** (price improvement
+vs. the limit) — order id `6aea0896-43a9-440a-af0d-341f8b68aa4e`, state `filled`,
+`cumulative_quantity: 119`. Total cost: $1,576.64.
+
+**Protective stop placed immediately on fill (§16 item 14)**: SELL 119 PATH, `stop_market`,
+stop $12.73, GTC — order id `6aea08a9-54de-45c6-b211-0f7927661717`. Verified via `get_equity_orders`:
+**state `confirmed`, resting.** Position is protected.
+
+**Updated Trade Card (actual fill figures, supersedes the pre-fill proposal):**
+- STRATEGY: SWING_TRADING
+- Ticker: PATH (UiPath, Inc.) — 119 shares
+- Avg fill: $13.2491; cost basis $1,576.64
+- Stop/invalidation: $12.73 (Oct 16 structural swing low), resting order confirmed
+- Target: $14.19 (Oct 26 swing high)
+- Actual risk: ($13.2491-$12.73) × 119 = $61.84 (0.96% of equity — slightly under the 1% budget
+  due to the favorable fill price)
+- Actual R:R: ($14.19-$13.2491)/($13.2491-$12.73) ≈ **1.81:1**
+- Reward-to-risk/concentration: 1 of 15 position-cap slots used, 1 of 3 in its theme
+  (software/RPA), $1,576.64 = 24.4% of equity (under the 40% per-position cap), 24.4% of the 90%
+  deployment ceiling used
+- Portfolio heat after this fill: $61.84 open risk / $387.28 (6%) cap — 16% of heat capacity used
+- Day-trade/settlement: settled cash used, no restriction
+- Daily-chart setup / hourly trigger: logged in the prior gate-evaluation entry above
+- Resting stop order id: `6aea08a9-54de-45c6-b211-0f7927661717`, confirmed resting
+
+**Account state after fill**: cash reduced by $1,576.64 to approximately $4,878.02; 1 Mode B
+equity position open (PATH); 0 Mode C, 0 options/LEAPS, 0 crypto positions.
+
+```json
+{"cycle":"Manual entry (CONFIRM ORDER)","timestamp_utc":"2026-11-03T16:15:18Z","modes_covered":["B"],"status_gate":"ACTIVE","entries":[{"symbol":"PATH","mode":"B","qty":119,"price":13.2491}],"exits":[],"orders_placed":2,"stop_audit":{"checked":1,"missing_found":0,"placed":1},"positions":{"mode_b_count":1,"mode_c_count":0},"risk_dollars":61.84,"risk_pct_of_equity":0.96,"rr_actual":1.81,"portfolio_heat_used":61.84,"portfolio_heat_cap":387.28,"git_push":"success"}
+```
