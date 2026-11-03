@@ -317,3 +317,51 @@ stop/reward-to-risk, read on each name's own chart) before either can appear on 
 Eli Lilly piece in particular reads as a multi-quarter thesis rather than a single-day catalyst —
 worth evaluating against §19's LEAPS research gate (durable thesis, weekly/daily structure) in
 addition to the ordinary §5B swing gate, on whichever future cycle actually considers it.
+
+## TradingView exchange-prefix reference (added 2026-11-03)
+
+Added after a live diagnostic found that guessing a bare ticker's TradingView exchange prefix
+(`NYSE:`/`NASDAQ:`/etc.) produced 8 outright failures out of 73 when run through `rank_symbol_setups`
+— not because the names don't exist, but because the guessed exchange was wrong (e.g. Shopify and
+Palantir are `NASDAQ:`, not `NYSE:`; several ETFs resolve to `CBOE:`/`AMEX:`, not `NASDAQ:`). This
+table is the **verified-working prefix for each name in the eligible candidate pool above**, confirmed
+via `search_symbols`/`rank_symbol_setups` on 2026-11-03. It exists purely to save screening cycles
+from re-discovering the same 8 failures and burning tvremix's call budget on retries — **it grants no
+trading authority and changes no gate**, exactly like inclusion in the pool itself. If TradingView
+later relists a name under a different exchange, this table can drift stale; a screening cycle that
+gets a "missing" result for a name listed below should re-resolve it via `search_symbols` rather than
+assume the table is wrong about everything else.
+
+| Ticker | TradingView symbol | Ticker | TradingView symbol | Ticker | TradingView symbol |
+|---|---|---|---|---|---|
+| TTD | NASDAQ:TTD | ONDS | NASDAQ:ONDS | RKLB | NASDAQ:RKLB |
+| AMD | NASDAQ:AMD | TSLA | NASDAQ:TSLA | IREN | NASDAQ:IREN |
+| AMZN | NASDAQ:AMZN | SHOP | NASDAQ:SHOP | LMND | NYSE:LMND |
+| PATH | NYSE:PATH | ARKG | CBOE:ARKG | NFLX | NASDAQ:NFLX |
+| RGTI | NASDAQ:RGTI | AAPL | NASDAQ:AAPL | VRT | NYSE:VRT |
+| PLAB | NASDAQ:PLAB | HIMS | NYSE:HIMS | GOOG | NASDAQ:GOOG |
+| RUN | NASDAQ:RUN | MU | NASDAQ:MU | RDW | NYSE:RDW |
+| ASTS | NASDAQ:ASTS | KTOS | NASDAQ:KTOS | AVA | NYSE:AVA |
+| STM | NYSE:STM | SPY | AMEX:SPY | DUOL | NASDAQ:DUOL |
+| PLTR | NASDAQ:PLTR | OSCR | NYSE:OSCR | QQQ | NASDAQ:QQQ |
+| NVDA | NASDAQ:NVDA | OKLO | NYSE:OKLO | ZETA | NYSE:ZETA |
+| HOOD | NASDAQ:HOOD | TEM | NASDAQ:TEM | AVAV | NASDAQ:AVAV |
+| TSM | NYSE:TSM | NOW | NYSE:NOW | ORCL | NYSE:ORCL |
+| PURR | NASDAQ:PURR | BMNR | NYSE:BMNR | CVX | NYSE:CVX |
+| KEEL | NASDAQ:KEEL | DRAM | CBOE:DRAM | DELL | NYSE:DELL |
+| UBER | NYSE:UBER | HPE | NYSE:HPE | NBIS | NASDAQ:NBIS |
+| CRWV | NASDAQ:CRWV | ZS | NASDAQ:ZS | SOFI | NASDAQ:SOFI |
+| FIG | NYSE:FIG | GDX | AMEX:GDX | IGV | CBOE:IGV |
+| CRCL | NYSE:CRCL | CBRS | NASDAQ:CBRS | GLD | AMEX:GLD |
+| SLV | AMEX:SLV | PGY | NASDAQ:PGY | IWM | AMEX:IWM |
+| TPST | NASDAQ:TPST | INTC | NASDAQ:INTC | VST | NYSE:VST |
+| BE | NYSE:BE | DIS | NYSE:DIS | IBIT | NASDAQ:IBIT |
+| ETHA | NASDAQ:ETHA | CORZ | NASDAQ:CORZ | CAI | NASDAQ:CAI |
+| AMDG | NASDAQ:AMDG | SE | NYSE:SE | SPCX | NASDAQ:SPCX |
+| LLY | NYSE:LLY | | | | |
+
+**Note, same diagnostic:** `analyze_swing_tool`'s timeframe parameter is named `interval`, not
+`timeframe` — passing `timeframe` is silently ignored and the tool defaults to `interval: "1D"`. This
+matters most for crypto (§21), which requires a genuine 4H setup plus a 1H trigger; for Mode B/C
+equities, `"1D"` is already §13's intended default, so this bug didn't corrupt equity screening the
+same way. See CLAUDE.md §12 change-log / the 2026-11-03 trigger updates for the operational fix.
