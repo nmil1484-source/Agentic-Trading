@@ -55945,3 +55945,53 @@ pending names have no confirmed underlying clearance yet either).
 ```json
 {"cycle":"Mode B/C cycle","timestamp_utc":"2026-11-03T15:56:15Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":82,"triaged":0,"full_gate_evaluated":8,"rejected_with_evidence":5,"not_evaluated":[{"symbol":"TTD","reason":"item 4 ambiguous (R:R 1.27-1.63:1 depending on reference) + item 7 missing (no today's hourly bars)"},{"symbol":"TSLA","reason":"item 7 missing only (no today's hourly bars) - strongest pending candidate, items 1-4/6 otherwise support"},{"symbol":"PATH","reason":"item 7 missing only (no today's hourly bars) - second-strongest pending candidate"},{"symbol":"RGTI","reason":"rotation deferred to next cycle, priority slots used on the 8 explicitly-requested names"},{"symbol":"AAPL","reason":"rotation deferred to next cycle"},{"symbol":"VRT","reason":"rotation deferred to next cycle"},{"symbol":"PLAB","reason":"rotation deferred to next cycle"},{"symbol":"TQQQ","reason":"§22 allowlist not triaged - tvremix down, fallback effort went to priority names"},{"symbol":"SQQQ","reason":"§22 allowlist not triaged"},{"symbol":"SOXL","reason":"§22 allowlist not triaged"},{"symbol":"SOXS","reason":"§22 allowlist not triaged"},{"symbol":"SPXL","reason":"§22 allowlist not triaged"},{"symbol":"SPXU","reason":"§22 allowlist not triaged"},{"symbol":"TNA","reason":"§22 allowlist not triaged"},{"symbol":"TZA","reason":"§22 allowlist not triaged"},{"symbol":"AMDG","reason":"§22/watchlist allowlist not triaged this cycle"}],"tool_failures":2},"tvremix_calls_used_today":10,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+---
+### 2026-11-03 (same day, post-cycle) — CRYPTO STATUS CLARIFICATION (user feedback, no new scan)
+
+**No new tvremix call made to produce this note — data-access status below is "last known," not
+freshly re-tested, per the user's own instruction to wait for the next eligible cycle. No change
+to §14 Status, budgets, risk limits, protective requirements, or the Agentic-only account
+firewall (••••8058 only; ••••7533 never touched, unaffected by anything in this note).**
+
+**Clarification: the 15:37:55Z crypto cycle's outcome is NOT_EVALUATED (tool failure), not
+"nothing qualified."** That entry already states this correctly ("not because any pair failed
+the gate, but because the gate itself could not be evaluated this cycle") — restated here
+explicitly since the distinction matters: all 8 allowlisted pairs (BTC, ETH, SOL, XRP, LINK,
+AAVE, HBAR, AVAX) are genuinely unassessed for that hour, not rejected, not passed, and not
+implicitly bearish/bullish by default.
+
+**Rate-limit cause, restated from the existing error-record analysis already logged this session
+(no new probing):** `analyze_structure_batch` failed twice in a row ("Too Many Requests") at
+15:37:55Z, immediately following a cluster of 8 tvremix calls (3 success, 5 fail) at the
+15:04:58Z Mode B/C cycle only ~33 minutes earlier. Crypto's own daily pool stood at 12/30 and Mode
+B/C's at 8/20 at the time — neither anywhere near its daily ceiling, so this was **not** a
+budget-exhaustion case. The mixed success/failure pattern inside a single burst of calls points
+to a **short-window, provider-side request-rate throttle**, not a daily cap. **No documented
+retry/reset interval for this exists anywhere in CLAUDE.md or this log** — none is stated because
+none has ever been specified by the connector or this system's own documentation; inventing a
+specific cooldown time would not be sourced. Current data-access status is **last known: rate-
+limited as of 15:37:55Z, not re-tested since** — per this instruction, no probe is being made now
+to check if it has cleared; the next scheduled hourly crypto trigger is the next real test.
+
+**Plan for the next eligible crypto cycle:**
+1. One `analyze_structure_batch` call across the full current 8-pair allowlist
+   (timeframes `["240","60"]`) for a genuine, fresh 4H-setup-plus-1H-trigger read — no data
+   carried forward from any prior cycle, no stale figures reused.
+2. If that call fails, retry once (the established practice all session) — no third attempt,
+   no blind repeated retries beyond that.
+3. If still unavailable: log every pair NOT_EVALUATED — tool failure (explicitly, never as
+   "nothing qualified" or as a rejected setup) and end the cycle with no trade — same as the
+   15:37:55Z entry.
+4. If data comes back: walk every one of the 8 pairs through §21 item 3 in full (catalyst/RS,
+   confirmation role-groups, stop/R:R, the genuine 4H+1H pair) and report each one's actual
+   pass/fail with evidence — not merely that the trigger fired or that a scan ran.
+5. Same standing constraints apply regardless of outcome: current risk-per-trade/position-cap/
+   stop-distance-ceiling/R:R-floor numbers unchanged, portfolio heat cap checked before any size,
+   mandatory resting stop + verification on any fill, Agentic Account (••••8058) only, no margin,
+   no blind retry beyond item 2 above, no entry sized or placed from anything but that cycle's
+   own fresh data.
+
+```json
+{"cycle":"Crypto status clarification (user feedback, no new scan)","timestamp_utc":"2026-11-03T00:00:00Z_SAME_DAY","modes_covered":["crypto"],"status_gate":"ACTIVE","last_known_data_access":"rate_limited_not_retested","last_cycle_checked":"2026-11-03T15:37:55Z","last_cycle_outcome":"NOT_EVALUATED_tool_failure_8_of_8","documented_reset_interval":"none found","next_action":"fresh full-allowlist 4H+60 structure check at next scheduled crypto trigger, max 2 attempts, no stale-data entry","exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
+```
