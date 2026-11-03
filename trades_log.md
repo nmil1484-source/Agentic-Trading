@@ -55765,3 +55765,65 @@ reported in the same breath as one still queued or missing data.
 ```json
 {"cycle":"Second methodology correction (user feedback, no new scan)","timestamp_utc":"2026-11-03T00:00:00Z_SAME_DAY","modes_covered":["B","crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"corrections":{"ARKG_item3_recount":"PASS via Relative Weakness role-group (corrected from prior FAIL claim); items 4 and 7 remain the actual blockers","RKLB_SHOP_PATH_reclassified":"CONFLICTED label retired, now NOT_EVALUATED_MISSING_DATA, ranking disagreement confirmed non-binding"},"rate_limit_analysis":{"crypto_pool_used_of_30":12,"mode_bc_pool_used_of_20":8,"cause":"short-window provider-side throttle, not daily-budget exhaustion","documented_reset_interval":"none found in CLAUDE.md or trades_log.md","third_retry_attempted":false,"budget_exceeded":false,"data_bypassed":false},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+---
+### 2026-11-03 (same day, post-cycle) — STANDING PLAN NOTE FOR NEXT MODE B/C CYCLE (user instruction, no new scan)
+
+**No new tool calls against any market-data connector made to produce this note — the inverse-ETF
+coverage check below was a local file read (`watchlist.md`), not a scan. No change to §14 Status,
+risk limits, entry thresholds, protective requirements, or any CLAUDE.md permission/budget.**
+
+**Finding — §22 leveraged/inverse ETFs have NOT been screened this session.** Checked
+`watchlist.md` directly: only **AMDG** of the nine §22-allowlisted tickers (TQQQ, SQQQ, SOXL,
+SOXS, SPXL, SPXU, TNA, TZA, AMDG) appears in the 73-name watchlist pool that Stage 1 triage has
+been drawing from all day — the other eight have never been included in any `rank_symbol_setups`
+call today, so they have never received even a Stage-1 read, let alone a Stage-2 full-gate
+evaluation. AMDG itself is explicitly flagged in `watchlist.md`'s own notes as having "no
+§5B/§22 verification on file yet." **This is a real coverage gap, not a policy restriction** —
+§22 already permits these nine; they were simply never added to the symbol list this screening
+pulls from. Given today's broadly bearish tone (per earlier chat discussion), the inverse side of
+that allowlist (SQQQ, SOXS, SPXU, TZA) is a live, currently-unscreened bearish-execution path.
+
+**Corrected plan, next scheduled Mode B/C cycle (no action taken yet — this is the plan for when
+that trigger next fires):**
+1. **Stage 1 triage symbol list expands from 73 to 82**: the existing watchlist.md pool plus the
+   nine §22-allowlisted leveraged/inverse ETFs, in the same single batched `rank_symbol_setups`
+   call (no extra call, no extra budget spent).
+2. **Stage 2's existing 12-name-per-cycle cap is unchanged** (no cap increase, no budget
+   increase) but is allocated as: **8 slots to the explicitly prioritized unresolved names** —
+   TTD, ONDS, TSLA, AMZN, NFLX, RKLB, SHOP, PATH — each re-evaluated with **fresh** tool data
+   (no reuse of any stale prior-cycle read), independently against **both** the bullish §5B gate
+   and the Bearish Mirror Gate, with the ranking tool's direction/score carrying **zero** gate
+   weight in either direction (triage/prioritization input only, per the Screening Coverage
+   Methodology). **4 slots to the next names in the normal rotation** (RGTI, AAPL, VRT, PLAB) so
+   coverage of the remaining watchlist is not frozen while the 8 priority names are cleared.
+3. The nine §22 names enter Stage 1 triage next cycle (no extra cost) but do not displace any of
+   the 12 Stage-2 slots this time — they become eligible for Stage-2 rotation starting the cycle
+   after, now that they carry a real "never evaluated" timestamp like every other untouched name,
+   rather than being silently absent from the rotation indefinitely.
+4. Each of the 8 priority names stays queued, re-attempted each eligible cycle, until it receives
+   either a complete evidence-backed gate decision (pass or reject, both gates) or a documented
+   reason it drops out of eligibility (e.g., a confirmed earnings-blackout window, delisting, or
+   loss of tradability) — it is never dropped from the queue for running out of attempts.
+
+**Current status, reported in the four requested buckets (nothing has changed since the last
+cycle — no new scan has run yet; this is the honest as-of-now state):**
+- **Complete current gate decisions:** ARKG only — rejected (Bearish Mirror Gate items 1/2/3
+  pass, items 4/7 fail; no bullish §5B case was ever applicable given the bullish-structured
+  chart was the reason the bearish gate failed in the first place).
+- **Still missing required evidence:** TTD, ONDS, TSLA, AMZN, NFLX, RKLB, SHOP, PATH (8) — queued,
+  prioritized per the plan above for the next eligible cycle.
+- **Qualifying setups skipped for timing/sizing/capacity/tool failure:** none. 0 open positions
+  in any mode means no sizing or capacity constraint has bound against any candidate today; the
+  16 names excluded this cycle were excluded for the §4 earnings blackout (timing), not sizing or
+  capacity; no circuit breaker is active. The only "skips" on record are the earnings exclusions
+  and the tool-failure-driven incompleteness of the 8 queued names above — no setup that actually
+  cleared a gate has been skipped for any other reason, because nothing has cleared a gate except
+  the already-rejected ARKG.
+- **§22 permitted inverse ETFs actually screened:** **No, confirmed by direct file check.** Eight
+  of the nine have never been triaged; AMDG (the ninth) is on the watchlist but explicitly
+  unverified against §5B/§22. Corrected starting next cycle per item 1 of the plan above.
+
+```json
+{"cycle":"Standing plan note (user instruction, no new scan)","timestamp_utc":"2026-11-03T00:00:00Z_SAME_DAY","modes_covered":["B"],"status_gate":"ACTIVE","queued_priority_names":["TTD","ONDS","TSLA","AMZN","NFLX","RKLB","SHOP","PATH"],"next_cycle_stage2_allocation":{"priority_slots":8,"rotation_slots":4,"rotation_names":["RGTI","AAPL","VRT","PLAB"]},"leveraged_inverse_etf_coverage":{"screened_this_session":false,"in_watchlist_pool":["AMDG"],"missing_from_pool":["TQQQ","SQQQ","SOXL","SOXS","SPXL","SPXU","TNA","TZA"],"plan":"add all 9 to Stage 1 triage next cycle, no Stage-2 slot displacement this cycle"},"complete_decisions":["ARKG"],"missing_evidence":["TTD","ONDS","TSLA","AMZN","NFLX","RKLB","SHOP","PATH"],"skipped_timing_sizing_capacity_toolfailure":{"timing_earnings_blackout":16,"sizing_or_capacity":0,"tool_failure_incomplete":8},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
+```
