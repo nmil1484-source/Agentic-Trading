@@ -48922,7 +48922,7 @@ All 8 coins essentially flat to mildly down right after the midnight-ET referenc
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T04:38:07Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T04:38:07Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -48956,7 +48956,7 @@ Basket still essentially flat, no dispersion, no fresh catalyst or breakout trig
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T05:37:51Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T05:37:51Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -48990,7 +48990,7 @@ Basket still flat/quiet, no dispersion worth screening, no catalyst on any coin.
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T06:38:02Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T06:38:02Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49024,7 +49024,7 @@ Basket continues to drift sideways with no dispersion, catalyst, or confirmation
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T07:38:13Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T07:38:13Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49058,7 +49058,7 @@ AAVE is the standout mover (-1.42%, largest in the basket) but it's a lone decli
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T08:37:43Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T08:37:43Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49092,7 +49092,7 @@ AAVE is the standout mover (-1.42%, largest in the basket) but it's a lone decli
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T09:38:51Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T09:38:51Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49126,7 +49126,7 @@ The uniform-red drift from the prior cycle continues and deepens slightly — AA
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T10:38:44Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T10:38:44Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49160,7 +49160,7 @@ The prior two cycles' uniform red drift is reversing — BTC, ETH, XRP, LINK hav
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T11:39:52Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T11:39:52Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49200,7 +49200,7 @@ The basket has flipped into a broad-based bounce (BTC/ETH/SOL/XRP/LINK/AVAX all 
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T12:43:10Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T12:43:10Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49234,7 +49234,7 @@ Broad bounce continues, XRP still leading (+1.36%, extended slightly from last c
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T13:42:40Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T13:42:40Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49267,7 +49267,7 @@ No other watchlist name showed a comparably large, catalyst-backed move. **Mode 
 **Orders placed this cycle: 0 (Mode B), 0 (Mode C). Stop-audit: N/A both lanes (0 positions). Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Mode B/C First Scan of Day","timestamp_utc":"2026-10-27T14:10:46Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Mode B/C First Scan of Day","timestamp_utc":"2026-10-27T14:10:46Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49301,7 +49301,7 @@ Essentially unchanged from the prior cycle — XRP still leading (+1.36%), AAVE/
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T14:38:17Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T14:38:17Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49322,7 +49322,7 @@ Essentially unchanged from the prior cycle — XRP still leading (+1.36%), AAVE/
 **Orders placed: 0 (both lanes). Stop-audit: N/A both lanes. Options/LEAPS stop-check: 0 positions, nothing to check. Heat-cap: pass. STEP 0.5 flatten: N/A (not the final cycle). Git push: pending.**
 
 ```json
-{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-10-27T14:56:05Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-10-27T14:56:05Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49358,7 +49358,7 @@ Basket strengthening further, XRP still leading (+1.76%, up from +1.36%). Re-ran
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T15:38:57Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T15:38:57Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49379,7 +49379,7 @@ Basket strengthening further, XRP still leading (+1.76%, up from +1.36%). Re-ran
 **Orders placed: 0 (both lanes). Stop-audit: N/A both lanes. Options/LEAPS stop-check: 0 positions, nothing to check. Heat-cap: pass. STEP 0.5 flatten: N/A. Git push: pending.**
 
 ```json
-{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-10-27T15:56:51Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-10-27T15:56:51Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49413,7 +49413,7 @@ Basket strengthening broadly — AAVE has finally turned (barely) positive after
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T16:38:32Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T16:38:32Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49434,7 +49434,7 @@ Basket strengthening broadly — AAVE has finally turned (barely) positive after
 **Orders placed: 0 (both lanes). Stop-audit: N/A both lanes. Options/LEAPS stop-check: 0 positions, nothing to check. Heat-cap: pass. STEP 0.5 flatten: N/A. Git push: pending.**
 
 ```json
-{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-10-27T16:56:06Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-10-27T16:56:06Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49468,7 +49468,7 @@ No material change from the prior cycle — basket still broadly up, XRP leading
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T17:38:07Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T17:38:07Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49489,7 +49489,7 @@ No material change from the prior cycle — basket still broadly up, XRP leading
 **Orders placed: 0 (both lanes). Stop-audit: N/A both lanes. Options/LEAPS stop-check: 0 positions, nothing to check. Heat-cap: pass. STEP 0.5 flatten: N/A. Git push: pending.**
 
 ```json
-{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-10-27T17:56:05Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-10-27T17:56:05Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49523,7 +49523,7 @@ XRP setting a new intraday high (+1.90%), AVAX also strengthening (+1.11%). AAVE
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T18:37:48Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T18:37:48Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49544,7 +49544,7 @@ XRP setting a new intraday high (+1.90%), AVAX also strengthening (+1.11%). AAVE
 **Orders placed: 0 (both lanes). Stop-audit: N/A both lanes. Options/LEAPS stop-check: 0 positions, nothing to check. Heat-cap: pass. STEP 0.5 flatten: N/A (not the final cycle, that's 19:55 UTC). Git push: pending.**
 
 ```json
-{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-10-27T18:55:41Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-10-27T18:55:41Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49578,7 +49578,7 @@ Basket continues broadly up, same pattern as prior cycles — XRP still leading,
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T19:38:49Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T19:38:49Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49599,7 +49599,7 @@ Basket continues broadly up, same pattern as prior cycles — XRP still leading,
 **Orders placed: 0 (both lanes), for the full session. Stop-audit: N/A both lanes all day. Options/LEAPS stop-check: 0 positions, nothing to check all day. Heat-cap: pass all day (never used). STEP 0.5 flatten: N/A (0 Mode C positions). Git push: pending.**
 
 ```json
-{"cycle":"Mode B/C Hourly Scan (final cycle of day)","timestamp_utc":"2026-10-27T19:55:49Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Mode B/C Hourly Scan (final cycle of day)","timestamp_utc":"2026-10-27T19:55:49Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49633,7 +49633,7 @@ Mild pullback off the day's peaks but basket still broadly up, same pattern as p
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T20:37:51Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T20:37:51Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49667,7 +49667,7 @@ Notable acceleration this cycle — **all 8 coins are now green for the first ti
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T21:37:52Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T21:37:52Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49701,7 +49701,7 @@ Basket cooled slightly off the prior cycle's broad-strength peak — AAVE/HBAR d
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T22:37:48Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T22:37:48Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49735,7 +49735,7 @@ XRP/LINK leading again (+2.24%/+1.94%), AAVE back positive, HBAR the lone declin
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T23:37:49Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-27T23:37:49Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49769,7 +49769,7 @@ Same pattern continues — XRP/LINK leading, HBAR the lone lagging coin. No new 
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T00:37:40Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T00:37:40Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49803,7 +49803,7 @@ Rally continuing to build — XRP/LINK/AVAX all now +2.5%+, AAVE solidly positiv
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T01:38:11Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T01:38:11Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49837,7 +49837,7 @@ Rally continuing to build — XRP/LINK/AVAX all now +2.5%+, AAVE solidly positiv
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T02:38:17Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T02:38:17Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49871,7 +49871,7 @@ Rally continuing to accelerate across the board — LINK now the clear leader at
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T03:37:49Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T03:37:49Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49907,7 +49907,7 @@ As expected right after the daily rollover, the basket resets to flat/mixed smal
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T04:38:12Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T04:38:12Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -49941,7 +49941,7 @@ Basket drifting mildly red across the board after the rollover, no dispersion. N
 **Orders placed this cycle: 0. Crypto position count: 0/2. Stop-audit: N/A. Heat-cap check: pass (0% used). Git push: pending.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T05:37:50Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-10-28T05:37:50Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -54528,7 +54528,7 @@ Broad decline deepening further across the whole allowlist — AAVE now -5.83% (
 No other pair showed an acceleration warranting its own re-check this cycle. **Conclusion: OBSERVE, no trade.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-02T19:38:01Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-02T19:38:01Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
 
 ---
@@ -54903,5 +54903,83 @@ deployment will occur until the user approves one or the other.
 **Conclusion: PAUSED, no new entries. No trade.**
 
 ```json
-{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T06:38:26Z","modes_covered":["crypto"],"status_gate":"PAUSED_MANUAL","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T06:38:26Z","modes_covered":["crypto"],"status_gate":"PAUSED_MANUAL","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
+```
+
+---
+### 2026-11-03T07:21:45Z — MANUAL RESUMPTION: NEW-ENTRY AUTHORITY RESUMED (Mode B, Mode C, Crypto)
+
+**User instruction received this session (verbatim intent):** "I authorize resuming autonomous
+NEW-ENTRY authority for Mode B, Mode C, and Crypto in the designated Agentic account, under the
+deployed policies and my most recently approved risk limits. Resume at each mode's next permitted
+scheduled cycle... Before the first new entry, resolve §16 item 16... Missing or irreconcilable
+history must not be treated as favorable performance... Confirm the effective authority,
+quantitative risk limits, remaining blockers, and next permitted cycle for each mode."
+
+**This entry rescinds the new-entry block from the 2026-11-03T05:24:05Z `PAUSE AUTONOMOUS
+TRADING` entry, for new-entry authority only, scoped exactly as follows:**
+- Applies to Mode B (SWING_TRADING, §5B/§14/§16/§18/§19/§22), Mode C (DAY_TRADING, §20), and
+  Crypto (§21) — all in the Agentic Account (••••8058) only. The retail account (••••7533) remains
+  permanently excluded, no exception.
+- Each mode resumes at its **next permitted scheduled cycle**, not immediately/forced: Crypto at
+  the Crypto 24/7 trigger's next scheduled fire (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`, cron `37 * * * *`,
+  next run ~2026-11-03T07:37:00Z); Mode B and Mode C both at the First Scan of Day trigger's next
+  fire (`trig_01RN6ZbtgxKpoDApzmGswWAs`, cron `0 15 * * 1-5`, next run ~2026-11-03T15:00Z / 10:00am
+  ET), with the hourly trigger (`trig_01KrBsTt9mssjU4hPGtM3cBe`, cron `55 15-20 * * 1-5`) continuing
+  thereafter. This is not an instruction to force an immediate trade, trade outside approved hours,
+  or meet a daily trade/profit quota — the 8-entry Mode C figure remains a ceiling, never a target.
+- **§16 item 16 resolved before this resumption, per CLAUDE.md commit `8ba98a4` (pushed this
+  session):** the profit-factor/win-rate tally now counts complete economic round-trip positions,
+  not per-exit-events. Because no mode has a genuinely reconstructed round-trip-based trailing
+  tally yet (pre-2026-11-03 figures were computed under the old per-exit-event granularity and are
+  explicitly not relabeled), **all three modes' trailing profit factor is unverified** under the
+  new insufficient-history default added in that same edit — treated the same as a trailing profit
+  factor below 1.0. **Consequence: every mode's very first resumed entry, and every entry until a
+  genuine round-trip-based trailing window populates, uses the halved per-trade risk percentage**
+  — Mode B 1% (not 2%), Mode C 0.5% (not 1%), Crypto 0.75% (not 1.5%) — per §16 item 2 / §20 item 2
+  / §21 item 4's own throttle mechanics. This is not a new risk-tolerance decision; it is the
+  existing throttle firing on its own already-approved trigger condition (unverified ≡ <1.0), now
+  that the trigger condition itself is defined.
+- **Maintained, unchanged by this resumption, per explicit user instruction:** Agentic-account-only
+  authority; existing instrument permissions, risk/position/aggregate-exposure limits (including
+  the §3 6%-of-equity portfolio heat cap), circuit breakers (§6), and the 8-entry Mode C ceiling as
+  a ceiling, not a target; broker-verified protective orders for actual filled quantities and the
+  existing protection-failure (URGENT EXIT FAILURE) procedures; no new borrowing, transfers,
+  strategy permissions, or weakened entry gates — none were introduced by this resumption or by the
+  §16 item 16 edit. Mode C uses its deployed §20 hourly-adapted timing/freshness rules exactly as
+  written — an incompatible minute-scale setup is skipped and reported, never silently rewritten,
+  and monitoring cadence/cost is not increased beyond what's already deployed. Crypto evaluates
+  entries only while its required tvremix data source is functioning per the deployed trigger's own
+  exhaustion-handling language (§21 item 3's batch-tool note) — if that source is unavailable or
+  stale, new crypto entries stop rather than inferring signals from a degraded/absent read, and no
+  unverified alternative data provider is substituted. Existing broker-based protective management
+  (resting stops, breakeven/trailing, stop-audits) continues in every mode regardless of new-entry
+  status, exactly as it did throughout the pause.
+- **Mode isolation:** a mode-specific failed prerequisite blocks only that mode/setup, not
+  unrelated ready modes, unless an account-wide safety rule (a §6 circuit breaker, or the item below)
+  requires a broader block.
+
+**Live blocker found this session, account-wide (affects all three modes equally — this is the
+"account-wide safety rule" carve-out, not a mode-specific failure):** the `robinhood-trading` MCP
+connector is reporting as requiring re-authentication in this session as of this entry's timestamp
+— no Robinhood tool (`get_accounts`, `get_portfolio`, `get_equity_tradability`,
+`place_equity_order`, `place_crypto_order`, etc.) can currently be called from this session. Per
+the Universal Safety Kernel item 7 (broker-verification before every order, no exceptions) and §14
+item 5, **no trigger can place an order, verify tradability, or even confirm current account/
+position state while this connector is unauthenticated** — this blocks new entries AND any
+broker-tool-dependent protective-management check in every mode equally, not just new entries,
+until the user reauthorizes the connector via claude.ai Connector settings (this session cannot
+initiate that OAuth flow itself). This is logged here, prominently, as a current operational
+blocker separate from and in addition to the policy-level resumption above — resumption of
+new-entry *authority* does not by itself restore *capability* if the broker connection is down.
+The next trigger to fire (crypto, ~07:37Z) will discover and log this live, per its own STEP 0/
+account-check steps, if reauthorization has not occurred by then.
+
+**Conclusion:** new-entry authority is RESUMED for Mode B, Mode C, and Crypto, scoped and
+throttled exactly as above, effective at each mode's next permitted scheduled cycle — contingent
+on the Robinhood MCP connector being reauthorized before any cycle that needs to call a Robinhood
+tool to act on that authority.
+
+```json
+{"event":"RESUME_NEW_ENTRY_AUTHORITY","timestamp_utc":"2026-11-03T07:21:45Z","modes":["B","C","crypto"],"scope":"new_entry_only","effective":"next_permitted_scheduled_cycle_per_mode","sec16_item16_resolved_commit":"8ba98a4","insufficient_history_default":"halved_risk_all_modes","live_blocker":"robinhood_mcp_requires_reauth","git_push":"success"}
 ```
