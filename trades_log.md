@@ -56763,3 +56763,38 @@ percentages, position caps, R:R floors, confirmation counts, the allowlist, or o
 ```json
 {"cycle":"Crypto outage-reporting deployment + consolidated alert","timestamp_utc":"2026-11-03T21:04:12Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"DATA_BLOCKED","last_verified_success_utc":"2026-11-03T14:38:42Z","outage_started_utc":"2026-11-03T15:37:55Z","tvremix_consecutive_failed_cycles":6,"elapsed_since_first_failure":"5h22m","elapsed_since_last_success":"6h22m","deployment":{"trigger_id":"trig_01UUXAtYHjn7nBgzkdvZU4Rv","change":"DATA_BLOCKED labeling, consecutive-failure counter, consolidated-alert threshold, recovery verification","risk_permission_change":false,"readback_verified":true},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### 2026-11-03T21:12:07Z — CANDLE-TIMING REALIGNMENT DEPLOYED (user-approved)
+
+**Trigger split executed exactly as proposed, no risk/entry-rule/permission change:**
+
+1. **`trig_01KrBsTt9mssjU4hPGtM3cBe`** renamed "Mode B/C Entry Screening — Fresh Candle
+   (AUTONOMOUS_EXECUTE — ACTIVE)", cron changed `55 15-20 * * 1-5` → **`3 16-20 * * 1-5`**
+   (16:03/17:03/18:03/19:03/20:03Z = 8:03/9:03/10:03/11:03am/12:03pm PST). Now evaluates each
+   hourly candle ~3 minutes after close instead of ~55 minutes before the next one closes.
+   STEP 0.5 end-of-day flatten responsibility removed from this trigger's prompt (moved below).
+   All screening logic (Stage 1/2, §18/§19/§22 sourcing, stop-audits, logging format, tvremix
+   budget) otherwise unchanged. `next_run_at`: 2026-11-04T16:03:00Z (today's screening cycles
+   already completed under the old schedule before this deployment).
+
+2. **New trigger `trig_01PpS6WWjQ6Wxdpa2sSuLsm2`**, "Mode B/C End-of-Day Protective Check
+   (12:55pm PST)", cron **`55 20 * * 1-5`** (unchanged time, 5 min before the 21:00Z/4:00pm ET
+   close). Protective-management and STEP 0.5 mandatory Mode C flatten only — explicitly no
+   new-entry screening of any kind (falls inside the last-15-minute blackout anyway). Carries
+   its own full stop-audit (Mode B equity + options/LEAPS + Mode C), exit-condition checks, and
+   the same git-commit/JSON-logging discipline. `next_run_at`: 2026-11-04T20:55:00Z.
+
+**Invocation budget preserved**: still 6 total daily fires (5 entry-screening + 1 protective),
+unchanged from before. tvremix budget recomputed and logged in the entry-screening trigger's own
+text (5 eligible screening cycles/day × 2 calls ≈ 10/day, vs. the unchanged 20/day ceiling — more
+headroom than before, since the close-of-day cycle no longer draws from this budget at all).
+**No change to risk percentages, position/correlation caps, R:R floors, confirmation counts, the
+§22 allowlist, or order authority** — confirmed by direct comparison against the pre-edit prompt
+text before deployment.
+
+Both trigger prompts independently read back via `get_trigger` after each save/create — saved
+text confirmed verbatim.
+
+```json
+{"cycle":"Candle-timing realignment deployment","timestamp_utc":"2026-11-03T21:12:07Z","modes_covered":["B","C"],"status_gate":"ACTIVE","deployment":{"entry_trigger_id":"trig_01KrBsTt9mssjU4hPGtM3cBe","entry_trigger_cron_old":"55 15-20 * * 1-5","entry_trigger_cron_new":"3 16-20 * * 1-5","eod_trigger_id":"trig_01PpS6WWjQ6Wxdpa2sSuLsm2","eod_trigger_cron":"55 20 * * 1-5","total_daily_fires_before":6,"total_daily_fires_after":6,"risk_permission_change":false,"readback_verified":true},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
