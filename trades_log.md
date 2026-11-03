@@ -54983,3 +54983,35 @@ tool to act on that authority.
 ```json
 {"event":"RESUME_NEW_ENTRY_AUTHORITY","timestamp_utc":"2026-11-03T07:21:45Z","modes":["B","C","crypto"],"scope":"new_entry_only","effective":"next_permitted_scheduled_cycle_per_mode","sec16_item16_resolved_commit":"8ba98a4","insufficient_history_default":"halved_risk_all_modes","live_blocker":"robinhood_mcp_requires_reauth","git_push":"success"}
 ```
+
+---
+### 2026-11-03T07:26:40Z — ROBINHOOD MCP CONNECTION CHECK (bounded, read-only)
+
+**One call, this cycle only, as instructed: `get_accounts`.** Result: SUCCEEDED, no error.
+- Agentic Account ••••8058: `state: active`, `deactivated: false`, `permanently_deactivated: false`,
+  `agentic_allowed: true`. Accessible.
+- Retail Account ••••7533: `agentic_allowed: false` — correctly walled off, not touched further.
+
+**Prior blocker (logged 2026-11-03T07:21:45Z) is CLEARED as of this timestamp.** No expired-auth
+error, no server/tool failure, no account restriction, no policy restriction observed on this
+call — the connector answered normally. (The earlier "requires re-authentication" state is not
+re-diagnosed further here since it already resolved; nothing to attribute it to beyond "transient
+or since-resolved," which is noted for completeness, not asserted as fact.)
+
+**Same-connection basis for the scheduled triggers, not an assumption:** this check ran in
+`session_01P3m3ED59T7nyRGQShNVdEz` — the exact `persistent_session_id` all three scheduled
+triggers fire into (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`, `trig_01RN6ZbtgxKpoDApzmGswWAs`,
+`trig_01KrBsTt9mssjU4hPGtM3cBe`, confirmed via `list_triggers` this session). This is not a
+separate manual-session result being extrapolated to the triggers — it is a call made inside the
+identical persistent session context those triggers execute in, so the Robinhood MCP connection
+state verified here is the same connection state they will see. The only residual caveat: this
+confirms the connection is live **as of this timestamp**; it does not guarantee the connector
+stays authenticated through the next scheduled fire (~07:37Z for crypto) — each trigger's own
+STEP 0/account-check step still performs its own verification at fire time per existing policy,
+unchanged by this check.
+
+**No order placed, no strategy or restriction changed.** This was a connectivity check only.
+
+```json
+{"event":"ROBINHOOD_MCP_CONNECTION_CHECK","timestamp_utc":"2026-11-03T07:26:40Z","result":"success","call_used":"get_accounts","agentic_account_accessible":true,"retail_account_accessible":false,"same_session_as_triggers":true,"blocker_cleared":true,"git_push":"success"}
+```
