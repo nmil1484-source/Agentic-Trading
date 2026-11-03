@@ -85,9 +85,13 @@ parallel source of current authority, per Conflict Resolution item 3 below.
     execution trigger required** (§19's own longer-horizon research gate instead; see the
     permissions matrix above).
   - **Mode C day-trading:** 1%-of-equity per-trade risk (throttled to 0.5%), 2.5%/2.5% daily
-    loss/profit limits, 12-position cap, **8-9 new entries/day — exact maximum not yet fixed by
-    the user, see §12 Policy Reconciliation entry; treat as PENDING and do not silently round to
-    either end**, 3-per-theme cap, **R:R ≥1.3:1** (mean-reversion target basis, §20 item 5).
+    loss/profit limits, 12-position cap, **maximum 8 new entries/day — a ceiling, never a quota**
+    (fixed 2026-11-03 at the user's explicit choice, resolving the 8-9 range left PENDING since
+    the 2026-11-02 reconciliation — see §12 Policy Reconciliation entry's follow-up note; zero
+    entries on a day with no qualifying setup is a fully acceptable outcome, and every other hard
+    limit — per-trade risk, the 12-position cap, the 3-per-theme cap, the §3 portfolio heat cap,
+    and any active §6 circuit breaker — can still prohibit a new entry at any count below 8, same
+    as it always could), 3-per-theme cap, **R:R ≥1.3:1** (mean-reversion target basis, §20 item 5).
   - **Crypto (§21):** 1.5%-of-equity per-trade risk (throttled to 0.75% on trailing-10-trade
     profit factor <1.0), 30%-of-equity per-position cap, 2-concurrent-position cap, **R:R ≥1.5:1**
     computed on the coin's own entry/stop/target, ≥1-of-6 confirmations.
@@ -101,13 +105,16 @@ parallel source of current authority, per Conflict Resolution item 3 below.
   check (§18 item 4 / §19 item 3, formulas below), nor a crypto position, which uses
   `get_crypto_orders` (§21 item 5). See the Universal Safety Kernel and §16/§18/§19/§20/§21 for
   the full mechanics; this bullet exists only to keep the three audits from being conflated.
-- **Policy version/date:** EP-v2.0, 2026-11-02 — restructured from a non-authoritative "snapshot"
-  into the authoritative source per the framing change above; corrected several mode-section
-  restatements that had drifted from the numbers already live here (stale DTE/confirmation-count/
-  cap/R:R references in §2, §6, §14, §18, §19, §22 — see §12 Policy Reconciliation entry for the
-  full list); no risk percentage, asset permission, or automatic-recovery choice was changed in
-  that pass. Bump this marker every time a future change edits a number here — and edit the
-  corresponding mode section in the same pass, per the authority rule above.
+- **Policy version/date:** EP-v2.1, 2026-11-03 — bumped from EP-v2.0 (2026-11-02) because this
+  pass fixes one previously-PENDING number (Mode C's daily-entry maximum, resolved to 8 at the
+  user's explicit choice — see the 2026-11-03 §12 change-log entry); every other number in this
+  block is unchanged from EP-v2.0. EP-v2.0 itself restructured this block from a non-authoritative
+  "snapshot" into the authoritative source; corrected several mode-section restatements that had
+  drifted from the numbers already live here (stale DTE/confirmation-count/cap/R:R references in
+  §2, §6, §14, §18, §19, §22 — see §12 Policy Reconciliation entry for the full list); no risk
+  percentage, asset permission, or automatic-recovery choice was changed in that pass. Bump this
+  marker every time a future change edits a number here — and edit the corresponding mode section
+  in the same pass, per the authority rule above.
 
 If any other part of this document appears to conflict with this section, **this section
 controls** — see Conflict Resolution below.
@@ -585,6 +592,105 @@ Tier-B allocation formula remain unchanged and still apply on top of these:
    count-based limits are the only remaining brakes on how many new entries one cycle can place.
 5. Never average down (restates §3/§16's existing rule — not new).
 
+#### Screening Coverage and Triage Methodology (Mode B/C/§21, added 2026-11-03)
+Added following a live diagnostic finding: this session's own actual screening practice had
+drifted into checking only a small set of familiar or large-percentage-moving names deeply (full
+§5B/Bearish-Mirror-Gate or §21 gate evaluation) each cycle, while the rest of the intended universe
+(`watchlist.md` for Mode B/C, the §21 allowlist for crypto) was never actually screened that cycle
+at all — but was never logged as "not screened" either, so an incomplete scan could read as a
+completed one. **This subsection fixes that gap directly: it changes how coverage is screened and
+logged, not any entry-quality gate, risk cap, or reward-to-risk floor** — nothing here makes a
+trade easier or harder to qualify for; it only governs which names actually get looked at, how
+that's prioritized when not everything can be fully evaluated in one cycle, and how that coverage
+is honestly reported.
+
+1. **Two-stage screening, every eligible cycle.**
+   - **Stage 1 — full-universe batch triage.** Every eligible cycle, run a cheap batch screen
+     (e.g. a single `rank_symbol_setups`/`run_screener`-style call, or the TradingView-MCP
+     equivalent) across the **entire** intended universe for that lane — all of `watchlist.md` for
+     Mode B/C, all of the §21 allowlist for crypto — not a subset. This stage is a coarse
+     technical-score/quote-level pass; it is explicitly **not** a full gate evaluation (see item 4
+     below) and must never be reported as one.
+   - **Stage 2 — full-gate evaluation of qualifying/prioritized candidates.** From Stage 1's
+     results, fully evaluate candidates against the applicable entry gate (§5B bullish, the
+     Bearish Mirror Gate, §20 item 5's setups, or §21 item 3) — catalyst/headwind/relative-
+     strength, confirmation role-groups, stop, reward-to-risk, timing — per the bounded per-cycle
+     cap and rotation rule in item 2 below.
+2. **Deterministic priority/rotation, not "large percentage mover" as an unwritten prerequisite.**
+   A name's intraday or recent price move is never, by itself, a precondition for receiving a
+   Stage 2 full-gate evaluation — Stage 1's triage surfaces technical scores/quote data for every
+   name regardless of how much it moved, and a quiet name is exactly as eligible for Stage 2 as a
+   big mover. Because a genuinely large watchlist (Mode B/C currently ~73 names; §21's allowlist is
+   small enough that full coverage every cycle is normally achievable without a cap — see item 3)
+   may exceed what Stage 2 can fully evaluate in one cycle, select that cycle's Stage-2 batch by
+   **least-recently-fully-evaluated-first** rotation: rank every universe member by the timestamp
+   of its last Stage-2 full-gate evaluation (never evaluated = oldest), take the oldest N up to
+   that cycle's cap (item 3), and advance the rotation pointer so the same names aren't re-checked
+   cycle after cycle while others are never reached. A name that already shows an obvious
+   disqualifying condition at Stage 1 (e.g., a stale/flat technical score with no catalyst) does
+   not need to consume a Stage-2 slot that cycle if the rotation would otherwise reach it — but
+   skipping it this way must still be logged per item 4, tagged as a Stage-1-level skip, not a
+   full-gate rejection, so it remains eligible for a real Stage-2 look once something changes.
+3. **Per-cycle Stage-2 cap, shown with its own math, not an arbitrary number.** Mode B/C: given
+   the current `watchlist.md` universe size and the current number of eligible Mode B/C cycles per
+   trading day (the first-scan-of-day cycle plus the hourly cycles through the close), set the
+   Stage-2 cap per cycle high enough that the rotation completes a full pass of the universe within
+   one trading day — e.g., at a 73-name universe and 7 eligible cycles/day, a cap of 12 full-gate
+   evaluations per cycle clears the full universe with room to spare (12 × 7 = 84 ≥ 73); recompute
+   this cap explicitly whenever the universe size or the number of daily cycles changes, and log
+   the arithmetic used. Crypto (§21): given the allowlist's small size (currently single digits)
+   and the dedicated trigger's hourly-every-day cadence, no cap is needed — evaluate every
+   allowlisted pair's Stage 1 and, for every pair with a genuine 4H setup, Stage 2 every cycle (this
+   is also §21 item 3's own "full-allowlist coverage, every cycle" requirement — this item and that
+   one describe the same practice from the Mode-B/C and crypto sides respectively, not two separate
+   rules). Mode C (§20): the same Mode B/C rotation and cap apply to its own watchlist screening
+   step, sharing Stage 1's triage output rather than re-running it separately.
+   **Not in conflict with the Position Capacity subsection's item 4 ("Pacing: removed"):** that
+   item governs how many *already-qualifying* candidates one cycle may enter (no limit beyond the
+   position/correlation/funding caps) — this item governs a different question, how many
+   candidates get the chance to be fully evaluated against the gate in the first place, given a
+   finite number of tool calls per cycle. Nothing here re-imposes an entry-pacing limit; a cycle
+   that evaluates 12 names and finds 5 qualify may still take all 5.
+4. **Mandatory per-symbol labeling, every cycle, for every universe member.** Every name in that
+   lane's intended universe must receive exactly one of these three labels in that cycle's
+   `trades_log.md` entry (and the §14 item 9 `coverage` JSON fields) — a name may not be silently
+   absent from the record:
+   - **Evaluated** — received a full Stage-2 gate evaluation this cycle, with the result (cleared
+     to a Trade Card, or rejected) and the specific evidence either way.
+   - **Rejected with evidence** — received a full Stage-2 evaluation (this cycle or, for a name
+     whose Stage-1 read hasn't materially changed, logged with a reference to its last full
+     evaluation) and failed a specific, named gate item — cite the item (e.g. "§5B item 3 — only 0
+     of 5 confirmation role-groups present") and the supporting data, never a bare "didn't
+     qualify."
+   - **Not evaluated, with reason** — did not receive a Stage-2 evaluation this cycle. The reason
+     must be one of: a rotation/capacity reason ("not yet reached this cycle's rotation slot,
+     last full evaluation N cycles ago"), a Stage-1-level skip per item 2's carve-out, or a tool
+     failure. **A tool failure (timeout, error response, missing data) is never recorded as a
+     rejected or failed trading setup** — it is its own distinct reason, logged as "not evaluated —
+     tool failure: <specifics>," and that name's rotation priority is not penalized for a failure
+     that wasn't its own technical disqualification.
+5. **Quote/technical-score vs. full-gate evaluation — explicit distinction, never conflated.** A
+   Stage 1 batch-triage read (a `rank_symbol_setups` score, a raw quote, a technicals-rating
+   summary) is evidence that can inform *prioritization* within Stage 2's rotation (item 2) — it is
+   **not** itself a catalyst check, a confirmation role-group check, a stop/R:R computation, or any
+   other component of the applicable entry gate, and must never be logged or reported as if it
+   were a completed gate evaluation. Only a Stage 2 pass that actually walks through the gate's own
+   named items (§5B items 1-7, the Bearish Mirror Gate items 1-7, §20 item 5's setup/reject
+   conditions, or §21 item 3's bullets) counts as "evaluated" for item 4's labeling.
+6. **Reporting**: the mandatory per-cycle `trades_log.md` entry (§14 item 9, §20 item 7's
+   equivalent, §21's own logging requirement) states, every cycle: universe size, Stage-1 triage
+   count (should equal universe size for a true full pass), Stage-2 evaluation count, how many of
+   those were rejected-with-evidence versus cleared to a Trade Card, and the full not-evaluated
+   list with reasons. A cycle that screens 0 qualifying setups is a legitimate, fully-reported
+   no-trade cycle under this methodology — the per-symbol labeling above is what proves the scan
+   was complete, not the trade count. **No-trade days are an acceptable outcome; an incomplete
+   scan reported as if it were a completed one is not** — this is the standard this subsection
+   exists to meet.
+7. **Scope and change control**: this subsection governs *coverage and labeling discipline* only —
+   it adds no new numeric risk/sizing/confirmation threshold anywhere, and changing its own
+   mechanics (the rotation method, the per-cycle cap formula, the label categories) requires the
+   same explicit-instruction-plus-dated-§12-entry discipline as every other section.
+
 #### Swing Exit Rules
 Mode B positions — both whole-share (Tier-A sizing) and fractional (Tier-B, §15) — follow the
 §16 Locked Exit and Loss-Control Policy mechanics, **with two changes made directly to §16 itself
@@ -716,7 +822,7 @@ Every proposal must be presented before any confirmation request:
   which setup fired (VWAP-pullback / ORB / mean-reversion, hourly-adapted per §20); the ATR(14)
   value used and the computed stop distance; current running daily P&L (realized + open
   unrealized) against the 2-3%-of-equity daily loss/profit limits; position count against the
-  12-concurrent cap and trade count against the 8-9/day cap; and explicit confirmation the position
+  12-concurrent cap and trade count against the 8/day cap; and explicit confirmation the position
   is flagged for same-day flatten (§20 has no overnight-hold exception, unlike Mode B).
 
 ## 8. Approved live research sources
@@ -905,6 +1011,86 @@ a live value. This banner does not mean the material below was moved — it was 
 a dated log; this makes its non-operative status explicit rather than merely implied.
 
 ## 12. Change log
+- **2026-11-03: User directed a coverage/measurement reconciliation pass — read-only policy and
+  trigger-prompt reconciliation only, explicitly scoped to exclude any risk-sizing, position-cap,
+  R:R-floor, confirmation-count, or instrument-permission change, per the user's own stated scope
+  ("do not copy older numbers from prompts or introduce new ones from the research").** Prompted by
+  a live diagnostic finding that this session's own screening practice had drifted into checking a
+  small set of familiar/large-moving names deeply each cycle while silently never reaching the rest
+  of the intended universe, and by a related finding that an informal "normal volume" interpretation
+  (used for the §5B/Bearish-Mirror-Gate/§13.G/§21 volume confirmations) had produced a real
+  miscalculation (an ORCL breakout bar compared against a later, higher-volume continuation bar
+  instead of the bars preceding it). Six changes, all additive — nothing existing was deleted or
+  loosened:
+  1. **New §13.H (Volume Confirmation Baseline)**: defines "normal" volume, for every place this
+     document requires a volume confirmation, as the average of the 3 most recently completed bars
+     immediately preceding the bar being tested, same timeframe, no lookahead. Fixes the ORCL
+     miscalculation mechanism; changes no threshold (the 1.2x figure itself is untouched).
+  2. **§21 item 3 additions**: (a) an explicit requirement to check a technical-analysis tool's own
+     returned interval field before treating a read as satisfying the 4H-setup/1H-trigger
+     requirement — a silent fallback to daily data no longer counts; (b) an explicit requirement to
+     run the 4H-setup check on every allowlisted pair every eligible cycle, not just the largest
+     movers — correcting this session's own observed practice of only deep-checking AAVE/AVAX.
+  3. **New §5B subsection, "Screening Coverage and Triage Methodology" (Mode B/C/§21)**: a two-stage
+     screen (full-universe batch triage, then a bounded/rotated full-gate evaluation of a per-cycle
+     subset, least-recently-evaluated-first), mandatory per-symbol labeling every cycle (evaluated /
+     rejected-with-evidence / not-evaluated-with-reason), and an explicit rule that a tool failure is
+     never logged as a rejected setup. Adds no new risk/sizing/confirmation threshold — governs
+     coverage and honesty-of-reporting only. Explicitly reconciled against the existing Position
+     Capacity subsection's "Pacing: removed" item (no conflict — that item bounds entries once a
+     candidate qualifies; this item bounds how many candidates get the chance to be evaluated).
+  4. **New §16 item 17**: a complete-economic-position rollup (every fill on one ticker grouped
+     start-to-flat), per-fill fee/slippage logging, deposit/withdrawal-adjusted daily
+     mark-to-market tracking, and net expectancy/drawdown reporting — additive to, and explicitly
+     not a replacement for, item 16's existing per-exit-event profit-factor tally and throttle,
+     which is unchanged in every respect (window length, magnitude, trigger condition, and its
+     per-exit-event — not per-position — granularity).
+  5. **New `coverage` object in the §14 item 9 JSON cycle summary**: `universe_size`, `triaged`,
+     `full_gate_evaluated`, `rejected_with_evidence`, `not_evaluated` (with reasons), `tool_failures`
+     — a machine-readable restatement of whatever item 3 above's per-symbol labeling already
+     produced that cycle, never computed independently of it.
+  6. **§20 item 6 (Mode C daily-entry maximum) fixed at 8**, resolving the 8-9 range the 2026-11-02
+     reconciliation pass explicitly left PENDING pending the user's own choice — the user was asked
+     directly and chose 8 over 9 or leaving it a range, and separately specified this is a **ceiling,
+     never a quota**: zero entries on a day with no qualifying setup remains fully acceptable, and
+     every other existing limit (per-trade risk, the position/correlation caps, the portfolio heat
+     cap, any active circuit breaker) continues to independently govern whether a given entry is
+     taken, unaffected by how far the day's count sits below 8. §20 item 6 and the Effective Policy
+     block's Mode C bullet are both updated to state this explicitly, not just to swap the number;
+     nothing else in §20 was touched by this resolution.
+  7. **tvremix call-budget feasibility resolved, operational (not policy) follow-up to the note
+     below.** Checked the actual batching capability of the available TradingView-MCP tools
+     (documentation only — no additional paid tool calls spent to verify this): `analyze_structure_batch`
+     covers up to `symbols × timeframes ≤ 30` in one call, and `rank_symbol_setups` batches an
+     entire symbol list in one call. Using these instead of a per-symbol `analyze_swing_tool`
+     fan-out, a full crypto allowlist pass (8 pairs × 2 timeframes) costs **1 call**, and a full
+     Mode B/C cycle (Stage-1 full-universe triage + a 12-name Stage-2 batch × 2 timeframes) costs
+     **2 calls** — both far cheaper than this session's earlier per-symbol-fan-out-based estimate.
+     At real cost, running the crypto trigger's full-allowlist check every hourly cycle (24/day)
+     costs ~24 calls/day, and the Mode B/C triggers' two-stage screen across ~7 cycles/day costs
+     ~14 calls/day — comfortably inside a **30-calls/day crypto ceiling** and a **20-calls/day
+     Mode B/C ceiling** (both explicitly ceilings, never spend targets), leaving ~6/day reserve in
+     each for urgent-reassessment or overflow calls, against the shared 50/day connector limit.
+     Added a `tvremix_calls_used_today` field to the §14 item 9 `coverage` JSON object (reset at
+     the UTC day boundary) so each cycle can see real remaining headroom. Exhaustion handling
+     added to each trigger prompt directly (not duplicated here): crypto has no Robinhood-native
+     OHLC fallback, so an exhausted crypto reserve logs every pair `not_evaluated — tvremix budget
+     exhausted this UTC day` for the rest of that day while position management continues
+     unaffected; Mode B/C does have a Robinhood-native fallback (`get_equity_historicals`/
+     `get_equity_technical_indicators`) and falls back to it rather than skipping evaluation. The
+     two reserves are independent by default — pooling them requires separate explicit instruction.
+     No risk/cap/gate number was touched by this item; it is a tooling-efficiency and
+     coverage-honesty mechanism only.
+  **Not changed by this pass, confirmed explicitly against the user's own scope instruction**: every
+  risk percentage, position/correlation/deployment cap, R:R floor, confirmation-count threshold, and
+  named allowlist (crypto, leveraged/inverse ETFs) — the only numeric change in this entire pass is
+  item 6 above, and that was a previously-PENDING value the user resolved directly, not a new number
+  introduced from research. **Operational note, not a policy change**: a live preflight this same
+  session found the Agentic Account fully flat (zero open positions, zero resting orders of any
+  kind, across equities/options/crypto) and found that Robinhood MCP has no crypto-OHLC/historicals
+  tool, meaning §21's 4H/1H structural check has no Robinhood-native fallback and is fully dependent
+  on the TradingView MCP connector's own daily call budget — resolved by item 7 above via verified
+  batch tooling rather than by rationing cadence.
 - **2026-11-02: User requested a full internal-consistency reconciliation of this document (12
   numbered repair categories), explicit about scope — document edits only, no broker/account/
   scheduler/execution changes, and no silent substitution of another policy's more conservative
@@ -2674,6 +2860,34 @@ the structural gap for a *future* name that has both a genuine breakout and real
    have their own entry designs. Any further adjustment requires explicit user instruction and a
    dated §12 change-log entry.
 
+### H. Volume Confirmation Baseline — reproducible definition (added 2026-11-03)
+Added following a live diagnostic finding: this document has required a "≥1.2x normal" volume
+confirmation in four places (§5B item 3, the Bearish Mirror Gate item 3, §13.G item 2, and §21
+item 3) without ever defining what "normal" means computationally — in practice this let the
+check be satisfied by comparing against whichever volume figure was most readily at hand,
+including a *later* bar than the one actually being evaluated (a real incident: an ORCL breakdown
+bar was compared against a subsequent, higher-volume continuation bar rather than the bars
+preceding it, which would have shown the breakdown bar itself was *below* normal). **This item
+defines the computation once, here, so the other four references can point at one answer instead
+of each risking its own informal interpretation — it does not change the 1.2x threshold itself or
+any other number in this document.**
+
+- **Baseline**: for any bar being tested for volume confirmation, "normal" volume is the average
+  volume of the **3 most recently completed bars immediately preceding it**, on the same timeframe
+  as the bar being tested (e.g., 3 prior hourly bars for an hourly breakout-bar test; 3 prior 4H
+  bars for a crypto 4H-setup test).
+- **Point-in-time only, no lookahead**: only bars that had fully closed *before* the bar being
+  evaluated are eligible for the baseline. A bar that closes after the one being tested — even if
+  it shows elevated volume — is never part of the baseline and is never substituted for the
+  evaluated bar's own volume.
+- **Insufficient history**: if fewer than 3 prior completed bars exist (e.g., evaluating the first
+  bar after a session or exchange open), use whatever prior completed bars are actually available,
+  down to a minimum of 1; log the reduced sample size explicitly rather than silently computing an
+  average over fewer bars than intended.
+- **Application**: this baseline is the "normal" referenced by §5B item 3, the Bearish Mirror Gate
+  item 3, §13.G item 2, and §21 item 3 — those items are unchanged in substance; this item only
+  supplies the missing computation method.
+
 ### References consulted 2026-08-13
 - [Fibonacci Retracement Strategy — QuantifiedStrategies](https://www.quantifiedstrategies.com/fibonacci-trading-strategy/)
 - [Fibonacci Pullback Strategy — SwingFolio](https://swingfolio.com/blog/fibonacci-pullback-trading-strategy)
@@ -2791,6 +3005,32 @@ order authority.
    derived from the same data the narrative entry already reports — never a separate source of
    truth, never reconciled against the prose if they'd disagree (the prose stays authoritative;
    fix the JSON to match, not the other way around).
+
+   **`coverage` object (added 2026-11-03, read-only policy reconciliation, implementing the new
+   Screening Coverage and Triage Methodology subsection under §5B/§20/§21) — add this as a new
+   field alongside the existing ones above, not a replacement for any of them:** `universe_size`
+   (integer — the full count of symbols/pairs this cycle was responsible for covering, e.g. the
+   current `watchlist.md` count for Mode B/C or the current §21 allowlist count for crypto),
+   `triaged` (integer — how many of those the cheap batch-triage step in the new Screening
+   Coverage subsection actually screened this cycle; should equal `universe_size` for a true
+   full-universe triage pass), `full_gate_evaluated` (integer — how many candidates received a
+   full §5B/Bearish-Mirror/§20-setup/§21-gate evaluation this cycle, as distinct from the cheaper
+   triage pass), `rejected_with_evidence` (integer), `not_evaluated` (array of `{symbol, reason}` —
+   e.g. `{"symbol": "XYZ", "reason": "rotation cap — last evaluated 2 cycles ago, deferred to next
+   cycle's slot"}` or `{"symbol": "ABC", "reason": "tool failure — rank_symbol_setups timeout"}`),
+   `tool_failures` (integer — count of `not_evaluated` entries whose reason was a tool failure, not
+   a policy-driven skip; **a tool failure is never counted in `rejected_with_evidence` and never
+   logged as a failed setup** — this field exists specifically so a tool outage is visible as an
+   outage, not silently folded into "nothing qualified this cycle"), and `tvremix_calls_used_today`
+   (integer — running count of TradingView/tvremix tool calls made so far this UTC day, shared
+   across the crypto trigger and the Mode B/C triggers against the single 50-call/day ceiling that
+   connector imposes; reset to 0 at the UTC day boundary). A `not_evaluated` reason of "tvremix
+   budget exhausted this UTC day" is a valid, honest reason under this field — never a rejection.
+   These fields are a direct
+   machine-readable restatement of whatever the Screening Coverage subsection's per-symbol labeling
+   already produced that cycle — never computed independently of it, and never reconciled against
+   it if they'd disagree (same principle as the rest of this item: the narrative/label-level record
+   is authoritative, fix the JSON to match it).
 
 ### Mode B Automatic Recovery State Machine (2026-08-19)
 Added at explicit user instruction ("Continuous Autonomous Operation Amendment"). **Binding
@@ -3321,6 +3561,54 @@ item 9 and §21 item 9. See §12 change log.
     underlying technique itself is well-documented. Cross-referenced from §20 item 9 (Mode C Trade
     Cards) and §21 item 9 (crypto Trade Cards).
 
+17. **Complete-economic-position rollup, fee/slippage logging, and daily mark-to-market tracking
+    (added 2026-11-03, read-only policy reconciliation — does not change item 16's per-exit-event
+    tally, which remains the system of record for the profit-factor throttle in that item; this is
+    an additive secondary measurement layer requested separately, not a replacement).**
+    - **Complete-economic-position rollup.** In addition to item 16's per-exit-event granularity
+      (each partial trim counted as its own event, kept unchanged for the throttle calculation),
+      also group every fill belonging to the same economic position — the original entry plus
+      every add and every partial/final exit on that same ticker/contract until it reaches zero
+      net quantity — into one rolled-up record: total shares/contracts bought, total sold, average
+      entry price, average exit price, gross P&L for the whole position, and the dates the position
+      was opened and fully closed. Log this rollup once the position reaches zero net quantity,
+      alongside the final exit's Trade Card/`trades_log.md` entry. This answers "did this trade,
+      as a whole, make or lose money" separately from "how did each individual exit event score,"
+      which item 16's event-level tally is built to answer.
+    - **Fee/slippage logging, per fill.** For every entry and exit fill (equities, options, LEAPS,
+      crypto, leveraged/inverse ETFs alike), log the actual filled price next to the price that was
+      requested/expected (the limit price for a limit order, the last quote immediately before a
+      market order) and the resulting slippage in dollars and basis points, plus any commission or
+      regulatory fee the fill confirmation reports. **Never assume a fill occurred at the
+      chart midpoint or at a maker/passive price** — use the broker's own reported fill price only.
+      Where a fee or slippage figure is genuinely not returned by the broker tool for a given order
+      type, log it as "not reported by broker" rather than omitting the field or inferring a value.
+    - **Daily mark-to-market tracking, separate from the per-position tallies above.** Once per
+      day (the first-scan-of-day cycle is the natural point), log total Agentic Account equity
+      (`get_portfolio`) alongside the account's **net cash flow for that day** (deposits minus
+      withdrawals, if any — cross-referenced to the existing §6 cash-only-discrepancy handling,
+      which already governs how an unexplained cash change is treated; this item only adds that
+      the daily equity figure itself must be adjusted for any such flow before it's compared
+      day-over-day, so a deposit/withdrawal is never mistaken for a trading gain/loss). Compute
+      that day's equity change **net of deposits/withdrawals** as the actual daily trading P&L —
+      this is the figure used for the §3/§6 daily-loss-percentage checks and for a true
+      day-over-day equity curve, not the raw unadjusted equity delta.
+    - **Net expectancy and drawdown, derived from the above.** Alongside each mode's item-16
+      profit-factor tally, log (a) net expectancy per completed economic position — average P&L
+      per closed position after estimated fees/slippage, using the rollup above, not the raw gross
+      figure — and (b) running maximum peak-to-trough drawdown on the net-of-flows daily
+      mark-to-market equity curve above. Both are reporting fields only; neither changes any entry
+      gate, risk cap, or the item 16 throttle's own trigger condition (trailing profit factor on
+      the per-exit-event tally) — they exist so "is this working" can be answered from completed
+      positions and real account-level performance, not inferred from the event-level tally alone,
+      which is the figure the item 16 throttle needs but is not by itself a statement of whether
+      the account is actually compounding.
+    - **Scope and change control**: applies across Mode B (equities, §18 options, §19 LEAPS), Mode
+      C, crypto (§21), and §22 leveraged/inverse ETFs — the same instruments item 16 already
+      covers. This item adds measurement only; it introduces no new numeric threshold, cap, or
+      gate, and changing any of its own mechanics requires the same explicit-instruction-plus-
+      dated-§12-entry discipline as every other section.
+
 ## 17. Day-Trade and Settlement Protection (Mode B)
 Added 2026-08-13 at explicit user instruction, alongside the §3/§12 removal of Mode B's 1/day,
 3/week trade-count quota. Full text also maintained in
@@ -3690,10 +3978,16 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
    was later raised back to 10 on 2026-10-04, then to 15 on 2026-10-28). Combined with Mode B's
    own 15-position cap and the
    shared §3 deployment ceiling — Mode C's 12-position cap is additional, not instead of, those.
-6. **Max new Mode C entries per day: 8-9** (raised 2026-10-28 from 5-6, same instruction as item
-   5 above). **This remains a range, not a fixed number — flagged in the 2026-11-02 reconciliation
-   as needing the user's own choice of an exact maximum (see §12 Policy Reconciliation entry and
-   the Effective Policy block above); this document does not silently resolve it to 8 or to 9.**
+6. **Max new Mode C entries per day: 8 — a ceiling, never a quota** (raised 2026-10-28 from 5-6 to
+   the range 8-9, same instruction as item 5 above; fixed at 8 on 2026-11-03 at the user's explicit
+   choice, resolving the range left PENDING by the 2026-11-02 reconciliation — see §12 Policy
+   Reconciliation entry's follow-up note and the Effective Policy block above, both updated to
+   match). **This number is a hard upper bound on new entries, never a target to fill** — a day
+   with zero qualifying setups takes zero new entries, and that is a fully acceptable outcome, not
+   a shortfall. It also does not relax any other limit: per-trade risk sizing (item 2), the
+   12-concurrent-position cap (item 5), the 3-per-theme correlation cap (§6 below), the §3
+   portfolio heat cap, and any active §6 circuit breaker all remain fully in force and can each
+   independently block a new entry well before the 8th is reached on any given day.
    Managing an existing Mode C stop/trailing doesn't count against this. Once hit, no new Mode C
    entries for the rest of the day regardless of setup quality — that setup is tomorrow's trade.
 7. **No averaging down** into a losing Mode C position. Adding size only happens on a fresh,
@@ -3839,7 +4133,7 @@ structure is actually showing, don't force a mismatched setup onto a name.
 - No clear invalidation level tighter than 2× ATR(14)
 - Inside the first/last 15 minutes of the session (§4)
 - A scheduled high-impact catalyst is due within 30 minutes (§4)
-- The 8-9/day or 12-concurrent-position caps are already hit (drive-by corrected 2026-10-28 — this
+- The 8/day or 12-concurrent-position caps are already hit (drive-by corrected 2026-10-28 — this
   line was already stale at "3-concurrent" even before today's raise, since the cap had moved to
   8 back on 2026-08-26 and was never corrected here)
 
@@ -3949,6 +4243,21 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      the 1-hour chart supplies the specific execution trigger (in place of §5B's hourly trigger on
      an equity's session-bound day) — this is the same daily+hourly relationship as §5B, just
      shifted down one level since crypto has no session boundary to anchor a true "daily" read.
+     **Interval validation, added 2026-11-03 (live diagnostic finding):** a technical-analysis
+     tool call for this item is only evidence of a 4H or 1H read if the tool's own returned
+     interval/timeframe field actually confirms it — a call that silently falls back to a
+     different interval (most commonly daily, when a tool's timeframe parameter is misnamed or
+     omitted) does not satisfy this item, regardless of what interval was intended or requested.
+     Check the response's own interval field explicitly before treating a 4H-setup or 1H-trigger
+     read as obtained; if the only read actually returned is daily (or any interval other than
+     the one required), treat the 4H/1H requirement as **unverified, not satisfied**, and do not
+     advance the candidate on the strength of that read. **Full-allowlist coverage, every cycle,
+     not just the largest movers:** because the named allowlist (item 1) is small, this 4H-setup
+     check (and, for any candidate clearing it, the 1H-trigger check) is run on **every** pair on
+     the allowlist every eligible cycle — not only on the pair(s) showing the largest price move
+     since the prior cycle. A large price move is a reason to look closer at *why*, never a
+     substitute for checking every other pair too; a quiet pair is not thereby exempt from this
+     item's own structural test.
    - Outside 30 minutes of CPI/FOMC/major macro events (§4) — crypto reacts to macro too, this
      rule is not equity-specific. The first/last-15-minutes-of-the-session rule does **not**
      apply — there is no open/close for a 24/7 market.
