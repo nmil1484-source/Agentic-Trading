@@ -56798,3 +56798,29 @@ text confirmed verbatim.
 ```json
 {"cycle":"Candle-timing realignment deployment","timestamp_utc":"2026-11-03T21:12:07Z","modes_covered":["B","C"],"status_gate":"ACTIVE","deployment":{"entry_trigger_id":"trig_01KrBsTt9mssjU4hPGtM3cBe","entry_trigger_cron_old":"55 15-20 * * 1-5","entry_trigger_cron_new":"3 16-20 * * 1-5","eod_trigger_id":"trig_01PpS6WWjQ6Wxdpa2sSuLsm2","eod_trigger_cron":"55 20 * * 1-5","total_daily_fires_before":6,"total_daily_fires_after":6,"risk_permission_change":false,"readback_verified":true},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-03 1:38 p.m. PST (21:38:26Z) — AUTONOMOUS CRYPTO CYCLE — DATA_BLOCKED (tvremix connector-wide outage continues)
+
+**STEP 0 gate check:** CLAUDE.md §14 confirmed "Status: ACTIVE" for Mode B AUTONOMOUS_EXECUTE; §14 Effective Policy confirms Mode C and crypto both live. No kill phrase found in recent trades_log.md history or this session.
+
+**Account check:** `get_portfolio` — total_value $6,454.77, cash $4,878.02, equity_value $1,576.75 (PATH mark), crypto_value $0. `get_crypto_positions` — 0 positions confirmed (empty result).
+
+**Market-shock check:** SPY last_non_reg $755.75 vs prior close $752.10 (+0.49%); QQQ last_non_reg $688.73 vs prior close $681.09 (+1.12%). Neither exceeds the 1.5% intraday-shock circuit breaker. No breaker active.
+
+**tvremix attempts (2 of 2, per unchanged retry budget):**
+- Attempt 1: `analyze_structure_batch`, full 8-pair allowlist, timeframes [240,60] — failed "Too Many Requests."
+- Attempt 2: same call, retried — failed "Too Many Requests" again.
+
+Both attempts exhausted. Per the 2026-11-03 21:04:12Z outage-reporting deployment, this cycle is **DATA_BLOCKED**. No fallback exists (no Robinhood crypto-OHLC tool; spot quotes are not a substitute for required candle/structure history per standing instruction).
+
+**Per-symbol labels (all 8 allowlisted pairs):** BTC, ETH, SOL, XRP, LINK, AAVE, HBAR, AVAX — each `NOT_EVALUATED — tool failure: analyze_structure_batch returned "Too Many Requests" on both attempts this cycle`. None rejected as failed setups.
+
+**Persistent-failure counter:** `tvremix_consecutive_failed_cycles` incremented from 6 (set at 21:04:12Z) to **7**. This does not cross the next alert threshold (6+12=18) — no new consolidated chat alert this cycle, per the deployed "not a per-cycle alert" rule. Outage remains open since last verified success at 2026-11-03T14:38:42Z.
+
+No new entries, no exits, no circuit breaker, no heat-cap action. PATH (Mode B, not this trigger's scope) unaffected.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T21:38:26Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0,"crypto_count":0},"stop_audit":null,"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"ETH","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"SOL","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"XRP","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"LINK","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"AAVE","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"HBAR","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"AVAX","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"}],"tool_failures":8,"tvremix_calls_used_today":24},"coverage_state":"DATA_BLOCKED","tvremix_consecutive_failed_cycles":7,"last_verified_success_utc":"2026-11-03T14:38:42Z","outage_started_utc":"2026-11-03T15:37:55Z","exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
