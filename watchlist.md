@@ -15,7 +15,14 @@ TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
 IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA, CORZ, CAI, AMDG, SE,
-SPCX, LLY
+SPCX, LLY, XLI
+
+**Note on XLI:** added 2026-11-03 per explicit user instruction. Confirmed via
+`get_equity_tradability`: **XLI** = State Street Industrial Select Sector SPDR ETF — active,
+tradeable, individual-account tradable, fractional-tradable. Non-leveraged sector ETF, matches
+§2 instrument rules. Not pre-approved — same as every other name in this pool, it still requires
+full independent §5B Swing Entry Gate (or Bearish Mirror Gate) verification, including a current
+catalyst/sector-tailwind/relative-strength driver, before it can appear on a Trade Card.
 
 **Note on PGY:** added 2026-09-03 per user instruction, after a Slack community call (source:
 "stockinvesting" channel, trader "J-Griff" — context per §9, never a signal) flagged a golden
