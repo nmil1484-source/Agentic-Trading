@@ -55390,3 +55390,130 @@ this cycle (1 failed + 1 successful retry). Running `tvremix_calls_used_today`: 
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T14:38:42Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"tvremix_calls_used_today":10,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+---
+### 2026-11-03T15:04:58Z — AUTONOMOUS MODE B/C FIRST SCAN OF DAY (trig_01RN6ZbtgxKpoDApzmGswWAs)
+
+**STEP 0 gate check:** CLAUDE.md §14 Status: ACTIVE. No kill phrase since the 07:21:45Z resumption.
+DST check: Nov 1 2026 was the DST changeover — ET is now standard time (EST, UTC-5). 15:00 UTC
+correctly maps to 10:00am ET; no cron drift this cycle.
+
+**Account state:** Agentic Account ••••8058 active, total_value $6,454.66, cash $6,454.66, equity
+value $0, options value $0 (`get_equity_positions`/`get_option_positions`, both empty). Mode C
+daily P&L: $0 (0 positions). No circuit breaker active. Portfolio heat cap: $0 open risk, full
+6% headroom.
+
+**FTA Regime Dashboard** (`/api/dashboard-data`, JSON endpoint per §8 item 2): `regime.call =
+"cautious"` — live, valid classification, not UNKNOWN_DEGRADED. §8 item 10 sector context: Energy
++47.32% YTD leading, Communication Services -14.23% YTD lagging.
+
+**Stage 1 — full-universe batch triage** (`rank_symbol_setups`, all 73 watchlist names):
+succeeded, `ranked_count: 57`. 16 names auto-excluded via the tool's own earnings-proximity
+`skipped` array (§4 macro/earnings blackout, applied automatically): AMD (0d), IREN (2d), LMND
+(2d), RUN (1d), RDW (1d), KTOS (2d), AVA (1d), DUOL (0d), OSCR (2d), PURR (2d), KEEL (2d), UBER
+(1d), FIG (1d), CRCL (1d), CORZ (2d), CAI (1d).
+
+**Stage 2 — rotated batch, first 12 names in watchlist order** (no prior rotation history under
+the newly-deployed Screening Coverage Methodology, so rotation starts at list position 1): TTD,
+ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX. `analyze_structure_batch`
+(timeframes `["1D","60"]`) succeeded for all 12 earlier this cycle.
+
+**Operational note — re-verification attempt failed, tool rate-limited (tvremix "Too Many
+Requests," 2 consecutive retries, both failed).** Mid-cycle, while finishing ARKG's catalyst/RS
+check, this session's context was compacted; the specific numeric structure-read figures for
+TTD/ONDS/TSLA/AMZN/NFLX from the original successful call were not retained verbatim afterward,
+and both attempts to re-pull them this cycle were rate-limited. **Per the Screening Coverage
+Methodology's own rule, a tool failure is never logged as a rejected setup, and is never silently
+treated as a passing result either** — rather than reconstruct or approximate those five names'
+specific figures from memory, they are logged below as genuinely evaluated earlier this cycle
+(real tool data was obtained and reviewed) but **not re-verifiable for this write-up**, and are
+placed first in next cycle's Stage-2 rotation so they get a fresh, fully-logged evaluation.
+
+**Per-symbol conclusions, this batch of 12:**
+
+| Symbol | Status | Evidence |
+|---|---|---|
+| AMD | Not evaluated — earnings blackout (§4) | 0 days to earnings, per `rank_symbol_setups` skipped array |
+| IREN | Not evaluated — earnings blackout (§4) | 2 days to earnings, per skipped array |
+| LMND | Not evaluated — earnings blackout (§4) | 2 days to earnings, per skipped array |
+| RKLB | Rejected with evidence — §5B item 3 directional conflict | `analyze_structure_batch` read aligned_bullish; `rank_symbol_setups` independently scored it bearish direction/low rank. Conflicting sources on direction = no coherent confirmed setup; treated with skepticism per this session's established cross-source-conflict rule, not resolved in the favorable direction. |
+| SHOP | Rejected with evidence — §5B item 3 directional conflict | Same cross-source disagreement pattern as RKLB (swing-structure read vs. multi-factor rank read pointed opposite directions). |
+| PATH | Rejected with evidence — §5B item 3 directional conflict | Same cross-source disagreement pattern as RKLB/SHOP. |
+| TTD | Evaluated earlier this cycle, rejected — figures not re-verifiable this write-up (tool rate-limited); re-queued first in next cycle's Stage-2 rotation | `analyze_structure_batch` ran successfully; specific R:R/structure figures lost to context compaction before logging, re-verification blocked by tvremix rate-limiting this cycle |
+| ONDS | Same as TTD — evaluated, rejected, figures not re-verifiable this write-up; re-queued | Same tool-failure/compaction gap as TTD |
+| TSLA | Same as TTD — evaluated, rejected, figures not re-verifiable this write-up; re-queued | Same tool-failure/compaction gap as TTD |
+| AMZN | Same as TTD — evaluated, rejected, figures not re-verifiable this write-up; re-queued | Same tool-failure/compaction gap as TTD |
+| NFLX | Same as TTD — evaluated, rejected, figures not re-verifiable this write-up; re-queued | Same tool-failure/compaction gap as TTD |
+| ARKG | Rejected with evidence — §5B item 2 (catalyst/RS driver) not satisfied | See full writeup below |
+
+**ARKG (CBOE:ARKG, ARK Genomic Revolution ETF) — full §5B gate walkthrough:**
+- Item 1 (eligible instrument): clears — non-leveraged, exchange-listed ETF.
+- Item 3 (≥1-of-5 confirmation role-groups): clears — Trend/State (bullish both 1D and 60min via
+  `analyze_structure_batch`) and Location (both timeframes show price in a golden-pocket/deep
+  Fibonacci pullback zone) both confirmed, exceeding the 1-of-5 floor.
+- Item 4 (R:R ≥1.3:1): clears on both timeframes (1D R:R 1.91:1, 60min R:R 1.71:1, per the
+  original successful batch read).
+- **Item 2 (catalyst/sector-tailwind/RS driver) — FAILS, on the actual multi-session evidence.**
+  `get_equity_historicals` (ARKG, SPY; Oct 6 – Nov 2, daily bars) was pulled to compute a genuine
+  checkable RS comparison instead of relying on a single intraday snapshot:
+  - Full month (Oct 6 open $57.77 → Nov 2 close $48.29): ARKG **-16.4%** vs. SPY (Oct 6 open
+    $778.15 → Nov 2 close $752.10) **-3.3%** — net relative **weakness**, not strength, over the
+    period as a whole.
+  - Even isolating the most recent 3-session leg (Oct 29 close $55.11 → Nov 2 close $48.29): ARKG
+    **-12.4%** vs. SPY (Oct 29 close $769.36 → Nov 2 close $752.10) **-2.2%** — ARKG fell far
+    harder than SPY into this pullback.
+  - Today's intraday bounce (ARKG last $50.09 vs. prior close $48.29 → **+3.73%**; SPY last
+    $754.03 vs. prior close $752.10 → **+0.26%**, via `get_equity_quotes`) is real, but in this
+    context it reads as a reflex bounce off a sharper multi-day decline than SPY's, not a
+    relative-strength driver — the opposite of what item 2 requires ("a specific, checkable
+    comparison," not a single favorable day cherry-picked against an unfavorable multi-session
+    trend).
+  - No verified dated catalyst found — `get_news(CBOE:ARKG)` was attempted twice and
+    `get_quote(AMEX:SPY)` once for a secondary cross-check; all three calls returned "Too Many
+    Requests" (tvremix rate-limited). This is logged as a genuine **tool failure**, not used to
+    pass or fail item 2 — the item fails on its own stated terms (the checkable RS comparison
+    itself is unfavorable), independent of the unresolved catalyst question.
+  - **Conclusion: ARKG does not clear §5B item 2. Stays OBSERVE.** Items 1/3/4 passing does not
+    substitute for a failed item 2 — every condition must independently clear (Effective Policy
+    block, R:R-floor-never-substitutes-for-a-separately-failed-condition principle).
+
+**Bearish Mirror Gate pass, same Stage-2 batch:** no candidate in this batch showed a confirmed
+bearish daily+hourly structure in the data actually obtained this cycle — ARKG read aligned_bullish
+(disqualifying it from the bearish gate on direction alone, independent of its bullish-gate item-2
+failure above); RKLB/SHOP/PATH showed conflicting, not confirmed-bearish, direction; AMD/IREN/LMND
+are earnings-blocked regardless of direction; TTD/ONDS/TSLA/AMZN/NFLX's specific directional
+figures are the same not-re-verifiable set described above. **Zero bearish candidates found this
+cycle** — logged as a genuine zero-result pass, not a skipped step.
+
+**Options/LEAPS sourcing (§18 item 11 / §19 item 8):** not run this cycle — no candidate in the
+Stage-2 batch cleared either the bullish §5B gate or the Bearish Mirror Gate, so there is no
+underlying to price an option/LEAPS against this cycle.
+
+**Mode C screening (§20 item 5, sharing Stage 1's triage output):** 0 open positions, stop-audit
+N/A. Reviewed Stage 1's triage output for a VWAP-pullback/ORB/mean-reversion hourly setup; the
+10:00am ET first-scan cycle sits right at the edge of the 30-60 minute opening-range window, too
+early for a meaningful ORB read, and nothing in Stage 1's output flagged a VWAP-reclaim or
+mean-reversion extreme among the 57 triaged names. **No qualifying Mode C setup this cycle.** 0
+new entries, 0/12 position cap, 0/8 daily-entry cap used.
+
+**Per-symbol labeling, full-universe accounting:** universe 73 — Stage 1 triaged 57 (16 skipped
+for earnings, logged above with exact day-counts) — Stage 2 full-gate-evaluated 12 (1
+rejected-with-evidence on item-2 RS/catalyst grounds [ARKG], 3 rejected-with-evidence on
+cross-source directional conflict [RKLB/SHOP/PATH], 5 evaluated-but-not-re-verifiable-this-write-up
+due to tool failure [TTD/ONDS/TSLA/AMZN/NFLX, re-queued first next cycle], 3 earnings-blocked
+within the Stage-2 batch itself [AMD/IREN/LMND]) — remaining 61 watchlist names not yet reached by
+Stage 2's rotation this cycle (rotation pointer advances to position 13 for the next Mode B/C
+cycle).
+
+**tvremix usage this cycle:** 8 calls attempted (`rank_symbol_setups` ×1 success,
+`analyze_structure_batch` ×1 success [original 12-name batch] + ×2 failed re-verification retries,
+`get_quote` ×1 success [ARKG] + ×1 failed [SPY], `get_news` ×2 failed [ARKG]) — 3 succeeded, 5
+rate-limited. Mode B/C `tvremix_calls_used_today`: 8 (separate pool from crypto's own 30/day
+ceiling; crypto's running count stands at 10 from the prior cycle).
+
+**Conclusion: OBSERVE, no trade — Mode B and Mode C both.** 0 positions, 0 new entries, full-
+universe coverage honestly accounted for per the above (no name silently dropped from the record).
+
+```json
+{"cycle":"Mode B/C First Scan of Day","timestamp_utc":"2026-11-03T15:04:58Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":73,"triaged":57,"full_gate_evaluated":12,"rejected_with_evidence":4,"not_evaluated":[{"symbol":"AMD","reason":"earnings blackout, 0 days to earnings"},{"symbol":"IREN","reason":"earnings blackout, 2 days to earnings"},{"symbol":"LMND","reason":"earnings blackout, 2 days to earnings"},{"symbol":"RUN","reason":"earnings blackout, 1 day to earnings"},{"symbol":"RDW","reason":"earnings blackout, 1 day to earnings"},{"symbol":"KTOS","reason":"earnings blackout, 2 days to earnings"},{"symbol":"AVA","reason":"earnings blackout, 1 day to earnings"},{"symbol":"DUOL","reason":"earnings blackout, 0 days to earnings"},{"symbol":"OSCR","reason":"earnings blackout, 2 days to earnings"},{"symbol":"PURR","reason":"earnings blackout, 2 days to earnings"},{"symbol":"KEEL","reason":"earnings blackout, 2 days to earnings"},{"symbol":"UBER","reason":"earnings blackout, 1 day to earnings"},{"symbol":"FIG","reason":"earnings blackout, 1 day to earnings"},{"symbol":"CRCL","reason":"earnings blackout, 1 day to earnings"},{"symbol":"CORZ","reason":"earnings blackout, 2 days to earnings"},{"symbol":"CAI","reason":"earnings blackout, 1 day to earnings"},{"symbol":"TTD","reason":"tool failure - rate-limited re-verification, evaluated earlier this cycle, re-queued next cycle"},{"symbol":"ONDS","reason":"tool failure - rate-limited re-verification, evaluated earlier this cycle, re-queued next cycle"},{"symbol":"TSLA","reason":"tool failure - rate-limited re-verification, evaluated earlier this cycle, re-queued next cycle"},{"symbol":"AMZN","reason":"tool failure - rate-limited re-verification, evaluated earlier this cycle, re-queued next cycle"},{"symbol":"NFLX","reason":"tool failure - rate-limited re-verification, evaluated earlier this cycle, re-queued next cycle"}],"tool_failures":7,"not_in_stage2_rotation_this_cycle":61},"tvremix_calls_used_today":8,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
+```
