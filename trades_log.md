@@ -56628,3 +56628,66 @@ rejected. No order placed.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T19:38:12Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"used":61.84,"cap":386.36,"headroom":324.52},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"ETH","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"SOL","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"XRP","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"LINK","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"AAVE","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"HBAR","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"AVAX","reason":"tool failure - rate-limited, 2 attempts"}],"tool_failures":8},"tvremix_calls_used_today":20,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+### 2026-11-03T19:55:33Z — AUTONOMOUS MODE B/C CYCLE
+
+STEP 0: §14 confirmed ACTIVE. No kill phrase. STEP 0.5: not the final cycle (11:55 a.m. PST;
+last cycle is 12:55 p.m. PST, 5 min before the 1:00 p.m. PST/4:00 p.m. ET close).
+
+**Account/circuit-breaker checks**: total_value $6,435.74, cash $4,878.02, equity_value $1,557.72.
+SPY $753.71→$753.69 (pulling back off today's highs, net +0.21% vs. yesterday), QQQ $683.86→
+$683.92 (net +0.42%, also off its highs) — no >1.5% shock either direction. 0 stop-outs.
+Portfolio heat: PATH's fixed risk $61.84 vs. cap $386.14 — $324.30 headroom.
+
+**2a**: PATH stop re-verified, `6aea08a9-...`, confirmed/resting, $12.73, qty 119, GTC —
+unchanged. PATH quote $13.09 (continuing to drift down, still well above the stop, no action).
+**2b**: `get_option_positions(nonzero=true)` — empty, 0 positions.
+
+**Stage-2 rotation — 11 names evaluated** (CORZ skipped, still inside today's earnings blackout):
+
+| Symbol | 5wk return | Daily Trend/State | RSI/MACD | Today | Verdict |
+|---|---|---|---|---|---|
+| GLD | -6.1% | 9<20 | 36.9 / deteriorating | -0.62% | REJECTED, 0-of-5 |
+| SLV | -18.8% | 9<20 | 28.9 / deteriorating | -1.94% | REJECTED, 0-of-5 |
+| PGY | -18.1% | **9>20** | 45.1, MACD improving (2-of-5) | -2.10% | REJECTED, item 2 — confirmations pass but 5wk RS -18.1% vs. SPY (underperformance), no catalyst |
+| IWM | -7.7% | **9>20** (marginal) | 49.0, MACD improving (2-of-5) | +0.35% | REJECTED, item 2 — confirmations pass but 5wk RS -7.7% (underperforming SPY), no catalyst |
+| TPST | -47.6% | 9<20 | 27.8 / flat | -0.85% | REJECTED, 0-of-5 (sub-$1 penny stock, no catalyst) |
+| INTC | -39.6% | 9<20 | 22.9 / deteriorating | +0.02% | REJECTED, 0-of-5 |
+| VST | -6.5% | 9<20 | 39.1 / deteriorating | +4.16% | REJECTED, 0-of-5 despite today's pop — daily trend/momentum still bearish |
+| BE | -12.3% | 9<20 | 37.5 / deteriorating | +8.74% | REJECTED, 0-of-5 despite today's large pop — same pattern as VST |
+| **DIS** | **+10.9%** | **9>20** | 63.8, MACD improving (2-of-5) | +0.59%, 4 consecutive rising hourly closes (112.955→113.52→113.795→113.995) | **REJECTED, §13.G item 2 (mandatory volume confirmation) — items 2/3 both clear (strong RS, Trend+Momentum), and the hourly structure is a clean no-pullback grind higher, but the confirmed 18:00Z bar's volume (241,643) is only 0.78x its own 3-prior-bar average (309,770) per §13.H — below the required ≥1.2x. Strongest candidate this cycle; thin volume is the only disqualifier. Flagged for next cycle's volume re-check.** |
+| IBIT | +19.4% | 9<20 | 36.6 / deteriorating | +1.12% | REJECTED, 0-of-5 on daily reads (recent pullback within a longer uptrend) |
+| ETHA | +20.0% | 9<20 | 35.6 / deteriorating | +1.72% | REJECTED, 0-of-5, same pattern as IBIT |
+
+**11/11 evaluated, 11/11 rejected with evidence. 1 not-evaluated (earnings blackout): CORZ.**
+`remaining_watchlist_not_reached`: 17 (73 - 56 touched across today's five cycles).
+
+**3c — §22 Leveraged/Inverse ETF screen, full 9-name allowlist, re-confirmed this cycle with a
+genuinely new completed hourly bar (18:00Z-19:00Z, now closed) plus live quotes** — the broad
+rally that drove earlier cycles' numbers is now pulling back hard (QQQ off its highs to +0.42%
+net, SOXX to +1.89% net, SPY to +0.21% net, all down sharply from midday peaks):
+
+| Symbol | Today | Verdict |
+|---|---|---|
+| TQQQ | +1.18% (down from earlier +2.54%) | REJECTED, 0-of-5 (pure QQQ beta) |
+| SOXL | +5.62% (down from +9.39%) | REJECTED, 0-of-5 (pure SOXX beta) |
+| SPXL | +0.64% (down from +1.83%) | REJECTED, 0-of-5 (pure SPY beta) |
+| AMDG | +8.21% (down from +11%) | REJECTED, 0-of-5 (pure AMD beta) |
+| TNA | +0.95%, IWM +0.32% | REJECTED, item 2 — RS vs. SPY only +0.74pp, still too thin. **Closest leveraged-long, flagged again.** |
+| **SOXS** | -5.77% (sharply improved from -9.62%) | **REJECTED, item 7 — NOT YET CONFIRMED.** Underlying SOXX now shows 4 consecutive declining hourly closes (470.50→468.44→467.22→466.125, now 462.24) — a real intraday breakdown structure, satisfying the Bearish Mirror Gate's hourly-trigger leg for the first time today. SOXS' own chart is printing a fresh high (54.74) above its entire day's range — but **this is an in-progress, unconfirmed print in the still-open 19:00Z-20:00Z bar, not a closed candle** (same completed-candle discipline just established for TEM/CVX). The last *confirmed* bar (18:00Z, close $53.26) did not exceed the day's prior high ($53.95). Do not treat the live tick as a trigger. **Flagged as the priority check for the very next cycle** — if the 19:00Z-20:00Z bar closes above $53.95 with volume clearing §13.H's baseline, both legs of the §22 item 2 dual-read would be satisfied. |
+| SPXU | -0.60% (improved from -1.78%) | REJECTED, item 7 — modest bounce, day's high ($36.43) not reached |
+| TZA | -0.97% | REJECTED, item 3 — underlying IWM still net positive, no bearish setup |
+
+**9/9 evaluated, 9/9 rejected with evidence, 0 not_evaluated. `coverage_complete: true`.** One
+genuine, currently-forming near-miss (SOXS) — flagged for immediate re-check next cycle, not
+acted on this cycle since the breakout print is unconfirmed.
+
+**Mode C**: 0 open positions. No setup identified from this cycle's Stage-1 data (tvremix still
+down; the broad pullback underway doesn't match a clean VWAP-pullback/ORB/mean-reversion
+structure on the names checked). Daily P&L: $0. Stop-audit: 0 checked (0 positions).
+
+No order placed, either mode. No circuit breaker. STEP 0.5 flatten: not applicable.
+
+```json
+{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-11-03T19:55:33Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":73,"triaged":0,"full_gate_evaluated":11,"rejected_with_evidence":11,"not_evaluated":[{"symbol":"CORZ","reason":"earnings blackout"}],"remaining_watchlist_not_reached":17,"tool_failures":0},"leveraged_etf_coverage":{"universe_size":9,"evaluated":9,"rejected_with_evidence":9,"not_evaluated":[],"coverage_complete":true},"tvremix_calls_used_today":20,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
+```
