@@ -56348,3 +56348,82 @@ trigger item 9, quiet/no-trade cycle, logged tersely.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T17:38:21Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"used":61.84,"cap":387.18,"headroom":325.34},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"ETH","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"SOL","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"XRP","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"LINK","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"AAVE","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"HBAR","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"AVAX","reason":"tool failure - rate-limited, 2 attempts"}],"tool_failures":8},"tvremix_calls_used_today":16,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+---
+### 2026-11-03 (same day, ~17:41Z) — §22 COVERAGE DIAGNOSTIC AND CORRECTION (user workflow-repair request)
+
+**No permission, budget, risk-limit, firewall, or gate change made or requested below — this is a
+diagnostic plus an evaluation run under already-approved authority, using already-approved data
+sources. Agentic Account (••••8058) only; ••••7533 untouched.**
+
+**Root cause, found by reading the ACTUAL saved trigger definition directly
+(`trig_01KrBsTt9mssjU4hPGtM3cBe`), not by re-reading my own prior log entries:**
+
+The trigger's stored prompt already contains a step **3c** that explicitly requires screening the
+§22 allowlist every cycle: *"**§22 Leveraged/Inverse ETF candidate sourcing:** screen the named
+allowlist (read current list from CLAUDE.md §22 item 1)... Current §22 sub-caps apply."* This step
+has been present in the saved trigger the entire time — **it was never missing, and it does not
+depend on tvremix.** The prior four cycles' claim that §22 coverage was blocked by the tvremix
+outage was **inaccurate** — step 3c is Robinhood-native-compatible (same tools as the ordinary
+stock rotation), exactly like steps 3a/3b. The actual cause: **step 3c was never executed in any
+of those four cycles — a pure execution omission on my part, not a tool/data/configuration
+blocker.** My earlier "plan" note (logged ~16:12Z) to add the §22 names into the tvremix Stage-1
+symbol array was a real but secondary gap (that note was never deployed into the trigger text
+either) — but it was never the binding constraint, since step 3c already existed independently of
+Stage 1 and I simply skipped it every time regardless of tvremix's status.
+
+**Does the already-approved Robinhood-native fallback supply every required ETF input? Yes —
+verified directly, not assumed.** Pulled daily (5-week) + today's hourly bars, RSI, MACD, live
+quotes, and `get_equity_tradability` for all 9 §22 names (TQQQ, SQQQ, SOXL, SOXS, SPXL, SPXU,
+TNA, TZA, AMDG) via the exact same `get_equity_historicals`/`get_equity_technical_indicators`/
+`get_equity_quotes` tools already used successfully on ordinary stocks — all 9 returned full,
+complete data, confirmed tradable, individual-account tradable, active, not halted. For the 4
+inverse names (SQQQ, SOXS, SPXU, TZA), the §22 item 2 dual-read also needed each one's underlying
+index (QQQ, SOXX, SPY, IWM respectively) — all 4 indices returned full data via the identical
+tools. **No field was missing for any of the 9 permitted ETFs or their 4 underlyings.** No
+substitute data was used, and the lane was not re-described as "operational" without first
+checking — it was checked, and the answer is that every required input is available.
+
+**Applying the existing approved fallback to the 9 permitted ETFs now, within the normal scan
+budget (Robinhood-native reads only, no tvremix calls spent):**
+
+**Leveraged-long (ordinary §5B bullish gate, own chart):**
+
+| Symbol | 5wk return | Trend/State | RSI/MACD | Today | Verdict |
+|---|---|---|---|---|---|
+| TQQQ | -21.6% | 9<20 | 31.9 / deteriorating | +2.19% | REJECTED, 0-of-5 |
+| SOXL | -49.6% | 9<20 | 32.1 / deteriorating | +8.74% | REJECTED, 0-of-5 |
+| SPXL | -5.0% | 9<20 | 36.9 / deteriorating | +1.06% | REJECTED, 0-of-5 |
+| AMDG | -38.8% | 9<20 | 34.9 / deteriorating | +11.11% (tracks AMD's own +5.7% at 2x) | REJECTED, 0-of-5 |
+| TNA | -0.1% | 9>20 (marginal) | 46.0 / improving | +1.37% | REJECTED item 2 — RS edge only +1.1pp vs. SPY, too thin to count as a driver; no catalyst found. **Closest of the 5, flagged for next cycle** — underlying IWM (47.6 RSI, MACD +1.22) independently shows the same early-momentum read. |
+
+**Inverse (dual-read: Bearish Mirror Gate on the underlying + bullish technical on the ETF's own
+chart, per §22 item 2):**
+
+| Symbol | Underlying | Underlying bearish read | ETF's own chart | Today | Verdict |
+|---|---|---|---|---|---|
+| SQQQ | QQQ | 9<20, RSI 32.5, RS -5.8pp — bearish thesis holds | 9>20, RSI 67.7, MACD improving — bullish structure exists | -2.18% (pullback) | REJECTED, item 7 — today's hourly trigger is a partial intrahour recovery, not a clean reclaim/breakout. **Closest inverse candidate, flagged for next cycle.** |
+| SOXS | SOXX | 9<20, RSI 33.1, RS -16.5pp — bearish thesis holds | 9>20, RSI 65.0, MACD improving | -8.88% (sharp adverse move — semis rallied hard today) | REJECTED, item 7 — today is a sharp move against the position, not a trigger |
+| SPXU | SPY | 9<20, RSI 37.9 — bearish thesis holds | 9>20, RSI 62.6 | -1.07% (adverse) | REJECTED, item 7 — no clean trigger, market strength working against the thesis today |
+| TZA | IWM | **9>20, RSI 47.6, MACD +1.22 — IWM shows bullish momentum/relative strength (+1.7pp vs. SPY), not weakness** | n/a | -1.46% | REJECTED, item 3 fails immediately — the underlying itself does not show a bearish setup, so the dual-read never gets past its first leg |
+
+**9/9 §22 ETFs evaluated, 9/9 rejected with evidence, this cycle. Zero data-blocked.** This
+corrects the prior four cycles' mislabeling of this lane as tvremix-blocked — it was not; it was
+simply never run.
+
+**Smallest process correction, proposed for approval — not yet applied:** the trigger's mandatory
+per-cycle logging checklist (step 15 / the §14 item 9 JSON `coverage` object) enforces complete
+per-symbol accounting for the watchlist universe, but has no equivalent requirement for the §22
+allowlist — step 3c exists but nothing forces its result to appear in the mandatory log entry the
+way watchlist coverage is forced. That absence of an enforcement hook is the mechanical reason
+step 3c was easy to silently skip four cycles running. **Proposed fix**: add a `leveraged_etf_coverage`
+field to the step 15 JSON summary (universe_size: 9, evaluated/rejected/not_evaluated counts,
+same per-symbol-label discipline already used for the watchlist) so a skipped cycle is visible in
+the log itself, not just discoverable by manual audit. This adds a reporting requirement only —
+no new instrument, no loosened gate, no budget change. **Not applied without the user's
+go-ahead**, consistent with treating a live autonomous trigger edit as something to confirm
+before changing, per standing practice this session.
+
+```json
+{"cycle":"§22 coverage diagnostic and correction (user workflow-repair request)","timestamp_utc":"2026-11-03T17:41:00Z","modes_covered":["B"],"status_gate":"ACTIVE","root_cause":"step_3c_exists_in_saved_trigger_but_was_never_executed_4_cycles_running_not_a_tvremix_or_data_gap","data_availability_check":{"all_9_etfs_and_4_underlyings_returned_complete_data":true,"missing_fields":[]},"leveraged_etf_coverage":{"universe_size":9,"evaluated":9,"rejected_with_evidence":9,"not_evaluated":0,"closest_candidates":["TNA","SQQQ"]},"proposed_correction":{"description":"add leveraged_etf_coverage to the mandatory step-15 JSON summary so §22 screening is enforced the same way watchlist coverage is","applied":false,"awaiting":"user approval"},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
+```
