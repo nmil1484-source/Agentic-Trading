@@ -56607,3 +56607,24 @@ not applicable (not the final cycle of the day).
 ```json
 {"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-11-03T18:55:15Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":73,"triaged":0,"full_gate_evaluated":9,"rejected_with_evidence":9,"not_evaluated":[{"symbol":"UBER","reason":"earnings blackout"},{"symbol":"FIG","reason":"earnings blackout"},{"symbol":"CRCL","reason":"earnings blackout"}],"remaining_watchlist_not_reached":29,"tool_failures":0},"leveraged_etf_coverage":{"universe_size":9,"evaluated":9,"rejected_with_evidence":9,"not_evaluated":[],"coverage_complete":true},"tvremix_calls_used_today":18,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+### 2026-11-03T19:38:12Z — AUTONOMOUS CRYPTO (§21) CYCLE
+
+§14 gate check: ACTIVE, confirmed via live file read. No kill phrase found. Account firewall:
+Agentic Account (••••8058) only.
+
+`get_portfolio`: total_value $6,439.34, cash $4,878.02, equity_value $1,561.32 (PATH mark, down
+slightly this cycle). `get_crypto_positions`: 0 open positions. No circuit breaker: SPY $754.93
+(-0.20% vs. last cycle's $756.44), QQQ $685.54 (-0.28% vs. $687.46) — no >1.5% shock either
+direction. 0 stop-outs today.
+
+Nothing to manage (0 open crypto positions) — step 3 n/a.
+
+Step 4 — full 8-pair allowlist screen via `analyze_structure_batch` failed "Too Many Requests" on
+both attempts, consistent with every tvremix call this session. No Robinhood-native fallback
+exists for crypto OHLC/structure. All 8 pairs logged **not_evaluated — tool failure**, never
+rejected. No order placed.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T19:38:12Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"used":61.84,"cap":386.36,"headroom":324.52},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"ETH","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"SOL","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"XRP","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"LINK","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"AAVE","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"HBAR","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"AVAX","reason":"tool failure - rate-limited, 2 attempts"}],"tool_failures":8},"tvremix_calls_used_today":20,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
+```
