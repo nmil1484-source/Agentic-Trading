@@ -56846,3 +56846,34 @@ No new entries, no exits, no circuit breaker, no heat-cap action. PATH (Mode B, 
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T22:38:13Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"ETH","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"SOL","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"XRP","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"LINK","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"AAVE","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"HBAR","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"},{"symbol":"AVAX","reason":"tool failure — analyze_structure_batch Too Many Requests (both attempts)"}],"tool_failures":8,"tvremix_calls_used_today":26},"coverage_state":"DATA_BLOCKED","tvremix_consecutive_failed_cycles":8,"last_verified_success_utc":"2026-11-03T14:38:42Z","outage_started_utc":"2026-11-03T15:37:55Z","exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-03 3:38 p.m. PST (23:38:05Z) — AUTONOMOUS CRYPTO CYCLE — tvremix RECOVERED, full gate evaluation, OBSERVE
+
+**STEP 0 gate check:** §14 Status: ACTIVE. No kill phrase since the earlier 2026-11-03T05:24:05Z pause (rescinded 07:21:45Z, confirmed by subsequent uninterrupted cycles all session).
+
+**Account check:** `get_portfolio` — total_value $6,442.87, cash $4,878.02, equity_value $1,564.85 (PATH). `get_crypto_positions` — 0 positions.
+
+**Market-shock check:** SPY $756.33 vs. $752.10 prior close (+0.56%); QQQ $688.22 vs. $681.09 (+1.05%). No >1.5% shock.
+
+**tvremix — RECOVERY VERIFIED.** `analyze_structure_batch` (full 8-pair allowlist, timeframes [240,60]) returned real structure data on the first attempt — first success since the last verified read at 2026-11-03T14:38:42Z. Recovery criteria both satisfied: (a) no-silent-fallback — every symbol returned distinct "240" and "60" keyed results, matching the requested timeframes exactly, no fallback to daily; (b) freshness — `latest_bar_time` 1793746800 (60m) / 1793736000 (240m), both resolving to today (2026-11-03), not a stale cached response. Outage duration: **~9h00m** (14:38:42Z → 23:38:05Z, computed from logged cycle timestamps, not estimated). `tvremix_consecutive_failed_cycles` reset **8 → 0**.
+
+**Full-allowlist gate evaluation (§21 item 3), all 8 pairs — evaluated, all rejected with evidence on the R:R floor (≥1.5:1, current CLAUDE.md number):**
+
+| Pair | 4H trend/bias | Setup (both TFs) | Best R:R | Verdict |
+|---|---|---|---|---|
+| BTC | 240: bearish (moderate) / 60: ranging (weak) | 240: pullback_short R:R 1.23; 60: no setup (insufficient data) | 1.23 | REJECTED, item 4 — R:R 1.23 < 1.5 floor |
+| ETH | 240: bearish (moderate), deep/overextended pullback / 60: ranging | 240: no setup (health "overextended," none generated); 60: no setup | — | REJECTED, item 7 — no genuine setup on either timeframe |
+| SOL | 240: bearish (moderate) / 60: bearish (weak) | 240: pullback_short R:R 0.10; 60: pullback_short R:R 0.91 | 0.91 | REJECTED, item 4 — R:R 0.91 < 1.5 |
+| XRP | 240: bearish (strong) / 60: bullish (weak) | 240: pullback_short R:R 1.16; 60: pullback_long R:R 0.18 | 1.16 | REJECTED, item 4 — R:R 1.16 < 1.5; also conflicting bias across timeframes |
+| LINK | 240: bearish (strong) / 60: ranging | 240: pullback_short R:R 0.89; 60: no setup | 0.89 | REJECTED, item 4 — R:R 0.89 < 1.5 |
+| AAVE | 240: bearish (moderate) / 60: bearish (moderate) | 240: pullback_short R:R 0.85; 60: pullback_short R:R 1.23 | 1.23 | REJECTED, item 4 — R:R 1.23 < 1.5 |
+| HBAR | 240: bearish (strong) / 60: bearish (strong) | 240: pullback_short R:R 0.22; 60: pullback_short R:R 1.23 | 1.23 | REJECTED, item 4 — R:R 1.23 < 1.5 |
+| AVAX | 240: bearish (strong) / 60: bullish (weak) | 240: pullback_short R:R 1.06; 60: pullback_long R:R 0.39 | 1.06 | REJECTED, item 4 — R:R 1.06 < 1.5; conflicting bias across timeframes |
+
+**8/8 evaluated, 8/8 rejected with evidence, 0 not_evaluated — full coverage this cycle.** No candidate clears the R:R floor on any read; this is a genuine data-available, nothing-qualifies cycle, distinct from the prior DATA_BLOCKED run. No circuit breaker, no heat-cap action (moot — no candidate reached sizing). 0 positions, no stop-audit needed.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T23:38:05Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"tvremix_consecutive_failed_cycles":0,"tvremix_calls_used_today":27,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
