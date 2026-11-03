@@ -54847,3 +54847,35 @@ Broad decline easing across the board (AAVE recovering to -6.05% from -7.40% las
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T04:37:44Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+---
+### 2026-11-03T05:24:05Z — MANUAL PAUSE: "PAUSE AUTONOMOUS TRADING" ISSUED BY USER
+
+**Kill phrase recognized.** Per §1/§14, this takes effect immediately as of this entry.
+
+**Scope, as explicitly instructed by the user:**
+- New entries and exposure-increasing adds are **blocked** across Mode B, Mode C, and crypto (§21),
+  effective immediately, until the user issues an explicit resume.
+- Existing protective orders and verified risk-reducing management (stop-audits, breakeven moves,
+  trailing, exit-rule triggers) **remain active** — not disabled by this pause.
+- **No protective stops were cancelled, no holdings were liquidated, and no account settings were
+  altered as part of executing this pause** — and as of this entry there are 0 open positions
+  anywhere (Mode B, Mode C, options/LEAPS, crypto), so there is currently nothing to protect or
+  liquidate; this pause has no immediate position-level effect, only a forward-looking block on new
+  entries.
+
+**Mechanism used:** this entry in `trades_log.md`, which every autonomous trigger's own stored
+prompt already instructs checking ("check trades_log.md's most recent entries... for either kill
+phrase... if found, treat as a live-active override: do not place any order... log the pause, and
+end the cycle"). **CLAUDE.md §14's "Status: ACTIVE" field was deliberately NOT edited, and no
+trigger was disabled, as part of executing this pause** — the user is mid-review of unrelated
+diagnostic changes and explicitly asked that nothing further be deployed without approval; editing
+the authoritative Status field is a policy-level action out of scope for a chat-logged manual pause
+and was not requested. Every subsequent cycle (Mode B/C hourly, First Scan, Crypto 24/7) must
+recognize this entry, log "PAUSED — no new entries, protective management only," and skip all new
+screening/entry logic until an explicit resume phrase is issued by the user.
+
+**Not yet addressed, per explicit user instruction:** the unscoped additional trigger-prompt
+changes flagged in this session's verification pass (position/theme/instrument-eligibility caps,
+STEP 0.5 timing, §22 allowlist correction) are under the user's review. No rollback and no further
+deployment will occur until the user approves one or the other.
