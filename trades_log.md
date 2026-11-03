@@ -55668,3 +55668,100 @@ chat narration.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T15:37:55Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"ETH","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"SOL","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"XRP","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"LINK","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"AAVE","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"HBAR","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"AVAX","reason":"tool failure - rate-limited, 2 attempts"}],"tool_failures":8},"tvremix_calls_used_today":12,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+---
+### 2026-11-03 (same day, post-cycle) — SECOND METHODOLOGY CORRECTION NOTE (user feedback, no new scan)
+
+**No new tool calls against any rate-limited connector made to produce this note — the
+rate-limit analysis below uses only this file's own already-logged records. No change to §14
+Status, risk limits, entry thresholds, or any CLAUDE.md permission.**
+
+**1. ARKG — item-3 recount, corrected.** The prior correction note understated ARKG's Bearish
+Mirror Gate item 3 result. Item 3's five role-groups include **"Relative weakness — relative
+weakness versus SPY/sector (checkable underperformance, not just a single red day)"** as one of
+the five — the same substantive evidence already used for item 2 (ARKG -16.4% vs. SPY -3.3% over
+the trailing month, Oct 6-Nov 2) independently satisfies this role-group too, since it is a
+checkable, sustained (20-session) underperformance, not a single red day. **Corrected: ARKG
+clears item 3 via Relative Weakness — 1-of-5 is sufficient, and that group alone clears it.**
+Trend/State and Location do not count toward it (both read bullish on the actual chart data), but
+item 3 does not require those specific groups — any one of the five suffices, and Relative
+Weakness is the one that applies here. This corrects the prior note's claim that item 3 "fails."
+- Item 1: PASS (eligible instrument).
+- Item 2: PASS (checkable relative-weakness driver, dated).
+- Item 3: PASS (Relative Weakness role-group, 1-of-5 sufficient) — corrected from the prior
+  note's "fails."
+- **Item 4: FAIL** — no bearish invalidation level or R:R is computable; the structure data
+  obtained returned only a bullish (long) setup with its own entry/stop/target — no bearish
+  equivalent exists in that data to price a put's economics against.
+- **Item 7: FAIL** — no bearish daily-chart setup and no bearish hourly execution trigger; both
+  the 1D and 60min reads showed a bullish reclaim/pullback structure, the opposite of what this
+  item requires.
+- **Conclusion, unchanged in outcome, corrected in reasoning: ARKG clears items 1/2/3, fails
+  items 4 and 7. The missing bearish setup/invalidation and missing hourly trigger — not a
+  confirmation-count shortfall — are what block entry.** Monthly relative weakness gets ARKG
+  through two of the gate's five conditions (items 2 and 3); it was never capable of satisfying
+  items 4/7 on its own, and does not here.
+
+**2. RKLB/SHOP/PATH — confirming CONFLICTED is not a hidden veto.** "CONFLICTED" is not a label
+this policy defines — the Screening Coverage Methodology's own three categories are Evaluated /
+Rejected-with-evidence / Not-evaluated-with-reason. Using "CONFLICTED" as if it were a fourth,
+independent state risked implying the ranking-tool disagreement itself carried some gate
+authority. It does not, and is corrected here: **RKLB, SHOP, and PATH are NOT_EVALUATED/
+MISSING_DATA**, same category and same standing as TTD/ONDS/TSLA/AMZN/NFLX — the authoritative
+`analyze_structure_batch` figures obtained for them earlier were not retained after context
+compaction, so their actual §5B / Bearish-Mirror-Gate status has never reached a confirmed
+verdict. The cross-source ranking disagreement is retained only as a non-binding note (worth a
+closer look when re-evaluated, nothing more) — it does not demote, deprioritize, or otherwise
+penalize their position in the rotation queue, and it never substitutes for, or counts against,
+an actual gate item. All 8 names (RKLB, SHOP, PATH, TTD, ONDS, TSLA, AMZN, NFLX) remain queued,
+ordered purely by the least-recently-evaluated rotation rule, for re-evaluation using only the
+authoritative structure-tool data when next reached.
+
+**3. Crypto rate-limiting — cause analysis from existing records only, no new probing calls.**
+Reconstructed tvremix call history from this file's own logged entries, today (UTC):
+
+| Time (UTC) | Calls this event | Result | Running crypto-pool count |
+|---|---|---|---|
+| 07:34:16Z | 1 | success | 1 |
+| 07:37:59Z | 1 | success | 2 |
+| 08:38:01Z | 1 | success | 3 |
+| 09:38:13Z | 1 | success | 4 |
+| 10:37:53Z | 1 | success | 5 |
+| 11:38:10Z | 1 | success | 6 |
+| 12:37:30Z | 1 | success | 7 |
+| 13:37:58Z | 1 | success | 8 |
+| 14:38:42Z | 2 (1 fail "Bad Gateway" + 1 success retry) | mixed | 10 |
+| 15:04:58Z (Mode B/C pool) | 8 attempted (3 success, 5 fail "Too Many Requests") | mixed | 8 (separate pool) |
+| 15:37:55Z | 2 attempted, both fail "Too Many Requests" | fail | 12 |
+
+**Finding: this is not a daily-budget exhaustion.** Crypto's own pool sits at 12 of its 30/day
+ceiling; Mode B/C's pool sits at 8 of its 20/day ceiling — both far under budget, so the
+trigger's own "budget exhausted this UTC day" handling does not apply here; labeling these
+failures that way would misstate the cause. **Observed pattern consistent with a short-window
+(likely per-minute-scale) request-rate throttle on the tvremix connector itself**, not a per-key
+daily cap: the 15:04:58Z cycle alone shows 3 successes and 5 failures *interleaved* within one
+cycle's burst of calls, and the two single-digit-count crypto cycles immediately before and after
+it (14:38:42Z, 15:37:55Z) show a success-then-two-failures progression — the kind of pattern a
+rolling short-window limiter produces when several calls land close together, rather than a clean
+on/off daily-cap boundary. **No documented reset interval or backoff window for this exists
+anywhere in CLAUDE.md or this log** — none is stated here because none is known; stating a
+specific minutes-to-reset figure would be invented, not sourced. **Compliance with this cycle's
+constraint, confirmed:** no third retry was attempted on either affected cycle (stopped at 2 per
+cycle, matching established practice); neither pool's daily budget was exceeded or will be
+spent faster to compensate; no substitute data source was used in place of the required
+4H/1H structural read (Robinhood MCP has no crypto-OHLC/historicals fallback, confirmed
+previously — none was fabricated here either). **Next action: none manual.** The next natural
+retry is the next scheduled hourly crypto trigger firing — no extra call is being made before
+then.
+
+**Next scheduled report — format commitment:** gate outcomes will be reported in four explicitly
+separated buckets rather than folded together: **(a) completed gate decisions** (every item
+evaluated to a confirmed pass/fail with a stated final verdict — e.g. ARKG above); **(b) attempted,
+partially evaluated** (some items confirmed, at least one item's data still missing — distinct from
+a completed decision); **(c) missing-data / tool failure** (no evaluable data obtained this
+attempt); **(d) queued, rotation not yet reached**. A name with a completed decision is never
+reported in the same breath as one still queued or missing data.
+
+```json
+{"cycle":"Second methodology correction (user feedback, no new scan)","timestamp_utc":"2026-11-03T00:00:00Z_SAME_DAY","modes_covered":["B","crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"corrections":{"ARKG_item3_recount":"PASS via Relative Weakness role-group (corrected from prior FAIL claim); items 4 and 7 remain the actual blockers","RKLB_SHOP_PATH_reclassified":"CONFLICTED label retired, now NOT_EVALUATED_MISSING_DATA, ranking disagreement confirmed non-binding"},"rate_limit_analysis":{"crypto_pool_used_of_30":12,"mode_bc_pool_used_of_20":8,"cause":"short-window provider-side throttle, not daily-budget exhaustion","documented_reset_interval":"none found in CLAUDE.md or trades_log.md","third_retry_attempted":false,"budget_exceeded":false,"data_bypassed":false},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
+```
