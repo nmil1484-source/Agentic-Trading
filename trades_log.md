@@ -56539,3 +56539,71 @@ rejected. No order placed.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-03T18:38:20Z","modes_covered":["crypto"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"used":61.84,"cap":387.12,"headroom":325.28},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"ETH","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"SOL","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"XRP","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"LINK","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"AAVE","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"HBAR","reason":"tool failure - rate-limited, 2 attempts"},{"symbol":"AVAX","reason":"tool failure - rate-limited, 2 attempts"}],"tool_failures":8},"tvremix_calls_used_today":18,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+### 2026-11-03T18:55:15Z — AUTONOMOUS MODE B/C CYCLE
+
+STEP 0: §14 confirmed ACTIVE (live file read). No kill phrase found. STEP 0.5: not the final
+cycle of the day (10:55 a.m. PST / 18:55Z — well before the 1:00 p.m. PST / 4:00 p.m. ET close).
+
+**Account/circuit-breaker checks**: Agentic Account (••••8058) only. `get_portfolio`: total_value
+$6,450.61, cash $4,878.02, equity_value $1,572.59 (PATH mark). SPY $756.15 (+0.54%), QQQ $687.13
+(+0.89%) — no >1.5% shock. 0 stop-outs today. Portfolio heat: PATH's fixed risk $61.84 vs.
+6%-of-equity cap $387.04 — $325.20 headroom.
+
+**2a — Mode B equity stop-audit**: PATH stop re-verified, order id `6aea08a9-...`, state
+`confirmed` (resting), $12.73, qty 119, GTC — unchanged, no duplicate. Checked: 1, missing: 0,
+placed: 0. PATH quote $13.215 — below +1R breakeven trigger, no action.
+
+**2b — Options/LEAPS stop-check**: `get_option_positions(nonzero=true)` — empty, 0 positions.
+Checked: 0, breached: 0, exited: 0.
+
+**Stage-2 rotation — 9 names evaluated** (continuing from DRAM; UBER/FIG/CRCL skipped this cycle,
+still inside their earnings blackout window flagged earlier today):
+
+| Symbol | 5wk return | Daily Trend/State | RSI/MACD | Today | Verdict |
+|---|---|---|---|---|---|
+| DELL | -15.8% | 9<20 | 31.8 / deteriorating | +3.88% | REJECTED, 0-of-5 |
+| HPE | -1.6% | 9<20 | 35.3 / deteriorating | +4.94% | REJECTED, 0-of-5 |
+| NBIS | -35.7% | 9<20 | 32.3 / deteriorating | +6.70% | REJECTED, 0-of-5 |
+| CRWV | -45.7% | 9<20 | 30.2 / deteriorating | +5.51% | REJECTED, 0-of-5 |
+| ZS | +36.3% | **9>20** ✓ | 49.3, MACD deteriorating | +0.57% (faded hard from the 228.85 1600Z-bar high to 225.065, below all 3 hourly closes) | REJECTED, **item 7 only** — Trend/State confirms (1-of-5), RS +36.3% vs. SPY's -1.95% clears item 2, but today's hourly action is a reversal/giveback from the highs, not a reclaim. **Flagged for next cycle.** |
+| SOFI | -11.5% | **9>20** ✓ | 55.5 ✓, MACD +0.33 improving (2-of-5) | +0.78%, minor bounce still below the 15:00/16:00Z hourly highs | REJECTED, item 2 — item 3 clears (2-of-5) but 5wk RS is -11.5% vs. SPY's -1.95% (underperformance, not a driver) and no catalyst sourced |
+| GDX | -3.7% | 9<20 | 38.2 / deteriorating | -1.63% (lagging the broad rally) | REJECTED, 0-of-5 |
+| IGV | -1.4% | 9<20 | 37.3 / deteriorating | +1.03% | REJECTED, 0-of-5 |
+| CBRS | -56.0% | 9<20 | 25.8 / deteriorating | +2.79% | REJECTED, 0-of-5 |
+
+**9/9 evaluated, 9/9 rejected with evidence. 3 not-evaluated (earnings blackout): UBER, FIG,
+CRCL.** Two near-misses this cycle (ZS — item 7; SOFI — item 2), both on top of TEM/CVX already
+flagged from the 17:55:31Z cycle — four names now worth a fresh look once a genuine new hourly
+bar posts (the 18:00Z–19:00Z bar had not yet closed as of this cycle's ~18:57Z data pulls).
+`remaining_watchlist_not_reached`: 29 (73 - 44 touched across today's four cycles).
+
+**3c — §22 Leveraged/Inverse ETF screen, full 9-name allowlist, re-confirmed this cycle**: daily
+Trend/State/RSI/MACD unchanged (same Nov-2 bar); hourly bars still show no new completed candle
+past 17:00Z (18:00Z–19:00Z bar not yet closed) — fresh quotes pulled regardless. Verdicts
+unchanged from the 17:55:31Z cycle, re-verified with current prices:
+
+| Symbol | Today | Verdict |
+|---|---|---|
+| TQQQ | +2.54% | REJECTED, 0-of-5 (pure QQQ beta) |
+| SOXL | +7.86% | REJECTED, 0-of-5 (pure SOXX beta) |
+| SPXL | +1.61% | REJECTED, 0-of-5 (pure SPY beta) |
+| AMDG | +10.46% | REJECTED, 0-of-5 (pure AMD beta) |
+| TNA | +1.88% | REJECTED, item 2 — RS vs. SPY only +0.09pp, too thin. **Closest leveraged-long, flagged again.** |
+| SQQQ | -2.59% | REJECTED, item 7 — still no reclaim, QQQ continuing to rise |
+| SOXS | -8.02% | REJECTED, item 7 — still a sharp adverse move |
+| SPXU | -1.56% | REJECTED, item 7 — still no reclaim |
+| TZA | -1.92% | REJECTED, item 3 — underlying IWM still bullish, not weak |
+
+**9/9 evaluated, 9/9 rejected, 0 not_evaluated. `coverage_complete: true`.**
+
+**Mode C**: 0 open positions. No new Stage-1 triage data available this cycle beyond what Mode B's
+own rotation already pulled (tvremix down) — no VWAP-pullback/ORB/mean-reversion setup identified
+from the names checked. Daily P&L: $0 (flat, no positions). Stop-audit: 0 checked (0 positions).
+
+No order placed, either mode. No circuit breaker. No process correction needed. STEP 0.5 flatten:
+not applicable (not the final cycle of the day).
+
+```json
+{"cycle":"Mode B/C Hourly Scan","timestamp_utc":"2026-11-03T18:55:15Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":73,"triaged":0,"full_gate_evaluated":9,"rejected_with_evidence":9,"not_evaluated":[{"symbol":"UBER","reason":"earnings blackout"},{"symbol":"FIG","reason":"earnings blackout"},{"symbol":"CRCL","reason":"earnings blackout"}],"remaining_watchlist_not_reached":29,"tool_failures":0},"leveraged_etf_coverage":{"universe_size":9,"evaluated":9,"rejected_with_evidence":9,"not_evaluated":[],"coverage_complete":true},"tvremix_calls_used_today":18,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
+```
