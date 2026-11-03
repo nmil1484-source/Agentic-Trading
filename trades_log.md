@@ -55517,3 +55517,101 @@ universe coverage honestly accounted for per the above (no name silently dropped
 ```json
 {"cycle":"Mode B/C First Scan of Day","timestamp_utc":"2026-11-03T15:04:58Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":73,"triaged":57,"full_gate_evaluated":12,"rejected_with_evidence":4,"not_evaluated":[{"symbol":"AMD","reason":"earnings blackout, 0 days to earnings"},{"symbol":"IREN","reason":"earnings blackout, 2 days to earnings"},{"symbol":"LMND","reason":"earnings blackout, 2 days to earnings"},{"symbol":"RUN","reason":"earnings blackout, 1 day to earnings"},{"symbol":"RDW","reason":"earnings blackout, 1 day to earnings"},{"symbol":"KTOS","reason":"earnings blackout, 2 days to earnings"},{"symbol":"AVA","reason":"earnings blackout, 1 day to earnings"},{"symbol":"DUOL","reason":"earnings blackout, 0 days to earnings"},{"symbol":"OSCR","reason":"earnings blackout, 2 days to earnings"},{"symbol":"PURR","reason":"earnings blackout, 2 days to earnings"},{"symbol":"KEEL","reason":"earnings blackout, 2 days to earnings"},{"symbol":"UBER","reason":"earnings blackout, 1 day to earnings"},{"symbol":"FIG","reason":"earnings blackout, 1 day to earnings"},{"symbol":"CRCL","reason":"earnings blackout, 1 day to earnings"},{"symbol":"CORZ","reason":"earnings blackout, 2 days to earnings"},{"symbol":"CAI","reason":"earnings blackout, 1 day to earnings"},{"symbol":"TTD","reason":"tool failure - rate-limited re-verification, evaluated earlier this cycle, re-queued next cycle"},{"symbol":"ONDS","reason":"tool failure - rate-limited re-verification, evaluated earlier this cycle, re-queued next cycle"},{"symbol":"TSLA","reason":"tool failure - rate-limited re-verification, evaluated earlier this cycle, re-queued next cycle"},{"symbol":"AMZN","reason":"tool failure - rate-limited re-verification, evaluated earlier this cycle, re-queued next cycle"},{"symbol":"NFLX","reason":"tool failure - rate-limited re-verification, evaluated earlier this cycle, re-queued next cycle"}],"tool_failures":7,"not_in_stage2_rotation_this_cycle":61},"tvremix_calls_used_today":8,"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+---
+### 2026-11-03 (same day, post-cycle) — METHODOLOGY CORRECTION NOTE (user feedback on the 15:04:58Z First Scan of Day entry)
+
+**No new scan run to produce this note — no tool calls beyond what the user's feedback itself
+required to answer accurately. No change to §14 Status, risk limits, entry thresholds, or any
+CLAUDE.md permission.** This is a record-accuracy correction to the 15:04:58Z entry above,
+applied going forward starting with the next scheduled cycle.
+
+**Correction 1 — rotation pool mis-scoped.** AMD, IREN, and LMND were counted as 3 of that
+cycle's "12 eligible Stage-2 slots" even though Stage 1 had already excluded them for the §4
+earnings blackout. Per the Screening Coverage Methodology, the Stage-2 rotation pool is drawn
+from Stage 1's *triaged* output (the 57 ranked names), not the full 73-name watchlist order —
+earnings-excluded names should be labeled and accounted for, but must never consume one of the
+12 full-evaluation slots. **Real full evaluations that cycle: 9, not 12** — TTD, ONDS, RKLB,
+TSLA, AMZN, SHOP, PATH, ARKG, NFLX. Rotation pointer corrected accordingly: the next Mode B/C
+cycle's Stage-2 batch is the next 12 names in the **eligible (57-name) list**, which is RGTI,
+AAPL, VRT, PLAB, HIMS, GOOG, MU, ASTS, STM, SPY, PLTR, QQQ — not positions 13-24 of the raw
+73-name watchlist order.
+
+**Correction 2 — RKLB/SHOP/PATH mislabeled REJECTED; should be CONFLICTED, not a confirmed gate
+failure.** `rank_symbol_setups` is Stage-1 triage/prioritization input only (Screening Coverage
+Methodology item 5: "not itself a catalyst check, a confirmation role-group check, a stop/R:R
+computation, or any other component of the applicable entry gate"). The deployed §5B gate's
+actual directional/structural test is `analyze_structure_batch`'s own read (daily+hourly setup,
+confirmations, R:R) — which showed RKLB aligned_bullish, with SHOP/PATH showing the same pattern.
+Treating the rank tool's disagreement as an additional veto was a process error — the ranking
+tool has no such authority under the deployed policy. **Reclassified: RKLB, SHOP, PATH →
+CONFLICTED** (cross-source directional disagreement flagged for extra scrutiny, not resolved
+either way) rather than REJECTED. Their actual §5B gate status (catalyst/RS, confirmation
+role-groups, R:R, timing) was never genuinely evaluated to a confirmed verdict — the specific
+structure-tool figures obtained earlier that cycle were not retained after context compaction, so
+these three are unresolved coverage, carrying a CONFLICTED flag, not rejected-with-evidence.
+
+**Correction 3 — TTD, ONDS, TSLA, AMZN, NFLX: category confirmed correct, re-labeled for
+clarity.** These were already logged as "not re-verifiable this write-up" rather than rejected —
+re-labeled **NOT_EVALUATED/MISSING_DATA** (tool failure during re-verification) to match the
+now-explicit three-way taxonomy (REJECTED / CONFLICTED / NOT_EVALUATED-MISSING_DATA). No change
+to their disposition — still queued first in the next cycle's rotation, still never treated as a
+confirmed gate failure.
+
+**Corrected accounting for the 15:04:58Z cycle:** of the 73-name universe — 16 not evaluated
+(earnings blackout, confirmed correct and unaffected) — 9 genuine full-gate evaluations (not 12):
+1 REJECTED with evidence (ARKG, §5B item 2) — 3 CONFLICTED (RKLB, SHOP, PATH) — 5
+NOT_EVALUATED/MISSING_DATA (TTD, ONDS, TSLA, AMZN, NFLX, tool failure) — 48 not yet reached by
+Stage 2's rotation (57 eligible minus the 9 actually evaluated).
+
+**ARKG Bearish Mirror Gate — corrected, item-by-item explanation (the prior report's "disqualified
+on direction alone" was too compressed and read as if monthly weakness were being used to
+authorize a put; it was not, and could not, on its own).** Walking through the Bearish Mirror
+Gate's own numbered items against the same `analyze_structure_batch` read used for the bullish
+gate:
+- **Item 1 (eligible instrument):** clears — same as the bullish gate.
+- **Item 2 (bearish catalyst, sector headwind, or relative-weakness driver):** this is the one
+  item ARKG's monthly figures could *potentially* speak to — a documented, checkable
+  relative-weakness comparison (ARKG -16.4% vs. SPY -3.3% over the trailing month) is exactly the
+  kind of specific, dated comparison item 2 asks for, and in isolation it does not fail outright.
+  **But item 2 passing, alone, does not authorize anything** — every item must independently
+  clear, same principle as the bullish gate.
+- **Item 3 (≥1-of-5 bearish confirmation role-groups — bearish EMA/SMA, breakdown/rejection
+  structure, relative weakness, declining-volume/distribution, or deteriorating RSI/MACD):**
+  **fails.** `analyze_structure_batch` read ARKG aligned_bullish on both 1D and 60min — bullish
+  Trend/State, bullish Location (a golden-pocket pullback *within* an uptrend, not a breakdown).
+  There is no bearish structural confirmation to count here; the chart is doing the opposite of
+  what this item requires.
+- **Item 4 (valid bearish invalidation level, R:R ≥1.3:1 on the put's own economics, bearish
+  direction):** not computable — there is no bearish setup/stop/target in the data obtained; the
+  tool's own setup output (entry/stop/target) was for a *long* pullback thesis, not a short one.
+- **Item 7 (daily-chart bearish setup plus hourly bearish execution trigger):** **fails.** Both
+  the daily (1D) and hourly (60min) reads showed a bullish reclaim/pullback structure, not a
+  breakdown or failed-bounce — there is no bearish daily setup and no bearish hourly trigger to
+  point to, in either timeframe.
+- **Conclusion, corrected:** ARKG fails the Bearish Mirror Gate on items 3, 4, and 7 — the
+  structural/chart-direction requirements — not on item 2. Item 2's relative-weakness comparison
+  is real and logged for context, but it is one necessary condition among several, and the
+  chart's own bullish structure independently and sufficiently disqualifies a put here regardless
+  of how item 2 reads. **Monthly weakness alone never authorizes a bearish trade under this
+  policy; it is one item of seven, and the other structural items control when they fail.**
+
+**Process change, effective next cycle (no CLAUDE.md edit — this is execution discipline, not a
+policy change):**
+1. Log each Stage-2 candidate's compact evidence record (timestamp, timeframe, directional
+   setup, trigger, invalidation, target, per-item gate outcome) immediately after that candidate's
+   tool result returns, not deferred to the end-of-cycle write-up — reduces the risk of losing
+   figures to a mid-cycle compaction before they're captured.
+2. Stage-2 rotation pool = Stage 1's triaged (eligible) output only; earnings-excluded names are
+   labeled but never consume a full-evaluation slot.
+3. Three-way taxonomy enforced per candidate: REJECTED (confirmed gate-item failure, evidence
+   cited) / CONFLICTED (cross-source disagreement, unresolved, re-queued) / NOT_EVALUATED /
+   MISSING_DATA (tool failure or rotation-not-reached). A ranking-tool disagreement is Stage-1
+   triage input only and is never treated as an additional hard veto beyond what §5B/the Bearish
+   Mirror Gate itself requires.
+4. Next cycle's Stage-2 batch (corrected rotation): RGTI, AAPL, VRT, PLAB, HIMS, GOOG, MU, ASTS,
+   STM, SPY, PLTR, QQQ.
+
+```json
+{"cycle":"Methodology correction (user feedback, no new scan)","timestamp_utc":"2026-11-03T00:00:00Z_SAME_DAY","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":0,"mode_c_count":0,"crypto_count":0},"correction_to_cycle":"2026-11-03T15:04:58Z","reclassified":{"REJECTED":["ARKG"],"CONFLICTED":["RKLB","SHOP","PATH"],"NOT_EVALUATED_MISSING_DATA":["TTD","ONDS","TSLA","AMZN","NFLX"]},"rotation_pool_corrected":true,"next_stage2_batch":["RGTI","AAPL","VRT","PLAB","HIMS","GOOG","MU","ASTS","STM","SPY","PLTR","QQQ"],"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
+```
