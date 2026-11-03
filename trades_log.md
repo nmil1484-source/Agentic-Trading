@@ -56734,3 +56734,32 @@ No order placed. No circuit breaker. No exit rule triggered. Day's final cycle c
 ```json
 {"cycle":"Mode B/C Hourly Scan (final cycle of day)","timestamp_utc":"2026-11-03T20:56:01Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":73,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[],"note":"no screening attempted - final cycle inside last-15-minute blackout"},"step_0_5_flatten":{"applicable":true,"mode_c_positions_found":0,"action_taken":"none - already flat"},"exits":[],"entries":[],"orders_placed":0,"git_push":"success"}
 ```
+
+### 2026-11-03T21:04:12Z — CRYPTO OUTAGE-REPORTING DEPLOYMENT + FIRST CONSOLIDATED ALERT (user-approved)
+
+**Deployed to `trig_01UUXAtYHjn7nBgzkdvZU4Rv`** (cron unchanged, `37 * * * *`): DATA_BLOCKED
+cycle-level labeling, `tvremix_consecutive_failed_cycles` counter, consolidated-alert threshold
+(6 cycles, then every +12), and recovery-verification criteria (real structure data, correct
+interval, fresh timestamp — a successful spot quote alone does not count). Independently
+re-read back via `get_trigger` after saving; confirmed verbatim match. No change to risk
+percentages, position caps, R:R floors, confirmation counts, the allowlist, or order authority.
+
+**Consolidated alert — issued now, per explicit user instruction, using verified log entries only:**
+- Last cycle with a genuine successful crypto structure pull: **2026-11-03T14:38:42Z**
+  (`full_gate_evaluated: 8`, `tool_failures: 0`, confirmed from that cycle's own logged JSON).
+- First fully data-blocked cycle: **2026-11-03T15:37:55Z** (`tool_failures: 8`, confirmed).
+- Consecutive fully data-blocked cycles since, all confirmed from logged JSON: 15:37:55Z,
+  16:38:27Z, 17:38:21Z, 18:38:20Z, 19:38:12Z, 20:37:52Z — **6 consecutive cycles**.
+- Verified elapsed duration: **~5h22m** since the first failure (15:37:55Z→21:00Z), **~6h22m**
+  since the last confirmed success (14:38:42Z→21:00Z).
+- **This retroactively reaches today's 6-cycle consolidated-alert threshold as of the 20:37:52Z
+  cycle.** `tvremix_consecutive_failed_cycles: 6` set in this entry to reflect the verified count;
+  future cycles continue incrementing from here under the newly deployed mechanism.
+- Crypto new-entry screening is **DATA_BLOCKED**, not a quiet no-setup stretch. Existing position
+  management is unaffected (0 open crypto positions currently, so nothing to protect).
+- Per the deployed mechanism, no further consolidated alert fires until either a verified recovery
+  (real structure data, correct interval, fresh timestamp) or 12 more consecutive failed cycles.
+
+```json
+{"cycle":"Crypto outage-reporting deployment + consolidated alert","timestamp_utc":"2026-11-03T21:04:12Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"DATA_BLOCKED","last_verified_success_utc":"2026-11-03T14:38:42Z","outage_started_utc":"2026-11-03T15:37:55Z","tvremix_consecutive_failed_cycles":6,"elapsed_since_first_failure":"5h22m","elapsed_since_last_success":"6h22m","deployment":{"trigger_id":"trig_01UUXAtYHjn7nBgzkdvZU4Rv","change":"DATA_BLOCKED labeling, consecutive-failure counter, consolidated-alert threshold, recovery verification","risk_permission_change":false,"readback_verified":true},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
