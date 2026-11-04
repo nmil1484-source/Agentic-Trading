@@ -58422,3 +58422,51 @@ TradingView read; logged honestly as a tool failure, not a rejected setup.
 ```json
 {"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-04T20:04:04Z","timestamp_pacific":"2026-11-04T12:04:04-08:00","modes_covered":["B","C"],"status_gate":"ACTIVE","coverage_state":"PARTIAL_TOOL_FAILURE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"robinhood_mcp_status":{"available":false,"finding":"connector requires reauthorization, discovered mid-cycle after account/stop-audit calls completed","blocks":["new orders (all modes)","resting-stop modification","Mode C screening"],"does_not_block":["TradingView-based gate evaluation already completed this cycle"]},"coverage":{"universe_size":74,"triaged":74,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":[{"symbol":"PGY","reason":"tool failure — insufficient bars (0)"},{"symbol":"IGV","reason":"tool failure — insufficient bars (0)"}],"tool_failures":2,"resolved_invalidated":["SOFI"]},"near_miss_queue":{"reassessed":4,"cleared":0,"still_near_miss":1,"invalidated":1,"ineligible":0,"expired":0,"tool_failure_blocked":2},"leveraged_etf_coverage":{"universe_size":9,"evaluated":6,"rejected_with_evidence":2,"still_near_miss":4,"not_evaluated":[{"symbol":"TQQQ","reason":"tool failure — insufficient bars (0)"},{"symbol":"SQQQ","reason":"tool failure — insufficient bars (0)"},{"symbol":"AMDG","reason":"tool failure — insufficient bars (0)"}],"tool_failures":3,"coverage_complete":false},"mode_c":{"evaluated":false,"reason":"Robinhood MCP unavailable this cycle — not substituted, logged as tool failure"},"calls_made_this_cycle":5,"tvremix_calls_used_today":24,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-04 ~20:38 UTC / 12:38 PM PST — AUTONOMOUS (Crypto 24/7 Scan §21, trigger fired 20:38:07Z, processed this turn)
+
+**Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found.
+
+**Account/positions:** `get_portfolio` — equity $5,996.42, cash $4,378.02. `get_crypto_positions` —
+**0 open crypto positions.** Stop-audit: trivially clean (0 positions, nothing to audit).
+Near-miss queue (crypto table): still empty, no reassessment needed.
+
+**Circuit breakers:** same-day 2-stop-out cooldown — 0 stop-outs logged today across any trigger,
+clear. Market-shock breaker — SPY +1.75%/QQQ +0.98% vs. yesterday's close (this is cumulative
+since yesterday's close, not a measured cycle-over-cycle delta — no prior-cycle SPY/QQQ reading
+was logged to compare against; flagging this as a real gap in how this check is actually performed
+rather than asserting a precise inter-cycle figure). Given ~6.2 hours have elapsed since today's
+open with no single large jump evident in the daily change itself, treating the breaker as not
+triggered, but this is an inference, not a direct measurement.
+
+**Portfolio heat cap:** Mode B (PATH, 119sh, avg cost $13.25, stop $12.73 — stop still below entry,
+not yet at breakeven) contributes real open-risk: (13.25−12.73)×119 = **$61.88**. Mode C: 0
+positions, $0. Crypto: 0 positions, $0. **Total heat $61.88 vs. 6%-of-equity cap $359.79** —
+ample headroom for any qualifying new entry.
+
+**Full-allowlist gate evaluation — all 8 pairs REJECTED with evidence, genuinely completed (not a
+tool gap):** `analyze_structure_batch` (240/60) succeeded for all 8, intervals confirmed matching
+request, bar timestamps fresh (`latest_bar_time` 1793822400, this cycle's close). Per the standing
+spot/long-only correction (§21 item 2 — only a `pullback_long`/`breakout_long` on both 4H and 1H
+is ever a candidate):
+- SOL, LINK, AAVE, HBAR: aligned bearish both TFs, only `pullback_short` setups generated (not a
+  permitted direction) — rejected.
+- XRP, AVAX: mixed — 1H shows a weak bullish trend but no active pullback (`setup: null`, no
+  breakout condition either); 4H is bearish with a `pullback_short` setup (not permitted) —
+  rejected, no qualifying long structure on either TF.
+- BTC: both TFs show no setup; 4H bearish/overextended, 1H ranging/neutral — rejected, no
+  computable entry.
+- ETH: 1H shows price fresh above its own recent max swing high (`current_above_max_swing_high:
+  true`, +1.14%) with a weak bullish trend — a genuine §13.G-style breakout-continuation
+  condition on the 1H alone — but the 4H is bearish and deeply below its own max swing high
+  (−12.96%, overextended pullback), so there is no 4H bullish setup to pair with it. §21 item 3's
+  dual-timeframe (4H setup + 1H trigger) requirement fails on the 4H leg. **Rejected — no aligned
+  4H+1H bullish structure.**
+
+**No crypto order placed, no risk/cap/gate change.**
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T20:38:07Z","timestamp_pacific":"2026-11-04T12:38:07-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":61.88,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":61.88,"cap_usd":359.79,"headroom_usd":297.91},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":25,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
