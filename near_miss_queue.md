@@ -80,10 +80,9 @@ repair exists to clear starting at the next eligible cycle.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (7 sessions) |
 |---|---|---|---|---|---|---|---|
-| TEM | Equity (Mode B), Bearish Mirror Gate | §5B item 4 (mirror) — `pullback_short` on both TFs, R:R now 1.02:1 (1D) / 1.01:1 (60m) — *worse* than last cycle's 1.09/1.27, still fails 1.3:1 | Item 7 (mirror) clears (aligned bearish structure both TFs); items 2/3 not independently re-verified | 2026-11-04T17:04Z (latest_bar_time 1793809800) | 2026-11-03 | 3 | 2026-11-12 |
-| SOFI | Equity (Mode B), Bearish Mirror Gate | §5B item 7 (mirror) — 1D `pullback_short` R:R 1.39:1 (clears item 4, up from 1.34); 60m setup still null, no confirming hourly breakdown trigger | Item 4 clears; items 2/3 not independently re-verified | 2026-11-04T17:04Z | 2026-11-03 | 3 | 2026-11-12 |
-| PGY | Equity (Mode B) | §5B item 7 — 1D `pullback_long` R:R exactly 1.30:1 (clears item 4, marginally); 60m is `ranging/neutral` with no setup — no confirming hourly reclaim trigger | Item 4 clears (marginally); items 2/3 not independently checked | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
-| IGV | Equity (Mode B, ETF) | §5B item 7 — 1D `pullback_long` R:R 1.57:1 (clears item 4 comfortably); 60m overextended, no setup — no confirming hourly trigger | Item 4 clears; items 2/3 not independently checked | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
+| TEM | Equity (Mode B), Bearish Mirror Gate | §5B item 4 (mirror) — `pullback_short` on both TFs, R:R now 0.9:1 (1D) / 0.31:1 (60m) — still fails 1.3:1, little changed from last cycle | Item 7 (mirror) clears (aligned bearish structure both TFs); items 2/3 not independently re-verified | 2026-11-04T19:04Z (Fresh Candle 20:04:04Z cycle) | 2026-11-03 | 4 | 2026-11-12 |
+| PGY | Equity (Mode B) | **Reassessment blocked this cycle — tool failure, not re-evaluated.** `analyze_structure_batch` returned "insufficient bars (0) — need at least 25 for structure analysis" for PGY this cycle (10 of 12 names in the same batch call succeeded, so this is symbol-specific, not a connector-wide outage). | Unchanged from last check (2026-11-04T16:13Z): item 4 cleared marginally (R:R 1.30:1), item 7 failed (60m ranging/neutral, no setup) | 2026-11-04T16:13Z (stale — not refreshed this cycle) | 2026-11-04 | 1 (not incremented — no real reassessment occurred) | 2026-11-13 |
+| IGV | Equity (Mode B, ETF) | **Reassessment blocked this cycle — tool failure, not re-evaluated.** Same `analyze_structure_batch` call returned "insufficient bars (0)" for IGV. | Unchanged from last check (2026-11-04T16:13Z): item 4 cleared comfortably (R:R 1.57:1), item 7 failed (60m overextended, no setup) | 2026-11-04T16:13Z (stale — not refreshed this cycle) | 2026-11-04 | 1 (not incremented — no real reassessment occurred) | 2026-11-13 |
 | ~~PLTR~~ | **REMOVED 2026-11-04T17:17Z — invalidated, not a near-miss anymore.** Price moved 176.48→171.37 (-2.9%) between the 16:13Z and 17:17Z checks (63 min). The 1D pullback deepened from "deep" (75.3%) to "very_deep/overextended" (85.9%), and **the tool's own daily `setup` object is now `null`** — the computable pullback_long structure PLTR was queued on no longer exists at all, not merely still-unconfirmed. 60m also now shows price **below its own recent swing low** (`current_below_min_swing_low: true`, -7.6%). This is a real, structural invalidation (a different item now genuinely fails: there is no stop/target to compute from), not a stale repeat of the 16:13Z read — the user's own instruction not to reuse quotes beyond their freshness limits is exactly why this was re-pulled fresh rather than restated. | — | — | — | — |
 | ~~ZETA~~ | **REMOVED 2026-11-04T17:23Z — resolved to REJECTED, not merely unverified.** Item 2 research
 completed this cycle (`get_news`, `get_politician_trades`, dated daily-bar RS computation vs SPY
@@ -99,6 +98,23 @@ No politician-trade signal. **Item 2 fails on the evidence actually gathered —
 rejection, not an "unverified, defer to next cycle" case.** See the full reasoning in
 `trades_log.md`, 2026-11-04T17:23Z entry, including what the entry/invalidation/target/R:R would
 have been had item 2 cleared (it didn't, so no trade follows from this). | — | — | — | — |
+
+**SOFI — REMOVED 2026-11-04T19:04Z (Fresh Candle 20:04:04Z) — resolved to REJECTED (invalidated),
+not a near-miss anymore.** Structure data alone (`analyze_structure_batch`) still showed
+`pullback_short` setups on both TFs (60m R:R 2.48 "ok", 1D R:R 1.37), which on its face looked like
+item 7 might now clear — worth checking items 2/3 before concluding that, which the queue's own
+reassessment rule requires. `get_news` (6 most recent headlines, 2026-11-04) and `get_technicals_rating`
+(requested 60m, **tool silently returned interval "1D" instead** — noted, not treated as a 60m
+read) both show the opposite of a bearish thesis: Q3 earnings beat with analyst price-target raises
+(UBS $21→$22 on 10/29, Truist $16→$17 on 11/3, both reiterating/raising, not cutting), a
+"SoFi Stock Rises" headline (11/2), price +3.44% intraday today, RSI 60.8 and rising, MACD positive
+and improving, moving-averages "Strong Buy," overall "Buy" recommendation. **No bearish catalyst,
+headwind, or relative-weakness driver remains on file — item 2 fails outright on its own terms**
+(§5B Bearish Mirror Gate item 2's explicit directional-catalyst rule: a bullish headline that
+negates the only bearish evidence fails item 2, not an unwritten veto). This is a real structural
+invalidation, not a stale repeat — the bearish `pullback_short` structure read is real but not
+actionable without a bearish catalyst to pair it with. Removed from the queue as rejected, not
+merely expired or still-pending.
 
 **CVX, ZS, DIS — RESOLVED this cycle (2026-11-04T17:04Z), removed from the queue for real this
 time.** A new completed hourly candle (`latest_bar_time` advanced from 1793806200 to 1793809800)
@@ -126,8 +142,12 @@ gave each of these a genuine fresh read rather than a repeat of stale data:
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked |
 |---|---|---|---|---|---|---|
-| TNA | §22 leveraged-long | §5B item 7 (read on TNA's own chart) — 1D `pullback_long` R:R 1.88:1 (down from 2.23, still clears item 4); 60m still shows an *opposing* `pullback_short` (R:R 2.15:1) — no confirming bullish hourly trigger | Item 4 clears; items 2/3 not independently re-verified | 2026-11-04T17:04Z | 2026-11-03 | 3 |
-| SPXL | §22 leveraged-long | §5B item 7 (read on SPXL's own chart) — 1D `pullback_long` R:R 1.89:1 (clears item 4 comfortably); 60m shows an *opposing* `pullback_short` (R:R 1.87:1) — no confirming bullish hourly trigger | Item 4 clears; items 2/3 not independently checked | 2026-11-04T17:04Z | 2026-11-04 | 1 |
+| TNA | §22 leveraged-long | §5B item 7 (read on TNA's own chart) — 1D `pullback_long` R:R 1.9:1 (~unchanged, still clears item 4); 60m still shows an *opposing* `pullback_short` (R:R 2.1:1) — no confirming bullish hourly trigger | Item 4 clears; items 2/3 not independently re-verified | 2026-11-04T19:04Z (Fresh Candle 20:04:04Z) | 2026-11-03 | 4 |
+| SPXL | §22 leveraged-long | §5B item 7 (read on SPXL's own chart) — 1D `pullback_long` R:R 1.9:1 (~unchanged, clears item 4 comfortably); 60m shows an *opposing* `pullback_short` (R:R 1.9:1) — no confirming bullish hourly trigger | Item 4 clears; items 2/3 not independently checked | 2026-11-04T19:04Z (Fresh Candle 20:04:04Z) | 2026-11-04 | 2 |
+| SPXU | §22 inverse (bear S&P) | §5B item 7 analog (read on SPXU's own chart, per §22 item 2's directional correction) — 60m `pullback_long` R:R 2.38:1, quality "ok" (clears item 4 comfortably); 1D is bearish with no bullish setup to pair it with — no daily-chart bullish setup to confirm the hourly trigger | Item 4 clears on the hourly leg; items 2/3 (underlying SPX bearish thesis) not independently checked this cycle | 2026-11-04T19:04Z (Fresh Candle 20:04:04Z) | 2026-11-04 | 1 |
+| TZA | §22 inverse (bear small-cap) | §5B item 7 analog (read on TZA's own chart) — 60m `pullback_long` R:R 2.4:1, quality "ok" (clears item 4 comfortably); 1D is bearish with no bullish setup to pair it with — no daily-chart bullish setup to confirm the hourly trigger | Item 4 clears on the hourly leg; items 2/3 (underlying small-cap-index bearish thesis) not independently checked this cycle | 2026-11-04T19:04Z (Fresh Candle 20:04:04Z) | 2026-11-04 | 1 |
+
+**SOXL, SOXS — checked 2026-11-04T19:04Z (Fresh Candle 20:04:04Z), not near-misses, no entry.** SOXL: no setup on either TF (1D bullish moderate but pullback overextended/`setup: null`; 60m bearish weak, `setup: null`) — structural absence, not queued. SOXS: no setup on either TF either (60m bullish moderate but inactive pullback/`setup: null`; 1D bearish moderate/`setup: null`) — structural absence, not queued. TQQQ, SQQQ, AMDG: **not evaluated — tool failure**, `analyze_structure_batch` returned "insufficient bars (0)" for all three this cycle.
 
 **Removed 2026-11-04T16:08Z — SQQQ, SOXS, reassessed and invalidated: their underlying bearish thesis no longer holds.** Fresh `analyze_structure_batch` data: **QQQ's 1D read is now bullish** (weak, pullback overextended) — not bearish, so SQQQ's required "bearish thesis on the underlying" (Bearish Mirror Gate) fails outright, a reversal from the 19:55:33Z note ("underlying bearish thesis holds"). Same for SOXS: **SOXX's 1D read is now bullish** (moderate) — SOXS's underlying bearish thesis also no longer holds. Neither ETF's own chart shows a qualifying bullish entry either (SQQQ: 60m `pullback_long` setup is null; 1D is bearish, wrong direction. SOXS: 60m bullish but setup null; 1D bearish, wrong direction). Both removed as invalidated, not near-misses — re-add if the underlying flips bearish again on a future cycle.
 

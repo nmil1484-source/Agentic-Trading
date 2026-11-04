@@ -58322,3 +58322,103 @@ independently re-derivable by summing, per the fix applied this cycle.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T19:37:46Z","timestamp_pacific":"2026-11-04T11:37:46-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"tvremix_recovery":{"verified":true,"method":"interval_match_and_freshness_check","outage_start":"2026-11-04T17:37:19Z","outage_end":"2026-11-04T19:37:46Z","approx_duration_hours":2.0,"consolidated_alert_threshold_reached":false},"calls_made_this_cycle":1,"tvremix_calls_used_today":19,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending","config_change_this_cycle":{"applied":true,"description":"self-correcting tvremix_calls_used_today tracking across all 3 triggers","user_approved":true}}
 ```
+
+---
+
+## 2026-11-04 ~20:04 UTC / 12:04 PM PST — AUTONOMOUS (Mode B/C Entry Screening — Fresh Candle, trigger fired 20:04:04Z, processed this turn)
+
+**Gate check:** §14 Status: ACTIVE confirmed (grep). No kill phrase found.
+
+**Account/positions (completed before the Robinhood outage below was discovered):** `get_portfolio`
+— equity $5,995.825, cash $4,378.02. `get_equity_orders` (PATH) — stop still resting, state=confirmed,
+stop_price $12.73, qty 119 — Mode B stop-audit clean. `get_option_positions` (nonzero=true) — 0 open
+— options/LEAPS stop-check trivially clean.
+
+**MID-CYCLE FINDING — Robinhood MCP connector now requires reauthorization.** Discovered after the
+account/stop-audit calls above had already completed cleanly; no further Robinhood tool calls were
+attempted or possible for the remainder of this cycle. **Effect on this cycle: none on the decision**
+— nothing below qualified for an entry regardless, so no order would have been placed either way.
+**Effect going forward: real.** No new equity/option/LEAPS/leveraged-ETF order can be placed, and no
+existing resting-stop modification (breakeven move, trailing ratchet) can be executed, until the user
+reauthorizes the connector via claude.ai Connectors — this affects the next Fresh Candle/First Scan
+cycles and, more urgently, the next hourly crypto cycle, since a genuinely qualifying crypto setup
+there would currently have no execution path at all. PATH's resting stop was last confirmed intact
+this cycle (above) before access was lost; it cannot be re-verified again until access returns.
+Classifying any future entry this blocks as NO_TRADE/PAUSED_PENDING_RECONCILIATION per Conflict
+Resolution item 4 (account/order state is execution-critical and currently unverifiable) — flagging
+to the user directly in chat this cycle, not just logging it.
+
+**Stage 1 (full-universe triage):** `rank_symbol_setups`, 74/74 `watchlist.md` names — **succeeded**,
+`ranked_count: 46`. Top: DUOL 84, AMZN 82, DIS 79, AAPL 76, LLY 70, SPY 70, TSLA 68, UBER 67, IBIT 60,
+SOFI 59.
+
+**Near-miss queue reassessment (reserved slots, up to 5 of 12):** TEM, SOFI, PGY, IGV (4 queued).
+`analyze_structure_batch` (1D, 60m) on these 4 + 8 rotation names (12 total) — **10/12 succeeded;
+PGY and IGV returned "insufficient bars (0)"** (symbol-specific — the other 10 names in the same
+call succeeded, so this is not a connector-wide issue).
+
+- **TEM — still a near-miss, unchanged item.** Aligned bearish both TFs; `pullback_short` R:R
+  0.9:1 (1D) / 0.31:1 (60m) — item 4 (mirror) still fails the 1.3:1 floor. Item 7 clears (both TFs
+  aligned). Queue updated, cycles_checked 3→4.
+- **SOFI — RESOLVED, removed as REJECTED (invalidated), not a near-miss anymore.** Structure alone
+  still showed `pullback_short` both TFs (60m R:R 2.48 "ok", 1D R:R 1.37 — item 7 looked like it
+  might now clear). Checked items 2/3 before concluding that, per the queue's own full-reassessment
+  rule: `get_news` (6 headlines) and `get_technicals_rating` (requested 60m, tool silently returned
+  interval "1D" instead — noted, not used as a 60m read) show uniformly bullish evidence — Q3
+  earnings beat, UBS PT raise ($21→$22, 10/29) and Truist PT raise ($16→$17, 11/3), a "SoFi Stock
+  Rises" headline (11/2), price +3.44% intraday today, RSI 60.8 and rising, MACD positive and
+  improving, moving averages "Strong Buy," overall "Buy." **No bearish catalyst/headwind/
+  relative-weakness driver remains on file — item 2 fails outright** (§5B Bearish Mirror Gate item
+  2's directional-catalyst rule: a bullish headline that negates the only bearish evidence fails
+  item 2 on its own terms). Removed from queue as rejected.
+- **PGY, IGV — not evaluated, tool failure.** `analyze_structure_batch` returned "insufficient bars
+  (0) — need at least 25 for structure analysis" for both. Queue entries left unchanged/stale
+  (16:13Z data), cycles_checked NOT incremented (no real reassessment occurred), explicitly tagged
+  as tool-failure-blocked, not a rejection.
+
+**Stage 2 rotation (8 names, same batch call): TTD, AMD, QQQ, XLI, ONDS, GDX, NFLX, SE — all
+REJECTED with evidence, no computable qualifying entry on either TF:**
+- TTD: mixed/conflicted both TFs, `setup: null` both — no computable entry.
+- AMD: 1D bullish weak but overextended (`setup: null`); 60m bearish moderate `pullback_short`
+  R:R 0.17 — fails item 4 badly even if direction matched (it doesn't). No computable entry.
+- QQQ: 1D bullish weak overextended (`setup: null`); 60m bearish moderate `pullback_short` R:R
+  0.35 — fails item 4. No computable entry.
+- XLI: 1D bullish moderate overextended, not above max swing high (`setup: null`); 60m bearish
+  weak `pullback_short` R:R 0.76 — fails item 4. No computable entry.
+- ONDS: aligned bearish both TFs, `setup: null` both (price below its own 60m swing low) — no
+  computable entry despite directional alignment.
+- GDX: aligned bearish both TFs; 1D `pullback_short` R:R 0.64 — fails item 4; 60m `setup: null`.
+  No computable entry.
+- NFLX: aligned bearish both TFs, `setup: null` both — no computable entry.
+- SE: mixed, 60m bearish moderate overextended (`setup: null`); 1D ranging/neutral, insufficient
+  data (`setup: null`). No computable entry.
+
+**§22 leveraged/inverse-ETF screen (mandatory every cycle, all 9 names):** `analyze_structure_batch`
+(1D, 60m) — **6/9 succeeded; TQQQ, SQQQ, AMDG returned "insufficient bars (0)" — not evaluated,
+tool failure.**
+- SOXL: no setup either TF (1D bullish moderate but overextended/`setup: null`; 60m bearish weak/
+  `setup: null`) — structural absence, rejected, not queued.
+- SOXS: no setup either TF (60m bullish moderate but inactive pullback/`setup: null`; 1D bearish
+  moderate/`setup: null`) — structural absence, rejected, not queued.
+- SPXL — **still a near-miss, item 7 analog.** 1D `pullback_long` R:R 1.9:1 (clears item 4); 60m
+  shows an opposing `pullback_short` R:R 1.9:1 — no confirming same-direction hourly trigger.
+  Queue updated, cycles_checked 1→2.
+- TNA — **still a near-miss, item 7 analog.** 1D `pullback_long` R:R 1.9:1 (clears item 4); 60m
+  opposing `pullback_short` R:R 2.1:1 — same mismatch. Queue updated, cycles_checked 3→4.
+- SPXU — **new near-miss, item 7 analog.** 60m `pullback_long` R:R 2.38:1 "ok" (clears item 4
+  comfortably, read on SPXU's own chart per §22 item 2); 1D is bearish with no bullish setup to
+  pair it with — no daily-chart bullish setup to confirm the hourly trigger. Items 2/3 (underlying
+  SPX bearish thesis) not independently checked this cycle. Added to queue.
+- TZA — **new near-miss, item 7 analog.** 60m `pullback_long` R:R 2.4:1 "ok" (clears item 4); 1D
+  bearish, no bullish setup to pair it with. Items 2/3 not independently checked. Added to queue.
+
+**Mode C screen: NOT EVALUATED — tool failure.** Mode C's order-execution protocol (step 2) depends
+on Robinhood equity quote/historicals/technical-indicator tools for intraday VWAP/ATR, all
+unavailable this cycle per the mid-cycle finding above. Not substituted with a mismatched
+TradingView read; logged honestly as a tool failure, not a rejected setup.
+
+**No order placed, no existing order modified (none required), no risk/cap/gate change.**
+
+```json
+{"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-04T20:04:04Z","timestamp_pacific":"2026-11-04T12:04:04-08:00","modes_covered":["B","C"],"status_gate":"ACTIVE","coverage_state":"PARTIAL_TOOL_FAILURE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"robinhood_mcp_status":{"available":false,"finding":"connector requires reauthorization, discovered mid-cycle after account/stop-audit calls completed","blocks":["new orders (all modes)","resting-stop modification","Mode C screening"],"does_not_block":["TradingView-based gate evaluation already completed this cycle"]},"coverage":{"universe_size":74,"triaged":74,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":[{"symbol":"PGY","reason":"tool failure — insufficient bars (0)"},{"symbol":"IGV","reason":"tool failure — insufficient bars (0)"}],"tool_failures":2,"resolved_invalidated":["SOFI"]},"near_miss_queue":{"reassessed":4,"cleared":0,"still_near_miss":1,"invalidated":1,"ineligible":0,"expired":0,"tool_failure_blocked":2},"leveraged_etf_coverage":{"universe_size":9,"evaluated":6,"rejected_with_evidence":2,"still_near_miss":4,"not_evaluated":[{"symbol":"TQQQ","reason":"tool failure — insufficient bars (0)"},{"symbol":"SQQQ","reason":"tool failure — insufficient bars (0)"},{"symbol":"AMDG","reason":"tool failure — insufficient bars (0)"}],"tool_failures":3,"coverage_complete":false},"mode_c":{"evaluated":false,"reason":"Robinhood MCP unavailable this cycle — not substituted, logged as tool failure"},"calls_made_this_cycle":5,"tvremix_calls_used_today":24,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
