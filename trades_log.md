@@ -57500,3 +57500,114 @@ process correction, same category as the RKLB/SHOP/PATH mislabeling corrected on
 ```json
 {"cycle":"Correction (user review, no new scan)","timestamp_utc":"2026-11-04T15:40:00Z","modes_covered":["B"],"status_gate":"ACTIVE","correction_to_cycle":"2026-11-04T15:05:14Z","near_miss_queue_corrected":{"invalidated_was":3,"invalidated_now":0,"still_near_miss":["TEM","SOFI"],"not_evaluated_pending_recheck":["CVX","ZS","DIS"]},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### 2026-11-04T16:09Z — READ-ONLY RECOVERY CHECK + MANDATORY §22/AMD COVERAGE (user-requested diagnostic, no new order authority)
+
+**Robinhood recovery check.** `get_accounts`: ••••8058 (Agentic) `state: active`, `agentic_allowed:
+true`, `unsettled_funds: $0.00`. `get_portfolio`: total_value $6,483.65, equity_value $1,605.63,
+cash $4,878.02 (all settled). `get_equity_positions`: PATH, 119 sh, avg buy $13.25,
+`shares_held_for_sells: 119` (fully sellable, none pending elsewhere). `get_equity_orders(PATH)`:
+protective stop `6aea08a9-54de-45c6-b211-0f7927661717` still `state: confirmed`, stop $12.73, qty
+119 — unchanged. **No order cancelled or duplicated.**
+
+**⚠ Second incident found: the 16:03Z Fresh Candle trigger fired but did not execute.**
+`get_trigger(trig_01KrBsTt9mssjU4hPGtM3cBe)` shows `last_fired_at: 2026-11-04T16:04:20.496Z`,
+`finished_at: 2026-11-04T16:04:20.507Z` (11ms gap) — `ROUTINE_RUN_STATUS_SUCCEEDED`, but there is
+**no corresponding trades_log.md entry and no commit** in that window. The dispatch succeeded;
+the actual cycle protocol never ran — almost certainly because this persistent session was
+occupied with the user's own interactive diagnostic turn at that moment, and the synthetic
+trigger turn had nowhere to execute. **This is a newly-identified, real operational gap,
+distinct from the Robinhood outage**: a trigger firing into a busy persistent session can report
+"succeeded" while doing zero work, with no error surfaced anywhere. Flagging for the user —
+this is a platform/session-coordination question, not something fixable via trigger-prompt text.
+
+**Correcting this cycle's report, per the user's exact framing:**
+- **Ordinary stocks (Mode B/C equities): 12 evaluated (TEM, SOFI still near-miss; CVX, ZS, DIS
+  restored not-evaluated per the 15:40Z correction; DUOL, AMZN, LLY, TSLA, IWM, SPY
+  rejected-with-evidence), 49 not evaluated** (61 Stage-1-triaged minus 12 Stage-2'd, out of 74
+  universe; 13 earnings-skipped by the Stage-1 tool's own heuristic, not necessarily §4-restricted
+  — see below).
+- **Options/LEAPS and Mode C: AUTH_BLOCKED / NOT_EVALUATED** during the 15:05-15:31Z window
+  (Robinhood unavailable) — both now completed read-only below, now that access is restored.
+- **§22 ETFs: NOT_EVALUATED at 15:05-15:31Z, with the actual reason now identified below** — not
+  "no slot pressure" (that reasoning was wrong and is retracted).
+
+**Why the §22 9-ETF check was actually skipped — root cause found, not excused.** Two independent
+causes, both real:
+1. **The First Scan trigger's own prompt text has NO §22 step at all.** Fetched both triggers in
+   full this cycle: the Fresh Candle (Entry Screening) trigger has an explicit, mandatory step 3c
+   — "§22 Leveraged/Inverse ETF candidate sourcing — MANDATORY, EVERY CYCLE, INDEPENDENT OF
+   TVREMIX AVAILABILITY," with a per-symbol record requirement and a `coverage_complete`
+   completion check. **The First Scan trigger has no equivalent step anywhere in its text** — its
+   MODE B section goes 1, 2, 3, 3a (options), 3b (LEAPS), 4, 5, 6-7, 8, with no 3c. It also lacks
+   Fresh Candle's explicit step 2b (options/LEAPS stop-ratchet computation, with the
+   `max(previous_stop, initial_stop, k×observed_value)` formula and mandatory mark-vs-stop
+   comparison) — First Scan's step 8 only vaguely says to check open options positions' "own
+   daily/weekly-trailing-stop mechanic," with no formula or explicit comparison requirement.
+   **This means the §22 check was never going to run at First Scan regardless of slot pressure,
+   Robinhood access, or anything else — it's a drafting gap in that trigger's own text.**
+2. **My own 15:05-15:31Z cycle logged "not re-screened this cycle - robinhood outage, no stage-2
+   slot pressure" as the reason** — this was also wrong on its own terms, independent of cause 1:
+   per Fresh Candle's own text (which IS correct), the §22 screen is unconditional and
+   independent of Stage-2 slot pressure; citing "no slot pressure" as a reason to skip it treats
+   an unconditional step as if it were gated on something it explicitly isn't. Both causes are
+   real; neither excuses the other.
+   **Confirmed: the near-miss-queue reassessment mechanism (added 2026-11-03) IS present, in
+   full, in BOTH triggers** — First Scan's fetched text includes the complete "Near-miss queue
+   reassessment" block (5-slot reservation, cleared/still-near-miss/invalidated/ineligible/expired
+   handling, AMD pending-eligibility re-check) verbatim, same as Fresh Candle. That repair did
+   propagate correctly to both triggers — only the §22 mandatory-screen step and the explicit
+   options/LEAPS stop-check formula failed to propagate to First Scan.
+
+**§22 nine-ETF read-only evaluation, completed now with fresh data (`analyze_structure_batch`,
+1D+60m, all 9 + their 4 underlyings — QQQ, SOXX, SPY, IWM — in two batch calls; `get_equity_tradability`
+confirms all 9 still active/tradeable/individual-account-tradable):**
+
+| Symbol | Type | Result | Evidence |
+|---|---|---|---|
+| TQQQ | leveraged-long | REJECTED | No computable setup either TF (1D overextended pullback, `setup:null`; 60m bearish, below its own min swing low); not at a fresh high either |
+| SQQQ | inverse (QQQ) | **INVALIDATED in near_miss_queue.md** | QQQ's 1D read is now bullish, not bearish — underlying thesis fails; SQQQ's own chart has no qualifying bullish setup either |
+| SOXL | leveraged-long | REJECTED | No computable setup either TF (1D overextended, 60m below its own min swing low) |
+| SOXS | inverse (SOXX) | **INVALIDATED in near_miss_queue.md** | SOXX's 1D read is now bullish, not bearish — underlying thesis fails |
+| SPXL | leveraged-long | REJECTED | No qualifying bullish setup (1D `setup:null`; 60m shows a bearish pullback, wrong direction) |
+| SPXU | inverse (SPY) | REJECTED | SPY's daily read is bullish, not bearish — underlying thesis fails; SPXU's own 60m bullish setup R:R 1.25:1 (closest miss, still <1.3 floor) |
+| **TNA** | leveraged-long | **NEAR-MISS — added to near_miss_queue.md** | 1D `pullback_long`, R:R **2.23:1 (clears item 4 strongly)**, but 60m shows an opposing bearish pullback — no confirming bullish hourly trigger (item 7 fails on direction mismatch). Items 2/3 (catalyst/RS, confirmations) not independently checked this cycle. |
+| TZA | inverse (IWM) | REJECTED | IWM's daily read is bullish, not bearish — underlying thesis fails; TZA's own 60m bullish setup R:R 1.16:1, still <1.3 floor |
+| AMDG | leveraged-long | REJECTED | No computable setup either TF (1D overextended, 60m ranging/neutral, below its own min swing low); not at a fresh high. Tradability note: `all_day_tradability: untradable`, `fractional_tradability: position_closing_only` — regular-hours whole-share entries unaffected. |
+
+**Coverage: 9/9 accounted for — `coverage_complete: true`.** 0 qualifying, 7 rejected-with-evidence,
+2 invalidated (removed from queue), 1 genuine near-miss (TNA, logged).
+
+**AMD options/LEAPS — completed read-only, earnings date verified from the issuer, not assumed.**
+Web search of `ir.amd.com` (AMD's own investor relations site) confirms: Q3 2026 results released
+2026-11-03, 4:15 PM EST (after close) — matches what was already known. **No Q4/FY2026 earnings
+date has been announced anywhere on AMD's own IR calendar or financial-results pages.**
+TradingView's `get_earnings_calendar` returns `next_earnings_date: 2026-12-31` even with a widened
+date range (`date_to: 2027-02-01`) — this is confirmed to be a placeholder/fiscal-year-end
+convention, not an issuer-confirmed date, consistent with AMD's historical quarterly cadence
+(May/Aug/Nov this year → next report realistically ~early February 2027, unannounced). **Today's
+§4 blackout is clear either way** — flagging only that this placeholder must never be trusted as a
+real blackout trigger close to that date.
+- **§18 (21-75 DTE call)**: AMD 1D shows `pullback_long`, R:R 2.44:1 (clears item 4 easily), but
+  60m is bearish with `setup: null` — no confirming hourly reclaim trigger. **FAILS §5B item 7**
+  (direction mismatch, same pattern as IWM/SPY/TNA above). Not a data gap — a real gate miss.
+- **§19 LEAPS (2027-09-17 expiration, ≈10.4 months DTE, inside the 9-12mo window)**: item 2's
+  research gate is mixed — weekly structure reads `ranging/neutral` (not a clean uptrend-or-basing
+  call), but a real durable multi-quarter catalyst exists (Anthropic's up-to-2GW MI450 deal,
+  Microsoft's EPYC/Instinct deployment, the World Labs and Taalas acquisitions — all confirmed via
+  web search, all dated within the last ~4 months). **Moot regardless of the research-gate call:
+  the cheapest strike clearing the ~0.20-delta floor (840 strike, delta 0.225) costs $25.50/contract
+  × 100 = $2,550 — against the 6%-of-equity premium cap (~$389.02 at current $6,483.65 equity),
+  this fails affordability by roughly 6.5x, not marginally.** This is the exact high-priced-
+  underlying affordability gap §19's own change-log text already disclosed as a real risk at
+  launch. No qualifying AMD options/LEAPS trade right now — a genuine gate/affordability result,
+  not AUTH_BLOCKED or NOT_EVALUATED. AMD removed from `near_miss_queue.md`'s Pending-eligibility
+  table (resolved, both gates evaluated, no trade).
+
+**No order placed, modified, or cancelled at any point in this diagnostic.** Full per-mode
+coverage, exact blockers, and proposed (not applied) implementation fixes given to the user in
+chat.
+
+```json
+{"cycle":"Recovery check + §22/AMD coverage completion (user-requested diagnostic, no new scan authority)","timestamp_utc":"2026-11-04T16:09:55Z","modes_covered":["B"],"status_gate":"ACTIVE","robinhood_recovery":{"verified":true,"path_stop_intact":true,"path_stop_id":"6aea08a9-54de-45c6-b211-0f7927661717","cancelled_or_duplicated":0},"second_incident_found":{"trigger":"trig_01KrBsTt9mssjU4hPGtM3cBe","fired_at":"2026-11-04T16:04:20.496Z","finished_at":"2026-11-04T16:04:20.507Z","log_entry_found":false,"assessment":"dispatch succeeded, cycle protocol did not execute - likely busy-session collision"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":9,"rejected_with_evidence":7,"near_miss":["TNA"],"invalidated":["SQQQ","SOXS"],"not_evaluated":[],"coverage_complete":true},"amd_options_leaps":{"earnings_verified_from_issuer":true,"issuer_source":"ir.amd.com","next_earnings_date_announced":false,"tradingview_placeholder_date":"2026-12-31","section18_result":"FAILS item 7 - hourly/daily direction mismatch","section19_result":"FAILS item 4 affordability - cheapest 0.20-delta strike $2550 vs $389 cap"},"root_cause_22_gap":{"first_scan_trigger_missing_step_3c":true,"first_scan_trigger_missing_explicit_2b_formula":true,"near_miss_queue_mechanism_present_both_triggers":true},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
