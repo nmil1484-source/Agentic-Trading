@@ -1,6 +1,8 @@
 # AGENTIC TRADING OPERATING RULES
 
-## EFFECTIVE POLICY — AUTHORITATIVE (EP-v2.0)
+## EFFECTIVE POLICY — AUTHORITATIVE (EP-v2.1)
+*(Header synced 2026-11-04 to match the "Policy version/date" bullet below, which already stated
+EP-v2.1 — the header itself had not been bumped along with it. See §12 change log.)*
 Added 2026-10-29, restructured 2026-11-02 at explicit user instruction to resolve a documented
 internal-consistency problem (see §12 change-log entries dated 2026-10-29 and 2026-11-02,
 "Effective Policy / Universal Safety Kernel / Conflict Resolution" and "Policy Reconciliation").
@@ -140,7 +142,11 @@ to "just this mode" by a future overlay without that being a visible, explicit v
    no mental stops, no "watch it closely," no unstated level, in any mode (§13.A).
 5. **Portfolio heat cap: 6% of Agentic Account equity**, aggregate open-risk across every open
    Mode B + Mode C + crypto + leveraged-ETF position combined — checked before sizing any new
-   entry in any mode; resize down to fit remaining headroom, skip only if none remains (§3).
+   entry in any mode; resize down to fit remaining headroom. **Skip only if none remains, or if
+   positive headroom remains but is below the legal minimum tradable unit** (one whole share/
+   contract, a coin's minimum order size, or an eligible Tier-B fractional minimum) for that
+   instrument — corrected 2026-11-04 (see §12 change log): positive headroom alone does not mean
+   a trade can legally be sized (§3).
 6. **Circuit breakers apply across every mode, with no overlay permitted to disable or widen
    them**: 3%+ intraday equity decline, 3 consecutive broker-API errors or a position mismatch,
    2 same-day stop-outs across any combination of modes, and the SPY/QQQ >1.5% cycle-over-cycle
@@ -164,7 +170,9 @@ to "just this mode" by a future overlay without that being a visible, explicit v
     instrument class, crypto included, stands aside for new entries within 30 minutes of a
     scheduled high-impact macro print or that name's own earnings** (§4) — this macro-event
     blackout is universal; only the exchange-session open/close window is equity-specific. This
-    item governs new/exposure-increasing entries only, per Conflict Resolution item 5 above — a
+    item governs new/exposure-increasing entries only, per Conflict Resolution item 5 below
+    (corrected 2026-11-04 from "above" — Conflict Resolution follows this Kernel, not before it;
+    see §12 change log) — a
     documented protective exit is exempt the moment its invalidation level is actually hit, in
     every mode (§4, §16 item 4).
 
@@ -229,7 +237,9 @@ document** (this entry does not create a second, parallel state machine):
 - **Exception — Mode C (DAY_TRADING) (2026-08-25, see §20):** the same scheduled hourly Routine
   also carries live, autonomous order authority for Mode C, active from day one at explicit user
   instruction, strictly within §20's own rules (position sizing, ATR stops, daily loss/profit
-  limits, 3-position cap, 5-6-trades/day cap, mandatory same-day flatten). Cash/settled-funds only
+  limits, 12-position cap, 8-new-entries/day ceiling — never a quota — mandatory same-day flatten;
+  corrected 2026-11-04 from a stale "3-position/5-6-trades" restatement, see §12 change log).
+  Cash/settled-funds only
   — Mode C does **not** get a carve-out from this section's no-margin rule; that stays in force
   unmodified. Scoped to the autonomous trigger only, same as Mode B — every Mode C trade requested
   in this chat by the user still requires the exact CONFIRM ORDER phrase, with no exception.
@@ -481,13 +491,18 @@ A bearish candidate qualifies when **all** of these conditions are met:
    Same rule as the bullish gate: a single role-group's confirmation is now sufficient on its own;
    the grouping only prevents two sub-signals from the *same* role being double-counted as two.
 4. It has a valid technical invalidation level (the price/level that would disprove the bearish
-   thesis) and reward-to-risk of at least **1.3:1**, computed on the **put's own economics**
-   (premium paid vs. a realistic decline target) — same computation method as §18 item 2 uses for
-   a bullish call, regardless of FTA Regime Dashboard state (same principle as §5B item 4, lowered
-   2026-10-28 — see §12 change log). **Note: §18/§19's own options-specific floor is unchanged at
-   1.5:1** — this 2026-10-28 loosening is scoped to the equity-thesis gate only (§5B bullish and
-   this bearish mirror); an option expressing the same thesis still needs to clear §18/§19's own
-   unchanged 1.5:1 floor on the option's economics, not just this gate's 1.3:1.
+   thesis) and reward-to-risk of at least **1.3:1**, computed on the **underlying's own price
+   action** — (entry − target)/(invalidation − entry), with target < entry < invalidation —
+   regardless of FTA Regime Dashboard state (same principle as §5B item 4, lowered 2026-10-28 —
+   see §12 change log). **Corrected 2026-11-04 (see §12 change log):** this item previously
+   mislabeled its own ratio as computed "on the put's own economics (premium paid vs. a realistic
+   decline target) — same computation method as §18 item 2," which directly contradicted the next
+   sentence's framing of this as the equity-thesis gate, distinct from §18/§19's separate,
+   unchanged option-economics floor below — fixed to state the correct (underlying-price) basis.
+   **§18/§19's own options-specific floor is unchanged at 1.5:1** — this 2026-10-28 loosening is
+   scoped to the equity-thesis gate only (§5B bullish and this bearish mirror); an option
+   expressing the same thesis still needs to clear §18/§19's own unchanged 1.5:1 floor on the
+   option's economics, not just this gate's 1.3:1.
 5. It is outside the first 15 minutes after open and the final 15 minutes before close (§4).
 6. It has no earnings or high-impact macro conflict inside the existing §4 timing rule.
 7. **It has both a daily-chart bearish setup and a shorter-timeframe (hourly) execution trigger** —
@@ -654,14 +669,25 @@ is honestly reported.
 4. **Mandatory per-symbol labeling, every cycle, for every universe member.** Every name in that
    lane's intended universe must receive exactly one of these three labels in that cycle's
    `trades_log.md` entry (and the §14 item 9 `coverage` JSON fields) — a name may not be silently
-   absent from the record:
-   - **Evaluated** — received a full Stage-2 gate evaluation this cycle, with the result (cleared
-     to a Trade Card, or rejected) and the specific evidence either way.
-   - **Rejected with evidence** — received a full Stage-2 evaluation (this cycle or, for a name
-     whose Stage-1 read hasn't materially changed, logged with a reference to its last full
-     evaluation) and failed a specific, named gate item — cite the item (e.g. "§5B item 3 — only 0
-     of 5 confirmation role-groups present") and the supporting data, never a bare "didn't
-     qualify."
+   absent from the record. **Corrected 2026-11-04 (see §12 change log): the three labels below
+   previously overlapped** — "Evaluated"'s own definition included a rejected outcome, the same
+   outcome "Rejected with evidence" also covers, violating "exactly one" on its face; fixed by
+   narrowing "Evaluated" to cleared-only. A second, separate gap is also fixed below: "Rejected
+   with evidence" allowed citing a prior cycle's evaluation by reference with no field marking
+   that it wasn't fresh work, letting a reused rejection silently inflate this cycle's own
+   `full_gate_evaluated` count.
+   - **Evaluated** — received a full Stage-2 gate evaluation this cycle **and cleared** to a Trade
+     Card, with the specific evidence. (A same-cycle rejection is never labeled "Evaluated" — it
+     is always "Rejected with evidence" below.)
+   - **Rejected with evidence** — failed a specific, named gate item — cite the item (e.g. "§5B
+     item 3 — only 0 of 5 confirmation role-groups present") and the supporting data, never a bare
+     "didn't qualify." Tag every instance with **`reused_from_prior_cycle: true` or `false`**:
+     `false` means a full Stage-2 evaluation actually ran this cycle; `true` means the name's
+     Stage-1 read hasn't materially changed and this cycle is citing a reference to its last full
+     evaluation rather than re-running one. **Only `reused_from_prior_cycle: false` instances count
+     toward this cycle's `full_gate_evaluated`/"Stage-2 evaluation count" (item 6 below and the
+     §14 item 9 JSON coverage fields)** — a reused prior rejection is real, current information
+     about the name, but it is not this cycle's own workload and must not inflate that count.
    - **Not evaluated, with reason** — did not receive a Stage-2 evaluation this cycle. The reason
      must be one of: a rotation/capacity reason ("not yet reached this cycle's rotation slot,
      last full evaluation N cycles ago"), a Stage-1-level skip per item 2's carve-out, or a tool
@@ -851,8 +877,13 @@ per §5B — the ordering below is unchanged by the mode refactor.)
      "cautious", not a flat GREEN/RED label — map it to the existing bullish/neutral/bearish
      framework by its plain-English meaning) alongside `inflation`, `macro` (CFNAI, GDPNow, ISM
      history, HY OAS, Fed balance sheet), `regime_signals` (rates, FX, hard assets, volatility), and
-     `sectors` (sector-ETF YTD performance, see item 10 below). Classify UNKNOWN_DEGRADED only when
-     this JSON endpoint itself is actually unreachable or errors — not from the HTML shell alone.
+     `sectors` (sector-ETF YTD performance, see item 10 below). **Corrected 2026-11-04 (see §12
+     change log): classify UNKNOWN_DEGRADED when this JSON endpoint is unreachable, errors,
+     returns stale/cached data, is missing required fields, or returns an internal placeholder
+     value — not from the HTML shell alone.** (Previously read "only when... unreachable or
+     errors," narrower than §5A item 1's own general UNKNOWN_DEGRADED trigger — "unavailable,
+     stale, or returns loading placeholders" — which this endpoint is subject to like every other
+     source; a 200-OK response with stale or incomplete content was not clearly covered before.)
 
 3. FTA Research Hub (fundamental and thesis research)
    https://marileegrace.github.io/fta-research-hub/
@@ -915,8 +946,12 @@ per §5B — the ordering below is unchanged by the mode refactor.)
    necessary**: `disclosure_date` can lag `transaction_date` by up to 45 days, and disclosed amounts
    are ranges, not exact figures — a disclosure surfacing today can describe a trade placed over a
    month ago. This is historical context, not a real-time or "trading at the right time" signal, and
-   must never be presented or acted on as one. **Equities/options only** — the STOCK Act doesn't
-   cover crypto, so this has no bearing on §21 screening. Log which politician/ticker query was run
+   must never be presented or acted on as one. **Equities/options only** — **corrected 2026-11-04
+   (see §12 change log): this tool's own research scope (Tip Ranks, via `get_politician_trades`)
+   covers equity/option disclosures only; that is a tool-scope limitation, not a legal exemption —
+   congressional STOCK Act/PTR disclosure does cover digital-asset transactions, the prior text's
+   "the STOCK Act doesn't cover crypto" claim was factually wrong** — either way, this item has no
+   bearing on §21 screening. Log which politician/ticker query was run
    and its timestamp in the Trade Card/`trades_log.md` when it factored into a deeper-dive decision,
    same discipline as every other source. Does not apply to the President or other executive-branch
    officials — `get_politician_trades` covers congressional STOCK Act disclosures specifically; a
@@ -999,18 +1034,147 @@ per §5B — the ordering below is unchanged by the mode refactor.)
   is placed, cancelled, replaced, or modified.
 
 ## NON-OPERATIVE ARCHIVE — HISTORICAL RECORD STARTS HERE
-Everything from this banner to the end of the document is historical record: the complete,
-dated change log (§12 below), plus the historical procedural narrative embedded in §10's funding
-log and §14's verification-procedure/activation history. **None of it is a source of current
-permissions or numeric limits** (Conflict Resolution item 3, restated here for emphasis) — it
-exists so every past decision, and the reasoning behind it, stays auditable. The Effective Policy
-section at the top of this document is the only place current numbers and permissions come from;
-if anything below this banner appears to state a different current number, the Effective Policy
-section controls and the entry below is read as "what was true as of its own dated entry," not as
-a live value. This banner does not mean the material below was moved — it was already written as
-a dated log; this makes its non-operative status explicit rather than merely implied.
+**Corrected 2026-11-04 (see §12 change log): this banner previously said its scope ran "to the end
+of the document," which directly contradicted the matching END OF NON-OPERATIVE ARCHIVE banner
+immediately before §13 — this archive covers §12 only, and §13-§23 are operative.** Everything
+from this banner to the matching END OF NON-OPERATIVE ARCHIVE banner immediately before §13 is
+historical record: the complete, dated change log (§12 below), plus the historical procedural
+narrative embedded in §10's funding log and §14's verification-procedure/activation history.
+**None of it is a source of current permissions or numeric limits** (Conflict Resolution item 3,
+restated here for emphasis) — it exists so every past decision, and the reasoning behind it, stays
+auditable. The Effective Policy section at the top of this document is the only place current
+numbers and permissions come from; if anything below this banner appears to state a different
+current number, the Effective Policy section controls and the entry below is read as "what was
+true as of its own dated entry," not as a live value. This banner does not mean the material below
+was moved — it was already written as a dated log; this makes its non-operative status explicit
+rather than merely implied.
 
 ## 12. Change log
+- **2026-11-04: User instructed applying the confirmed drafting-defect fixes identified across two
+  independent review passes this session** — a user-supplied "correction request" PDF and a
+  separate, more exhaustive "consolidated audit" PDF, both reviewed against the live CLAUDE.md
+  (confirmed byte-identical to both documents' cited source via SHA-256) rather than taken at face
+  value; several claims in both documents were checked and found **not** to match the real file
+  and were rejected rather than applied (noted where relevant below). **Every change in this entry
+  is a drafting/internal-consistency fix — no risk percentage, position/correlation cap, R:R
+  floor, confirmation-count threshold, DTE window, allowlist, or instrument permission was changed
+  by this pass**, consistent with both source documents' own explicit "review only" framing and
+  the user's own "Apply the confirmed CLAUDE.md fixes" instruction. Eighteen fixes applied,
+  grouped by what each repairs:
+  1. **Protective-action authority, now explicitly separate from the entry gate (§14 item 3, the
+     Mode C order-review refusal-list item, §13.A's initial-stop timing text).** §14 item 3
+     previously conditioned closing/modifying an existing position on every current §5B entry gate
+     passing — directly contradicting Conflict Resolution item 5's protective-exemption rule.
+     Mode C's refusal list previously allowed "an explicit one-time override" of the mandatory
+     broker-verification check before any order — directly contradicting Universal Safety Kernel
+     item 7's "no exceptions" text. §13.A previously said placing the *initial* stop right after a
+     fill "is not exempt" from entry blackouts, which could leave a position legally unprotected
+     during a blackout window, contradicting the Kernel's own mandatory-stop rule. All three fixed
+     to state plainly that verified protective management (a documented exit, a stop-ratchet, or
+     the mandatory initial stop after an actual fill) is never gated by the entry-side rules, and
+     always still requires its own account/quantity/order-state/broker-verification checks.
+  2. **"Reduce size" no longer used to paper over a failed R:R or stop-distance check (Mode C item
+     5's mean-reversion target, §21 item 4's crypto ATR-distance ceiling, §22 item 4's ETF
+     stop-distance ceiling).** Reducing share/coin/contract count cannot cure a ratio or a
+     distance-vs-ceiling violation — that is price geometry, not a dollar constraint. All three now
+     read NO_TRADE/skip for a genuine geometry failure; "reduce size" is preserved, unchanged, for
+     the separate dollar-risk/heat/allocation/deployment constraints each of those items already
+     lists alongside it.
+  3. **Mode C's position-sizing formula (§20 item 2) no longer validates a backwards stop.** The
+     prior `stop_distance = entry_price − stop_price (... absolute value)` let a stop placed above
+     entry on a long still produce a positive "distance" and size a trade. Fixed to require
+     `0 < stop_price < entry_price` before computing distance; a stop that fails this is NO_TRADE,
+     never sized via an absolute value.
+  4. **§3's realized-loss throttle no longer overloaded by §16 item 17's MTM measure.** Item 17
+     (added 2026-11-03) had said its net-of-flows daily mark-to-market figure "is the figure used
+     for the §3/§6 daily-loss-percentage checks," which conflicts with §3's own text (realized loss
+     only) and would let unrealized open drawdown trip a realized-loss breaker. Fixed to keep three
+     separate series, each named at its actual point of use: §3 (realized only), §6 (verified
+     account-equity decline), Mode C (its own realized-plus-open-unrealized session P&L) — switching
+     §3 itself to an MTM basis would be a real risk-policy change and is explicitly not made here.
+  5. **Portfolio heat headroom (Universal Safety Kernel item 5) no longer assumes positive headroom
+     means a trade can legally be sized.** Added: skip (NO_TRADE) when remaining headroom is
+     positive but below the legal minimum tradable unit for that instrument, not just when headroom
+     is exactly zero.
+  6. **§14's Automatic Recovery State Machine table synced to §16 item 10's own text** — the table
+     said "rolling 10-calendar-day window," §16 item 10 itself says "rolling 10-trading-day window";
+     the table corrected to match the defining section.
+  7. **Delta-floor sign corrected in both options lanes (§18 item 11, §19 item 8).** "~0.20 delta or
+     higher," read literally against a long put's negative delta, is permanently unsatisfiable and
+     would silently block every put. Both now read "absolute delta (|delta|) ~0.20 or higher" —
+     the approved magnitude is unchanged, only the sign reading is fixed.
+  8. **Eight stale-numeric/citation restatements corrected to match the Effective Policy block's
+     actual current numbers** (identified as the C18 table in the correction-request review):
+     §1's Mode C exception prose ("3-position cap, 5-6-trades/day cap" → 12-position/8-entries-
+     ceiling); §14 item 2's funding paragraph ("now using the same 80%/20% mechanism" → 90%/10%,
+     two sentences after already stating 90% above it); the Mode B Automatic Recovery State
+     Machine's closing paragraph (a stale blanket "no options/crypto/margin/shorting/leverage in
+     the Agentic account" restatement, predating §18/§19/§21/§22's own allowlist/gate exceptions,
+     replaced with a pointer to the Effective Policy matrix); §21 item 4's crypto-allowlist
+     reasoning ("Mode C's 8-position cap" → 12); §22 item 4's sizing comparison ("vs. Mode B's
+     ordinary 3%" → 2% base/1% adverse-PF, and the stop-distance-ceiling comparison to §21's
+     crypto ceiling, which moved to an ATR-multiple basis on 2026-10-15 and is no longer "the same
+     number and principle" as §22's flat 8%); the Effective Policy header itself ("EP-v2.0" →
+     EP-v2.1, matching the "Policy version/date" bullet two sentences below it, which already said
+     EP-v2.1 and was never mirrored in the header); Universal Safety Kernel item 11's own
+     directional locator ("per Conflict Resolution item 5 above" → "below," since Conflict
+     Resolution follows the Kernel, not before it); and Mode C's twice-repeated ambiguous "per item
+     3's placement rules" cross-reference (disambiguated to "§20 subsection 3," since guardrail-list
+     item 3 is a different thing — the daily-loss limit).
+  9. **§16 item 3's stop-execution fallback expanded to cover a triggered-but-unfilled or
+     partially-filled stop-limit order**, not only a stop that's entirely absent — a `stop_limit`
+     order can trigger and remain open if price moves through the limit before it fills, which the
+     prior fallback (written only for "no resting stop order is in force") did not address. The
+     fallback now also fires on a resting stop-limit that triggered but left residual quantity,
+     cancelling that remainder as part of the same protective-exit action.
+  10. **§5B Bearish Mirror Gate item 4's own ratio relabeled to its correct basis.** The item
+     computed its 1.3:1 floor "on the put's own economics (premium paid vs. a realistic decline
+     target) — same computation method as §18 item 2" while, two sentences later, calling that same
+     1.3:1 "the equity-thesis gate," explicitly distinct from §18/§19's separate 1.5:1
+     option-economics floor — a direct internal contradiction. Fixed to state the ratio's real
+     basis: (entry − target)/(invalidation − entry) on the **underlying's own price action**, not
+     put premium. Neither the 1.3:1 nor the 1.5:1 threshold was changed.
+  11. **§5B Screening Coverage item 4's three per-symbol labels, no longer overlapping.**
+     "Evaluated"'s own definition previously included a rejected outcome — the same outcome
+     "Rejected with evidence" also covers — violating the item's own "exactly one of these three
+     labels" instruction. Narrowed "Evaluated" to cleared-only. Separately, "Rejected with
+     evidence" allowed citing a prior cycle's rejection by reference with nothing distinguishing
+     that from a fresh this-cycle evaluation, letting a reused rejection silently inflate a cycle's
+     `full_gate_evaluated` count; added a `reused_from_prior_cycle: true/false` tag, with only
+     `false` instances counting toward that cycle's own evaluation total.
+  12. **§8 item 2's UNKNOWN_DEGRADED trigger for the FTA Regime Dashboard broadened to match the
+     general rule.** Previously read "only when this JSON endpoint itself is actually unreachable
+     or errors," narrower than §5A item 1's own general trigger ("unavailable, stale, or returns
+     loading placeholders") — a 200-OK response with stale/cached/incomplete/placeholder content
+     wasn't clearly covered. Broadened to include stale, missing-required-fields, and
+     placeholder-value cases, not just unreachable/error responses.
+  13. **§8 item 8's STOCK Act claim corrected.** Previously stated "the STOCK Act doesn't cover
+     crypto" as the reason `get_politician_trades` has no bearing on §21 — factually wrong;
+     congressional STOCK Act/PTR disclosure does cover digital-asset transactions. The real,
+     already-true reason is narrower and unchanged in effect: this tool's own data source (Tip
+     Ranks) has an equity/options-only research scope. Fixed the stated cause; the practical
+     conclusion (no bearing on §21 screening) is unchanged.
+  14. **The opening NON-OPERATIVE ARCHIVE banner's own scope sentence corrected.** It previously
+     said archived material ran "to the end of the document," directly contradicting the matching
+     END OF NON-OPERATIVE ARCHIVE banner immediately before §13 (which has always correctly scoped
+     the archive to §12 only, with §13-§23 operative). Fixed to reference the matching closing
+     banner instead of "the end of the document."
+  15. **§14 item 4's "no entry on LUC RED (§5B/§15)" citation corrected.** §5B has no LUC gate for
+     ordinary whole-share Mode B at all (LUC is optional context there) — only §15's Tier-B
+     fractional pilots have a real LUC RED block. The citation wrongly implied §5B shared that
+     block; fixed to cite §15 item 3 only.
+  **Explicitly not applied, per the user's own instruction when this was reviewed:** a proposed
+  note restricting Mode C's mean-reversion upper-band/RSI>80 branch to observation-only — that
+  branch's intended permission (does it carry its own long-only, stop-below-entry entry authority,
+  or is it purely contextual?) remains an open decision, not resolved by this pass. Four C18-table
+  rows (allocation-cap wording, active-throttle-recovery phrasing, the 1-of-5 confirmation count,
+  the 3-per-theme/2.5% figures) and the C11/C12 items beyond the one LUC RED citation above were
+  flagged in review as not independently re-verified against the cited lines and are also not
+  touched by this pass. Both PDF reviewers' own claims that did not match the real file on direct
+  inspection (e.g., a claimed "10-calendar-day window" that does not exist anywhere outside the one
+  location fixed in item 6 above, and a claimed mutually-exclusive-label set that doesn't match
+  the real label names) were rejected rather than applied — see the two review messages earlier in
+  this session for the full per-item verification record.
 - **2026-11-03 (later same day): User authorized resuming autonomous NEW-ENTRY authority for Mode
   B, Mode C, and crypto, and in the same instruction directed resolving §16 item 16's counting-unit
   ambiguity before any new entry, with an explicit requirement that missing/irreconcilable history
@@ -2724,8 +2888,12 @@ computed number and which rule below produced it.
   separate 1.5:1/2:1-degraded floor, unaffected by this change. §15's own numbered rules are
   unchanged.
 - Stop-loss orders are risk-reduction/exit orders and remain exempt from the §4 timing windows
-  once a documented invalidation level is actually hit — placing the *initial* stop when a new
-  position is opened is not exempt and follows normal timing rules.
+  once a documented invalidation level is actually hit. **Corrected 2026-11-04 (see §12 change
+  log — real conflict with the Universal Safety Kernel and §16 item 14's unconditional
+  "immediately after fills" requirement, confirmed against the live text):** placing the
+  *initial* protective stop immediately after an actual entry fill is never blocked by an entry
+  blackout, regardless of when that fill occurs — only the entry/add itself is blackout-governed,
+  never the mandatory protection that must follow it.
 
 ### B. 9/20 EMA (or SMA) trend and pullback rules
 - For Mode A: only propose a long entry when the 9-period average is above the 20-period average
@@ -2965,14 +3133,25 @@ order authority.
    unsettled sale proceeds, margin, or borrowed funds), and may not push total deployed value above
    the recalculated 90% cap. §10 itself is unchanged — it still separately describes the
    full-equity budget for manual/in-chat trading; this item governs autonomous sizing specifically,
-   now using the same 80%/20% mechanism instead of a lower, independent ceiling. Never deposit,
+   now using the same **90%/10%** mechanism instead of a lower, independent ceiling (corrected
+   2026-11-04 — see §12 change log; this paragraph had drifted to a stale "80%/20%" restatement
+   two sentences after already stating the current 90% figure above). Never deposit,
    withdraw, transfer, borrow, or use margin — unchanged instruction.
 
-3. The Routine may autonomously place, and may modify an order only to preserve a documented
-   stop/exit (§16 breakeven/trailing/gap mechanics — never to widen risk, never for any other
-   reason — see §1's updated exception), and close Mode B swing positions without per-trade
-   confirmation, only when every current §5B entry gate and every hard risk rule in item 4 below
-   is satisfied.
+3. **Entry/add authority and protective/closing authority, separated (corrected 2026-11-04 — see
+   §12 change log; the prior single-sentence version conditioned a protective close/modify on
+   §5B's entry gate, contradicting Conflict Resolution item 5's protective-management exemption):**
+   - The Routine may autonomously **place a new entry or add to an existing position** only when
+     every current §5B entry gate and every hard risk rule in item 4 below is satisfied.
+   - The Routine may autonomously **close an existing position, or modify an order, only to
+     preserve a documented stop/exit** (§16 breakeven/trailing/gap mechanics — never to widen risk,
+     never for any other reason — see §1's updated exception), **without per-trade confirmation and
+     without being gated by §5B's entry conditions** — a protective close/stop-ratchet fires
+     whenever its own exit mechanics call for it, regardless of whether the position's underlying
+     name would currently pass a fresh §5B entry check. Protective actions still require their own
+     account/quantity/order-state/broker-verification checks (Universal Safety Kernel item 7)
+     before submitting — they are exempt from entry-timing blackouts and the entry gate, never from
+     broker-verification itself.
 
 4. All existing hard blockers remain in force without exception — this is a restatement, not a
    new rule, cross-referenced to where each already lives — **instrument permissions per the
@@ -2991,7 +3170,10 @@ order authority.
    circuit breaker (§16, now routed through DEGRADED_AUTONOMOUS per the Automatic Recovery State
    Machine below as of 2026-08-19); API-error and position-reconciliation, wash-sale flag,
    3%-daily-loss circuit breaker (§6, likewise routed through session-restricted/degraded
-   auto-recovery for Mode B as of 2026-08-19); no entry on LUC RED (§5B/§15); UNKNOWN_DEGRADED →
+   auto-recovery for Mode B as of 2026-08-19); no entry on LUC RED for Tier-B fractional pilots
+   (§15 item 3) — corrected 2026-11-04, see §12 change log; LUC is optional context only for
+   ordinary whole-share Mode B, never a block (§2/§5B) — this item's prior "§5B/§15" citation
+   wrongly implied §5B also has a LUC RED gate, which it does not; UNKNOWN_DEGRADED →
    reduced size, flat **≥1.3:1** reward-to-risk for Mode B (§5B item 4's current number — corrected
    from a stale 1.5:1 restatement here, see §12 Policy Reconciliation entry) (§5B, §6, §13.A) —
    Tier-B fractional pilots keep their own separate ≥2:1-degraded floor (§15 item 5), unaffected.
@@ -3100,15 +3282,20 @@ are for audit and notification only and create no confirmation requirement.
 | Trigger | Immediate response | Automatic recovery |
 |---|---|---|
 | A position trades below its hard stop, or a broad market gap invalidates multiple active long setups (§16 item 4) | Execute the planned protective exit when executable. **(2026-08-24: the same-day new-entry pause was removed — see §12 change log.)** Scanning and new-entry evaluation continue normally for the rest of the session, subject to the standard §5B gates. | N/A — no restricted state to recover from; normal AUTONOMOUS_EXECUTE continues uninterrupted after the exit. |
-| Three stop-outs within a rolling 10-calendar-day window (§16 item 10) | Enter **DEGRADED_AUTONOMOUS**, not observe-only. | Continue trading at normal size (1% planned loss per new trade, normal position cap — both loosened 2026-08-21, see §12 change log; the position cap itself was later changed again on 2026-08-26, 10→5, "normal" now means whatever §5B item 1 currently states); the only remaining restriction is prohibiting new entries in the correlated sector/theme that produced the stop-outs. Lift that theme lockout automatically after five completed regular sessions with no additional stop-out and no daily-loss breaker. |
+| Three stop-outs within a rolling 10-trading-day window (§16 item 10) (corrected 2026-11-04 from a stale "10-calendar-day" restatement that disagreed with §16 item 10's own text — see §12 change log) | Enter **DEGRADED_AUTONOMOUS**, not observe-only. | Continue trading at normal size (1% planned loss per new trade, normal position cap — both loosened 2026-08-21, see §12 change log; the position cap itself was later changed again on 2026-08-26, 10→5, "normal" now means whatever §5B item 1 currently states); the only remaining restriction is prohibiting new entries in the correlated sector/theme that produced the stop-outs. Lift that theme lockout automatically after five completed regular sessions with no additional stop-out and no daily-loss breaker. |
 | Agentic Account equity falls 3%+ intraday (§6) | No additional new positions for the remainder of that regular session; continue managing protective exits and scanning/logging. | At the next pre-market cycle, automatically resume in **DEGRADED_AUTONOMOUS** at normal size (1% planned loss per new trade — loosened 2026-08-21) for one full session; with sizing no longer cut, this trigger's practical effect is limited to the same-session pause above. No new breaker required to resume fully normal the following session. |
 | Three consecutive Robinhood MCP errors, or reported positions don't match the account (§6) | Suspend new-entry order submission only — protective exits (§16) remain active per the standing exit-management mandate above. Continue scanning/logging; run automatic account/position reconciliation at the next cycle. | Resume new-entry order submission automatically once two consecutive reconciliations agree on account cash, positions, and order states. If reconciliation keeps failing, escalate in the log — no user phrase is required to keep retrying. |
 
 All other hard controls are unaffected and remain in force exactly as elsewhere in this document:
 Agentic-account-only wall (§1), dynamic 90% deployment ceiling (§14 item 2), confirmed
 settled/non-margin buying power only, fifteen-position/three-correlated-position caps in normal
-state (§5B, raised from ten/two on 2026-10-28 — see §12 change log), no averaging down (§3/§16), no options/crypto/margin/shorting/leverage in the Agentic
-account (§2), initial stop at entry (§16 item 2), breakeven at +1R (§16 item 5), 50% profit-take at
+state (§5B, raised from ten/two on 2026-10-28 — see §12 change log), no averaging down (§3/§16),
+**instrument permissions exactly per the Effective Policy matrix — corrected 2026-11-04, see §12
+change log; this sentence previously restated a stale blanket "no options/crypto/margin/shorting/
+leverage" ban that predates §18/§19/§21/§22's own named-allowlist/gate exceptions** (margin,
+short sales, and any off-allowlist exposure remain fully prohibited; options, crypto, and
+leveraged/inverse ETFs are each permitted under their own current allowlist/gate — §2), initial
+stop at entry (§16 item 2), breakeven at +1R (§16 item 5), 50% profit-take at
 +2R (§16 item 6), and the exact emergency phrase `PAUSE AUTONOMOUS TRADING`.
 
 - **Scope — everything else in this document still applies unchanged** to the autonomous
@@ -3385,11 +3572,19 @@ item 9 and §21 item 9. See §12 change log.
 
 3. Stop execution: **as of 2026-10-03, the primary mechanism is the real resting broker stop order
    required by item 14 — it executes on its own at the broker when price trades through it,
-   without waiting for a cycle check.** This item now describes the fallback: if for any reason
-   no resting stop order is in force (not yet placed, rejected, or found missing before the next
-   item-15 audit catches it) and last price trades at or below the documented invalidation,
-   immediately call `get_equity_tradability` and `review_equity_order`, then submit an exit for
-   the full remaining position (fractional or whole-share). Do not widen, remove, or lower the
+   without waiting for a cycle check.** This item describes the fallback, **expanded 2026-11-04
+   (see §12 change log) to also cover a resting stop-limit order that triggered but did not fully
+   fill** — a `stop_market` order is not a guaranteed fill price, and a `stop_limit` order can
+   trigger and remain open, partially filled, or wholly unfilled if price moves through the limit
+   before it executes. This fallback now applies whenever **either** condition holds: (a) no
+   resting stop order is in force at all (not yet placed, rejected, or found missing before the
+   next item-15 audit catches it), **or** (b) a resting stop-limit order has triggered but left
+   residual unfilled/partially-filled quantity — and in either case last price is at or below the
+   documented invalidation. Do not wait for a bounce merely because a limit order remains
+   technically open. Immediately call `get_equity_tradability` and `review_equity_order`, then
+   submit an exit for the full remaining/residual position (fractional or whole-share) — cancel
+   any still-open remainder of the original stop-limit order as part of the same action rather than
+   leaving it resting alongside a new exit order. Do not widen, remove, or lower the
    stop. If the exit cannot be verified or submitted, create an URGENT EXIT FAILURE alert and halt
    all new entries of that position's tier (Tier-A is unaffected by a Tier-B failure and vice
    versa, unless a §6 circuit breaker independently triggers).
@@ -3639,19 +3834,25 @@ item 9 and §21 item 9. See §12 change log.
     Cross-referenced from §20 item 9 (Mode C Trade Cards) and §21 item 9 (crypto Trade Cards).
 
 17. **Complete-economic-position rollup, fee/slippage logging, and daily mark-to-market tracking
-    (added 2026-11-03, read-only policy reconciliation — does not change item 16's per-exit-event
-    tally, which remains the system of record for the profit-factor throttle in that item; this is
-    an additive secondary measurement layer requested separately, not a replacement).**
-    - **Complete-economic-position rollup.** In addition to item 16's per-exit-event granularity
-      (each partial trim counted as its own event, kept unchanged for the throttle calculation),
-      also group every fill belonging to the same economic position — the original entry plus
+    (added 2026-11-03, read-only policy reconciliation — does not change item 16's counting unit
+    or throttle mechanism; this is an additive secondary measurement layer requested separately,
+    not a replacement).** **Corrected 2026-11-04 (see §12 change log): this item previously
+    referred three separate times to "item 16's per-exit-event tally" as still being the
+    throttle's basis — but item 16 itself (same 2026-11-03 pass) already resolved its own counting
+    unit to complete round-trip positions, for both its tally fields and the Active Throttle's
+    trailing window. The references below are corrected to match item 16's own current text.**
+    - **Complete-economic-position rollup.** This rollup uses the same position definition item 16
+      now uses (round-trip, not per-exit-event) — it is not a second, different grouping method;
+      it supplies additional per-fill/fee/MTM detail on top of the same round-trip positions item
+      16 already tallies. Group every fill belonging to the same economic position — the original
+      entry plus
       every add and every partial/final exit on that same ticker/contract until it reaches zero
       net quantity — into one rolled-up record: total shares/contracts bought, total sold, average
       entry price, average exit price, gross P&L for the whole position, and the dates the position
       was opened and fully closed. Log this rollup once the position reaches zero net quantity,
-      alongside the final exit's Trade Card/`trades_log.md` entry. This answers "did this trade,
-      as a whole, make or lose money" separately from "how did each individual exit event score,"
-      which item 16's event-level tally is built to answer.
+      alongside the final exit's Trade Card/`trades_log.md` entry. This supplies the per-fill/fee
+      detail behind each round-trip position item 16's own tally already counts — it does not
+      introduce a second counting unit.
     - **Fee/slippage logging, per fill.** For every entry and exit fill (equities, options, LEAPS,
       crypto, leveraged/inverse ETFs alike), log the actual filled price next to the price that was
       requested/expected (the limit price for a limit order, the last quote immediately before a
@@ -3667,19 +3868,25 @@ item 9 and §21 item 9. See §12 change log.
       which already governs how an unexplained cash change is treated; this item only adds that
       the daily equity figure itself must be adjusted for any such flow before it's compared
       day-over-day, so a deposit/withdrawal is never mistaken for a trading gain/loss). Compute
-      that day's equity change **net of deposits/withdrawals** as the actual daily trading P&L —
-      this is the figure used for the §3/§6 daily-loss-percentage checks and for a true
-      day-over-day equity curve, not the raw unadjusted equity delta.
+      that day's equity change **net of deposits/withdrawals** as a mark-to-market trading P&L
+      figure, for a true day-over-day equity curve. **Corrected 2026-11-04 (see §12 change log):
+      this MTM figure is NOT the figure used for §3's daily/weekly throttle, which is realized
+      loss only (§3's own text) — keep three separate series, each used only at its own point:
+      §3's 2%-daily/5%-weekly throttle uses realized P&L only; §6's 3%-equity-decline breaker
+      uses verified account-equity decline under this item's own measurement; and Mode C's
+      2.5%/2.5% daily limits (§20 item 1.3/1.4) use Mode C's own realized-plus-open-unrealized
+      session P&L. Switching §3 to an MTM basis would be a real risk-policy change, not a drafting
+      fix, and is not made here.**
     - **Net expectancy and drawdown, derived from the above.** Alongside each mode's item-16
       profit-factor tally, log (a) net expectancy per completed economic position — average P&L
       per closed position after estimated fees/slippage, using the rollup above, not the raw gross
       figure — and (b) running maximum peak-to-trough drawdown on the net-of-flows daily
       mark-to-market equity curve above. Both are reporting fields only; neither changes any entry
       gate, risk cap, or the item 16 throttle's own trigger condition (trailing profit factor on
-      the per-exit-event tally) — they exist so "is this working" can be answered from completed
-      positions and real account-level performance, not inferred from the event-level tally alone,
-      which is the figure the item 16 throttle needs but is not by itself a statement of whether
-      the account is actually compounding.
+      item 16's round-trip-position tally) — they exist so "is this working" can be answered from
+      completed positions and real account-level performance, not inferred from the round-trip
+      tally alone, which is the figure the item 16 throttle needs but is not by itself a statement
+      of whether the account is actually compounding.
     - **Scope and change control**: applies across Mode B (equities, §18 options, §19 LEAPS), Mode
       C, crypto (§21), and §22 leveraged/inverse ETFs — the same instruments item 16 already
       covers. This item adds measurement only; it introduces no new numeric threshold, cap, or
@@ -3867,7 +4074,10 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
       the full §5B/Bearish-Mirror gate in item 2 before an option is bought — this only broadens
       *where* candidates are looked for, it does not create a second, easier path to a trade.
     - **Delta floor formalized and loosened**: the informal ~0.3-delta guidance used since
-      2026-08-27 is now codified at **~0.20 delta or higher** for the contract selected. Flagged
+      2026-08-27 is now codified at **absolute delta (|delta|) ~0.20 or higher** for the contract
+      selected — corrected 2026-11-04 (see §12 change log): a long put's delta is negative, so a
+      literal signed "≥0.20" comparison would be permanently unsatisfiable and silently block
+      every put; the approved magnitude is unchanged, only the sign reading is fixed. Flagged
       plainly: a 0.20-delta contract moves roughly a fifth as much as the underlying per dollar of
       stock move — meaningfully weaker, more speculative directional exposure than 0.3+, accepted
       specifically to let more affordable contracts fit under the item 5 premium cap on
@@ -3993,7 +4203,9 @@ comes back unaffordable.
      multi-quarter catalyst are the test, independent of §5B's hourly-trigger requirement. This is
      the main reason this lane has never fired: it was only ever considered as an afterthought on
      top of a swing scan, never actively sourced on its own longer-horizon terms.
-   - **Delta floor formalized at ~0.20 or higher**, same number and same disclosed tradeoff as
+   - **Delta floor formalized at absolute delta (|delta|) ~0.20 or higher** (corrected 2026-11-04
+     for the same signed-vs-magnitude reason as §18 item 11 — see §12 change log), same number
+     and same disclosed tradeoff as
      §18 item 11 (weaker per-dollar directional exposure, loosened specifically so more contracts
      fit the item 4 premium cap on richly-priced names) — LEAPS had no delta guidance at all
      before this.
@@ -4110,7 +4322,8 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
     cycle, before any new screening or entries, verify **every currently open Mode C position**
     still has a resting stop order — not just the one most recently entered. Call `get_equity_orders`
     filtered to each open Mode C symbol; if a stop is missing, rejected, or not in an open state,
-    place it immediately (per item 3's placement rules) or, if it cannot be placed and verified, close
+    place it immediately (per §20 subsection 3's placement rules, corrected 2026-11-04 from the
+    ambiguous "item 3" — see §12 change log) or, if it cannot be placed and verified, close
     the position at the earliest eligible execution and log an **URGENT EXIT FAILURE** alert — same
     discipline as item 1's entry-time check, now run as a standing per-cycle audit rather than only
     once at entry. This catches a stop that was cancelled, rejected, or otherwise dropped by the
@@ -4119,7 +4332,12 @@ any "just this once" — same principle as §1's CONFIRM ORDER firewall for manu
 ### 2. Position sizing
 ```
 dollar_risk = agentic_account_equity × 0.01        (1%, per item 2 above — raised 2026-10-03 from 0.5%)
-stop_distance = entry_price − stop_price             (per share, absolute value)
+require 0 < stop_price < entry_price for a long          (corrected 2026-11-04, see §12 change
+                                                           log — a stop at or above entry is
+                                                           invalid and must NO_TRADE, never size)
+stop_distance = entry_price − stop_price             (per share; valid only once the check above passes —
+                                                        never take an absolute value to paper over a
+                                                        wrong-sided stop)
 shares = floor(dollar_risk / stop_distance)
 ```
 If `shares × entry_price` exceeds current settled buying power, shrink to what buying power
@@ -4193,8 +4411,11 @@ setup described in the original material.
 - Entry: on the following hourly bar's close back inside the band, not on the extreme bar itself.
 - Stop: 2× ATR(14) beyond the entry.
 - Target: the mean (VWAP or 20-period MA) or 1.3:1 R:R (lowered 2026-10-28 from 1.5:1, mirroring
-  the same-day Mode B R:R floor change — see §12 change log), whichever is closer; if the stop
-  distance produces less than 1.3:1, reduce size rather than widen the stop.
+  the same-day Mode B R:R floor change — see §12 change log), whichever is closer; **if the stop
+  distance produces less than 1.3:1, that setup does not qualify — classify NO_TRADE for it**
+  (corrected 2026-11-04, see §12 change log: reducing share count cannot cure a failed R:R ratio,
+  which is price geometry, not a dollar constraint; never widen the stop to fit either —
+  reconsider only an independently justified different setup).
 - No mean-reversion entries within 2 weeks of earnings; never against a strong prevailing trend.
 
 **Which one fires:** check the first hour of price action each morning — trending and holding a
@@ -4232,7 +4453,8 @@ separate design was intended). Log the theme on the Trade Card so this is checka
 4. If clean: `place_equity_order` for the entry (autonomous authority, no live CONFIRM ORDER
    needed for the trigger — §1 exception above). Fresh `ref_id` per order.
 5. Immediately on fill: `review_equity_order` then `place_equity_order` for the stop
-   (`stop_market`/`stop_limit`, side=sell), per item 3's placement rules. Verify it's resting.
+   (`stop_market`/`stop_limit`, side=sell), per §20 subsection 3's placement rules (corrected
+   2026-11-04 from the ambiguous "item 3" — see §12 change log). Verify it's resting.
 6. Log entry price, stop price, size, and risk $ against the day's running Mode C P&L tally.
 7. Every subsequent hourly cycle: re-check open Mode C positions for trailing/breakeven per item
    3, and check whether the daily loss/profit limit (items 3-4) has been hit.
@@ -4252,7 +4474,13 @@ Same category as §14 item 8's existing refusal list, extended:
 - Carry a Mode C position past the same-day flatten (item 1.9) for any reason, including "it looks
   like it wants to keep running" — that's a Mode B decision, not a Mode C one; a genuinely strong
   multi-day setup gets evaluated fresh against §5B, not smuggled past Mode C's flatten rule
-- Place a Mode C order without `review_equity_order` first, absent an explicit one-time override
+- Place any Mode C entry, exit, protective stop, or stop adjustment without the clean
+  instrument/action-appropriate tradability and order-review checks required by the Universal
+  Safety Kernel immediately before submission — **no one-time override, urgency claim, or manual
+  confirmation bypasses these checks** (corrected 2026-11-04: this item previously read "...absent
+  an explicit one-time override," a carve-out that directly contradicted Universal Safety Kernel
+  item 7's "no exceptions" broker-verification rule — see §12 change log). The protective order
+  requires its own checks; the entry's checks are not reused.
 
 ## 21. Crypto Trading Policy (Spot, Named Allowlist)
 Added 2026-09-08 at explicit user instruction, after comparing this document against a friend's
@@ -4361,9 +4589,13 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      (§20 item 3) — a flat percentage ceiling misprices a basket of coins with genuinely different
      volatility (a calmer major like BTC versus a more volatile smaller-cap alt), either too tight
      for the volatile names or uninformatively wide for the calm ones. If the technically valid
-     invalidation needs more room than that coin's own ATR-based ceiling allows, reduce size or
-     skip the trade — do not widen the stop to fit. (Distinct from, and in addition to, the
-     risk-dollar sizing above — both must be satisfied.)
+     invalidation needs more room than that coin's own ATR-based ceiling allows, **that setup does
+     not qualify — classify NO_TRADE for it** (corrected 2026-11-04, see §12 change log: reducing
+     quantity cannot cure a distance-ceiling violation, which is price geometry, not a dollar
+     constraint) — do not widen the stop to fit either; reconsider only an independently justified
+     different entry/stop that satisfies the unchanged ceiling. (Distinct from, and in addition to,
+     the risk-dollar sizing above — both must be satisfied; reduce size only for that separate
+     dollar-risk/heat/allocation/deployment constraint, never for this geometry check.)
    - **Per-position cap: 30% of Agentic Account equity** (unchanged from 2026-10-10) — still
      tighter than §3's general 40% cap, same pattern as every other asset-class carve-out in this
      document having its own tighter sub-cap (§15 Tier-B 20%, §18 options 12%, §19 LEAPS 6%).
@@ -4376,7 +4608,8 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      following the October 2025 liquidation event). A 6-of-8-coin cap left too little real
      concentration limit given that documented behavior; 2 restores the cap to treating the
      allowlist as a correlated basket rather than 8 independent bets. Own small cap, separate from
-     Mode B's 15-position cap and Mode C's 8-position cap. The §3 portfolio heat cap (6% of
+     Mode B's 15-position cap and Mode C's 12-position cap (corrected 2026-11-04 from a stale
+     "8-position" restatement — see §12 change log). The §3 portfolio heat cap (6% of
      equity, aggregate across every mode) and the
      30%-of-equity per-position cap both remain the hard ceilings on simultaneous dollar risk
      regardless of how many positions are open; no further per-coin theme subdivision.
@@ -4529,12 +4762,21 @@ Mode B's ordinary numbers, and chose the tighter sub-cap, below.
 4. **Tighter sizing sub-cap (chosen by the user over Mode B's ordinary numbers), mirroring the
    same pattern as Tier-B (§15)/options (§18)/crypto (§21) each having their own tighter sub-cap**:
    - Per-position cap: **15% of Agentic Account equity** (vs. Mode B's ordinary 40%).
-   - Per-trade risk: **1% of Agentic Account equity** (vs. Mode B's ordinary 3%), sized from the
+   - Per-trade risk: **1% of Agentic Account equity** (vs. Mode B's ordinary 2% base / 1%
+     adverse-PF-throttled — corrected 2026-11-04 from a stale "3%" comparison, see §12 change log;
+     Mode B's own base rate was reverted 2026-10-15), sized from the
      entry-to-stop distance on the ETF's own price, same formula as §20 item 2/§21 item 4.
    - Hard stop-distance ceiling: **the stop may not sit farther than 8% below entry** on the ETF's
-     own price (same number and same principle as §21 item 4's crypto ceiling) — if the
-     technically valid invalidation needs more room than that, reduce size or skip the trade,
-     never widen the stop to fit.
+     own price — a fixed percentage ceiling, distinct from §21 item 4's crypto ceiling, which
+     moved to a per-coin ATR-multiple basis on 2026-10-15 and is no longer a flat percentage
+     (corrected 2026-11-04 — see §12 change log; this item previously claimed the two were "the
+     same number and same principle," which stopped being true once crypto's ceiling changed
+     basis) — if the technically valid invalidation needs more room than this 8% ceiling, **that
+     setup does not qualify — classify NO_TRADE**, never widen the stop to fit and never reduce
+     quantity to make a failed stop-distance check pass (corrected 2026-11-04, same change log
+     entry: reducing share count cannot cure a distance-ceiling violation, which is price
+     geometry, not a dollar constraint — resize only for the separate dollar-risk/heat/allocation/
+     deployment constraints below, never for this one).
    - Max **2 concurrent leveraged/inverse ETF positions** (own small cap, separate from Mode B's
      general position cap, same pattern as crypto's 2-concurrent cap given these products behave
      as a more correlated, higher-volatility bucket than ordinary equities).
