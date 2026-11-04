@@ -56970,3 +56970,36 @@ No new entries, no exits, no circuit breaker, no heat-cap action. PATH (Mode B, 
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T02:37:53Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"tvremix_consecutive_failed_cycles":0,"tvremix_calls_used_today":3,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-03 7:38 p.m. PST (03:38:01Z) — AUTONOMOUS CRYPTO CYCLE — full gate evaluation, OBSERVE
+
+**STEP 0 gate check:** §14 Status: ACTIVE. No kill phrase.
+
+**Account check:** `get_portfolio` — total_value $6,417.88, cash $4,878.02, equity_value $1,539.86 (PATH). `get_crypto_positions` — 0 positions.
+
+**Market-shock check:** SPY $745.25 vs. last cycle's $746.41 = -0.16%; QQQ $671.00 vs. $671.95 = -0.14%. No shock.
+
+**Near-miss queue reassessment (first cycle under the newly-deployed mechanism):** `near_miss_queue.md`'s Crypto (§21) table is empty — 0 pairs reassessed, no file change this cycle.
+
+**tvremix:** succeeded on first attempt (fifth consecutive success).
+
+**Full-allowlist gate evaluation (§21 item 3), all 8 pairs:**
+
+| Pair | 4H trend/bias | Setup (both TFs) | Best R:R | Verdict |
+|---|---|---|---|---|
+| BTC | 240: bearish (moderate), no active pullback | 60: no setup (overextended); 240: no setup | — | REJECTED, item 7 — no setup either timeframe |
+| ETH | 240: bearish (moderate), pullback_short R:R 0.79 | 60: no setup (overextended) | 0.79 | REJECTED, item 4 — R:R 0.79 < 1.5 |
+| SOL | 240: bearish (moderate), no active pullback | 60: no setup | — | REJECTED, item 7 — no setup |
+| XRP | 240: bearish (strong), pullback_short R:R 0.60 | 60: bullish (weak), pullback_long R:R 1.25 | 1.25 | REJECTED, item 4 — best R:R 1.25 < 1.5 |
+| LINK | 240: bearish (strong), pullback_short R:R 0.36 | 60: no setup | 0.36 | REJECTED, item 4 |
+| AAVE | 240: bearish (moderate), R:R 0.57 | 60: R:R 0.20 | 0.57 | REJECTED, item 4 |
+| HBAR | 240: bearish (strong), R:R 0.09 | 60: no setup | 0.09 | REJECTED, item 4 |
+| AVAX | 240: bearish (strong), R:R 0.50 | 60: no setup (overextended) | 0.50 | REJECTED, item 4 |
+
+**8/8 evaluated, 8/8 rejected with evidence, 0 not_evaluated — full coverage.** No circuit breaker, no heat-cap action. 0 positions, no stop-audit needed.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T03:38:01Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"tvremix_calls_used_today":4,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
