@@ -57611,3 +57611,36 @@ chat.
 ```json
 {"cycle":"Recovery check + §22/AMD coverage completion (user-requested diagnostic, no new scan authority)","timestamp_utc":"2026-11-04T16:09:55Z","modes_covered":["B"],"status_gate":"ACTIVE","robinhood_recovery":{"verified":true,"path_stop_intact":true,"path_stop_id":"6aea08a9-54de-45c6-b211-0f7927661717","cancelled_or_duplicated":0},"second_incident_found":{"trigger":"trig_01KrBsTt9mssjU4hPGtM3cBe","fired_at":"2026-11-04T16:04:20.496Z","finished_at":"2026-11-04T16:04:20.507Z","log_entry_found":false,"assessment":"dispatch succeeded, cycle protocol did not execute - likely busy-session collision"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":9,"rejected_with_evidence":7,"near_miss":["TNA"],"invalidated":["SQQQ","SOXS"],"not_evaluated":[],"coverage_complete":true},"amd_options_leaps":{"earnings_verified_from_issuer":true,"issuer_source":"ir.amd.com","next_earnings_date_announced":false,"tradingview_placeholder_date":"2026-12-31","section18_result":"FAILS item 7 - hourly/daily direction mismatch","section19_result":"FAILS item 4 affordability - cheapest 0.20-delta strike $2550 vs $389 cap"},"root_cause_22_gap":{"first_scan_trigger_missing_step_3c":true,"first_scan_trigger_missing_explicit_2b_formula":true,"near_miss_queue_mechanism_present_both_triggers":true},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### 2026-11-04T16:12Z — AUTONOMOUS CRYPTO CYCLE (queued trigger, fired 15:38:21Z, processed late — session was mid-diagnostic)
+
+**STEP 0**: §14 Status ACTIVE. No kill phrase. Proceeding. `get_crypto_positions`: 0 open crypto
+positions. `get_portfolio`: $6,483.65 total, $4,878.02 settled cash (fresh from the recovery check
+minutes earlier in this session). No circuit breaker active. Portfolio heat: 1 open Mode B
+position (PATH, ~$61.84 planned risk, not yet at breakeven) — well under the 6%-of-equity cap
+regardless; moot this cycle since nothing qualified for new sizing.
+
+**Near-miss queue (crypto table)**: empty, confirmed. No reassessment needed.
+
+**Full-allowlist screen, one `analyze_structure_batch` call, 4H+1H, all 8 pairs** (BTC, ETH, SOL,
+XRP, LINK, AAVE, HBAR, AVAX): applying the standing bullish-only-candidate rule (§21 is spot/
+buy-to-open-longs-only — a bearish-aligned or mixed read with no bullish `pullback_long`/
+`breakout_long` setup on both 4H and 1H is a stand-aside, never a near-miss):
+
+| Pair | 4H | 1H | Bullish setup present? | Result |
+|---|---|---|---|---|
+| BTC | bearish, `setup:null` | bullish bias, `setup:null` | No | REJECTED — no computable long entry |
+| ETH | bearish, `setup:null` | bullish bias, `setup:null`, at a fresh high (+2.29% above prior swing high) | No qualifying pullback setup (crypto has no §13.G-equivalent breakout-continuation path — that method is scoped to Mode B equities/options only) | REJECTED — no computable long entry |
+| SOL | bearish, `pullback_short` (wrong direction) | bearish, `setup:null` | No | REJECTED |
+| XRP | bearish strong, `setup:null` | bullish bias, `setup:null` | No | REJECTED |
+| LINK | bearish strong, `setup:null` | bearish weak, `setup:null` | No | REJECTED |
+| AAVE | bearish, `pullback_short` R:R 2.3:1 (wrong direction) | bearish, `setup:null` | No | REJECTED |
+| HBAR | bearish strong, `pullback_short` R:R 0.48:1 (wrong direction) | bearish strong, `setup:null` | No | REJECTED |
+| AVAX | bearish, `setup:null` | bearish, `setup:null` | No | REJECTED |
+
+**Coverage: 8/8 evaluated, 0 qualifying, 0 near-miss.** `coverage_state: OBSERVE` (real data, not
+DATA_BLOCKED). No order placed.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T16:12:10Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"tvremix_calls_used_today":4,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending","processing_note":"fired 15:38:21Z, processed 16:12Z - late, session was occupied with user diagnostic; no new data staleness concern since the 1H/4H candles checked are still the current ones"}
+```
