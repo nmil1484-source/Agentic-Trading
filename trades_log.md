@@ -57475,3 +57475,28 @@ regardless — see near_miss_queue.md, unchanged from 2026-11-03T19:55:33Z). Mod
 ```json
 {"cycle":"Mode B/C First Scan of Day","timestamp_utc":"2026-11-04T15:05:14Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"broker_access_incident":{"service":"robinhood-trading","status":"authorization_lost_mid_cycle","detected_utc":"2026-11-04T15:28:04Z","steps_blocked":["funding/day-trade checks","options/LEAPS sourcing","mode_c screening","order placement"],"existing_protection_unaffected":true},"coverage":{"universe_size":74,"triaged":61,"full_gate_evaluated":12,"rejected_with_evidence":7,"not_evaluated":[{"symbol":"AAPL","reason":"volume baseline not independently checked this cycle"}],"remaining_watchlist_not_reached":49,"tool_failures":0},"near_miss_queue":{"reassessed":5,"cleared":0,"still_near_miss":2,"invalidated":3,"ineligible":0,"expired":0},"leveraged_etf_coverage":{"universe_size":9,"evaluated":0,"not_evaluated":[{"symbol":"TNA","reason":"not re-screened this cycle - robinhood outage, no stage-2 slot pressure"},{"symbol":"SQQQ","reason":"not re-screened this cycle - robinhood outage, no stage-2 slot pressure"},{"symbol":"SOXS","reason":"not re-screened this cycle - robinhood outage, no stage-2 slot pressure"}],"coverage_complete":false},"amd_pending_eligibility":{"status":"earnings_blackout_cleared","blocked_by":"robinhood_outage_for_sourcing"},"tvremix_calls_used_today":1,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### 2026-11-04T15:40Z — CORRECTION (user review, no new scan): CVX/ZS/DIS were not properly invalidated
+
+**Caught on user review of the 15:05:14Z First Scan entry above.** `analyze_structure_batch` with
+`methods:["swing"]` only detects pullback-anchored setups — a returned `setup: null` means "no
+pullback-based setup found," not "no permitted entry structure exists." That cycle's claim that
+CVX/ZS/DIS were "structural absence... no computable entry" overclaimed: it never checked §13.G
+breakout-continuation eligibility (a fresh high/low with no pullback), which is a separate,
+independently permitted method this tool doesn't evaluate. Re-reading the same data already in
+hand: **DIS (60m) and CVX (1D) both show `current_above_max_swing_high: true`** — genuine
+fresh-high conditions, real §13.G candidates — neither was actually checked against §13.G's
+mandatory volume confirmation (§13.H) or catalyst/RS this cycle; those are **UNKNOWN, not
+failing**. Only ZS shows neither a pullback nor a fresh-high/low condition on either timeframe —
+closer to a genuine absence of a positive finding, but that is still not the same as a disproof,
+so it is not logged as invalidated either. **All three restored to `near_miss_queue.md`** as
+"not evaluated this cycle" (not invalidated, not rejected-with-evidence) — see that file's
+correction note and table for the per-symbol detail. The prior cycle's JSON summary
+(`near_miss_queue.invalidated: 3`) is superseded by this correction; the true count for that
+cycle is `invalidated: 0`, `still_near_miss: 2` (TEM, SOFI), `not_evaluated_pending_recheck: 3`
+(CVX, ZS, DIS). No order was placed either before or after this correction — purely a logging/
+process correction, same category as the RKLB/SHOP/PATH mislabeling corrected on 2026-11-03.
+
+```json
+{"cycle":"Correction (user review, no new scan)","timestamp_utc":"2026-11-04T15:40:00Z","modes_covered":["B"],"status_gate":"ACTIVE","correction_to_cycle":"2026-11-04T15:05:14Z","near_miss_queue_corrected":{"invalidated_was":3,"invalidated_now":0,"still_near_miss":["TEM","SOFI"],"not_evaluated_pending_recheck":["CVX","ZS","DIS"]},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```

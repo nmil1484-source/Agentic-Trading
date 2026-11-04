@@ -83,15 +83,35 @@ repair exists to clear starting at the next eligible cycle.
 | TEM | Equity (Mode B), Bearish Mirror Gate | §5B item 4 (mirror) — `pullback_short` now present on BOTH 1D (R:R 1.09:1) and 60m (R:R 1.27:1) per fresh `analyze_structure_batch`, but both fail the 1.3:1 floor | Item 7 (mirror) now actually clears — daily+hourly both show the bearish pullback_short structure, aligned; items 2/3 not independently re-verified this cycle (no fresh catalyst/RS pull) | 2026-11-04T15:28Z (latest_bar_time 1793802600) | 2026-11-03 | 2 | 2026-11-12 |
 | SOFI | Equity (Mode B), Bearish Mirror Gate | §5B item 7 (mirror) — 1D shows `pullback_short` (R:R 1.34:1, now clears item 4) but 60m setup is null, no confirming hourly breakdown trigger | Item 4 (mirror) now clears on 1D; items 2/3 not independently re-verified this cycle (no fresh catalyst/RS pull) | 2026-11-04T15:28Z | 2026-11-03 | 2 | 2026-11-12 |
 
-**Removed 2026-11-04T15:28Z — CVX, ZS, DIS, reassessed and invalidated (structural absence, not a
-single-item near-miss).** On fresh `analyze_structure_batch` data (1D + 60m): CVX now shows an
-overextended 150%-deep pullback with `setup: null` on both timeframes (no pullback leg left to
-measure a stop from); ZS shows an overextended 117%-deep pullback on 60m (`setup: null`) and a
-`ranging/neutral` 1D read with insufficient swing data (`setup: null`); DIS shows `setup: null` on
-both timeframes (no breakout or pullback structure currently present, including under the §13.G
-breakout-continuation method — there is no fresh high/low to break from right now). Per this
-file's own item-4 handling, "no computable stop" is a structural absence, not a near-miss on one
-item — all three are removed rather than re-queued. None were close to qualifying otherwise this
+**CORRECTION, same day 2026-11-04T15:xxZ entry superseded — CVX/ZS/DIS were NOT properly
+invalidated; "removed" above was a mislabeling, caught on user review.** `analyze_structure_batch`
+with `methods:["swing"]` only detects pullback-anchored setups (`pullback_long`/`pullback_short`)
+— a `setup: null` from this tool means "no pullback-based setup," not "no permitted entry
+structure of any kind." It says nothing about §13.G breakout-continuation eligibility (a fresh
+high/low with no pullback to measure), which is a separate, independently permitted entry method
+this tool does not check. Re-reading the same data pulled this cycle: **DIS's 60m read shows
+`current_above_max_swing_high: true`** (118.61 vs. prior max 113.38, +4.6%) — a genuine fresh-high
+condition, a real §13.G candidate, not a structural absence. **CVX's 1D read also shows
+`current_above_max_swing_high: true`** (219.82 vs. 217.78, +0.94%, barely) — also §13.G-eligible
+in principle, though marginal. Neither was actually checked against §13.G (mandatory volume
+confirmation per §13.H, catalyst/RS) this cycle — that check was simply never run, not run and
+failed. **Corrected status: both restored to the queue as "not evaluated — §13.G volume/catalyst
+UNKNOWN this cycle," not invalidated.** Only **ZS** shows neither a pullback setup nor a fresh
+high/low on either timeframe (60m overextended pullback, `setup: null`; 1D `ranging/neutral`,
+`current_above_max_swing_high: false`) — closest to a genuine structural absence, but even this is
+"no positive candidate found this cycle," not a disproof, so it is also restored as
+not-evaluated rather than invalidated (invalidation requires actually disproving a previously-held
+condition, e.g. price moving through the would-be stop — none of that was shown here).
+
+| Symbol | Instrument | Status this cycle | What's UNKNOWN (not evaluated, not failing) | Data timestamp | Added | Cycles checked | Expires (7 sessions) |
+|---|---|---|---|---|---|---|---|
+| CVX | Equity (Mode B), §13.G candidate | Fresh high on 1D (+0.94% above prior swing high) — §13.G path not checked | Volume confirmation (§13.H), catalyst/RS | 2026-11-04T15:28Z | 2026-11-03 | 2 | 2026-11-12 |
+| DIS | Equity (Mode B), §13.G candidate | Fresh high on 60m (+4.6% above prior swing high) — §13.G path not checked | Volume confirmation (§13.H), catalyst/RS | 2026-11-04T15:28Z | 2026-11-03 | 2 | 2026-11-12 |
+| ZS | Equity (Mode B) | No pullback or fresh-high/low structure found this cycle on either TF | Catalyst/RS; whether a different entry method (e.g. range breakout) applies | 2026-11-04T15:28Z | 2026-11-03 | 2 | 2026-11-12 |
+
+None of these three were confirmed qualifying or confirmed disqualified this cycle — all three
+stay queued, pending a §13.G-aware re-check (CVX/DIS) or a fresh look at whether a non-pullback
+entry structure exists at all (ZS), at the next eligible cycle.
 cycle; re-add if/when a genuine single-item near-miss re-emerges on fresh data.
 
 ## Current queue — §22 leveraged/inverse ETFs (tracked for history only — already re-screened every cycle via the existing mandatory §22 step; no separate reserved slot needed)
