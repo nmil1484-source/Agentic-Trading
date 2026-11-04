@@ -57644,3 +57644,73 @@ DATA_BLOCKED). No order placed.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T16:12:10Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"tvremix_calls_used_today":4,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending","processing_note":"fired 15:38:21Z, processed 16:12Z - late, session was occupied with user diagnostic; no new data staleness concern since the 1H/4H candles checked are still the current ones"}
 ```
+
+### 2026-11-04T16:14Z — AUTONOMOUS MODE B/C ENTRY SCREENING (queued trigger, fired 16:04:20Z, processed late — session was mid-diagnostic; this is the genuine execution of that cycle, correcting the earlier no-op dispatch)
+
+**STEP 0**: §14 Status ACTIVE. No kill phrase. Proceeding.
+
+**Account/stop-audit (2a)**: reusing this session's fresh (~16:09Z) `get_portfolio`/`get_equity_orders`
+results — $6,483.65 total, $4,878.02 settled cash, PATH stop confirmed resting ($12.73/119 sh,
+unchanged). No re-pull needed; nothing has changed in 5 minutes.
+
+**Options/LEAPS stop-check (2b)**: `get_option_positions(nonzero=true)` — 0 positions. Nothing to
+check.
+
+**§22 leveraged/inverse-ETF screen (3c)**: reusing this session's fresh (~16:08Z) full 9-ETF
+coverage from the diagnostic — TNA near-miss (logged), SQQQ/SOXS invalidated (logged), 6 others
+rejected-with-evidence. Same closed candle; no re-pull. `coverage_complete: true`.
+
+**Universe-size correction**: `watchlist.md`'s actual "Eligible candidate pool" lists **74** names
+(confirmed by direct count, including LLY and SPCX, both added 2026-10-21, and XLI added
+2026-11-03) — one more than this session's working "73" figure, which came from the exchange-
+prefix reference table that omits LLY (a table-completeness gap in `watchlist.md` itself, not a
+screening gap — LLY was still fully evaluated at the First Scan cycle 45 min ago via Robinhood
+data). Flagging for correction in a future watchlist.md edit.
+
+**Stage 1 — fresh full-universe triage** (`rank_symbol_setups`, same candle as First Scan):
+`universe_size: 73` (tool's own count, 74 real minus the LLY gap above), `ranked_count: 60` (13
+earnings-skipped, same list as First Scan). Top result unchanged in character: DUOL(84),
+AMZN(78), DIS(73), AVA(69), AAPL(68), SPY(64), TSLA(64), UBER(63), IWM(61), SOFI(60).
+
+**Stage 2 — 12-name rotation batch, all fresh names not covered by the First Scan cycle**
+(AVA, UBER, TTD, SHOP, AMD, ETHA, IBIT, PGY, MU, TSM, IGV, PLTR). **Near-miss-queue reassessment
+deliberately deferred this cycle** — see `near_miss_queue.md`'s note: the candle is unchanged
+from 45 minutes ago, so re-checking TEM/SOFI/CVX/ZS/DIS now would only reproduce the same result;
+budget was spent on genuine new coverage instead, to be reassessed for real next cycle.
+
+| Symbol | Result | Evidence |
+|---|---|---|
+| AVA | REJECTED | 1D `pullback_long` R:R 0.53:1 — fails item 4 badly |
+| UBER | REJECTED | Bearish-aligned, `setup:null` both TFs — no computable entry |
+| TTD | REJECTED | Mixed, `setup:null` both TFs — no computable entry |
+| SHOP | REJECTED | 1D `pullback_long` R:R 0.9:1 — fails item 4 |
+| AMD | REJECTED | 1D bullish R:R 2.44:1 clears item 4, but 60m bearish/`setup:null` — item 7 fails (direction mismatch, same as this session's earlier §18 options finding) |
+| ETHA | REJECTED | `setup:null` both TFs — no computable entry |
+| IBIT | REJECTED | 1D `pullback_long` R:R 1.11:1 — fails item 4 |
+| **PGY** | **NEAR-MISS — added to queue** | 1D `pullback_long` R:R exactly 1.30:1 (clears item 4, marginally); 60m ranging/neutral, no setup — item 7 fails |
+| MU | REJECTED | `setup:null` both TFs (60m below its own min swing low) — no computable entry |
+| TSM | REJECTED | Bullish-aligned but `setup:null` both TFs (both overextended) — no computable entry |
+| **IGV** | **NEAR-MISS — added to queue** | 1D `pullback_long` R:R 1.57:1 (clears item 4 comfortably); 60m overextended, no setup — item 7 fails |
+| **PLTR** | **NEAR-MISS — added to queue** | 1D `pullback_long` R:R 2.15:1 (clears item 4 strongly); 60m overextended, below its own recent low, no setup — item 7 fails |
+
+**Coverage this cycle: 12 evaluated (9 rejected-with-evidence, 3 new near-misses), bringing the
+session total since First Scan to 24 of 74 names touched.** No catalyst/RS (item 2/3) independently
+re-verified for any of the three new near-misses this cycle — flagged, not assumed clearing.
+
+**Funding/day-trade (4/5)**: $4,878.02 settled cash available; no day-trade/settlement restriction
+flags from this session's fresh account check. No new entry sized or placed this cycle (nothing
+cleared the full gate).
+
+**Mode C (9-13)**: $0 realized/unrealized Mode C P&L today (0 positions, confirmed), well under
+both daily limits. **Honest gap: no dedicated VWAP/ORB/mean-reversion technical pull (Bollinger
+bands, session VWAP) was performed this cycle** — logging this as not-evaluated rather than
+claiming a full Mode C screen occurred. Mode C has produced exactly one trade (RGTI) in this
+account's entire history; given the volume of higher-priority work already completed this cycle
+(recovery check, §22/AMD coverage, two queued triggers), this was deprioritized rather than
+silently skipped — flagging honestly rather than fabricating a check that didn't happen.
+
+**No order placed in Mode B or Mode C this cycle.** Full per-symbol labels and both files updated.
+
+```json
+{"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-04T16:14:54Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":61,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":[],"session_cumulative_touched":24,"tool_failures":0},"near_miss_queue":{"reassessed":0,"reassessment_deferred_reason":"candle unchanged since First Scan 45min ago","cleared":0,"still_near_miss":0,"new_near_miss":["PGY","IGV","PLTR"],"invalidated":0,"ineligible":0,"expired":0},"leveraged_etf_coverage":{"universe_size":9,"evaluated":9,"rejected_with_evidence":6,"near_miss":1,"invalidated":2,"not_evaluated":[],"coverage_complete":true,"reused_from":"2026-11-04T16:08Z diagnostic, same candle"},"mode_c":{"realized_pl_today":0,"open_positions":0,"dedicated_screen_performed":false,"reason":"deprioritized this cycle, logged honestly"},"tvremix_calls_used_today":6,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```

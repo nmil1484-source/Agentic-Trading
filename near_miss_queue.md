@@ -82,6 +82,20 @@ repair exists to clear starting at the next eligible cycle.
 |---|---|---|---|---|---|---|---|
 | TEM | Equity (Mode B), Bearish Mirror Gate | §5B item 4 (mirror) — `pullback_short` now present on BOTH 1D (R:R 1.09:1) and 60m (R:R 1.27:1) per fresh `analyze_structure_batch`, but both fail the 1.3:1 floor | Item 7 (mirror) now actually clears — daily+hourly both show the bearish pullback_short structure, aligned; items 2/3 not independently re-verified this cycle (no fresh catalyst/RS pull) | 2026-11-04T15:28Z (latest_bar_time 1793802600) | 2026-11-03 | 2 | 2026-11-12 |
 | SOFI | Equity (Mode B), Bearish Mirror Gate | §5B item 7 (mirror) — 1D shows `pullback_short` (R:R 1.34:1, now clears item 4) but 60m setup is null, no confirming hourly breakdown trigger | Item 4 (mirror) now clears on 1D; items 2/3 not independently re-verified this cycle (no fresh catalyst/RS pull) | 2026-11-04T15:28Z | 2026-11-03 | 2 | 2026-11-12 |
+| PGY | Equity (Mode B) | §5B item 7 — 1D `pullback_long` R:R exactly 1.30:1 (clears item 4, marginally); 60m is `ranging/neutral` with no setup — no confirming hourly reclaim trigger | Item 4 clears (marginally); items 2/3 (catalyst/RS, confirmations) not independently checked this cycle | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
+| IGV | Equity (Mode B, ETF) | §5B item 7 — 1D `pullback_long` R:R 1.57:1 (clears item 4 comfortably); 60m shows an overextended pullback with no setup — no confirming hourly trigger | Item 4 clears; items 2/3 not independently checked this cycle | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
+| PLTR | Equity (Mode B) | §5B item 7 — 1D `pullback_long` R:R 2.15:1 (clears item 4 strongly); 60m shows an overextended pullback with no setup and price below its own recent swing low — no confirming hourly trigger | Item 4 clears strongly; items 2/3 not independently checked this cycle | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
+
+**Note on this cycle's reassessment (2026-11-04T16:13Z Entry Screening cycle):** TEM/SOFI above
+were NOT re-reassessed this cycle — the most recent completed hourly candle is unchanged from the
+First Scan cycle 45 minutes earlier (`latest_bar_time` identical), so a re-check would only
+reproduce the same result already on file. The 5-slot reservation was used instead for CVX/ZS/DIS
+(see the §13.G correction below) — wait, those are also unchanged this cycle for the same reason.
+**Correction to this note**: no near-miss-queue reservation was actually drawn this cycle; all 12
+Stage-2 slots went to fresh rotation names (AVA, UBER, TTD, SHOP, AMD, ETHA, IBIT, PGY, MU, TSM,
+IGV, PLTR), which is where PGY/IGV/PLTR above were newly found. This is a deliberate, logged
+deviation from "reassess up to 5 every cycle" specifically because the candle hadn't advanced —
+re-check TEM/SOFI/CVX/ZS/DIS for real at the next cycle whose candle has actually moved forward.
 
 **CORRECTION, same day 2026-11-04T15:xxZ entry superseded — CVX/ZS/DIS were NOT properly
 invalidated; "removed" above was a mislabeling, caught on user review.** `analyze_structure_batch`
