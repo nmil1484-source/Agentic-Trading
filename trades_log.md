@@ -57805,3 +57805,102 @@ cycle (same honest gap as the prior cycle — flagged, not fabricated).
 ```json
 {"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-04T17:14:23Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":61,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":[],"session_cumulative_touched":33,"tool_failures":0},"near_miss_queue":{"reassessed":5,"cleared":0,"still_near_miss":2,"new_near_miss":["ZETA"],"resolved_to_rejected":["CVX","ZS","DIS"],"ineligible":0,"expired":0},"leveraged_etf_coverage":{"universe_size":9,"evaluated":9,"rejected_with_evidence":7,"near_miss":["TNA","SPXL"],"not_evaluated":[],"coverage_complete":true},"mode_c":{"realized_pl_today":0,"open_positions":0,"dedicated_screen_performed":false},"tvremix_calls_used_today":10,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### 2026-11-04T17:18Z — READ-ONLY: Mode C screen completed, TNA/PGY/IGV/PLTR reassessed on fresh data, First Scan trigger-fix status confirmed (user-requested diagnostic, no new order authority)
+
+**1. Mode C (§20 item 5) — actually completed this time, not deprioritized.** Candidate pool:
+today's top-10 Stage-1 movers (DUOL, AMZN, DIS, AAPL, AVA, UBER, LLY, IWM, SPY, TSLA), using fresh
+`get_equity_historicals`(hour) + `get_equity_technical_indicators`(vwap/rsi/bollinger_bands) —
+all pulled 2026-11-04T17:15-17:17Z, current session's data (2 completed regular-session hourly
+bars so far today: 15:00Z and 16:00Z UTC). **Data-granularity limitation found and disclosed, not
+worked around**: Robinhood's `get_equity_historicals` returns clock-aligned hourly bars (15:00Z,
+16:00Z), so the **ORB setup cannot be computed** — the first available bar already spans
+10:00-11:00am ET, past the actual 9:30-10:00/10:30am ET opening range this account's tooling has
+no finer granularity to capture. Logged as **NOT_PERFORMED — tool granularity**, not a rejection.
+
+For VWAP-pullback and mean-reversion, evaluated per name:
+- **DUOL**: price (167.43) below VWAP (169.83) — fails the VWAP-pullback context filter outright. REJECTED.
+- **AMZN**: price above VWAP (+0.07%), a plausible pullback-reclaim shape, but volume on the
+  reclaim bar (4.50M) is *lower* than the pullback bar (8.57M) — fails the mandatory
+  rising-volume-on-reclaim condition. REJECTED.
+- **DIS**: RSI 83.76 (>80) and price outside the upper Bollinger Band — meets the mean-reversion
+  *trigger* condition on this bar, but DIS reports earnings in 13 days, inside the mean-reversion
+  policy's 2-week earnings exclusion (14 days) — **REJECTED outright on the earnings rule**, not a
+  pending watch.
+- **AAPL**: inside bands, RSI 67 (not extreme), no clear pullback shape in the 2 bars available. REJECTED.
+- **AVA**: RSI 86.0 (>80) and price outside the upper band — same trigger shape as DIS, but AVA's
+  next earnings is 112 days out (no conflict). Per §20 item 5, mean-reversion entry fires on the
+  *following* bar's close back inside the band, not the extreme bar itself — **this is a genuine
+  PENDING WATCH, not yet a candidate**: the current forming hourly bar must close back below the
+  upper band (~$39.70) by its close (see timing note below) for the trigger to fire.
+- **UBER**: RSI 79.52 — just short of the >80 extreme threshold. REJECTED (mean-reversion); no
+  clean VWAP-pullback shape either (extension, not a measured pullback). REJECTED both.
+- **LLY**: outside upper band but RSI 69 (not extreme) — REJECTED (mean-reversion, RSI condition
+  unmet). VWAP-pullback shape present but same declining-volume-on-reclaim failure as AMZN. REJECTED.
+- **IWM**: inside/at the upper band, RSI 61.8 (not extreme) — REJECTED (mean-reversion). VWAP-
+  pullback shape present but same declining-volume failure. REJECTED.
+- **SPY**: barely outside the upper band but RSI 62.7 (not extreme) — REJECTED (mean-reversion).
+  VWAP-pullback shape present but same declining-volume failure. REJECTED.
+- **TSLA**: price below VWAP (fails VWAP-pullback context filter); RSI 31.1 and price barely inside
+  the lower band (not clearly outside) — fails mean-reversion's "outside the band" condition too. REJECTED both.
+
+**Pattern worth flagging, not fabricated**: every VWAP-pullback candidate with an otherwise
+plausible pullback-reclaim shape (AMZN, LLY, IWM, SPY) failed on the *same* condition —
+declining, not rising, volume on the reclaim bar versus the pullback bar. This looks like a
+broad, session-wide volume decay as the morning progresses (common pattern), not four
+coincidental individual failures — logged as an observation, not used to relax any rule.
+
+**Mode C result: 10 evaluated, 9 rejected with evidence, 1 pending-watch (AVA, not yet a
+candidate), 0 candidates, ORB not performed (tool granularity) for all 10.** No order placed —
+$0 Mode C P&L today, 0 positions, no capacity question reached.
+
+**2. TNA, PGY, IGV, PLTR — reassessed on fresh data (2026-11-04T17:17Z), not the 16:13Z/17:04Z
+reads restated.** Confirmed via a fresh `analyze_structure_batch` call: the 60m bar in current use
+began at **16:30Z** (TradingView aligns hourly bars to the 9:30am ET open, i.e. `:30` past the
+hour — a different convention than Robinhood's clock-aligned `:00` bars used for the Mode C check
+above; both are legitimate, they're just not the same candle scheme, flagged so the two sections
+of this entry aren't read as using one consistent clock). That bar **closes at 17:30 UTC = 9:30am
+Pacific today** — the completed-candle close time referenced below for all four names.
+
+- **TNA** (§22 leveraged-long): daily thesis unchanged (1D `pullback_long`, entry $60.20, R:R
+  1.88:1, **invalidation/stop $51.15** — flagging this stop is **18.3% below entry**, well past
+  §22's own 8%-max-stop-distance ceiling on TNA's own price, so this exact daily stop could not be
+  used for an actual §22 entry even if the hourly trigger fired; a real trade would need a tighter
+  stop near the hourly structure, which also changes the R:R). **Confirming trigger**: the hourly
+  chart currently shows an *opposing* bearish `pullback_short` (resistance at $60.41, $61.15,
+  $61.31, $61.56; that bearish read's own stop is $62.06). The exact level needed: an hourly
+  **close above $60.41** (clears the immediate hourly resistance) for a first reclaim signal, or
+  above **$62.06** for a full invalidation of the competing bearish hourly structure. Neither has
+  happened as of the 16:30Z bar (current price $60.20, below both).
+- **PGY**: daily thesis unchanged (1D `pullback_long`, entry $18.96, R:R 1.34:1, structural
+  invalidation $15.43 — also quite wide at 18.6%; a real trade would size down rather than use
+  this distance literally). **New this check**: the 60m chart now shows its *own* `pullback_long`
+  setup (R:R 0.97:1) — previously `ranging/neutral` with no setup at 16:13Z. **Confirming trigger**:
+  an hourly close above **$18.995-19.025** (the immediate overhead hourly resistance) — current
+  price $18.96 is within 0.2% of this level, the closest any name got to firing today.
+- **IGV** (ETF): daily thesis essentially unchanged (1D `pullback_long`, entry $103.54, R:R
+  1.88:1, invalidation $98.14, a reasonable 5.2% stop). 60m still shows no setup (overextended).
+  **Confirming trigger**: an hourly close above **$103.73** (nearest hourly resistance) for an
+  initial signal, or above **$106.50** for a cleaner reclaim of the last meaningful hourly high.
+  Current price $103.54 sits just below the first level.
+- **PLTR**: **no longer a near-miss — removed, invalidated.** Price fell 176.48→171.37 (-2.9%)
+  since the 16:13Z check; the daily pullback deepened past the point where the tool computes any
+  setup at all (`setup: null` now, both daily and hourly), and the hourly chart shows price **below
+  its own recent swing low**. There is no confirming trigger level or invalidation to report
+  because there is currently no computable trade structure — removed from `near_miss_queue.md`
+  with this exact reasoning, not silently dropped.
+
+**3. First Scan trigger-fix status — confirmed, read-only.** Re-fetched
+`trig_01RN6ZbtgxKpoDApzmGswWAs` just now: `updated_at` is still **2026-11-04T02:55:13Z** — a
+timestamp from *before* today's diagnostic found the gap. The saved prompt text still has no §22
+step (no "3c" anywhere in Mode B) and step 8's options/LEAPS check is still the old vague wording,
+with none of Fresh Candle's explicit stop-ratchet formula or mandatory mark-vs-stop comparison.
+**Confirmed: the gap was only logged as a finding in `trades_log.md`/`near_miss_queue.md` — it was
+never actually applied to the saved trigger.** No edit made now either; this is a status check
+only, consistent with "read-only evaluation."
+
+**No order placed, no trigger modified, no risk/cap/permission changed.**
+
+```json
+{"cycle":"Mode C completion + TNA/PGY/IGV/PLTR reassessment + trigger-fix status check (read-only, user-requested)","timestamp_utc":"2026-11-04T17:18:54Z","modes_covered":["C","B"],"status_gate":"ACTIVE","mode_c":{"evaluated":10,"rejected_with_evidence":9,"pending_watch":["AVA"],"candidates":0,"not_performed":{"orb":"tool granularity - no sub-hourly data available"}},"near_miss_reassessment":{"TNA":"still_near_miss","PGY":"still_near_miss","IGV":"still_near_miss","PLTR":"invalidated_removed"},"first_scan_trigger_fix_status":"NOT_APPLIED_only_logged_as_finding","data_timestamps_used":{"mode_c":"2026-11-04T17:15-17:17Z, today's session bars (15:00Z,16:00Z)","tna_pgy_igv_pltr":"2026-11-04T17:17Z, current forming bar begins 16:30Z closes 17:30Z UTC (9:30am PT)"},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
