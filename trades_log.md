@@ -58065,3 +58065,72 @@ invented, no schedule (cron) changed, no new order authority granted by this req
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T17:37:19Z","timestamp_pacific":"2026-11-04T09:37:19-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"DATA_BLOCKED","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"ETH","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"SOL","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"XRP","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"LINK","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"AAVE","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"HBAR","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"AVAX","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"}],"tool_failures":8},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":1,"tvremix_calls_used_today":12,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-04 ~18:04 UTC / 10:04 AM PST — AUTONOMOUS (Mode B/C Entry Screening — Fresh Candle, trigger fired 18:04:13Z, processed this turn)
+
+**Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found. Proceeding.
+
+**Account:** `get_portfolio` — equity $5,983.925, cash $4,378.02 (73% headroom under 90% ceiling).
+Only open Mode B position: **PATH**, 119 sh @ avg $13.25, current $13.515 (+2.0%, not yet at
++1R/$13.77 — breakeven move not yet due).
+
+**2a. Mode B stop-audit:** `get_equity_orders` (PATH) — resting `stop_market`, stop $12.73,
+qty 119, state confirmed. **checked=1, missing=0, placed=0.** Clean.
+
+**2b. §18/§19 options/LEAPS stop-check:** `get_option_positions` — **0 open positions.**
+checked=0, breached=0, exited=0. Nothing to compute.
+
+**Portfolio heat cap:** PATH's current open risk = (13.25−12.73)×119 = **$61.88** (0.1x of equity,
+far under the 6%/$359.04 cap). No new entry this cycle, so no sizing decision was gated by this,
+but headroom is effectively unconstrained right now.
+
+**tvremix connector outage — confirmed connector-wide, not crypto-specific.** The same
+`analyze_structure_batch` 429 "Too Many Requests" that blocked the 17:37:19Z crypto cycle
+recurred here: attempted the Stage-2 rotation batch (TEM/SOFI/PGY/IGV — the 4 queued near-misses
+— plus 8 new rotation names: TSM, HPE, NBIS, ONDS, CBRS, VRT, STM, BE) twice; **both attempts
+failed with the identical 429 error.** This is the trigger's own 2-attempt retry cap, exhausted.
+
+**Stage 1 — reused from an essentially-concurrent read, disclosed explicitly, not a prior cycle's
+stale data:** a `rank_symbol_setups` full-74-name-universe call was made at ~18:03Z, ~60 seconds
+before this cycle's 18:04:13Z fire, in the course of answering a user question in this same
+session — the same real-time window, same forming hourly bar, obtained moments before the
+connector began rate-limiting. Reused here as this cycle's Stage-1 coarse pass rather than
+re-spending an already-failing call. `universe_size: 74, triaged: 74` (ranked_count 46 + 10
+skipped-earnings + 18 missing-from-provider, all accounted for).
+
+**Stage 2 — genuinely NOT completed this cycle, logged honestly rather than overclaimed.** Three
+names (DUOL, AMZN, DIS) got a structural swing-read in that same ~18:03Z window (DUOL:
+aligned_bearish/overextended both TFs, no setup; AMZN/DIS: mixed consensus, timeframes disagree).
+**These are explicitly NOT counted as "full_gate_evaluated"** — per the Screening Coverage
+methodology's own "quote/score ≠ full gate" rule, a structural read alone (no catalyst/
+confirmation-role-group/R:R walk-through completed) does not constitute an evaluated label. All
+12 intended Stage-2 names (the 4 queued + 8 rotation) are labeled **not evaluated — tool
+failure (tvremix connector-wide 429, 2/2 attempts)** this cycle.
+
+**Near-miss queue (TEM, SOFI, PGY, IGV):** **not reassessed this cycle** — same connector outage;
+queue left unchanged (data timestamps/cycles-checked NOT updated, since no genuine fresh full-gate
+check was completed). AMD pending-eligibility: already resolved 2026-11-04T16:08Z, no action.
+
+**§22 leveraged/inverse-ETF coverage (9 names): NOT_EVALUATED — tool failure, all 9.** The
+structural reads this step depends on (own-chart EMA/RSI/MACD, plus the underlying-index Bearish
+Mirror Gate check for SQQQ/SOXS/SPXU/TZA) need the same blocked connector. **COVERAGE_INCOMPLETE:
+true** — stated explicitly, not folded into a quiet no-trade cycle.
+
+**Mode C — genuine partial screen completed via Robinhood-native tools (tvremix-independent):**
+`get_equity_technical_indicators` (hourly VWAP + RSI(14), latest closed bar 17:00Z) on SPY, QQQ,
+AAPL, AMZN, TSLA — all 5 trading above their session VWAP; RSI readings SPY 57.7, QQQ 44.7, AAPL
+63.3, AMZN 77.6 (elevated but not >80 extreme), TSLA 39.6 — none at a mean-reversion RSI extreme
+(<20/>80), and a single latest-bar read can't itself confirm a defined VWAP-pullback-then-reclaim
+pattern (would need the preceding bar(s) too). **OBSERVE, no Mode C candidate** on this 5-name
+subset. ORB not performed (known Robinhood hourly-bar clock-alignment gap, disclosed previously
+this session, unchanged). **This was a partial screen (5 of 74 names) given the connector
+outage's demand on this cycle's remaining effort — not a full-universe Mode C pass; logged
+honestly as such rather than presented as complete coverage.**
+
+**No order placed, no existing order modified, no stop loosened, no target invented.**
+
+```json
+{"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-04T18:04:13Z","timestamp_pacific":"2026-11-04T10:04:13-08:00","modes_covered":["B","C"],"status_gate":"ACTIVE","coverage_state":"DATA_BLOCKED","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"portfolio_heat_cap":{"current_heat_usd":61.88,"cap_usd":359.04,"blocked_or_resized":false},"coverage":{"universe_size":74,"triaged":74,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbols":["TEM","SOFI","PGY","IGV","TSM","HPE","NBIS","ONDS","CBRS","VRT","STM","BE"],"reason":"tool failure — analyze_structure_batch connector-wide 429, 2/2 attempts"}],"tool_failures":12,"partial_structural_reads_not_counted_as_evaluated":["DUOL","AMZN","DIS"]},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":4,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_2026-11-04T16:08Z"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"TQQQ","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"SQQQ","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"SOXL","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"SOXS","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"SPXL","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"SPXU","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"TNA","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"TZA","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"AMDG","reason":"tool failure — tvremix connector-wide 429"}],"coverage_complete":false},"mode_c":{"realized_pl_today":0,"open_positions":0,"partial_screen_names":["SPY","QQQ","AAPL","AMZN","TSLA"],"partial_screen_of_universe":"5 of 74","dedicated_screen_performed":"partial","candidates":0},"tvremix_calls_used_today":14,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
