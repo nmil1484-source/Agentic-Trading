@@ -58134,3 +58134,70 @@ honestly as such rather than presented as complete coverage.**
 ```json
 {"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-04T18:04:13Z","timestamp_pacific":"2026-11-04T10:04:13-08:00","modes_covered":["B","C"],"status_gate":"ACTIVE","coverage_state":"DATA_BLOCKED","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"portfolio_heat_cap":{"current_heat_usd":61.88,"cap_usd":359.04,"blocked_or_resized":false},"coverage":{"universe_size":74,"triaged":74,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbols":["TEM","SOFI","PGY","IGV","TSM","HPE","NBIS","ONDS","CBRS","VRT","STM","BE"],"reason":"tool failure — analyze_structure_batch connector-wide 429, 2/2 attempts"}],"tool_failures":12,"partial_structural_reads_not_counted_as_evaluated":["DUOL","AMZN","DIS"]},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":4,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_2026-11-04T16:08Z"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"TQQQ","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"SQQQ","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"SOXL","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"SOXS","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"SPXL","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"SPXU","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"TNA","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"TZA","reason":"tool failure — tvremix connector-wide 429"},{"symbol":"AMDG","reason":"tool failure — tvremix connector-wide 429"}],"coverage_complete":false},"mode_c":{"realized_pl_today":0,"open_positions":0,"partial_screen_names":["SPY","QQQ","AAPL","AMZN","TSLA"],"partial_screen_of_universe":"5 of 74","dedicated_screen_performed":"partial","candidates":0},"tvremix_calls_used_today":14,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-04 ~18:22 UTC / 10:22 AM PST — DIAGNOSTIC (read-only, user-requested — DUOL §13.G breakout-continuation full evaluation, separate from autonomous-cycle authority)
+
+**Scope, per explicit user instruction:** complete the DUOL §13.G evaluation flagged as left at a
+structural-read-only stage; read-only, no order/schedule/protection change.
+
+**1. Catalyst (§5B item 2) — CLEARS.** Q3 2026 earnings, 2026-11-03 after close: revenue $309M
+(+14% YoY, beat ~$303M est.), DAU +29% (accelerating from +23% Q2), Q4 guide $322M vs ~$314.55M
+consensus; EPS $0.54 missed ($0.57 est.), margin fell to 7.8% from 12.9% YoY (a real mixed
+detail). Dated analyst actions same-day: Wells Fargo upgrade, Wedbush/Needham target raises.
+Verified via `web_search` (Yahoo Finance, Benzinga, Schaeffer's, MarketBeat, 247wallst, AOL,
+Stocktwits, Investing.com — multiple independent sources, consistent on the core facts).
+
+**2. Daily setup / fresh-high condition (§13.G item 1) — satisfied on 60m.** `analyze_structure_batch`
+(60m, from the ~18:03Z diagnostic read): `current_above_max_swing_high: true`, current price
++12.13% above the confirmed swing high **$153.61** (`max_swing_high_time` epoch 1791397800 =
+**2026-10-07**, pre-earnings — a real, dated, local level). The 1D array's own `max_swing_high`
+field ($213.37) is a much older multi-month peak, not conflated with this.
+
+**3. Hourly trigger candle.** `get_equity_historicals` (DUOL, hourly, regular session, today):
+15:00Z O165.64 H175.56 L165.45 C170.17 V1,136,405 / 16:00Z O170.36 H171.59 L166.70 C167.43
+V506,584 / 17:00Z O167.59 H171.55 L167.09 **C171.37** V231,560 / 18:00Z (forming, not used).
+**Completed candle tested: 17:00–18:00Z, close $171.37, closes 10:00 AM PT / 1:00 PM ET.**
+
+**4. §13.H volume baseline — FAILS.** Only 2 prior completed regular-session bars exist today
+(Robinhood's hourly bars don't capture the 9:30–10:00am ET opening half-hour — the same
+granularity gap already documented this session for ORB) → reduced-sample baseline (explicitly
+disclosed per §13.H's own rule) = avg(506,584, 1,136,405) = **821,494.5**. Tested bar volume
+231,560 → **ratio 0.28x, far below the ≥1.2x floor.** Volume is fading bar-over-bar (1.14M→507K→
+232K), the inverse of confirmation. The one high-volume bar (15:00Z) has zero prior bars to
+benchmark against — uncomputable, never treated as a pass.
+
+**5. Counterfactual entry/stop/target/R:R (shown for completeness only — does not change the
+verdict, since item 2 already fails independently):** entry ≈$171.50; stop on the broken level
+($153.61→~$152.50): risk $19.00/sh, target $192.92 (next real 1D resistance) → R:R **1.13:1**
+(also fails 1.3:1); stop on today's own intraday pullback low (~$165.50): risk $6.00/sh, same
+target → R:R **3.57:1** (would clear). Shown both ways deliberately — a favorable R:R never
+substitutes for a separately failed condition.
+
+**6. Remaining constraints.** Timing clear (1:22pm ET, outside both blackout windows; earnings
+already released, not a forward blackout). Macro-calendar not independently re-checked this
+diagnostic (tvremix connector outage ongoing, disclosed, not assumed clear). Affordability n/a
+(equity). Sizing if cleared: ~19 sh (~$3,258) under the tighter-stop convention — moot given
+rejection.
+
+**RESULT: REJECTED — §13.G item 2 (mandatory volume confirmation), 0.28x of a reduced 2-bar
+baseline on the only candle with a computable baseline.** Not waived from `setup: null`; not
+DATA_BLOCKED — a real, computed rejection, independent of R:R.
+
+**Why left unevaluated:** the earlier structural-only read was correctly not counted as a full
+gate pass (quote/score ≠ full gate); DUOL wasn't in the 18:04:13Z cycle's rotation batch
+(least-recently-evaluated-first, not biggest-mover-first, by design) before that cycle's tvremix
+outage blocked the batch regardless. No missed opportunity resulted — DUOL fails on its own
+fading-volume merits.
+
+**Smallest proposed pipeline correction (proposed only, NOT applied — no trigger/config change
+made):** a reserved next-cycle priority Stage-2 slot for a name whose own live diagnostic shows a
+§13.G fresh-high condition, mirroring the existing near-miss-queue/AMD-pending-eligibility
+priority mechanism, instead of waiting on strict rotation order. Flagged for the user's decision.
+
+**No order placed, no existing order/stop modified, no trigger/schedule/permission changed.**
+
+```json
+{"cycle":"DUOL §13.G breakout-continuation full evaluation (read-only diagnostic, user-requested)","timestamp_utc":"2026-11-04T18:22:38Z","timestamp_pacific":"2026-11-04T10:22:38-08:00","symbol":"DUOL","result":"REJECTED","failed_item":"§13.G item 2 — mandatory volume confirmation","catalyst":{"date":"2026-11-03","type":"Q3_2026_earnings","verified":true},"fresh_high_condition":{"timeframe":"60m","broken_level":153.61,"broken_level_date":"2026-10-07","pct_above":12.13},"trigger_candle":{"begins_at_utc":"2026-11-04T17:00:00Z","closes_at_pacific":"2026-11-04T10:00:00-08:00","close":171.37,"volume":231560},"volume_baseline":{"method":"reduced_2_bar","bars_used":[506584,1136405],"baseline":821494.5,"ratio":0.28,"floor_required":1.2},"counterfactual_rr":{"broken_level_stop":{"entry":171.50,"stop":152.50,"target":192.92,"rr":1.13},"intraday_pullback_stop":{"entry":171.50,"stop":165.50,"target":192.92,"rr":3.57}},"orders_placed":0,"existing_orders_modified":0,"schedule_changed":false,"protection_changed":false,"pipeline_correction":"proposed_only_not_applied","git_push":"pending"}
+```
