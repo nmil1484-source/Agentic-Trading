@@ -96,11 +96,17 @@ repair exists to clear starting at the next eligible cycle.
 
 ## Current queue — Crypto (§21)
 
-*Empty.* No crypto candidate currently qualifies as a true single-item near-miss with a recent,
-reliable data timestamp — the lane has been DATA_BLOCKED (tvremix connector-wide outage) for 7+
-consecutive hourly cycles as of this file's creation (2026-11-03T21:38:26Z), so no fresh gate
-evaluation has been possible to seed this list honestly. Will populate from live crypto cycles once
-tvremix recovers.
+**tvremix recovered since this file's creation** — 8 consecutive successful crypto cycles logged
+(2026-11-03T22:38Z through 2026-11-04T05:38Z, `tvremix_consecutive_failed_cycles: 0` throughout);
+the "DATA_BLOCKED" note below is now stale history, left only for audit context.
+
+| Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
+|---|---|---|---|---|---|---|---|
+| BTC | Crypto (§21) | §21 item 3 (item 2 analog) — catalyst contradicted: the most recent, highest-timestamped headline ("Bitcoin stages V-shaped recovery after midterm dip below $76,000," 06:20:49Z, Crypto Briefing) describes price already bouncing off the dip the bearish thesis would need to continue, directly negating the "Democrats' win rattles Trump trades from AI stocks to crypto" headwind headline (05:56:54Z) as a clean, uncontradicted bearish catalyst | Item 3 clears (Trend/State: 4H bearish moderate, 10 swings aligned; 1H bearish weak, 8 swings aligned — both timeframes bearish, no mismatch); item 4 clears marginally (1H setup pullback_short, entry 78059, stop 79145.23, target 76388.88, R:R 1.54 ≥ 1.5 floor — tool's own stricter internal quality bar still flags it "low_rr" against its own 2.0 threshold, noted for context only, not itself a disqualifier); item 7 clears (4H+1H aligned bearish, no direction mismatch) | 2026-11-04T06:38Z (`analyze_structure_batch`, 240/60 confirmed via returned interval fields) + news at 06:20:49Z | 2026-11-04 | 1 | 2026-11-14 |
+
+Prior note (historical, now stale): no crypto candidate qualified as a true single-item near-miss
+while the lane was DATA_BLOCKED (tvremix connector-wide outage) for 7+ consecutive hourly cycles as
+of this file's creation (2026-11-03T21:38:26Z).
 
 ## Pending-eligibility (timing-restricted, not a gate near-miss — priority on eligibility, not a queued gate failure)
 
