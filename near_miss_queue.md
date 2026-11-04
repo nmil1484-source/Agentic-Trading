@@ -80,11 +80,19 @@ repair exists to clear starting at the next eligible cycle.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (7 sessions) |
 |---|---|---|---|---|---|---|---|
-| TEM | Equity (Mode B) | §5B item 7 — no hourly reclaim/breakout trigger; hourly bars faded 81.57→80.305 | Item 2 clears (+68.9% vs. SPY -1.95%); item 3 clears 2-of-5 (Trend/State + Momentum) | ~17:55:31Z (hourly bars through 17:00Z) | 2026-11-03 | 1 | 2026-11-12 |
-| CVX | Equity (Mode B) | §5B item 7 — sideways consolidation (225.99→226.50→226.30→226.40), no reclaim/breakout trigger | Item 2 clears (+19.1% vs. SPY -1.95%); item 3 clears 1-of-5 (Trend/State) | ~17:55:31Z | 2026-11-03 | 1 | 2026-11-12 |
-| ZS | Equity (Mode B) | §5B item 7 — hourly reversal/giveback from highs (228.85 high → 225.065), not a reclaim | Item 2 clears (+36.3% vs. SPY -1.95%); item 3 clears 1-of-5 (Trend/State) | ~18:55:15Z | 2026-11-03 | 1 | 2026-11-12 |
-| SOFI | Equity (Mode B) | §5B item 2 — 5wk RS -11.5% vs. SPY -1.95% (underperformance, not a driver); no catalyst sourced | Item 3 clears 2-of-5 (Trend/State + Momentum) | ~18:55:15Z | 2026-11-03 | 1 | 2026-11-12 |
-| DIS | Equity (Mode B), §13.G breakout-continuation | §13.G item 2 — confirmed 18:00Z bar volume 241,643 = 0.78x its own §13.H 3-prior-bar baseline (309,770); required ≥1.2x | Item 2 clears (+10.9% 5wk RS vs. SPY -1.95%); item 3 clears 2-of-5 (Trend/State + Momentum); hourly structure is a clean 4-bar grind higher | ~19:55:33Z (confirmed 18:00Z bar) | 2026-11-03 | 1 | 2026-11-12 |
+| TEM | Equity (Mode B), Bearish Mirror Gate | §5B item 4 (mirror) — `pullback_short` now present on BOTH 1D (R:R 1.09:1) and 60m (R:R 1.27:1) per fresh `analyze_structure_batch`, but both fail the 1.3:1 floor | Item 7 (mirror) now actually clears — daily+hourly both show the bearish pullback_short structure, aligned; items 2/3 not independently re-verified this cycle (no fresh catalyst/RS pull) | 2026-11-04T15:28Z (latest_bar_time 1793802600) | 2026-11-03 | 2 | 2026-11-12 |
+| SOFI | Equity (Mode B), Bearish Mirror Gate | §5B item 7 (mirror) — 1D shows `pullback_short` (R:R 1.34:1, now clears item 4) but 60m setup is null, no confirming hourly breakdown trigger | Item 4 (mirror) now clears on 1D; items 2/3 not independently re-verified this cycle (no fresh catalyst/RS pull) | 2026-11-04T15:28Z | 2026-11-03 | 2 | 2026-11-12 |
+
+**Removed 2026-11-04T15:28Z — CVX, ZS, DIS, reassessed and invalidated (structural absence, not a
+single-item near-miss).** On fresh `analyze_structure_batch` data (1D + 60m): CVX now shows an
+overextended 150%-deep pullback with `setup: null` on both timeframes (no pullback leg left to
+measure a stop from); ZS shows an overextended 117%-deep pullback on 60m (`setup: null`) and a
+`ranging/neutral` 1D read with insufficient swing data (`setup: null`); DIS shows `setup: null` on
+both timeframes (no breakout or pullback structure currently present, including under the §13.G
+breakout-continuation method — there is no fresh high/low to break from right now). Per this
+file's own item-4 handling, "no computable stop" is a structural absence, not a near-miss on one
+item — all three are removed rather than re-queued. None were close to qualifying otherwise this
+cycle; re-add if/when a genuine single-item near-miss re-emerges on fresh data.
 
 ## Current queue — §22 leveraged/inverse ETFs (tracked for history only — already re-screened every cycle via the existing mandatory §22 step; no separate reserved slot needed)
 
@@ -131,7 +139,7 @@ of this file's creation (2026-11-03T21:38:26Z).
 
 | Symbol | Instrument focus | Restriction | Restriction basis | Re-check method | Expected clear |
 |---|---|---|---|---|---|
-| AMD | §18 options / §19 LEAPS — kept prioritized for options research per explicit user instruction | §4 earnings blackout (30 min before/after the report) | Reported Q3 2026 earnings 2026-11-03, timing "pm" (after today's regular-session close), actual EPS $2.09 vs. est. $1.89 (a beat), per `get_earnings_results`. Exact release minute not independently known beyond "pm." `rank_symbol_setups`' own conservative multi-day earnings-proximity skip (which flagged AMD "0 days to earnings" at today's first-scan) is a screener heuristic, NOT the actual §4 rule, and must not be used as the gating check here. | Every eligible cycle: re-verify via `get_earnings_results(AMD)` plus a direct computation of the actual §4 30-minute window against the real release timestamp — not the screener's skip heuristic. | By 2026-11-04's first-scan-of-day cycle at the latest — today's regular session already closed, and any reasonable "pm" release time tonight will be well past 30 minutes clear by tomorrow's open. |
+| AMD | §18 options / §19 LEAPS — kept prioritized for options research per explicit user instruction | **CLEARED 2026-11-04T15:28Z** — confirmed via TradingView `get_earnings_calendar(NASDAQ:AMD)`: `last_earnings_date: 2026-11-03`, `next_earnings_date: 2026-12-31`. The report was yesterday; today's §4 30-minute window has no remaining overlap with any reasonable release time on 2026-11-03. No longer earnings-restricted. | — (resolved) | — | **Sourcing itself blocked this cycle for a separate, unrelated reason: Robinhood MCP lost authorization mid-cycle (see trades_log.md 2026-11-04T15:28Z entry) — `get_option_chains`/`get_option_instruments` could not be called.** AMD remains prioritized for the next cycle that has live Robinhood access, ahead of ordinary §18/§19 rotation. |
 
 Once clear: AMD gets a **prioritized** full §18/§19 Stage-2 slot (via the existing §18 item
 11/§19 item 8 options/LEAPS sourcing steps) at the next eligible cycle, ahead of ordinary rotation
