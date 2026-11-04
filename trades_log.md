@@ -58201,3 +58201,36 @@ priority mechanism, instead of waiting on strict rotation order. Flagged for the
 ```json
 {"cycle":"DUOL §13.G breakout-continuation full evaluation (read-only diagnostic, user-requested)","timestamp_utc":"2026-11-04T18:22:38Z","timestamp_pacific":"2026-11-04T10:22:38-08:00","symbol":"DUOL","result":"REJECTED","failed_item":"§13.G item 2 — mandatory volume confirmation","catalyst":{"date":"2026-11-03","type":"Q3_2026_earnings","verified":true},"fresh_high_condition":{"timeframe":"60m","broken_level":153.61,"broken_level_date":"2026-10-07","pct_above":12.13},"trigger_candle":{"begins_at_utc":"2026-11-04T17:00:00Z","closes_at_pacific":"2026-11-04T10:00:00-08:00","close":171.37,"volume":231560},"volume_baseline":{"method":"reduced_2_bar","bars_used":[506584,1136405],"baseline":821494.5,"ratio":0.28,"floor_required":1.2},"counterfactual_rr":{"broken_level_stop":{"entry":171.50,"stop":152.50,"target":192.92,"rr":1.13},"intraday_pullback_stop":{"entry":171.50,"stop":165.50,"target":192.92,"rr":3.57}},"orders_placed":0,"existing_orders_modified":0,"schedule_changed":false,"protection_changed":false,"pipeline_correction":"proposed_only_not_applied","git_push":"pending"}
 ```
+
+---
+
+## 2026-11-04 ~18:37 UTC / 10:37 AM PST — AUTONOMOUS (Crypto 24/7 Scan §21, trigger fired 18:37:52Z, processed this turn)
+
+**Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found. Proceeding.
+
+**Account/positions:** `get_portfolio` — equity $5,979.165, cash $4,378.02. `get_crypto_positions` —
+**0 open crypto positions.** `get_crypto_orders` (state=confirmed) — 0 resting crypto orders.
+Stop-audit: nothing to audit — checked=0, missing=0, placed=0, trivially clean.
+
+**Near-miss queue (crypto table):** still empty — 0 entries to reassess.
+
+**Full-allowlist structure check — DATA_BLOCKED again, second consecutive cycle.** Same 8-pair
+allowlist (BTC, ETH, SOL, XRP, LINK, AAVE, HBAR, AVAX). Both of this cycle's 2 permitted
+`analyze_structure_batch` attempts failed: `Error POSTing to endpoint: Too Many Requests` on both
+tries — the identical connector-wide 429 seen in the 17:37:19Z crypto cycle and the 18:04:13Z
+Mode B/C cycle, confirming this is an ongoing outage, not a one-off. All 8 pairs labeled
+**NOT_EVALUATED — tool failure (rate-limited, 2/2 attempts)**, none logged as rejected.
+
+**Persistent-failure counter:** prior cycle (17:37:19Z) logged `tvremix_consecutive_failed_cycles:
+1`. This cycle → **`tvremix_consecutive_failed_cycles: 2`**. Consolidated-alert threshold (6) not
+yet reached — no chat alert this cycle, routine log-only entry per the "don't wake the user for a
+quiet/blocked cycle" rule.
+
+**tvremix budget:** shared counter was last at 14 (per the 18:04:13Z Mode B/C cycle, itself
+inflated by its own 2 failed attempts). This cycle's 2 more failed attempts → **`tvremix_calls_used_today: 16`**.
+
+**No crypto order placed, no position management action needed (0 positions), no risk/cap/gate change.**
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T18:37:52Z","timestamp_pacific":"2026-11-04T10:37:52-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"DATA_BLOCKED","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"ETH","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"SOL","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"XRP","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"LINK","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"AAVE","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"HBAR","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"},{"symbol":"AVAX","reason":"tool failure — analyze_structure_batch rate-limited, 2/2 attempts"}],"tool_failures":8},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":2,"tvremix_calls_used_today":16,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
