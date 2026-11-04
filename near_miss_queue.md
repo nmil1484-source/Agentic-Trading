@@ -85,7 +85,20 @@ repair exists to clear starting at the next eligible cycle.
 | PGY | Equity (Mode B) | §5B item 7 — 1D `pullback_long` R:R exactly 1.30:1 (clears item 4, marginally); 60m is `ranging/neutral` with no setup — no confirming hourly reclaim trigger | Item 4 clears (marginally); items 2/3 not independently checked | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
 | IGV | Equity (Mode B, ETF) | §5B item 7 — 1D `pullback_long` R:R 1.57:1 (clears item 4 comfortably); 60m overextended, no setup — no confirming hourly trigger | Item 4 clears; items 2/3 not independently checked | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
 | ~~PLTR~~ | **REMOVED 2026-11-04T17:17Z — invalidated, not a near-miss anymore.** Price moved 176.48→171.37 (-2.9%) between the 16:13Z and 17:17Z checks (63 min). The 1D pullback deepened from "deep" (75.3%) to "very_deep/overextended" (85.9%), and **the tool's own daily `setup` object is now `null`** — the computable pullback_long structure PLTR was queued on no longer exists at all, not merely still-unconfirmed. 60m also now shows price **below its own recent swing low** (`current_below_min_swing_low: true`, -7.6%). This is a real, structural invalidation (a different item now genuinely fails: there is no stop/target to compute from), not a stale repeat of the 16:13Z read — the user's own instruction not to reuse quotes beyond their freshness limits is exactly why this was re-pulled fresh rather than restated. | — | — | — | — |
-| ZETA | Equity (Mode B) | §5B item 2 — catalyst/RS not independently verified this cycle (no news/RS pull performed) | Item 3 clears (Trend/State: 1D bullish moderate trend); item 4 clears (60m `pullback_long` R:R 1.33:1); item 7 clears (60m reclaim trigger confirms the daily bullish trend) — the cleanest near-miss found all session, pending only the catalyst check | 2026-11-04T17:04Z | 2026-11-04 | 1 | 2026-11-13 |
+| ~~ZETA~~ | **REMOVED 2026-11-04T17:23Z — resolved to REJECTED, not merely unverified.** Item 2 research
+completed this cycle (`get_news`, `get_politician_trades`, dated daily-bar RS computation vs SPY
+— all 2026-11-04) rather than deferred: **no real catalyst** — the only news since 10/26 is a
+generic investor-conference notice (11/3), an earnings-estimate preview (11/2), and a headline
+literally reporting the stock "trading down" (10/30); next earnings 11/9 (5 days out, a real
+disclosed event-risk for a multi-session hold, though not itself a today-blocker under §4's
+30-minute window). **RS is contradictory, not a clean pass**: the 5-week window (9/29→11/3, 25
+sessions) shows ZETA +6.61% vs SPY -1.63% (+8.24pp) — but that figure is entirely carried by a
+9/30 gap-up over a month ago. The most recent week (10/28→11/3, 4 sessions) shows ZETA **-7.4%
+vs SPY -2.33% (-5.07pp)** — ZETA underperforming badly in the period immediately preceding today.
+No politician-trade signal. **Item 2 fails on the evidence actually gathered — this is a real
+rejection, not an "unverified, defer to next cycle" case.** See the full reasoning in
+`trades_log.md`, 2026-11-04T17:23Z entry, including what the entry/invalidation/target/R:R would
+have been had item 2 cleared (it didn't, so no trade follows from this). | — | — | — | — |
 
 **CVX, ZS, DIS — RESOLVED this cycle (2026-11-04T17:04Z), removed from the queue for real this
 time.** A new completed hourly candle (`latest_bar_time` advanced from 1793806200 to 1793809800)

@@ -57904,3 +57904,58 @@ only, consistent with "read-only evaluation."
 ```json
 {"cycle":"Mode C completion + TNA/PGY/IGV/PLTR reassessment + trigger-fix status check (read-only, user-requested)","timestamp_utc":"2026-11-04T17:18:54Z","modes_covered":["C","B"],"status_gate":"ACTIVE","mode_c":{"evaluated":10,"rejected_with_evidence":9,"pending_watch":["AVA"],"candidates":0,"not_performed":{"orb":"tool granularity - no sub-hourly data available"}},"near_miss_reassessment":{"TNA":"still_near_miss","PGY":"still_near_miss","IGV":"still_near_miss","PLTR":"invalidated_removed"},"first_scan_trigger_fix_status":"NOT_APPLIED_only_logged_as_finding","data_timestamps_used":{"mode_c":"2026-11-04T17:15-17:17Z, today's session bars (15:00Z,16:00Z)","tna_pgy_igv_pltr":"2026-11-04T17:17Z, current forming bar begins 16:30Z closes 17:30Z UTC (9:30am PT)"},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### 2026-11-04T17:30Z — READ-ONLY: ZETA catalyst/RS research completed (not deferred), SPXL qualify/invalidate conditions, Mode C completion re-confirmed (user-requested diagnostic)
+
+**ZETA — §5B item 2 research completed this cycle, using current data, not deferred.**
+- **Catalyst**: `get_news` (NYSE:ZETA, checked 2026-11-04T17:23Z) — most recent five headlines:
+  11/3 "Zeta Global to Participate in Upcoming Investor Conferences" (generic, not a catalyst);
+  11/2 earnings-estimate preview (revenue est. $470.87M, not itself a catalyst); 10/30 "Zeta
+  Global and Commerce stocks trade down, what you need to know" (explicitly bearish framing);
+  10/26 "Zeta Global to Announce Third Quarter 2026 Results on November 9, 2026" — **next
+  earnings is 5 days away**, a real disclosed event-risk for a 2-15 session swing hold, though not
+  itself a §4 blocker today; 10/23 a stale (12-day-old) analyst price-target raise. **No fresh,
+  dated, bullish same-week catalyst exists.**
+- **Relative strength vs SPY** (`get_equity_historicals`, daily bars, checked 2026-11-04T17:23Z):
+  5-week window (2026-09-29 open $29.05 → 2026-11-03 close $30.97 = **+6.61%**; SPY same window
+  $766.83 → $754.35 = **-1.63%**; RS **+8.24pp**, looks positive in isolation) **vs.** the most
+  recent week (2026-10-28 close $33.45 → 2026-11-03 close $30.97 = **-7.40%**; SPY $772.31 →
+  $754.35 = **-2.33%**; RS **-5.07pp** — ZETA has been underperforming badly in the days
+  immediately preceding today). The 5-week figure is carried almost entirely by a 9/30 gap-up over
+  a month ago, not current strength. **Politician trades**: none disclosed (`get_politician_trades`, checked).
+- **FINAL GATE RESULT: REJECTED — item 2 fails on the evidence actually gathered.** This is a
+  genuine rejection, not an "unverified, defer" case — the research was completed this cycle, not
+  deferred, and the result is negative on balance (no real catalyst, contradictory RS dominated by
+  a stale move, and a real near-term earnings date). Items 3/4/7 were already confirmed clearing
+  (logged 17:04Z) — **for completeness, what the trade would have looked like had item 2 passed**:
+  entry/confirming trigger ≈ $31.83 (current price, the active `pullback_long` reclaim already
+  under way on the 16:30-17:30Z UTC hourly bar), invalidation $30.07 (the setup's own stop, below
+  the recent swing low), target $34.16 (next swing high), R:R 1.33:1. **None of this executes —
+  item 2 failing means ZETA does not qualify, full stop.** Removed from `near_miss_queue.md` with
+  this reasoning (not silently dropped, not left as "pending").
+
+**SPXL — exact qualify/invalidate conditions (same 16:30-17:30Z UTC bar as the last check, no new
+candle since):**
+- **Would qualify**: an hourly close back above **$284.67** (clears the immediate hourly
+  resistance — a first reclaim signal), ideally continuing through **$288.72-$290.20** for a
+  genuine reclaim of the currently-opposing bearish hourly structure. Current price $282.39 is
+  below both.
+- **Would invalidate**: formally, a daily close below **$272.00** (the §5B daily stop this setup
+  is built on). Practically, a decisive hourly close below **$277.28-$280.33** (the hourly
+  support band) would be the earlier warning sign that the competing bearish hourly structure
+  (targets $264.37 / $248.41) is playing out instead of the daily bullish thesis — worth watching
+  before the daily stop is actually hit.
+- Items 2/3 (catalyst/RS, confirmation role-groups) remain unverified for SPXL — not checked this
+  cycle, not claimed as clearing.
+
+**Mode C completion — re-confirmed, not re-run** (no new autonomous cycle fired since the 17:18Z
+check, so there is nothing new to screen): the 17:18Z log entry stands as the record — **10 names
+evaluated (DUOL, AMZN, DIS, AAPL, AVA, UBER, LLY, IWM, SPY, TSLA), 9 rejected with evidence, 1
+pending-watch (AVA), 0 candidates, ORB not performed for any name (tool-granularity gap,
+disclosed, not worked around).** This was a genuine completed screen, not a deferral.
+
+**No order placed, no trigger modified, no risk/cap/permission changed.**
+
+```json
+{"cycle":"ZETA catalyst/RS research + SPXL conditions + Mode C re-confirmation (read-only, user-requested)","timestamp_utc":"2026-11-04T17:30:00Z","modes_covered":["B","C"],"status_gate":"ACTIVE","zeta_final_result":"REJECTED","zeta_evidence":{"catalyst":"none fresh/bullish; earnings in 5 days","rs_5week_pct":8.24,"rs_1week_pct":-5.07,"would_have_been":{"entry":31.83,"stop":30.07,"target":34.16,"rr":1.33}},"spxl_conditions":{"qualify_level":284.67,"full_reclaim_level":288.72,"invalidate_daily_stop":272.00,"invalidate_early_warning":277.28},"mode_c_completion_reconfirmed":true,"mode_c_counts":{"evaluated":10,"rejected":9,"pending_watch":1,"candidates":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
