@@ -57761,3 +57761,47 @@ empty, unchanged.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T16:39:00Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"tvremix_calls_used_today":7,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### 2026-11-04T17:14Z — AUTONOMOUS MODE B/C ENTRY SCREENING (trig_01KrBsTt9mssjU4hPGtM3cBe, fired 17:04:05Z)
+
+**STEP 0**: §14 Status ACTIVE. No kill phrase. Account: $6,472.03 total, $4,878.02 settled cash.
+PATH stop unchanged ($12.73/119, confirmed). 0 options/LEAPS positions.
+
+**Universe-size fix confirmed live**: `rank_symbol_setups` now reports `universe_size: 74` (was 73
+before this session's watchlist.md XLI-table fix) — the fix is working correctly.
+
+**Near-miss-queue reassessment (5 slots, genuinely fresh candle this time — `latest_bar_time`
+advanced from 1793806200 to 1793809800):** TEM (still near-miss, item 4, R:R now ~1.0-1.02,
+*worse* than last check), SOFI (still near-miss, item 7, R:R now 1.39), and **CVX/ZS/DIS all
+resolved for real** — CVX rejected (R:R 0.12:1, a real pullback setup now exists, badly fails),
+DIS rejected (§13.G volume check finally performed: 0.61x on a reduced 1-bar baseline — full
+detail logged in `near_miss_queue.md`), ZS rejected (no computable entry under any method,
+confirmed on a second fresh candle). This closes a backlog that had been stuck "pending" for two
+full cycles.
+
+**Stage 2 rotation (7 slots): GOOG, QQQ, NVDA, ZETA, HOOD, ORCL, BMNR.**
+
+| Symbol | Result |
+|---|---|
+| GOOG | REJECTED — no computable entry (`setup:null` both TFs) |
+| QQQ | REJECTED — 60m `pullback_short` R:R 0.39:1, fails item 4 |
+| NVDA | REJECTED — 60m `pullback_short` R:R 0.13:1, fails item 4 badly |
+| **ZETA** | **NEW NEAR-MISS — added to queue** | 1D bullish trend (Trend/State confirms item 3); 60m `pullback_long` R:R 1.33:1 (clears item 4, confirms the hourly trigger for item 7) — only item 2 (catalyst/RS) unverified this cycle. Cleanest near-miss found all session. |
+| HOOD | REJECTED — 60m `pullback_short` R:R 0.55:1 (wrong direction anyway), fails item 4 |
+| ORCL | REJECTED — 60m `pullback_short` R:R 0.34:1, fails item 4 |
+| BMNR | REJECTED — no computable entry (`setup:null` both TFs) |
+
+**§22 leveraged/inverse-ETF screen (3c), fresh data:** TQQQ/SOXL/AMDG rejected (no setup); SQQQ/
+SOXS/SPXU/TZA rejected (their underlying — QQQ/SOXX/SPY/IWM — is bullish on 1D, not bearish, so
+the required bearish-thesis-on-underlying leg fails); **TNA still near-miss** (1D R:R 1.88:1
+clears item 4, 60m opposing bearish setup blocks item 7); **SPXL is a new near-miss** (1D R:R
+1.89:1 clears item 4, 60m opposing bearish setup blocks item 7 — same pattern as TNA). Coverage
+9/9, `coverage_complete: true`.
+
+**No qualifying candidate this cycle — no order placed.** Mode C: $0 realized/unrealized P&L
+today, 0 positions; dedicated VWAP/ORB/mean-reversion technical pull still not performed this
+cycle (same honest gap as the prior cycle — flagged, not fabricated).
+
+```json
+{"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-04T17:14:23Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":61,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":[],"session_cumulative_touched":33,"tool_failures":0},"near_miss_queue":{"reassessed":5,"cleared":0,"still_near_miss":2,"new_near_miss":["ZETA"],"resolved_to_rejected":["CVX","ZS","DIS"],"ineligible":0,"expired":0},"leveraged_etf_coverage":{"universe_size":9,"evaluated":9,"rejected_with_evidence":7,"near_miss":["TNA","SPXL"],"not_evaluated":[],"coverage_complete":true},"mode_c":{"realized_pl_today":0,"open_positions":0,"dedicated_screen_performed":false},"tvremix_calls_used_today":10,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```

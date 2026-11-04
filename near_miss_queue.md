@@ -80,58 +80,41 @@ repair exists to clear starting at the next eligible cycle.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (7 sessions) |
 |---|---|---|---|---|---|---|---|
-| TEM | Equity (Mode B), Bearish Mirror Gate | §5B item 4 (mirror) — `pullback_short` now present on BOTH 1D (R:R 1.09:1) and 60m (R:R 1.27:1) per fresh `analyze_structure_batch`, but both fail the 1.3:1 floor | Item 7 (mirror) now actually clears — daily+hourly both show the bearish pullback_short structure, aligned; items 2/3 not independently re-verified this cycle (no fresh catalyst/RS pull) | 2026-11-04T15:28Z (latest_bar_time 1793802600) | 2026-11-03 | 2 | 2026-11-12 |
-| SOFI | Equity (Mode B), Bearish Mirror Gate | §5B item 7 (mirror) — 1D shows `pullback_short` (R:R 1.34:1, now clears item 4) but 60m setup is null, no confirming hourly breakdown trigger | Item 4 (mirror) now clears on 1D; items 2/3 not independently re-verified this cycle (no fresh catalyst/RS pull) | 2026-11-04T15:28Z | 2026-11-03 | 2 | 2026-11-12 |
-| PGY | Equity (Mode B) | §5B item 7 — 1D `pullback_long` R:R exactly 1.30:1 (clears item 4, marginally); 60m is `ranging/neutral` with no setup — no confirming hourly reclaim trigger | Item 4 clears (marginally); items 2/3 (catalyst/RS, confirmations) not independently checked this cycle | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
-| IGV | Equity (Mode B, ETF) | §5B item 7 — 1D `pullback_long` R:R 1.57:1 (clears item 4 comfortably); 60m shows an overextended pullback with no setup — no confirming hourly trigger | Item 4 clears; items 2/3 not independently checked this cycle | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
-| PLTR | Equity (Mode B) | §5B item 7 — 1D `pullback_long` R:R 2.15:1 (clears item 4 strongly); 60m shows an overextended pullback with no setup and price below its own recent swing low — no confirming hourly trigger | Item 4 clears strongly; items 2/3 not independently checked this cycle | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
+| TEM | Equity (Mode B), Bearish Mirror Gate | §5B item 4 (mirror) — `pullback_short` on both TFs, R:R now 1.02:1 (1D) / 1.01:1 (60m) — *worse* than last cycle's 1.09/1.27, still fails 1.3:1 | Item 7 (mirror) clears (aligned bearish structure both TFs); items 2/3 not independently re-verified | 2026-11-04T17:04Z (latest_bar_time 1793809800) | 2026-11-03 | 3 | 2026-11-12 |
+| SOFI | Equity (Mode B), Bearish Mirror Gate | §5B item 7 (mirror) — 1D `pullback_short` R:R 1.39:1 (clears item 4, up from 1.34); 60m setup still null, no confirming hourly breakdown trigger | Item 4 clears; items 2/3 not independently re-verified | 2026-11-04T17:04Z | 2026-11-03 | 3 | 2026-11-12 |
+| PGY | Equity (Mode B) | §5B item 7 — 1D `pullback_long` R:R exactly 1.30:1 (clears item 4, marginally); 60m is `ranging/neutral` with no setup — no confirming hourly reclaim trigger | Item 4 clears (marginally); items 2/3 not independently checked | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
+| IGV | Equity (Mode B, ETF) | §5B item 7 — 1D `pullback_long` R:R 1.57:1 (clears item 4 comfortably); 60m overextended, no setup — no confirming hourly trigger | Item 4 clears; items 2/3 not independently checked | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
+| PLTR | Equity (Mode B) | §5B item 7 — 1D `pullback_long` R:R 2.15:1 (clears item 4 strongly); 60m overextended, below its own recent low, no setup — no confirming hourly trigger | Item 4 clears strongly; items 2/3 not independently checked | 2026-11-04T16:13Z | 2026-11-04 | 1 | 2026-11-13 |
+| ZETA | Equity (Mode B) | §5B item 2 — catalyst/RS not independently verified this cycle (no news/RS pull performed) | Item 3 clears (Trend/State: 1D bullish moderate trend); item 4 clears (60m `pullback_long` R:R 1.33:1); item 7 clears (60m reclaim trigger confirms the daily bullish trend) — the cleanest near-miss found all session, pending only the catalyst check | 2026-11-04T17:04Z | 2026-11-04 | 1 | 2026-11-13 |
 
-**Note on this cycle's reassessment (2026-11-04T16:13Z Entry Screening cycle):** TEM/SOFI above
-were NOT re-reassessed this cycle — the most recent completed hourly candle is unchanged from the
-First Scan cycle 45 minutes earlier (`latest_bar_time` identical), so a re-check would only
-reproduce the same result already on file. The 5-slot reservation was used instead for CVX/ZS/DIS
-(see the §13.G correction below) — wait, those are also unchanged this cycle for the same reason.
-**Correction to this note**: no near-miss-queue reservation was actually drawn this cycle; all 12
-Stage-2 slots went to fresh rotation names (AVA, UBER, TTD, SHOP, AMD, ETHA, IBIT, PGY, MU, TSM,
-IGV, PLTR), which is where PGY/IGV/PLTR above were newly found. This is a deliberate, logged
-deviation from "reassess up to 5 every cycle" specifically because the candle hadn't advanced —
-re-check TEM/SOFI/CVX/ZS/DIS for real at the next cycle whose candle has actually moved forward.
-
-**CORRECTION, same day 2026-11-04T15:xxZ entry superseded — CVX/ZS/DIS were NOT properly
-invalidated; "removed" above was a mislabeling, caught on user review.** `analyze_structure_batch`
-with `methods:["swing"]` only detects pullback-anchored setups (`pullback_long`/`pullback_short`)
-— a `setup: null` from this tool means "no pullback-based setup," not "no permitted entry
-structure of any kind." It says nothing about §13.G breakout-continuation eligibility (a fresh
-high/low with no pullback to measure), which is a separate, independently permitted entry method
-this tool does not check. Re-reading the same data pulled this cycle: **DIS's 60m read shows
-`current_above_max_swing_high: true`** (118.61 vs. prior max 113.38, +4.6%) — a genuine fresh-high
-condition, a real §13.G candidate, not a structural absence. **CVX's 1D read also shows
-`current_above_max_swing_high: true`** (219.82 vs. 217.78, +0.94%, barely) — also §13.G-eligible
-in principle, though marginal. Neither was actually checked against §13.G (mandatory volume
-confirmation per §13.H, catalyst/RS) this cycle — that check was simply never run, not run and
-failed. **Corrected status: both restored to the queue as "not evaluated — §13.G volume/catalyst
-UNKNOWN this cycle," not invalidated.** Only **ZS** shows neither a pullback setup nor a fresh
-high/low on either timeframe (60m overextended pullback, `setup: null`; 1D `ranging/neutral`,
-`current_above_max_swing_high: false`) — closest to a genuine structural absence, but even this is
-"no positive candidate found this cycle," not a disproof, so it is also restored as
-not-evaluated rather than invalidated (invalidation requires actually disproving a previously-held
-condition, e.g. price moving through the would-be stop — none of that was shown here).
-
-| Symbol | Instrument | Status this cycle | What's UNKNOWN (not evaluated, not failing) | Data timestamp | Added | Cycles checked | Expires (7 sessions) |
-|---|---|---|---|---|---|---|---|
-| CVX | Equity (Mode B), §13.G candidate | Fresh high on 1D (+0.94% above prior swing high) — §13.G path not checked | Volume confirmation (§13.H), catalyst/RS | 2026-11-04T15:28Z | 2026-11-03 | 2 | 2026-11-12 |
-| DIS | Equity (Mode B), §13.G candidate | Fresh high on 60m (+4.6% above prior swing high) — §13.G path not checked | Volume confirmation (§13.H), catalyst/RS | 2026-11-04T15:28Z | 2026-11-03 | 2 | 2026-11-12 |
-| ZS | Equity (Mode B) | No pullback or fresh-high/low structure found this cycle on either TF | Catalyst/RS; whether a different entry method (e.g. range breakout) applies | 2026-11-04T15:28Z | 2026-11-03 | 2 | 2026-11-12 |
-
-None of these three were confirmed qualifying or confirmed disqualified this cycle — all three
-stay queued, pending a §13.G-aware re-check (CVX/DIS) or a fresh look at whether a non-pullback
-entry structure exists at all (ZS), at the next eligible cycle.
+**CVX, ZS, DIS — RESOLVED this cycle (2026-11-04T17:04Z), removed from the queue for real this
+time.** A new completed hourly candle (`latest_bar_time` advanced from 1793806200 to 1793809800)
+gave each of these a genuine fresh read rather than a repeat of stale data:
+- **CVX**: now shows a real computable setup — 1D `pullback_long`, R:R **0.12:1**. The §13.G
+  ambiguity from the prior two cycles is resolved: there IS a pullback leg to measure from, it's
+  just a very poor one. **Rejected with evidence — item 4 (R:R 0.12:1, far below the 1.3:1 floor).**
+- **DIS**: confirmed above its own prior max swing high on BOTH 1D (+3.06%) and 60m (+5.47%) — a
+  genuine two-timeframe fresh-high condition, the cleanest §13.G candidate seen this session.
+  Checked for real this time: `get_equity_historicals` (hourly, today) returns only 2 completed
+  regular-session bars (15:00Z vol 1,007,951; 16:00Z vol 610,019) — insufficient for a full
+  3-prior-bar §13.H baseline, so the reduced-sample rule applies (baseline = the 1 available prior
+  bar). Volume on the bar being tested (16:00Z, 610,019) vs. that baseline (1,007,951) = **0.61x**
+  — fails the ≥1.2x §13.G item 2 floor outright, even on the generously small sample. **Rejected
+  with evidence — §13.G item 2 (volume 0.61x of a 1-bar-reduced baseline, explicitly noted as
+  reduced).**
+- **ZS**: still no pullback setup and no fresh-high/low condition on either TF (60m overextended
+  pullback, `setup: null`, `current_above_max_swing_high: false`; 1D `ranging/neutral`, same).
+  Having now checked both the pullback-based and fresh-high/breakout-continuation paths on two
+  separate fresh candles without finding either, this is a genuine, now-confirmed structural
+  absence rather than an unresolved pending state. **Rejected with evidence — no computable entry
+  under any currently-permitted Mode B method (checked twice, two different candles).**
 
 ## Current queue — §22 leveraged/inverse ETFs (tracked for history only — already re-screened every cycle via the existing mandatory §22 step; no separate reserved slot needed)
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked |
 |---|---|---|---|---|---|---|
-| TNA | §22 leveraged-long | §5B item 7 (read on TNA's own chart) — 1D shows `pullback_long` R:R 2.23:1 (**item 4 now clears, strongly**), but 60m shows an *opposing* `pullback_short` read — no confirming bullish hourly trigger for the daily setup | Item 4 now clears cleanly on 1D; items 2/3 (catalyst/RS, confirmation role-groups) not independently re-verified this cycle | 2026-11-04T16:08Z | 2026-11-03 | 2 |
+| TNA | §22 leveraged-long | §5B item 7 (read on TNA's own chart) — 1D `pullback_long` R:R 1.88:1 (down from 2.23, still clears item 4); 60m still shows an *opposing* `pullback_short` (R:R 2.15:1) — no confirming bullish hourly trigger | Item 4 clears; items 2/3 not independently re-verified | 2026-11-04T17:04Z | 2026-11-03 | 3 |
+| SPXL | §22 leveraged-long | §5B item 7 (read on SPXL's own chart) — 1D `pullback_long` R:R 1.89:1 (clears item 4 comfortably); 60m shows an *opposing* `pullback_short` (R:R 1.87:1) — no confirming bullish hourly trigger | Item 4 clears; items 2/3 not independently checked | 2026-11-04T17:04Z | 2026-11-04 | 1 |
 
 **Removed 2026-11-04T16:08Z — SQQQ, SOXS, reassessed and invalidated: their underlying bearish thesis no longer holds.** Fresh `analyze_structure_batch` data: **QQQ's 1D read is now bullish** (weak, pullback overextended) — not bearish, so SQQQ's required "bearish thesis on the underlying" (Bearish Mirror Gate) fails outright, a reversal from the 19:55:33Z note ("underlying bearish thesis holds"). Same for SOXS: **SOXX's 1D read is now bullish** (moderate) — SOXS's underlying bearish thesis also no longer holds. Neither ETF's own chart shows a qualifying bullish entry either (SQQQ: 60m `pullback_long` setup is null; 1D is bearish, wrong direction. SOXS: 60m bullish but setup null; 1D bearish, wrong direction). Both removed as invalidated, not near-misses — re-add if the underlying flips bearish again on a future cycle.
 
