@@ -365,7 +365,12 @@ assume the table is wrong about everything else.
 | BE | NYSE:BE | DIS | NYSE:DIS | IBIT | NASDAQ:IBIT |
 | ETHA | NASDAQ:ETHA | CORZ | NASDAQ:CORZ | CAI | NASDAQ:CAI |
 | AMDG | NASDAQ:AMDG | SE | NYSE:SE | SPCX | NASDAQ:SPCX |
-| LLY | NYSE:LLY | | | | |
+| LLY | NYSE:LLY | XLI | AMEX:XLI¹ | | |
+
+¹ XLI's prefix was missing from this table since it was added (gap found and fixed 2026-11-04,
+read-only diagnostic) — added now and independently verified via `search_symbols` (2026-11-04),
+not part of the original 2026-11-03 verification pass. This also corrects the table's count: it
+previously covered only 73 of the pool's 74 names (XLI was the gap); it now covers all 74.
 
 **Note, same diagnostic:** `analyze_swing_tool`'s timeframe parameter is named `interval`, not
 `timeframe` — passing `timeframe` is silently ignored and the tool defaults to `interval: "1D"`. This

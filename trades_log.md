@@ -57714,3 +57714,25 @@ silently skipped — flagging honestly rather than fabricating a check that didn
 ```json
 {"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-04T16:14:54Z","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":61,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":[],"session_cumulative_touched":24,"tool_failures":0},"near_miss_queue":{"reassessed":0,"reassessment_deferred_reason":"candle unchanged since First Scan 45min ago","cleared":0,"still_near_miss":0,"new_near_miss":["PGY","IGV","PLTR"],"invalidated":0,"ineligible":0,"expired":0},"leveraged_etf_coverage":{"universe_size":9,"evaluated":9,"rejected_with_evidence":6,"near_miss":1,"invalidated":2,"not_evaluated":[],"coverage_complete":true,"reused_from":"2026-11-04T16:08Z diagnostic, same candle"},"mode_c":{"realized_pl_today":0,"open_positions":0,"dedicated_screen_performed":false,"reason":"deprioritized this cycle, logged honestly"},"tvremix_calls_used_today":6,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### 2026-11-04T16:38Z — WATCHLIST.MD FIX: XLI missing from TradingView prefix table (user-requested)
+
+**Root cause confirmed**: the "TradingView exchange-prefix reference" table's final row
+(`| LLY | NYSE:LLY | | | | |`) had two empty trailing cells — LLY itself was correctly present,
+but **XLI (added 2026-11-03) was never added to the table at all**, leaving it at 73 of the pool's
+74 names. This is what caused this session's "universe_size: 73" figure in several earlier cycle
+logs today — not a screening gap (XLI was still reachable via a manual `AMEX:XLI` guess, per
+CLAUDE.md's own §12 note on today's First Scan cycle), but a real table-completeness gap.
+
+**Fix applied**: `search_symbols("XLI")` confirms `AMEX:XLI` (State Street Industrial Select
+Sector SPDR ETF, US primary listing) is correct — matches the guess already in use, now
+independently verified rather than assumed. Added to the table's last row; added a footnote
+flagging that this entry wasn't part of the original 2026-11-03 verification pass. The table now
+covers all 74 pool names.
+
+No gate, risk limit, or permission touched — pure reference-table completeness fix, same category
+as the original 2026-11-03 table itself.
+
+```json
+{"cycle":"watchlist.md fix - XLI prefix table gap","timestamp_utc":"2026-11-04T16:38:06Z","modes_covered":["B"],"status_gate":"ACTIVE","fix":{"file":"watchlist.md","gap":"XLI missing from TradingView exchange-prefix reference table","prefix_added":"AMEX:XLI","verified_via":"search_symbols","table_coverage_before":73,"table_coverage_after":74},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
