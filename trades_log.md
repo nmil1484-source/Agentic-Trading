@@ -57959,3 +57959,87 @@ disclosed, not worked around).** This was a genuine completed screen, not a defe
 ```json
 {"cycle":"ZETA catalyst/RS research + SPXL conditions + Mode C re-confirmation (read-only, user-requested)","timestamp_utc":"2026-11-04T17:30:00Z","modes_covered":["B","C"],"status_gate":"ACTIVE","zeta_final_result":"REJECTED","zeta_evidence":{"catalyst":"none fresh/bullish; earnings in 5 days","rs_5week_pct":8.24,"rs_1week_pct":-5.07,"would_have_been":{"entry":31.83,"stop":30.07,"target":34.16,"rr":1.33}},"spxl_conditions":{"qualify_level":284.67,"full_reclaim_level":288.72,"invalidate_daily_stop":272.00,"invalidate_early_warning":277.28},"mode_c_completion_reconfirmed":true,"mode_c_counts":{"evaluated":10,"rejected":9,"pending_watch":1,"candidates":0},"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-04 ~18:01 UTC / 10:01 AM PST — CONFIGURATION CHANGE (read-only request, trigger-prompt patch — user-requested, no new order authority)
+
+**Request scope (verbatim intent):** one minimal coverage-repair patch to both Mode B/C triggers —
+(1) parity for First Scan with Fresh Candle on §22/options-formula coverage, (2) codify that
+`setup: null` from a pullback tool is never proof every permitted entry method failed, (3) finish
+rather than re-defer available research (ZETA — already resolved in the entry above), (4)
+distinguish evaluated/rejected from auth-blocked/data-blocked/budget-blocked/not-run, with
+timestamps in Pacific time, existing budget only. No risk limit, stop, target, or order authority
+touched.
+
+**Diffs shown to the user before any `update_trigger` call** (both full diffs displayed in-chat,
+not summarized): `first_scan.diff` (53 lines) and `fresh_candle.diff` (24 lines), generated from
+verbatim-fetched current prompt text saved to scratchpad (`first_scan_current.txt`/
+`fresh_candle_current.txt`) diffed against the proposed text
+(`first_scan_proposed.txt`/`fresh_candle_proposed.txt`).
+
+**Budget check, flagged rather than assumed:** First Scan's new §22 step (3c) adds ~1 tvremix-
+adjacent call on its single daily fire. First Scan already shares the hourly trigger's 20-call/day
+Mode B/C reserve (not a separate allowance); at ~2 calls/cycle × ~5 eligible cycles/day the
+existing disclosed usage is ~10/day, leaving ~10/day headroom — this one additional call fits
+inside existing headroom. **No budget increase requested or applied.**
+
+**Patches applied via `update_trigger` (full-prompt replacement, no partial patching supported by
+this tool):**
+- `trig_01RN6ZbtgxKpoDApzmGswWAs` (First Scan): added step 2a (Mode B equity stop-audit, matching
+  the hourly trigger), step 2b (§18/§19 options/LEAPS stop-check with the explicit
+  `new_stop = max(previous_stop, initial_stop, k × observed_option_value)` formula — previously
+  this trigger only vaguely referenced the check in step 8 with no formula), and step 3c (mandatory
+  9/9 §22 leveraged/inverse-ETF per-cycle coverage, with the `COVERAGE_INCOMPLETE` flag) — all
+  three were already present in Fresh Candle but missing here; plus the three shared clarification
+  blocks below and the step 15/16 JSON/report updates.
+- `trig_01KrBsTt9mssjU4hPGtM3cBe` (Fresh Candle): added the same three shared clarification
+  blocks (2a/2b/3c already existed here) and the matching step 15/16 updates.
+- **Shared clarification blocks added to both:** (1) `setup: null` from `analyze_structure_batch`'s
+  pullback method is not proof every permitted entry method failed — must also check §13.G
+  breakout-continuation (`historical_extremes.current_above_max_swing_high`/
+  `current_below_min_swing_low`) and a support/resistance-array-based reclaim read before logging
+  "no computable entry under any permitted method"; (2) a trigger dispatch reporting `SUCCEEDED`
+  is not evidence the cycle's protocol actually ran — if the full protocol doesn't complete this
+  turn, log an explicit `NOT_RUN` entry rather than letting a `SUCCEEDED` dispatch stand in for it;
+  (3) `coverage_state` (`EVALUATED`/`AUTH_BLOCKED`/`DATA_BLOCKED`/`BUDGET_BLOCKED`/`NOT_RUN`)
+  recorded in the JSON summary every cycle, with data timestamps stated in Pacific time.
+
+**Verification (read-only, this entry) — both updates confirmed saved correctly via a fresh
+`get_trigger` fetch on each trigger_id, not assumed from the `update_trigger` call result alone**
+(the Fresh Candle `update_trigger` call itself returned only a tool-result-size error, not a
+success/failure signal):
+- First Scan (`trig_01RN6ZbtgxKpoDApzmGswWAs`): `updated_at` now `2026-11-04T17:38:16Z`
+  (postdates this request); fetched prompt text confirmed to contain steps 2a/2b/3c verbatim and
+  all three shared clarification blocks verbatim.
+- Fresh Candle (`trig_01KrBsTt9mssjU4hPGtM3cBe`): `updated_at` now `2026-11-04T17:40:57Z`
+  (postdates this request); fetched prompt text confirmed to contain all three shared
+  clarification blocks verbatim, plus `coverage_state` in the step 15 JSON field list and the
+  extended step 16 report-trigger conditions.
+
+**Read-only demonstration of the improvement (no trigger fired live, no order placed/modified)**:
+rather than fire either trigger for a synthetic live cycle, the demonstration uses this session's
+own already-completed corrections as concrete, already-realized evidence of exactly what each
+patched clause catches in practice — these are not hypothetical:
+- The `setup: null` clause: this cycle's own earlier corrections to CVX/ZS/DIS (wrongly marked
+  "invalidated" on a bare `setup: null` read, restored to "not evaluated," then genuinely
+  re-screened against §13.G breakout-continuation and a direct support/resistance read) are the
+  literal failure mode this clause now instructs both triggers to check for before concluding "no
+  computable entry" — the correction already happened once by hand this session; the patch makes
+  the standing instruction catch it automatically going forward.
+- The dispatch-vs-completed-scan clause: the real Fresh Candle firing at 16:04:20Z this session
+  that dispatched `SUCCEEDED` but produced zero trades_log.md entry (because the persistent
+  session was mid-turn on other work) is the literal incident this clause exists to catch — the
+  patch requires an explicit `NOT_RUN` log entry in that exact situation going forward, rather than
+  letting the dispatch status alone stand in for a completed cycle.
+- The §22 parity fix (steps 2a/2b/3c on First Scan): First Scan's prior prompt had no §22 step at
+  all — a real, confirmed gap (not merely a one-off execution lapse) found via this session's own
+  diagnostic `get_trigger` fetch earlier today. The fetch above confirms the gap is now closed in
+  the saved trigger text itself, not just logged as a finding.
+
+**No order placed, no existing order modified, no risk limit/stop/target/gate loosened or
+invented, no schedule (cron) changed, no new order authority granted by this request.**
+
+```json
+{"cycle":"Trigger-prompt coverage-repair patch (First Scan + Fresh Candle parity, setup:null clarification, dispatch-vs-completed-scan, coverage_state labeling) — read-only request, config change only","timestamp_utc":"2026-11-04T18:01:28Z","timestamp_pacific":"2026-11-04T10:01:00-08:00","modes_covered":["B","C"],"status_gate":"ACTIVE","triggers_patched":["trig_01RN6ZbtgxKpoDApzmGswWAs","trig_01KrBsTt9mssjU4hPGtM3cBe"],"first_scan_added_steps":["2a_mode_b_stop_audit","2b_options_leaps_stop_check_formula","3c_section22_9_name_coverage"],"shared_clauses_added":["setup_null_not_proof","dispatch_vs_completed_scan","coverage_state_labeling"],"verification":{"first_scan_updated_at":"2026-11-04T17:38:16Z","fresh_candle_updated_at":"2026-11-04T17:40:57Z","method":"fresh get_trigger fetch on each trigger_id, full prompt text inspected for required clauses"},"tvremix_budget_impact":"~1 additional call/day on First Scan's single daily fire; fits inside existing ~10/day disclosed headroom; no increase requested","demonstration_method":"read-only, cited this session's own already-completed corrections (CVX/ZS/DIS setup:null correction; 16:04:20Z SUCCEEDED-dispatch-with-zero-work incident) as realized evidence rather than firing either trigger live","orders_placed":0,"existing_orders_modified":0,"risk_limits_changed":false,"schedule_changed":false,"new_order_authority_granted":false,"git_push":"pending"}
+```
