@@ -58270,3 +58270,55 @@ candidate** on this 5-of-74 partial subset — not presented as full-universe co
 ```json
 {"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-04T19:03:28Z","timestamp_pacific":"2026-11-04T11:03:28-08:00","modes_covered":["B","C"],"status_gate":"ACTIVE","coverage_state":"DATA_BLOCKED","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"reason":"tvremix connector-wide 429, 2/2 attempts (get_quote probe + rank_symbol_setups)","scope":"full 74-name universe, Stage 1 and Stage 2 both blocked"}],"tool_failures":74},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":4,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_2026-11-04T16:08Z"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"all_9","reason":"tool failure — tvremix connector-wide 429"}],"coverage_complete":false},"mode_c":{"realized_pl_today":0,"open_positions":0,"partial_screen_names":["SPY","QQQ","AAPL","AMZN","TSLA"],"partial_screen_of_universe":"5 of 74","dedicated_screen_performed":"partial","candidates":0},"tvremix_calls_used_today":18,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-04 ~19:37 UTC / 11:37 AM PST — AUTONOMOUS (Crypto 24/7 Scan §21, trigger fired 19:37:46Z, processed this turn) — **tvremix RECOVERED**
+
+**Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found. Proceeding.
+
+**Account/positions:** `get_crypto_positions` — **0 open crypto positions.** `get_crypto_orders` — 0 resting
+orders. Stop-audit: trivially clean (checked=0, missing=0, placed=0). Near-miss queue (crypto
+table): still empty.
+
+**CONFIGURATION CHANGE APPLIED THIS CYCLE (pre-screen, user-approved, "Yes prepare and fix"):**
+patched all three Mode B/C/crypto trigger prompts (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`,
+`trig_01KrBsTt9mssjU4hPGtM3cBe`, `trig_01RN6ZbtgxKpoDApzmGswWAs`) to replace the broken
+carry-forward `tvremix_calls_used_today` tracking (confirmed via trades_log.md history: silently
+reset 8→2 at 06:38:39Z→07:38:39Z, and 9→1 at 14:37:55Z→15:05:14Z) with a self-correcting method:
+each cycle now logs its own `calls_made_this_cycle`, and the daily total is computed by summing
+that field across today's UTC-date entries from all three triggers, never carried forward. All
+three updates verified via fresh `get_trigger` fetches (updated_at 19:18:53Z / 19:41:59Z /
+19:42:01Z respectively). No risk/cap/gate/order-routing change — reporting/tracking only.
+
+**tvremix connector — RECOVERED, verified against the trigger's own strict criteria (not a bare
+successful quote).** `analyze_structure_batch` (all 8 allowlisted pairs, timeframes 240/60)
+returned real data: interval fields confirmed 240/60 as requested (no silent daily fallback);
+bar timestamps fresh (`latest_bar_time` 1793818800/1793808000, both within the last few hours).
+**`tvremix_consecutive_failed_cycles` reset to 0.** Outage ran from the last good cycle
+(16:39:00Z) through the 18:37:52Z DATA_BLOCKED cycle — roughly 3 hours, 2 consecutive failed
+Mode B/C cycles affected too — well short of the 6-cycle consolidated-alert threshold, so no
+alert was triggered by the trigger's own rule; flagging the recovery to the user directly per a
+separate standing request to watch for it.
+
+**Full-allowlist gate evaluation — genuinely completed, all 8 pairs REJECTED with evidence (not a
+tool gap this time):** every pair's only computed `setup` (on the 4H/"240" timeframe) is
+`pullback_short` — SOL, XRP, LINK, AAVE, HBAR, AVAX all show an active bearish pullback with a
+short-side setup; BTC and ETH show `setup: null` (overextended bearish pullback, no computable
+setup at all). **§21 is spot, buy-to-open-longs-only — a short-side setup is never a permitted
+direction here**, regardless of its R:R. No pair shows a fresh-high breakout condition either
+(`current_above_max_swing_high` false on all 8, ranging -2.2% to -45.1% below their recent 4H
+swing highs) — so there's no qualifying bullish alternative either. **Rejected with evidence,
+§21 item 3 (no permitted-direction setup), all 8 pairs.**
+
+**tvremix budget — transition cycle.** This cycle's `calls_made_this_cycle: 1`. Prior entries
+today predate the self-correcting field (only the old carried `tvremix_calls_used_today` exists
+for them); best-effort continuity: last known figure (18, logged 19:03:28Z) + this cycle's 1 =
+**19**. Every cycle going forward will carry its own `calls_made_this_cycle`, making this total
+independently re-derivable by summing, per the fix applied this cycle.
+
+**No crypto order placed, no risk/cap/gate change beyond the tracking-method fix above.**
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T19:37:46Z","timestamp_pacific":"2026-11-04T11:37:46-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"tvremix_recovery":{"verified":true,"method":"interval_match_and_freshness_check","outage_start":"2026-11-04T17:37:19Z","outage_end":"2026-11-04T19:37:46Z","approx_duration_hours":2.0,"consolidated_alert_threshold_reached":false},"calls_made_this_cycle":1,"tvremix_calls_used_today":19,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending","config_change_this_cycle":{"applied":true,"description":"self-correcting tvremix_calls_used_today tracking across all 3 triggers","user_approved":true}}
+```
