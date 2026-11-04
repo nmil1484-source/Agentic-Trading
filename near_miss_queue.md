@@ -100,9 +100,28 @@ repair exists to clear starting at the next eligible cycle.
 (2026-11-03T22:38Z through 2026-11-04T05:38Z, `tvremix_consecutive_failed_cycles: 0` throughout);
 the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
+*Empty as of the 2026-11-04T07:38:39Z reassessment below.*
+
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| BTC | Crypto (§21) | §21 item 3 (item 2 analog) — catalyst contradicted: the most recent, highest-timestamped headline ("Bitcoin stages V-shaped recovery after midterm dip below $76,000," 06:20:49Z, Crypto Briefing) describes price already bouncing off the dip the bearish thesis would need to continue, directly negating the "Democrats' win rattles Trump trades from AI stocks to crypto" headwind headline (05:56:54Z) as a clean, uncontradicted bearish catalyst | Item 3 clears (Trend/State: 4H bearish moderate, 10 swings aligned; 1H bearish weak, 8 swings aligned — both timeframes bearish, no mismatch); item 4 clears marginally (1H setup pullback_short, entry 78059, stop 79145.23, target 76388.88, R:R 1.54 ≥ 1.5 floor — tool's own stricter internal quality bar still flags it "low_rr" against its own 2.0 threshold, noted for context only, not itself a disqualifier); item 7 clears (4H+1H aligned bearish, no direction mismatch) | 2026-11-04T06:38Z (`analyze_structure_batch`, 240/60 confirmed via returned interval fields) + news at 06:20:49Z | 2026-11-04 | 1 | 2026-11-14 |
+
+**Removed 2026-11-04T07:38:39Z — BTC, reassessed and invalidated on a methodology correction, not
+a market change.** Queued last cycle (06:38:39Z) as a near-miss failing only item 2 (catalyst),
+with items 3/4/7 noted as clearing via a `pullback_short` structural setup. On reassessment this
+cycle it became clear that framing was wrong at a more basic level, independent of the catalyst
+question: **§21 is spot-only, buy-to-open-longs-only — there is no shorting, margin, or inverse
+instrument anywhere in the crypto lane (§21 item 2; unlike equities, crypto has no §22-style
+inverse-ETF workaround for a bearish thesis).** A `pullback_short` structural read, however clean
+its R:R or timeframe alignment, describes a trade direction this account can never actually place
+— it was never an executable candidate, not a near-miss on one item. Standing correction, applied
+from this cycle forward: **only a `pullback_long`/`breakout_long` (bullish) structural setup, on
+both the 4H and 1H timeframe, is ever a candidate for a crypto trade here.** A bearish-aligned 4H/1H
+read on an allowlisted pair means stand aside on that pair, not a queued near-miss. No order was
+ever placed under the prior framing (this account held 0 crypto positions the entire time BTC was
+queued) — this is a logging/reasoning correction only, not a trade-error correction. Flagged to the
+user in chat as worth a possible drafting-clarification addition to CLAUDE.md §21 item 3.
+
+---
 
 Prior note (historical, now stale): no crypto candidate qualified as a true single-item near-miss
 while the lane was DATA_BLOCKED (tvremix connector-wide outage) for 7+ consecutive hourly cycles as

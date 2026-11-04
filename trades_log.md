@@ -57108,3 +57108,38 @@ No new entries, no exits, no circuit breaker, no heat-cap action. PATH (Mode B, 
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T06:38:39Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0,"added":1},"tvremix_consecutive_failed_cycles":0,"tvremix_calls_used_today":8,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-03 11:38 p.m. PST (07:38:39Z) — AUTONOMOUS CRYPTO CYCLE — full gate evaluation, OBSERVE (methodology correction — see note)
+
+**STEP 0 gate check:** §14 Status: ACTIVE. No kill phrase found in recent history.
+
+**Account check:** `get_portfolio` (Agentic ••••8058) — total_value $6,427.40, cash $4,878.02, equity_value $1,549.38 (PATH, unchanged position). `get_crypto_positions` — 0 positions.
+
+**Circuit breakers:** no same-day stop-outs logged. Market-shock check: SPY $753.50 vs. last cycle's $752.50 = +0.13%; QQQ $683.67 vs. $683.13 = +0.08%. No breach.
+
+**Portfolio heat cap:** ~0.96% of equity in use (PATH's resting stop unchanged), ample headroom.
+
+**tvremix:** `analyze_structure_batch` succeeded on first attempt, full 8×2 coverage, intervals confirmed. One `get_news` call for BTC's reassessment. `tvremix_calls_used_today` resets at the UTC day boundary (00:00Z) — this is the first call of the new UTC day (2026-11-04), so the running count restarts at 1→2 this cycle.
+
+**Near-miss queue reassessment — METHODOLOGY CORRECTION, not a routine reassessment.** BTC was queued last cycle as a near-miss on item 2 (catalyst) alone, with items 3/4/7 noted as clearing via a `pullback_short` structural setup. Re-running the full gate this cycle surfaced a more basic problem: **§21 is spot-only, buy-to-open-longs-only (item 2) — there is no shorting, margin, or inverse-instrument path anywhere in the crypto lane, unlike equities' §22 inverse-ETF workaround for a bearish thesis.** A `pullback_short` structural read, however clean its R:R or alignment, describes a trade direction this account can never place. BTC was never a genuine near-miss under this realization — it was never executable at all, regardless of its catalyst. **Removed from `near_miss_queue.md` as invalidated** (full explanation in the file itself). **Standing correction applied from this cycle forward: only a `pullback_long`/`breakout_long` (bullish) structural setup, confirmed on both the 4H and 1H timeframe, is ever a tradeable candidate here — a bearish-aligned 4H/1H read on any allowlisted pair means stand aside on that pair, full stop, not a queued near-miss.** No order was ever placed under the prior (incorrect) framing — 0 crypto positions were held the entire time BTC sat in the queue — so this is a logging/reasoning correction only, not a trade-error correction. Flagged to the user in chat as worth a possible drafting-clarification addition to CLAUDE.md §21 item 3 (make explicit that only bullish-direction setups are ever actionable, given the spot/long-only restriction), alongside the proposed corrections already pending approval from the earlier policy-review task.
+
+**Full-allowlist gate evaluation (§21 item 3), all 8 pairs — re-screened under the corrected methodology (only bullish/long setups are candidates):**
+
+| Pair | 4H trend/bias | 1H setup | Bullish R:R | Verdict |
+|---|---|---|---|---|
+| BTC | bearish (moderate) | bearish (weak), no bullish setup present | — | REJECTED — no bullish setup on either timeframe; bearish-aligned structure is not an executable direction here |
+| ETH | bearish (moderate), no setup | bullish (weak), pullback_long R:R 0.09 | 0.09 | REJECTED, item 4 — 1H bullish R:R far below 1.5 floor; 240 has no bullish setup to confirm it anyway (item 7) |
+| SOL | bearish (moderate) | bearish (weak), no bullish setup | — | REJECTED — no bullish setup either timeframe |
+| XRP | bearish (strong) | bullish (weak), pullback_long R:R 0.36 | 0.36 | REJECTED, item 7 — 4H shows no bullish setup to confirm the 1H bullish read; item 4 — R:R below floor regardless |
+| LINK | bearish (moderate) | bullish (weak), pullback_long R:R 1.04 | 1.04 | REJECTED, item 4 — below 1.5 floor; item 7 — 4H not bullish-aligned |
+| AAVE | bearish (moderate) | bearish (moderate), no setup (overextended) | — | REJECTED — no bullish setup either timeframe |
+| HBAR | bearish (strong) | bearish (strong), no bullish setup | — | REJECTED — no bullish setup either timeframe |
+| AVAX | bearish (moderate) | bullish (weak), pullback_long R:R 0.35 | 0.35 | REJECTED, item 4 — below floor; item 7 — 4H not bullish-aligned |
+
+**8/8 evaluated, 8/8 rejected with evidence, 0 not_evaluated.** No order placed. 0 crypto positions, no stop-audit needed. Portfolio heat cap check performed, moot (no entry).
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-04T07:38:39Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0,"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":1,"cleared":0,"still_near_miss":0,"invalidated":1,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"tvremix_calls_used_today":2,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
