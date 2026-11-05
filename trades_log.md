@@ -59756,3 +59756,32 @@ Robinhood-only fallback across 74 names remains impractical per-cycle. Protectiv
 ```json
 {"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-05T19:03:27Z","timestamp_pacific":"2026-11-05T11:03:27-08:00","coverage_state":"DATA_BLOCKED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":2,"mode_c_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"ALL","reason":"DATA_BLOCKED — tvremix 'Too Many Requests', both attempts, 4th consecutive trigger across both lanes; screening NOT_RUN"}],"tool_failures":2},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_2026-11-04_not_pending"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"ALL_9","reason":"DATA_BLOCKED — screening NOT_RUN this cycle"}],"coverage_complete":false},"calls_made_this_cycle":2,"tvremix_calls_used_today":13,"tvremix_pool_note":"Mode B/C pool only (20/day ceiling)","exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-05 ~19:37 UTC / 11:37 AM PST — AUTONOMOUS (Crypto 24/7 Scan §21, trigger fired 19:37:12Z, processed this turn) — **DATA_BLOCKED**
+
+**Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found.
+
+**Account/positions:** `get_portfolio` — equity $5,910.535, cash $2,012.83. `get_crypto_positions`
+— **0 open crypto positions**. Near-miss queue (Crypto §21 table): empty.
+
+**Circuit breakers:** 0 stop-outs today, cooldown clear. Market-shock check: SPY $736.46 vs. last
+cycle's $735.13 (19:03:27Z Mode B/C reading) = +0.18%; QQQ $652.86 vs. $651.25 = +0.25% — clear.
+
+**Portfolio heat cap:** PATH $62 + DIS $47.19 = $109.19 vs. cap $354.63 (6% of $5,910.535) —
+ample headroom, moot given the data block below.
+
+**DATA_BLOCKED, 5th consecutive trigger firing across both lanes.** `analyze_structure_batch`
+failed both attempts, same "Too Many Requests" symptom continuing uninterrupted since 17:37:50Z
+(~2 hours now). `tvremix_consecutive_failed_cycles` → **3** (crypto-trigger-specific count).
+Manually confirmed mid-session via chat (plain single-symbol quote/news calls on the same
+connector also failing, not just the batch structure call) — this is a real, sustained outage on
+this connector, not an artifact of this system's own call volume; today's combined call total
+across all three triggers remains well under the 50/day ceiling (~37 before this cycle), so
+daily-budget exhaustion is ruled out as the cause. Every allowlisted pair NOT_EVALUATED — tool
+failure. No crypto order placed; 0 open positions, no protective action needed.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-05T19:37:12Z","timestamp_pacific":"2026-11-05T11:37:12-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"DATA_BLOCKED","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":109.19,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":109.19,"cap_usd":354.63,"headroom_usd":245.44},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure — Too Many Requests, both attempts, sustained outage ~2h"},{"symbol":"ETH","reason":"tool failure — Too Many Requests, both attempts, sustained outage ~2h"},{"symbol":"SOL","reason":"tool failure — Too Many Requests, both attempts, sustained outage ~2h"},{"symbol":"XRP","reason":"tool failure — Too Many Requests, both attempts, sustained outage ~2h"},{"symbol":"LINK","reason":"tool failure — Too Many Requests, both attempts, sustained outage ~2h"},{"symbol":"AAVE","reason":"tool failure — Too Many Requests, both attempts, sustained outage ~2h"},{"symbol":"HBAR","reason":"tool failure — Too Many Requests, both attempts, sustained outage ~2h"},{"symbol":"AVAX","reason":"tool failure — Too Many Requests, both attempts, sustained outage ~2h"}],"tool_failures":8},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":3,"calls_made_this_cycle":2,"tvremix_calls_used_today":39,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
