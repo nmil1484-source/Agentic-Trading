@@ -59542,3 +59542,80 @@ regardless of screening outcome.** Near-miss queue unchanged (still empty).
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-05T16:37:16Z","timestamp_pacific":"2026-11-05T08:37:16-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":["market_shock_spy_qqq_1.5pct"],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":109.19,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":109.19,"cap_usd":357.22,"headroom_usd":248.03},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":18,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-05 ~17:04 UTC / 9:04 AM PST — AUTONOMOUS (Mode B/C Entry Screening — Fresh Candle, trigger fired 17:03:59Z, processed this turn)
+
+**Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found.
+
+**Account/positions:** `get_portfolio` — equity $5,921.54, cash $2,012.83. `get_equity_orders`
+(confirmed) — PATH stop $12.73 (qty 119) and DIS stop $115.90 (qty 20) both still resting,
+confirmed. `get_option_positions` (nonzero) — **0 open options/LEAPS positions**, step 2b
+trivially clean, logged explicitly.
+
+**Mode B equity stop-audit:** 2 positions checked (PATH, DIS), 0 missing, 0 placed.
+
+**Position check:** PATH $13.08 (entry $13.25/stop $12.73) and DIS $117.61 (entry $118.26/stop
+$115.90) — both quotes pulled; neither has reached +1R, no breakeven move due on either.
+
+**Circuit breakers:** 0 stop-outs today, cooldown clear. Market-shock check: SPY $740.67 vs. last
+cycle's $745.51 (16:37:16Z) = -0.65%; QQQ $655.71 vs. $661.77 = -0.92% — both under 1.5%, breaker
+from the prior two cycles has lapsed; new entries permitted this cycle (none qualified anyway).
+
+**Portfolio heat cap:** PATH $62 + DIS $47.19 = $109.19 vs. cap $355.29 (6% of $5,921.54) — ample
+headroom.
+
+**Near-miss queue reassessment (3 of 5 reserved slots — TEM, PGY, IGV; 9 of 12 Stage-2 slots to
+rotation).** All **still near-miss**, no clearances/invalidations:
+- **TEM**: 1D `pullback_short` R:R 0.21:1 unchanged; 60m no longer shows a setup at all this
+  cycle (previously had a weak bearish trend read) — still fails item 4. cycles_checked → 6.
+- **PGY**: no computable setup either TF, essentially unchanged (overextended both TFs). Still
+  fails item 7. cycles_checked → 3.
+- **IGV**: same — no computable setup either TF, unchanged. Still fails item 7.
+  cycles_checked → 3.
+`near_miss_queue.md` updated and committed alongside this entry.
+
+**Stage 1 — full-universe batch triage.** `rank_symbol_setups` across all 74 names — 66 ranked, 8
+skipped (same earnings-proximity names as last cycle). Leaders rotated somewhat from last cycle:
+AMZN (77, strong), AVA (75), DIS (68, now #3 after this morning's gain settling back), LLY (67),
+DUOL (65), AAPL (65), RUN (65), CVX (61).
+
+**Stage 2 — 9 of 12 rotation slots, all names not yet touched this session (least-recently-
+evaluated-first): TTD, SHOP, TSM, HPE, NVDA, AMD, GLD, STM, ZS.** `analyze_structure_batch`
+(1D/60m) — **all 9 rejected, no clearance:**
+- **TTD, SHOP**: both mixed-direction with a daily-leg R:R that would clear 1.3:1 in isolation
+  (TTD 1D bearish R:R 1.65; SHOP 1D bullish R:R 1.52) — but neither's hourly leg confirms (TTD
+  60m bullish, opposing; SHOP 60m bearish, opposing) — **rejected, item 7 (no confirming hourly
+  trigger, direction mismatch).** TTD also carries earnings in 4 days (event-risk noted).
+- **TSM, HPE, NVDA, AMD, STM**: no computable setup either TF (overextended/inactive pullbacks);
+  checked for breakout-continuation — several show a 60m `current_below_min_swing_low: true` flag
+  (a fresh-low signal) contradicting their own "bullish" trend label, not a usable bullish
+  breakout candidate. **Rejected, no computable entry under any permitted method.**
+- **GLD**: aligned bearish, 1D `pullback_short` R:R 0.25:1 — **rejected, item 4.**
+- **ZS**: mixed/insufficient 1D data, 60m overextended no setup — **rejected, no computable
+  entry** (3rd consecutive check reaching this same structural-absence conclusion).
+
+**§22 Leveraged/Inverse ETF coverage — COVERAGE_INCOMPLETE for a 3rd consecutive cycle (same
+persistent tool failure, not a new issue).**
+- **TQQQ**: no bullish-aligned setup either TF — rejected with evidence.
+- **SQQQ**: underlying QQQ mixed (not aligned bearish) — §22 item 2's underlying-thesis leg fails
+  — rejected with evidence.
+- **AMDG**: no computable entry either TF (same recurring gap) — rejected with evidence, queue
+  updated (cycles_checked → 2).
+- **SOXL, SOXS, SPXL, SPXU, TNA, TZA**: `analyze_structure_batch` "insufficient bars (0)" again,
+  identical to the last two cycles — **this is now a flagged persistent, symbol-specific failure**
+  (12-13 other names across this cycle's batch calls succeeded each time). NOT_EVALUATED — tool
+  failure. Queue entries for TNA/SPXL/SPXU/TZA updated to note the 3-cycle staleness.
+- Completion: 3 evaluated+rejected + 6 not-evaluated = 9/9 accounted for.
+  **COVERAGE_INCOMPLETE = true.**
+
+**Mode C screening:** 0 open positions, $0 daily P&L. Sharing Stage 1 output — no VWAP-pullback/
+ORB/mean-reversion setup identified; today's volatility (sharp midday reversal) doesn't fit the
+calmer profile these setups assume. OBSERVE, no trade.
+
+**No order placed in Mode B or Mode C this cycle.**
+
+```json
+{"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-05T17:03:59Z","timestamp_pacific":"2026-11-05T09:03:59-08:00","coverage_state":"EVALUATED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":2,"mode_c_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":66,"full_gate_evaluated":12,"rejected_with_evidence":12,"not_evaluated":[{"symbol":"IREN","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"KTOS","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"OSCR","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"OKLO","reason":"Stage-1 skip — earnings in 1d"},{"symbol":"PURR","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"KEEL","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"VST","reason":"Stage-1 skip — earnings in 1d"},{"symbol":"CORZ","reason":"Stage-1 skip — earnings in 0d"}],"tool_failures":0},"near_miss_queue":{"reassessed":3,"cleared":0,"still_near_miss":3,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_2026-11-04_not_pending"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":0,"rejected_with_evidence":3,"not_evaluated":[{"symbol":"SOXL","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"},{"symbol":"SOXS","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"},{"symbol":"SPXL","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"},{"symbol":"SPXU","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"},{"symbol":"TNA","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"},{"symbol":"TZA","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"}],"coverage_complete":false},"calls_made_this_cycle":3,"tvremix_calls_used_today":9,"tvremix_pool_note":"Mode B/C pool only (20/day ceiling)","exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
