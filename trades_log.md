@@ -59266,3 +59266,49 @@ this turn.
 ```json
 {"cycle":"Mode B/C First Scan of Day","timestamp_utc":"2026-11-05T15:04:55Z","timestamp_pacific":"2026-11-05T07:04:55-08:00","modes_covered":["B","C"],"status_gate":"ACTIVE","coverage_state":"AUTH_BLOCKED","circuit_breakers_active":[],"positions":{"mode_b_count":null,"mode_c_count":null},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"leveraged_etf_coverage":{"universe_size":9,"evaluated":0,"rejected_with_evidence":0,"not_evaluated":9,"coverage_complete":false},"coverage":{"universe_size":73,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"ALL","reason":"AUTH_BLOCKED — robinhood-trading connector unauthenticated this turn, no account/position data available, no entry actionable even if a setup cleared"}],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"calls_made_this_cycle":0,"tvremix_calls_used_today":16,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-05 ~15:38 UTC / 7:38 AM PST — AUTONOMOUS (Crypto 24/7 Scan §21, trigger fired 15:38:35Z, processed this turn)
+
+**Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found.
+
+**Account/positions:** `get_accounts` confirmed Robinhood access restored (AUTH_BLOCKED from the
+prior First Scan cycle, 15:04:55Z, has cleared). `get_portfolio` — equity $5,961.315, cash
+$4,378.02. `get_crypto_positions` — **0 open crypto positions**. Near-miss queue (Crypto §21
+table): empty, confirmed via `near_miss_queue.md` read — no reassessment needed.
+
+**Existing-position management:** N/A, 0 open crypto positions — stop-audit trivially clean.
+
+**Circuit breakers — MARKET-SHOCK BREAKER TRIGGERED.** Same-day 2-stop-out cooldown: 0 stop-outs
+today, clear. Market-shock check: `get_equity_quotes` SPY $746.90 vs. this session's first
+intraday baseline (14:38:10Z cycle, $760.59) = **-1.80%**; QQQ $659.74 vs. $674.82 = **-2.23%** —
+both exceed the §6 >1.5% cycle-over-cycle threshold. **New entries paused in every mode for this
+cycle**, per §6; existing protective exits/stop management remain fully active (moot here, 0
+crypto positions open). Logged as the circuit-breaker-fired case requiring a full chat report per
+this trigger's own item 10 rule.
+
+**Portfolio heat cap:** Mode B (PATH) resting stop unchanged ($12.73, qty 119, avg $13.25 →
+≈$62). Heat ≈$62 vs. cap ≈$357.68 (6% of $5,961.315) — ample headroom, moot given the breaker
+above blocks any new entry regardless.
+
+**Full-allowlist gate evaluation — all 8 pairs REJECTED with evidence** (coverage still run for
+logging/visibility even though the market-shock breaker independently blocks any entry this
+cycle). `analyze_structure_batch` (240/60) succeeded for all 8, intervals confirmed, bars fresh
+(`latest_bar_time` 1793880000/1793890800). Broad market selloff deepening (BTC ~$79.0K→$76.2K
+since the last cycle):
+- BTC, SOL, LINK, HBAR: aligned bearish both TFs, only `pullback_short` setups (R:R 0.16/0.21/
+  0.25/0.18 — not a permitted direction) — rejected.
+- ETH: 1H `pullback_long` R:R 2.57 "ok" — but 4H bearish `pullback_short` (R:R 1.47), not aligned
+  bullish both TFs — rejected (direction-mismatch, same standing rule as the 2026-11-04 BTC
+  near-miss-queue correction: only a bullish setup aligned on BOTH timeframes is ever a candidate).
+- XRP, AAVE, AVAX: 1H bullish but overextended, `setup: null`; 4H bearish `pullback_short`
+  (R:R 0.5/0.62/0.06 — wrong direction) — rejected.
+
+**No crypto order placed — both the full-allowlist screen and the active market-shock circuit
+breaker independently prohibit any entry this cycle.** Near-miss queue unchanged (still empty),
+`near_miss_queue.md` not modified, not included in this commit.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-05T15:38:35Z","timestamp_pacific":"2026-11-05T07:38:35-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":["market_shock_spy_qqq_1.5pct"],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":62,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":62,"cap_usd":357.68,"headroom_usd":295.68},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":17,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
