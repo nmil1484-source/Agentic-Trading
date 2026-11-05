@@ -59312,3 +59312,175 @@ breaker independently prohibit any entry this cycle.** Near-miss queue unchanged
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-05T15:38:35Z","timestamp_pacific":"2026-11-05T07:38:35-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":["market_shock_spy_qqq_1.5pct"],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":62,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":62,"cap_usd":357.68,"headroom_usd":295.68},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":17,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-05 ~16:04 UTC / 8:04 AM PST — AUTONOMOUS (Mode B/C Entry Screening — Fresh Candle, trigger fired 16:04:53Z, processed this turn) — **TRADE: BOUGHT DIS**
+
+**Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found. Robinhood access confirmed live
+(restored since the 15:04:55Z AUTH_BLOCKED First Scan cycle).
+
+**Account/positions:** `get_portfolio` — equity $5,945.845, cash $4,378.02 (pre-trade).
+`get_equity_positions` — PATH 119 sh @ avg $13.25 (unchanged). `get_option_positions` (nonzero) —
+**0 open options/LEAPS positions** — step 2b stop-check trivially clean, logged explicitly per
+mandatory-every-cycle requirement even with zero positions.
+
+**Mode B equity stop-audit (§16 item 15):** `get_equity_orders` (state=confirmed) — PATH's resting
+`stop_market` sell at $12.73, qty 119, confirmed resting. 1 position checked, 0 missing, 0 placed.
+
+**Circuit breakers:** 0 stop-outs today, cooldown clear. Market-shock check: SPY $739.35 vs. the
+prior cycle's $746.90 (15:38:35Z) = **-1.01%**; QQQ $650.80 vs. $659.74 = **-1.35%** — both under
+the 1.5% threshold this cycle (the breaker that fired last cycle has lapsed; new entries permitted
+this cycle). Broader context: SPY is now -3.58% / QQQ -5.95% from yesterday's official close — a
+genuinely severe broad-market selloff day, independent of the cycle-over-cycle breaker's own
+narrower trigger condition.
+
+**Portfolio heat cap (pre-trade):** PATH ≈$62. Cap ≈$356.75 (6% of $5,945.845). Ample headroom
+before sizing the new DIS entry below.
+
+**FTA Regime Dashboard:** not separately re-checked this cycle (optional context field; prior
+UNKNOWN_DEGRADED/live readings not materially decision-relevant to this cycle's R:R-based
+screening, which doesn't vary by regime state per §5B item 4's flat 1.3:1 floor).
+
+**Near-miss queue reassessment (3 of 5 reserved slots used — TEM, PGY, IGV; 9 of 12 Stage-2 slots
+remained for rotation).** Full results, all **still near-miss** (no clearances, no invalidations):
+- **TEM** (Bearish Mirror Gate): 1D `pullback_short` R:R 0.21:1 (deteriorated further from last
+  cycle's 0.9:1/0.31:1); 60m now shows no setup at all. Still fails item 4's 1.3:1 floor.
+  cycles_checked → 5.
+- **PGY**: no computable setup either TF (`pullback_long` inactive/overextended both 1D 88.7%
+  depth and 60m 122.6% depth); no breakout-continuation condition either (`current_above_max_
+  swing_high: false` both TFs). Still fails item 7 (no hourly trigger). cycles_checked → 2.
+- **IGV**: same pattern — inactive/overextended pullback both TFs (106.0%/114.2% depth), no
+  breakout-continuation condition on the bullish side. 60m flags `current_below_min_swing_low:
+  true` but that's a bearish-direction signal on a long-only ETF with no usable entry path. Still
+  fails item 7. cycles_checked → 2.
+- **AMD pending-eligibility**: already resolved 2026-11-04 (removed from Pending-eligibility) —
+  nothing to re-check.
+`near_miss_queue.md` updated and committed alongside this entry.
+
+**Stage 1 — full-universe batch triage.** `rank_symbol_setups` across all 74 `watchlist.md` names
+— 66 ranked, 8 skipped (earnings in 0-1 days: IREN, KTOS, OSCR, OKLO, PURR, KEEL, VST, CORZ — each
+individually re-checked for §4 timing if/when drawn into Stage 2 rotation, not excluded outright
+by the screener's own heuristic). Top bullish scores: AVA (73), DIS (69), DUOL (67), AAPL (66),
+LLY (65), CVX (64), RUN (63), AMZN (61). Given today's broad selloff, most Stage-1 daily-bar
+scores lag intraday reality — several "bullish" names are getting hit hard right now; Stage 2's
+own fresh intraday structure reads are what actually governs below, not the Stage-1 score alone.
+
+**Stage 2 — 9 of 12 rotation slots (prioritized from Stage 1's top bullish scores, plus one
+bearish-direction large-cap for Bearish Mirror Gate coverage given today's selloff): AVA, DIS,
+DUOL, AAPL, LLY, CVX, RUN, AMZN, PLTR.** `analyze_structure_batch` (1D/60m):
+- **DIS — CLEARED, full Trade Card below.** §13.G breakout-continuation: fresh high both TFs
+  (1D +1.85%, 60m +4.23% above prior confirmed swing highs), real dated catalyst, volume-confirmed
+  hourly trigger, R:R 1.5:1. See Trade Card.
+- AVA: aligned_bullish but R:R 0.26:1 (pullback shallow but poor geometry) — **rejected, item 4**.
+- DUOL: aligned_bearish, no setup either TF (deep/overextended) — **rejected, no computable entry
+  under any permitted method** (checked both pullback and breakout-continuation paths; no fresh
+  high/low on either TF).
+- AAPL: aligned_bullish, 60m `pullback_long` R:R 0.17:1 (fails item 4); 1D shows a fresh high
+  (+1.34%) but 60m does not (-1.25%) — not a 2-TF-confirmed breakout, so §13.G doesn't apply either.
+  **Rejected, item 4 (and no qualifying breakout-continuation alternative).**
+- LLY: aligned_bullish, 60m `pullback_long` R:R 0.15:1 — **rejected, item 4**.
+- CVX: aligned_bullish, no setup either TF; 1D shows a fresh high vs. an old swing reference but
+  60m does not confirm (-6.43% below its own recent high) — not 2-TF-aligned. **Rejected, no
+  computable entry.**
+- RUN: aligned_bearish per the tool's trend label, but 60m shows a fresh high (+2.57%) while 1D
+  does not (-58.2%, a stale/distant reference) — contradictory, not a clean 2-TF breakout in either
+  direction; no pullback setup either TF. **Rejected, no computable entry.**
+- AMZN: mixed (1D bullish `pullback_long` R:R 0.44:1 — fails item 4; 60m bearish, no setup).
+  **Rejected, item 4.**
+- PLTR: mixed (1D bullish but overextended/no setup; 60m ranging/neutral, insufficient data) —
+  **rejected, no computable entry under any permitted method.**
+
+**§22 Leveraged/Inverse ETF coverage (mandatory, all 9) — COVERAGE_INCOMPLETE this cycle (tool
+failure, not a screening gap).**
+- **TQQQ**: mixed, no bullish-aligned setup either TF — **rejected with evidence**.
+- **SQQQ**: underlying QQQ's own consensus is mixed (not aligned bearish) — §22 item 2's required
+  underlying-bearish-thesis leg fails outright; SQQQ's own chart also mixed/no setup — **rejected
+  with evidence**.
+- **AMDG**: 1D `pullback_long` inactive/overextended (null setup); 60m bearish, no confirming
+  trigger — **rejected with evidence (no computable entry)** — added to the §22 near-miss table
+  this cycle (recurring no-setup condition).
+- **SOXL, SOXS, SPXL, SPXU, TNA, TZA**: `analyze_structure_batch` returned "insufficient bars (0)"
+  for all 6, **retried once this cycle, identical result both times** — genuine persistent tool
+  failure for these 6 symbols specifically (12 other names across this cycle's other batch calls
+  succeeded, so this is not a connector-wide outage). **NOT_EVALUATED — tool failure**, not
+  logged as rejected setups. TNA/SPXL/SPXU/TZA's near-miss queue entries carried forward unchanged
+  (reassessment blocked, cycles_checked not incremented).
+- **Completion check**: 3 evaluated+rejected-with-evidence (TQQQ, SQQQ, AMDG) + 6 not-evaluated
+  (tool failure) = 9 of 9 accounted for. **COVERAGE_INCOMPLETE = true** (6 of 9 could not get a
+  real structural read this cycle, even though the step itself ran and every name is accounted
+  for) — flagged per the mandatory reporting rule for this outcome.
+
+**Options/LEAPS sourcing (§18 item 11/§19 item 8):** DIS clearing via §13.G makes it eligible for
+an options structure too, but given the position already sized to a full equity entry and the
+scope of this cycle, an options alternative for DIS was not separately pursued this cycle — flagged
+as a possible same-cycle enhancement for a future pass, not a gap in this trade's own validity.
+No other candidate cleared Stage 2 to trigger options sourcing this cycle.
+
+**Mode C screening:** 0 open Mode C positions (stop-audit trivially clean, $0 daily P&L). Sharing
+Stage 1's triage output, no VWAP-pullback/ORB/mean-reversion hourly-adapted setup identified this
+cycle — today's extreme volatility doesn't match the calmer conditions these setups are designed
+for, and no Mode C candidate was separately pursued. OBSERVE, no trade.
+
+---
+
+### TRADE CARD — BUY DIS
+
+- **STRATEGY: SWING_TRADING (Mode B)**
+- **Ticker/instrument:** DIS (Walt Disney Co.), common stock, whole-share
+- **LUC status:** not checked (optional context only for Mode B, per §5B)
+- **Catalyst:** Disney cost-cutting push targeting EPS growth and up to 20% cost savings, including
+  thousands of job cuts under new CEO Josh D'Amaro — multiple dated sources 2026-11-03 (GuruFocus,
+  Dow Jones Newswires/Barron's, Seeking Alpha, Stocktwits: "DIS Stock Ticks Higher Overnight").
+  Verified via TradingView `get_news`.
+- **Confirmation role-groups (≥1 of 5 required, §5B item 3):** Trend/State (price well above
+  EMA200, +12.5%, per Stage-1 data) — Location (fresh breakout above the prior confirmed swing
+  high, both 1D and 60m) — Relative strength (DIS roughly flat/-0.6% today vs. SPY/QQQ down
+  3.6%/6.0% — real, checkable outperformance) — Volume (1.80x the §13.H 3-bar baseline on the
+  hourly trigger bar) — Momentum (RSI 73.4, elevated but clearing "above 45 and improving," no
+  automatic veto per §13.F item 2). **5 of 5 clear** — well above the 1-of-5 floor.
+- **Method: §13.G Breakout-Continuation** (no active pullback to measure — price making a fresh
+  high on both timeframes).
+  - Daily-chart setup: 1D price $118.18 vs. prior confirmed swing high $116.03 (+1.85%).
+  - Hourly trigger: the 15:00-16:00Z hourly bar closed at $118.65, confirming above the 60m-level
+    swing high $113.38 (+4.23%), on 566,707 shares vs. a 3-prior-bar §13.H baseline of 314,447
+    (18:00Z/19:00Z/20:00Z bars from 2026-11-04, the 3 most recently completed hourly bars
+    preceding today's first bar) = **1.80x** — clears the ≥1.2x volume floor.
+- **Entry:** limit $118.30, filled 20 sh @ avg $118.2594 (order id `6aecaa21-a579-442e-9385-
+  fd56be615d18`, 16:09:05Z).
+- **Stop/invalidation:** $115.90 (just below the broken $116.03 level) — real resting
+  `stop_market` sell, 20 sh, confirmed resting (order id `6aecaa30-fa07-439e-9da5-e4ae30dceaf3`,
+  confirmed 16:09:20Z).
+- **Target:** §13.F `ATR_TARGET` — 1.5× daily ATR(14) ($2.30) = $3.45 above entry ≈ **$121.65**
+  (tagged `ATR_TARGET` for separate outcome tracking per §13.F).
+- **Reward-to-risk:** (121.65-118.26)/(118.26-115.90) = 3.39/2.36 ≈ **1.44:1** — clears the 1.3:1
+  floor (computed on actual fill price, slightly above the 1.5:1 pre-trade estimate which used
+  the earlier $118.20 reference price).
+- **Sizing:** dollar-allocation cap bound this trade, not the risk budget — 40%-of-equity cap
+  ($2,378.34) ÷ $118.30 ≈ 20 shares; the 2%-of-equity risk budget ($118.92 ÷ $2.3594/share risk
+  ≈ 51 shares) was not the binding constraint. Planned max loss: 20 × $2.3594 ≈ **$47.19**
+  (≈0.79% of equity, well under the 2% budget — a consequence of the dollar cap binding first,
+  not a resize-down from a failed risk check).
+- **Portfolio impact:** position value $2,365.19 (≈39.8% of $5,945.845 equity — just under the
+  40% per-position cap). Total deployed post-trade ≈$3,933.02 (equities) vs. the 90% ceiling
+  ($5,351.26) — ample room; cash post-trade ≈$2,012.83, well above the 10% minimum ($594.58).
+  Portfolio heat post-trade: PATH $62 + DIS $47.19 = **$109.19** vs. cap $356.75 — $247.56
+  headroom remains.
+- **Sector/theme:** Consumer Services / Media & Entertainment — no correlation conflict with PATH
+  (Technology Services/RPA automation); 2 of 15 position-cap slots used, 1 of 3 per-theme slots in
+  this theme.
+- **Timing:** 16:09Z, well outside the first/last 15 minutes of the regular session (opens 14:30Z,
+  closes 21:00Z); no scheduled high-impact macro event within 30 minutes (checked via
+  `get_economic_calendar` — nothing scheduled between now and the next NFP release tomorrow
+  13:30Z); earnings 12 days out, no conflict.
+- **Settled-cash status:** cash-only, no margin, confirmed via `get_portfolio` buying power
+  ($4,378.02, fully unleveraged) before the order.
+- **Resting stop order id/status:** `6aecaa30-fa07-439e-9da5-e4ae30dceaf3`, confirmed resting.
+- **Same-day protective exception:** N/A — this is a new entry, not an exit.
+- **Final status: FILLED.**
+
+---
+
+```json
+{"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-05T16:04:53Z","timestamp_pacific":"2026-11-05T08:04:53-08:00","coverage_state":"EVALUATED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":2,"mode_c_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":1},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":66,"full_gate_evaluated":12,"rejected_with_evidence":11,"not_evaluated":[{"symbol":"IREN","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"KTOS","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"OSCR","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"OKLO","reason":"Stage-1 skip — earnings in 1d"},{"symbol":"PURR","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"KEEL","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"VST","reason":"Stage-1 skip — earnings in 1d"},{"symbol":"CORZ","reason":"Stage-1 skip — earnings in 0d"}],"tool_failures":0},"near_miss_queue":{"reassessed":3,"cleared":0,"still_near_miss":3,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_2026-11-04_not_pending"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":0,"rejected_with_evidence":3,"not_evaluated":[{"symbol":"SOXL","reason":"tool failure — insufficient bars (0), retried once"},{"symbol":"SOXS","reason":"tool failure — insufficient bars (0), retried once"},{"symbol":"SPXL","reason":"tool failure — insufficient bars (0), retried once"},{"symbol":"SPXU","reason":"tool failure — insufficient bars (0), retried once"},{"symbol":"TNA","reason":"tool failure — insufficient bars (0), retried once"},{"symbol":"TZA","reason":"tool failure — insufficient bars (0), retried once"}],"coverage_complete":false},"calls_made_this_cycle":6,"tvremix_calls_used_today":6,"tvremix_pool_note":"Mode B/C pool only (20/day ceiling) — distinct from the crypto trigger's separate 30/day pool, which stood at 17 as of the last crypto cycle this UTC day","exits":[],"entries":[{"symbol":"DIS","mode":"B","qty":20,"price":118.2594}],"orders_placed":2,"git_push":"pending"}
+```
