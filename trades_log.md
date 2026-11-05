@@ -59033,3 +59033,39 @@ regular equity session closed.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-05T09:37:33Z","timestamp_pacific":"2026-11-05T01:37:33-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":62,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":62,"cap_usd":358.86,"headroom_usd":296.86},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":11,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-05 ~10:37 UTC / 2:37 AM PST — AUTONOMOUS (Crypto 24/7 Scan §21, trigger fired 10:37:16Z, processed this turn)
+
+**Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found.
+
+**Account/positions:** `get_portfolio` — equity $5,985.71, cash $4,378.02. `get_crypto_positions`
+— **0 open crypto positions**. Near-miss queue (Crypto §21 table): empty — no reassessment
+needed.
+
+**Existing-position management:** N/A, 0 open crypto positions — stop-audit trivially clean.
+
+**Circuit breakers:** 0 stop-outs today, cooldown clear. Market-shock breaker — inapplicable,
+regular equity session closed.
+
+**Portfolio heat cap:** Mode B (PATH) resting stop unchanged ($12.73, qty 119, avg $13.25 →
+≈$62), still below +1R. Heat ≈$62 vs. cap ≈$359.14 (6% of $5,985.71) — ample headroom.
+
+**Full-allowlist gate evaluation — all 8 pairs REJECTED with evidence.** `analyze_structure_batch`
+(240/60) succeeded for all 8, intervals confirmed, bars fresh (`latest_bar_time` 1793865600/
+1793872800).
+- BTC, LINK, AAVE: no setup either TF — rejected.
+- ETH: 1H `pullback_long` R:R 0.15 — 4H bearish, no setup — rejected.
+- XRP: 1H `pullback_long` R:R 0.27 — 4H bearish, no setup — rejected.
+- AVAX: 1H `pullback_long` R:R 0.72 — 4H bearish `pullback_short` R:R 1.3 (wrong direction) —
+  rejected.
+- SOL, HBAR: 1H no setup/aligned bearish; 4H bearish `pullback_short` (R:R 0.57 and 0.42 —
+  not permitted) — rejected.
+
+**No crypto order placed, no risk/cap/gate change.** Near-miss queue unchanged (still empty),
+`near_miss_queue.md` not modified, not included in this commit.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-05T10:37:16Z","timestamp_pacific":"2026-11-05T02:37:16-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":62,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":62,"cap_usd":359.14,"headroom_usd":297.14},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":12,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
