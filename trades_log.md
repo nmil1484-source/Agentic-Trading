@@ -59651,3 +59651,45 @@ cycle, 16:37:16Z).
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-05T17:37:50Z","timestamp_pacific":"2026-11-05T09:37:50-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"DATA_BLOCKED","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":109.19,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":109.19,"cap_usd":355.28,"headroom_usd":246.09},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"ETH","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"SOL","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"XRP","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"LINK","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"AAVE","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"HBAR","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"AVAX","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"}],"tool_failures":8},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":1,"calls_made_this_cycle":2,"tvremix_calls_used_today":20,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-05 ~18:04 UTC / 10:04 AM PST — AUTONOMOUS (Mode B/C Entry Screening — Fresh Candle, trigger fired 18:04:02Z, processed this turn) — **DATA_BLOCKED (screening only)**
+
+**Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found.
+
+**Account/positions:** `get_portfolio` — equity $5,897.935, cash $2,012.83. `get_equity_orders`
+(confirmed) — PATH stop $12.73 (qty 119) and DIS stop $115.90 (qty 20) both still resting.
+`get_option_positions` (nonzero) — **0 open options/LEAPS positions**, step 2b trivially clean.
+
+**Mode B equity stop-audit:** 2 checked, 0 missing, 0 placed.
+
+**Position check:** PATH $12.995 (entry $13.25/stop $12.73, -1.9% from entry); DIS $116.935
+(entry $118.2594/stop $115.90, -1.1% from entry) — both drifting down with the broader market but
+neither has breached its stop nor reached +1R. No action needed on either.
+
+**Circuit breakers:** 0 stop-outs today, cooldown clear. Market-shock check: SPY $734.44 vs. last
+cycle's $738.61 (17:37:50Z crypto reading) = -0.56%; QQQ $649.85 vs. $653.98 = -0.63% — both well
+under 1.5%, clear.
+
+**Portfolio heat cap:** PATH $62 + DIS $47.19 = $109.19 vs. cap $353.88 (6% of $5,897.935) — ample
+headroom.
+
+**DATA_BLOCKED — TradingView/tvremix connector rate-limited, 2/2 attempts failed this cycle**
+(`rank_symbol_setups` Stage-1 call: "Too Many Requests" both times) — same symptom that hit the
+crypto trigger's 17:37:50Z cycle (`tvremix_consecutive_failed_cycles: 1` there). **New-candidate
+screening (Stage 1 full-universe triage, Stage 2 rotation, near-miss-queue reassessment, and §22
+leveraged-ETF coverage) was NOT performed this cycle** — a full 74-name-equivalent fallback via
+Robinhood's own `get_equity_historicals`/`get_equity_technical_indicators` (one call per name, no
+batch screener equivalent on that path) was judged impractical to complete within this cycle given
+the scale, so rather than present a partial or token re-screen as if it were genuine coverage,
+this cycle's screening step is logged honestly as **NOT_RUN** this cycle specifically — the
+protective-management items above (stop-audits, options check, heat cap, circuit breakers) are
+unaffected and were completed in full regardless. **No order placed in Mode B or Mode C.** This
+is the second consecutive trigger (crypto, then this one) to hit the same tvremix rate-limit —
+worth watching; if the next crypto/Mode-B-C cycles also fail, that crosses into a real outage
+pattern rather than a one-off.
+
+```json
+{"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-05T18:04:02Z","timestamp_pacific":"2026-11-05T10:04:02-08:00","coverage_state":"DATA_BLOCKED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":2,"mode_c_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"ALL","reason":"DATA_BLOCKED — tvremix rank_symbol_setups 'Too Many Requests', both attempts; full-universe Robinhood-only fallback judged impractical within this cycle, screening step logged NOT_RUN rather than partial"}],"tool_failures":2},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_2026-11-04_not_pending"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"ALL_9","reason":"DATA_BLOCKED — screening step NOT_RUN this cycle"}],"coverage_complete":false},"calls_made_this_cycle":2,"tvremix_calls_used_today":11,"tvremix_pool_note":"Mode B/C pool only (20/day ceiling)","exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
