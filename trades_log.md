@@ -59619,3 +59619,35 @@ calmer profile these setups assume. OBSERVE, no trade.
 ```json
 {"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-05T17:03:59Z","timestamp_pacific":"2026-11-05T09:03:59-08:00","coverage_state":"EVALUATED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":2,"mode_c_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":66,"full_gate_evaluated":12,"rejected_with_evidence":12,"not_evaluated":[{"symbol":"IREN","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"KTOS","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"OSCR","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"OKLO","reason":"Stage-1 skip — earnings in 1d"},{"symbol":"PURR","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"KEEL","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"VST","reason":"Stage-1 skip — earnings in 1d"},{"symbol":"CORZ","reason":"Stage-1 skip — earnings in 0d"}],"tool_failures":0},"near_miss_queue":{"reassessed":3,"cleared":0,"still_near_miss":3,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_2026-11-04_not_pending"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":0,"rejected_with_evidence":3,"not_evaluated":[{"symbol":"SOXL","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"},{"symbol":"SOXS","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"},{"symbol":"SPXL","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"},{"symbol":"SPXU","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"},{"symbol":"TNA","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"},{"symbol":"TZA","reason":"tool failure — insufficient bars (0), 3rd consecutive cycle"}],"coverage_complete":false},"calls_made_this_cycle":3,"tvremix_calls_used_today":9,"tvremix_pool_note":"Mode B/C pool only (20/day ceiling)","exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-05 ~17:37 UTC / 9:37 AM PST — AUTONOMOUS (Crypto 24/7 Scan §21, trigger fired 17:37:50Z, processed this turn) — **DATA_BLOCKED**
+
+**Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found.
+
+**Account/positions:** `get_portfolio` — equity $5,921.38, cash $2,012.83. `get_crypto_positions`
+— **0 open crypto positions**. Near-miss queue (Crypto §21 table): empty.
+
+**Existing-position management:** N/A, 0 open crypto positions.
+
+**Circuit breakers:** 0 stop-outs today, cooldown clear. Market-shock check: SPY $738.61 vs. last
+cycle's $740.67 (17:03:59Z Mode B/C reading) = -0.28%; QQQ $653.98 vs. $655.71 = -0.26% — both
+well under 1.5%, clear.
+
+**Portfolio heat cap:** PATH $62 + DIS $47.19 = $109.19 vs. cap $355.28 (6% of $5,921.38) — ample
+headroom, moot given the data block below.
+
+**DATA_BLOCKED — `analyze_structure_batch` failed both attempts this cycle** ("Too Many
+Requests" on both the first call and the retry). Every allowlisted pair is **NOT_EVALUATED — tool
+failure** this cycle — this follows an unusually dense run of tvremix calls across the last few
+Mode B/C and crypto cycles this session (First Scan retry, two Fresh Candle cycles, prior crypto
+cycles), so a short-lived rate-limit is a plausible proximate cause, though the tool's own error
+gives no rate-limit-specific detail to confirm that over a genuine outage. No crypto order placed
+— no structure data was obtainable to evaluate any candidate against. `tvremix_consecutive_failed_
+cycles` → **1** (first DATA_BLOCKED cycle this session; was 0 as of the last successful crypto
+cycle, 16:37:16Z).
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-05T17:37:50Z","timestamp_pacific":"2026-11-05T09:37:50-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"DATA_BLOCKED","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":109.19,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":109.19,"cap_usd":355.28,"headroom_usd":246.09},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"ETH","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"SOL","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"XRP","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"LINK","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"AAVE","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"HBAR","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"},{"symbol":"AVAX","reason":"tool failure — analyze_structure_batch 'Too Many Requests', both attempts"}],"tool_failures":8},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":1,"calls_made_this_cycle":2,"tvremix_calls_used_today":20,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
