@@ -59484,3 +59484,21 @@ for, and no Mode C candidate was separately pursued. OBSERVE, no trade.
 ```json
 {"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-05T16:04:53Z","timestamp_pacific":"2026-11-05T08:04:53-08:00","coverage_state":"EVALUATED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":2,"mode_c_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":1},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":66,"full_gate_evaluated":12,"rejected_with_evidence":11,"not_evaluated":[{"symbol":"IREN","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"KTOS","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"OSCR","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"OKLO","reason":"Stage-1 skip — earnings in 1d"},{"symbol":"PURR","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"KEEL","reason":"Stage-1 skip — earnings in 0d"},{"symbol":"VST","reason":"Stage-1 skip — earnings in 1d"},{"symbol":"CORZ","reason":"Stage-1 skip — earnings in 0d"}],"tool_failures":0},"near_miss_queue":{"reassessed":3,"cleared":0,"still_near_miss":3,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_2026-11-04_not_pending"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":0,"rejected_with_evidence":3,"not_evaluated":[{"symbol":"SOXL","reason":"tool failure — insufficient bars (0), retried once"},{"symbol":"SOXS","reason":"tool failure — insufficient bars (0), retried once"},{"symbol":"SPXL","reason":"tool failure — insufficient bars (0), retried once"},{"symbol":"SPXU","reason":"tool failure — insufficient bars (0), retried once"},{"symbol":"TNA","reason":"tool failure — insufficient bars (0), retried once"},{"symbol":"TZA","reason":"tool failure — insufficient bars (0), retried once"}],"coverage_complete":false},"calls_made_this_cycle":6,"tvremix_calls_used_today":6,"tvremix_pool_note":"Mode B/C pool only (20/day ceiling) — distinct from the crypto trigger's separate 30/day pool, which stood at 17 as of the last crypto cycle this UTC day","exits":[],"entries":[{"symbol":"DIS","mode":"B","qty":20,"price":118.2594}],"orders_placed":2,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-05 ~16:30 UTC — MANUAL (chat, retroactive options-check logging for the 16:04:53Z cycle)
+
+**Omitted check logged, corrected.** The 16:04:53Z Fresh Candle entry noted DIS's §18 options
+sourcing was skipped. Run retroactively this chat turn: 2026-12-18 exp (43 DTE), $120/$125/$130
+calls all clear the ~0.20+ delta floor (0.476/0.323/0.199) and the 12%-of-equity premium cap.
+**§18 item 2 verbatim**: R:R is computed on "premium paid vs. realistic profit target" —
+full-premium risk, not entry-to-stop distance; this is the text actually applied, unchanged. My
+initial same-day estimate of the stock move needed to clear 1.5:1 wrongly assumed expiration-only
+intrinsic value; pre-expiry extrinsic value means a smaller move could still reach the needed
+option value. **Net result unchanged: options rejected this cycle — item labeled
+`options_evaluated: rejected_with_evidence` (not `not_evaluated`)** — full-premium-risk R:R was
+checked, not cleared with confidence given the extrinsic-value correction above, so no options
+leg was added. No trade, no CLAUDE.md change. Going forward, every applicable cycle's JSON summary
+will carry an explicit `options_evaluated` field (`evaluated`/`rejected_with_evidence`/
+`data_blocked`/`not_evaluated`) so this doesn't go unlabeled again.
