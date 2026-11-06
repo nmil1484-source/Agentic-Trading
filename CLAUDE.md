@@ -1002,6 +1002,44 @@ per §5B — the ordering below is unchanged by the mode refactor.)
       sizing rule (the alternative offered alongside this soft-tilt option) — this remains purely
       advisory, with no §12-logged numeric threshold of its own.
 
+11. **AI-Financing/Credit Exposure Context (soft tilt only) — added 2026-11-06 at explicit user
+    instruction**, prompted by dated (November 5) research notes discussing AI-infrastructure
+    financing risk. **Same tier as item 10 above** (sector rotation) and items 8-9 (politician
+    trades, news/sentiment) — a discretionary research input only. It never relaxes, substitutes
+    for, or blocks any §5B/Bearish-Mirror/§18/§19/§20/§21/§22 gate requirement, is never itself a
+    catalyst or technical confirmation, and creates no new hard filter, sector-wide buy/sell bias,
+    or risk-cap change.
+    - **Correction on record, not a new data source**: the specific figure in those notes (a
+      "50-60%" CoreWeave 5-year CDS-implied risk read) was October-reported, not a verified
+      November 5 data point — logged here so it is never cited as current without being
+      re-checked. This system has no live CDS data source; a specific name's CDS level is not
+      something this document can verify or refresh on its own.
+    - **What can actually be refreshed, each eligible cycle**: the FTA Regime Dashboard's
+      `/api/credit-funding` endpoint (BBB and single-B investment-grade/high-yield spread and
+      rate series, per-name CDS not included) and `/api/dashboard-data`'s `macro.hy_oas` field —
+      read per item 2's JSON-endpoint method, same discipline as every other dashboard pull. **Do
+      not describe credit as "calm" from memory or from a stale prior read** — pull the current
+      figures and state the actual as-of date and values. (Live check at adoption time,
+      2026-11-06 ~19:5x UTC: single-B spread +16bps on the 2026-11-05 session — credit widened,
+      not calm, at the speculative-grade end; BBB spread only +3bps same session; `macro.hy_oas`
+      3.48 as of that same dashboard read — logged here as the reading at adoption, not a
+      standing number to reuse in later cycles without re-checking.)
+    - **Use**: when a candidate in Stage 2 is an AI-infrastructure/datacenter-buildout name with
+      real financing/leverage exposure (e.g. a buildout-heavy capex story, a name carrying
+      material debt tied to AI infrastructure), treat current credit-spread direction (widening
+      vs. tightening, per the refreshed figures above) as a secondary prioritization/caution
+      signal, not a filter — all else equal, add scrutiny to such a name's catalyst/confirmation
+      evidence when speculative-grade spreads are actively widening, same non-binding treatment
+      item 10 already gives sector rotation. This never overrides §5B's/the Bearish Mirror Gate's
+      own requirements, and a name that genuinely clears the full gate is not rejected for carrying
+      AI-financing exposure alone.
+    - **Logging**: when this factored into prioritizing/deprioritizing or added scrutiny to a
+      candidate this cycle, note the current credit-spread reading, its as-of date, and the access
+      timestamp on the Trade Card/`trades_log.md`, same discipline as every other §8 source.
+    - **Scope note so this is never read as a new gate**: no sector-wide buy or sell bias, no new
+      hard filter, no duplicate scan beyond the existing credit-funding pull already available via
+      item 2's access method, and no risk-sizing/cap change of any kind.
+
 ## 9. Source integrity rule
 - Do not treat YouTube titles, social-media posts, or prediction-market odds as a primary trade signal.
 - Use them only as context after checking the approved sources, price/volume data, and a verifiable catalyst.
@@ -1050,6 +1088,23 @@ was moved — it was already written as a dated log; this makes its non-operativ
 rather than merely implied.
 
 ## 12. Change log
+- **2026-11-06 (later same day): User instructed adding AI-financing/credit exposure as a soft
+  research-context factor in scheduled scans, after sharing dated (November 5) research notes
+  about AI-infrastructure financing risk and flagging that those notes' CoreWeave CDS figure
+  ("50-60%") was October-reported, not a verified same-day trigger.** New §8 item 11
+  (AI-Financing/Credit Exposure Context) — same soft-tilt tier as item 10 (sector rotation) and
+  items 8-9 (politician trades, news/sentiment): purely advisory, never a gate substitute, no
+  catalyst/confirmation standing of its own. **Explicitly not adopted, per the user's own
+  scope**: a blanket sector buy/sell bias, a new hard filter, a duplicate scan beyond the
+  already-available `/api/credit-funding` pull, or any risk-cap change — none of those were
+  requested and none were added. Live credit evidence was refreshed at adoption time rather than
+  assumed calm, per the user's explicit instruction to do so before characterizing credit
+  conditions: `/api/credit-funding` (2026-11-06 read) showed the 2026-11-05 session's single-B
+  spread widening +16bps (credit stress, not calm, at the speculative-grade end) against BBB's
+  milder +3bps same session; `macro.hy_oas` read 3.48 at that same dashboard pull. This system has
+  no live CDS data source for any specific name — the CoreWeave figure itself remains
+  unverifiable/unrefreshable here, logged as a correction on the record rather than carried
+  forward as current.
 - **2026-11-06: User instructed fixing a live screening-practice gap and persisting a verified
   exchange-prefix table, after a read-only diagnostic surfaced both during a Mode B/C cycle
   covering AMZN, DUOL, and the §22 inverse-ETF underlyings.** Two changes, both methodology/
