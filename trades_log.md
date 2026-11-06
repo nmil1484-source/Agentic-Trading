@@ -60982,3 +60982,78 @@ in one call). Running Mode-B/C-shared-reserve total today: 33 (well inside each 
 
 No trade this cycle — full allowlist coverage achieved, no breaker active, 0 crypto positions to
 manage. near_miss_queue.md unchanged (crypto table remains empty).
+
+---
+
+## 2026-11-06T20:55:46Z — AUTONOMOUS (Mode B/C End-of-Day Protective Check, trigger trig_01PpS6WWjQ6Wxdpa2sSuLsm2)
+
+**STEP 0 gate check**: CLAUDE.md §14 Status: ACTIVE. No kill phrase issued. Proceeding under
+protective-only authority (no new-entry screening performed this cycle, by design).
+
+**DST/cron sanity check**: fired 20:55 UTC. Nov 6 is post-DST-end (EST, UTC-5) — 4:00pm ET =
+21:00 UTC, so 20:55 UTC is correctly 5 minutes before close. No drift.
+
+**Account**: `get_portfolio` — total equity $5,832.64, cash $4,292.78, equity_value $1,539.86
+(PATH only).
+
+**2a. Mode B equity stop-audit**: `get_equity_orders` symbol=PATH state=confirmed — one resting
+stop confirmed: sell, stop_market, $12.73, qty 119, GTC, state=confirmed. **Protected, no action
+needed.** (1 checked, 0 missing, 0 placed.)
+
+**2b. §18/§19 options/LEAPS stop-check**: `get_option_positions nonzero=true` → **0 open
+positions**. Trivially clean — no mark to pull, no stop to compute, nothing to compare.
+
+**3. PATH exit-condition check**: entry $13.2491 (2026-11-03), stop $12.73 (risk $0.5191/share),
+current $12.94 (bid $12.93/ask $12.94). Unrealized: -$0.3091/share ≈ **-0.60R** — position is
+currently below entry, not in profit. Checked against every §16 condition:
+- **Breakeven (+1R)**: not reached (price below entry) — N/A.
+- **+1.5R peak-retracement**: never reached +1.5R — N/A.
+- **+2R/+3R profit-take**: not reached — N/A.
+- **Momentum failure** (2 consecutive closes below 20-EMA + RSI/MACD both deteriorating): 20-EMA
+  (day): Nov 3 $13.63, Nov 4 $13.62, Nov 5 $13.56. Nov 5 close ($13.01) was below its EMA — **one**
+  confirmed close below EMA so far; today's close is not yet final (market still open at check
+  time). RSI: Nov 3 43.1 → Nov 4 48.6 → Nov 5 42.7 (dipped, but not two confirmed closes below EMA
+  yet). **Not triggered** — needs today's close to confirm a second consecutive close below EMA;
+  re-check next cycle.
+- **7-trading-session time-stop**: session 4 of 7 (Nov 3 entry, Nov 4/5/6 since) — not due.
+- **Gap rule**: no gap, price trading in line with yesterday's range.
+- **Final-30-minute tighter trailing (§16 item 13)**: this cycle IS inside that window, but the
+  rule only tightens trailing for a position **holding an open profit** — PATH has none this
+  cycle (underwater), so N/A; the existing $12.73 stop stands unchanged.
+
+**No stop/trailing action taken — correctly unchanged at $12.73.**
+
+**9/9a. Mode C**: 0 positions. Stop-audit trivially clean (0 checked). Realized + open-unrealized
+Mode C P&L today: $0.00.
+
+**STEP 0.5 — mandatory flatten**: 0 Mode C positions open — **confirmed already flat**, nothing
+to flatten.
+
+**Circuit breakers (context only, no new entry possible this cycle regardless)**: same-day
+stop-out count 0 (live-verified earlier today); no breaker active. Portfolio heat (context for
+next entry-screening cycle): PATH open risk ≈ $0.21/share loss-to-stop... actually current open
+risk to stop = ($12.94 − $12.73) × 119 = $24.99 vs. cap $349.96 (6% of $5,832.64) — ample
+headroom.
+
+```json
+{
+  "cycle": "Mode B/C End-of-Day Protective Check",
+  "timestamp_utc": "2026-11-06T20:55:46Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "coverage": {"note": "no new-entry screening this cycle by design — protective-management/close-of-day cycle only"},
+  "step_0_5_flatten": {"applicable": true, "mode_c_positions_found": 0, "action_taken": "none — confirmed already flat"},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
+
+No action this cycle — PATH's stop remains correctly resting and unchanged, options/LEAPS/Mode C
+all trivially clean/flat. Momentum-failure watch: one confirmed close below the 20-EMA (Nov 5);
+re-check once today's close finalizes.
