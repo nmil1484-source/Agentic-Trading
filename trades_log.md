@@ -60386,3 +60386,28 @@ failure). No trade placed either mode.
 ```json
 {"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-06T16:04:05Z","timestamp_pacific":"2026-11-06T08:04:05-08:00","coverage_state":"EVALUATED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":73,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":61,"tool_failures":0},"near_miss_queue":{"reassessed":3,"cleared":0,"still_near_miss":3,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_moot_2026-11-04"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":5,"rejected_with_evidence":5,"not_evaluated":[{"symbol":"TQQQ","reason":"tool failure - insufficient bars (0)"},{"symbol":"SQQQ","reason":"tool failure - insufficient bars (0)"},{"symbol":"SPXL","reason":"tool failure - insufficient bars (0)"},{"symbol":"SPXU","reason":"tool failure - insufficient bars (0)"}],"coverage_complete":true},"calls_made_this_cycle":3,"tvremix_calls_used_today":15,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### Crypto 24/7 Scan, fired 16:37:39Z
+Gate: ACTIVE, no kill phrase. `get_portfolio`: equity $5,852.95. `get_crypto_positions`: **0 open
+positions**. `get_equity_orders` (confirmed): PATH stop $12.73 still resting — stop-audit clean
+(1 checked, 0 missing, 0 placed). Portfolio heat: PATH $61.88 vs. cap $351.18 (6% of $5,852.95) —
+ample headroom. Circuit breakers: 1 same-day stop-out (below cooldown); market-shock check: SPY
+$739.88 (+0.12% vs. 16:04:05Z reading $738.99) / QQQ $660.50 (+0.25% vs. $658.83) — clear.
+Near-miss queue (Crypto §21): empty, no reassessment needed.
+
+**Full §21 gate — all 8 pairs screened via one `analyze_structure_batch` call (240/60), all
+rejected. Market remains uniformly bearish — 7 of 8 aligned_bearish both timeframes (XRP mixed):**
+- **BTC, ETH, SOL, LINK, HBAR, AVAX**: aligned_bearish; `pullback_short` setups present but all
+  weak R:R (0.09-0.59) — wrong direction regardless. Rejected.
+- **XRP**: mixed — 60m bullish moderate, `setup: null` (overextended 150%); 240m bearish strong,
+  no setup. Rejected.
+- **AAVE**: aligned_bearish; `pullback_short` R:R **2.56 "ok" (60m) / 2.08 "ok" (240m)** — both now
+  clear the tool's own 2.0 internal threshold, the strongest/cleanest setup seen all session —
+  still categorically non-tradeable under the spot-long-only rule (wrong direction). Rejected.
+
+No crypto order placed. 0 positions open, no protective action needed. `near_miss_queue.md`
+unchanged — still empty.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T16:37:39Z","timestamp_pacific":"2026-11-06T08:37:39-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":61.88,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":61.88,"cap_usd":351.18,"headroom_usd":289.3},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":16,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
