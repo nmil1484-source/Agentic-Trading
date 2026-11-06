@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Trading_View__analyze_structure_batch"
+    ]
+  }
+}
