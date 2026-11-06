@@ -60312,3 +60312,77 @@ unchanged — still empty.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T15:37:17Z","timestamp_pacific":"2026-11-06T07:37:17-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":61.88,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":61.88,"cap_usd":349.3,"headroom_usd":287.42},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":12,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+## 2026-11-06 16:04:05Z (11:04am ET) — Mode B/C Entry Screening, Fresh Candle
+
+**STEP 0**: CLAUDE.md §14 confirmed Status: ACTIVE. No kill phrase found.
+
+**Account**: equity $5,843.95 (cash $4,292.78, equity_value $1,551.17 — PATH only). `get_equity_orders`
+(confirmed): PATH stop $12.73 still resting. `get_option_positions` (nonzero): 0.
+
+**Mode B equity stop-audit**: 1 checked (PATH), 0 missing, 0 placed.
+**§18/§19 options stop-check**: 0 positions — trivially clean.
+**Circuit breakers**: same-day stop-out count 1 (DIS, below cooldown). Market-shock check: SPY
+$738.99 (+0.26% vs. the 15:37:17Z reading of $737.07) / QQQ $658.83 (+0.45% vs. $655.88) — both
+clear.
+**Portfolio heat**: PATH $61.88 vs. cap $350.64 (6% of $5,843.95) — ample headroom.
+**Mode C**: 0 positions, stop-audit trivially clean, no realized/unrealized P&L today.
+
+**Near-miss queue reassessment (3 of 3, all reassessed)**:
+- **TEM**: still near-miss — aligned_bearish both TF, R:R 0.71 (1D) / 0.14 (60m), both below 1.3.
+- **PGY**: still near-miss — item 7 unchanged, no computable setup either TF.
+- **IGV**: still near-miss — item 7 unchanged, no computable setup either TF.
+`near_miss_queue.md` updated (timestamps/cycles refreshed), committed alongside this entry.
+AMD pending-eligibility: still resolved/moot, re-confirmed.
+
+**Stage 1 (`rank_symbol_setups`, full 74-name universe)**: 73 ranked, 1 not-evaluated (OKLO,
+earnings today). Top bullish: AMZN (73), AVA (68), DIS (65, ineligible for re-entry today per §17
+item 4), DUOL (65), LLY (64), AAPL (64), RUN (62).
+
+**Stage 2 (12 slots: 3 to queue above, 9 to rotation)**. Rotation batch — **TTD, ONDS, RKLB, IREN,
+SHOP, LMND, ARKG, NFLX, RGTI** (fresh names, not overlapping the last cycle's batch), via one
+`analyze_structure_batch` call (1D/60), checking both the pullback-setup field and the breakout-
+continuation/support-bounce flags before concluding "no computable entry":
+- **TTD**: mixed — 60m `pullback_long` R:R 0.81:1 (fails item 4); 1D `pullback_short` R:R 1.14:1
+  (fails Bearish Mirror item 4, floor 1.3). **Rejected, both directions fail R:R.**
+- **ONDS**: aligned_bearish, no setup either TF. **Rejected — structural absence.**
+- **RKLB**: mixed — 60m no setup (overextended); 1D ranging/neutral, no setup. **Rejected —
+  structural absence.**
+- **IREN**: mixed, contradictory — 60m bearish strong with `current_below_min_swing_low: true`
+  (-8.6%, a real breakdown signal) but 1D bias is bullish with an overextended, null-setup
+  pullback. Neither TF's bias agrees with the other's structural signal. **Rejected — no clean
+  computable entry under any permitted method, conflicting signals.**
+- **SHOP**: mixed — 60m `pullback_short` R:R **1.91:1** (clears the Bearish Mirror R:R floor!) but
+  1D's own bias is bullish with a `pullback_long` setup — no bearish daily-chart setup exists to
+  pair with the hourly trigger. **Rejected, Bearish Mirror Gate item 7** (hourly clears, no
+  confirming daily bearish setup — both required).
+- **LMND**: mixed, no setup either TF (60m ranging/neutral; 1D bearish, no setup). **Rejected —
+  structural absence.**
+- **ARKG**: aligned_bullish, no setup either TF (both overextended). **Rejected — structural
+  absence.**
+- **NFLX**: aligned_bearish, no setup either TF (60m overextended; 1D none). **Rejected —
+  structural absence.**
+- **RGTI**: aligned_bearish — 60m `pullback_short` R:R 0.42:1, fails item 4 (mirror); 1D no
+  setup. **Rejected, Bearish Mirror Gate item 4.**
+
+**§18/§19 sourcing**: none of the 9 rotation or 3 queue names cleared either gate — no options/
+LEAPS candidate sourced from them this cycle.
+
+**§22 Leveraged/Inverse ETF screen — all 9 accounted for, same disposition as the prior cycle
+(structure essentially unchanged in the ~1 hour since)**:
+- **SOXL, TNA, AMDG** (leveraged-long, own chart): no computable bullish setup either TF.
+  **Rejected — structural absence.**
+- **SOXS** (needs SOXX bearish): SOXX 1D still bullish — underlying-bearish-thesis leg fails.
+  **Rejected, §22 item 2.**
+- **TZA** (needs IWM bearish): IWM 1D still bullish — same failure. **Rejected, §22 item 2.**
+- **TQQQ, SQQQ, SPXL, SPXU**: still "insufficient bars (0)" — **NOT_EVALUATED, tool failure.**
+- Completion check: 5 rejected + 4 not-evaluated = 9/9. **Coverage complete.**
+
+**Per-symbol labeling summary**: universe 74. Stage-1 triaged 73 (1 not-evaluated: OKLO). Stage-2
+full-gate-evaluated 12 (9 rotation rejected-with-evidence; 3 queue reassessment, all still
+near-miss). 61 names not evaluated this cycle — rotation/capacity. §22: 9/9 (5 rejected, 4 tool
+failure). No trade placed either mode.
+
+```json
+{"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-06T16:04:05Z","timestamp_pacific":"2026-11-06T08:04:05-08:00","coverage_state":"EVALUATED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":73,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":61,"tool_failures":0},"near_miss_queue":{"reassessed":3,"cleared":0,"still_near_miss":3,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_moot_2026-11-04"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":5,"rejected_with_evidence":5,"not_evaluated":[{"symbol":"TQQQ","reason":"tool failure - insufficient bars (0)"},{"symbol":"SQQQ","reason":"tool failure - insufficient bars (0)"},{"symbol":"SPXL","reason":"tool failure - insufficient bars (0)"},{"symbol":"SPXU","reason":"tool failure - insufficient bars (0)"}],"coverage_complete":true},"calls_made_this_cycle":3,"tvremix_calls_used_today":15,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
