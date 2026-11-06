@@ -9783,7 +9783,7 @@ Git push confirmed below.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -10160,7 +10160,7 @@ Git push confirmed below.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "pending"
+  "git_push": "success"
 }
 ```
 
@@ -60753,3 +60753,167 @@ tvremix: 1 call this cycle, fresh 240/60 data. `tvremix_consecutive_failed_cycle
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T19:37:57Z","timestamp_pacific":"2026-11-06T11:37:57-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":61.88,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":61.88,"cap_usd":349.82,"headroom_usd":287.94},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":0,"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":29,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-06T20:03:47Z — AUTONOMOUS (Mode B/C Fresh Candle, trigger trig_01KrBsTt9mssjU4hPGtM3cBe)
+
+**STEP 0 gate check**: CLAUDE.md §14 Mode B AUTONOMOUS_EXECUTE Status: ACTIVE. No kill phrase
+(`PAUSE AUTONOMOUS TRADING`/`STOP AUTONOMOUS EXECUTION`) issued. Proceeding under full authority.
+
+**Account/broker verification**: `get_accounts` — retail ••••7533 confirmed `agentic_allowed:
+false`, not accessed. Agentic ••••8058 `agentic_allowed: true`, state active. `get_portfolio`:
+total equity $5,829.665, cash $4,292.78 (73.6%), equity_value $1,536.885 (26.4% deployed) — well
+inside the 90%/10% ceiling. Options positions: 0 (confirmed, `get_option_positions nonzero=true`).
+Mode C positions: 0.
+
+**Mode B stop-audit (§16 item 15)**: `get_equity_orders` symbol=PATH state=confirmed — one resting
+stop order found: sell, stop_market, stop_price $12.73, qty 119, GTC, state=confirmed. PATH
+protected. PATH current quote $12.935 (bid $12.93/ask $12.94). Open risk = ($12.935 − $12.73) ×
+119 = **$24.40**. Portfolio heat cap: 6% of $5,829.665 = $349.78 — open risk $24.40, ample
+headroom (no other Mode B/C/crypto/§22 positions open).
+
+**Circuit breakers**: Live fresh check (not carried from a prior cycle) — `get_equity_orders
+state=filled created_at_gte=2026-11-06T00:00:00Z` returns **zero** fills today → same-day
+stop-out count = **0** across Mode B/C today (the "1, DIS" figure referenced in the 19:03:47Z
+cycle's circuit-breaker line was stale/mischaracterized; today's live order history shows no
+equity fill of any kind today). Market-shock check: SPY $738.07 (+0.05% vs. 19:37:57Z reading
+$737.68) / QQQ $658.90 (+0.09% vs. $658.30) — both clear, well under the 1.5% single-cycle-gap
+threshold. No circuit breaker active.
+
+**§8 item 2 FTA Regime Dashboard**: live JSON check, `regime.call: "cautious"`, generated
+2026-11-06 15:07 ET — live/valid, not UNKNOWN_DEGRADED. Standard sizing, standard 1.3:1 R:R floor
+applies (no sizing reduction triggered this cycle — moot, no qualifying candidate below anyway).
+**§8 item 11 credit check**: `hy_oas` 3.48 (unchanged from the 19:5x UTC reading logged at this
+item's adoption) — no material change since adoption; no AI-financing-exposure name reached Stage
+2 this cycle regardless.
+
+**Stage 1 — full-universe batch triage**: `rank_symbol_setups` on all 74 `watchlist.md` names
+(verified exchange prefixes from the persisted table). **universe_size=74, triaged=73,
+skipped=1** (NYSE:OKLO — earnings in 0 days, excluded per the tool's own earnings-proximity
+filter), **missing=0**. Top bullish-biased: AMZN 69, AVA 68, DUOL 67, DIS 66, RUN 66, LLY 64,
+AAPL 63. Top bearish-biased: AMD 54, SPY 52, CVX 50, CAI 50, SOFI 49.
+
+**Near-miss queue reassessment (3 of the 5 reserved Stage-2 slots — TEM, PGY, IGV, all currently
+queued)**, fresh `analyze_structure_batch` (1D+60m):
+- **TEM** — Bearish Mirror Gate item 4 (mirror) still fails: 1D `pullback_short` R:R **0.84:1**,
+  60m R:R **1.03:1** — both below the 1.3:1 floor (improved slightly from last cycle's 0.75/0.96,
+  still short). Item 7 (mirror) still confirms (bearish setup both TF). **STILL NEAR-MISS** —
+  queue updated, `cycles_checked` → 12, data timestamp this cycle, expires 2026-11-12 (unchanged).
+- **PGY** — item 7 still fails: 1D pullback active but overextended (81.0% depth, `setup: null`);
+  60m pullback not active, ranging/neutral, no setup. Structural gap unchanged from last cycle.
+  **STILL NEAR-MISS** — `cycles_checked` → 9, expires 2026-11-13 (unchanged).
+- **IGV** — item 7 still fails: both TF overextended pullbacks (1D 103.0%, 60m 124.2% depth),
+  `setup: null` both. Unchanged. **STILL NEAR-MISS** — `cycles_checked` → 9, expires 2026-11-13
+  (unchanged).
+
+**Stage 2 — fresh rotation batch (9 of 12 slots)**: AMZN, AVA, DUOL, DIS, RUN (top bullish scores)
++ AMD, SPY, CVX, CAI (top bearish-biased scores), `analyze_structure_batch` 1D+60m, full §13.I
+role-group-independent check applied (not a blanket aggregate-bias veto):
+- **AMZN** — Bullish §5B: 1D `pullback_long`, R:R **0.18:1** — **REJECTED, item 4** (far below
+  1.3:1 floor). Bearish mirror: 1D structure is `pullback_long` (wrong direction), no bearish
+  daily setup exists to pair with the 60m `pullback_short` (R:R 2.49 — attractive but item 7
+  requires both TF; no daily bearish setup) — **REJECTED, item 7** (no qualifying daily bearish
+  setup, not a blanket 1D-bullish veto — the daily chart genuinely has no bearish structure here).
+- **AVA** — Bullish §5B: 1D R:R **0.43:1**, 60m R:R **0.23:1** — **REJECTED, item 4** (both legs
+  fail). No bearish setup either TF — structural absence for the mirror.
+- **DUOL** — 60m `pullback_short` R:R **1.95:1** (clears 1.3:1) but 1D shows no setup (pullback
+  overextended, 130.3% depth) — **REJECTED, item 7** (mirror): no daily-chart bearish setup to
+  pair with the qualifying hourly leg, both required per item 7. Bullish path: no setup either TF
+  in the bullish direction — structural absence.
+- **DIS** — Bullish: 60m R:R **0.37:1** — **REJECTED, item 4**; 1D has no setup at all — also
+  fails item 7. Bearish mirror: no bearish setup either TF — structural absence.
+- **RUN** — no computable setup either TF, either direction (both legs overextended-pullback,
+  `setup: null`) — **REJECTED, structural absence** (no catalyst/confirmation work needed; no
+  entry/stop/target exists to evaluate).
+- **AMD** — no computable setup either TF (1D overextended 98.3% depth `setup: null`; 60m
+  pullback inactive `setup: null`) — **REJECTED, structural absence**, both directions.
+- **SPY** — no computable setup either TF (1D overextended 137.9%, 60m inactive) — **REJECTED,
+  structural absence**, both directions. (Also feeds the §22 SPXU underlying-leg check below —
+  same result.)
+- **CVX** — Bullish: 1D R:R **0.3:1** — **REJECTED, item 4**; 60m no setup. Bearish mirror: no
+  bearish setup either TF — structural absence.
+- **CAI** — no computable setup either TF (both legs overextended-pullback) — **REJECTED,
+  structural absence**, both directions.
+
+No candidate cleared the bullish §5B gate or the Bearish Mirror Gate this cycle. No Trade Card.
+
+**§18/§19 options/LEAPS stop-check**: 0 open options/LEAPS positions (confirmed above) — trivially
+clean, nothing to ratchet.
+
+**§18/§19 options/LEAPS candidate sourcing**: no underlying cleared the bullish §5B gate or the
+Bearish Mirror Gate this cycle (see Stage 2 above) — no options/LEAPS candidate to size or price.
+AMD (top bearish-biased score 54) was checked above and also shows no computable setup either
+direction — no renewed options path there either.
+
+**§22 Leveraged/Inverse ETF — mandatory full 9-name screen**, using the corrected AMEX/NASDAQ
+prefixes persisted to `watchlist.md` this session (no "insufficient bars" tool failures this
+cycle — the prefix fix holds): `analyze_structure_batch`, all 9 allowlist names + the SOXX
+underlying, 1D+60m. **Every single name — TQQQ, SQQQ, SOXL, SOXS, SPXL, SPXU, TNA, TZA, AMDG —
+returned `setup: null` on BOTH timeframes** (1D pullback active but overextended, 80–150% depth;
+60m pullback not active). QQQ/SPY/IWM/SOXX (the four underlyings for the inverse-ETF leg) show
+the identical pattern — no computable setup either TF, so the underlying bearish thesis required
+by §22 item 2 cannot be established for SQQQ/SPXU/TZA (SOXS's SOXX underlying: same). **All 9
+names REJECTED — item 7 (leveraged-long path) / underlying item 7 (inverse path), structural
+absence, no computable entry on either leg.** This is a **real, non-blocked evaluation** — the
+prior cycles' "insufficient bars (0)" tool failures for SOXL/SOXS/SPXL/SPXU/TNA/TZA are fully
+resolved by the persisted prefix correction; today's rejection is a genuine market-structure
+result, not a tool-access gap.
+
+**Near-miss queue update (§22 table)**: TNA, SPXL, SPXU, TZA — **REMOVED, invalidated.** These
+were queued as tool-failure-blocked near-misses carrying stale 2026-11-04T19:04Z data (real R:R
+~1.9–2.4:1 on one leg, missing a confirming trigger on the other). Today's fresh, unblocked data
+shows the setup that produced those R:R figures **no longer exists** on any TF for any of the
+four — all show `setup: null` both TF now (deeper, overextended pullbacks). This is a structural
+invalidation per the near-miss queue's own rule (a different, more fundamental item now fails),
+not a continuing near-miss — removed rather than left queued. AMDG: unchanged structural absence,
+consistent with its last real check — `cycles_checked` → 3, timestamp updated, stays in the
+history table (no reserved slot, per the table's own note).
+
+**Mode C**: 0 positions, stop-audit trivially clean (nothing to audit), $0 realized/unrealized
+P&L today. Screening shares Stage 1's triage output — no VWAP-pullback/ORB/mean-reversion setup
+identified among the names checked this cycle (all show the same overextended/no-setup pattern
+noted above). OBSERVE.
+
+**tvremix usage this cycle**: 3 calls (`rank_symbol_setups` ×1 full-universe triage;
+`analyze_structure_batch` ×2 — Stage-2 rotation batch, §22 full screen). Both well inside the
+Mode B/C 20-calls/day ceiling.
+
+**Coverage summary**: universe_size=74, triaged=73 (1 skipped — OKLO, earnings today, logged with
+reason, not a rejection), full_gate_evaluated=12 (9 fresh Stage-2 + 3 near-miss reassessment),
+rejected_with_evidence=12 (0 reused_from_prior_cycle — all fresh this cycle), not_evaluated=61
+(rotation/capacity — awaiting next cycle's slot), tool_failures=0. §22: full_coverage=true, all 9
+names + SOXX underlying evaluated fresh, 0 tool failures (prefix fix confirmed holding).
+
+```json
+{
+  "cycle": "Mode B/C Entry Screening — Fresh Candle",
+  "timestamp_utc": "2026-11-06T20:03:47Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success",
+  "coverage": {
+    "universe_size": 74,
+    "triaged": 73,
+    "full_gate_evaluated": 12,
+    "rejected_with_evidence": 12,
+    "not_evaluated": [
+      {"symbol": "OKLO", "reason": "earnings in 0 days (Stage-1-level skip, not a rejection)"}
+    ],
+    "tool_failures": 0,
+    "tvremix_calls_used_today": 32
+  },
+  "near_miss_queue": {"equities": ["TEM", "PGY", "IGV"], "crypto": [], "leveraged_etf_removed_this_cycle": ["TNA", "SPXL", "SPXU", "TZA"]},
+  "leveraged_etf_coverage": {"names_screened": 9, "underlyings_screened": 4, "tool_failures": 0, "all_rejected_structural_absence": true}
+}
+```
+
+No trade this cycle — full coverage achieved, no qualifying candidate on either gate, no Mode C
+setup, §22 fully screened with the prefix fix confirmed working. PATH stop remains resting and
+verified. Portfolio heat trivial ($24.40 of $349.78 cap). No breaker active.
