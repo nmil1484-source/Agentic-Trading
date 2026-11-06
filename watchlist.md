@@ -377,3 +377,35 @@ previously covered only 73 of the pool's 74 names (XLI was the gap); it now cove
 matters most for crypto (§21), which requires a genuine 4H setup plus a 1H trigger; for Mode B/C
 equities, `"1D"` is already §13's intended default, so this bug didn't corrupt equity screening the
 same way. See CLAUDE.md §12 change-log / the 2026-11-03 trigger updates for the operational fix.
+
+## §22 Leveraged/Inverse ETF and underlying exchange-prefix reference (added 2026-11-06)
+
+Added after a live diagnostic found the §22 named allowlist's own TradingView prefixes had been
+guessed wrong on prior cycles (NASDAQ:/NYSE: tried first) for every NYSE-Arca-listed fund in the
+list, producing "insufficient bars (0)" tool failures logged as NOT_EVALUATED across several
+earlier cycles this session. Corrected prefixes verified live via two consecutive
+`analyze_structure_batch` calls this session (18:03:58Z cycle: original guess failed for all 7
+names below; 19:03:47Z and 18:03:58Z retries with the corrected prefixes both returned real 1D/60
+structure data for all of them) — not guessed, confirmed working.
+
+| Ticker | TradingView symbol | Ticker | TradingView symbol | Ticker | TradingView symbol |
+|---|---|---|---|---|---|
+| TQQQ | NASDAQ:TQQQ | SQQQ | NASDAQ:SQQQ | SOXL | AMEX:SOXL |
+| SOXS | AMEX:SOXS | SPXL | AMEX:SPXL | SPXU | AMEX:SPXU |
+| TNA | AMEX:TNA | TZA | AMEX:TZA | AMDG | NASDAQ:AMDG |
+
+**Underlyings used for the §22 item 2 bearish-thesis leg** (SQQQ→QQQ, SOXS→SOXX, SPXU→SPY,
+TZA→IWM — already in the main table above for QQQ/SPY/IWM; SOXX is not part of the main
+watchlist pool and is listed here instead):
+
+| Ticker | TradingView symbol |
+|---|---|
+| SOXX | NASDAQ:SOXX |
+
+**Why the guess was wrong**: SOXL/SOXS/SPXL/SPXU/TNA/TZA are Direxion/ProShares leveraged products
+that list on NYSE Arca, which TradingView resolves under the `AMEX:` prefix, not `NASDAQ:`/`NYSE:`
+— the same pattern already documented above for GDX/GLD/SLV/IWM/XLI in the main pool. TQQQ, SQQQ,
+and AMDG do resolve under `NASDAQ:` as originally assumed. If TradingView later relists any of
+these, a screening cycle that gets "missing"/"insufficient bars" for a name listed here should
+re-resolve it via `search_symbols` rather than assume this table is wrong about everything else —
+same standing rule as the main exchange-prefix table.

@@ -1050,6 +1050,33 @@ was moved — it was already written as a dated log; this makes its non-operativ
 rather than merely implied.
 
 ## 12. Change log
+- **2026-11-06: User instructed fixing a live screening-practice gap and persisting a verified
+  exchange-prefix table, after a read-only diagnostic surfaced both during a Mode B/C cycle
+  covering AMZN, DUOL, and the §22 inverse-ETF underlyings.** Two changes, both methodology/
+  reference fixes — **no risk percentage, position cap, R:R floor, confirmation-count threshold,
+  or instrument permission was changed by this entry:**
+  1. **New §13.I (Role-Group Confirmation Must Be Checked Independently of a Tool's Aggregate
+     Bias).** The diagnostic found every rejection of AMZN/DUOL/the four §22 underlyings for the
+     bearish path that cycle relied solely on `analyze_structure_batch`'s top-level 1D
+     `trend.direction`/`bias.direction` reading "bullish," without independently checking §5B
+     item 3's / the Bearish Mirror Gate item 3's five role-groups (Trend/State, Location,
+     Relative strength/weakness, Volume, Momentum) against the actual underlying data. Neither
+     item 3 ever required the tool's own aggregate summary to agree with the thesis direction —
+     a single role-group (e.g. Momentum: RSI/MACD still deteriorating on a bounce day) can
+     independently confirm regardless of what the aggregate label says. §13.I makes this explicit
+     going forward, same category of fix as §13.G's "`setup: null` is not proof" note and §13.H's
+     volume-baseline definition — it adds no new confirmation requirement, loosens nothing, and
+     is explicitly not retroactive (prior cycles' logged rejections stand as logged).
+  2. **§22 Leveraged/Inverse ETF exchange-prefix table persisted to `watchlist.md`.** The same
+     diagnostic traced several earlier cycles' "insufficient bars (0)" tool failures for SOXL/
+     SOXS/SPXL/SPXU/TNA/TZA to a wrong guessed TradingView prefix (NASDAQ:/NYSE: tried first,
+     when these NYSE-Arca-listed funds actually resolve under `AMEX:`) — the fix had only ever
+     been applied ad hoc within single cycles' own tool calls, never written down anywhere a
+     fresh-context future cycle could read it, so the same wrong guess was recurring. Added a new
+     table to `watchlist.md` (mirroring the existing main-pool exchange-prefix reference, added
+     2026-11-03) covering all 9 §22 allowlist names plus the SOXX underlying (QQQ/SPY/IWM already
+     covered by the main table) — each prefix verified live via two consecutive
+     `analyze_structure_batch` calls this session, not guessed.
 - **2026-11-04: User instructed applying the confirmed drafting-defect fixes identified across two
   independent review passes this session** — a user-supplied "correction request" PDF and a
   separate, more exhaustive "consolidated audit" PDF, both reviewed against the live CLAUDE.md
@@ -3093,6 +3120,40 @@ any other number in this document.**
 - **Application**: this baseline is the "normal" referenced by §5B item 3, the Bearish Mirror Gate
   item 3, §13.G item 2, and §21 item 3 — those items are unchanged in substance; this item only
   supplies the missing computation method.
+
+### I. Role-Group Confirmation Must Be Checked Independently of a Tool's Aggregate Bias (added 2026-11-06)
+Added following a live diagnostic finding during a screening cycle covering AMZN, DUOL, and the
+§22 inverse-ETF underlyings (QQQ, SOXX, SPY, IWM): every one of them was rejected for the bearish
+path solely because `analyze_structure_batch`'s top-level 1D `trend.direction`/`bias.direction`
+field read "bullish," without independently checking whether any of §5B item 3's / the Bearish
+Mirror Gate item 3's five role-groups (Trend/State, Location, Relative strength/weakness, Volume,
+Momentum) actually confirmed or denied on the daily chart. **Neither §5B item 3 nor the Bearish
+Mirror Gate item 3 requires the tool's own aggregate trend/bias summary to agree with the
+thesis direction — they require at least one of the five named role-groups to independently
+confirm, checked against the underlying computed data (EMA/SMA levels, support/resistance,
+RSI/MACD values, volume, a dated RS comparison), not against a single derived label.** A name can
+show a bullish-leaning aggregate bias on a bounce day while its RSI/MACD are still deteriorating
+(Momentum role-group) or while it is still below/losing its 50-day SMA (Trend/State role-group) —
+either of those independently satisfies item 3 regardless of what the tool's own summary field
+says, and item 7's "daily-chart setup" is established by that role-group confirmation, not by the
+tool's aggregate label agreeing with the thesis. **This item adds no new confirmation requirement
+and loosens nothing** — item 3's five role-groups and the 1-of-5 floor are unchanged; this closes
+a gap in how the existing check was being performed, the same category of fix as §13.G's
+"`setup: null` is not proof every method failed" note and §13.H's volume-baseline definition.
+
+- **Going forward**: before logging a name "rejected — [gate] item 3 fails" or treating a daily
+  bearish (or bullish) setup as unavailable, explicitly check at least the Trend/State, Volume, and
+  Momentum role-groups against the actual returned fields (EMA/SMA position, volume vs. the §13.H
+  baseline, RSI/MACD values) — not just the tool's single aggregate bias/trend-direction string —
+  before concluding no role-group confirms. If a role-group does independently confirm despite the
+  aggregate bias reading the other way, that confirmation stands and item 3 is satisfied; item 7
+  then still requires a matching hourly trigger before any entry.
+- **Scope**: applies identically to §5B's bullish gate, the Bearish Mirror Gate, and the §22 item 2
+  underlying-bearish-thesis leg (SQQQ/SOXS/SPXU/TZA checking QQQ/SOXX/SPY/IWM) — anywhere this
+  document's role-group confirmation language is used. No change to §21's crypto confirmation
+  count or any other section.
+- **Not retroactive**: this does not reopen or re-score prior cycles' already-logged rejections;
+  it governs future screening only.
 
 ### References consulted 2026-08-13
 - [Fibonacci Retracement Strategy — QuantifiedStrategies](https://www.quantifiedstrategies.com/fibonacci-trading-strategy/)
