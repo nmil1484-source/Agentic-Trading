@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "mcp__Trading_View__analyze_structure_batch"
+      "mcp__Trading_View__analyze_structure_batch",
+      "mcp__Trading_View__rank_symbol_setups",
+      "mcp__Trading_View__get_news",
+      "mcp__Trading_View__get_news_story",
+      "mcp__Trading_View__get_option_chain",
+      "mcp__Trading_View__get_earnings_calendar",
+      "mcp__Trading_View__get_economic_calendar",
+      "mcp__Trading_View__get_dividends_calendar",
+      "mcp__Trading_View__search_symbols",
+      "mcp__Trading_View__web_search"
     ]
   }
 }
