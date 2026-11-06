@@ -60280,3 +60280,35 @@ timestamps/cycle-counts refreshed, all three still queued) and committed alongsi
 ```json
 {"cycle":"Mode B/C First Scan of Day","timestamp_utc":"2026-11-06T15:03:54Z","timestamp_pacific":"2026-11-06T07:03:54-08:00","coverage_state":"EVALUATED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":["market_shock_qqq_2.04pct"],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":73,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":61,"tool_failures":0},"near_miss_queue":{"reassessed":3,"cleared":0,"still_near_miss":3,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_moot_2026-11-04"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":5,"rejected_with_evidence":5,"not_evaluated":[{"symbol":"TQQQ","reason":"tool failure - insufficient bars (0)"},{"symbol":"SQQQ","reason":"tool failure - insufficient bars (0)"},{"symbol":"SPXL","reason":"tool failure - insufficient bars (0)"},{"symbol":"SPXU","reason":"tool failure - insufficient bars (0)"}],"coverage_complete":true},"calls_made_this_cycle":4,"tvremix_calls_used_today":11,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### Crypto 24/7 Scan, fired 15:37:17Z
+Gate: ACTIVE, no kill phrase. `get_portfolio`: equity $5,821.68. `get_crypto_positions`: **0 open
+positions**. `get_equity_orders` (confirmed): PATH stop $12.73 still resting — stop-audit clean
+(1 checked, 0 missing, 0 placed). Portfolio heat: PATH $61.88 vs. cap $349.30 (6% of $5,821.68) —
+ample headroom. Circuit breakers: 1 same-day stop-out (DIS, below cooldown threshold);
+market-shock check: SPY $737.07 (-0.40% vs. the 15:03:54Z reading of $740.00) / QQQ $655.88
+(-0.67% vs. $660.31) — both under 1.5%, clear this cycle (the earlier QQQ shock from this
+morning's open has partially unwound). Near-miss queue (Crypto §21): empty, no reassessment
+needed.
+
+**Full §21 gate — all 8 allowlisted pairs screened via one `analyze_structure_batch` call
+(240/60), all rejected. Market has become even more uniformly bearish this cycle — 7 of 8 now
+aligned_bearish on both timeframes (only XRP remains mixed):**
+- **BTC, ETH, SOL**: aligned_bearish; no setup or weak `pullback_short` R:R (SOL 0.26) — wrong
+  direction regardless. Rejected.
+- **XRP**: mixed — 60m bullish moderate, `setup: null` (overextended 150%); 240m bearish strong,
+  no setup. Rejected.
+- **LINK**: aligned_bearish; `pullback_short` R:R 0.47 (60m) / 0.57 (240m). Rejected.
+- **AAVE**: aligned_bearish; 60m `pullback_short` R:R **2.05 "ok" quality** — the strongest
+  setup seen all session — still categorically non-tradeable (wrong direction, spot-long-only);
+  240m R:R 1.85 "low_rr" by the tool's own 2.0 threshold. Rejected.
+- **HBAR**: aligned_bearish; `pullback_short` R:R 0.24 (60m) / 0.25 (240m). Rejected.
+- **AVAX**: aligned_bearish (now, vs. mixed earlier); `pullback_short` R:R 0.34 (60m) / 0.1 (240m).
+  Rejected.
+
+No crypto order placed. 0 positions open, no protective action needed. `near_miss_queue.md`
+unchanged — still empty.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T15:37:17Z","timestamp_pacific":"2026-11-06T07:37:17-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":61.88,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":61.88,"cap_usd":349.3,"headroom_usd":287.42},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":12,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
