@@ -61177,3 +61177,42 @@ this outage (0 positions currently open, so moot this cycle regardless).
 
 DATA_BLOCKED cycle — no trade possible, no breach of any gate (data simply unavailable both
 attempts). 0 crypto positions unaffected. Will retry full coverage next scheduled cycle.
+
+---
+
+## 2026-11-06T22:4x UTC — OPERATIONAL: crypto cycles switch to Robinhood-only pricing during tvremix outage
+
+**User instruction** (chat, not a trigger firing): "Just use Robinhood for pricing to check
+crypto until probably monday." Applied starting with the next crypto cycle, expected to last
+through the TradingView/tvremix outage (the connector is also separately being sunset
+2026-11-11, per its own deprecation notice surfaced on recent calls).
+
+**Scope, verified before applying — this is a tooling substitution, not a gate change:**
+Robinhood's crypto toolset has `get_crypto_quotes` (bid/ask/mark/prior-close) but **no crypto
+OHLC/historicals or technical-indicator tool** (confirmed via tool search this session) — it
+cannot supply the 4H-setup/1H-trigger structural read (EMA, swing highs/lows, pullback-setup
+R:R, confirmation role-groups) that §21 item 3's entry gate requires. **No new crypto entry can
+be evaluated against the full gate using Robinhood data alone** — this instruction does not
+reopen new-entry authority during the outage; it only restores basic price visibility.
+
+**Applied going forward, until the connector recovers (next successful `analyze_structure_batch`
+call) or Monday, whichever comes first:**
+- Each crypto cycle calls `get_crypto_quotes` on the full §21 allowlist (8 pairs) for price
+  visibility/logging, instead of spending both retry attempts on the currently rate-limited
+  TradingView call every single cycle.
+- Cycles continue to log `coverage_state: "DATA_BLOCKED"` and label every pair `NOT_EVALUATED —
+  tool failure` (now: "TradingView connector unavailable per user instruction, pricing-only via
+  Robinhood this cycle") — never a rejection, exactly as the existing DATA_BLOCKED protocol
+  already requires.
+- `tvremix_consecutive_failed_cycles` keeps incrementing normally (no new TradingView attempt
+  this cycle to possibly succeed and reset it) — the 6-cycle consolidated-alert threshold still
+  applies unchanged.
+- Existing crypto position management (currently 0 positions) is unaffected either way.
+- Once a cycle's `analyze_structure_batch` call succeeds again (tried once per cycle going
+  forward, not skipped entirely, so recovery is detected promptly) and passes the existing
+  no-silent-fallback/freshness checks, resume normal full-coverage screening and reset the
+  counter — per the existing Recovery verification rule, unchanged.
+
+**No CLAUDE.md change** — no risk percentage, position cap, R:R floor, confirmation count, or
+instrument permission was touched. This is an operational/tooling note for the duration of a
+known outage, same category as the 2026-11-01 DST-changeover trigger-reschedule entry.
