@@ -60147,3 +60147,136 @@ setup, never a genuine single-item bullish near-miss).
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T14:38:19Z","timestamp_pacific":"2026-11-06T06:38:19-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":61.76,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":61.76,"cap_usd":350.6,"headroom_usd":288.84},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":7,"exits":[{"symbol":"DIS","mode":"B","reason":"gap-rule stop-out","realized_pl":-85.24}],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+## 2026-11-06 15:03:54Z (10:10am ET) — FIRST SCAN OF DAY — Mode B + Mode C
+
+**STEP 0**: CLAUDE.md §14 confirmed Status: ACTIVE. No kill phrase found in recent history.
+Proceeding. **DST note**: cron fired 15:03:54Z UTC; America/New_York is EST as of 2026-11-01
+(DST ended), so 15:03:54Z UTC = 10:03:54am ET — on-target, no drift.
+
+**Account**: `get_portfolio` equity $5,832.05 (cash $4,292.78, equity_value $1,539.27 — PATH only,
+DIS closed this morning via gap-rule stop-out, see the 14:30:41Z entry above). `get_equity_orders`
+(confirmed): PATH stop $12.73 still resting. `get_option_positions` (nonzero): 0.
+
+**Mode B equity stop-audit (§16 item 15)**: 1 checked (PATH), 0 missing, 0 placed. Clean.
+
+**§18/§19 options/LEAPS stop-check (step 2b)**: 0 open option positions — trivially clean, 0
+checked, 0 breached, 0 exited.
+
+**Circuit breakers (§6)**: same-day stop-out count = 1 (DIS, this morning — below the 2-stop-out
+cooldown). **Market-shock breaker TRIGGERED this cycle**: `get_equity_quotes` SPY $740.00 (+0.95%
+vs. yesterday's $733.00 close) / QQQ $660.31 (**+2.04%** vs. $647.05 close) — QQQ's move exceeds
+the 1.5% threshold. Per §6, this pauses **new entries only** for this cycle; existing protective
+stops (PATH) remain fully active, and screening/logging continue as normal. In practice this is
+moot this cycle — no candidate cleared the entry gate anyway (see below) — but flagged per the
+rule regardless of whether it ends up binding.
+
+**Mode C**: 0 open Mode C positions, stop-audit trivially clean (0 checked). No realized/
+unrealized Mode C P&L today (nothing open). No new Mode C entries possible this cycle regardless
+(market-shock breaker), and no qualifying hourly-adapted setup was screened for given Stage 1/2
+below found nothing actionable in the shared universe either.
+
+**Near-miss queue reassessment (3 of 3 entries, all reassessed with fresh data)**:
+- **TEM**: still a near-miss — now aligned_bearish on both TF with real computable
+  `pullback_short` setups (1D R:R 0.71:1, 60m R:R 0.33:1), both still below the 1.3:1 floor. Item
+  7's daily+hourly requirement is now structurally satisfied (unlike last cycle, where 60m showed
+  no setup) — the sole remaining blocker is R:R. Updated in `near_miss_queue.md`, cycles_checked
+  7.
+- **PGY**: still a near-miss — item 7 unchanged, no computable setup either TF (both pullback_long
+  but inactive/overextended). Updated, cycles_checked 4.
+- **IGV**: still a near-miss — item 7 unchanged, same structural gap. Updated, cycles_checked 4.
+- **AMD (Pending-eligibility table)**: already resolved 2026-11-04 (moot — §18 fails item 7
+  direction mismatch, §19 fails affordability by ~6.5x) — no new action needed, re-confirmed still
+  resolved, not re-opened.
+
+**Stage 1 — full-universe triage (`rank_symbol_setups`, all 74 names in one call)**: 73 ranked,
+**1 not evaluated** (OKLO — tool-flagged `earnings in 0d`, correctly excluded under §4's
+earnings-proximity timing rule, not a tool failure). Top bullish-scored names: AMZN (73), DIS (69
+— ineligible for re-entry today regardless of score, §17 item 4 same-day-loss-reentry ban), DUOL
+(65), AVA (65), LLY (64), RUN (62), OSCR (57, mixed), AAPL (56, neutral), GDX (53, mixed bullish
+score but bearish direction per the triage tool), TEM (50).
+
+**Stage 2 — full-gate evaluation, 12 slots (3 to near-miss-queue reassessment above, 9 to
+rotation)**. Rotation batch selected from Stage 1's top-scoring fresh names not already queued:
+**AMZN, DUOL, AVA, LLY, RUN, OSCR, GDX, CVX, NBIS** — all via one `analyze_structure_batch` call
+(1D/60). Checked both the pullback-setup field and, where `setup: null`, the
+`current_above_max_swing_high`/`current_below_min_swing_low` breakout-continuation flags per the
+2026-11-04 diagnostic fix, before concluding "no computable entry":
+- **AMZN**: mixed (60m bearish, 1D bullish). 1D `pullback_long` setup, R:R **0.25:1** — **rejected,
+  §5B item 4** (floor 1.3:1). No breakout-continuation condition (not above/below extremes).
+- **DUOL**: aligned_bearish — 60m shows a real `pullback_short` setup, R:R **1.49:1** (clears the
+  1.3:1 floor!), but **1D shows no computable setup at all** (`setup: null`, deep overextended
+  pullback 115.9%) — **rejected, Bearish Mirror Gate item 7** (hourly trigger exists, no
+  confirming daily-chart setup; both are required). Worth flagging explicitly: this is a real
+  reversal from the bullish AI-recovery thesis discussed earlier this session — DUOL's structure
+  has turned decisively bearish on both timeframes since that look, even though the specific gate
+  item that blocks today's bearish case is structural (missing daily setup), not an R:R or
+  catalyst failure.
+- **AVA**: aligned_bullish — 1D `pullback_long` R:R **0.39:1**, fails item 4. 60m shows
+  `current_above_max_swing_high: true` (+6.9%) — a genuine §13.G breakout-continuation candidate,
+  but catalyst and §13.H volume confirmation were not independently verified this cycle given the
+  market-shock breaker already blocks any entry regardless — **rejected for today, flagged as
+  worth a full §13.G look next cycle** rather than fully chased here.
+- **LLY**: aligned_bullish — 1D shows `current_above_max_swing_high: true` (+3.4%, a fresh
+  all-time high) but 60m's only computable setup (`pullback_long`, R:R 0.74:1) fails item 4. Same
+  disposition as AVA — a real §13.G candidate not fully chased this cycle (breaker moot point
+  aside, at LLY's $1,337-1,365/share price a single whole share would be ~23-35% of this account's
+  equity even before the 40% cap binds, meaningfully constraining practical sizing regardless of
+  gate outcome). **Rejected for today on the pullback path; §13.G path flagged, not fully
+  evaluated.**
+- **RUN**: labeled aligned_bearish by the consensus field, but 60m simultaneously shows
+  `current_above_max_swing_high: true` (+15.1%) — a bullish fresh-high signal contradicting the
+  bearish trend label, and both TFs' pullback setups are null/overextended. **Rejected — no clean
+  computable entry under any permitted method**; this is noise/conflicting-signal territory, not
+  a genuine candidate either direction.
+- **OSCR**: mixed — 1D `pullback_long` R:R 0.56:1, fails item 4. 60m bearish, no setup. **Rejected,
+  item 4.**
+- **GDX**: aligned_bearish — 1D `pullback_short` R:R 0.75:1, fails item 4 (mirror). 60m no setup.
+  **Rejected, Bearish Mirror Gate item 4.**
+- **CVX**: aligned_bullish — 1D `pullback_long` R:R 0.30:1, fails item 4. 60m overextended, no
+  setup. **Rejected, item 4.**
+- **NBIS**: mixed — 60m ranging/neutral (insufficient data for a real trend read), 1D bullish but
+  overextended, no setup either TF. **Rejected — structural absence, no computable entry.**
+
+**§18 options sourcing (3a)**: none of the 9 rotation names or 3 queue names cleared the
+underlying §5B/Bearish-Mirror gate, so no options candidate was sourced from them this cycle.
+Earnings-calendar/politician-trade/elevated-IV sourcing channels not separately run this cycle
+given the market-shock breaker already blocks any new position regardless — flagged as reduced
+coverage on this specific sub-step, not skipped out of neglect.
+
+**§19 LEAPS sourcing (3b)**: LLY's fresh 1D high plus its known multi-quarter GLP-1 thesis (see
+`watchlist.md`'s LLY note) makes it a real §19 item 2 candidate independent of today's swing-gate
+result — not pursued further this cycle given the market-shock breaker and LLY's share-price-
+driven sizing constraint noted above; flagged for a dedicated look on a future cycle rather than
+dropped silently.
+
+**§22 Leveraged/Inverse ETF screen (3c) — all 9 allowlisted names accounted for, via one
+`analyze_structure_batch` call (own charts + underlyings QQQ/SOXX/SPY/IWM)**:
+- **SOXL** (leveraged-long, own chart): mixed, no computable setup either TF (60m no setup; 1D
+  overextended, no setup). **Rejected — structural absence.**
+- **TNA** (leveraged-long, own chart): mixed, no computable setup either TF (60m no setup; 1D
+  overextended, no setup). **Rejected — structural absence.**
+- **AMDG** (leveraged-long, own chart): mixed, 60m shows `current_below_min_swing_low: true`
+  (-12.3%, wrong direction for a long) and no setup; 1D overextended, no setup. **Rejected —
+  structural absence / wrong-direction signal on the 60m leg.**
+- **SOXS** (inverse, needs SOXX bearish thesis + bullish SOXS-own-chart read): SOXX's own 1D read
+  is **bullish** (moderate), not bearish — the required underlying-bearish-thesis leg fails
+  outright. **Rejected, §22 item 2** (underlying not bearish).
+- **TZA** (inverse, needs IWM bearish thesis + bullish TZA-own-chart read): IWM's own 1D read is
+  **bullish** (moderate) — same failure mode as SOXS. **Rejected, §22 item 2.**
+- **TQQQ, SQQQ, SPXL, SPXU**: `analyze_structure_batch` returned "insufficient bars (0)" for all
+  four — **NOT_EVALUATED, tool failure** (not logged as rejected setups).
+- **Completion check**: 5 evaluated/rejected-with-evidence + 4 NOT_EVALUATED = 9 of 9. **Coverage
+  complete.**
+
+**Per-symbol labeling summary**: universe 74. Stage-1 triaged 73 (1 not-evaluated: OKLO, earnings
+today). Stage-2 full-gate-evaluated 12 (9 rotation, all rejected-with-evidence; 3 near-miss-queue
+reassessment, all still-near-miss, none cleared). Remaining 61 watchlist names **not evaluated
+this cycle — rotation/capacity reason** (12-slot cap reached; least-recently-evaluated-first
+rotation continues next eligible cycle). §22: 9/9 accounted for (5 rejected, 4 tool-failure
+not-evaluated). No trade placed in either mode. `near_miss_queue.md` updated (TEM/PGY/IGV
+timestamps/cycle-counts refreshed, all three still queued) and committed alongside this entry.
+
+```json
+{"cycle":"Mode B/C First Scan of Day","timestamp_utc":"2026-11-06T15:03:54Z","timestamp_pacific":"2026-11-06T07:03:54-08:00","coverage_state":"EVALUATED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":["market_shock_qqq_2.04pct"],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":73,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":61,"tool_failures":0},"near_miss_queue":{"reassessed":3,"cleared":0,"still_near_miss":3,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_moot_2026-11-04"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":5,"rejected_with_evidence":5,"not_evaluated":[{"symbol":"TQQQ","reason":"tool failure - insufficient bars (0)"},{"symbol":"SQQQ","reason":"tool failure - insufficient bars (0)"},{"symbol":"SPXL","reason":"tool failure - insufficient bars (0)"},{"symbol":"SPXU","reason":"tool failure - insufficient bars (0)"}],"coverage_complete":true},"calls_made_this_cycle":4,"tvremix_calls_used_today":11,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
