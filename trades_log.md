@@ -59843,3 +59843,89 @@ open, no protective action needed.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-05T21:37:51Z","timestamp_pacific":"2026-11-05T13:37:51-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"DATA_BLOCKED","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":109.19,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":109.19,"cap_usd":353.01,"headroom_usd":243.82},"coverage":{"universe_size":8,"triaged":0,"full_gate_evaluated":0,"rejected_with_evidence":0,"not_evaluated":[{"symbol":"BTC","reason":"tool failure — Too Many Requests, outage continuing ~4h"},{"symbol":"ETH","reason":"tool failure — Too Many Requests, outage continuing ~4h"},{"symbol":"SOL","reason":"tool failure — Too Many Requests, outage continuing ~4h"},{"symbol":"XRP","reason":"tool failure — Too Many Requests, outage continuing ~4h"},{"symbol":"LINK","reason":"tool failure — Too Many Requests, outage continuing ~4h"},{"symbol":"AAVE","reason":"tool failure — Too Many Requests, outage continuing ~4h"},{"symbol":"HBAR","reason":"tool failure — Too Many Requests, outage continuing ~4h"},{"symbol":"AVAX","reason":"tool failure — Too Many Requests, outage continuing ~4h"}],"tool_failures":8},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":"uncertain_due_to_20:37Z_NOT_RUN_gap_but_underlying_outage_continuous_since_17:37:50Z","calls_made_this_cycle":1,"tvremix_calls_used_today":40,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+---
+
+## 2026-11-05 22:37Z – 2026-11-06 01:37Z — CATCH-UP ENTRY (4 crypto cycles, repeated worker-process restarts prevented real-time logging each time)
+
+**Context:** the session's worker process has been restarting repeatedly, roughly once per
+cycle, consistently interrupting the turn after account/position data was gathered but before
+the trades_log.md write + commit could execute. This entry consolidates the 4 affected cycles
+(22:37:24Z, 23:37:11Z, 00:37:32Z, 01:37:34Z) using the data actually gathered at each, where
+available. **No protective gap occurred in any of them**: 0 crypto positions were open throughout
+this entire window (confirmed at 22:37Z-ish, 23:37Z-ish, and 00:37Z-ish checks), and the two Mode
+B resting stops (PATH $12.73, DIS $115.90) were independently reconfirmed resting at 00:37Z-ish —
+both live at the broker the whole time regardless of this session's own logging cadence.
+
+- **22:37:24Z** — equity $5,873.608. 0 crypto positions. SPY $730.90/QQQ $645.00 (after-hours,
+  22:37Z read). `analyze_structure_batch` attempt did not complete before the restart interrupted
+  this turn (not a confirmed "Too Many Requests" result this time — the call itself was cut off
+  mid-approval) — screening logged **NOT_RUN** for this cycle specifically.
+- **23:37:11Z** — equity $5,860.79. 0 crypto positions. SPY $728.33/QQQ $641.67 (after-hours,
+  23:38Z read). Same NOT_RUN outcome — `analyze_structure_batch` cut off before completing.
+- **00:37:32Z** (first cycle of UTC 2026-11-06 — tvremix daily call counters reset at this
+  boundary per the self-correcting method's "today's UTC calendar date" scoping) — equity
+  $5,867.93. 0 crypto positions. PATH/DIS stops both reconfirmed resting via `get_equity_orders`.
+  Screening not attempted this cycle before the restart (prioritized protective-position checks
+  over screening given the repeated interruption pattern) — **NOT_RUN**.
+- **01:37:34Z** — processed this turn; see the fresh cycle entry immediately below for full detail
+  rather than duplicating it here.
+
+All four: no crypto order placed, 0 positions open throughout, no stop-audit action needed
+(nothing to audit). `near_miss_queue.md` (Crypto §21 table) unchanged — still empty.
+
+### Crypto 24/7 Scan, fired 01:37:34Z — tvremix recovery confirmed, ~8h outage ends
+Gate: ACTIVE, no kill phrase. `get_portfolio`: equity $5,884.51 (cash $2,012.83, equity_value
+$3,871.68, crypto $0). `get_crypto_positions`: **0 open positions** — nothing to protect this
+cycle. `get_equity_orders` (confirmed): PATH stop $12.73 and DIS stop $115.90 both still
+resting/confirmed — stop-audit clean, 2 checked, 0 missing, 0 placed. `get_equity_quotes`
+SPY/QQQ: $734.58/$653.52 (after-hours, 01:51Z read) vs. the 21:37:51Z reading ($733.25/$647.77) =
+**SPY +0.18%, QQQ +0.90%** — both under 1.5%, market-shock breaker clear.
+
+**tvremix recovery — Recovery Verification check applied, both criteria satisfied:**
+`analyze_structure_batch` succeeded for all 8 allowlisted pairs (BTC, ETH, SOL, XRP, LINK, AAVE,
+HBAR, AVAX) for the first time since the 17:37:50Z cycle. Interval-match: every pair returned
+`interval` fields of 240 and 60 matching the requested 4H/1H timeframes exactly (e.g. BTC 60m
+`latest_bar_time: 1793926800`, 240m `latest_bar_time: 1793923200` — both consistent with the
+requested granularities, no silent daily-interval fallback). Freshness: bar timestamps land
+within the current session window, not stale cached data. **Both criteria pass — this is treated
+as a genuine recovery, not a one-off lucky call.** Outage duration, computed from this log's own
+timestamps: last confirmed successful structure read was the pre-outage baseline (last clean
+cycle before 17:37:50Z); first DATA_BLOCKED cycle was 17:37:50Z; this cycle (01:37:34Z) is the
+first clean read since — **outage spanned ~8 hours (17:37:50Z–01:37:34Z)**, consistent with
+either a rate-limit cooldown window resetting or a transient service-side issue clearing.
+`tvremix_consecutive_failed_cycles` **reset to 0** as of this cycle.
+
+**Full §21 gate evaluation, all 8 pairs — all rejected with evidence (none show a bullish-aligned
+setup on both timeframes, the standing spot-long-only requirement):**
+- **BTC**: aligned_bearish both timeframes; 60m shows a `pullback_short` setup but R:R only 0.07
+  (far below any usable floor); 240m no setup. Rejected — wrong direction, and weak R:R even if
+  direction were eligible.
+- **ETH**: mixed read — 60m shows a bullish pullback_long *trend* but `setup: null` (overextended,
+  94.3% of the pullback's depth already retraced — no valid entry structure); 240m aligned_bearish
+  with a `pullback_short` R:R 0.15. Rejected — no qualifying bullish setup on either timeframe.
+- **SOL**: aligned_bearish both timeframes, no setup on either. Rejected.
+- **XRP**: mixed — 60m bullish but `setup: null` (overextended, same pattern as ETH); 240m
+  aligned_bearish, `pullback_short` R:R 0.12. Rejected.
+- **LINK**: aligned_bearish both timeframes; `pullback_short` R:R 0.24 (60m) / 0.44 (240m), both
+  well below a usable floor even before the direction problem. Rejected.
+- **AAVE**: aligned_bearish both timeframes; 60m `pullback_short` R:R 2.1 ("ok" quality — the
+  strongest R:R in this batch), 240m `pullback_short` R:R 1.3 ("low_rr"). **Explicitly flagged:**
+  this is a structurally non-tradeable setup regardless of R:R quality — §21 is spot, buy-to-open-
+  longs-only; a `pullback_short` setup is never executable under this policy no matter how clean
+  it looks. Not logged to `near_miss_queue.md` — a wrong-direction setup is a structural rejection,
+  not a near-miss (the near-miss queue is for bullish setups narrowly missing a numeric gate, which
+  this is not). Rejected.
+- **HBAR**: aligned_bearish both timeframes; `pullback_short` R:R 0.2 (60m) / 0.14 (240m), weak.
+  Rejected.
+- **AVAX**: mixed — 60m bullish but `setup: null` (overextended, same pattern as ETH/XRP); 240m
+  bearish, no setup. Rejected.
+
+No crypto order placed. 0 positions open — no protective action, no stop-audit placement needed.
+Portfolio heat: PATH $62 + DIS $47.19 = $109.19 vs. cap $353.07 (6% of $5,884.51) — ample headroom,
+unaffected by this cycle (no new crypto position). `near_miss_queue.md` crypto table unchanged —
+still empty, consistent with every pair failing the direction requirement or the R:R floor.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T01:37:34Z","timestamp_pacific":"2026-11-05T17:37:34-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"EVALUATED","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":109.19,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":109.19,"cap_usd":353.07,"headroom_usd":243.88},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":8,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":8,"expired":0},"tvremix_outage":{"status":"recovered","duration_hours":8,"started_utc":"2026-11-05T17:37:50Z","recovered_utc":"2026-11-06T01:37:34Z"},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":1,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
