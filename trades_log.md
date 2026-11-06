@@ -59929,3 +59929,45 @@ still empty, consistent with every pair failing the direction requirement or the
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T01:37:34Z","timestamp_pacific":"2026-11-05T17:37:34-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"EVALUATED","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":109.19,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":109.19,"cap_usd":353.07,"headroom_usd":243.88},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":8,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":8,"expired":0},"tvremix_outage":{"status":"recovered","duration_hours":8,"started_utc":"2026-11-05T17:37:50Z","recovered_utc":"2026-11-06T01:37:34Z"},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":1,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### Crypto 24/7 Scan, fired 02:37:18Z
+Gate: ACTIVE, no kill phrase (CLAUDE.md §14 confirmed Status: ACTIVE; no STOP/PAUSE phrase found
+in recent history). `get_accounts`: ••••8058 agentic_allowed=true confirmed; ••••7533 untouched.
+`get_portfolio`: equity $5,891.24. `get_crypto_positions`: **0 open positions** — nothing to
+manage this cycle. `get_equity_orders` (confirmed): PATH stop $12.73 / DIS stop $115.90 both still
+resting — stop-audit clean (2 checked, 0 missing, 0 placed; covers Mode B heat for this cycle's
+portfolio-heat computation, no crypto stops to audit since 0 crypto positions open).
+
+**Circuit breakers:** 0 same-day stop-outs across any mode. Market-shock check: SPY/QQQ do not
+trade at 02:37 UTC (Thursday evening ET, regular session closed, no after-hours SPY/QQQ print to
+compare against the 01:37:34Z reading) — per this trigger's own standing instruction, treated as
+inapplicable/satisfied outside equity market hours. **Portfolio heat:** PATH $62 + DIS $47.19 =
+$109.19 vs. cap $353.47 (6% of $5,891.24) — ample headroom, no resize needed.
+
+**Near-miss queue (Crypto §21 table):** empty — no reassessment needed this cycle.
+
+**Full §21 gate — all 8 allowlisted pairs screened via one `analyze_structure_batch` call
+(240/60), all rejected, none show a bullish-aligned setup on both timeframes:**
+- **BTC**: mixed — 60m bullish weak but `setup: null` (overextended, 93.5% pullback depth); 240m
+  bearish moderate, no setup. Rejected — no qualifying bullish structure either TF.
+- **ETH**: mixed — 60m bullish weak, `setup: null` (overextended 94.0%); 240m bearish weak,
+  `pullback_short` R:R 0.13 (wrong direction, weak anyway). Rejected.
+- **SOL**: aligned_bearish both TF, no setup either. Rejected.
+- **XRP**: mixed — 60m bullish weak, `setup: null` (overextended 150%); 240m bearish strong,
+  `pullback_short` R:R 0.12. Rejected.
+- **LINK**: aligned_bearish both TF; `pullback_short` R:R 0.27 (60m) / 0.48 (240m), both weak and
+  wrong-direction. Rejected.
+- **AAVE**: aligned_bearish both TF; `pullback_short` R:R 1.91 (60m) / 1.28 (240m) — comparatively
+  strong R:R but non-tradeable regardless under the spot-long-only rule. Not queued (wrong
+  direction is a structural rejection, not a near-miss). Rejected.
+- **HBAR**: aligned_bearish both TF; `pullback_short` R:R 0.18 (60m) / 0.12 (240m), weak. Rejected.
+- **AVAX**: mixed — 60m bullish weak, `setup: null` (overextended 150%); 240m bearish moderate, no
+  setup. Rejected.
+
+No crypto order placed. 0 positions open, no protective action needed. `near_miss_queue.md`
+unchanged (still empty) — no pair failed exactly one item while passing every other; each either
+has no computable bullish setup or is wrong-direction entirely.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T02:37:18Z","timestamp_pacific":"2026-11-05T18:37:18-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":109.19,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":109.19,"cap_usd":353.47,"headroom_usd":244.28},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":2,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
