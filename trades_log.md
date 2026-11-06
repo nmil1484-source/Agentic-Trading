@@ -60477,3 +60477,40 @@ failure). No trade placed either mode.
 ```json
 {"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-06T17:04:53Z","timestamp_pacific":"2026-11-06T09:04:53-08:00","coverage_state":"EVALUATED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":73,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":61,"tool_failures":0},"near_miss_queue":{"reassessed":3,"cleared":0,"still_near_miss":3,"invalidated":0,"ineligible":0,"expired":0},"leveraged_etf_coverage":{"universe_size":9,"evaluated":5,"rejected_with_evidence":5,"not_evaluated":[{"symbol":"TQQQ","reason":"tool failure - insufficient bars (0)"},{"symbol":"SQQQ","reason":"tool failure - insufficient bars (0)"},{"symbol":"SPXL","reason":"tool failure - insufficient bars (0)"},{"symbol":"SPXU","reason":"tool failure - insufficient bars (0)"}],"coverage_complete":true},"calls_made_this_cycle":3,"tvremix_calls_used_today":19,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+### Crypto 24/7 Scan, fired 17:37:45Z
+Gate: ACTIVE, no kill phrase. `get_portfolio`: equity $5,843.81. `get_crypto_positions`: **0 open
+positions**. Stop-audit trivially clean (0 checked, 0 missing, 0 placed). Portfolio heat: PATH
+$61.88 vs. cap $350.63 (6% of $5,843.81) — ample headroom. Circuit breakers: 1 same-day stop-out
+(DIS, below cooldown); market-shock check: SPY $735.89 (-0.40% vs. 17:04:53Z reading $738.84) /
+QQQ $654.96 (-0.58% vs. $658.77) — both clear, despite Thursday's -5.52%/-4.36% Nasdaq/S&P
+session and today's post-jobs volatility (context noted, not a signal — no trade basis changes
+from a news briefing per standing policy). Near-miss queue (Crypto §21): empty, no reassessment
+needed.
+
+**Full §21 gate — all 8 pairs screened via one `analyze_structure_batch` call (240/60), interval
+fields confirmed matching request, all rejected. Market is uniformly bearish following the broad
+equity/crypto selloff — 6 of 8 aligned_bearish both timeframes, 2 mixed, zero bullish setups
+anywhere:**
+- **BTC, ETH, SOL, LINK, HBAR**: aligned_bearish; `pullback_short` setups present but weak R:R
+  (0.07-0.58) — wrong direction regardless (spot-long-only, §21). Rejected.
+- **AAVE**: aligned_bearish; `pullback_short` R:R **2.37 "ok" (60m) / 1.97 (240m)** — the 240m
+  figure would clear §21's own 1.5:1 floor on R:R alone, but both are short setups, categorically
+  non-tradeable under the spot-long-only rule. Rejected.
+- **XRP**: mixed — 60m bullish weak but `setup: null` (overextended, depth 150%); 240m bearish
+  strong, no setup. No computable bullish entry either way. Rejected.
+- **AVAX**: mixed — 60m ranging/neutral, no setup (insufficient data); 240m bearish moderate,
+  `pullback_short` R:R 0.1 (wrong direction). No bullish setup. Rejected.
+
+No crypto order placed. 0 positions open, no protective action needed. `near_miss_queue.md`
+unchanged — still empty (every reject here is a structural/direction failure, not a single-item
+near-miss).
+
+tvremix: 1 call this cycle, fresh 240/60 data (not stale), `tvremix_consecutive_failed_cycles`
+reset to 0. **Deprecation notice relayed to user (one-time, this cycle): tvremix.xyz is shutting
+down 2026-11-11 and is capped at 50 calls/day; TradingView's own official MCP server is the
+suggested replacement — flagged to the user in chat.**
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T17:37:45Z","timestamp_pacific":"2026-11-06T09:37:45-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":61.88,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":61.88,"cap_usd":350.63,"headroom_usd":288.75},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":0,"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":20,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
