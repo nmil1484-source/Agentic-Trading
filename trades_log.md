@@ -60055,3 +60055,95 @@ unchanged — still empty.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T07:37:12Z","timestamp_pacific":"2026-11-05T23:37:12-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":109.19,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":109.19,"cap_usd":351.54,"headroom_usd":242.35},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":6,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+## 2026-11-06 ~14:30:41Z — MODE B EXIT: DIS stopped out (gap-rule, discovered via crypto-trigger portfolio check)
+
+**STRATEGY: SWING_TRADING.** DIS's resting protective stop (placed 2026-11-05 at entry, §16 item 14)
+triggered and filled during this cycle's portfolio check — detected here because the crypto
+trigger's own `get_portfolio`/`get_equity_orders` calls are account-wide, not because this trigger
+screens Mode B. Logging now for continuity rather than leaving an unprotected gap in the record;
+the Mode B/C trigger's own next cycle will find this already closed and should not attempt to
+re-manage it.
+
+- **Entry** (2026-11-05T16:09:05.959Z): BUY 20 DIS @ $118.2594 (limit $118.30), fees $0.00.
+- **Stop placed**: $115.90 (§13.G breakout-continuation stop, just beyond the broken level).
+- **Exit fill** (2026-11-06T14:30:41.083Z): SELL 20 DIS @ $114.00 (stop-market order, state
+  `filled`, `cumulative_quantity: 20`), fees $0.05.
+- **Gap/slippage**: filled $1.90 below the $115.90 stop trigger (**1.64% slippage**) — consistent
+  with §16 item 4's gap rule (price likely opened below the stop at today's 14:30:41Z open print,
+  ~9:30:41am ET — exactly market open — rather than the stop being hit intraday with normal
+  stop-market slippage). Exit orders are exempt from the §4 entry-timing blackout regardless
+  (Conflict Resolution item 5), so the open-window timing here is not itself an issue — flagged
+  only to explain the slippage magnitude.
+- **Planned loss**: ($118.2594 − $115.90) × 20 = $47.19 (1R, matching the original Trade Card).
+- **Actual realized loss**: ($118.2594 − $114.00) × 20 + $0.05 fee = **$85.24** (≈1.81R — slippage
+  through the gap added ~$38 beyond the planned 1R risk, consistent with a gap-through rather than
+  a clean stop fill).
+- **Account impact confirmed**: equity_value dropped (~$3,862 → ~$1,550, now PATH-only) and cash
+  rose by the DIS sale proceeds ($114.00 × 20 − $0.05 = $2,279.95); cash moved from ~$2,012.83 to
+  ~$4,292.78 — the two figures reconcile exactly, confirming this is the DIS stop-out and not a
+  data anomaly or an unexplained discrepancy.
+- **Same-day stop-out count**: this is **stop-out #1 today** across Mode B/C/crypto combined — the
+  §6 2-stop-out-same-day cooldown has not triggered (needs 2); flagging for the next trigger of any
+  mode to factor into its own check.
+- **Portfolio heat impact**: DIS's $47.19 planned-risk contribution drops to $0 (position closed).
+  Remaining open heat is PATH only: ($13.249 avg entry − $12.73 stop) × 119 = **$61.76**.
+- **PATH unaffected**: confirmed separately this cycle — PATH stop ($12.73) still resting/confirmed,
+  unfilled, 119 shares still held. No protective gap on PATH.
+- **Re-entry restriction**: per §17 item 4, no same-day re-entry of DIS after this loss exit.
+
+---
+
+## 2026-11-06 08:37Z – 14:38Z — CATCH-UP (6 crypto cycles interrupted by worker restarts) + fresh cycle fully processed
+
+**Context:** six consecutive crypto-trigger cycles (08:37:37Z, 09:37:48Z, 10:37:20Z, 11:37:46Z,
+12:37:49Z, 13:37:29Z) had their `analyze_structure_batch` screening call repeatedly cut off
+mid-approval by worker-process restarts — each cycle's `get_portfolio`/`get_crypto_positions`/
+`get_equity_orders` completed and confirmed **0 crypto positions** and both Mode B resting stops
+(PATH $12.73, DIS $115.90 — DIS since stopped out, see entry above) in force at the time of each
+check. **No protective gap occurred in any of them.** Equity readings across the window: 08:37Z
+$5,858.95 → 09:37Z $5,889.34 → 10:37Z $5,878.63 → 11:37Z $5,875.06 → 12:37Z $5,863.37 → 13:37Z
+$5,855.27 (still pre-DIS-stop-out at each of these checks — DIS fill came at 14:30:41Z, after the
+13:37Z check and before the 14:38Z check). Screening **NOT_RUN** for all six — each attempt was cut
+off before returning, not a confirmed tool-level "Too Many Requests" failure.
+
+### Crypto 24/7 Scan, fired 14:38:19Z — full cycle completed
+Gate: ACTIVE, no kill phrase. `get_portfolio`: equity $5,843.35 (post-DIS-stop-out — cash
+$4,292.78, equity_value $1,550.57, crypto $0). `get_crypto_positions`: **0 open positions**.
+Mode B equity check (incidental to this cycle, see the DIS entry above): PATH stop $12.73 still
+resting/confirmed; DIS stop filled this cycle at $114.00, now closed. Portfolio heat: PATH only,
+$61.76 vs. cap $350.60 (6% of $5,843.35) — ample headroom. Circuit breakers: 1 same-day stop-out
+(DIS, below the 2-stop-out cooldown threshold); market-shock check inapplicable outside equity
+hours (crypto trades 24/7, but SPY/QQQ don't — this check is equity-hours-only per the trigger's
+own instruction). Near-miss queue (Crypto §21): empty, no reassessment needed.
+
+**Full §21 gate — all 8 allowlisted pairs screened via one `analyze_structure_batch` call
+(240/60). Market structure has turned decisively more bearish this cycle (BTC/ETH/SOL/LINK/
+AAVE/HBAR/AVAX now all aligned_bearish on both timeframes, up from several "mixed" reads the
+prior cycle) — still none show a bullish-aligned setup on either timeframe, so still no
+qualifying candidate under the standing spot-long-only rule:**
+- **BTC**: aligned_bearish both TF, no setup either. Rejected.
+- **ETH**: aligned_bearish; 60m `pullback_short` R:R 0.08 (wrong direction, very weak); 240m no
+  setup. Rejected.
+- **SOL**: aligned_bearish; 60m `pullback_short` R:R 0.35 (wrong direction); 240m no setup.
+  Rejected.
+- **XRP**: mixed — 60m bullish moderate, `setup: null` (overextended 150%, below min swing low);
+  240m bearish strong, no setup. Rejected.
+- **LINK**: aligned_bearish; `pullback_short` R:R 0.54 (60m) / 0.62 (240m) — wrong direction.
+  Rejected.
+- **AAVE**: aligned_bearish; 60m `pullback_short` setup null (overextended 80.6%); 240m
+  `pullback_short` R:R **2.22 "ok" quality** — the strongest bearish setup seen all session, still
+  categorically non-tradeable under the spot-long-only rule (never queued as a near-miss — wrong
+  direction is a structural rejection). Rejected.
+- **HBAR**: aligned_bearish; `pullback_short` R:R 0.39 (60m) / 0.37 (240m) — wrong direction.
+  Rejected.
+- **AVAX**: aligned_bearish (now, vs. "mixed" the prior cycle); `pullback_short` R:R 0.43 (60m) /
+  0.16 (240m) — wrong direction. Rejected.
+
+No crypto order placed, 0 positions open throughout the full 08:37Z–14:38Z window. `near_miss_queue.md`
+unchanged — still empty (every rejection is either a structural absence or a wrong-direction
+setup, never a genuine single-item bullish near-miss).
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T14:38:19Z","timestamp_pacific":"2026-11-06T06:38:19-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":61.76,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":61.76,"cap_usd":350.6,"headroom_usd":288.84},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":7,"exits":[{"symbol":"DIS","mode":"B","reason":"gap-rule stop-out","realized_pl":-85.24}],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
