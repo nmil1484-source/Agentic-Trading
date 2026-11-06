@@ -60640,3 +60640,85 @@ tvremix: 1 call this cycle, fresh 240/60 data. `tvremix_consecutive_failed_cycle
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T18:37:58Z","timestamp_pacific":"2026-11-06T10:37:58-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":0,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":61.88,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":61.88,"cap_usd":349.42,"headroom_usd":287.54},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":0,"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":25,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+## 2026-11-06 19:03:47Z (02:03:47pm ET) — Mode B/C Entry Screening, Fresh Candle
+
+**STEP 0**: CLAUDE.md §14 confirmed Status: ACTIVE. No kill phrase found.
+
+**Account**: equity $5,828.83 (cash $4,292.78, equity_value $1,536.05 — PATH only). `get_equity_orders`
+(confirmed): PATH stop $12.73 still resting (119 sh). `get_option_positions` (nonzero): 0 — §18/§19
+stop-check trivially clean. FTA Regime Dashboard: live JSON (`generated_at` 14:04 ET), `regime.call:
+"cautious"`, unchanged.
+
+**Mode B equity stop-audit**: 1 checked (PATH), 0 missing, 0 placed.
+**§18/§19 options stop-check**: 0 positions — trivially clean.
+**Circuit breakers**: same-day stop-out count 1 (DIS, below cooldown). Market-shock check: SPY
+$738.79 (+0.12% vs. 18:37:58Z reading $737.87) / QQQ $659.13 (+0.23% vs. $657.59) — both clear.
+**Portfolio heat**: PATH $61.88 vs. cap $349.73 (6% of $5,828.83) — ample headroom.
+**Mode C**: 0 positions, stop-audit trivially clean, $0 realized/unrealized P&L today. No
+VWAP-pullback/ORB/mean-reversion setup identified in this cycle's screened batch — OBSERVE.
+
+**Near-miss queue reassessment (3 of 3, all reassessed, fresh 1D/60 data)**:
+- **TEM**: still near-miss — aligned_bearish both TF, `pullback_short` R:R 0.75:1 (1D) / 0.96:1
+  (60m, healthier pullback this cycle — golden-pocket zone — but still below 1.3:1).
+- **PGY**: still near-miss — consensus flipped to mixed (60m now ranging/neutral, no setup; 1D
+  bullish, no setup) — item 7 unchanged, no computable entry either TF.
+- **IGV**: still near-miss — aligned_bullish both TF, both `setup: null` (overextended) — item 7
+  unchanged.
+`near_miss_queue.md` updated (timestamps/cycles/R:R refreshed), committed alongside this entry.
+AMD pending-eligibility: already resolved 2026-11-04, no outstanding restriction.
+
+**Stage 1 (`rank_symbol_setups`, full 74-name universe, side=both)**: all 74 ranked, 0 missing, 0
+skipped.
+
+**Stage 2 (12 slots: 3 to queue above, 9 to rotation).** Rotation batch — **VRT, RUN, KTOS, STM,
+PLTR, OSCR, NVDA, OKLO, ZETA** (fresh names, never evaluated this session), via one
+`analyze_structure_batch` call (1D/60), checking both gates on every name:
+- **VRT**: mixed — 60m `pullback_short` R:R 0.17:1 (fails item 4); 1D ranging/neutral, no setup.
+  **Rejected, item 4 / structural absence.**
+- **RUN, KTOS**: aligned_bearish both TF, `setup: null` both. **Rejected — structural absence
+  (item 7).**
+- **STM**: aligned_bullish both TF, `setup: null` both (overextended 150%). **Rejected —
+  structural absence (item 7).**
+- **PLTR**: mixed — 60m `pullback_short` R:R 0.18:1 (fails item 4); 1D bullish weak, `setup: null`
+  (overextended). **Rejected, item 4 / structural absence.**
+- **OSCR**: mixed — 1D `pullback_long` R:R **1.38:1, clears the 1.3:1 floor**, bullish trend
+  confirms (item 3 trend/state role-group); but 60m is ranging/neutral with no setup at all — no
+  confirming hourly trigger. **Rejected, item 7** (daily R:R clears but no hourly trigger exists;
+  catalyst/item 2 not independently re-verified this cycle either, so not queued as a clean
+  single-item near-miss — flagging only). Closest bullish near-miss this cycle.
+- **NVDA**: mixed, `setup: null` both TF. **Rejected — structural absence.**
+- **OKLO**: aligned_bearish both TF — 60m `pullback_short` R:R **1.23:1** (just short of the
+  1.3:1 Bearish Mirror floor); 1D no setup. **Rejected, item 4 (close miss) / structural absence
+  (1D) — not queued, since 1D's own structural gap means this isn't a clean single-item case.**
+- **ZETA**: aligned_bullish both TF — 60m `pullback_long` R:R 1.09:1 (fails item 4); 1D
+  `setup: null` (overextended); also flagged earnings in 3 days (binary event risk, §4). **Rejected,
+  item 4 / structural absence / timing.**
+
+**§18/§19 sourcing**: none of the 9 rotation or 3 queue names cleared either gate — no options/
+LEAPS candidate sourced. OSCR and OKLO both sat closest to qualifying (R:R clearing or nearly
+clearing) but each failed on a structural item (no hourly trigger / no daily setup respectively).
+
+**§22 Leveraged/Inverse ETF screen — all 9 accounted for, fresh data, 0 tool failures (second
+consecutive clean pass since the exchange-prefix fix)**:
+- **TQQQ, SOXL, SPXL, TNA, AMDG** (leveraged-long, own chart): all mixed — 1D bullish-biased but
+  `setup: null` (overextended), 60m bearish with no setup. No TF alignment. **Rejected —
+  structural absence (item 7).**
+- **SQQQ** (needs QQQ bearish): QQQ 1D bullish (weak) — underlying bearish thesis fails.
+  **Rejected, §22 item 2.**
+- **SOXS** (needs SOXX bearish): SOXX 1D bullish (moderate) — same failure. **Rejected, §22
+  item 2.**
+- **SPXU** (needs SPY bearish): SPY 1D bullish (moderate) — same failure. **Rejected, §22
+  item 2.**
+- **TZA** (needs IWM bearish): IWM 1D bullish (moderate) — same failure. **Rejected, §22 item
+  2.**
+- Completion check: 9 rejected + 0 not-evaluated = 9/9. **Coverage complete.**
+
+**Per-symbol labeling summary**: universe 74. Stage-1 triaged 74 (0 not-evaluated). Stage-2
+full-gate-evaluated 12 (9 rotation rejected-with-evidence; 3 queue reassessment, all still
+near-miss). 62 names not evaluated this cycle — rotation/capacity. §22: 9/9 (9 rejected, 0 tool
+failure). No trade placed either mode. `coverage_state: EVALUATED`.
+
+```json
+{"cycle":"Mode B/C Entry Screening — Fresh Candle","timestamp_utc":"2026-11-06T19:03:47Z","timestamp_pacific":"2026-11-06T11:03:47-08:00","coverage_state":"EVALUATED","modes_covered":["B","C"],"status_gate":"ACTIVE","circuit_breakers_active":[],"positions":{"mode_b_count":1,"mode_c_count":0},"stop_audit":{"checked":1,"missing_found":0,"placed":0},"options_stop_check":{"checked":0,"breached":0,"exited":0},"coverage":{"universe_size":74,"triaged":74,"full_gate_evaluated":12,"rejected_with_evidence":9,"not_evaluated":62,"tool_failures":0},"near_miss_queue":{"reassessed":3,"cleared":0,"still_near_miss":3,"invalidated":0,"ineligible":0,"expired":0,"amd_pending_eligibility_status":"resolved_moot_2026-11-04"},"leveraged_etf_coverage":{"universe_size":9,"evaluated":9,"rejected_with_evidence":9,"not_evaluated":[],"coverage_complete":true},"calls_made_this_cycle":3,"tvremix_calls_used_today":28,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
