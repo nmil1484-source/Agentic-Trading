@@ -59971,3 +59971,54 @@ has no computable bullish setup or is wrong-direction entirely.
 ```json
 {"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T02:37:18Z","timestamp_pacific":"2026-11-05T18:37:18-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":109.19,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":109.19,"cap_usd":353.47,"headroom_usd":244.28},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":2,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
 ```
+
+## 2026-11-06 03:37Z – 06:37Z — CATCH-UP + fresh cycle (3 cycles interrupted by repeated worker-process restarts, 4th processed fully)
+
+**Context:** worker-process restarts interrupted real-time processing of 3 consecutive crypto
+cycles (03:37:44Z, 04:37:33Z, 05:37:54Z) — in each case `get_portfolio`/`get_crypto_positions`/
+`get_equity_orders` completed before the restart, but the `analyze_structure_batch` screening call
+either never started (03:37:44Z) or was cut off mid-approval (04:37:33Z, 05:37:54Z — tool result:
+"an approval request was still unanswered when the message that follows arrived and was closed...
+Nobody refused it"). **No protective gap occurred in any of them**: 0 crypto positions were open
+throughout (confirmed at each of the three checks), and the two Mode B resting stops (PATH $12.73,
+DIS $115.90) were independently reconfirmed resting at each check.
+
+- **03:37:44Z** — equity $5,885.66. 0 crypto positions. PATH/DIS stops confirmed resting.
+  Screening **NOT_RUN** — restart preempted this cycle before any screening call was attempted.
+- **04:37:33Z** — equity $5,875.33. 0 crypto positions. PATH/DIS stops confirmed resting.
+  Screening **NOT_RUN** — `analyze_structure_batch` attempted but cut off mid-approval before
+  returning (not a confirmed tool-level failure; the call itself never completed).
+- **05:37:54Z** — equity $5,875.68. 0 crypto positions. PATH/DIS stops confirmed resting.
+  Screening **NOT_RUN** — same cut-off-mid-approval outcome as 04:37:33Z.
+
+### Crypto 24/7 Scan, fired 06:37:42Z — full cycle completed
+Gate: ACTIVE, no kill phrase. `get_portfolio`: equity $5,876.11. `get_crypto_positions`: **0 open
+positions**. `get_equity_orders` (confirmed): PATH $12.73 / DIS $115.90 both resting — stop-audit
+clean (2 checked, 0 missing, 0 placed). Portfolio heat: PATH $62 + DIS $47.19 = $109.19 vs. cap
+$352.57 (6% of $5,876.11) — ample headroom. Circuit breakers: 0 same-day stop-outs; market-shock
+check inapplicable (SPY/QQQ don't trade at this hour). Near-miss queue (Crypto §21): empty, no
+reassessment needed.
+
+**Full §21 gate — all 8 allowlisted pairs screened via one `analyze_structure_batch` call
+(240/60), all rejected, none show a bullish-aligned setup on both timeframes:**
+- **BTC**: mixed — 60m bullish weak, `setup: null` (overextended 105.3%, now below its own min
+  swing low); 240m bearish moderate, no setup. Rejected.
+- **ETH**: mixed — 60m bullish weak, `setup: null` (overextended 102.8%); 240m bearish weak, no
+  setup. Rejected.
+- **SOL**: aligned_bearish both TF, no setup either. Rejected.
+- **XRP**: mixed — 60m bullish weak, `setup: null` (overextended 150%, now below min swing low);
+  240m bearish strong, no setup. Rejected.
+- **LINK**: aligned_bearish; 60m no setup (pullback inactive, depth 4.7%); 240m `pullback_short`
+  R:R 0.33 — wrong direction, weak anyway. Rejected.
+- **AAVE**: aligned_bearish; `pullback_short` R:R 1.25 (60m) / 1.42 (240m) — non-tradeable
+  regardless of R:R under the spot-long-only rule. Rejected.
+- **HBAR**: aligned_bearish; `pullback_short` R:R 0.06 (60m) / 0.23 (240m), weak. Rejected.
+- **AVAX**: mixed — 60m ranging/neutral, no setup (insufficient data); 240m bearish moderate, no
+  setup. Rejected.
+
+No crypto order placed this cycle (or any of the three NOT_RUN cycles — 0 positions open
+throughout the entire window). `near_miss_queue.md` unchanged — still empty.
+
+```json
+{"cycle":"Crypto 24/7 Scan (§21)","timestamp_utc":"2026-11-06T06:37:42Z","timestamp_pacific":"2026-11-05T22:37:42-08:00","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":2,"missing_found":0,"placed":0},"portfolio_heat":{"mode_b_heat_usd":109.19,"mode_c_heat_usd":0,"crypto_heat_usd":0,"total_usd":109.19,"cap_usd":352.57,"headroom_usd":243.38},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":1,"tvremix_calls_used_today":5,"exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
