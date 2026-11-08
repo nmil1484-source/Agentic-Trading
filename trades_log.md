@@ -62664,3 +62664,59 @@ No candidate cleared. No order placed, no Trade Card.
 ```
 
 No trade this cycle — full allowlist coverage achieved, no breaker active, 0 crypto positions.
+
+---
+
+## 2026-11-08T00:31:45Z — RESEARCH CONTEXT (user-provided, FTA Research Hub — Marilee's Nov 7 Written Report)
+
+**Source and date verification**: user-supplied summary of Marilee's **November 7, 2026** Written
+Report, accessed via the already-approved §8 item 3 source (FTA Research Hub) — a dated,
+third-party research note, not this system's own dashboard pull. **No FTA Regime Dashboard
+numbers were cited or carried forward in this entry** — none were pulled this cycle, so §8 item
+2's live-JSON-endpoint-recheck requirement doesn't apply here; any future cycle that does cite
+dashboard figures must independently re-check them fresh per that item's method, never reuse this
+note's framing as if it carried dashboard data.
+
+**Content logged for reference in upcoming Mode B/C screening cycles** (not acted on this cycle —
+no scan run, no CLAUDE.md edit made):
+- Marilee remains heavy cash and tactical-small as of this report, awaiting **multi-day
+  semiconductor relative strength confirmed alongside stable credit conditions** before adding
+  exposure.
+- On that confirmation, her stated preference is **software, healthcare, and cash-rich names**,
+  sized via longer-dated options or shares.
+- **AMD is explicitly watch-only in her report** — not a position, not a recommendation to enter.
+
+**Scope of application, consistent with the existing §8 context-source discipline (same tier as
+items 8-11 — politician trades, news/sentiment, sector rotation, AI-financing context): this is
+discretionary research context only.** It creates no new gate, catalyst, confirmation role-group,
+R:R floor, risk percentage, position cap, or instrument permission — **no CLAUDE.md edit was made
+and none is warranted by this instruction.** No duplicate scan was run to action this; it is logged
+here so the next regularly scheduled Mode B/C Fresh Candle / First-Scan cycle can reference it
+when relevant:
+- If AMD comes up in that cycle's rotation, log Marilee's watch-only framing as context alongside
+  whatever the cycle's own §5B/Bearish-Mirror-Gate evaluation finds — it is not a veto and not a
+  substitute for AMD independently clearing or failing the gate on its own technical/catalyst
+  merits.
+- A semiconductor name showing genuine multi-day relative strength (checkable, specific — not a
+  vague assertion) alongside stable/tightening credit conditions (re-checked live via §8 item 2's
+  `/api/credit-funding` method at that time, not assumed from this note) is a reason for *extra
+  attention* in that cycle's rotation, mirroring the existing sector-rotation soft-tilt treatment
+  (§8 item 10) — never an automatic pass.
+- Software/healthcare/cash-rich names get no special treatment beyond the ordinary §5B gate —
+  Marilee's preference is not itself a catalyst or confirmation.
+
+**Not adopted, per the user's explicit scope**: no hard veto, no risk-cap change, no permission
+expansion, no new standing data pull beyond what §8 already covers.
+
+```json
+{
+  "cycle": "Research context note (user-provided, not a scheduled trigger)",
+  "timestamp_utc": "2026-11-08T00:31:45Z",
+  "modes_covered": [],
+  "status_gate": "ACTIVE",
+  "coverage_state": "N/A",
+  "circuit_breakers_active": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
