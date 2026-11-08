@@ -9783,7 +9783,7 @@ Git push confirmed below.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -17606,7 +17606,7 @@ left unverified and completes the remaining first-scan-of-day work.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -22065,7 +22065,7 @@ User shared two screenshots from an external macro/credit research app (not a §
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -22851,7 +22851,7 @@ same remedy as the prior incidents) — this system has no mechanism to do that 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -22897,7 +22897,7 @@ persists or a catalyst surfaces.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -22938,7 +22938,7 @@ item 3 gate on this screen. **No second entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -22980,7 +22980,7 @@ entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23020,7 +23020,7 @@ technical-confirmation evidence pulled for any name. **No second entry** — OBS
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23060,7 +23060,7 @@ verified catalyst or technical-confirmation evidence pulled. **No second entry**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23101,7 +23101,7 @@ evidence pulled. **No second entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23142,7 +23142,7 @@ catalyst or technical-confirmation evidence pulled. **No second entry** — OBSE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23183,7 +23183,7 @@ verified catalyst or technical-confirmation evidence pulled. **No second entry**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23224,7 +23224,7 @@ technical-confirmation evidence pulled. **No second entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23265,7 +23265,7 @@ allowlist, no coin showing a qualifying move. **No second entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23305,7 +23305,7 @@ today's open — a quiet, mildly negative overnight drift, nothing qualifying. *
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23345,7 +23345,7 @@ today's open — a very quiet cycle, nothing close to qualifying. **No second en
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23384,7 +23384,7 @@ today's open — a quiet mildly-positive cycle, nothing qualifying. **No second 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23424,7 +23424,7 @@ today's open — a quiet cycle, nothing qualifying. **No second entry** — OBSE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23463,7 +23463,7 @@ today's open — a very quiet cycle, nothing qualifying. **No second entry** —
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23502,7 +23502,7 @@ today's open — another very quiet cycle, nothing qualifying. **No second entry
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23541,7 +23541,7 @@ today's open — a quiet cycle, nothing qualifying. **No second entry** — OBSE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23581,7 +23581,7 @@ today's open — a quiet, mildly negative pre-market cycle, nothing qualifying. 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23624,7 +23624,7 @@ today's open — AAVE itself is the standout (+1.92%, already held). Nothing els
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23706,7 +23706,7 @@ is complete.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23747,7 +23747,7 @@ today's open — broad weakness this cycle, nothing qualifying as a long entry. 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23793,7 +23793,7 @@ equity cap ≈$310.82 — ample headroom; moot this cycle since no new entry was
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23833,7 +23833,7 @@ OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23874,7 +23874,7 @@ stands). No new candidate. **No trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23914,7 +23914,7 @@ OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -23964,7 +23964,7 @@ trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24011,7 +24011,7 @@ change since. **No second entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24045,7 +24045,7 @@ change since. **No second entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24079,7 +24079,7 @@ change since. **No second entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24117,7 +24117,7 @@ change since. **No second entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24151,7 +24151,7 @@ change since. **No second entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24189,7 +24189,7 @@ change since. **No second entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24223,7 +24223,7 @@ change since. **No second entry** — OBSERVE.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24261,7 +24261,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24295,7 +24295,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24329,7 +24329,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24363,7 +24363,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24397,7 +24397,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24431,7 +24431,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24465,7 +24465,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24499,7 +24499,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24533,7 +24533,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24567,7 +24567,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24601,7 +24601,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24635,7 +24635,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24669,7 +24669,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24703,7 +24703,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24737,7 +24737,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24776,7 +24776,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24810,7 +24810,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24854,7 +24854,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24888,7 +24888,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24926,7 +24926,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24960,7 +24960,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -24996,7 +24996,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25030,7 +25030,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25066,7 +25066,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25100,7 +25100,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25136,7 +25136,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25170,7 +25170,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25206,7 +25206,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25240,7 +25240,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25278,7 +25278,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25312,7 +25312,7 @@ User stated in chat they withdrew cash from the Agentic Account to send to their
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25359,7 +25359,7 @@ No coin shows a breakout, reclaim, or fresh catalyst since the last cycle — al
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25395,7 +25395,7 @@ No coin shows a breakout, reclaim, or fresh catalyst since the last cycle — al
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25431,7 +25431,7 @@ No coin shows a breakout, reclaim, or fresh catalyst since the last cycle — al
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25469,7 +25469,7 @@ No coin shows a breakout, reclaim, or fresh catalyst since the last cycle — al
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "cash_discrepancy_note": "+$70.00 unexplained cash increase, logged per §6, trading continues normally"
 }
 ```
@@ -25506,7 +25506,7 @@ No coin shows a breakout, reclaim, or fresh catalyst since the last cycle — al
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25562,7 +25562,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [{"symbol": "AAVE", "reason": "stop_loss_filled", "realized_pl": -31.74}],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "tally_update": {
     "crypto": {"wins": 2, "losses": 11, "win_rate_pct": 15.4, "gross_profit": 66.35, "gross_loss": 153.82, "profit_factor": 0.43},
     "combined": {"wins": 16, "losses": 21, "win_rate_pct": 43.2, "gross_profit": 233.45, "gross_loss": 286.46, "profit_factor": 0.82}
@@ -25600,7 +25600,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25634,7 +25634,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25668,7 +25668,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25702,7 +25702,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25736,7 +25736,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25770,7 +25770,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25804,7 +25804,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25838,7 +25838,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25872,7 +25872,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25906,7 +25906,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25940,7 +25940,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -25996,7 +25996,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [{"symbol": "TSM", "reason": "peak_retracement_30pct", "realized_pl": 21.53}],
   "entries": [],
   "orders_placed": 2,
-  "git_push": "success",
+  "git_push": "pending",
   "tally_update": {
     "mode_b": {"wins": 14, "losses": 10, "win_rate_pct": 58.3, "gross_profit": 187.76, "gross_loss": 132.64, "profit_factor": 1.42},
     "combined": {"wins": 17, "losses": 21, "win_rate_pct": 44.7, "gross_profit": 254.98, "gross_loss": 286.46, "profit_factor": 0.89}
@@ -26035,7 +26035,7 @@ Crypto's profit factor continues to deteriorate (0.54 → 0.43) — now 3 consec
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26089,7 +26089,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [{"symbol": "NVDA", "reason": "peak_retracement_30pct", "realized_pl": 32.65}],
   "entries": [],
   "orders_placed": 2,
-  "git_push": "success",
+  "git_push": "pending",
   "tally_update": {
     "mode_b": {"wins": 15, "losses": 10, "win_rate_pct": 60.0, "gross_profit": 220.41, "gross_loss": 132.64, "profit_factor": 1.66},
     "combined": {"wins": 18, "losses": 21, "win_rate_pct": 46.2, "gross_profit": 287.63, "gross_loss": 286.46, "profit_factor": 1.00}
@@ -26128,7 +26128,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26162,7 +26162,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26196,7 +26196,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26226,7 +26226,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26260,7 +26260,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26290,7 +26290,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26324,7 +26324,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26354,7 +26354,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26388,7 +26388,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26422,7 +26422,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "step_0_5_flatten": "not_applicable_zero_mode_c_positions"
 }
 ```
@@ -26457,7 +26457,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26491,7 +26491,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26525,7 +26525,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26559,7 +26559,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26595,7 +26595,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26629,7 +26629,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26663,7 +26663,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26697,7 +26697,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26731,7 +26731,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26765,7 +26765,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26799,7 +26799,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26833,7 +26833,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26867,7 +26867,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26901,7 +26901,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26935,7 +26935,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -26969,7 +26969,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27003,7 +27003,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27045,7 +27045,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27079,7 +27079,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27111,7 +27111,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27145,7 +27145,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27177,7 +27177,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27207,7 +27207,7 @@ Combined profit factor crosses to breakeven (1.00) for the first time this sessi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27252,7 +27252,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27284,7 +27284,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27320,7 +27320,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27352,7 +27352,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27388,7 +27388,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27420,7 +27420,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27456,7 +27456,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27488,7 +27488,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27520,7 +27520,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27552,7 +27552,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27584,7 +27584,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27616,7 +27616,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27648,7 +27648,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27680,7 +27680,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27712,7 +27712,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27746,7 +27746,7 @@ Deep-dove the top names with `analyze_swing_tool`:
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27783,7 +27783,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27817,7 +27817,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "cash_discrepancy_noted": "+700.00"
 }
 ```
@@ -27852,7 +27852,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27886,7 +27886,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27918,7 +27918,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27950,7 +27950,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -27982,7 +27982,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28014,7 +28014,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28046,7 +28046,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28090,7 +28090,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28122,7 +28122,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28156,7 +28156,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28188,7 +28188,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28222,7 +28222,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28254,7 +28254,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28286,7 +28286,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28318,7 +28318,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28350,7 +28350,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28382,7 +28382,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28414,7 +28414,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28470,7 +28470,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [{"symbol": "PLTR", "mode": "B", "qty": 14, "price": 207.8599}],
   "orders_placed": 2,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28504,7 +28504,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28548,7 +28548,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [{"symbol": "PLTR_230C_20261120", "mode": "B", "qty": 1, "price": 7.40}],
   "orders_placed": 1,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28588,7 +28588,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28620,7 +28620,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28652,7 +28652,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28684,7 +28684,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28716,7 +28716,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28748,7 +28748,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28780,7 +28780,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28814,7 +28814,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28846,7 +28846,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28880,7 +28880,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28912,7 +28912,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28946,7 +28946,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -28978,7 +28978,7 @@ Net: a genuinely mixed, good-headline-number/no-qualifying-trade picture on AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29014,7 +29014,7 @@ AAVE (+2.00%) and AVAX (+1.65%) are the day's biggest movers but both remain "we
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29046,7 +29046,7 @@ AAVE (+2.00%) and AVAX (+1.65%) are the day's biggest movers but both remain "we
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29078,7 +29078,7 @@ AAVE (+2.00%) and AVAX (+1.65%) are the day's biggest movers but both remain "we
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29110,7 +29110,7 @@ AAVE (+2.00%) and AVAX (+1.65%) are the day's biggest movers but both remain "we
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29142,7 +29142,7 @@ AAVE (+2.00%) and AVAX (+1.65%) are the day's biggest movers but both remain "we
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29174,7 +29174,7 @@ AAVE (+2.00%) and AVAX (+1.65%) are the day's biggest movers but both remain "we
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29208,7 +29208,7 @@ AAVE (+2.00%) and AVAX (+1.65%) are the day's biggest movers but both remain "we
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29240,7 +29240,7 @@ AAVE (+2.00%) and AVAX (+1.65%) are the day's biggest movers but both remain "we
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29274,7 +29274,7 @@ AAVE (+2.00%) and AVAX (+1.65%) are the day's biggest movers but both remain "we
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29306,7 +29306,7 @@ AAVE (+2.00%) and AVAX (+1.65%) are the day's biggest movers but both remain "we
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29348,7 +29348,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29380,7 +29380,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29412,7 +29412,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29444,7 +29444,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29476,7 +29476,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29508,7 +29508,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29540,7 +29540,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29572,7 +29572,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29604,7 +29604,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29636,7 +29636,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29668,7 +29668,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29700,7 +29700,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29732,7 +29732,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29764,7 +29764,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29796,7 +29796,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29828,7 +29828,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29860,7 +29860,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29892,7 +29892,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29924,7 +29924,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -29973,7 +29973,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [{"symbol": "AVAX", "mode": "crypto", "qty": 257.8704, "price": 10.66411695}],
   "orders_placed": 2,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30007,7 +30007,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30041,7 +30041,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30075,7 +30075,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30109,7 +30109,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30143,7 +30143,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30177,7 +30177,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30211,7 +30211,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30245,7 +30245,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30279,7 +30279,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30313,7 +30313,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30347,7 +30347,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30381,7 +30381,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30415,7 +30415,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30449,7 +30449,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30483,7 +30483,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30517,7 +30517,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30551,7 +30551,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30587,7 +30587,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30621,7 +30621,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30655,7 +30655,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30689,7 +30689,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30723,7 +30723,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30757,7 +30757,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30791,7 +30791,7 @@ No order placed. No circuit breaker implicated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30842,7 +30842,7 @@ Deep-dived the names showing an actual pullback/structure shape (not just a raw 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30884,7 +30884,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30926,7 +30926,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -30962,7 +30962,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31002,7 +31002,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31038,7 +31038,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31078,7 +31078,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31116,7 +31116,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "notes": "cash_only_discrepancy_logged_-480.00_no_pause_per_section6"
 }
 ```
@@ -31157,7 +31157,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31195,7 +31195,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31235,7 +31235,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31273,7 +31273,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31317,7 +31317,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31355,7 +31355,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31393,7 +31393,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31431,7 +31431,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31484,7 +31484,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [{"symbol": "AVAX-USD", "reason": "stop_loss", "realized_pl": -133.29}],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31518,7 +31518,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31552,7 +31552,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31586,7 +31586,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31620,7 +31620,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31654,7 +31654,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31688,7 +31688,7 @@ Every single name in the allowlist is showing a weekly decline (-4.5% to -13.1%)
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -31746,7 +31746,7 @@ of-equity) cap — ample headroom throughout, moot given no new entries.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "consolidated backlog catch-up covering 06:38-13:37 UTC (8 cycles)"
 }
 ```
@@ -31846,7 +31846,7 @@ resting; option's documented stop updated per the transition above). Git push fo
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "PLTR $230C crossed into profit this cycle; §18 item 4 stop mechanic transitioned to 30%-trailing but effective documented stop unchanged at $6.29 (prior 15% floor) since the new computation is lower and stops never move down"
 }
 ```
@@ -31899,7 +31899,7 @@ Total ≈ **$159** vs. ~$507 (6%-of-equity) cap — ample headroom, moot given n
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "ad hoc user-requested cycle screen; PLTR option repriced 7.55->6.95 intraday, stop correctly unchanged at $6.29 floor"
 }
 ```
@@ -31954,7 +31954,7 @@ protected and unchanged. No orders placed. Git push follows.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "user-requested deep check; AAPL/AMZN/VST/ZS added to today's rejected list, no qualifying entry found anywhere"
 }
 ```
@@ -32000,7 +32000,7 @@ crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "scheduled cycle overlapped with a just-completed user-requested ad hoc check; findings carried forward, position count re-verified fresh"
 }
 ```
@@ -32050,7 +32050,7 @@ inapplicable. Git push follows.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "scheduled cycle overlapped with a just-completed user-requested check 15 min prior; findings carried forward, stop-audit re-verified fresh"
 }
 ```
@@ -32093,7 +32093,7 @@ moot.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32134,7 +32134,7 @@ today remain rejected). **OBSERVE, no new entry either mode.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32175,7 +32175,7 @@ deep-dive. LINK/HBAR/XRP bearish, SOL/ETH neutral. **OBSERVE, no new crypto entr
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32221,7 +32221,7 @@ mode.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "PLTR equity/option both softened intraday; both remain above their respective stops, no action triggered"
 }
 ```
@@ -32260,7 +32260,7 @@ $83,163, AAVE $159.79→$159.82). No new catalyst or structural change — carri
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32303,7 +32303,7 @@ still slightly below $7.40 entry — documented stop unchanged at $6.29 floor, n
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32341,7 +32341,7 @@ new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32382,7 +32382,7 @@ either mode.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32420,7 +32420,7 @@ full deep-dive — BTC/AAVE remain standing-rejected. **OBSERVE, no new crypto e
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32470,7 +32470,7 @@ follows.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "final Mode B/C cycle of the day; step_0_5_flatten not applicable (no open Mode C positions); zero trades across all modes today"
 }
 ```
@@ -32509,7 +32509,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32557,7 +32557,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "cash-only discrepancy: -$150.00 vs prior cycle, no matching order, logged per 2026-09-08 rule, trading continues normally"
 }
 ```
@@ -32597,7 +32597,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32635,7 +32635,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32678,7 +32678,7 @@ market-wide bounce, not a name-specific breakout. **OBSERVE, no new crypto entry
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32716,7 +32716,7 @@ rather than a breakout. BTC/AAVE remain standing-rejected. **OBSERVE, no new cry
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32754,7 +32754,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32792,7 +32792,7 @@ crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32830,7 +32830,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32868,7 +32868,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32906,7 +32906,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32944,7 +32944,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -32982,7 +32982,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -33020,7 +33020,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -33058,7 +33058,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -33096,7 +33096,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -33135,7 +33135,7 @@ on the same structural grounds. **OBSERVE, no new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -33215,7 +33215,7 @@ structural change. BTC/AAVE remain standing-rejected. **OBSERVE, no new crypto e
   "exits": [{"symbol": "PLTR", "reason": "stop_loss", "realized_pl": -47.27}],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "PLTR equity stop-out discovered during routine crypto cycle check; resting stop filled overnight at broker, exit mechanics worked as designed; options position (PLTR call) unaffected and still open"
 }
 ```
@@ -33311,7 +33311,7 @@ total heat, full headroom. Moot given no new entries.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "mandatory first-scan-of-day report; no qualifying Mode B/C entry found; INTC flagged as a borderline bullish-technical/bearish-catalyst watch item, declined both directions this cycle; broad market weak on hot CPI print plus an active semiconductor-sector selloff"
 }
 ```
@@ -33357,7 +33357,7 @@ stop-out) — total heat $0, full headroom, moot.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "broad risk-off day across equities and crypto; BTC's standing Buy tag cooled to Neutral, no bullish candidate at all this cycle"
 }
 ```
@@ -33425,7 +33425,7 @@ options/LEAPS candidate to source against.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "quiet risk-off tape continues; screener Buy tags on AAPL/DIS both failed independent structure verification (setup: null, DIS bias actually bearish) — no qualifying Mode B/C candidate"
 }
 ```
@@ -33473,7 +33473,7 @@ either. **OBSERVE, no new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "continued broad risk-off decline across all 8 allowlisted pairs (BTC -2.3% to AVAX -3.7%); technicals_rating shows zero Buy signals account-wide, no candidate to screen further"
 }
 ```
@@ -33517,7 +33517,7 @@ options/LEAPS candidate sourced.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "tape marginally stabilizing vs. prior cycle (SPY/QQQ move <0.05pp); no re-screen needed, no material change from 14:55 UTC's rejections"
 }
 ```
@@ -33558,7 +33558,7 @@ crypto entry** — same conclusion as the prior cycle, tape essentially flat ove
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "crypto tape essentially flat vs. prior cycle, still down 2-4% on the day; BTC spot-check confirms still Neutral, no change in outlook"
 }
 ```
@@ -33598,7 +33598,7 @@ Options/LEAPS sourcing: no equity cleared §5B, nothing to source against.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "tape flat vs. prior two cycles; no re-screen needed, no material change"
 }
 ```
@@ -33639,7 +33639,7 @@ relative improvement. **OBSERVE, no new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "crypto tape mixed/flat vs. prior cycle, still down 2-4% on the day; BTC/SOL spot-checks confirm no reversal"
 }
 ```
@@ -33678,7 +33678,7 @@ Mode C: 0 positions, no fresh trigger. Options/LEAPS: no equity cleared §5B, no
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "cumulative daily decline deepening (SPY -1.33%, QQQ -2.07%) but no single-cycle shock; no re-screen needed, no trade"
 }
 ```
@@ -33717,7 +33717,7 @@ candidate. **OBSERVE, no new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "crypto decline deepened modestly vs. prior cycle (BTC -2.4% to LINK -4.7%); BTC spot-check still Neutral, no reversal"
 }
 ```
@@ -33755,7 +33755,7 @@ source.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "tape flat vs. prior cycle; no re-screen needed, no trade; next cycle (19:55 UTC) is the final cycle of the day"
 }
 ```
@@ -33794,7 +33794,7 @@ crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "crypto tape roughly unchanged vs. prior cycle, still down 2-4% on the day; BTC spot-check Neutral all day, no reversal"
 }
 ```
@@ -33846,7 +33846,7 @@ entries in any mode.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "final cycle of the day; STEP 0.5 flatten check performed, 0 Mode C positions to flatten; day closed with one material event (PLTR stop-out, -$47.27) and a steadily weakening but shock-free tape otherwise"
 }
 ```
@@ -33885,7 +33885,7 @@ crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "equity regular session now closed, market-shock check inapplicable; crypto tape unchanged, still down 2-5% on the day, BTC Neutral all day"
 }
 ```
@@ -33923,7 +33923,7 @@ board. Spot-checked BTC via `get_technicals_rating`: still **Neutral** (RSI 47.5
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "crypto showing modest relief vs. prior cycle but still down 2-5% on the day; BTC still Neutral, no reversal signal"
 }
 ```
@@ -33961,7 +33961,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "crypto decline slightly deeper vs. prior cycle, still down 2-5% on the day; BTC still Neutral, no reversal"
 }
 ```
@@ -33999,7 +33999,7 @@ entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "crypto tape essentially unchanged vs. prior cycle, still down 2-5% on the day; BTC still Neutral"
 }
 ```
@@ -34042,7 +34042,7 @@ no new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "BTC oscillators flipped to Buy for the first time today but overall rating still barely Neutral; watch next cycle, no trade yet"
 }
 ```
@@ -34092,7 +34092,7 @@ direction.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "resolved last cycle's BTC oscillator-Buy watch item: 4H structure is actually bearish with R:R 0.27:1, not actionable (long-only policy); news mixed/contradictory, no catalyst either direction"
 }
 ```
@@ -34131,7 +34131,7 @@ thesis here regardless.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "decline deepened notably (BTC -2.9% to AVAX -6.9%), BTC now outright Sell, consistent with the bearish 4H structure already confirmed; no executable long entry"
 }
 ```
@@ -34171,7 +34171,7 @@ watching; no open positions to protect or exit.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "decline accelerating further, now BTC -3.4% to LINK -7.3%, broad and uniform across all 8 pairs; no circuit breaker applies (no crypto-specific shock rule), no open positions at risk"
 }
 ```
@@ -34213,7 +34213,7 @@ assessed this cycle beyond the rating snapshot. **OBSERVE, no new crypto entry.*
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "ET day boundary rolled over, same-day stop-out count reset to 0/2; crypto modestly positive vs. new day's open after overnight selloff, BTC back to Neutral, no entry"
 }
 ```
@@ -34250,7 +34250,7 @@ overnight selloff, no clear direction. BTC's `get_technicals_rating` flipped bac
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "PLTR stop-out proceeds settled overnight (unsettled_funds now $0); crypto consolidating near flat vs today's open, BTC back to Sell, no entry"
 }
 ```
@@ -34285,7 +34285,7 @@ last cycle, no bullish candidate. **OBSERVE, no new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "continued flat consolidation near today's open across all 8 pairs, no candidate"
 }
 ```
@@ -34320,7 +34320,7 @@ capacity. Stop-audit moot.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "continued flat consolidation, no candidate"
 }
 ```
@@ -34356,7 +34356,7 @@ move). **OBSERVE, no new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "mild grind higher, still consolidating, no candidate"
 }
 ```
@@ -34389,7 +34389,7 @@ AVAX +0.62%. No candidate. **OBSERVE, no new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "continued consolidation, no candidate"
 }
 ```
@@ -34422,7 +34422,7 @@ no new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "flat/directionless, no candidate"
 }
 ```
@@ -34455,7 +34455,7 @@ no new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "flat/directionless, no candidate"
 }
 ```
@@ -34488,7 +34488,7 @@ No candidate. **OBSERVE, no new crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "minor softening, still consolidating, no candidate"
 }
 ```
@@ -34521,7 +34521,7 @@ crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "modest continued softening, no candidate"
 }
 ```
@@ -34600,7 +34600,7 @@ candidate to source against this cycle.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "broad AI/chip-sector selloff (NVDA/AMD/MU); NVDA's technically-passing bullish R:R (2.01:1) declined due to an active contradicting same-day catalyst; MU no computed setup; AMD R:R 0.52:1 fails floor; AAPL/DIS no pullback entry; no Mode B/C trade"
 }
 ```
@@ -34634,7 +34634,7 @@ crypto entry.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "modest bounce vs. prior cycle, no candidate"
 }
 ```
@@ -34673,7 +34673,7 @@ C: 0 positions, no fresh trigger. Options/LEAPS: no equity cleared §5B, nothing
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "market recovering slightly intraday; no material change from first-scan conclusions, no trade"
 }
 ```
@@ -34752,7 +34752,7 @@ cap, $0 heat), nothing to size against anyway. **No crypto trade.**
   "exits": [{"symbol": "PLTR", "reason": "missed §18 daily-trailing stop, corrected this cycle", "realized_pl": -275.00}],
   "entries": [],
   "orders_placed": 1,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "URGENT: found and closed a PLTR long call that had breached its §18 15% stop by ~36% due to a process gap in options-stop checking during recent Mode B/C cycles; realized loss -$275 (-37.2%) vs. the ~15% the stop should have capped it at; crypto rally continuing across all 8 pairs but none clear §21's structural gate on independent verification (AVAX/AAVE overextended pullbacks with no computed setup, LINK ranging, SOL structurally bearish with failing R:R) — no crypto trade"
 }
 ```
@@ -34813,7 +34813,7 @@ options exit, already logged above under the crypto-trigger entry — not a new 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "fresh rank_symbol_setups screen (bullish+bearish) across ~58 names; top screener picks DIS/AAPL/VRT independently verified via analyze_swing_tool and all failed on real structure or R:R despite strong screener tags (DIS bearish structure vs Buy tag, AAPL R:R 0.1:1, VRT ranging vs Sell tag); chip-selloff names (MU/AMD/NVDA) unchanged from first-scan; same-day stop-out count 1/2; no trade"
 }
 ```
@@ -34858,7 +34858,7 @@ clears §21's gate. No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "crypto rally stalled/pulled back slightly across all 8 pairs vs 1hr ago, no material change from last cycle's structure checks; no trade; also noting the Mode B/C trigger prompt fix for the §18/§19 options stop-check (requested by user this cycle-window) failed to apply due to a harness approval error and still needs to be retried"
 }
 ```
@@ -34911,7 +34911,7 @@ trigger.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "admin: successfully fixed the Mode B/C trigger prompt this cycle to make the §18/§19 options stop-check (step 2b) mandatory and explicit, after yesterday's PLTR miss; market essentially unchanged from 15:56 UTC screen, no material re-screen needed; no trade"
 }
 ```
@@ -34952,7 +34952,7 @@ nothing to re-verify. **No pair clears §21's gate. No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "crypto rally stalled into a narrow range for ~2hrs now, all 8 pairs flat-to-marginally-higher vs last cycle; no material change from 15:37 UTC structure checks; no trade"
 }
 ```
@@ -35032,7 +35032,7 @@ Mode C: 0 positions, no fresh trigger.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "deep-research pass into CLAUDE.md rule improvements running in parallel (user-requested, prompted by today's profit-factor review); market continues small bounce, no material re-screen needed; no trade"
 }
 ```
@@ -35078,7 +35078,7 @@ currently-active rules. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "pending CLAUDE.md rule-improvement diff still awaiting user confirmation (stashed, not applied); this cycle ran under current live rules; all 8 pairs flat vs last cycle, no trade"
 }
 ```
@@ -35121,7 +35121,7 @@ QQQ -0.57% vs. 10/14 close — small continued chop, no breaker.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "pending rule-improvement diff still awaiting confirmation (stashed); ran under current live rules; market flat, no trade; next cycle (19:55 UTC) is STEP 0.5 final-cycle-of-day"
 }
 ```
@@ -35163,7 +35163,7 @@ crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "pending rule-improvement diff still stashed awaiting confirmation; ran under current live rules; all 8 pairs modestly higher, slow grind, no material structural change; no trade"
 }
 ```
@@ -35219,7 +35219,7 @@ or continue carrying it forward. No trade placed in Mode B, Mode C, or crypto al
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "STEP 0.5 final cycle of day confirmed, 0 Mode C positions, nothing to flatten; day ends flat across all modes; pending rule-improvement diff still stashed awaiting user confirmation, carries to tomorrow if not confirmed before next session"
 }
 ```
@@ -35262,7 +35262,7 @@ gate under currently-active rules. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "equity regular session closed; pending rule-improvement diff still stashed awaiting confirmation; crypto continuing slow grind higher, all 8 pairs, no material structural change; no trade"
 }
 ```
@@ -35304,7 +35304,7 @@ crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "equities closed, market-shock N/A; pending rule-improvement diff still stashed awaiting confirmation; crypto's grind paused/mixed slightly, no material structural change; no trade"
 }
 ```
@@ -35344,7 +35344,7 @@ No pair clears §21's gate under currently-active rules. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "pending rule-improvement diff still stashed awaiting confirmation; all 8 pairs flat vs last cycle, no trade"
 }
 ```
@@ -35384,7 +35384,7 @@ clears §21's gate under currently-active rules. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "pending rule-improvement diff still stashed awaiting confirmation; modest broad pullback across all 8 pairs, normal noise, no trade"
 }
 ```
@@ -35426,7 +35426,7 @@ trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "pending rule-improvement diff still stashed awaiting confirmation; small bounce back across all 8 pairs, still normal noise, pre-ET-midnight so counters not yet reset; no trade"
 }
 ```
@@ -35469,7 +35469,7 @@ clears §21's gate under currently-active rules. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "pending rule-improvement diff confirmed still intact in git stash after an environment boundary; modest broad pullback across all 8 pairs, normal noise; no trade"
 }
 ```
@@ -35512,7 +35512,7 @@ rules. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "pending rule-improvement diff still stashed awaiting confirmation; AAVE the standout mover (+6.6% on the day, same overextension pattern flagged repeatedly) but still no qualifying setup; no trade"
 }
 ```
@@ -35555,7 +35555,7 @@ under currently-active rules. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "pending rule-improvement diff still stashed awaiting confirmation; broad pullback, AAVE's spike already fading (confirms it was transient, not a new setup); no trade"
 }
 ```
@@ -35598,7 +35598,7 @@ rules. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "ET day boundary crossed, same-day stop-out count reset to 0/2; pending rule-improvement diff still stashed awaiting confirmation; quiet start to new day, all 8 pairs near flat; no trade"
 }
 ```
@@ -35637,7 +35637,7 @@ dramatic, no material structural change. No pair clears §21's gate under curren
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "pending rule-improvement diff still stashed awaiting confirmation; small continued drift higher across all 8 pairs, no material change; no trade"
 }
 ```
@@ -35679,7 +35679,7 @@ No pair clears §21's gate under currently-active rules. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "pending rule-improvement diff still stashed awaiting confirmation; IBIT/ETHA added to watchlist.md this window as Mode B candidates (not crypto); continued modest drift higher, alts slightly outpacing BTC; no trade"
 }
 ```
@@ -35747,7 +35747,7 @@ No other pair clears §21's gate under currently-active rules. **No crypto trade
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "AAVE deep-dive: real catalyst (Aave V4 Arc Markets launch) + 4H bullish structure (R:R 1.31:1, barely clears 1.3:1 floor) but 1H chart reads bearish with no setup -- fails the mandatory 4H+1H pairing, declined; pending rule-improvement diff still stashed; no trade"
 }
 ```
@@ -35828,7 +35828,7 @@ produce.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "first cycle under 2026-10-15 revised §21 rules (2:1 R:R, ADX regime filter, ATR stops, 2-pos cap, throttled risk); LINK passed R:R (2.22:1) but failed new regime filter (weak trend) and 1H contradicted; AVAX passed regime filter (moderate trend) but failed new R:R floor (1.66:1) and 1H contradicted; HBAR no long setup either timeframe; AAVE already declined last cycle, fails new floor by wider margin; no trade; flagged trigger's own stored prompt text as stale vs current CLAUDE.md, updating it this cycle"
 }
 ```
@@ -35867,7 +35867,7 @@ gate under the 2026-10-15 revised rules. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all 8 pairs flat/consolidating vs last cycle, no material change, no fresh deep-dive warranted; no trade"
 }
 ```
@@ -35914,7 +35914,7 @@ No pair clears §21's gate under the 2026-10-15 revised rules. **No crypto trade
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "AVAX extended to +5.1% vs open, re-checked structure; rally worsened R:R from 1.66:1 to 0.68:1 (price ran toward target, shrinking remaining reward), 1H still bearish/no setup; declined, more clearly than last cycle; no trade"
 }
 ```
@@ -35967,7 +35967,7 @@ connector changes are the user's call, not this Routine's.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "AAVE extended to +4.2% vs open, re-checked; rally worsened R:R from 1.31:1 to 0.75:1, same pattern as AVAX last cycle, 1H still bearish/no setup; declined; no trade; tvremix deprecation notice flagged for user, no action taken"
 }
 ```
@@ -36007,7 +36007,7 @@ crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "AAVE/AVAX both eased back from their recent highs, everything else flat; no fresh deep-dive warranted; no trade"
 }
 ```
@@ -36045,7 +36045,7 @@ deep-dive warranted. No pair clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs easing slightly lower, AAVE/AVAX continuing to cool off; no trade"
 }
 ```
@@ -36147,7 +36147,7 @@ never required" framing.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "full 69-name watchlist screened via quotes; top 6 movers deep-dived via analyze_swing_tool; no valid setup generated on 5 of 6 (price extended past normal pullback zones both directions), SOFI's only computed setup failed R:R at 0.08:1; no options/LEAPS candidate (nothing cleared the equity gate); Mode C too early in session for fresh hourly bars; no trade either lane; trigger's own stored prompt flagged as stale vs current CLAUDE.md"
 }
 ```
@@ -36187,7 +36187,7 @@ trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs in familiar ranges, nothing new beyond already-declined AAVE/AVAX near-misses; no market shock (QQQ -0.76%); no trade"
 }
 ```
@@ -36247,7 +36247,7 @@ once more bars have accumulated.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CRWV/NBIS/IREN/TEM continued extending lower, still no valid setup (making fresh lows not retracing); KTOS/SOFI lost relative strength, neither was qualifying anyway; Mode C RSI still insufficient same-day bars; no trade"
 }
 ```
@@ -36286,7 +36286,7 @@ clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs softening slightly with broader tape, nothing new; QQQ -1.32% approaching but not crossing shock threshold; no trade"
 }
 ```
@@ -36341,7 +36341,7 @@ in particular pushes through 20.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CRWV/NBIS/IREN/TEM continued extending lower, no valid Mode B setup; hourly RSI approaching but not yet below 20 oversold trigger for Mode C mean-reversion; market weakening (QQQ -1.44%) but under shock threshold; no trade"
 }
 ```
@@ -36382,7 +36382,7 @@ clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs drifting slightly lower with weakening broader tape, nothing new; cumulative QQQ decline now >1.5% for the day but inter-cycle delta stays under threshold, no breaker; no trade"
 }
 ```
@@ -36435,7 +36435,7 @@ bar, not a slow bleed. Watching, not forcing it. **OBSERVE.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CRWV/NBIS/IREN continued extending lower, no valid Mode B setup; RSI grinding toward but not yet below 20, and the slow-bleed pattern doesn't cleanly fit Mode C mean-reversion's sharp-extreme-then-reversion shape anyway; no trade"
 }
 ```
@@ -36473,7 +36473,7 @@ holdout). Nothing dramatic, no pair clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs drifting down with weak equity tape, nothing dramatic, no trade"
 }
 ```
@@ -36535,7 +36535,7 @@ setup on any of the six. OBSERVE.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "watchlist additions CORZ/CAI this window; prioritized IREN/KEEL/TPST/HIMS/CORZ/CAI check per user instruction, all still declining, no bullish reversal candle today (Morning Star needs multi-day confirmation, appropriately deferred to next session open per the source call's own framing); IREN RSI 21.95, closest to Mode C mean-reversion trigger but not there; no trade"
 }
 ```
@@ -36574,7 +36574,7 @@ trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs drifting down with weak equity tape, nothing new; no trade"
 }
 ```
@@ -36624,7 +36624,7 @@ it), CRWV 27.7, NBIS 23.6. None below 20 yet. **OBSERVE.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "IREN/CRWV/NBIS/CORZ continued extending lower, no valid Mode B setup; IREN RSI 21.22, closest to Mode C trigger but still above 20; broad weak session continuing; no trade"
 }
 ```
@@ -36661,7 +36661,7 @@ Nothing new, no pair clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs soft, AVAX finally dipped negative too; slight equity bounce off lows; no trade"
 }
 ```
@@ -36717,7 +36717,7 @@ missed, consistent with the source call's own "monitor tomorrow" framing.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "final cycle of day; 0 Mode C positions, flatten check moot; weak broad session (QQQ -2.50%), no qualifying Mode B/C setup all day; IREN/CRWV/NBIS/CORZ closed down 6.7-12.5%, no reversal candle; today's close sets up tomorrow's Morning Star check per user instruction; no trade all day"
 }
 ```
@@ -36755,7 +36755,7 @@ crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "equities market closed for the day; all crypto pairs soft/familiar, nothing new; no trade"
 }
 ```
@@ -36792,7 +36792,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs soft/familiar, nothing new; no trade"
 }
 ```
@@ -36829,7 +36829,7 @@ BTC -0.27%, ETH -0.63%, SOL -0.74%, XRP -1.84%, LINK -0.62%, AAVE -1.96%, HBAR -
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs stabilizing modestly overnight, nothing new; no trade"
 }
 ```
@@ -36866,7 +36866,7 @@ in a soft range — BTC -0.45%, ETH -0.67%, SOL -0.84%, XRP -1.71%, LINK -0.59%,
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs stable/unchanged, nothing new; no trade"
 }
 ```
@@ -36903,7 +36903,7 @@ XRP -2.09%, LINK -0.76%, AAVE -2.30%, HBAR -1.56%, AVAX -0.76%. Nothing new, no 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs soft/familiar, nothing new; no trade"
 }
 ```
@@ -36940,7 +36940,7 @@ clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs stable/unchanged, nothing new; no trade"
 }
 ```
@@ -36985,7 +36985,7 @@ claude.ai Connectors.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs soft/stable overnight drift, nothing new; no trade. Robinhood MCP flagged reauthorization requirement after this cycle's data was already pulled."
 }
 ```
@@ -37031,7 +37031,7 @@ large enough move to warrant a deep-dive this cycle. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs soft/stable, AVAX flipped positive but failed regime filter (weak trend) and R:R (1.39 < 2.0); no trade. Robinhood MCP auth warning tested and resolved cleanly this cycle."
 }
 ```
@@ -37070,7 +37070,7 @@ AVAX +0.44%. No pair shows a move large enough to warrant a deep-dive this cycle
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "ET-midnight daily open just reset, all pairs flat vs new open; no trade"
 }
 ```
@@ -37106,7 +37106,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs flat, nothing new; no trade"
 }
 ```
@@ -37142,7 +37142,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs flat, nothing new; no trade"
 }
 ```
@@ -37178,7 +37178,7 @@ normal noise, nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "mild uptick most pairs, within noise; no trade"
 }
 ```
@@ -37214,7 +37214,7 @@ clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs within normal noise; no trade"
 }
 ```
@@ -37250,7 +37250,7 @@ clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs within normal noise; no trade"
 }
 ```
@@ -37286,7 +37286,7 @@ clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "all pairs within normal noise; no trade"
 }
 ```
@@ -37323,7 +37323,7 @@ Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "mild softening, LINK/HBAR lagging but within noise; no trade"
 }
 ```
@@ -37361,7 +37361,7 @@ bullish setup. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "broader softening across basket, LINK -1.95% weakest; no bullish setup, no trade"
 }
 ```
@@ -37402,7 +37402,7 @@ inapplicable with equities closed. Nothing clears §21's gate. **No crypto trade
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket weakness accelerating 4th cycle in a row (LINK -2.5%, AVAX -1.7%); no bullish setup, no trade"
 }
 ```
@@ -37439,7 +37439,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "BTC/ETH stabilizing, alts still soft but not worsening; no trade"
 }
 ```
@@ -37477,7 +37477,7 @@ setup to act on. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket weakness resumed, LINK -3.17% (largest move today); no bullish setup, no trade"
 }
 ```
@@ -37519,7 +37519,7 @@ crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket-wide risk-off drift deepening 7th cycle straight, BTC now red too; no setup, no trade"
 }
 ```
@@ -37558,7 +37558,7 @@ crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "risk-off drift continuing 8th cycle, AAVE now also past -3%; no setup, no trade"
 }
 ```
@@ -37595,7 +37595,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "signs of stabilization, BTC back to flat, alts partially recovering; no trade"
 }
 ```
@@ -37631,7 +37631,7 @@ deepening. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket stabilizing further, HBAR flipped positive; no trade"
 }
 ```
@@ -37667,7 +37667,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "recovery continuing, HBAR +1.11%; no trade"
 }
 ```
@@ -37707,7 +37707,7 @@ directional move. Nothing clears §21's bullish gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "sharp reversal, new daily lows across basket (LINK -3.93%, AAVE -3.70%, AVAX -3.49%); no bullish setup, no trade"
 }
 ```
@@ -37743,7 +37743,7 @@ BTC -0.30%, ETH -1.48%, SOL -2.00%, XRP -1.33%, LINK -3.25%, AAVE -3.21%, HBAR -
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "slight bounce off daily lows, still broadly soft; no trade"
 }
 ```
@@ -37779,7 +37779,7 @@ inapplicable.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "roughly steady, HBAR back positive, rest still soft; no trade"
 }
 ```
@@ -37815,7 +37815,7 @@ BTC -0.08%, ETH -1.04%, SOL -1.57%, XRP -0.98%, LINK -2.99%, AAVE -3.30%, HBAR +
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "roughly steady, HBAR still positive; no trade"
 }
 ```
@@ -37857,7 +37857,7 @@ for a spot-only long policy regardless). Nothing clears §21's gate. **No crypto
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "HBAR strongest mover, checked via analyze_swing_tool - underlying trend bearish, bounce is just a retrace, no bullish setup; no trade"
 }
 ```
@@ -37894,7 +37894,7 @@ Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "picture largely unchanged; no trade"
 }
 ```
@@ -37930,7 +37930,7 @@ today's open. Nothing clears §21's gate yet. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "gradual recovery continuing, BTC positive; no trade"
 }
 ```
@@ -37967,7 +37967,7 @@ crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "ET-midnight daily open just reset, all pairs near flat vs new open; no trade"
 }
 ```
@@ -38003,7 +38003,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "mild softening vs new daily open; no trade"
 }
 ```
@@ -38039,7 +38039,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "roughly flat/stable; no trade"
 }
 ```
@@ -38075,7 +38075,7 @@ clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "similar pattern, mild softness; no trade"
 }
 ```
@@ -38111,7 +38111,7 @@ today's open. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "same pattern, HBAR persistent outperformer; no trade"
 }
 ```
@@ -38152,7 +38152,7 @@ even before reaching an R:R check. Nothing clears §21's gate. **No crypto trade
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "HBAR 5th+ cycle outperformer, re-checked structure - now ranging/weak, no setup; no trade"
 }
 ```
@@ -38188,7 +38188,7 @@ setup), AVAX -0.16%, all vs. today's open. Nothing clears §21's gate. **No cryp
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "mostly flat, HBAR still strongest but structure already ruled out ranging/weak; no trade"
 }
 ```
@@ -38225,7 +38225,7 @@ the read hasn't changed qualitatively. Nothing clears §21's gate. **No crypto t
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "HBAR continuing to climb, rest mostly flat/soft; no trade"
 }
 ```
@@ -38261,7 +38261,7 @@ clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "same pattern, HBAR still climbing; no trade"
 }
 ```
@@ -38298,7 +38298,7 @@ crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "broad weakness resuming, HBAR's lead narrowing; no trade"
 }
 ```
@@ -38335,7 +38335,7 @@ crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "weakness deepening, AVAX -3.35% largest move today; no trade"
 }
 ```
@@ -38372,7 +38372,7 @@ LINK -2.50%, AAVE -2.70%, HBAR +0.25% (its earlier outperformance essentially ev
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket-wide weakness persisting, HBAR outperformance gone, AVAX -3.45%; no trade"
 }
 ```
@@ -38408,7 +38408,7 @@ today), all vs. today's open. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "holding at similar weak depth, AVAX new low; no trade"
 }
 ```
@@ -38444,7 +38444,7 @@ vs. today's open. Whole basket now red. Nothing clears §21's gate. **No crypto 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "whole basket now red, HBAR's outperformance fully reversed; no trade"
 }
 ```
@@ -38480,7 +38480,7 @@ today's open. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket-wide weakness holding, all 8 pairs red; no trade"
 }
 ```
@@ -38518,7 +38518,7 @@ all vs. today's open. Still no bearish instrument under this spot-only policy. N
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "weakness deepening sharply, new daily lows across basket (HBAR/AVAX/AAVE worst); no trade"
 }
 ```
@@ -38554,7 +38554,7 @@ today's open. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "holding at deep weak levels, roughly unchanged from last cycle; no trade"
 }
 ```
@@ -38590,7 +38590,7 @@ today's open. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "slight bounce off lows, still deeply negative basket-wide; no trade"
 }
 ```
@@ -38627,7 +38627,7 @@ crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "clear recovery across the board vs prior lows; no trade"
 }
 ```
@@ -38663,7 +38663,7 @@ Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "recovery continuing, BTC/XRP positive; no trade"
 }
 ```
@@ -38699,7 +38699,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "recovery holding, mixed picture; no trade"
 }
 ```
@@ -38735,7 +38735,7 @@ clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "continued improvement, LINK now positive; no trade"
 }
 ```
@@ -38780,7 +38780,7 @@ session/auth state change, not an account event.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "LINK strongest mover but bearish/weak-trend pullback_short setup at 0.53:1 R:R, wrong direction and below floor; no trade. Robinhood MCP connector unauthenticated as of end of this cycle - flagged to user."
 }
 ```
@@ -38823,7 +38823,7 @@ spot-long-only policy. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "Robinhood MCP reauthorized this cycle. LINK still strongest mover (+1.19%) but structure unchanged from last cycle: bearish/weak trend, pullback_short setup at 0.56:1 R:R, below floor and wrong direction; no trade."
 }
 ```
@@ -38860,7 +38860,7 @@ structure check. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "New daily-open reset; basket flat/quiet, no standout mover; no trade"
 }
 ```
@@ -38901,7 +38901,7 @@ trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "AAVE strongest mover, bullish/moderate trend (first moderate+ regime read this session), pullback_long setup at 1.57:1 R:R - below 2.0:1 floor; no trade"
 }
 ```
@@ -38940,7 +38940,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "whole basket broadly positive; AAVE still leading (+1.08%), structure unchanged from last cycle (1.57:1 R:R, below floor); no trade"
 }
 ```
@@ -38980,7 +38980,7 @@ Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket extending gains, AAVE +1.64% leading, HBAR +1.27% picking up; AAVE re-checked, bullish/moderate trend, pullback_long at 1.4:1 R:R (down slightly), still below floor; no trade"
 }
 ```
@@ -39017,7 +39017,7 @@ no material structural change to re-check. Nothing clears §21's gate. **No cryp
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket still positive but cooling off from last cycle's peak (AAVE +1.07%, HBAR +0.92%); no new standout structure; no trade"
 }
 ```
@@ -39054,7 +39054,7 @@ R:R structure. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket broadly positive, AAVE mild leader (+1.19%); no new structural change; no trade"
 }
 ```
@@ -39091,7 +39091,7 @@ candidate path regardless. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket reversed to broadly negative (LINK -1.16%, AVAX -1.12% weakest); long-only policy means no path regardless; no trade"
 }
 ```
@@ -39128,7 +39128,7 @@ getting redder. Nothing clears §21's gate (long-only policy, no bearish path re
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "decline deepening, whole basket red, AVAX -1.54% weakest; no trade"
 }
 ```
@@ -39165,7 +39165,7 @@ back to roughly flat/mixed, much milder than the prior cycle's broad decline. No
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "partial recovery from last cycle's decline, basket roughly flat/mixed; no trade"
 }
 ```
@@ -39201,7 +39201,7 @@ no clean directional structure. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket choppy, sliding negative again (LINK -1.20% weakest); no trade"
 }
 ```
@@ -39300,7 +39300,7 @@ UTC).
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "No completed hourly bar yet this early in session, so no hourly trigger could confirm for any candidate. CBRS (bearish, put thesis, 4-5/5 confirmations) and OSCR (bullish, 2/5 confirmations, volume not confirming) flagged to watch on next hourly cycle. No trade."
 }
 ```
@@ -39337,7 +39337,7 @@ policy). **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "whole basket deepening red, AAVE -2.77% weakest (reversal from earlier leadership); no trade"
 }
 ```
@@ -39410,7 +39410,7 @@ this cycle. **No Mode C trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CBRS bouncing off a fresh 52wk low (rejection pattern, not a confirming breakdown trigger) and OSCR giving back part of its morning gain - both stay OBSERVE. No ORB breakout for Mode C. No trade."
 }
 ```
@@ -39446,7 +39446,7 @@ most names — BTC -0.45%, ETH -0.86%, SOL -0.80%, XRP -0.51%, LINK -1.50%, AAVE
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket still red, slightly improved from last cycle, HBAR -2.41% now weakest; no trade"
 }
 ```
@@ -39493,7 +39493,7 @@ identified. **No Mode C trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CBRS still holding its bounce, OSCR fading further - both stay OBSERVE, no trigger formed either way. No trade."
 }
 ```
@@ -39529,7 +39529,7 @@ weakest), AVAX -1.16%. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket mildly improved but still red, HBAR -1.99% still weakest; no trade"
 }
 ```
@@ -39579,7 +39579,7 @@ identified. **No Mode C trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CBRS rolling over, testing the consolidation low but not yet a confirmed break - closest to a trigger yet. OSCR fading through its own EMA9, bullish case weakening further. No trade."
 }
 ```
@@ -39615,7 +39615,7 @@ Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket still red, deepening slightly, HBAR -2.34% and LINK -2.17% weakest; no trade"
 }
 ```
@@ -39709,7 +39709,7 @@ identified. **No Mode C trade.**
   "exits": [],
   "entries": [{"symbol": "CBRS", "mode": "B", "instrument": "OPTIONS", "type": "put", "strike": 110, "expiration": "2026-11-20", "qty": 1, "price": 6.98}],
   "orders_placed": 1,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CBRS long put entry - cleared the full Bearish Mirror Gate (5/5 confirmations) after the hourly consolidation breakdown confirmed. $110 strike, 32 DTE, delta -0.299, $698 premium (8.70% of equity), max planned loss $105 (1.31% heat). $115 strike rejected for a wide-bid-ask-spread alert per the no-warnings discipline."
 }
 ```
@@ -39750,7 +39750,7 @@ clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket deepening further red, LINK -2.48% weakest; CBRS put (Mode B) contributing 1.31% portfolio heat, 4.69% headroom remains; no crypto trade"
 }
 ```
@@ -39802,7 +39802,7 @@ checked and confirmed safe.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CBRS put checked: mark $6.95 vs stop $5.93, not breached. OSCR bouncing slightly, no trigger. No new trade."
 }
 ```
@@ -39840,7 +39840,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket still red, AAVE -2.56% weakest; CBRS put unrealized -$38, stop unbreached, 1.31% heat unchanged; no crypto trade"
 }
 ```
@@ -39892,7 +39892,7 @@ restriction, and nothing screened cleared regardless); CBRS put checked and conf
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "Final cycle of day - 0 Mode C positions, nothing to flatten. CBRS put checked: mark $7.05, stop floor $5.93 (profit-regime trail stays below the floor, never lowered), not breached. No trade."
 }
 ```
@@ -39930,7 +39930,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket still red, HBAR -2.46% weakest; CBRS put back to flat (~$705 vs $698 cost); no crypto trade"
 }
 ```
@@ -39966,7 +39966,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket still red, HBAR -2.21% weakest; no crypto trade"
 }
 ```
@@ -40002,7 +40002,7 @@ inapplicable.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket improving, losses narrowing, AVAX -1.29% weakest; no crypto trade"
 }
 ```
@@ -40038,7 +40038,7 @@ SOL -0.02% (nearly flat), XRP -0.33%, LINK -0.87%, AAVE -1.19%, HBAR -1.38% (wea
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket continuing to improve, SOL nearly flat, HBAR -1.38% weakest; no crypto trade"
 }
 ```
@@ -40074,7 +40074,7 @@ inapplicable.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket slipped back a bit, AVAX -1.97% weakest; no crypto trade"
 }
 ```
@@ -40110,7 +40110,7 @@ Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket deepening slightly, AVAX -2.47% weakest; no crypto trade"
 }
 ```
@@ -40146,7 +40146,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket still red, AVAX -2.38% weakest; no crypto trade"
 }
 ```
@@ -40182,7 +40182,7 @@ Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket improving, AAVE turning positive, AVAX -1.76% weakest; no crypto trade"
 }
 ```
@@ -40218,7 +40218,7 @@ flat vs. today's fresh open — BTC +0.04%, ETH -0.01%, SOL -0.01%, XRP +0.04%, 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "new daily-open reset; basket essentially flat; no crypto trade"
 }
 ```
@@ -40258,7 +40258,7 @@ anywhere on the allowlist. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "broad mild pullback across basket, AAVE weakest at -1.58%; no crypto trade"
 }
 ```
@@ -40296,7 +40296,7 @@ technical confirmations, no 4H setup. Nothing clears §21's gate. **No crypto tr
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket mostly soft, HBAR only pair green (+0.17%, not qualifying); no crypto trade"
 }
 ```
@@ -40336,7 +40336,7 @@ risk-off drift, not an actionable breakdown-then-reversal either. Nothing clears
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket deepened red across the board, AAVE weakest at -2.32%; no crypto trade"
 }
 ```
@@ -40374,7 +40374,7 @@ reversal shape and no catalyst on any pair — nothing clears §21's gate. **No 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket still grinding lower, AAVE weakest at -2.51%; no crypto trade"
 }
 ```
@@ -40414,7 +40414,7 @@ signal. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket in clean multi-hour downtrend, AAVE weakest at -2.95%; spot-long-only so no tradeable setup; no crypto trade"
 }
 ```
@@ -40453,7 +40453,7 @@ back above a prior reference level with volume. Nothing clears §21's gate. **No
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "minor bounce off overnight lows, still broadly red, AAVE weakest at -2.75%; no crypto trade"
 }
 ```
@@ -40492,7 +40492,7 @@ range, not a setup. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket consolidating near overnight lows, XRP best at -0.62%, AAVE weakest at -2.83%; no crypto trade"
 }
 ```
@@ -40531,7 +40531,7 @@ trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "mixed low-conviction tape, AAVE weakest at -2.10%, HBAR worsened to -1.99%; no crypto trade"
 }
 ```
@@ -40574,7 +40574,7 @@ recovery attempt, not yet a qualifying setup. Nothing clears §21's gate. **No c
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket broadly improving off overnight lows, HBAR now weakest at -1.55%; SPY/QQQ shock check clean; no crypto trade"
 }
 ```
@@ -40685,7 +40685,7 @@ technical setup for a bearish (put) thesis — watching for the hourly trigger s
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "no hourly bar closed yet this early in session; IREN flagged bearish watch (fresh funding-worries catalyst + clean downtrend) pending hourly trigger next cycle; CBRS put stop unchanged at $5.93, mark $7.00"
 }
 ```
@@ -40739,7 +40739,7 @@ trade.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket popped +1.3% to +2.9% but 4H structure (LINK/AAVE/AVAX checked via TradingView) shows a confirmed bearish trend with today's move as a pullback-leg bounce toward golden-pocket resistance, not a reversal; bearish catalyst found (AI selloff hurting crypto sentiment), no bullish catalyst; no crypto trade"
 }
 ```
@@ -40816,7 +40816,7 @@ pullback/mean-reversion can't be evaluated yet. No Mode C trade.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CBRS put mark $5.95 only $0.02 above its $5.93 stop, priority watch next cycle; IREN bearish thesis invalidated (fully reversed with broad market rally); CRCL emerging as lead bullish candidate (fresh Citi upgrade catalyst, reclaimed both 9/20 EMA) pending its first hourly close"
 }
 ```
@@ -40854,7 +40854,7 @@ flat rather than continuing as a breakout. Nothing clears §21's gate. **No cryp
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "last cycle's basket-wide pop faded back toward flat/mixed, confirming it was a retracement bounce not a breakout; no crypto trade"
 }
 ```
@@ -40926,7 +40926,7 @@ wait for a better entry (pullback or fresh breakout), not abandoned.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CRCL clears catalyst/trend/relative-strength but R:R to nearest resistance (~1.41:1) misses the 1.5:1 floor while extended +4.55% intraday; correctly not entered; CBRS put mark $6.65, comfortably clear of its $5.93 stop"
 }
 ```
@@ -40977,7 +40977,7 @@ breakout-shaped on any pair. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "cash-only discrepancy flagged: $1,000 pending deposit reversed, account equity now $6,740.95 (was $7,735.95); positions reconcile cleanly, no pause per §6; crypto basket mildly green, nothing qualifies; no crypto trade"
 }
 ```
@@ -41039,7 +41039,7 @@ its recent swing high.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CRCL stalled just under its $86.97 swing-high resistance, still OBSERVE; RUN's +9.94% pop rejected (no catalyst, still below its own 20-EMA); CBRS put mark $6.90, comfortably clear of stop"
 }
 ```
@@ -41077,7 +41077,7 @@ nothing breakout-shaped. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket modestly green mirroring equities, XRP best at +1.68%, HBAR lone laggard; no crypto trade"
 }
 ```
@@ -41132,7 +41132,7 @@ the closest this session has come to a qualifying trigger. Watching closely next
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CRCL coiling under $86.97 resistance with shallowing pullback lows, only $0.56 away from a breakout/ORB trigger; R:R still too thin to enter; CBRS put mark $7.05, comfortably clear of stop"
 }
 ```
@@ -41169,7 +41169,7 @@ crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket mixed/mild, XRP best at +1.08%, HBAR weakest at -0.82%; no crypto trade"
 }
 ```
@@ -41221,7 +41221,7 @@ declining-volume consolidation just under resistance.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "CRCL volume declining across 4 hourly bars (860k->494k->246k->289k), tightening coil under $86.97 resistance, still unresolved; CBRS put mark $7.35, comfortably clear of stop"
 }
 ```
@@ -41257,7 +41257,7 @@ low-conviction drift as the last several cycles. Nothing clears §21's gate. **N
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket mixed/mild, XRP best at +1.35%, AAVE weakest at -1.00%; no crypto trade"
 }
 ```
@@ -41315,7 +41315,7 @@ under resistance — first thing to re-check at tomorrow's open.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "final cycle of day: 0 Mode C positions, flatten moot; CBRS put recovered to $7.35, stop never breached; CRCL unresolved, carries to tomorrow; no trades today"
 }
 ```
@@ -41352,7 +41352,7 @@ Consistent mild drift, nothing breakout-shaped. Nothing clears §21's gate. **No
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket modestly green, XRP best at +1.96%; CBRS put continuing recovery, mark $7.65; no crypto trade"
 }
 ```
@@ -41392,7 +41392,7 @@ gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket all green, gradual multi-hour drift continuing, AAVE leading at +1.58% but still within its earlier-confirmed bearish 4H structure; no crypto trade"
 }
 ```
@@ -41432,7 +41432,7 @@ reversal confirmed — correctly still no trade. Nothing clears §21's gate. **N
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket extending, XRP/AAVE leaders ~2.5-2.6%; AAVE re-verified still within confirmed bearish 4H structure at golden-pocket retrace, not a breakout; no crypto trade"
 }
 ```
@@ -41469,7 +41469,7 @@ HBAR +0.72% (laggard), AVAX +1.30%. Nothing clears §21's gate. **No crypto trad
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket pulling back slightly off its extension, AAVE receding as expected per its bearish structure; no crypto trade"
 }
 ```
@@ -41507,7 +41507,7 @@ well above (~$165-166) at current levels (~$156). Nothing clears §21's gate. **
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket re-extending toward earlier highs, XRP/LINK/AAVE leading ~2.3-2.4%; no crypto trade"
 }
 ```
@@ -41545,7 +41545,7 @@ structure since the last direct check. Nothing clears §21's gate. **No crypto t
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket holding recent gains, AAVE leading at +2.56% but unchanged structural read; no crypto trade"
 }
 ```
@@ -41581,7 +41581,7 @@ slightly negative), AVAX +0.97%. Nothing clears §21's gate. **No crypto trade.*
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket steady/slightly fading, HBAR turned negative; no crypto trade"
 }
 ```
@@ -41617,7 +41617,7 @@ overnight pattern, nothing breakout-shaped. Nothing clears §21's gate. **No cry
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket holding same overnight range, HBAR weakest at -0.50%; no crypto trade"
 }
 ```
@@ -41653,7 +41653,7 @@ flat vs. the fresh open — BTC +0.12%, ETH +0.01%, SOL +0.003%, XRP +0.08%, LIN
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "new daily-open reset; basket essentially flat; no crypto trade"
 }
 ```
@@ -41689,7 +41689,7 @@ inapplicable.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket mixed/mild, slightly negative lean, XRP best at +0.45%, HBAR/AAVE weakest; no crypto trade"
 }
 ```
@@ -41725,7 +41725,7 @@ AVAX -0.36%. Nothing clears §21's gate. **No crypto trade.**
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket essentially flat, very quiet overnight cycle; no crypto trade"
 }
 ```
@@ -41761,7 +41761,7 @@ low-magnitude, no breakout shape. Nothing clears §21's gate. **No crypto trade.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success",
+  "git_push": "pending",
   "note": "basket all green modestly, HBAR best at +1.14%; no crypto trade"
 }
 ```
@@ -41806,7 +41806,7 @@ Basket mostly modestly green, HBAR leading (+1.44%) same as the prior cycle's le
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -41848,7 +41848,7 @@ Basket continuing its modest overnight grind higher; XRP (+2.51%) and HBAR (+2.1
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -41888,7 +41888,7 @@ Basket continuing its modest overnight grind higher; XRP (+2.51%) and HBAR (+2.1
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -41928,7 +41928,7 @@ No material regime change vs. last cycle — same modest-green basket, XRP/HBAR 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -41968,7 +41968,7 @@ Basket grinding modestly higher across the board, basically unchanged in charact
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42008,7 +42008,7 @@ Same basket character as the prior several cycles — modest grind, XRP/HBAR sti
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42054,7 +42054,7 @@ Same basket character as the prior several cycles — modest grind, XRP/HBAR sti
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42094,7 +42094,7 @@ Whole basket extending gains, led by BTC (+1.74%) and XRP (now +2.99%, still cli
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42159,7 +42159,7 @@ Whole basket extending gains, led by BTC (+1.74%) and XRP (now +2.99%, still cli
   "exits": [],
   "entries": [{"symbol": "SPCX", "mode": "B", "qty": 17, "price": 160.5998}],
   "orders_placed": 2,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42203,7 +42203,7 @@ Unlike prior cycles (where only HBAR/XRP led a modest grind), every pair is now 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42268,7 +42268,7 @@ Unlike prior cycles (where only HBAR/XRP led a modest grind), every pair is now 
   "exits": [],
   "entries": [{"symbol": "CRCL", "mode": "B", "qty": 29, "price": 90.8446}],
   "orders_placed": 3,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42312,7 +42312,7 @@ No candidate clears the §21 entry gate this cycle.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42351,7 +42351,7 @@ No candidate clears the §21 entry gate this cycle.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42415,7 +42415,7 @@ No new catalyst found for BTC or any pair since the 16:37 check; XRP continues t
   "exits": [{"symbol": "SPCX", "reason": "breakeven_stop", "realized_pl": -0.40}],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42452,7 +42452,7 @@ No new catalyst found for BTC or any pair since the 16:37 check; XRP continues t
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42494,7 +42494,7 @@ No new catalyst since the 17:38 check (BTC still lacks a verified dated catalyst
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42531,7 +42531,7 @@ No new catalyst since the 17:38 check (BTC still lacks a verified dated catalyst
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42573,7 +42573,7 @@ No new catalyst, no structural change. No candidate clears the §21 entry gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42612,7 +42612,7 @@ No new catalyst, no structural change. No candidate clears the §21 entry gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42654,7 +42654,7 @@ No new catalyst, no structural change. No candidate clears the §21 entry gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42696,7 +42696,7 @@ No new catalyst. No candidate clears the §21 gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42736,7 +42736,7 @@ No new catalyst. No candidate clears the §21 gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42782,7 +42782,7 @@ No new catalyst. No candidate clears the §21 gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42824,7 +42824,7 @@ No new catalyst. No candidate clears the §21 gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42864,7 +42864,7 @@ No new catalyst. No candidate clears the §21 gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42906,7 +42906,7 @@ No §21 circuit breaker triggered mechanically (no stop-outs today, equity shock
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42946,7 +42946,7 @@ No new catalyst. No candidate clears the §21 gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -42987,7 +42987,7 @@ Basket has leveled off after last night's reversal — no new catalyst. No candi
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -43027,7 +43027,7 @@ No new catalyst. No candidate clears the §21 gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -43067,7 +43067,7 @@ No new catalyst. No candidate clears the §21 gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -43107,7 +43107,7 @@ No new catalyst. No candidate clears the §21 gate.
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -43147,7 +43147,7 @@ No new catalyst found explaining the acceleration. No candidate clears the §21 
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -51758,7 +51758,7 @@ Crypto position count: 0/2.
 Status: OBSERVE, no trade.
 
 ```json
-{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T15:04:29Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": null, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T15:04:29Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": null, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T15:40:31Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -51778,7 +51778,7 @@ Other six pairs: no new technical confirmation beyond the broad move itself; no 
 **Status: OBSERVE, no trade.** No order placed this cycle; crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T15:40:31Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T15:40:31Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T16:03:21Z — AUTONOMOUS (Mode B/C Hourly Scan)
@@ -51802,7 +51802,7 @@ Other 14 screened names: weak/mixed scores, several with earnings event risk (IR
 **Status: OBSERVE, no trade.**
 
 ```json
-{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T16:03:21Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 0, "breached": 0, "exited": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T16:03:21Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 0, "breached": 0, "exited": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T16:38:51Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -51816,7 +51816,7 @@ Other 14 screened names: weak/mixed scores, several with earnings event risk (IR
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T16:38:51Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T16:38:51Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T16:55:55Z — AUTONOMOUS (Mode B/C Hourly Scan)
@@ -51836,7 +51836,7 @@ Other 14 screened names: weak/mixed scores, several with earnings event risk (IR
 **Status: OBSERVE, no trade.**
 
 ```json
-{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T16:55:55Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 0, "breached": 0, "exited": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T16:55:55Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 0, "breached": 0, "exited": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T17:38:13Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -51850,7 +51850,7 @@ Other 14 screened names: weak/mixed scores, several with earnings event risk (IR
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T17:38:13Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T17:38:13Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T17:48Z — MANUAL (user-requested re-check: GOOG/NOW hourly re-screen)
@@ -51884,7 +51884,7 @@ Status: OBSERVE, no trade. No circuit breaker, no position change (still 0 posit
 **Status: OBSERVE, no trade.** Zero trades today across Mode B/C/crypto — disclosed to the user directly as a real, not-glossed-over pattern, with the specific reasons for each near-miss. No rule was loosened; user was offered the choice and the honest finding (re-testing without my extra caution layers still didn't produce a qualifying trade) was reported back to them.
 
 ```json
-{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T17:56:01Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 0, "breached": 0, "exited": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T17:56:01Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 0, "breached": 0, "exited": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T18:13:48Z — MANUAL (user CONFIRM ORDER, GOOG PUT + NOW PUT)
@@ -51900,7 +51900,7 @@ User sent the exact CONFIRM ORDER phrases for both Trade Cards proposed earlier 
 Status: 1 options position open (GOOG PUT), 1 options order resting unfilled (NOW PUT). Account cash reduced by $420.00 (GOOG fill) to $6,119.84 (pending NOW fill would use additional settled cash if it executes).
 
 ```json
-{"cycle": "manual_confirm_order", "timestamp_utc": "2026-10-29T18:13:48Z", "modes_covered": ["B"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 0, "breached": 0, "exited": 0}, "exits": [], "entries": [{"symbol": "GOOG", "mode": "B", "qty": 1, "price": 4.20, "instrument": "PUT 270 2026-11-20", "tag": "OPTIONS"}], "orders_placed": 2, "git_push": "success"}
+{"cycle": "manual_confirm_order", "timestamp_utc": "2026-10-29T18:13:48Z", "modes_covered": ["B"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 0, "breached": 0, "exited": 0}, "exits": [], "entries": [{"symbol": "GOOG", "mode": "B", "qty": 1, "price": 4.20, "instrument": "PUT 270 2026-11-20", "tag": "OPTIONS"}], "orders_placed": 2, "git_push": "pending"}
 ```
 
 ## 2026-10-29T18:38:12Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -51918,7 +51918,7 @@ Status: 1 options position open (GOOG PUT), 1 options order resting unfilled (NO
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T18:38:12Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T18:38:12Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T18:55:51Z — AUTONOMOUS (Mode B/C Hourly Scan)
@@ -51941,7 +51941,7 @@ Status: 1 options position open (GOOG PUT), 1 options order resting unfilled (NO
 **Status: OBSERVE on new entries; both existing options positions holding, neither stop breached.**
 
 ```json
-{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T18:55:51Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 2, "breached": 0, "exited": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T18:55:51Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 2, "breached": 0, "exited": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T19:37:49Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -51959,7 +51959,7 @@ Status: 1 options position open (GOOG PUT), 1 options order resting unfilled (NO
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T19:37:49Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T19:37:49Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T19:56:01Z — AUTONOMOUS (Mode B/C Hourly Scan — FINAL CYCLE OF DAY, STEP 0.5)
@@ -51994,7 +51994,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: 1 options position closed (stop-out), 1 remains open (NOW PUT, not breached). No new entries — final-15-minutes timing block.**
 
 ```json
-{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T19:56:01Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 2, "breached": 1, "exited": 1}, "exits": [{"symbol": "GOOG", "reason": "§18 item 4 15% floor stop breach", "realized_pl": -90.04}], "entries": [], "orders_placed": 1, "git_push": "success"}
+{"cycle": "mode_b_c_hourly", "timestamp_utc": "2026-10-29T19:56:01Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 2, "breached": 1, "exited": 1}, "exits": [{"symbol": "GOOG", "reason": "§18 item 4 15% floor stop breach", "realized_pl": -90.04}], "entries": [], "orders_placed": 1, "git_push": "pending"}
 ```
 
 ## 2026-10-29T20:38:32Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52014,7 +52014,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T20:38:32Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T20:38:32Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T21:37:51Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52032,7 +52032,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T21:37:51Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T21:37:51Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T22:38:22Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52050,7 +52050,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T22:38:22Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T22:38:22Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-29T23:38:03Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52068,7 +52068,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T23:38:03Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-29T23:38:03Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T00:38:04Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52086,7 +52086,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T00:38:04Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T00:38:04Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T01:38:03Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52104,7 +52104,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T01:38:03Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T01:38:03Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T02:37:44Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52122,7 +52122,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T02:37:44Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T02:37:44Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T03:38:16Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52140,7 +52140,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T03:38:16Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T03:38:16Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T04:37:59Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52158,7 +52158,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T04:37:59Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T04:37:59Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T05:38:07Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52176,7 +52176,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T05:38:07Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T05:38:07Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T06:38:14Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52194,7 +52194,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T06:38:14Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T06:38:14Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T07:38:27Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52212,7 +52212,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T07:38:27Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T07:38:27Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T08:38:27Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52230,7 +52230,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T08:38:27Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T08:38:27Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T09:37:57Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52248,7 +52248,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T09:37:57Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T09:37:57Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T10:38:43Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52266,7 +52266,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T10:38:43Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T10:38:43Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T11:38:30Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52284,7 +52284,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T11:38:30Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T11:38:30Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T12:38:40Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52302,7 +52302,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T12:38:40Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T12:38:40Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T13:37:51Z — AUTONOMOUS (Crypto 24/7 Scan, §21)
@@ -52320,7 +52320,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T13:37:51Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T13:37:51Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-30T14:05:56Z — AUTONOMOUS (Mode B/C First Scan of Day, 10am ET)
@@ -52343,7 +52343,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: Market-shock breaker active — no new Mode B or Mode C entries this cycle. Existing NOW PUT checked, not breached. 0/15 Mode B, 0/12 Mode C positions.**
 
 ```json
-{"cycle": "mode_b_c_first_scan", "timestamp_utc": "2026-10-30T14:05:56Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": ["market_shock_qqq_-2.53pct"], "positions": {"mode_b_count": 1, "mode_c_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 1, "breached": 0, "exited": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "mode_b_c_first_scan", "timestamp_utc": "2026-10-30T14:05:56Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": ["market_shock_qqq_-2.53pct"], "positions": {"mode_b_count": 1, "mode_c_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 1, "breached": 0, "exited": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52373,7 +52373,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -52432,7 +52432,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -52455,7 +52455,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T15:38:31Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T15:38:31Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52492,7 +52492,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -52515,7 +52515,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T16:38:12Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T16:38:12Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52552,7 +52552,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -52575,7 +52575,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T17:38:17Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T17:38:17Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52612,7 +52612,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -52635,7 +52635,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T18:37:50Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T18:37:50Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52672,7 +52672,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -52695,7 +52695,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T19:37:59Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T19:37:59Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52734,7 +52734,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
   "exits": [],
   "entries": [],
   "orders_placed": 0,
-  "git_push": "success"
+  "git_push": "pending"
 }
 ```
 
@@ -52757,7 +52757,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T20:38:30Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T20:38:30Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52779,7 +52779,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T21:38:02Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T21:38:02Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52801,7 +52801,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T22:37:56Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T22:37:56Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52823,7 +52823,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T23:38:26Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-30T23:38:26Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52845,7 +52845,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T00:38:12Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T00:38:12Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52867,7 +52867,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T01:37:37Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T01:37:37Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52889,7 +52889,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T02:37:59Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T02:37:59Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52911,7 +52911,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T03:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T03:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52933,7 +52933,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T04:37:48Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T04:37:48Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52955,7 +52955,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T05:38:11Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T05:38:11Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52977,7 +52977,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T06:37:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T06:37:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -52999,7 +52999,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T07:38:16Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T07:38:16Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -53021,7 +53021,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T08:37:55Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T08:37:55Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -53043,7 +53043,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T09:37:29Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T09:37:29Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -53065,7 +53065,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T10:37:42Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T10:37:42Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -53087,7 +53087,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T11:38:21Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T11:38:21Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -53109,7 +53109,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T12:38:07Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T12:38:07Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
@@ -53131,7 +53131,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 **Status: OBSERVE, no trade.** Crypto position count remains 0/2.
 
 ```json
-{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T13:37:59Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-10-31T13:37:59Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-31T14:37:47Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53157,7 +53157,7 @@ Ticker/instrument: GOOG PUT $270 strike, exp 2026-11-20 (22 DTE at entry). Entry
 No candidate clears the §21 entry gate this cycle (no fresh technical confirmation beyond what's already been checked and disqualified for LINK/AAVE; the rest show no material signal). **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T14:37:47Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T14:37:47Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-31T15:38:30Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53187,7 +53187,7 @@ No candidate clears the §21 entry gate this cycle (no fresh technical confirmat
 No pair shows a fresh technical confirmation or catalyst beyond what's already been checked and disqualified. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T15:38:30Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T15:38:30Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-31T16:37:38Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53207,7 +53207,7 @@ No pair shows a fresh technical confirmation or catalyst beyond what's already b
 **Allowlist screen:** BTC +0.57%, ETH +0.57%, SOL -0.17%, XRP +0.36%, LINK +1.40%, AAVE +4.59% (flat vs. prior cycles, no fresh acceleration beyond already-disqualified range), HBAR +0.90%, AVAX -0.47%. No fresh confirmation/catalyst on any pair. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T16:37:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T16:37:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-31T17:37:54Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53227,7 +53227,7 @@ No pair shows a fresh technical confirmation or catalyst beyond what's already b
 **Allowlist screen:** BTC +0.58%, ETH +0.57%, SOL -0.16%, XRP +0.30%, LINK +1.82%, AAVE +4.22% (easing slightly off recent highs, no fresh acceleration), HBAR +0.93%, AVAX -0.17%. No fresh confirmation/catalyst on any pair. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T17:37:54Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T17:37:54Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-31T18:38:04Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53247,7 +53247,7 @@ No pair shows a fresh technical confirmation or catalyst beyond what's already b
 **Allowlist screen:** BTC +0.70%, ETH +0.81%, SOL -0.07%, XRP +0.35%, LINK +2.13%, AAVE +3.85% (continuing to ease off its recent peak, no fresh acceleration), HBAR +0.61%, AVAX -0.02%. No fresh confirmation/catalyst on any pair. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T18:38:04Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T18:38:04Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-31T19:38:19Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53271,7 +53271,7 @@ No pair shows a fresh technical confirmation or catalyst beyond what's already b
 No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T19:38:19Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T19:38:19Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-31T20:37:55Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53291,7 +53291,7 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 **Allowlist screen:** BTC +0.57%, ETH +0.61%, SOL -0.57%, XRP +0.05%, LINK +3.29% (within the range already independently re-checked and disqualified last cycle — bearish 4H structure, `setup: null`, despite a real catalyst cluster; no further re-check needed absent fresh acceleration beyond +3.69%), AAVE +3.18% (continuing to ease, within the already-disqualified range), HBAR +0.66%, AVAX -0.22%. No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T20:37:55Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T20:37:55Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-31T21:38:27Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53311,7 +53311,7 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 **Allowlist screen:** BTC +0.47%, ETH +0.61%, SOL -0.41%, XRP +0.16%, LINK +2.85% (easing off, within the already-disqualified range), AAVE +2.80% (continuing to ease), HBAR +0.88%, AVAX -0.13%. No fresh acceleration on any pair, no pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T21:38:27Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T21:38:27Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-31T22:37:38Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53331,7 +53331,7 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 **Allowlist screen:** BTC +0.67%, ETH +0.92%, SOL -0.34%, XRP +0.35%, LINK +2.74% (within the already-disqualified range), AAVE +3.78% (within the already-disqualified range), HBAR +0.58%, AVAX -0.02%. No fresh acceleration, no pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T22:37:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T22:37:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-10-31T23:38:23Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53351,7 +53351,7 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 **Allowlist screen:** BTC +0.53%, ETH +0.74%, SOL -0.83%, XRP +0.10%, LINK +2.00% (within already-disqualified range), AAVE +3.27% (within already-disqualified range), HBAR +0.23%, AVAX -0.18%. No fresh acceleration, no pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T23:38:23Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-10-31T23:38:23Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T00:37:48Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53371,7 +53371,7 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 **Allowlist screen:** BTC +0.67%, ETH +0.91%, SOL -0.46%, XRP +0.50%, LINK +1.75% (within already-disqualified range), AAVE +3.42% (within already-disqualified range), HBAR +0.57%, AVAX -0.24%. No fresh acceleration, no pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T00:37:48Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T00:37:48Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T01:37:49Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53391,7 +53391,7 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 **Allowlist screen:** BTC +0.78%, ETH +1.34%, SOL -0.38%, XRP +0.46%, LINK +1.61% (within already-disqualified range), AAVE +4.28% (within already-disqualified range), HBAR +0.65%, AVAX -0.25%. No fresh acceleration, no pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T01:37:49Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T01:37:49Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T02:37:56Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53411,7 +53411,7 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 **Allowlist screen:** BTC +0.68%, ETH +1.14%, SOL -0.86%, XRP -0.23%, LINK +0.96% (easing, within already-disqualified range), AAVE +4.88% (marginal new high vs. the ~4.65% peak independently checked at 13:37:59Z, but a gradual continuation, not a sharp fresh breakout — no new re-check triggered this cycle), HBAR +0.19%, AVAX -0.74%. No fresh confirmation/catalyst clears any pair. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T02:37:56Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T02:37:56Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T03:38:02Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53435,7 +53435,7 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T03:38:02Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T03:38:02Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T04:37:42Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53457,7 +53457,7 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 **Allowlist screen (vs. new day's open):** BTC +0.02%, ETH -0.07%, SOL -0.09%, XRP +0.10%, LINK +0.12%, AAVE +0.14%, HBAR +0.28%, AVAX +0.73%. All flat post-reset, no fresh confirmation/catalyst on any pair. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T04:37:42Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T04:37:42Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T05:38:13Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53481,7 +53481,7 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T05:38:13Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T05:38:13Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T06:38:06Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53503,7 +53503,7 @@ No pair clears the entry gate. **OBSERVE, no trade.**
 **Allowlist screen (vs. today's open):** BTC +0.15%, ETH -0.04%, SOL -0.07%, XRP +0.21%, LINK +0.78%, AAVE +0.76%, HBAR +0.23%, AVAX +3.38% (within the already-checked range — confirmed bearish structure with no actionable long setup per the 05:38 re-check; no further action). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T06:38:06Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T06:38:06Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T06:47Z — OPERATIONAL: DST changeover trigger reschedule
@@ -53532,7 +53532,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.14%, ETH +0.01%, SOL -0.11%, XRP +0.25%, LINK +2.02%, AAVE +0.72%, HBAR +0.11%, AVAX +3.57% (within the already-checked range — confirmed bearish structure, no actionable long setup per the 05:38 re-check). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T07:38:04Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T07:38:04Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T08:38:04Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53552,7 +53552,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.49%, ETH +0.25%, SOL +0.12%, XRP +0.38%, LINK +2.19% (within already-checked range), AAVE -0.25%, HBAR -0.27%, AVAX +1.96% (within the already-checked range — confirmed bearish structure, no actionable long setup). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T08:38:04Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T08:38:04Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T09:37:55Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53572,7 +53572,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.30%, ETH +0.13%, SOL -0.14%, XRP +0.04%, LINK +1.50%, AAVE -1.19%, HBAR -0.15%, AVAX +1.86% (within the already-checked range). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T09:37:55Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T09:37:55Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T10:38:14Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53592,7 +53592,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.36%, ETH +0.13%, SOL -0.25%, XRP +0.58%, LINK +1.69%, AAVE -0.54%, HBAR -0.07%, AVAX +1.81% (within the already-checked range). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T10:38:14Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T10:38:14Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T11:37:50Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53612,7 +53612,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.19%, ETH +0.03%, SOL -0.36%, XRP +0.30%, LINK +1.95%, AAVE -0.50%, HBAR -0.38%, AVAX +1.66% (within the already-checked range). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T11:37:50Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T11:37:50Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T12:38:15Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53632,7 +53632,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.11%, ETH -0.25%, SOL -0.96%, XRP -0.01%, LINK +0.97%, AAVE -0.47%, HBAR -0.41%, AVAX +0.76% (easing off, within range). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T12:38:15Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T12:38:15Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T13:38:38Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53652,7 +53652,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.20%, ETH -0.06%, SOL -0.73%, XRP +0.10%, LINK +0.39%, AAVE +0.23%, HBAR -0.35%, AVAX +1.56% (within the already-checked range). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T13:38:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T13:38:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T14:38:32Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53672,7 +53672,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.31%, ETH +0.11%, SOL -0.42%, XRP +0.26%, LINK +0.05%, AAVE +0.72%, HBAR -0.21%, AVAX +1.08% (within range). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T14:38:32Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T14:38:32Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T15:38:13Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53692,7 +53692,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.41%, ETH +0.09%, SOL -0.70%, XRP +0.17%, LINK +0.55%, AAVE +0.41%, HBAR +0.03%, AVAX +1.52% (within range). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T15:38:13Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T15:38:13Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T16:38:10Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53712,7 +53712,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.38%, ETH +0.00%, SOL -0.89%, XRP +0.02%, LINK -0.06%, AAVE -1.15%, HBAR -0.28%, AVAX +1.12% (within range). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T16:38:10Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T16:38:10Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T17:38:24Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53732,7 +53732,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.47%, ETH +0.13%, SOL -0.70%, XRP +0.31%, LINK -0.16%, AAVE -1.57%, HBAR -0.08%, AVAX +1.13% (within range). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T17:38:24Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T17:38:24Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T18:38:38Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53752,7 +53752,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.24%, ETH -0.08%, SOL -1.02%, XRP +0.10%, LINK -0.41%, AAVE -1.85%, HBAR -0.28%, AVAX +0.29% (easing off, within range). No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T18:38:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T18:38:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T19:38:20Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53772,7 +53772,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.01%, ETH -0.39%, SOL -1.78%, XRP -0.24%, LINK -1.37%, AAVE -3.05% (broad pullback across alts this cycle — consistent with the earlier-flagged DeFi contagion headwind, not a long opportunity), HBAR -0.79%, AVAX +0.29%. No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T19:38:20Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T19:38:20Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T20:37:54Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53792,7 +53792,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.13%, ETH -0.24%, SOL -1.35%, XRP +0.18%, LINK -1.34%, AAVE -2.64% (pullback holding, within the already-noted range), HBAR -0.49%, AVAX +0.40%. No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T20:37:54Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T20:37:54Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T21:38:30Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53812,7 +53812,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.25%, ETH -0.05%, SOL -1.04%, XRP +0.16%, LINK -1.59%, AAVE -2.47% (holding the pullback), HBAR -0.73%, AVAX +0.52%. No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T21:38:30Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T21:38:30Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T22:38:07Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53832,7 +53832,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.04%, ETH -0.41%, SOL -1.87%, XRP -0.37%, LINK -2.47%, AAVE -3.06% (weakness extending further), HBAR -1.13%, AVAX -0.46%. Broad risk-off drift continuing across the allowlist; no pair clears the entry gate (long-only, no bullish setup available). **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T22:38:07Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T22:38:07Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-01T23:37:38Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53852,7 +53852,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.57%, ETH +0.16%, SOL -1.34%, XRP +0.11%, LINK -1.47%, AAVE -2.27% (stabilizing off the lows), HBAR -0.56%, AVAX +0.35%. No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T23:37:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-01T23:37:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-02T00:38:06Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53872,7 +53872,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.42%, ETH +0.20%, SOL -1.61%, XRP -0.34%, LINK -2.01%, AAVE -2.56% (still soft), HBAR -0.95%, AVAX +0.19%. No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-02T00:38:06Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-02T00:38:06Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-02T01:38:12Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53892,7 +53892,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +1.05%, ETH +1.28%, SOL -0.29%, XRP +0.83%, LINK -1.16%, AAVE -1.13% (recovering further off the weekend lows), HBAR -0.16%, AVAX +0.56%. No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-02T01:38:12Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-02T01:38:12Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-02T02:38:01Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53912,7 +53912,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.84%, ETH +1.10%, SOL -0.64%, XRP +0.33%, LINK -1.91%, AAVE -1.93%, HBAR -0.79%, AVAX -0.15%. No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-02T02:38:01Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-02T02:38:01Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-02T03:37:53Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53932,7 +53932,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +1.22%, ETH +1.93%, SOL +0.33%, XRP +1.00%, LINK -1.62%, AAVE -1.59%, HBAR +0.05%, AVAX +0.64%. No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-02T03:37:53Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-02T03:37:53Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ## 2026-11-02T04:37:43Z — AUTONOMOUS CRYPTO 24/7 SCAN (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
@@ -53954,7 +53954,7 @@ The 24/7 crypto trigger is unaffected — it runs on a flat UTC hourly cadence w
 **Allowlist screen (vs. today's open):** BTC +0.96%, ETH +1.64%, SOL -0.30%, XRP +0.42%, LINK -1.71%, AAVE -2.76%, HBAR -0.76%, AVAX -0.60%. No pair clears the entry gate. **OBSERVE, no trade.**
 
 ```json
-{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-02T04:37:43Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+{"cycle": "crypto_24_7_scan", "timestamp_utc": "2026-11-02T04:37:43Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
 
 ---
