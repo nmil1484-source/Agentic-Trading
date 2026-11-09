@@ -65456,3 +65456,57 @@ MODE C: 0 open positions, $0 P&L today. Stop-audit: 0 checked (no positions). No
 ```
 
 Outcome: No trade this cycle. PGY is the genuine near-miss of the day — clears catalyst, confirmations, and both timeframes' structure, blocked only by the 6%-of-entry-price stop-distance ceiling on its only valid technical stops. IWM also notable (daily R:R 1.81:1 clears, but hourly points the wrong direction). Worth rechecking both next cycle.
+
+## 2026-11-09T17:37:54Z — AUTONOMOUS (Crypto 24/7 Scan, trigger trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0 gate check:** §14 Status: ACTIVE confirmed. No kill phrase. Proceeding.
+
+**Account (••••8058):** `get_portfolio` — total_value $5,807.03, equity_value $1,536.29 (PATH), options_value $458 (IGV, still pending user decision on protective stop — see chat). `get_crypto_positions`: **0 open crypto positions.**
+
+**Circuit breakers:** 0 stop-outs today. Market-shock — SPY $751.35→$752.37 (+0.14%), QQQ $676.99→$677.62 (+0.09%) — not triggered.
+
+**Portfolio heat cap:** 0 crypto positions; PATH ≈$26 open risk. Full headroom.
+
+**Existing position management:** 0 open positions. Stop-audit: checked 0, missing 0, placed 0.
+
+**Near-miss queue:** Crypto (§21) table confirmed empty. 0 reassessed.
+
+**Full-allowlist screen, 8/8, via `analyze_structure_batch` (240/60), 1 call, succeeded on attempt 1:**
+- **BTC** — aligned_bearish. 60m `pullback_short` R:R 0.75:1; 240 `setup: null`. **Rejected — wrong direction / no setup.**
+- **ETH** — aligned_bearish. 60m `pullback_short` R:R 0.5:1; 240 `setup: null`. **Rejected — wrong direction / no setup.**
+- **SOL** — aligned_bearish. 60m `pullback_short` R:R 0.35:1; 240 `setup: null`. **Rejected — wrong direction / no setup.**
+- **XRP** — mixed, both TF `setup: null`. **Rejected — no setup.**
+- **LINK** — aligned_bearish. 60m `pullback_short` R:R 1.32:1; 240 `pullback_short` R:R 0.11:1. **Rejected — wrong direction.**
+- **AAVE** — aligned_bearish. 60m `setup: null`; 240 `pullback_short` R:R 1.89:1. **Rejected — wrong direction / no setup.**
+- **HBAR** — aligned_bearish. 60m `setup: null`; 240 `pullback_short` R:R 0.16:1. **Rejected — wrong direction / no setup.**
+- **AVAX** — aligned_bearish. 60m `setup: null`; 240 `pullback_short` R:R 0.94:1. **Rejected — wrong direction / no setup.**
+
+**Per-symbol labeling:** 8/8 rejected with evidence, 0 cleared, 0 not-evaluated, 0 tool failures. Full coverage.
+
+**No candidate cleared. No order placed, no Trade Card.** 68th consecutive no-trade crypto cycle.
+
+**tvremix usage:** `calls_made_this_cycle: 1`. Today's running total: 26 (prior) + 1 = **27**. `tvremix_consecutive_failed_cycles: 0`.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-11-09T17:37:54Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 1,
+  "tvremix_calls_used_today": 27,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
+
+Outcome: No trade this cycle. 68th consecutive no-trade crypto cycle — bearish structure unchanged, no new candidates.
