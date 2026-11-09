@@ -65894,3 +65894,44 @@ Outcome: No trade this cycle. Near-miss queue: GDX's R:R improved (1.31→1.42),
 ```
 
 Outcome: No trade this cycle. 71st consecutive no-trade crypto cycle — entire allowlist bearish, no change in structure.
+
+## 2026-11-09T20:55:35Z — Mode B/C End-of-Day Protective Check
+
+**STEP 0 gate check:** §14 Status: ACTIVE confirmed. No kill phrase. Proceeding.
+
+**Account (••••8058):** `get_portfolio` — total_value $5,826.55, equity_value $1,545.81 (PATH), options_value $468 (IGV). 1 Mode B equity position, 0 Mode C positions.
+
+**2a. Mode B equity stop-audit:** `get_equity_orders` (symbol=PATH) — stop confirmed resting, state=confirmed, $12.73. No breach, no exit-rule trigger (not within +1R/+1.5R/+2R territory requiring action; final-30-minute tighter trailing (§16 item 13) not applicable — the current stop already reflects the most recent documented level). **Checked 1, missing 0, placed 0.**
+
+**2b. Options/LEAPS stop-check:** `get_option_positions` (nonzero=true) — IGV 1 contract (long, $110C 2027-03-19), still no documented §18/§19 lane or computed stop (pending the user's final CONFIRM ORDER on the corrected $3.10 stop price). **Checked 1 (informational), no computed comparison possible, 0 exited.**
+
+**3. Mode B exit-condition check:** PATH — no §16 exit rule triggered this cycle (gap rule, momentum failure, time-stop, peak-retracement all checked against current position status; none apply).
+
+**9. Mode C daily P&L:** $0 (no positions opened or closed today).
+
+**9a. Mode C stop-audit:** 0 positions, 0 checked, 0 missing.
+
+**STEP 0.5 — mandatory flatten check:** 0 open Mode C positions found — **confirmed already flat**, no flatten action needed.
+
+**No new-entry screening this cycle, by design** (protective-management/close-of-day cycle only).
+
+```json
+{
+  "cycle": "Mode B/C End-of-Day Protective Check",
+  "timestamp_utc": "2026-11-09T20:55:35Z",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 1, "breached": 0, "exited": 0},
+  "coverage": {"note": "no new-entry screening this cycle by design — protective-management/close-of-day cycle only"},
+  "step_0_5_flatten": {"applicable": true, "mode_c_positions_found": 0, "action_taken": "none — already flat"},
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
+
+Outcome: No action needed. PATH stop resting and unchanged; IGV stop still pending user confirmation; Mode C confirmed flat (no flatten required).
