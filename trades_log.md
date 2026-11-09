@@ -65510,3 +65510,77 @@ Outcome: No trade this cycle. PGY is the genuine near-miss of the day — clears
 ```
 
 Outcome: No trade this cycle. 68th consecutive no-trade crypto cycle — bearish structure unchanged, no new candidates.
+
+## 2026-11-09T18:03:51Z (1:03pm ET) — Mode B/C Entry Screening (Fresh Candle)
+
+**STEP 0 gate check:** §14 Status: ACTIVE confirmed. No kill phrase. Proceeding.
+
+**Account (••••8058):** `get_portfolio` — equity_value $1,535.695 (PATH), options_value $458 (IGV, still pending user decision — see chat). 1 Mode B equity position, 0 Mode C, 0 crypto.
+
+**Circuit breakers:** 0 stop-outs today. Market-shock — SPY/QQQ vs. prior scheduled cycle — not triggered.
+
+**Portfolio heat cap:** PATH ≈$26 open risk, full headroom otherwise.
+
+**2a. Mode B equity stop-audit:** PATH stop confirmed resting, $12.73. No breach. **Checked 1, missing 0, placed 0.**
+
+**2b. Options/LEAPS stop-check:** IGV position unchanged, no documented lane/stop, remains pending the user's decision in chat. **Checked 1 (informational), no computed comparison, 0 exited.**
+
+**3. Stage 1 — full-universe triage:** 74 names, 65 ranked, 9 earnings-blackout skips (unchanged list), 0 missing.
+
+**Near-miss queue reassessment (3/3), fresh `analyze_structure_batch` data:**
+- **TEM** — consensus aligned_bearish, unchanged. Item 4 still clears (1D R:R ~2.0:1, carried-forward calc). Item 7 still fails: 60m `setup: null` (bearish moderate, deep 94.1% pullback, overextended) — no hourly trigger. Unchanged across 4 cycles today.
+- **PGY** — consensus aligned_bullish, unchanged. 1D real `pullback_long` (entry 18.49, stop 15.4133, R:R **1.69:1** — clears the 1.3:1 floor) + 60m real `pullback_long` (entry 18.41, stop 16.743, R:R 0.72:1). Both legs present, same direction — items 1/2/3/5/6/7 clear. **Item 4 fails on stop-distance, not R:R**: 1D stop is −16.6% from entry (15.4133 vs 18.49), 60m stop is −9.06% (16.743 vs 18.41) — both exceed §16 item 2's 6%-of-entry-price ceiling (floor ≈$17.38). No technically valid stop fits inside the ceiling. Still the session's closest near-miss.
+- **IGV** — consensus mixed (1D bullish moderate, 60m ranging/neutral, `setup: null` both timeframes). Item 7 fails, structural absence persists.
+
+Updated in `near_miss_queue.md` (all three rows refreshed, outcomes unchanged: TEM/IGV still_near_miss on item 7, PGY still_near_miss on item 4).
+
+**Stage 2 — rotation batch, 9 names (ONDS, IREN, LMND, KTOS, STM, HOOD, BMNR, DELL, CRCL):**
+- **ONDS** — aligned_bearish. 1D `pullback_short` R:R 0.09:1 (governing daily reading, fails floor badly); 60m `pullback_short` R:R 1.37:1 (hourly-only, not the governing figure). **Rejected — item 4 (daily R:R 0.09:1).**
+- **IREN** — mixed (1D bullish weak, 60m bearish strong). Both timeframes `setup: null`. **Rejected — item 7, structural absence plus contradictory directions.**
+- **LMND** — mixed (1D bearish moderate, 60m bullish weak). Both timeframes `setup: null`. **Rejected — item 7.**
+- **KTOS** — aligned_bearish. 1D `setup: null` (bearish strong, no pullback leg); 60m `pullback_short` R:R 1.26:1 (hourly-only). **Rejected — item 7, no daily setup to pair with the hourly trigger.**
+- **STM** — aligned_bullish. 1D `setup: null` (bullish moderate, no pullback leg); 60m `pullback_long` R:R 1.08:1 (hourly-only, also below floor). **Rejected — item 7 (no daily setup) / item 4 (60m R:R below floor).**
+- **HOOD** — mixed (1D bullish moderate, 60m bearish strong). 1D `setup: null`; 60m `pullback_short` R:R 1.5:1 — but opposite direction from the 1D bias. **Rejected — item 7, hourly contradicts daily direction.**
+- **BMNR** — aligned_bearish. Both timeframes `setup: null`. **Rejected — item 7, structural absence.**
+- **DELL** — mixed (1D bullish weak, 60m ranging/neutral). Both timeframes `setup: null`. **Rejected — item 7.**
+- **CRCL** — aligned_bearish. 1D `setup: null`; 60m `pullback_short` R:R 0.23:1 (hourly-only, fails floor anyway). **Rejected — item 4 / item 7.**
+
+**Per-symbol labeling:** 12 evaluated (0 cleared to Trade Card, 12 rejected/near-miss with evidence), 9 Stage-1-level skips, 53 not evaluated (rotation/capacity). 12+9+53=74. 0 tool failures.
+
+**3a/3b options/LEAPS sourcing:** no candidate cleared the full gate this cycle, so no options/LEAPS evaluation followed from that channel.
+
+**3c. §22 full screen, 9/9 + 4 underlyings, fresh data:** all 9 leveraged/inverse ETFs mixed consensus (TQQQ, SQQQ, SOXL, SOXS, SPXL, SPXU, TNA, TZA, AMDG); all 4 underlyings (QQQ, SPY, IWM, SOXX) also mixed. No leveraged-long clears a bullish structure; no inverse name's underlying establishes a bearish thesis. All 9 rejected. `leveraged_etf_coverage`: 9 evaluated, 9 rejected, 0 not_evaluated, **coverage_complete: true.**
+
+**TradingView used:** 3 calls, all succeeded on attempt 1.
+
+**tvremix usage:** `calls_made_this_cycle: 3`. Today's running total: 27 (prior) + 3 = **30**.
+
+MODE C: 0 open positions, $0 P&L today. Stop-audit: 0 checked (no positions). No qualifying setup identified from shared Stage 1 output.
+
+**No order placed in either mode this cycle.** PGY remains the session's standing near-miss — stop-distance-ceiling blocked, unchanged. TEM/IGV unchanged on item 7.
+
+```json
+{
+  "cycle": "Mode B/C Entry Screening (Fresh Candle)",
+  "timestamp_utc": "2026-11-09T18:03:51Z",
+  "timestamp_pacific": "2026-11-09T10:03:51-08:00",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 1, "breached": 0, "exited": 0},
+  "coverage": {"universe_size": 74, "triaged": 65, "full_gate_evaluated": 12, "rejected_with_evidence": 12, "not_evaluated": 62, "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 3, "cleared": 0, "still_near_miss": 3, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved_moot_2026-11-04"},
+  "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 9, "not_evaluated": [], "coverage_complete": true},
+  "calls_made_this_cycle": 3,
+  "tvremix_calls_used_today": 30,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
+
+Outcome: No trade this cycle. PGY remains the session's genuine near-miss — clears catalyst, confirmations, and both timeframes' structure, blocked only by the 6%-of-entry-price stop-distance ceiling. TEM and IGV unchanged on item 7 (no hourly trigger / structural absence). No candidate in the 9-name rotation batch or the §22 leveraged-ETF screen cleared the gate.
