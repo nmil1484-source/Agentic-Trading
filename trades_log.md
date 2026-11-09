@@ -65766,3 +65766,77 @@ Outcome: No trade this cycle. New near-miss: GDX clears the daily R:R floor (1.3
 ```
 
 Outcome: No trade this cycle. 70th consecutive no-trade crypto cycle — entire allowlist bearish, AAVE's 240 R:R 2.03:1 again the strongest short-biased read but not executable under spot long-only policy.
+
+## 2026-11-09T20:03:46Z (12:03pm PT / 3:03pm ET) — Mode B/C Entry Screening (Fresh Candle)
+
+**STEP 0 gate check:** §14 Status: ACTIVE confirmed. No kill phrase. Proceeding.
+
+**Account (••••8058):** `get_portfolio` — equity_value $1,551.165 (PATH), options_value $468 (IGV, pending user decision — unit/tick correction round, awaiting final CONFIRM ORDER on $3.10). 1 Mode B equity position, 0 Mode C, 0 crypto.
+
+**Circuit breakers:** 0 stop-outs today. Market-shock — SPY $752.55→$753.91 (+0.18%), QQQ $677.79→$678.95 (+0.17%) — not triggered.
+
+**Portfolio heat cap:** PATH ≈$26 open risk, full headroom otherwise.
+
+**2a. Mode B equity stop-audit:** PATH stop confirmed resting, $12.73. No breach. **Checked 1, missing 0, placed 0.**
+
+**2b. Options/LEAPS stop-check:** IGV position unchanged, no documented lane/stop (pending user decision in chat). **Checked 1 (informational), no computed comparison, 0 exited.**
+
+**3. Stage 1 — full-universe triage:** 74 names, 65 ranked, 9 earnings-blackout skips (unchanged list), 0 missing.
+
+**Near-miss queue reassessment (4/4), fresh `analyze_structure_batch` data:**
+- **TEM** — unchanged. Item 4 still clears (1D R:R ~2.0:1, carried-forward calc). Item 7 still fails — both 1D and 60m now read `setup: null`.
+- **PGY** — unchanged. 1D `pullback_long` R:R 1.92:1 clears; 60m R:R 0.99:1. Stop-distance ceiling still the sole blocker (1D −15.5%, 60m −7.9%, both outside 6%).
+- **IGV** — unchanged. Mixed consensus; 60m real `pullback_short` R:R 0.78 (fails floor), 1D `setup: null`. Still fails item 7/item 4.
+- **GDX** — strengthened. Consensus now **aligned_bearish** (both TF bearish). 1D real `pullback_short` R:R **1.42:1** (improved from 1.31), clears floor. 60m still `setup: null` (overextended 137%) — item 7 remains the sole apparent blocker.
+
+Updated in `near_miss_queue.md`.
+
+**Stage 2 — rotation batch, 8 names (GOOG, PLTR, NVDA, OKLO, ZS, CVX, INTC, VST):**
+- **GOOG** — mixed (60m ranging/neutral, 1D bullish weak, overextended). Both TF `setup: null`. **Rejected — item 7, structural absence.**
+- **PLTR** — mixed (60m bearish `pullback_short` R:R 0.5, 1D bullish `setup: null`, overextended). **Rejected — item 7/item 4.**
+- **NVDA** — mixed (60m bearish `setup: null`, 1D bullish `setup: null`, overextended). **Rejected — item 7, structural absence.**
+- **OKLO** — aligned_bearish. 60m `setup: null` (overextended 93.1%); 1D `setup: null` but `current_below_min_swing_low: true` (−20.5% below the confirmed swing low) — a potential §13.G bearish breakout-continuation candidate. Volume confirmation for this specific bar was not independently verified this cycle (Stage-1 "also_ran" entries don't carry the detailed volume-ratio field). **Rejected pending volume verification — flagged for a closer look next cycle rather than a clean pass/fail.**
+- **ZS** — mixed (60m bullish moderate, `setup: null`, overextended; 1D ranging/neutral, `setup: null`). **Rejected — item 7, structural absence.**
+- **CVX** — aligned_bullish both TF. 1D real `pullback_long` R:R 0.72:1 (fails floor); 60m `setup: null` (overextended). **Rejected — item 4 (daily R:R 0.72).**
+- **INTC** — mixed (60m bearish `pullback_short` R:R 0.19, 1D bullish `setup: null`, overextended). **Rejected — item 4/item 7.**
+- **VST** — aligned_bearish both TF. 60m real `pullback_short` R:R **2.3:1** (quality "ok," strong) but 1D `setup: null` (pullback essentially inactive, depth 1.1%) — no daily thesis for the hourly trigger to confirm. Checked §13.G breakout-continuation: not applicable (`current_below_min_swing_low: false`, `current_above_max_swing_high: false`). No clean support-bounce read either (price sitting on a thin recent low with no retracement structure). **Rejected — item 7, no computable daily entry under any permitted method** (distinct from GDX/TEM's pattern — here the daily leg itself is absent, not just the hourly trigger).
+
+**Per-symbol labeling:** 12 evaluated (0 cleared, 11 rejected with evidence, 1 flagged for follow-up [OKLO, volume unverified]), 9 Stage-1-level skips, 53 not evaluated (rotation/capacity). 12+9+53=74. 0 tool failures.
+
+**3a/3b options/LEAPS sourcing:** no candidate cleared the full gate this cycle, so no options/LEAPS evaluation followed from that channel.
+
+**3c. §22 full screen, 9/9 + 4 underlyings, fresh data:** all 9 leveraged/inverse ETFs mixed consensus (same intraday-chop pattern: 60m bearish/1D bullish on 7 of 9, reversed on SQQQ/SPXU/TZA); all 4 underlyings (QQQ, SPY, IWM, SOXX) also mixed, 1D bullish on all four — no bearish thesis establishes. IWM's 1D `pullback_long` R:R 1.51:1 is notable but doesn't help TZA (needs IWM bearish). All 9 rejected. `leveraged_etf_coverage`: 9 evaluated, 9 rejected, 0 not_evaluated, **coverage_complete: true.**
+
+**TradingView used:** 3 calls, all succeeded on attempt 1.
+
+**tvremix usage:** `calls_made_this_cycle: 3`. Today's running total: 35 (prior) + 3 = **38**.
+
+MODE C: 0 open positions, $0 P&L today. Stop-audit: 0 checked (no positions). No qualifying setup identified from shared Stage 1 output.
+
+**No order placed in either mode this cycle.** GDX's daily R:R improved to 1.42:1 but still lacks an hourly trigger. PGY/TEM/IGV unchanged. OKLO flagged for a closer breakout-continuation look next cycle (volume unverified, not rejected clean).
+
+```json
+{
+  "cycle": "Mode B/C Entry Screening (Fresh Candle)",
+  "timestamp_utc": "2026-11-09T20:03:46Z",
+  "timestamp_pacific": "2026-11-09T12:03:46-08:00",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 1, "breached": 0, "exited": 0},
+  "coverage": {"universe_size": 74, "triaged": 65, "full_gate_evaluated": 12, "rejected_with_evidence": 11, "not_evaluated": 62, "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 4, "cleared": 0, "still_near_miss": 4, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved_moot_2026-11-04"},
+  "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 9, "not_evaluated": [], "coverage_complete": true},
+  "calls_made_this_cycle": 3,
+  "tvremix_calls_used_today": 38,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
+
+Outcome: No trade this cycle. Near-miss queue: GDX's R:R improved (1.31→1.42), still no hourly trigger; PGY/TEM/IGV unchanged. VST showed a strong hourly R:R (2.3:1) but no daily setup to confirm — correctly distinguished from GDX/TEM's pattern and rejected, not queued.
