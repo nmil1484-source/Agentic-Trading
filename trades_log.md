@@ -65256,3 +65256,77 @@ Outcome: No trade this cycle in either mode. Market gapped up significantly sinc
 ```
 
 Outcome: No trade this cycle. 66th consecutive no-trade crypto cycle — bearish structure holds across 7 of 8 pairs (XRP ranging on 60m), nothing clears in the only direction this lane can trade.
+
+## 2026-11-09T16:04:39Z (11:04am ET) — Mode B/C Entry Screening (Fresh Candle)
+
+**STEP 0 gate check:** §14 Status: ACTIVE confirmed (unchanged this session). No kill phrase found. Proceeding.
+
+**Account (••••8058):** `get_portfolio` — total_value $5,815.36, equity_value $1,544.62 (PATH), options_value $458 (IGV, see note below), cash $3,812.74. 1 open Mode B equity position, 0 Mode C, 0 crypto.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown — 0 today. Market-shock — SPY $749.56→$750.75 (+0.16%), QQQ $674.70→$677.31 (+0.39%) vs. the last logged reading (15:37:52Z crypto cycle) — both well under 1.5%, not triggered.
+
+**Portfolio heat cap:** PATH ≈$26 open risk, full headroom otherwise.
+
+**FTA Regime Dashboard:** re-fetched live, 11:05 ET — unchanged, `regime.call: "cautious"`.
+
+**2a. Mode B equity stop-audit:** `get_equity_orders` (PATH) — 1 resting stop confirmed, $12.73, state=confirmed. No breach. **Checked: 1, missing: 0, placed: 0.**
+
+**2b. Options/LEAPS stop-check:** `get_option_positions` (nonzero=true) — 1 open position: IGV 2027-03-19 $110 call, opened 15:11:14Z this session by the user directly (not this system), 130 DTE. **This does not fit §18 (21-75 DTE) or §19 (9-12mo DTE) — no documented lane, no computed stop exists to compare against.** A proposed $312 stop is under active discussion with the user in chat (order reviewed, one broker alert — wide bid-ask spread — surfaced, awaiting the user's re-confirmation before placement). Not treated as a breach or non-breach since no system-computed baseline exists yet; not acted on autonomously — this is a live, open chat thread with the user, not a gap to fill unilaterally. **Checked: 1 (informational only, no computed comparison possible), breached: n/a, exited: 0.**
+
+**3. Stage 1 — full-universe triage:** `rank_symbol_setups`, 74 names, 65 ranked, 9 skipped (same earnings-blackout names as this morning, days_to_earnings now 0-2 still), 0 missing.
+
+**Near-miss queue reassessment (3/3, same backlog as this morning):**
+- **TEM** — unchanged: item 4 clears (1D R:R 2.0:1), item 7 still fails (60m no setup). Still near-miss.
+- **PGY** — unchanged: item 4 clears (1D R:R 1.99:1), item 7 still fails (60m ranging). Still near-miss.
+- **IGV** — consensus **strengthened to aligned_bullish** (both TF bullish now, 60m overextension eased from 109.4%→87.5% depth). Still no computable setup either TF, still fails item 7. Still near-miss, improving but not cleared.
+
+**Stage 2 — rotation batch, 9 new names (CVX, AMD, SHOP, PLTR, HPE, ZS, NFLX, GOOG, NVDA):**
+- **CVX** — aligned_bullish, 1D `pullback_long` R:R 0.5:1. **Rejected — item 4.**
+- **AMD** — mixed, 1D `setup: null` (overextended), 60m `pullback_short` R:R 1.92:1 (wrong direction relative to daily bullish bias, and no daily-chart setup to pair it with). **Rejected — item 7 (no daily-chart setup).**
+- **SHOP** — mixed, 1D `pullback_long` R:R 1.0:1 (close, still fails), 60m `pullback_short` R:R 2.74:1 "ok" but no daily bearish confirmation. **Rejected — item 4 (bullish path) / item 7 (bearish path, hourly-only).**
+- **PLTR** — mixed, 1D `setup: null` (overextended), 60m `pullback_short` R:R 0.53:1. **Rejected — item 7 / item 4.**
+- **HPE** — aligned_bullish, 60m real `pullback_long` R:R **2.28:1** "ok" quality (cleanest bullish read this cycle) — but 1D shows no setup at all (overextended 89.3% depth, `setup: null`). Item 7 requires the DAILY chart to establish the setup; an hourly-only setup can't substitute. **Rejected — item 7 (no daily-chart setup).** Worth a fresh look if the daily pullback resolves.
+- **ZS** — mixed, both TF `setup: null` (60m overextended 150%, 1D ranging/neutral) — same structural absence as the last two checks. **Rejected — item 7, confirmed a 3rd time.**
+- **NFLX** — aligned_bearish, 60m `pullback_short` R:R 0.56:1, 1D `setup: null`. **Rejected — item 4 / item 7.**
+- **GOOG** — mixed, both TF `setup: null` (overextended). **Rejected — item 7.**
+- **NVDA** — mixed, both TF `setup: null`/no pullback active. **Rejected — item 7.**
+
+**Per-symbol labeling:** 12 evaluated (0 cleared, 12 rejected with evidence — 3 near-miss reassessments + 9 rotation), 9 Stage-1-level skips (§4 earnings blackout, unchanged), 53 not evaluated this cycle (rotation/capacity). 12+9+53=74. 0 tool failures.
+
+**3a/3b options/LEAPS sourcing:** no candidate cleared §5B or the Bearish Mirror Gate this cycle, so no options/LEAPS evaluation followed. Same scope reduction as the First Scan cycle — broader proactive sourcing (earnings-calendar/politician-trades/elevated-IV channels) not separately run this cycle.
+
+**3c. §22 full screen, 9/9 + 4 underlyings, fresh `analyze_structure_batch`:** all 9 still **mixed** consensus (unchanged from this morning). Leveraged-long path (TQQQ, SOXL, SPXL, TNA, AMDG): no aligned bullish structure on any name — **all 5 rejected.** Inverse path (SQQQ, SOXS, SPXU, TZA): underlyings QQQ/SOXX/SPY/IWM all still mixed, not aligned_bearish — underlying bearish thesis not established for any — **all 4 rejected.** `leveraged_etf_coverage`: evaluated 9, rejected 9, not_evaluated 0, **coverage_complete: true.**
+
+**TradingView used:** 3 calls (1 Stage-1 + 2 Stage-2 batches), all succeeded on attempt 1.
+
+**tvremix usage:** `calls_made_this_cycle: 3`. Today's running total: 19 (prior) + 3 = **22**.
+
+MODE C: 0 open positions, $0 P&L today. **9a. Stop-audit:** 0 positions, checked 0/missing 0/placed 0. **Step 10:** shared Stage 1 output above — no VWAP-pullback/ORB/mean-reversion setup identified among evaluated names. 0 Mode C candidates.
+
+**No order placed in either mode this cycle.** PATH's stop remains correctly resting. IGV options position remains a pending, user-driven reconciliation item — not acted on by this cycle.
+
+```json
+{
+  "cycle": "Mode B/C Entry Screening (Fresh Candle)",
+  "timestamp_utc": "2026-11-09T16:04:39Z",
+  "timestamp_pacific": "2026-11-09T08:04:39-08:00",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 1, "breached": 0, "exited": 0},
+  "coverage": {"universe_size": 74, "triaged": 65, "full_gate_evaluated": 12, "rejected_with_evidence": 12, "not_evaluated": 62, "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 3, "cleared": 0, "still_near_miss": 3, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved_moot_2026-11-04"},
+  "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 9, "not_evaluated": [], "coverage_complete": true},
+  "calls_made_this_cycle": 3,
+  "tvremix_calls_used_today": 22,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
+
+Outcome: No trade this cycle. HPE's 60m setup (R:R 2.28:1) was the cleanest bullish read, but structurally blocked (no daily-chart confirmation). IGV's near-miss-queue entry strengthened to aligned_bullish consensus, still no computable setup. The manually-placed IGV options position remains unresolved pending the user's confirmation on its protective stop — tracked, not acted on autonomously this cycle.
