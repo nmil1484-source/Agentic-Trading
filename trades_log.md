@@ -65712,3 +65712,57 @@ MODE C: 0 open positions, $0 P&L today. Stop-audit: 0 checked (no positions). No
 ```
 
 Outcome: No trade this cycle. New near-miss: GDX clears the daily R:R floor (1.31:1) on a real bearish pullback setup but has no hourly execution trigger yet — added to `near_miss_queue.md`, worth rechecking next cycle. PGY remains the stop-distance-ceiling-blocked standing near-miss; TEM/IGV unchanged on item 7.
+
+## 2026-11-09T19:37:51Z — AUTONOMOUS (Crypto 24/7 Scan, trigger trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0 gate check:** §14 Status: ACTIVE confirmed. No kill phrase. Proceeding.
+
+**Account (••••8058):** `get_portfolio` — total_value $5,811.195, equity_value $1,540.455 (PATH), options_value $458 (IGV, pending user decision on protective stop — unit/tick-size correction round, awaiting final CONFIRM ORDER on $3.10). `get_crypto_positions`: **0 open crypto positions.**
+
+**Circuit breakers:** 0 stop-outs today. Market-shock — SPY $753.00→$752.55 (-0.06%), QQQ $677.97→$677.79 (-0.03%) — not triggered.
+
+**Portfolio heat cap:** 0 crypto positions; PATH ≈$26 open risk. Full headroom.
+
+**Existing position management:** 0 open positions. Stop-audit: checked 0, missing 0, placed 0.
+
+**Near-miss queue:** Crypto (§21) table confirmed empty. 0 reassessed.
+
+**Full-allowlist screen, 8/8, via `analyze_structure_batch` (240/60), 1 call, succeeded on attempt 1:**
+- **BTC** — aligned_bearish both TF. 60m `pullback_short` R:R 0.59:1; 240 `setup: null`. **Rejected — long-only policy, no bullish structure.**
+- **ETH** — aligned_bearish both TF. 60m `pullback_short` R:R 0.48:1; 240 `setup: null`. **Rejected — same.**
+- **SOL** — aligned_bearish both TF (240 strong). 60m `pullback_short` R:R 0.29:1; 240 `setup: null`. **Rejected — same.**
+- **XRP** — mixed (60 ranging/neutral, 240 bearish strong). Both TF `setup: null`. **Rejected — no setup.**
+- **LINK** — aligned_bearish both TF. 60m `pullback_short` R:R 1.34:1 (golden pocket); 240 `pullback_short` R:R 0.11:1. **Rejected — long-only policy.**
+- **AAVE** — aligned_bearish both TF. 60m `setup: null` (overextended); 240 `pullback_short` R:R 2.03:1, quality "ok" — strongest short-biased read again. **Rejected — long-only policy, not an executable structure.**
+- **HBAR** — aligned_bearish both TF (60 strong). 60m `setup: null`; 240 `pullback_short` R:R 0.07:1. **Rejected — same.**
+- **AVAX** — aligned_bearish both TF. 60m `setup: null`; 240 `pullback_short` R:R 0.56:1. **Rejected — same.**
+
+**Per-symbol labeling:** 8/8 rejected with evidence, 0 cleared, 0 not-evaluated, 0 tool failures. Full coverage.
+
+**No candidate cleared — entire allowlist remains bearish.** No order placed, no Trade Card. 70th consecutive no-trade crypto cycle.
+
+**tvremix usage:** `calls_made_this_cycle: 1`. Today's running total: 34 (prior) + 1 = **35**. `tvremix_consecutive_failed_cycles: 0`.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-11-09T19:37:51Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 1,
+  "tvremix_calls_used_today": 35,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
+
+Outcome: No trade this cycle. 70th consecutive no-trade crypto cycle — entire allowlist bearish, AAVE's 240 R:R 2.03:1 again the strongest short-biased read but not executable under spot long-only policy.
