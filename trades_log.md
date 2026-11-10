@@ -67556,3 +67556,45 @@ rest of today.
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-11-10T22:38:18Z — AUTONOMOUS (Crypto 24/7 Scan)
+
+**STEP 0 — Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found. Proceeding.
+
+**Account/positions:** `get_crypto_positions` → 0 open crypto positions. Nothing to manage, no stop-audit targets.
+
+**Circuit breakers (§6):** cross-mode same-day 2-stop-out cooldown remains ACTIVE (PATH 14:30:19Z + IGV options 18:04:30Z) — blocks new entries this cycle regardless of data, until UTC day rollover (~1h22m from this cycle's fire time).
+
+**Portfolio heat cap (§3):** 0% used — moot given the cooldown.
+
+**Near-miss queue (crypto table):** empty — nothing to reassess.
+
+**Full-allowlist structure check:** `analyze_structure_batch` (8-pair allowlist, 240/60) attempted twice — both "Too Many Requests." **DATA_BLOCKED, 6th consecutive cycle** (`tvremix_consecutive_failed_cycles: 6`) — **CONSOLIDATED ALERT THRESHOLD REACHED THIS CYCLE.** Last cycle with real structure data: 2026-11-10T16:37:56Z (coverage_state OBSERVE, full 8/8 coverage). Outage duration as of this cycle: 16:37:56Z → 22:38:18Z = **6h 0m 22s**. Posting one consolidated chat alert this cycle per protocol; will not repeat until +12 more consecutive failed cycles.
+
+**Outcome:** No orders placed. No exits. Git push to follow.
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-11-10T22:38:18Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "DATA_BLOCKED",
+  "circuit_breakers_active": ["same_day_stop_out_cooldown"],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "BTC", "reason": "tool failure - rate limited 2/2"}, {"symbol": "ETH", "reason": "tool failure - rate limited 2/2"}, {"symbol": "SOL", "reason": "tool failure - rate limited 2/2"}, {"symbol": "XRP", "reason": "tool failure - rate limited 2/2"}, {"symbol": "LINK", "reason": "tool failure - rate limited 2/2"}, {"symbol": "AAVE", "reason": "tool failure - rate limited 2/2"}, {"symbol": "HBAR", "reason": "tool failure - rate limited 2/2"}, {"symbol": "AVAX", "reason": "tool failure - rate limited 2/2"}], "tool_failures": 8},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 6,
+  "calls_made_this_cycle": 2,
+  "tvremix_calls_used_today": "unreliable, see 17:42:34Z gap note; simple sum of logged calls_made_this_cycle today is 22 (floor, known undercount)",
+  "consolidated_alert_posted": true,
+  "outage_duration": "6h 0m 22s (last good cycle 16:37:56Z to this cycle 22:38:18Z)",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
