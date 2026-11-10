@@ -67017,3 +67017,13 @@ All 8 pairs labeled **Evaluated** (full gate run, rejected on §21 item 2's spot
   "git_push": "pending"
 }
 ```
+
+## 2026-11-10T15:50Z — USER-REQUESTED RE-CHECK (TEM, IGV near-miss entries)
+
+User asked: "Look at tem and igv again. Make sure it's not being blocked by some other mode." Not a scheduled trigger cycle — a direct, ad hoc verification request. Re-pulled fresh `analyze_structure_batch` (1D/60) for both.
+
+**IGV:** Confirmed as logged, no hidden issue. Bullish leg: 1D `setup: null` (94.5% overextended, no computable stop). Bearish leg: 60m real `pullback_short` (entry 100.23, stop 106.19 = 5.95% of entry, fits the §16 item 2 6% ceiling fine), but R:R 0.35:1 fails the 1.3:1 floor outright. No mode-confusion or unchecked gate found.
+
+**TEM:** Found a real, previously-unflagged second blocker. 60m produced a genuine `pullback_short` setup for the first time (R:R 2.75:1, `quality: "ok"`) — the hourly-trigger gap logged as the sole blocker across all 19 prior cycles may be closing. However, **§16 item 2's stop-distance ceiling (≤6% of entry price) had never been independently checked against TEM's own structure in any of those 19 cycles**, and it fails on both legs: daily stop 13.6% from entry (1D: entry $81.58, stop $92.65), hourly stop 6.84% from entry (60m: entry $80.20, stop $85.69) — both over the 6% ceiling. Per §16 item 2, a stop that doesn't fit the risk budget means the trade doesn't proceed regardless of R:R or trigger status. TEM's real blocker has likely been this stop-distance ceiling the whole time, not merely a missing hourly trigger — the queue's prior records only ever cited item 7 because downstream checks (including this one) were never run once item 7 failed first. Updated `near_miss_queue.md` to reflect the corrected blocker; TEM remains queued (still not tradeable), cycles_checked → 20.
+
+No trade placed. No circuit breaker, position, or portfolio state changed by this check — read-only verification. `near_miss_queue.md` updated and committed alongside this entry.
