@@ -66879,3 +66879,88 @@ All 8 pairs labeled **Evaluated** (full gate run, rejected on §21 item 2's spot
   "git_push": "pending"
 }
 ```
+
+## 2026-11-10T15:05:04Z (7:05am PT / 10:05am ET) — FIRST SCAN OF DAY — Mode B + Mode C
+
+**STEP 0 gate check:** CLAUDE.md §14 Mode B AUTONOMOUS_EXECUTE Authority confirmed **Status: ACTIVE**. No kill phrase ("STOP AUTONOMOUS EXECUTION"/"PAUSE AUTONOMOUS TRADING") found since last cycle. DST check: today is 2026-11-10, DST ended 2026-11-01 — EST now in effect. Cron fired 15:05:04Z UTC = 10:05:04am ET, matching the ~10:00am ET target with no drift. Proceeding.
+
+**Account (••••8058):** `get_portfolio` — total_value $5,796.38, equity_value $0 (PATH closed — see the stop-out logged in the 14:38:35Z crypto-trigger entry; this trigger's own mandatory stop-audit below independently confirms 0 open Mode B/C equity positions), options_value $470 (IGV, 1 contract), crypto_value $0, cash $5,326.38. Retail account (••••7533) not touched.
+
+**Circuit breakers:** Same-day stop-out count = 1 (PATH, 14:30:19Z) — below the 2-stop-out cooldown threshold. Market-shock: SPY $751.88 vs prior close $752.69 (-0.11%, +0.49% cycle-over-cycle from the last crypto check) and QQQ $680.15 vs prior close $679.35 (+0.12%, +1.09% cycle-over-cycle) — both well under 1.5%. No circuit breaker active. FTA Regime Dashboard: not re-pulled this cycle (context/sizing-only, not a hard gate; no new trade sized this cycle to apply it to).
+
+**2a. Mode B equity stop-audit:** `get_equity_positions` — 0 open Mode B equity positions (confirms PATH's exit). Checked=0, missing_found=0, placed=0. Nothing to audit.
+
+**2b. §18/§19 options/LEAPS stop-check — MANDATORY, run explicitly:** `get_option_positions` (nonzero=true) — 1 open position: IGV, 1 contract, $110 call, exp 2027-03-19, avg entry premium $4.80/share ($480 total), opened 2026-11-09T15:11:14Z. `get_option_quotes` — current mark $4.70 (updated 15:05:48Z).
+
+**Lane-ambiguity flagged explicitly (unresolved from prior cycles, addressed here rather than deferred again):** IGV's DTE at entry (~130 days, 2026-11-09→2027-03-19) fits neither §18 (21-75 DTE) nor §19 (9-12mo/~270-365 DTE) cleanly — it sits 55 days past §18's max and 140 days short of §19's min. Absent a defined bespoke lane, **§18's mechanics are applied as the closer-fitting and more protective of the two** (tighter 15%-cushion/30%-trail vs. §19's 35%/40%) — this is a provisional choice, not a resolved policy question; flagging again for the user to formally designate a lane or set bespoke terms for this specific contract.
+
+**Computed stop (§18 item 4 formula):** `initial_stop = 0.85 × 4.80 = $4.08`. `observed_option_value` (highest mark since entry, from this session's own logged cycle readings — no higher reading than the $4.80 entry itself has been recorded: $4.68/$4.30/$4.70 across intervening cycles) = $4.80. Position is NOT currently profitable (mark $4.70 < entry $4.80), so the profit-trailing branch (`0.70 × 4.80 = $3.36`) is dominated by the initial floor. `new_stop = max(none, $4.08, $3.36) = $4.08`.
+
+**Comparison: current mark $4.70 is ABOVE the computed stop $4.08 — NOT breached.** No exit action taken. Time-stop backstop (5 sessions before 2027-03-19 expiration) not remotely close. **Checked=1, breached=0, exited=0.**
+
+**Stage 1 — full-universe batch triage:** `rank_symbol_setups` across the entire 74-name `watchlist.md` pool, 1 call. 68 ranked, 6 skipped by the tool's own earnings-proximity heuristic (ONDS 2d, RGTI 0d, NBIS 2d, CRWV 0d, CBRS 2d, TPST 1d) — **this is a Stage-1 tool heuristic, not a CLAUDE.md §4 gate** (§4 only blocks within 30 minutes of the event itself); these 6 are labeled **not evaluated — Stage-1 heuristic skip (earnings proximity)**, never a rejection, and are prioritized for a direct §4 30-minute-window check next eligible cycle rather than left excluded indefinitely. Triaged = 74/74 (68 ranked + 6 skipped-but-accounted-for).
+
+**Near-miss queue reassessment (`near_miss_queue.md`, 4 of this cycle's 12 Stage-2 slots):**
+- **TEM** (Bearish Mirror Gate) — **still a near-miss.** 1D now shows a real `pullback_short` setup, R:R **1.81:1** (clears 1.3:1, now an actual computed figure vs. the prior carried-forward estimate). 60m still `setup: null` (84.9% overextended) — checked the support/resistance arrays directly per the 2026-11-04 diagnostic rule; no level-based 60m trigger found. Item 7 (hourly trigger) remains the sole blocker. Updated in `near_miss_queue.md`, cycles_checked → 19.
+- **PGY** (bullish Mode B) — **still a near-miss, but the blocking item changed.** Item 4 (stop-distance ceiling) now clears: 60m stop 4.85% of entry, under the 6% ceiling (was 7.9-15.5%). Item 2 (catalyst) now clears decisively: a real, dated Q3 earnings beat (2026-10-30, record revenue, raised FY26 guidance) plus two analyst price-target raises through 2026-11-09, confirmed via `get_news` — not the weak September call-sourced note this file originally queued on. **Item 3 is now the blocker, genuinely ambiguous**: Stage-1 `rank_symbol_setups` scores PGY 27/bearish-leaning on aggregate technicals, while the structure tool's own swing read is aligned_bullish (real 60m `pullback_long`, R:R 2.39:1). Per §13.I, neither tool's aggregate label is decisive on its own — this contradiction needs a direct role-group-by-role-group check (EMA/SMA position, actual RSI/MACD values, volume vs. the §13.H baseline) before concluding clear or reject, which this cycle's time budget did not extend to. Updated in `near_miss_queue.md`, cycles_checked → 16.
+- **IGV (ETF)** (structural absence, both directions) — **still a near-miss / structural.** 1D bullish-biased but `setup: null` (94.5% overextended); 60m bearish with a real `pullback_short` setup but R:R 0.52:1, fails the floor outright. Both legs still blocked. Updated in `near_miss_queue.md`, cycles_checked → 16.
+- **GDX (ETF)** (Bearish Mirror Gate) — **REMOVED, invalidated.** Last cycle item 4 cleared at 1.42:1 with only item 7 blocking (a true single-item near-miss). This cycle the 1D `pullback_short`'s own computed R:R dropped to **0.81:1** — item 4 now fails too, alongside item 7 (60m `setup: null`, still no hourly trigger). Two items failing simultaneously is no longer a single-item near-miss per this file's own entry criteria — removed as invalidated, logged in `near_miss_queue.md`.
+- **AMD Pending-eligibility:** already resolved 2026-11-04T16:08Z (both §18 and §19 evaluated read-only, no qualifying trade, removed from the pending table) — nothing currently pending in that table to re-check.
+
+**Stage 2 — rotation batch (8 of the 12 slots; least-recently-evaluated-first from the zero-recent-mention set): ARKG, AVAV, BE, CAI, CORZ, DRAM, ETHA, XLI.** One `analyze_structure_batch` call (1D/60, 12 symbols combining this rotation batch + the 4 near-miss names above — single call, no duplicate fetch). Full bullish (§5B) and bearish (Mirror Gate) check on each:
+- **ARKG** — mixed. 1D bullish-biased, `setup: null` (overextended). 60m bearish, `pullback_short` R:R 0.44:1 (fails floor). **Rejected — structural absence (bullish leg) + R:R failure (bearish leg).**
+- **AVAV** — aligned_bearish both TF, but both `setup: null` (91.9% overextended) — no computable stop/target either direction. **Rejected — structural absence, no computable bearish entry.**
+- **BE** — mixed. 1D bullish-biased, `setup: null` (99.3% overextended) — bullish leg fails item 7. 60m bearish `pullback_short` R:R 1.13:1 (fails 1.3:1 floor) and daily trend direction mismatches the bearish thesis. **Rejected — both directions fail (bullish: no daily setup; bearish: R:R 1.13<1.3 and daily trend bullish, not bearish).**
+- **CAI** — mixed. 1D bullish-biased, `setup: null` (overextended). 60m `ranging/neutral`, insufficient data, no setup. **Rejected — structural absence both legs.**
+- **CORZ** — aligned_bearish both TF. 1D `pullback_short` R:R **0.08:1** (the governing daily-thesis R:R, far below 1.3:1) despite a better-looking 60m-only read (R:R 1.46:1, not the gate's basis). **Rejected — §5B Bearish Mirror Gate item 4 (daily R:R 0.08:1, far below 1.3:1).**
+- **DRAM** — mixed. 60m bearish `pullback_short` R:R 0.33:1 (fails). 1D `ranging/neutral`, no setup. **Rejected — R:R failure + structural absence.**
+- **ETHA** — aligned_bearish both TF, but both `setup: null` — no computable stop/target either direction. **Rejected — structural absence.**
+- **XLI** — mixed. 1D bullish-biased, `setup: null` (150% overextended) — bullish leg fails. 60m bearish `pullback_short` R:R 1.28:1 — just under the 1.3:1 floor, and daily trend is bullish, not bearish (direction mismatch). **Rejected — bullish: no daily setup; bearish: R:R 1.28:1 just under floor, direction mismatch.**
+
+Rotation result: 8/8 evaluated, 0 cleared, 8 rejected with evidence. Combined with the 4 near-miss reassessments: **12/12 of this cycle's Stage-2 slots evaluated, 0 cleared.** Remaining 62 universe names (56 awaiting their next rotation slot + the 6 Stage-1-heuristic-skipped names above) are **not evaluated this cycle — rotation/capacity**, carried to the next eligible cycle; none logged as rejected.
+
+**3a. Options candidate sourcing (§18 item 11):** zero candidates cleared §5B/the Bearish Mirror Gate this cycle (bullish or bearish), so the gate-clearing sourcing channel produced nothing to evaluate for options. The two proactive sourcing sub-channels (politician-trades-flagged names; elevated-IV-with-catalyst names) were not separately run this cycle given the time already committed to the near-miss/rotation/§22 full screens — carried forward, not silently dropped.
+
+**3b. §19 LEAPS candidate sourcing:** not separately run this cycle. Flagged for priority next cycle: PGY's newly-confirmed Q3 earnings beat + raised guidance (above) reads as a real multi-quarter catalyst worth checking against §19's own longer-horizon research gate, independent of its Mode B swing near-miss status.
+
+**3c. §22 Leveraged/Inverse ETF screen — MANDATORY, full 9-name allowlist, run independent of tvremix availability (tvremix was available this cycle):** one `analyze_structure_batch` call (1D/60), all 9 names + the SOXX/QQQ/SPY/IWM underlyings needed for the inverse legs (QQQ/SPY/IWM already covered by the Stage-1 rank_symbol_setups call above; SOXX pulled fresh in this same call).
+- **TQQQ** (leveraged-long) — 1D bullish-biased but `setup: null` (147.7% overextended); 60m actually bearish. **Rejected — no qualifying bullish setup either TF.**
+- **SQQQ** (inverse; needs QQQ bearish thesis + bullish own-chart entry) — underlying QQQ: Stage-1 score 29, direction bearish-leaning but not an established Bearish Mirror Gate pass. SQQQ's own chart: 60m real `pullback_long` R:R 2.11:1 (promising), but 1D `setup: null` — item 7's daily leg fails regardless of the underlying question. **Rejected — no 1D setup on SQQQ's own chart.**
+- **SOXL** (leveraged-long) — 1D bullish-biased but `setup: null` (overextended); 60m bearish with a wrong-direction `pullback_short`. **Rejected — no qualifying bullish setup.**
+- **SOXS** (inverse; needs SOXX bearish thesis) — underlying SOXX: 1D bullish-biased (not bearish) — fails the required underlying-bearish-thesis leg outright. **Rejected — underlying (SOXX) not bearish.**
+- **SPXL** (leveraged-long) — 1D bullish-biased but `setup: null` (overextended); 60m bearish wrong-direction `pullback_short`. **Rejected — no qualifying bullish setup.**
+- **SPXU** (inverse; needs SPY bearish thesis) — underlying SPY: Stage-1 direction neutral, not bearish. **Rejected — underlying (SPY) not bearish.**
+- **TNA** (leveraged-long) — 1D bullish-biased but `setup: null` (overextended); 60m bearish wrong-direction `pullback_short`. **Rejected — no qualifying bullish setup.**
+- **TZA** (inverse; needs IWM bearish thesis) — underlying IWM: Stage-1 "Strong Buy," score 72, direction bullish — definitively not bearish. **Rejected — underlying (IWM) bullish, not bearish** (TZA's own chart did show an attractive 60m bullish `pullback_long` R:R 2.6:1, moot given the underlying leg fails outright).
+- **AMDG** (leveraged-long) — 1D bullish-biased but `setup: null` (79.2% overextended); 60m actually bearish (105.1% overextended, also no setup). **Rejected — no qualifying bullish setup either TF.**
+
+**§22 completion check: 9/9 named-allowlist ETFs accounted for (9 evaluated, 9 rejected with evidence, 0 not_evaluated). `coverage_complete: true`.**
+
+**Mode C (§20):** Same account check as step 1 — 0 open Mode C positions (confirmed via the same `get_equity_positions` 0-positions result), Mode C realized+open P&L today = $0, no daily loss/profit limit hit. 9a stop-audit: 0 Mode C positions, checked=0/missing=0/placed=0, nothing to audit. Step 10 screening shares Stage 1's triage output above — no VWAP-pullback/ORB/mean-reversion-specific intraday setup separately computed this cycle; the broad technical backdrop skewed bearish/mixed across the universe, nothing stood out as a Mode C candidate. **OBSERVE, no trade.**
+
+**No order placed in Mode B or Mode C this cycle.** `near_miss_queue.md` updated (GDX removed, TEM/PGY/IGV updated) and committed alongside this entry.
+
+**tvremix usage:** `calls_made_this_cycle: 4` (`rank_symbol_setups` ×1, `analyze_structure_batch` ×2, `get_news` ×1 — the failed `get_earnings_calendar` attempt was a Robinhood-tool call, not tvremix, and doesn't count toward this budget). Today's (2026-11-10) running total: 15 (prior, all from the crypto trigger) + 4 = **19**.
+
+```json
+{
+  "cycle": "Mode B/C First Scan of Day",
+  "timestamp_utc": "2026-11-10T15:05:04Z",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 1, "breached": 0, "exited": 0},
+  "coverage": {"universe_size": 74, "triaged": 74, "full_gate_evaluated": 12, "rejected_with_evidence": 12, "not_evaluated": 62, "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 4, "cleared": 0, "still_near_miss": 3, "invalidated": 1, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "already resolved 2026-11-04, nothing pending"},
+  "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 9, "not_evaluated": [], "coverage_complete": true},
+  "calls_made_this_cycle": 4,
+  "tvremix_calls_used_today": 19,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
