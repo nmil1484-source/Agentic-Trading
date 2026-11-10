@@ -67240,3 +67240,128 @@ the 6-cycle alert threshold — no chat alert this cycle).**
 ```json
 {"cycle": "crypto_24_7", "timestamp_utc": "2026-11-10T17:42:34Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "DATA_BLOCKED", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "BTC", "reason": "tool failure - rate limited 2/2"}, {"symbol": "ETH", "reason": "tool failure - rate limited 2/2"}, {"symbol": "SOL", "reason": "tool failure - rate limited 2/2"}, {"symbol": "XRP", "reason": "tool failure - rate limited 2/2"}, {"symbol": "LINK", "reason": "tool failure - rate limited 2/2"}, {"symbol": "AAVE", "reason": "tool failure - rate limited 2/2"}, {"symbol": "HBAR", "reason": "tool failure - rate limited 2/2"}, {"symbol": "AVAX", "reason": "tool failure - rate limited 2/2"}], "tool_failures": 8}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 1, "calls_made_this_cycle": 2, "tvremix_calls_used_today": "unreliable - see narrative gap note, true total likely 38-44+", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+## 2026-11-10T18:03:48Z — AUTONOMOUS (Mode B/C Entry Screening — Fresh Candle, trigger trig_01KrBsTt9mssjU4hPGtM3cBe)
+
+**STEP 0 gate check:** §14 Status confirmed **ACTIVE**. No kill phrase found. Proceeding.
+
+**Account (pre-exit)**: total_value $5,706.38, cash $5,326.38, options_value $380 (IGV, marked down
+further from $435 last cycle — continuing post-CPI decline), 0 equity positions.
+
+**§18/§19 options stop-check — MANDATORY — IGV call, $110 strike, exp 2027-03-19:**
+`initial_stop` = 0.85 × $4.80 = **$4.08**. Position never turned profitable (peak mark ≈ entry
+$4.80), so `new_stop = max($4.08, $4.08, 0.70×peak) = $4.08` unchanged. Current mark **$3.80**
+(bid $3.60/ask $4.00, updated 18:04:14Z) — **$3.80 < $4.08 — BREACHED.** Executed immediately per
+the mandatory protective-exit discipline, no CONFIRM ORDER needed (standing autonomous exit
+authority, §1 exception): `review_option_order` clean (no alerts, `customer_approval_required:
+false`) → `place_option_order` SELL to close 1 contract, limit $3.60 (at the bid, to prioritize
+fill certainty). **Filled immediately** at $3.60, order id `6af35cae-88ae-492d-a18d-f08701cbfc8c`,
+execution id `eb7bb05b-275e-46ad-9fc6-b45ed5c651ad`, 2026-11-10T18:04:30.984Z. Realized loss:
+$480.00 cost − $360.00 proceeds − $0.04 fees = **$120.04** (25.0% of premium — overshot the
+15%-cushion floor the same way the 2026-10-29 GOOG PUT did, consistent with §18 item 4's disclosed
+gap-risk note: a documented stop computed once per cycle is not a guaranteed execution price
+between checks).
+
+**Trade Card — IGV CALL EXIT (STRATEGY: SWING_TRADING, tag OPTIONS):**
+Ticker/instrument: IGV $110 strike call, exp 2027-03-19 (~129 DTE at entry — provisional §18-lane
+mechanics, lane designation still pending formal user confirmation per the 2026-11-10T15:05:04Z
+note). Entry: $4.80/contract, 2026-11-09T15:11:14Z. Exit: $3.60/contract, 2026-11-10T18:04:30Z.
+Exit rule: §18 item 4 daily stop-ratchet formula, 15%-cushion floor (position never profitable).
+Realized loss: $120.04. Max planned loss at entry was ~$72 (15% floor on $480 cost) — actual loss
+exceeded plan due to gap/slippage between cycle checks, same disclosed risk as every prior options
+stop-out logged this account. Settled cash, no restriction issues. **Account now holds 0 positions
+in any mode.**
+
+**Stop-out count today: 2 of 2 — same-day cooldown threshold (§6) now TRIGGERED** (PATH, Mode B
+equity, 14:30:19Z + IGV, Mode B options, 18:04:30Z). **No new entries in any mode — Mode B, Mode C,
+or crypto — for the remainder of today (through the next UTC calendar-day rollover), per the
+cross-mode same-day stop-out cluster breaker.** This does not affect protective exits/stops, which
+remain fully active; there are currently 0 open positions of any kind to protect. **Flagging this
+explicitly for the next crypto cycle and the end-of-day check as well as this one** — both must
+honor this breaker regardless of what their own screening would otherwise find.
+
+**§16 item 16 — round-trip tally update (2nd entry since the 2026-11-03 reset):**
+
+| Mode | Wins | Losses | Win rate | Gross profit | Gross loss | Profit factor |
+|---|---|---|---|---|---|---|
+| Mode B (round-trip, since 2026-11-03) | 0 | 2 | 0% | $0.00 | $183.04 | 0.00 |
+| Mode C (round-trip) | 0 | 0 | — | $0.00 | $0.00 | — |
+| Crypto (round-trip) | 0 | 0 | — | $0.00 | $0.00 | — |
+
+Still nowhere near the 20-trade trailing window — insufficient-history default (halved risk)
+remains in effect for all three modes.
+
+**Mode B equity stop-audit / Mode C stop-audit**: 0 open positions in either — nothing to audit.
+
+**tvremix — BUDGET_BLOCKED, this entire cycle.** Both `rank_symbol_setups` (Stage 1) and a
+follow-up `analyze_structure_batch` retry failed **"Too Many Requests"**, and two further
+`get_news` attempts (ZETA, OSCR) also failed identically — consistent with the crypto trigger's
+17:42:34Z finding that today's real tvremix usage (≈38-44+ calls, per that cycle's gap analysis)
+has exhausted the shared daily reserve, not a transient per-call blip. **Falling back to
+Robinhood-native tools for Stage 1/2 this cycle**, per the exhaustion-handling protocol — logged
+explicitly, not silently. `coverage_state: BUDGET_BLOCKED`.
+
+**Stage 1 (degraded, Robinhood-quote proxy, not a technical score):** pulled `get_equity_quotes`
+for all 74 watchlist names (4 batched calls) — daily % move only, explicitly not equivalent to
+`rank_symbol_setups`'s technical scoring. Broad risk-off day (post-CPI, see the 17:40Z context-
+update entry): most names red, a handful of outliers — **bullish/relative-strength**: ZETA +7.20%,
+OSCR +4.86%, TTD +4.36%, RKLB +2.07%, SE +2.23%; **bearish/breakdown**: ASTS -11.14%, HIMS -19.0%
+(likely idiosyncratic, not macro-driven), ONDS -7.45%, PGY -7.42%, OKLO -6.54%, RGTI -5.78%, TEM
+-5.87%, NBIS -6.07%, DELL -6.05%, NVDA -6.11%, GDX -5.60%.
+
+**Stage 2 (partial, 4 names — ZETA, OSCR, ASTS, NVDA — selected for genuine post-CPI relative-
+strength/weakness per the day's own move, using Robinhood historicals + EMA9/EMA20/RSI since
+TradingView's structure/R:R computation is unavailable this cycle):**
+- **ZETA**: price ($34.755) now clearly above both EMA9 ($31.62) and EMA20 ($31.98) as of the
+  last completed daily bar, RSI improving (37.7→45.9→51.9), a genuine reclaim above the Nov 4
+  consolidation high ($32.81) on real relative strength (+7.2% vs. a broadly red tape). **Item 2
+  (catalyst) could not be verified this cycle** — both `get_news` attempts failed (tvremix
+  BUDGET_BLOCKED). **Not queued as a near-miss** (evaluation incomplete, not a single clean item
+  failing) — flagged for a priority catalyst check once tvremix/an alternative source is
+  available, moot today regardless of the same-day stop-out cooldown above.
+- **OSCR**: similar shape — price ($33.70) now above EMA9/EMA20 (~$32.08/$32.07), a reclaim after
+  the Nov4-6 selloff, +4.86% today. Same gap: **catalyst unverified this cycle**, not queued, moot
+  today regardless.
+- **ASTS**: -11.14% today, a sharp reversal of its Nov6-9 bounce, falling back toward/through its
+  EMA9 ($36.53). Computed R:R using the most recent swing high (Nov9 $38.20) as a bearish stop and
+  the Nov5 low ($28.98) as target: entry ~$32.78, stop $38.20 (16.5% away — already over the 6%
+  equity-thesis ceiling), target $28.98 → R:R 0.70:1. **Rejected with evidence — both the R:R
+  floor and the stop-distance ceiling fail** on the only structure computable from daily data.
+- **NVDA**: -6.11% today, a genuine fresh multi-week low (below the Nov9 intraday low), continuing
+  the governance-headline-driven breakdown now compounding with the hot-CPI reaction. RSI 27.3,
+  still oversold (see the 17:4x standalone RSI check). A real stop (Nov9 high $179.92) sits 7.2%
+  away — already over the 6% ceiling — and no structural target is computable from daily data
+  without an ATR pull this system didn't make this cycle. **Not evaluated to a conclusion** —
+  flagged for a proper ATR-target computation next cycle tvremix (or a Robinhood ATR pull) is
+  available; moot today regardless of the stop-out cooldown.
+
+**§22 leveraged/inverse-ETF screen — NOT_EVALUATED this cycle, all 9, tvremix BUDGET_BLOCKED.**
+Robinhood quotes pulled for context only (no structure/R:R computable without
+`analyze_structure_batch`): TQQQ -4.00%, SQQQ +3.97%, SOXL -4.00%, SOXS +4.03%, SPXL -2.45%, SPXU
++2.50%, TNA -3.07%, TZA +3.10%, AMDG +0.24%. **`leveraged_etf_coverage.coverage_complete: false`**
+— stated explicitly, not glossed over; 0 evaluated, 0 rejected-with-evidence, 9 not-evaluated
+(tool failure).
+
+**Near-miss queue (TEM, IGV equity entries)**: **not reassessed this cycle** — reassessment
+requires the same blocked `analyze_structure_batch` call, and per standing rule a prior cycle's
+structure read is never carried forward to qualify a fresh reassessment. Both remain queued
+unchanged (cycles_checked not incremented this cycle). `near_miss_queue.md` not modified.
+
+**Mode C**: 0 open positions. No VWAP-pullback/ORB/mean-reversion screening pass run this cycle
+beyond acknowledging capacity (moot regardless — the same-day stop-out cooldown blocks any new
+Mode C entry today too). **OBSERVE, no trade.**
+
+**Circuit breakers**: same-day stop-out cluster — **2 of 2, THRESHOLD HIT, cooldown active for the
+rest of today** (see above). Market-shock: SPY $746.42 (vs. $745.38 last cycle, +0.14%), QQQ
+$669.68 (vs. $667.98, +0.25%) — no shock. **Portfolio heat cap**: 0 open positions — no headroom
+question, moot.
+
+**Status: IGV options position stopped out (2nd stop-out today — cooldown breaker now active for
+the rest of the day across every mode); Stage 1/2/§22 all degraded to BUDGET_BLOCKED due to
+tvremix exhaustion; 2 promising post-CPI reclaim candidates (ZETA, OSCR) and 1 continuing breakdown
+candidate (NVDA) flagged for a priority follow-up once data access recovers — none pursued today
+regardless, per the cooldown.**
+
+```json
+{"cycle": "mode_b_c_entry_screening", "timestamp_utc": "2026-11-10T18:03:48Z", "coverage_state": "BUDGET_BLOCKED", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": ["same_day_stop_out_cooldown"], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 1, "breached": 1, "exited": 1}, "exits": [{"symbol": "IGV", "reason": "§18 item 4 15% floor stop breach", "realized_pl": -120.04}], "entries": [], "orders_placed": 1, "coverage": {"universe_size": 74, "triaged": 74, "full_gate_evaluated": 0, "rejected_with_evidence": 1, "not_evaluated": [{"symbol": "ZETA", "reason": "catalyst unverified - tvremix BUDGET_BLOCKED"}, {"symbol": "OSCR", "reason": "catalyst unverified - tvremix BUDGET_BLOCKED"}, {"symbol": "NVDA", "reason": "target/R:R not computed - ATR pull not made"}], "tool_failures": 4}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "TQQQ", "reason": "tvremix BUDGET_BLOCKED"}, {"symbol": "SQQQ", "reason": "tvremix BUDGET_BLOCKED"}, {"symbol": "SOXL", "reason": "tvremix BUDGET_BLOCKED"}, {"symbol": "SOXS", "reason": "tvremix BUDGET_BLOCKED"}, {"symbol": "SPXL", "reason": "tvremix BUDGET_BLOCKED"}, {"symbol": "SPXU", "reason": "tvremix BUDGET_BLOCKED"}, {"symbol": "TNA", "reason": "tvremix BUDGET_BLOCKED"}, {"symbol": "TZA", "reason": "tvremix BUDGET_BLOCKED"}, {"symbol": "AMDG", "reason": "tvremix BUDGET_BLOCKED"}], "coverage_complete": false}, "calls_made_this_cycle": 4, "tvremix_calls_used_today": "unreliable, see 17:42:34Z gap note - true total 42-48+ before this cycle's 4 failed attempts", "git_push": "pending"}
+```
