@@ -67158,3 +67158,41 @@ No queue changes this cycle (near_miss_queue.md not modified).
 ```json
 {"cycle": "mode_b_c_entry_screening", "timestamp_utc": "2026-11-10T17:04:09Z", "coverage_state": "EVALUATED", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 1, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 74, "full_gate_evaluated": 12, "rejected_with_evidence": 10, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 2, "cleared": 0, "still_near_miss": 2, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved, not a trade (see 2026-11-04 entry)"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 9, "not_evaluated": [], "coverage_complete": true}, "calls_made_this_cycle": 5, "tvremix_calls_used_today": 33, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+## 2026-11-10T17:40Z — USER-REQUESTED CONTEXT UPDATE (October CPI print, post-CPI market reaction)
+
+User shared post-CPI social-media market notes (a different, later message than the "Monday Q&A"
+call logged in watchlist.md earlier) and explicitly instructed: treat the pre-CPI figures in those
+notes (82.2% December-hike odds, 2yr yield 4.58%, premarket futures, Brent/VIX levels) as stale, not
+current; update context with the **actual October CPI print: headline +0.4% MoM, core +0.3% MoM**
+(both hotter than the +0.3%/+0.2% consensus the notes themselves cited pre-release) — a real,
+confirmed-by-the-user macro surprise. This system has no independent CPI-release feed to cross-verify
+the exact print against (web search returned nothing for a 2026 release, and the FTA dashboard's
+`inflation` block reports trailing YoY figures, not today's MoM print, and was unchanged from the last
+read) — taken as the user's own verified relay, not independently re-confirmed by this system, logged
+plainly per §9 discipline.
+
+**Live post-CPI market check (this system's own fresh pull, not the stale pre-print notes):**
+SPY $745.38 (-1.0% vs. 2026-11-09 close), QQQ $667.98 (-1.65%), IWM $279.20 (-1.17%), SMH $474.90
+(-2.57%) — a real, broad risk-off reaction consistent with the hot print, deeper than the ~1%
+readings logged an hour earlier this session. Hourly RSI(14): SPY 49.7, QQQ 50.1, IWM 51.7 — all
+neutral, not oversold; the broad market is digesting the print calmly, not breaking down technically.
+**NVDA** is the outlier: $166.69 (-6.7% today, on top of Monday's -4.27% to $178.67 on the board's
+independent-review-into-a-reported-foreign-intelligence-targeting-effort headline the user separately
+shared) — hourly RSI(14) **26.8, genuinely oversold**, a real continuing single-name breakdown, not
+a market-wide one. This NVDA governance item (board opened an independent review; board statement:
+no reason to believe secrets/national security were harmed) is **relayed from the user's own
+screenshot, not independently verified by this system** — a web search for it returned nothing,
+same limitation as the earlier Jensen-Huang-allegation check. Treated as unverified-by-this-system
+context, not confirmed fact, consistent with that earlier finding — though notably a more measured,
+specific claim (a board review) than the "affair" framing from the Nov 9 call, not the same claim.
+
+**Explicit confirmation per the user's own instruction: no blanket veto or automatic trade signal was
+added for a hot CPI print or the implied expected move.** Every existing gate (§5B/Bearish Mirror Gate
+items 2-7, §20 item 5) still applies per-candidate, unchanged — a hot CPI print is, at most, evidence
+feeding the existing Trend/State/Location/Momentum role-groups on whatever candle a future screening
+cycle actually reads (e.g., whether a name reclaims or breaks a level on the post-CPI candle), exactly
+as any other macro print already would be under the existing framework. No new filter, cap, or rule
+was added to CLAUDE.md. Normal Stage-1/Stage-2 screening continues on its existing scheduled cadence
+(next Fresh Candle cycle) — this entry is context/logging only, not a trade or a rule change; no
+order was placed.
