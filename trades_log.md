@@ -67115,3 +67115,46 @@ Stage 2 total: 3 reassessed (near-miss queue) + 9 new rotation names = 12/12, fu
 ```json
 {"cycle": "crypto_24_7", "timestamp_utc": "2026-11-10T16:37:56Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 1, "tvremix_calls_used_today": 28, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+## 2026-11-10T17:04:09Z (9:04am PT / 12:04pm ET) — AUTONOMOUS (Mode B/C Entry Screening — Fresh Candle, trigger trig_01KrBsTt9mssjU4hPGtM3cBe)
+
+**STEP 0 gate check:** §14 Status confirmed **ACTIVE**. No kill phrase found. Proceeding.
+
+**Account**: total_value $5,761.38, cash $5,326.38, options_value $435 (IGV), equity/crypto $0. 0 Mode B/C stock positions, 0 crypto. FTA Regime Dashboard: live, current (generated_at 2026-11-10 12:04 ET) — not UNKNOWN_DEGRADED.
+
+**Mode B equity stop-audit**: 0 open equity positions — nothing to audit. **Mode C stop-audit**: 0 open positions — nothing to audit.
+
+**§18/§19 options stop-check — IGV call, $110 strike, exp 2027-03-19:** mark **$4.35** (updated 17:04:35Z). `new_stop = max($4.08, $4.08, 0.70×~$4.80) = $4.08` (unchanged, position never profitable). **$4.35 > $4.08, not breached.** No action.
+
+**Stage 1 — full-universe triage (74 names)**: 68 ranked, 6 Stage-1-skipped for near-term earnings (ONDS, RGTI, NBIS, CRWV, CBRS, TPST — SE no longer skipped). 68+6=74, full coverage. Top scores unchanged in character from last cycle (TTD 76, AMZN 75, AAPL 69, ZETA 68, DIS 67, AVA 64, DUOL 61, LLY 59, RUN 56, CVX 53, OSCR 52, AMD 52...).
+
+**Near-miss-queue reassessment (2 entries — TEM, IGV; both reassessed, 2 of 12 Stage-2 slots used):**
+- **TEM**: unchanged — item 7 clears both legs (60m `pullback_short` R:R 2.81:1; 1D R:R 1.47:1), but §16 item 2 stop-ceiling still fails both (1D 15.76% away, 60m 6.75% away, both >6%). Same single blocker. cycles_checked → 22.
+- **IGV**: unchanged — bullish leg structurally absent (1D `setup: null`, overextended); bearish leg real but R:R worsened to 0.26:1 (from 0.4:1), still fails. cycles_checked → 18.
+No queue changes this cycle (near_miss_queue.md not modified).
+
+**Stage 2 — 10 new rotation names (CVX, AMD, SHOP, PLTR, SPY, SE, GDX, PURR, NFLX, NVDA — all distinct from the last two cycles' batches):**
+- **CVX**: aligned_bullish but only computable setup (1D `pullback_long`) has R:R 0.57 — fails floor. **Rejected with evidence.**
+- **AMD**: mixed; 1D real `pullback_long` clears R:R (1.45) but stop is **18.87% away — fails the 6% ceiling badly**; 60m contradicts (bearish, no setup). **Rejected with evidence.**
+- **SHOP**: mixed; 1D real `pullback_long` clears R:R (1.43) but stop **17.58% away — fails ceiling**; 60m contradicts (bearish, R:R 0.73 fails too). **Rejected with evidence.**
+- **PLTR**: mixed, no clean setup either direction (60m R:R 0.35 wrong-fit; 1D overextended/null). **Rejected with evidence.**
+- **SPY**: mixed, 1D overextended/null, 60m R:R 0.55 fails. **Rejected with evidence.**
+- **SE**: aligned_bearish but R:R 0.39 fails; checked bearish breakout-continuation (`current_below_min_swing_low`) — false. **Rejected with evidence.**
+- **GDX**: aligned_bearish, only setup (1D) R:R 0.83 — fails floor (consistent with its 2026-11-10T15:05Z invalidation). **Rejected with evidence.**
+- **PURR**: mixed, both legs fail (wrong direction / R:R 0.14). **Rejected with evidence.**
+- **NFLX**: aligned_bearish, 60m real setup R:R 0.31 fails; checked bearish breakout-continuation on 1D — **`current_below_min_swing_low` true (-3.70%), a genuine fresh-low §13.G candidate.** Pulled `get_news` (6 headlines): no real bearish catalyst/headwind found — product-news mix (AI Discover tab launch, Stranger Things prequel, insider-trades roundup) plus one 8-day-old WSJ engagement-focused piece, nothing dated/specific enough to satisfy item 2. **Rejected with evidence — item 2 (catalyst) fails despite the real structural breakdown.**
+- **NVDA**: mixed/contradictory — 1D still labeled bullish (though overextended/null) while 60m shows a fresh low (`current_below_min_swing_low` true, -16.96%); no consistent daily-thesis direction. **Rejected with evidence.**
+
+**§22 full 9-name screen + IWM underlying recheck (mandatory):** same structural picture as the 16:04Z cycle — TQQQ/SOXL/SPXL/AMDG: no bullish structure, rejected. SQQQ/SOXS/SPXU: own-chart setups exist but each fails either R:R or the 8% stop-ceiling by a wide margin, rejected. TNA: wrong-direction setup, R:R 0.8, rejected. **TZA**: own-chart 60m setup still clears both R:R (1.43) and the ceiling (7.24%) — re-checked the required IWM underlying leg fresh this cycle: **IWM's 1D is still aligned_bullish, now with an even cleaner `pullback_long` setup (R:R 2.31:1)** — the bearish-thesis leg still fails outright. **Rejected with evidence.** §22 coverage: 9/9 + underlying check, complete.
+
+**Mode C**: 0 open positions, no qualifying VWAP-pullback/ORB/mean-reversion setup from this cycle's data. **OBSERVE, no trade.**
+
+**Circuit breakers**: same-day stop-out cluster — 1 today (PATH), under threshold. No market-shock/reconciliation breaker active. **Portfolio heat cap**: no new entry to size — moot; existing IGV risk (~$72, ~1.25% of equity) unchanged.
+
+**tvremix usage:** `calls_made_this_cycle: 5` (`rank_symbol_setups` ×1, `analyze_structure_batch` ×3 [12-name Stage-2, 9-name §22, 1-name IWM recheck], `get_news` ×1). Today's running total: 28 (prior, through the 16:37:56Z crypto cycle) + 5 = **33**.
+
+**Status: 0 new entries, no options stop-out, near-miss queue unchanged, §22 fully rejected again.**
+
+```json
+{"cycle": "mode_b_c_entry_screening", "timestamp_utc": "2026-11-10T17:04:09Z", "coverage_state": "EVALUATED", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 1, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 74, "full_gate_evaluated": 12, "rejected_with_evidence": 10, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 2, "cleared": 0, "still_near_miss": 2, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved, not a trade (see 2026-11-04 entry)"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 9, "not_evaluated": [], "coverage_complete": true}, "calls_made_this_cycle": 5, "tvremix_calls_used_today": 33, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
