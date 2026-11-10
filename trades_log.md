@@ -66077,3 +66077,58 @@ Outcome: DATA_BLOCKED cycle — tvremix rate-limited both attempts, all 8 pairs 
 ```
 
 Outcome: DATA_BLOCKED cycle (2nd consecutive) — tvremix rate-limited again on both attempts. Position management unaffected. Watching for recovery or the 6-cycle alert threshold.
+
+## 2026-11-10T00:38:35Z — AUTONOMOUS (Crypto 24/7 Scan, trigger trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0 gate check:** §14 Status: ACTIVE confirmed. No kill phrase. Proceeding.
+
+**Account (••••8058):** `get_portfolio` — total_value $5,822.98, equity_value $1,542.24 (PATH), options_value $468 (IGV, stop pending next-session CONFIRM ORDER). `get_crypto_positions`: **0 open crypto positions.**
+
+**Circuit breakers:** 0 stop-outs today. Market-shock — post-market SPY $753.37→$752.98 (-0.05%), QQQ $679.78→$679.37 (-0.06%) — not triggered.
+
+**Portfolio heat cap:** 0 crypto positions; PATH ≈$26 open risk. Full headroom.
+
+**Existing position management:** 0 open positions. Stop-audit: checked 0, missing 0, placed 0.
+
+**Near-miss queue:** Crypto (§21) table confirmed empty. 0 reassessed.
+
+**Full-allowlist screen — RECOVERED this cycle.** `analyze_structure_batch` succeeded on attempt 1, returned real 240/60 structure data with fresh bar timestamps (latest_bar_time 1794268800 ≈ 2026-11-10T00:00Z, within the current session) and correct interval fields — passes both recovery-verification criteria. `tvremix_consecutive_failed_cycles` reset 2→**0**.
+
+- **BTC** — aligned_bearish both TF. 60m `pullback_short` R:R 1.13:1; 240 `setup: null`. **Rejected — long-only policy.**
+- **ETH** — aligned_bearish both TF. 60m `pullback_short` R:R 0.52:1; 240 `setup: null`. **Rejected — same.**
+- **SOL** — aligned_bearish both TF (240 strong). 60m `pullback_short` R:R 0.36:1; 240 `setup: null`. **Rejected — same.**
+- **XRP** — aligned_bearish both TF. 60m `pullback_short` R:R 0.25:1; 240 `setup: null`. **Rejected — same.**
+- **LINK** — aligned_bearish both TF. 60m `pullback_short` R:R 1.31:1; 240 `pullback_short` R:R 0.1:1. **Rejected — long-only policy.**
+- **AAVE** — aligned_bearish both TF. 60m `pullback_short` R:R 1.93:1 (close to tool's own 2.0 threshold, strongest read); 240 `pullback_short` R:R 1.36:1. **Rejected — long-only policy, not executable regardless of R:R strength.**
+- **HBAR** — aligned_bearish both TF. 60m `pullback_short` R:R 0.96:1; 240 `setup: null`. **Rejected — same.**
+- **AVAX** — aligned_bearish both TF. 60m `setup: null`; 240 `pullback_short` R:R 0.92:1. **Rejected — same.**
+
+**Per-symbol labeling:** 8/8 rejected with evidence, 0 cleared, 0 not-evaluated, 0 tool failures. Full coverage.
+
+**No candidate cleared — entire allowlist remains aligned_bearish.** No order placed, no Trade Card. 73rd consecutive no-trade crypto cycle (DATA_BLOCKED cycles don't count toward this tally).
+
+**tvremix usage (new UTC day, counter reset):** `calls_made_this_cycle: 1`. Today's (2026-11-10) running total: **1**.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-11-10T00:38:35Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 1, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 1,
+  "tvremix_calls_used_today": 1,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "success"
+}
+```
+
+Outcome: No trade this cycle. tvremix recovered after 2 DATA_BLOCKED cycles — full coverage restored. Entire allowlist remains aligned_bearish, no long-only structure available. AAVE's 60m R:R 1.93:1 is the strongest short-biased read but not executable under spot long-only policy.
