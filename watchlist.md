@@ -17,6 +17,42 @@ AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, 
 IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA, CORZ, CAI, AMDG, SE,
 SPCX, LLY, XLI
 
+**Note on prioritizing IGV/HOOD/SOFI (2026-11-10):** user asked to prioritize independent evaluation
+of these three on normal scan cycles, after sharing a "Monday Q&A + Charts - November 09" investment-
+group call transcript — **context per §9, never a signal**; the call's trade framing (call spreads,
+specific price levels, a Jensen Huang/Chinese-spy allegation) carries no weight here and was not
+copied into any gate check. Independently re-verified same day via fresh `analyze_structure_batch`
+(1D/60), `get_news`, the LUC Buy Zones sheet, and live option chains/quotes — not the call's own
+numbers:
+- **IGV**: mixed consensus (1D bullish but overextended, `setup: null`, no computable stop; 60m
+  bearish real setup but R:R 0.16:1, far below the 1.3:1 floor). Not LUC-covered. Already tracked in
+  `near_miss_queue.md` (both legs blocked) and as this account's one open position (§18-provisional,
+  2027-03-19 $110 call, stop $4.08 vs. mark $4.35, not breached).
+- **HOOD**: mixed consensus (60m bearish strong, real setup R:R 0.98:1 — fails floor; 1D bullish
+  moderate but overextended, no computable stop). LUC not color-confirmed (sheet text has no cell
+  colors; price-threshold inference only, not relied on). Catalyst mixed, not clean: a real dated
+  legal/regulatory headwind (California court curbing Kalshi sports contracts, 2026-11-09) alongside
+  positive expansion news (UK IPO access, 2026-11-10) — net ambiguous, not a clearing catalyst either
+  way. Option economics checked for completeness (12/18 exp, 38 DTE, fits §18): $90C delta 0.34,
+  mark $3.45, OI 4,238 (liquid); $95C delta 0.25, mark $2.24, OI 3,921. Liquidity is real but moot —
+  no qualifying technical/catalyst clear exists to size a trade against.
+- **SOFI**: aligned_bearish structurally (both legs), but no bearish catalyst survives independent
+  checking — ARK bought $6.8M of SOFI same day (2026-11-10), Truist raised its PT to $17 (2026-11-03,
+  still Hold), Q3 revenue/EPS both rose — same invalidation basis already logged 2026-11-04 ("no
+  bearish catalyst remains on file"). R:R also fails outright on both legs (0.35:1/0.55:1). $19C
+  (12/18 exp) delta 0.17 (below the ~0.20 floor), mark $0.22, OI 14,898 — liquid and cheap, but moot
+  for the same reason.
+
+**None of the three clears any current CLAUDE.md gate for a real trade as of this check** — logged
+as a prioritized re-evaluation, not a trade. §19 LEAPS (no hourly trigger required) was not a live
+alternative for any of the three this cycle either, since IGV/HOOD/SOFI's blockers are catalyst/R:R-
+level, not a missing hourly trigger. **Explicitly not adopted from the source call**: call spreads
+(multi-leg, banned outright, §2/§18), DLLL (leveraged Dell ETF, not on the §22 allowlist, stays
+excluded), and IREN using 2028+ LEAPS (outside §19's 9-12-month DTE window) — all research-only per
+the user's own instruction, no CLAUDE.md change made or needed since each was already out of scope
+under existing rules. No price level from the call was copied into any gate check; no new hard
+filter was added; no trade was forced.
+
 **Note on XLI:** added 2026-11-03 per explicit user instruction. Confirmed via
 `get_equity_tradability`: **XLI** = State Street Industrial Select Sector SPDR ETF — active,
 tradeable, individual-account tradable, fractional-tradable. Non-leveraged sector ETF, matches
