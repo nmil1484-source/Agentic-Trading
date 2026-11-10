@@ -67196,3 +67196,47 @@ as any other macro print already would be under the existing framework. No new f
 was added to CLAUDE.md. Normal Stage-1/Stage-2 screening continues on its existing scheduled cadence
 (next Fresh Candle cycle) — this entry is context/logging only, not a trade or a rule change; no
 order was placed.
+
+## 2026-11-10T17:42:34Z — AUTONOMOUS (Crypto 24/7 Scan, trigger trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0 gate check:** §14 Status confirmed **ACTIVE**. No kill phrase found. Proceeding.
+
+**Account**: 0 crypto positions (`get_crypto_positions`, confirmed fresh this cycle) — nothing to
+stop-audit, nothing to manage.
+
+**Cross-mode circuit breakers**: same-day stop-out cluster — 1 today (PATH, Mode B), under the
+2-stop-out threshold. Market-shock: SPY $745.38 (vs. $747.15 at the 16:37:56Z cycle, -0.24%), QQQ
+$667.98 (vs. $672.10, -0.61%) — neither exceeds 1.5% cycle-over-cycle, no shock pause.
+
+**Full-allowlist structure check — DATA_BLOCKED this cycle.** Both of this cycle's 2 permitted
+`analyze_structure_batch` attempts (all 8 COINBASE:*USD pairs × 240/60) failed: **"Error POSTing to
+endpoint: Too Many Requests"** on both tries, no partial data returned. Per the Outage-reporting
+section, this is a genuine `DATA_BLOCKED` cycle, not an ordinary no-setup OBSERVE — every allowlisted
+pair is labeled **NOT_EVALUATED — tool failure (rate-limited, 2/2 attempts)**, none logged as
+rejected. `tvremix_consecutive_failed_cycles`: **1** (first DATA_BLOCKED cycle today — every prior
+cycle today returned real data).
+
+**Budget-tracking gap found and flagged, not papered over:** reconstructing today's actual tvremix
+usage to understand this rate-limit (not required by protocol, done because the failure prompted a
+closer look) surfaced two real gaps in this session's own self-correcting counter: (1) the
+2026-11-10T16:04:24Z Mode B/C cycle's fenced JSON omitted the `calls_made_this_cycle` field entirely
+(6 calls were made and stated in that cycle's narrative text, but never written into the JSON the
+counter actually sums); (2) a user-requested ad hoc IGV/HOOD/SOFI evaluation at ~17:3x UTC made 4
+more tvremix calls, logged in `watchlist.md`, not `trades_log.md`, so no JSON block exists for the
+counter to pick up. A script-based sum of today's properly-tagged JSON blocks alone returns 26 —
+the real total, including both gaps above, is closer to **38-42** before this cycle's 2 failed
+attempts (44+ after). This is very plausibly the actual cause of today's rate-limiting, not a random
+outage — logged plainly rather than assumed to be transient. No further retries spent chasing this;
+position management is unaffected regardless (0 crypto positions to manage).
+
+**Near-miss queue (Crypto, §21)**: empty, nothing to reassess (unreachable this cycle regardless,
+since reassessment relies on the same blocked batch call).
+
+**Portfolio heat cap**: no new entry pending — moot.
+
+**Status: DATA_BLOCKED, 0 crypto positions, 0 orders, first consecutive failed cycle today (below
+the 6-cycle alert threshold — no chat alert this cycle).**
+
+```json
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-11-10T17:42:34Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "DATA_BLOCKED", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "BTC", "reason": "tool failure - rate limited 2/2"}, {"symbol": "ETH", "reason": "tool failure - rate limited 2/2"}, {"symbol": "SOL", "reason": "tool failure - rate limited 2/2"}, {"symbol": "XRP", "reason": "tool failure - rate limited 2/2"}, {"symbol": "LINK", "reason": "tool failure - rate limited 2/2"}, {"symbol": "AAVE", "reason": "tool failure - rate limited 2/2"}, {"symbol": "HBAR", "reason": "tool failure - rate limited 2/2"}, {"symbol": "AVAX", "reason": "tool failure - rate limited 2/2"}], "tool_failures": 8}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 1, "calls_made_this_cycle": 2, "tvremix_calls_used_today": "unreliable - see narrative gap note, true total likely 38-44+", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
