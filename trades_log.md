@@ -67598,3 +67598,13 @@ rest of today.
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-11-10T23:38:11Z — AUTONOMOUS (Crypto 24/7 Scan)
+
+§14 ACTIVE, no kill phrase. 0 crypto positions, nothing to manage/audit. Same-day cooldown still active (~22min to UTC rollover). `analyze_structure_batch` 2/2 attempts failed — **DATA_BLOCKED, 7th consecutive cycle**. Below next alert threshold (reached at 6, next at 18). No orders.
+
+```json
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-11-10T23:38:11Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "DATA_BLOCKED", "circuit_breakers_active": ["same_day_stop_out_cooldown"], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "BTC", "reason": "tool failure - rate limited 2/2"}, {"symbol": "ETH", "reason": "tool failure - rate limited 2/2"}, {"symbol": "SOL", "reason": "tool failure - rate limited 2/2"}, {"symbol": "XRP", "reason": "tool failure - rate limited 2/2"}, {"symbol": "LINK", "reason": "tool failure - rate limited 2/2"}, {"symbol": "AAVE", "reason": "tool failure - rate limited 2/2"}, {"symbol": "HBAR", "reason": "tool failure - rate limited 2/2"}, {"symbol": "AVAX", "reason": "tool failure - rate limited 2/2"}], "tool_failures": 8}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 7, "calls_made_this_cycle": 2, "tvremix_calls_used_today": "unreliable, see 17:42:34Z gap note", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
