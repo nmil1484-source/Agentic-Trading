@@ -67701,3 +67701,34 @@ rest of today.
 ```json
 {"cycle": "crypto_24_7", "timestamp_utc": "2026-11-11T05:37:57Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "DATA_BLOCKED", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "BTC", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "ETH", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "SOL", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "XRP", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "LINK", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "AAVE", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "HBAR", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "AVAX", "reason": "tool failure - Trading_View MCP server disconnected"}], "tool_failures": 8}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 13, "calls_made_this_cycle": 1, "tvremix_calls_used_today": "n/a - server disconnected", "migration_status": "TRADING_VIEW_2 pipeline built/tested read-only; live-trigger wiring blocked pending call-budget decision (see chat)", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+## 2026-11-11T06:58:00Z — AUTONOMOUS (Crypto 24/7 Scan) — FIRST REAL CYCLE UNDER TRADING_VIEW_2 PIPELINE
+
+§14 ACTIVE, no kill phrase. 0 crypto positions, nothing to manage/audit (stop_audit: 0 checked, 0 missing). No circuit breaker active (0 stop-outs today, SPY/QQQ check inapplicable outside equity hours). Heat cap 0% used, full headroom. Near-miss queue (crypto table) empty — 0 reassessed.
+
+**TRADING_VIEW_2 pipeline fully exercised for the first time with real data: Stage A (1 call, 8/8 pairs, no missing) + Stage B (16 calls, 8 pairs x {4h,1h}, all succeeded).** Interval strings used: `"4h"`/`"1h"` (the documented canonical values, not a numeric-minutes alias — confirmed via live comparison this session that `"240"`/`"60"` return identical bars, but the canonical strings are used going forward per the corrected trigger prompt). No tool failures. `tv_structure.py`'s completed_bars/ema/rsi14/macd/atr14/volume_baseline_13h/swing_points/pullback_depth/validate_stop_distance pipeline run against all 16 series.
+
+**Recovery verification: PASSED.** Both criteria met — (a) every response's own `interval` field matched what was requested (no silent fallback); (b) freshness check against the expected latest completed candle: last 4h bar t=1794369600 vs now=1794378893 (diff 9293s, within the 2x14400=28800s bound), last 1h bar t=1794376800 (diff 2093s, within 2x3600=7200s bound). `tvremix_consecutive_failed_cycles` **reset to 0** (was 13).
+
+**Per-pair result — all 8 REJECTED, none qualify for a long entry.** §21 is spot-only, long-only; a bearish/short structural read is never an executable candidate here (standing 2026-11-04 correction). Every pair's 4H trend read bearish except AVAX (bullish but no structure):
+
+| Pair | 4H trend | 4H RSI | 1H trend | 1H RSI | pullback_long found? | breakout past confirmed high? | Verdict |
+|---|---|---|---|---|---|---|---|
+| BTC | bearish | 38.4 | bearish | 48.8 | no | no | REJECTED — no 4H setup |
+| ETH | bearish | 33.2 | bearish | 49.0 | no | no | REJECTED — no 4H setup |
+| SOL | bearish | 32.8 | bearish | 44.3 | no | no | REJECTED — no 4H setup |
+| XRP | bearish | 31.4 | bearish | 45.5 | no | no | REJECTED — no 4H setup |
+| LINK | bearish | 41.9 | bearish | 50.6 | no | no | REJECTED — no 4H setup |
+| AAVE | bearish | 42.4 | bearish | 44.7 | no | no | REJECTED — no 4H setup |
+| HBAR | bearish | 43.3 | bearish | 45.0 | no | no | REJECTED — no 4H setup |
+| AVAX | **bullish** | 52.5 | **bullish** | 58.7 | no | no (8.445 < confirmed high 9.16) | REJECTED — no 4H setup |
+
+For every pair, both the pullback-structure check (`pullback_depth()`) AND the breakout/retest fallback (`swing_points()` confirmed-high comparison, the fix applied earlier this cycle) were checked before concluding "no 4H setup" — neither method found a qualifying long structure on any pair. No candidate reached the confirmation-count, R:R, or stop-distance-validation steps, since none cleared the setup gate first. Market context: every pair down double digits over the lookback window (BTC -9.5%, ETH -12.8%, SOL -19.3%, XRP -20.3%, LINK -13.0%, AAVE -8.3%, HBAR -12.9%) — a broad selloff, consistent with the universal bearish read.
+
+**MIGRATION DRY-RUN HOLD**: still present in the trigger prompt (persistent, not self-releasing). Did not block anything this cycle — no candidate qualified regardless. `migration_dry_run: true`.
+
+No orders placed. No exits (0 positions). No near-miss-queue changes.
+
+```json
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-11-11T06:58:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 17, "migration_dry_run": true, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
