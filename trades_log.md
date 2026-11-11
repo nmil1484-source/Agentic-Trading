@@ -67732,3 +67732,34 @@ No orders placed. No exits (0 positions). No near-miss-queue changes.
 ```json
 {"cycle": "crypto_24_7", "timestamp_utc": "2026-11-11T06:58:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 17, "migration_dry_run": true, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-11T07:37:59Z — AUTONOMOUS (Crypto 24/7 Scan, real scheduled fire) — analysis completed ~08:15Z after two session worker restarts mid-cycle
+
+§14 ACTIVE, no kill phrase. 0 crypto positions, nothing to manage/audit (stop_audit: 0 checked, 0 missing). No circuit breaker active (0 stop-outs today). Heat cap 0% used, full headroom. Near-miss queue (crypto table) empty — 0 reassessed. Account confirmed live mid-analysis via a fresh `get_accounts`/`get_portfolio` re-check (equity $5,686.33, 100% cash, 0 positions) after the second restart, since real time had elapsed.
+
+**Data gathered twice this cycle** (once right after the 07:37:59Z fire, again after the restarts, since ~36 minutes had elapsed and a stale read would violate the freshness check) — this entry reports the second, fresher pull. Stage A: 1 batch call, 8/8 pairs. Stage B: fresh 4H pulls for all 8 pairs plus a full 60-bar 4H+1H pull for AVAX specifically (the only pair showing any bullish lean in Stage A). Freshness verified computationally: last 4H/1H bars at t=1794384000 (08:00:00Z) were still forming (904s old, correctly dropped per `completed_bars()`); last genuinely completed bars (4H t=1794369600, 1H t=1794380400) are both well within the 2×interval freshness bound (905s and 4504s respectively, vs. 28800s/7200s bounds) — data is current, not stale, not a holiday/outage artifact.
+
+**Per-pair result — all 8 still REJECTED, none qualify for a long entry:**
+
+| Pair | 4H trend (MARating) | 4H RSI | 4H MACD vs signal | Verdict |
+|---|---|---|---|---|
+| BTC | StrongSell | 42.4 | macd -653.77 > signal -670.74 (flipped bullish since the 07:40Z read, was -711/-678 bearish then) | REJECTED — momentum crossover noted (flagging for next cycle, not ignored per §13.I) but RSI still <45 and no fresh 1H-trigger pull this cycle to independently confirm; insufficient evidence to qualify |
+| ETH | StrongSell | 35.1 | macd -47.99 < signal -46.78 (bearish) | REJECTED — Momentum and Trend/State role-groups both fail on actual computed values, not just the aggregate label |
+| SOL | StrongSell | 32.9 | macd -1.92 < signal -1.80 (bearish) | REJECTED — same, both role-groups fail |
+| XRP | StrongSell | 32.2 | macd -0.0341 > signal -0.0348 (marginal) | REJECTED — RSI 32.2 well below 45; marginal MACD improvement doesn't independently clear Momentum given RSI |
+| LINK | StrongSell | 42.1 | macd -0.140 < signal -0.136 (bearish) | REJECTED — both role-groups fail |
+| AAVE | StrongSell | 40.1 | macd -1.820 < signal -1.261 (bearish) | REJECTED — both role-groups fail |
+| HBAR | StrongSell | 42.5 | macd ≈ signal (flat/bearish) | REJECTED — no role-group clears |
+| AVAX | StrongBuy (4H+1H) | 57.5 (4H) / 67.3 (1H) | bullish, improving | REJECTED — no 4H setup: last completed 4H close 8.584, still below both the recent intermediate high (8.997, Oct 31) and the broader confirmed swing high (9.16, Oct 29) — recovering from the 8.211 (Nov 1) pullback low but has not yet reclaimed either level. `pullback_depth()`/breakout-retest both checked; neither confirms yet. Closest candidate this cycle, not a pass. |
+
+For every pair, both the pullback-structure check and the breakout/retest fallback were considered, and role-groups were checked against actual computed RSI/MACD/ADX values (per §13.I) rather than trusting the aggregate MARating label alone — BTC's and XRP's marginal MACD-crossover readings were surfaced explicitly rather than silently folded into a blanket "StrongSell → reject."
+
+**MIGRATION DRY-RUN HOLD**: still present in the trigger prompt (persistent, user-confirmed not to auto-release). Did not block anything this cycle — no candidate qualified regardless. `migration_dry_run: true`.
+
+No orders placed. No exits (0 positions). No near-miss-queue changes.
+
+```json
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-11-11T07:37:59Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 10, "migration_dry_run": true, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending", "note": "analysis delayed past the 07:37:59Z fire by two session-worker restarts; freshness independently re-verified before concluding, see narrative"}
+```
