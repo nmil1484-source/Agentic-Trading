@@ -599,6 +599,34 @@ def reconcile_vertical_spread_positions(recorded: dict, positions: Sequence[dict
             "long_leg": long_leg, "short_leg": short_leg, "unrecognized_positions": unrecognized}
 
 
+def _leg_fill_balance(legs, tolerance: float = 1e-9):
+    """
+    Given a multi-leg order's per-leg fill data (a list of dicts, each with a
+    total `quantity` and a `filled_quantity` — or `quantity_filled`, either
+    key name accepted), determine whether every leg filled in the SAME
+    proportion of its own quantity (a balanced partial fill of the paired
+    strategy — fewer complete spreads filled, not an unpaired leg) versus a
+    genuinely uneven fill across legs (demonstrated legging risk).
+
+    Returns "balanced_partial", "imbalanced", or None when the supplied data
+    is insufficient to tell either way (no legs, or any leg missing a usable
+    quantity/filled_quantity, or a zero/negative quantity) — None is the
+    honest answer in that case, never a guess in either direction.
+    """
+    if not legs:
+        return None
+    ratios = []
+    for leg in legs:
+        qty = leg.get("quantity")
+        filled = leg.get("filled_quantity", leg.get("quantity_filled"))
+        if qty is None or filled is None or qty <= 0:
+            return None
+        ratios.append(filled / qty)
+    if max(ratios) - min(ratios) <= tolerance:
+        return "balanced_partial"
+    return "imbalanced"
+
+
 def classify_multileg_order_state(order: dict) -> dict:
     """
     Classifies a multi-leg option order's broker-reported `state` (the field
@@ -610,28 +638,48 @@ def classify_multileg_order_state(order: dict) -> dict:
     as independently-timed orders — but the broker's own documented state enum
     still includes `partially_filled` as a possible outcome for ANY option
     order, multi-leg included, and nothing in the tool schema states multi-leg
-    orders are exempt from it or guaranteed to fill/cancel atomically. This
-    function does not assume legging risk is fully eliminated just because the
-    order was submitted as one native multi-leg request — `partially_filled`
-    must always be checked and reconciled before trusting the position to match
-    what the order was supposed to open.
+    orders are exempt from it or guaranteed to fill/cancel atomically.
 
-    Returns {"state", "legging_risk_materialized", "note"}.
+    **Corrected 2026-11-11 (see CLAUDE.md §12 change log — a focused external
+    review of CLAUDE.md/this module caught that the prior version asserted
+    `legging_risk_materialized: True` from the bare `partially_filled` state
+    string alone.** That state is consistent with two different real
+    outcomes — fewer complete paired spreads filled (a balanced partial fill
+    of the strategy, no leg imbalance at all) or a genuine per-leg imbalance
+    (real legging risk) — and the enum value by itself does not distinguish
+    them. This function now only asserts `legging_risk_materialized: True`
+    when per-leg fill-quantity data (`order["legs"]`, each with `quantity`
+    and `filled_quantity`/`quantity_filled`) is actually supplied and shows a
+    real imbalance across legs. When `partially_filled` is reported with no
+    such per-leg data, or with per-leg data that is itself incomplete, the
+    balance is `"unknown_pending_reconciliation"` and
+    `legging_risk_materialized` is `None` — never asserted either way from
+    the state string alone. A balanced partial fill, once actually
+    demonstrated, is explicitly not treated as legging risk.
+
+    Returns {"state", "legging_risk_materialized", "leg_fill_balance", "note"}.
     """
     state = order.get("state")
     if state == "filled":
-        return {"state": state, "legging_risk_materialized": False,
+        return {"state": state, "legging_risk_materialized": False, "leg_fill_balance": "full",
                 "note": "fully filled — reconcile against positions to confirm, never assume from order state alone"}
     if state == "partially_filled":
-        return {"state": state, "legging_risk_materialized": True,
-                "note": "one or more legs filled and at least one did not — this is exactly the legging-risk scenario a native multi-leg order is meant to avoid structurally; the documented order-state enum shows it is still possible, so this must be manually reconciled against real positions (reconcile_vertical_spread_positions) rather than assumed to self-resolve or auto-cancel"}
+        balance = _leg_fill_balance(order.get("legs"))
+        if balance == "balanced_partial":
+            return {"state": state, "legging_risk_materialized": False, "leg_fill_balance": "balanced_partial",
+                    "note": "per-leg fill data supplied and shows every leg filled the same proportion of its own quantity — fewer complete paired spreads filled, not an unpaired leg; this is NOT legging risk. Still reconcile against real positions (reconcile_vertical_spread_positions) before trusting it, never assumed from this classification alone."}
+        if balance == "imbalanced":
+            return {"state": state, "legging_risk_materialized": True, "leg_fill_balance": "imbalanced",
+                    "note": "per-leg fill data supplied and shows a genuine, demonstrated imbalance across legs — this is exactly the legging-risk scenario a native multi-leg order is meant to avoid structurally, now actually observed. Reconcile immediately against real positions (reconcile_vertical_spread_positions)."}
+        return {"state": state, "legging_risk_materialized": None, "leg_fill_balance": "unknown_pending_reconciliation",
+                "note": "partially_filled alone does not establish whether legs filled proportionally (a balanced partial strategy fill) or unevenly (genuine legging risk) — no usable per-leg fill-quantity data was supplied this call (pass order['legs'], each with quantity and filled_quantity, to resolve this). Treat balance as unknown and reconcile against real positions (reconcile_vertical_spread_positions/get_option_positions) before concluding either way — never assert legging risk from the state string alone."}
     if state in ("queued", "confirmed"):
-        return {"state": state, "legging_risk_materialized": False,
+        return {"state": state, "legging_risk_materialized": False, "leg_fill_balance": "not_applicable",
                 "note": "not yet executed — no position exists from this order yet"}
     if state in ("rejected", "cancelled", "failed", "voided", "pending_cancelled"):
-        return {"state": state, "legging_risk_materialized": False,
+        return {"state": state, "legging_risk_materialized": False, "leg_fill_balance": "not_applicable",
                 "note": "did not execute — no position should exist from this order; verify via reconcile_vertical_spread_positions if in doubt"}
-    return {"state": state, "legging_risk_materialized": None,
+    return {"state": state, "legging_risk_materialized": None, "leg_fill_balance": None,
             "note": f"unrecognized state {state!r} — not one of the documented get_option_orders values, treat as unresolved"}
 
 

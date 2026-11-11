@@ -577,10 +577,44 @@ def test_classify_multileg_order_state_filled():
     print("PASS test_classify_multileg_order_state_filled")
 
 
-def test_classify_multileg_order_state_partially_filled_flags_legging_risk():
+def test_classify_multileg_order_state_partially_filled_without_leg_data_is_unknown():
     r = classify_multileg_order_state({"state": "partially_filled"})
+    assert r["legging_risk_materialized"] is None
+    assert r["leg_fill_balance"] == "unknown_pending_reconciliation"
+    print("PASS test_classify_multileg_order_state_partially_filled_without_leg_data_is_unknown")
+
+
+def test_classify_multileg_order_state_partially_filled_balanced_legs_not_legging_risk():
+    order = {"state": "partially_filled", "legs": [
+        {"quantity": 10, "filled_quantity": 4},
+        {"quantity": 10, "filled_quantity": 4},
+    ]}
+    r = classify_multileg_order_state(order)
+    assert r["legging_risk_materialized"] is False
+    assert r["leg_fill_balance"] == "balanced_partial"
+    print("PASS test_classify_multileg_order_state_partially_filled_balanced_legs_not_legging_risk")
+
+
+def test_classify_multileg_order_state_partially_filled_imbalanced_legs_flags_risk():
+    order = {"state": "partially_filled", "legs": [
+        {"quantity": 10, "filled_quantity": 10},
+        {"quantity": 10, "filled_quantity": 3},
+    ]}
+    r = classify_multileg_order_state(order)
     assert r["legging_risk_materialized"] is True
-    print("PASS test_classify_multileg_order_state_partially_filled_flags_legging_risk")
+    assert r["leg_fill_balance"] == "imbalanced"
+    print("PASS test_classify_multileg_order_state_partially_filled_imbalanced_legs_flags_risk")
+
+
+def test_classify_multileg_order_state_partially_filled_incomplete_leg_data_is_unknown():
+    order = {"state": "partially_filled", "legs": [
+        {"quantity": 10, "filled_quantity": 4},
+        {"quantity": 10},
+    ]}
+    r = classify_multileg_order_state(order)
+    assert r["legging_risk_materialized"] is None
+    assert r["leg_fill_balance"] == "unknown_pending_reconciliation"
+    print("PASS test_classify_multileg_order_state_partially_filled_incomplete_leg_data_is_unknown")
 
 
 def test_classify_multileg_order_state_not_yet_executed():

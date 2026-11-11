@@ -1151,6 +1151,30 @@ was moved — it was already written as a dated log; this makes its non-operativ
 rather than merely implied.
 
 ## 12. Change log
+- **2026-11-11 (later same day, after the options/LEAPS coverage repair below): correction from a
+  focused external review of this document ("CLAUDE(2).md") — `classify_multileg_order_state()`
+  previously asserted `legging_risk_materialized: True` from the bare `partially_filled` order
+  state alone. The review's point: that state is consistent with two different real outcomes —
+  fewer complete paired spreads filled (a balanced partial fill of the strategy, no leg imbalance
+  at all) or a genuine per-leg imbalance — and the enum value by itself does not establish either,
+  so asserting `True` from the state string overstated what was actually known.** Fixed in
+  `dev_scanner/tv_structure.py`: the function now reads optional per-leg fill-quantity data
+  (`order["legs"]`, each with `quantity` and `filled_quantity`) when supplied — proportional fills
+  across every leg classify as `leg_fill_balance: "balanced_partial"`,
+  `legging_risk_materialized: False`; a demonstrated mismatch classifies as `"imbalanced"`,
+  `legging_risk_materialized: True`. With `partially_filled` reported but no usable per-leg data,
+  the result is `"unknown_pending_reconciliation"` / `legging_risk_materialized: None` — explicitly
+  unresolved, never asserted either way from the state string by itself. §24 item 6/item 7 updated
+  to match. `python3 -I dev_scanner/test_tv_structure.py` run and verified **76/76 passing** (73
+  before this pass + 3 new tests: no-leg-data-is-unknown, balanced-legs-not-legging-risk,
+  imbalanced-legs-flags-risk). **No existing risk cap, position cap, R:R floor, gate, account
+  permission, or §24 item 7's NOT PASSED status was changed by this entry — this is a correction
+  to a code-level classification helper's accuracy, not a policy change.** No orders placed, no
+  real multi-leg order ever placed or observed — the function's accuracy against a genuine
+  partial-fill event remains unverified either way until one actually occurs, same limitation as
+  before this fix. The external review flagged three further corrections beyond this one
+  ("Four material spread corrections," items 2-4) that were not included in the message received —
+  apply them once supplied.
 - **2026-11-11 (later same day): options/LEAPS scheduled research-coverage repair, plus
   continued §24 vertical-debit-spread validation and scanner wiring — user instructed
   "Repair their scheduled research coverage: reserve a bounded screening budget and persist
@@ -5461,19 +5485,30 @@ design does not use this instrument.
      expiration) is designed to close every position well before `sellout_datetime` could matter, so
      the practical exposure is already minimized regardless — but the mechanics should still be
      confirmed, not assumed, before this item is marked passed.
-   - **Partial/failed multi-leg order handling — classification logic now built and offline-tested
+   - **Partial/failed multi-leg order handling — classification logic built and offline-tested
      against the documented order-state enum; still not observed on a real multi-leg order, because
      none has ever been placed.** `get_option_orders`' own documented `state` enum
      (queued/confirmed/**partially_filled**/filled/rejected/cancelled/failed/voided/pending_cancelled)
      explicitly includes `partially_filled` as a possible outcome, with nothing in any schema
      reviewed stating multi-leg orders are exempt from it or guaranteed to fill atomically — **a
      native multi-leg order reduces legging risk by removing independently-timed submission, but the
-     documented state enum does not prove it eliminates partial fills.** `tv_structure.py`'s new
-     `classify_multileg_order_state()` (added 2026-11-11) reads an order's `state` and explicitly
-     flags `partially_filled` as `legging_risk_materialized: True` — requiring reconciliation against
-     real positions (`reconcile_vertical_spread_positions()`) rather than being assumed to self-
-     resolve. Verified via 4 offline tests covering every documented state value. **Still cannot be
-     fully verified without observing a real multi-leg order's actual lifecycle**, which requires
+     documented state enum does not prove it eliminates partial fills.** `tv_structure.py`'s
+     `classify_multileg_order_state()` (added 2026-11-11) reads an order's `state`. **Corrected
+     2026-11-11, later the same day (see §12 change log — caught by a focused external review of
+     this document): the original version asserted `legging_risk_materialized: True` from the bare
+     `partially_filled` state string alone — that state is consistent with two different real
+     outcomes (fewer complete paired spreads filled, a balanced partial fill with no leg imbalance
+     at all, versus a genuine per-leg imbalance) and the enum value alone does not establish
+     either.** The function now checks actual per-leg fill-quantity data (`order["legs"]`, each
+     with `quantity` and `filled_quantity`) when supplied: proportional fills across every leg
+     classify as `leg_fill_balance: "balanced_partial"`, `legging_risk_materialized: False` (not
+     legging risk); a real, demonstrated mismatch classifies as `"imbalanced"`,
+     `legging_risk_materialized: True`. With `partially_filled` reported but no usable per-leg data
+     supplied, the result is `leg_fill_balance: "unknown_pending_reconciliation"`,
+     `legging_risk_materialized: None` — explicitly unresolved, never asserted either way from the
+     state string by itself. Verified via 7 offline tests (4 original state-value tests + 3 new:
+     no-leg-data/balanced/imbalanced). **Still cannot be fully verified without observing a real
+     multi-leg order's actual lifecycle**, which requires
      placing one — exactly why this lane stays non-executable until a deliberate, disclosed first
      real test is proposed and separately approved, not inferred from documentation or offline tests
      alone. **Modification path confirmed 2026-11-11 (development/read-only): despite
@@ -5505,9 +5540,10 @@ design does not use this instrument.
      `sellout_time_to_expiration` confirm an automated pre-expiration force-close mechanism exists);
      **its exact per-leg behavior on an open spread remains unresearched** (item 6).
    - [ ] Partial/failed multi-leg order handling — **classification logic built and tested 2026-11-11
-     against the documented `partially_filled` state value; never observed on a real multi-leg
-     order** (item 6).
-   **Status as of 2026-11-11 (second pass): still NOT PASSED — 3 of 8 checks fully complete**, but
+     against the documented `partially_filled` state value, corrected the same day to determine
+     leg-fill balance from actual per-leg data rather than asserting legging risk from the state
+     string alone (see item 6); never observed on a real multi-leg order** (item 6).
+   **Status as of 2026-11-11 (third pass): still NOT PASSED — 3 of 8 checks fully complete**, but
    every remaining item now has real documentation, tested logic, or both, where the first pass
    (same date, earlier) left several flatly "undocumented"/"not built." This lane remains
    research/paper-only. Do not place a live spread order, and do not treat a future cycle's silence
