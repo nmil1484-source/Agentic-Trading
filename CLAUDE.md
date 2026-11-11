@@ -29,7 +29,11 @@ parallel source of current authority, per Conflict Resolution item 3 below.
 - **Status: LIVE.** Mode B (SWING_TRADING) AUTONOMOUS_EXECUTE is ACTIVE (§14). Mode C
   (DAY_TRADING) has live autonomous authority from its own activation (§20). Mode A
   (CORE_LUC_ACCUMULATION) is research/alert-only — **no execution authority of any kind**, in
-  this chat or autonomously, unless separately authorized in its own right (§2/§5A).
+  this chat or autonomously, unless separately authorized in its own right (§2/§5A). **Mode B
+  vertical debit spreads (§24, added 2026-11-11) are approved policy but research/paper-only —
+  no live order of any kind until the connector-capability verification gate in §24 item 7 is
+  explicitly passed and logged**, same research-before-execution posture as Mode A, for this one
+  narrow instrument only.
 - **Permitted account:** Agentic Account only — `account_number`/`rhs_account_number` 748688058
   (masked ••••8058). The retail account (657237533, masked ••••7533) is permanently excluded —
   never accessed, never traded, no exception (§1).
@@ -45,6 +49,7 @@ parallel source of current authority, per Conflict Resolution item 3 below.
   | Fractional entries | No | **Permitted, Tier-B pilots only** (§15) | No | §15's own LUC GREEN/WHITE-gated mechanism, scoped to Tier-B only — does not apply to ordinary whole-share Mode B | Same pool as equities |
   | Options — single-leg long calls/puts, 21-75 DTE | No | **Permitted** (§18) | No | Underlying must independently clear §5B (call) or the Bearish Mirror Gate (put) in full | Any ticker in the equities candidate pool once it clears the applicable gate — no narrower options-only sub-list (confirmed 2026-10-29) |
   | LEAPS — single-leg long calls/puts, 9-12mo DTE | No | **Permitted** (§19) | No | §19's own longer-horizon research gate (durable multi-quarter thesis, weekly/daily structure) — **does not require §5B's hourly execution trigger**, which §19 item 2 explicitly states is unnecessary for a 9-12 month hold | Same pool, assessed independently of whether the name is a live §5B swing candidate today |
+  | Vertical debit spreads — bull call / bear put only, 2 legs/same underlying+expiration/equal quantity/net debit, 21-75 DTE | No | **Approved policy, research/paper-only** — no live order until §24 item 7's connector-capability verification gate passes (§24) | No | Underlying must independently clear §5B (bull call) or the Bearish Mirror Gate (bear put) in full, same as §18 — no relaxation | Same pool as §18 options |
   | Leveraged/inverse ETFs | No | **Permitted, named allowlist only** (§22) | No | Leveraged-long: ordinary §5B bullish gate, read on the ETF's own chart. Inverse/bear: bearish thesis established on the **underlying index** via the Bearish Mirror Gate, entry timed and sized using a **bullish** technical read on the **inverse ETF's own chart** (§22 item 2 — see the directional note there) | **Named allowlist only**: TQQQ, SQQQ, SOXL, SOXS, SPXL, SPXU, TNA, TZA, AMDG (converted 2026-10-29 from the original full-unlock design) |
   | Crypto (spot, long-only) | No | No (separate lane, not a Mode B/C position) | N/A — own dedicated 24/7 lane under §21, not Mode B or C | §21 item 3: catalyst/RS driver + ≥1 of 6 confirmations + 4H-setup-plus-1H-trigger, driven by chart/technical analysis, not catalyst-only or sentiment-only (affirmed 2026-10-29) | **Named allowlist only**: BTC, ETH, SOL, XRP, LINK, AAVE, HBAR, AVAX |
 
@@ -61,8 +66,13 @@ parallel source of current authority, per Conflict Resolution item 3 below.
   entry); fractional limit orders only under the Tier-B pilot exception (§15); `stop_market`/
   `stop_limit` sell orders for protective stops (equities, Mode C, crypto); single-leg options
   limit orders, buy-to-open/sell-to-close only (§18/§19); crypto market/limit buy orders plus
-  `stop_loss`-type protective sells (§21). **Never:** multi-leg/spread orders, naked options,
-  short sales, margin orders of any kind.
+  `stop_loss`-type protective sells (§21). **Two-leg vertical debit spreads — bull call or bear
+  put only, same underlying/expiration, equal quantity, net debit, native paired-leg limit orders
+  only (never legged in as two independent single-leg orders) — approved policy but
+  research/paper-only until §24 item 7's capability verification gate passes (§24, added
+  2026-11-11).** **Never, under any instrument or mode:** naked options, credit spreads, ratio
+  spreads, calendar spreads, iron condors, or any other multi-leg structure beyond the one named
+  vertical-debit-spread exception above; short sales; margin orders of any kind.
 - **Current risk limits — authoritative; mode sections must match these numbers, not restate their
   own.** Reward-to-risk floors are intentionally **not** flattened to one number — each is its own
   canonical value, computed on its own basis, and a trade that clears its R:R floor still must
@@ -101,22 +111,31 @@ parallel source of current authority, per Conflict Resolution item 3 below.
     8%-max stop distance (computed on the ETF's own price/ATR, never the underlying index's),
     2-concurrent-position cap, **R:R ≥1.3:1** (same equity-thesis basis as ordinary Mode B,
     computed on the ETF's own price action).
+  - **§24 Mode B vertical debit spreads (bull call / bear put, 21-75 DTE) — approved policy,
+    research/paper-only until capability-verified (§24 item 7):** reuses §18's existing numbers
+    rather than introducing new ones — 12%-of-equity cap on max modeled loss (= net debit ×
+    contract multiplier × quantity + fees, counted in full, never reduced by an assumed stop or
+    by current moneyness), **R:R ≥1.5:1 computed on the spread's own economics** ((width − net
+    debit) / net debit), same basis as §18. The full max-loss figure counts toward both the
+    position-size cap and the §3 portfolio heat cap for as long as the position is open.
 - **Stop-audit scope (§7 below):** the resting-order audit (`get_equity_orders`) covers Mode B/C
   **stocks and ETFs, including §22 leveraged/inverse ETFs** — it is never the mechanism used to
   "protect" an options or LEAPS position, which has its own daily/weekly mark-vs-computed-stop
   check (§18 item 4 / §19 item 3, formulas below), nor a crypto position, which uses
   `get_crypto_orders` (§21 item 5). See the Universal Safety Kernel and §16/§18/§19/§20/§21 for
   the full mechanics; this bullet exists only to keep the three audits from being conflated.
-- **Policy version/date:** EP-v2.1, 2026-11-03 — bumped from EP-v2.0 (2026-11-02) because this
-  pass fixes one previously-PENDING number (Mode C's daily-entry maximum, resolved to 8 at the
-  user's explicit choice — see the 2026-11-03 §12 change-log entry); every other number in this
-  block is unchanged from EP-v2.0. EP-v2.0 itself restructured this block from a non-authoritative
-  "snapshot" into the authoritative source; corrected several mode-section restatements that had
-  drifted from the numbers already live here (stale DTE/confirmation-count/cap/R:R references in
-  §2, §6, §14, §18, §19, §22 — see §12 Policy Reconciliation entry for the full list); no risk
-  percentage, asset permission, or automatic-recovery choice was changed in that pass. Bump this
-  marker every time a future change edits a number here — and edit the corresponding mode section
-  in the same pass, per the authority rule above.
+- **Policy version/date:** EP-v2.2, 2026-11-11 — bumped from EP-v2.1 (2026-11-03) because this
+  pass adds the new §24 Vertical Debit Spread Policy (Mode B) and its matrix row/order-type/risk
+  bullets above, at the user's explicit, narrowly-scoped approval. **No existing number was
+  changed** — every pre-existing risk percentage, cap, floor, gate, account-firewall rule, and
+  circuit breaker is untouched; §24 reuses §18's existing 12%-of-equity cap and ≥1.5:1 R:R floor
+  rather than introducing new figures, and the new lane is explicitly research/paper-only (no live
+  order authority) until §24 item 7's connector-capability verification gate passes. EP-v2.1
+  (2026-11-03) fixed Mode C's daily-entry maximum (resolved to 8); EP-v2.0 (2026-11-02) itself
+  restructured this block from a non-authoritative "snapshot" into the authoritative source — see
+  the §12 change log for both. Bump this marker every time a future change edits a number or adds
+  a lane here — and edit the corresponding mode section in the same pass, per the authority rule
+  above.
 
 If any other part of this document appears to conflict with this section, **this section
 controls** — see Conflict Resolution below.
@@ -260,8 +279,14 @@ authoritative scope; this prose explains the mechanics, not a competing list:**
 - Short selling and margin remain fully, permanently prohibited, with no carve-out anywhere in
   this document, for any instrument. **Options themselves are no longer a blanket prohibition** —
   see §18 (Options Trading Policy, Mode B), for the narrow, long-calls/puts-only exception. Naked
-  options, 0DTE, spreads, and multi-leg orders remain fully prohibited even under §18 — that
-  exception is scoped strictly to single-leg long calls/puts. **Crypto is no longer a blanket
+  options and 0DTE remain fully prohibited even under §18 — that exception is scoped strictly to
+  single-leg long calls/puts. **Multi-leg orders are no longer a blanket prohibition either, but
+  only for one narrow shape** — see §24 (Vertical Debit Spread Policy, Mode B), for a two-leg
+  bull-call/bear-put vertical debit spread exception, approved policy but research/paper-only
+  until its own connector-capability verification gate passes. Credit spreads, ratio spreads,
+  calendar spreads, iron condors, and every other multi-leg structure remain fully prohibited even
+  under §24 — that exception is scoped strictly to the two named vertical-debit-spread shapes.
+  **Crypto is no longer a blanket
   prohibition either** — see §21 (Crypto Trading Policy), for the narrow, named-allowlist,
   spot-only exception. Perpetuals, crypto leverage, crypto options, margin/borrowed-funds crypto
   positions, and any coin not on §21's named list remain fully prohibited even under §21.
@@ -844,6 +869,15 @@ Every proposal must be presented before any confirmation request:
   initial floor or has ratcheted to the 40%-trailing level; the 90-day-before-expiration
   reassessment date; and the §19 item 2 research-gate evidence (regime context, catalyst/thesis
   with URL and date, weekly/daily structure) in place of §5B's hourly-trigger field.
+- **For §24 vertical debit spread entries/exits (2026-11-11), also include:**
+  `VERTICAL_DEBIT_SPREAD` tag; spread type (bull call / bear put); both strikes (long and short)
+  and expiration/DTE at entry; net debit paid per spread and total; spread width; max modeled loss
+  in dollars (= net debit × multiplier × quantity + fees — the full figure, never reduced by an
+  assumed stop); breakeven price; reward-to-risk on the spread's own economics; and the same
+  daily-setup/hourly-trigger/catalyst/sector-theme fields required for an equity Mode B entry,
+  since the underlying still has to clear §5B/the Bearish Mirror Gate in full. **Research/paper
+  evaluations under §24 (before the capability-verification gate passes) use this same format,
+  explicitly labeled `PAPER — NOT EXECUTED` rather than a live fill.**
 - **For §20 Mode C day-trading entries/exits (2026-08-25), also include:** `DAY_TRADING` tag;
   which setup fired (VWAP-pullback / ORB / mean-reversion, hourly-adapted per §20); the ATR(14)
   value used and the computed stop distance; current running daily P&L (realized + open
@@ -1088,6 +1122,47 @@ was moved — it was already written as a dated log; this makes its non-operativ
 rather than merely implied.
 
 ## 12. Change log
+- **2026-11-11: User approved a narrow policy amendment permitting Mode B vertical debit spreads
+  (bull call / bear put only, two legs, same underlying/expiration, equal quantity, net debit),
+  explicitly keeping naked options, credit spreads, ratio spreads, calendars, and every other
+  multi-leg structure prohibited, and explicitly scoping this as research/paper-only until
+  connector capability is verified — no live order, no activation change, no risk-number change,
+  and no trigger/cron change authorized by this entry.** New §24 (Vertical Debit Spread Policy,
+  Mode B); Effective Policy block updated in the same pass (Status bullet, permissions matrix new
+  row, permitted-order-types bullet, a new risk-limits bullet reusing §18's existing 12%-of-equity
+  cap and ≥1.5:1 R:R floor rather than inventing new numbers, EP-v2.1→EP-v2.2 version bump); §2's
+  instrument-rules prose updated to carve out this one shape from the multi-leg prohibition while
+  reaffirming every other multi-leg structure stays banned; §7's Trade Card format extended with a
+  `VERTICAL_DEBIT_SPREAD`/`PAPER — NOT EXECUTED` field set. **No existing numeric risk cap,
+  position cap, R:R floor, confirmation count, account-firewall rule, or circuit breaker was
+  changed** — §24 deliberately reuses §18's existing premium-cap and R:R numbers rather than
+  setting new ones, per the user's own "preserve existing... numeric risk caps" instruction.
+  **Risk computation, the substantive new mechanic**: max modeled loss = net debit × contract
+  multiplier (100) × quantity + fees, counted in full toward per-trade risk and the §3 portfolio
+  heat cap for as long as the position is open — explicitly never reduced by an assumed stop
+  (a debit spread has no stop mechanism) and never reduced by current moneyness the way a
+  stop-based position's heat contribution drops to $0 at breakeven-or-better; round down to whole
+  spreads, skip (NO_TRADE) if even one spread's max loss exceeds the applicable cap. Implemented
+  as four new real, tested functions in `dev_scanner/tv_structure.py`
+  (`validate_vertical_spread`, `vertical_spread_max_loss`, `vertical_spread_risk_reward`,
+  `vertical_spread_position_size`) with 9 new offline tests — `python3 -I
+  dev_scanner/test_tv_structure.py` run and verified 48/48 passing (39 pre-existing + 9 new) before
+  this entry was logged. **Capability verification gate (§24 item 7) — 3 of 8 checks passed as of
+  this entry, lane remains NOT PASSED / research-paper-only:** verified live this date (read-only;
+  `get_accounts` plus one `review_option_order` simulate call, no order placed, no broker setting
+  touched) that the Agentic Account (••••8058) already carries `option_level_3` on a
+  `limited_margin` (non-cash) account, and that `place_option_order`/`review_option_order` natively
+  accept a 2-leg vertical-spread `legs` array with a single net debit/credit price and a single
+  combined review/alert — a real 2-leg SPY bull-call-spread preview (12/18 expiration, long
+  690c/short 700c) returned a clean combined result with no error. **Not yet verified, left as
+  open items for a future pass**: native paired-leg exit (documented in the tool's own guidance,
+  never live-tested — no spread position has ever been opened to close), reliable two-legs-into-
+  one-spread position reconciliation (`get_option_positions` returns independent single-leg
+  positions, not a combined spread object — this system's own matching logic, not yet built or
+  tested), assignment handling, expiration handling, and partial/failed multi-leg order handling
+  (none of the last three are documented anywhere in the tool schemas reviewed). **No trigger
+  prompt was modified to screen for or execute this lane** — wiring it into a live autonomous cycle
+  is explicitly deferred to a separate future step, itself gated on item 7 passing in full.
 - **2026-11-06 (later same day): User instructed adding AI-financing/credit exposure as a soft
   research-context factor in scheduled scans, after sharing dated (November 5) research notes
   about AI-infrastructure financing risk and flagging that those notes' CoreWeave CDS figure
@@ -4981,3 +5056,189 @@ noise. This is the exact failure mode a trade-count lock exists to prevent.
 5. **Change control:** any change to this section's own mechanics (the 30/20-trade thresholds,
    what counts as "locked") requires explicit user instruction and a dated §12 change-log entry,
    same as every other section.
+
+## 24. Vertical Debit Spread Policy (Mode B)
+Added 2026-11-11 at explicit user instruction — a narrow carve-out of the multi-leg/spread
+prohibition restated throughout §2 and the Universal Safety Kernel's order-type list, same
+structural pattern as §18 (options)/§19 (LEAPS)/§21 (crypto)/§22 (leveraged/inverse ETFs): a
+scoped exception, not a general unlock. **Approved as policy now; live order authority is
+explicitly NOT granted by this section** — item 7 below is a hard gate that must pass, and be
+logged as passed, before any live spread order is placed. Until then this lane is
+**research/paper-only**: Mode B may evaluate and log candidate spreads exactly as if trading them,
+tagged `PAPER — NOT EXECUTED`, but `place_option_order` must never be called for a multi-leg
+request under this section until item 7 is satisfied. Scoped to Mode B only — Mode A remains
+research/alert-only with no order authority of any kind, and Mode C's single-session day-trading
+design does not use this instrument.
+
+1. **Permitted instrument — two shapes only, strictly defined:**
+   - **Bull call spread**: long one call (lower strike) + short one call (higher strike), same
+     underlying, same expiration, equal quantity both legs, net debit paid.
+   - **Bear put spread**: long one put (higher strike) + short one put (lower strike), same
+     underlying, same expiration, equal quantity both legs, net debit paid.
+   Both legs open together as one native multi-leg order (item 6) — never submitted as two
+   independent single-leg orders ("legging in"), which would reintroduce exactly the execution
+   risk (one leg fills, the other doesn't, at an uncontrolled net cost) a paired order exists to
+   avoid. **Never permitted under this section, with no exception:** a net credit (a credit spread
+   of any kind), unequal leg quantities (a ratio spread), different expirations on the two legs (a
+   calendar/diagonal), three or four legs (an iron condor or any other combination), or a naked
+   single leg. §18/§19's existing single-leg long call/put lane is unaffected and continues to
+   operate exactly as before — this section adds a second, narrower options lane alongside it, not
+   a replacement.
+
+2. **Underlying gate — unchanged, no relaxation.** A bull call spread requires the underlying to
+   independently clear the full §5B Swing Entry Gate (catalyst/relative-strength driver, ≥1 of 5
+   confirmation role-groups, daily-chart setup plus hourly execution trigger, outside the §4 timing
+   windows); a bear put spread requires the full Bearish Mirror Gate, same items, bearish-signed.
+   Exactly the same test §18 item 2 already requires for a single-leg call/put — this section adds
+   no new or weaker underlying test.
+
+3. **Expiration window — reuses §18's existing window, not a new number.** 21-75 DTE at entry, same
+   expiration for both legs (a vertical by definition requires this). No separate time-stop backstop
+   number is introduced here; item 5's time-stop below reuses §18 item 4's existing 5-trading-
+   session-before-expiration backstop.
+
+4. **Risk computation — the core of this amendment, stated precisely because a debit spread has no
+   stop-loss mechanism at all:**
+   - **Max modeled loss = net debit × contract multiplier (100) × quantity, plus fees.** This is
+     the full, fixed, contractual worst case of the position by construction — it does not change
+     based on how far the underlying moves, and it is never assumed to be smaller because of some
+     notional "stop" (there is no resting order that can cap a debit spread's loss below the debit
+     already paid; closing early realizes whatever the spread's current value is, which is a
+     separate, ordinary exit decision, not a stop mechanism).
+   - **This full amount counts in full toward per-trade risk and the §3 portfolio heat cap, for as
+     long as the position stays open** — unlike a stop-based Mode B/§18/§20/§21/§22 position, which
+     contributes $0 to heat once moved to breakeven-or-better (§3's existing rule), a vertical debit
+     spread's heat contribution is NOT reduced by current profitability. The position's real
+     remaining downside is always "give back the rest of the debit," which stays the same dollar
+     figure regardless of today's mark — so unlike those stop-based lanes, nothing here is ever
+     reduced to $0 before the position is actually closed. Flag this distinction explicitly on the
+     Trade Card and in any heat-cap computation so it is never mistaken for an oversight relative to
+     how §16/§18/§20/§21/§22 treat heat.
+   - **Position-size cap: 12%-of-equity on the max modeled loss** — reusing §18 item 5's existing
+     premium cap number exactly, applied to net debit (the spread's "premium paid") instead of a
+     single leg's premium. No new percentage is introduced.
+   - **Reward-to-risk floor: ≥1.5:1, computed on the spread's own economics** —
+     (spread width − net debit) / net debit — same flat floor and same option-economics basis §18
+     item 2 already uses, not the underlying's raw price action.
+   - **Round down to whole spreads.** If even one spread's max modeled loss exceeds the 12%
+     position-size cap, the remaining portfolio-heat headroom, or any other applicable dollar cap,
+     **skip the trade — classify NO_TRADE.** Never widen the debit, never substitute a partial/
+     fractional spread, and never round up to force a fit, same discipline as every other sizing
+     rule in this document.
+   - Use `dev_scanner/tv_structure.py`'s `validate_vertical_spread()` (structural check: correct
+     strike ordering for the chosen shape, a genuine debit strictly less than the spread width),
+     `vertical_spread_max_loss()`, `vertical_spread_risk_reward()`, and
+     `vertical_spread_position_size()` (rounds down, returns `None`/NO_TRADE the moment one spread
+     exceeds the risk budget) — real, tested functions, not hand computation. Verified via
+     `python3 -I dev_scanner/test_tv_structure.py` (48/48 passing as of 2026-11-11, including 9 new
+     tests covering both spread shapes, the credit/oversized-debit rejection, the full-debit max-loss
+     computation, the R:R formula, and the round-down/skip sizing behavior).
+
+5. **Exit mechanics.** No resting stop order exists for a debit spread (there is nothing to rest —
+   see item 4). Position management is an active decision each cycle: close the full spread (both
+   legs together, item 6) on a documented technical invalidation of the original underlying thesis,
+   at the §18 item 4-equivalent 5-trading-session-before-expiration time-stop backstop, or on a
+   discretionary profit-take once a meaningful fraction of max profit is captured (no new numeric
+   profit-take rule is introduced here; log the reasoning on the Trade Card same as any other
+   discretionary exit). No averaging down, ever, same principle as everywhere else in this
+   document.
+
+6. **Order mechanics — native paired-leg only, verified against the actual Robinhood Agentic MCP
+   tool schema on 2026-11-11, not assumed:**
+   - `place_option_order`/`review_option_order` both natively accept a `legs` array (1-4 legs, each
+     a distinct contract on the same underlying, filled together as one strategy at a single net
+     price) and an explicit `direction` ('debit'/'credit') for 2+ legs — a vertical spread is one of
+     the layouts the tool's own documentation names directly. **Live-tested this date (simulate
+     only, no order placed, no broker-setting change):** a real 2-leg SPY bull-call-spread preview
+     (`review_option_order`, buy-to-open the lower strike / sell-to-open the higher strike, same
+     2026-12-18 expiration, `direction: "debit"`) returned a clean combined result — both legs'
+     individual quotes/greeks, a single aggregated fee total, and one `order_checks` alert for the
+     whole strategy (not per-leg) — confirming the connector genuinely handles this as one paired
+     structure, not two independent legs bolted together after the fact.
+   - **Account prerequisite, verified live 2026-11-11:** the Agentic Account (••••8058) carries
+     `option_level: option_level_3` and `type: limited_margin` (not `cash`) — both required by the
+     tool's own documented restriction ("multi-leg is not available on cash or retirement accounts");
+     this account already qualifies, no account-setting change needed or made.
+   - **Entry**: one `place_option_order` call, two legs, both `position_effect: "open"`, opposite
+     `side`, `direction: "debit"`, a single net limit `price`, `type: "limit"` (multi-leg supports
+     limit only — confirmed in the tool's own schema). Never two separate single-leg
+     `place_option_order` calls for the two legs of one spread.
+   - **Exit**: one order closing both legs together — both legs' `position_effect: "close"`, side
+     reversed from the opening leg (documented directly in the tool's own leg-layout guidance,
+     "to close a long use sell; to close a short use buy"). **Not yet live-tested** (there is no
+     open spread position to close while this lane has placed zero live orders) — treat as
+     documented-but-unverified until the first real spread is actually opened and closed under this
+     policy; re-confirm at that time rather than assuming the documented path behaves exactly as
+     described.
+   - **Position reconciliation — a real, documented gap, not assumed solved:** `get_option_positions`
+     returns each leg as its own independent long/short position; the tool does not return a
+     single combined "spread" object. Reconciling two single-leg positions into one logical spread
+     position (matching same underlying + same expiration + opposite type-or-side + equal quantity)
+     is this system's own responsibility, not something the connector does automatically. Any
+     capability-verification pass under item 7 below must include confirming this matching logic
+     works correctly against real position data before the lane goes live — a mismatch here would
+     let a spread's two legs be mistaken for two unrelated single-leg positions (or vice versa),
+     corrupting the heat-cap and position-count accounting in either direction.
+   - **Assignment handling — undocumented in the tool schema, flagged as an open item, not
+     resolved by this entry.** Early-assignment risk exists only on the short leg; because the long
+     leg of the same expiration can offset it (exercise the long leg to resolve), the position's
+     worst case stays bounded at the original max loss even through an assignment event — but the
+     *mechanics* of how Robinhood Agentic actually surfaces or auto-handles an assignment on an
+     agent-held short leg are not described anywhere in the tool schemas reviewed for this entry.
+     Must be researched (Robinhood's own documentation, or a controlled real test once live) and
+     documented here before item 7 can be marked passed.
+   - **Expiration handling — undocumented in the tool schema, flagged as an open item, not resolved
+     by this entry.** How an in-the-money long or short leg is auto-exercised/auto-assigned at
+     expiration, versus requiring an explicit close beforehand, is not described in the schemas
+     reviewed. Must be researched and documented before item 7 can be marked passed — in practice,
+     this section's own item 5 time-stop (5 sessions before expiration) is designed to close every
+     position before this question can actually matter, but the mechanics should still be
+     understood and written down, not assumed.
+   - **Partial/failed multi-leg order handling — undocumented in the tool schema, flagged as an open
+     item, not resolved by this entry.** A multi-leg order is limit-only, which structurally rules
+     out two independently-submitted legs filling at different uncontrolled prices (the classic
+     legging-risk failure mode) — but the schema does not explicitly state whether a multi-leg limit
+     order fills all legs atomically or can partially fill one leg without the other. This can only
+     be fully verified by observing a real multi-leg order's lifecycle via `get_option_orders`,
+     which requires actually placing one — exactly why this lane stays non-executable until a
+     deliberate, disclosed first real test is proposed and separately approved, not inferred from
+     documentation alone.
+
+7. **Connector-capability verification gate — EXECUTABLE status blocked until this item is marked
+   passed, in writing, in this document, via a dated §12 entry:**
+   - [x] Native paired-leg entry structurally supported — verified 2026-11-11 (item 6).
+   - [x] Spread-level quote/review supported — verified 2026-11-11, live `review_option_order` test
+     (item 6).
+   - [x] Account prerequisites met (`option_level_3`, non-cash account) — verified 2026-11-11
+     (item 6).
+   - [ ] Native paired-leg exit — documented, **not yet live-tested** (item 6).
+   - [ ] Reliable position reconciliation (two legs → one logical spread) — **gap identified, no
+     reconciliation logic built or tested yet** (item 6).
+   - [ ] Assignment handling — **undocumented, not yet researched** (item 6).
+   - [ ] Expiration handling — **undocumented, not yet researched** (item 6).
+   - [ ] Partial/failed multi-leg order handling — **undocumented, cannot be fully verified without
+     a live order** (item 6).
+   **Status as of 2026-11-11: NOT PASSED — 3 of 8 checks complete.** This lane remains
+   research/paper-only. Do not place a live spread order, and do not treat a future cycle's silence
+   on this gate as implicit permission — the gate must be explicitly marked passed here, with a
+   dated §12 entry, before `place_option_order` may ever be called with a multi-leg `legs` array
+   under this section.
+
+8. **Capacity and correlation.** An open vertical debit spread counts as one ordinary Mode B
+   position against the 15-position cap and the 3-per-theme correlation cap (§5B, same as §18),
+   combined with equities/single-leg options/LEAPS, not in addition to them. Max modeled loss
+   counts against the 90% total-deployed ceiling (§3/§14 item 2) exactly like any other position's
+   cost basis.
+
+9. **Every spread entry/exit requires a full Trade Card** per §7's vertical-debit-spread fields,
+   and a `trades_log.md` entry tagged `VERTICAL_DEBIT_SPREAD` (or `PAPER — NOT EXECUTED` while
+   research/paper-only), same discipline as every other instrument in this document.
+
+10. **No orders, activation changes, risk-number changes, or cron/trigger changes were made by the
+    act of adding this section** — per the user's own explicit scope for this approval. No autonomous
+    trigger prompt currently screens for or executes a vertical spread; wiring this lane into a live
+    trigger is a separate, future step that itself requires item 7 to pass first.
+
+11. **Change control:** any change to this section's own numbers, permitted shapes, or the item 7
+    gate's pass/fail status requires explicit user instruction and a dated §12 change-log entry,
+    same as every other section.

@@ -349,6 +349,84 @@ def allocate_scan_budget(
     }
 
 
+def validate_vertical_spread(
+    spread_type: str,
+    long_strike: float,
+    short_strike: float,
+    net_debit: float,
+) -> dict:
+    """
+    Structural validation for a two-leg vertical debit spread (CLAUDE.md §24) —
+    bull call (long lower strike call + short higher strike call) or bear put
+    (long higher strike put + short lower strike put), same underlying/expiration,
+    equal quantity both legs, net debit only. Never a credit spread, ratio spread,
+    calendar, or any other multi-leg structure — those stay prohibited regardless
+    of what this function returns; it only validates the two permitted shapes.
+
+    Returns {"valid", "reason" (None if valid), "width", "max_loss_per_spread",
+    "max_profit_per_spread"} — width/max_loss/max_profit are per single spread
+    unit; the caller applies the contract multiplier and quantity separately via
+    vertical_spread_max_loss()/vertical_spread_position_size().
+    """
+    if spread_type not in ("bull_call", "bear_put"):
+        return {"valid": False, "reason": f"unsupported spread_type {spread_type!r} — only bull_call/bear_put permitted",
+                "width": None, "max_loss_per_spread": None, "max_profit_per_spread": None}
+    if spread_type == "bull_call" and not (long_strike < short_strike):
+        return {"valid": False, "reason": "bull call spread requires long_strike < short_strike",
+                "width": None, "max_loss_per_spread": None, "max_profit_per_spread": None}
+    if spread_type == "bear_put" and not (long_strike > short_strike):
+        return {"valid": False, "reason": "bear put spread requires long_strike > short_strike",
+                "width": None, "max_loss_per_spread": None, "max_profit_per_spread": None}
+    width = abs(long_strike - short_strike)
+    if not (0 < net_debit < width):
+        return {"valid": False,
+                "reason": f"net_debit must be a positive debit strictly less than the spread width ({width}) — got {net_debit}",
+                "width": width, "max_loss_per_spread": None, "max_profit_per_spread": None}
+    return {
+        "valid": True,
+        "reason": None,
+        "width": width,
+        "max_loss_per_spread": net_debit,
+        "max_profit_per_spread": width - net_debit,
+    }
+
+
+def vertical_spread_max_loss(net_debit: float, quantity: int, multiplier: float = 100.0, fees: float = 0.0) -> float:
+    """
+    §24 risk computation: the full contractual max loss, counted in full toward
+    per-trade risk (§16 item 2 analog) and the §3 portfolio heat cap — never
+    reduced by an assumed stop or by current moneyness. A debit spread has no
+    stop mechanism; its worst case is always the full net debit paid, for as long
+    as the position is open, regardless of today's mark-to-market P&L.
+    """
+    return net_debit * multiplier * quantity + fees
+
+
+def vertical_spread_risk_reward(net_debit: float, width: float) -> Optional[float]:
+    """R:R computed on the spread's own economics: (width - net_debit) / net_debit."""
+    if net_debit <= 0:
+        return None
+    reward = width - net_debit
+    if reward <= 0:
+        return None
+    return reward / net_debit
+
+
+def vertical_spread_position_size(risk_dollars: float, net_debit: float, multiplier: float = 100.0) -> Optional[int]:
+    """
+    Whole spreads only, rounded down. Returns None (NO_TRADE) the moment even one
+    spread's max loss (net_debit * multiplier) exceeds risk_dollars — never widen
+    the debit, never substitute a fractional spread, never round up.
+    """
+    if net_debit <= 0:
+        return None
+    per_spread_loss = net_debit * multiplier
+    if per_spread_loss <= 0:
+        return None
+    qty = int(risk_dollars // per_spread_loss)
+    return qty if qty >= 1 else None
+
+
 def position_size(risk_dollars: float, entry: float, stop: float, direction: str) -> Optional[float]:
     """
     Refuses (returns None) on a backwards stop rather than sizing via abs() — the

@@ -25,6 +25,10 @@ from dev_scanner.tv_structure import (
     rsi14,
     swing_points,
     validate_stop_distance,
+    validate_vertical_spread,
+    vertical_spread_max_loss,
+    vertical_spread_position_size,
+    vertical_spread_risk_reward,
     volume_baseline_13h,
 )
 
@@ -358,6 +362,73 @@ def test_allocate_scan_budget_etf_coverage_preserved_even_when_budget_cannot_cov
     assert r["mode_b_calls"] == 0
     assert r["mode_b_deferred"] is True
     print("PASS test_allocate_scan_budget_etf_coverage_preserved_even_when_budget_cannot_cover_mode_c")
+
+
+def test_validate_vertical_spread_bull_call_valid():
+    r = validate_vertical_spread("bull_call", long_strike=100, short_strike=105, net_debit=2.00)
+    assert r["valid"] is True and r["width"] == 5 and r["max_loss_per_spread"] == 2.00 and r["max_profit_per_spread"] == 3.00
+    print("PASS test_validate_vertical_spread_bull_call_valid")
+
+
+def test_validate_vertical_spread_bear_put_valid():
+    r = validate_vertical_spread("bear_put", long_strike=105, short_strike=100, net_debit=1.50)
+    assert r["valid"] is True and r["width"] == 5 and r["max_loss_per_spread"] == 1.50 and r["max_profit_per_spread"] == 3.50
+    print("PASS test_validate_vertical_spread_bear_put_valid")
+
+
+def test_validate_vertical_spread_rejects_wrong_strike_order():
+    # bull call with long strike ABOVE short strike is structurally invalid, not a bear put
+    r = validate_vertical_spread("bull_call", long_strike=105, short_strike=100, net_debit=2.00)
+    assert r["valid"] is False and "long_strike < short_strike" in r["reason"]
+    print("PASS test_validate_vertical_spread_rejects_wrong_strike_order")
+
+
+def test_validate_vertical_spread_rejects_credit_or_oversized_debit():
+    # net_debit <= 0 (a credit, never permitted) and net_debit >= width (impossible/mispriced)
+    credit = validate_vertical_spread("bull_call", long_strike=100, short_strike=105, net_debit=-0.50)
+    oversized = validate_vertical_spread("bull_call", long_strike=100, short_strike=105, net_debit=5.00)
+    assert credit["valid"] is False and oversized["valid"] is False
+    print("PASS test_validate_vertical_spread_rejects_credit_or_oversized_debit")
+
+
+def test_validate_vertical_spread_rejects_other_strategies():
+    r = validate_vertical_spread("calendar", long_strike=100, short_strike=100, net_debit=1.00)
+    assert r["valid"] is False and "only bull_call/bear_put permitted" in r["reason"]
+    print("PASS test_validate_vertical_spread_rejects_other_strategies")
+
+
+def test_vertical_spread_max_loss_counts_full_debit_never_assumes_a_stop():
+    # $2.00 net debit x 100 multiplier x 3 spreads + $1.20 fees = $601.20, full stop
+    loss = vertical_spread_max_loss(net_debit=2.00, quantity=3, fees=1.20)
+    assert loss == 601.20
+    print("PASS test_vertical_spread_max_loss_counts_full_debit_never_assumes_a_stop")
+
+
+def test_vertical_spread_risk_reward_matches_structural_economics():
+    # width 5, debit 2.00 -> reward 3.00 / risk 2.00 = 1.5:1, exactly clears the §18-basis floor
+    rr = vertical_spread_risk_reward(net_debit=2.00, width=5.00)
+    assert rr == 1.5
+    print("PASS test_vertical_spread_risk_reward_matches_structural_economics")
+
+
+def test_vertical_spread_risk_reward_none_on_non_debit():
+    assert vertical_spread_risk_reward(net_debit=0, width=5.00) is None
+    assert vertical_spread_risk_reward(net_debit=-1.00, width=5.00) is None
+    print("PASS test_vertical_spread_risk_reward_none_on_non_debit")
+
+
+def test_vertical_spread_position_size_rounds_down_whole_spreads():
+    # $500 risk budget / ($2.00 debit x 100) = 2.5 -> rounds down to 2, never up
+    qty = vertical_spread_position_size(risk_dollars=500, net_debit=2.00)
+    assert qty == 2
+    print("PASS test_vertical_spread_position_size_rounds_down_whole_spreads")
+
+
+def test_vertical_spread_position_size_skips_when_one_spread_exceeds_cap():
+    # even 1 spread ($2.00 x 100 = $200) exceeds a $150 risk budget -> NO_TRADE, never forced to 1
+    qty = vertical_spread_position_size(risk_dollars=150, net_debit=2.00)
+    assert qty is None
+    print("PASS test_vertical_spread_position_size_skips_when_one_spread_exceeds_cap")
 
 
 _ALL_TESTS = [v for k, v in list(globals().items()) if k.startswith("test_")]
