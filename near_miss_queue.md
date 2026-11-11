@@ -183,7 +183,28 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| HBAR | Crypto (§21), spot long | **Reassessed 2026-11-11T22:37:49Z — item 4 (R:R) actually CLEARED for the first time this cycle, but item 7 (1H execution trigger) now fails instead — a different blocker, not a clearance.** Fresh completed bars (4H t=1794412800 close 0.0664; 1H t=1794430800 close 0.06595). Item 3: Momentum confirms via MACD-improving (4H RSI14 44.90 still <45 alone, but macd −0.00050 > signal −0.00059; 1H RSI14 58.10, macd>signal); Volume confirms (4H last-bar vol 11,595,958 vs. 3-bar baseline 9,022,183 = 1.285x); Location confirms (50.0%-depth 4H pullback). **Item 4 (R:R), computed via `dev_scanner/tv_structure.py` on the real defensible 4H swing-low stop (0.06501, `needs_structural_justification: false`)**: entry 0.06595, target 0.06792 (1.5×ATR4H) → **R:R = 2.09:1 — clears the 1.5:1 floor for the first time.** **But item 7 fails on fresh evidence**: the last completed 1H bar (t=1794430800, close 0.06595) closed *below* the prior confirmed 1H swing low (`swing_points()` reports `current_below_prior_swing_low: true`, prior_swing_low 0.06607) — a live breakdown, not a bullish reclaim trigger. The still-forming 1H bar and this cycle's own Stage A snapshot (RSI|60 42.08, down from the completed-bar RSI14 58.10 computed one bar earlier) both show price continuing to fall in real time. A 4H pullback setup requires a genuine 1H *reclaim* trigger for a long entry (§21 item 3's daily/4H-setup-plus-1H-trigger structure) — an active breakdown through the 1H swing low is the opposite signal, not a qualifying trigger. **No order placed, still a near-miss — failed item now 7, not 4.** | Items 1/2/3/6 clear; item 4 (R:R) now clears (2.09:1) for the first time; item 7 (1H trigger) fails — live 1H breakdown below the prior swing low, not a reclaim | 2026-11-11T22:37:49Z (Crypto 24/7 Scan), last completed 4H bar t=1794412800 / 1H bar t=1794430800, via `dev_scanner/tv_structure.py` | 2026-11-11 | 4 | 2026-11-21 |
+
+*(Queue empty as of 2026-11-11T23:37:54Z — see the removal notes below for the two most recent exits.)*
+
+**Removed 2026-11-11T23:37:54Z — HBAR, invalidated (not cleared, not merely still-near-miss).**
+Reassessed on fresh completed bars (4H t=1794412800 close 0.0664, unchanged from the prior cycle;
+1H t=1794434400 close 0.06536, down from 0.06595). The 1H chart now shows a **confirmed completed-
+bar breakdown**, not just a forming-candle wobble: `swing_points()` reports
+`current_below_prior_swing_low: true` with prior_swing_low 0.06607 broken on a completed bar (the
+prior cycle's version of this same signal was only visible in the still-forming bar). 1H RSI14 fell
+to 49.00 (from 58.10) and 1H MACD flipped bearish (macd −0.00004 < signal −0.00002, a fresh
+bearish cross — the prior cycle had this bullish). The 4H completed-bar reading is technically
+unchanged (same last completed bar as last cycle — Momentum/Volume/Location still nominally clear
+on that stale bar), but the practical effect of the price drop is that entry would now sit only
+~0.00035 above the 4H swing-low stop (0.06501) — i.e. a fresh entry would be opened almost directly
+on top of its own invalidation level, which is not a viable trade regardless of what the resulting
+R:R arithmetic says. **Invalidated on a structural basis (confirmed 1H breakdown + entry-collapsed-
+onto-stop), not merely "still short of a numeric floor" — removed from the queue rather than carried
+forward.** No order placed, no new near-miss added in its place this cycle (the other 7 allowlisted
+pairs all rejected cleanly on Stage A). | 1H confirmed breakdown below prior swing low (bearish
+MACD cross, RSI14 1H 49.00 falling); entry has collapsed onto the only defensible 4H stop level |
+2026-11-11T23:37:54Z (Crypto 24/7 Scan), last completed 4H bar t=1794412800 / 1H bar t=1794434400,
+via `dev_scanner/tv_structure.py` | — | 4 (final) | invalidated, not expired |
 
 **Removed 2026-11-11T21:37:41Z — AVAX, cleared into a real live trade (§21, Crypto 24/7 Scan,
 genuine scheduled-trigger authority, `trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv`).** Reassessed on
