@@ -1151,6 +1151,65 @@ was moved — it was already written as a dated log; this makes its non-operativ
 rather than merely implied.
 
 ## 12. Change log
+- **2026-11-11 (later same day): options/LEAPS scheduled research-coverage repair, plus
+  continued §24 vertical-debit-spread validation and scanner wiring — user instructed
+  "Repair their scheduled research coverage: reserve a bounded screening budget and persist
+  unfinished candidates so options/LEAPS sourcing cannot silently disappear behind equity
+  rotation. Log evaluated, rejected, data-blocked and deferred separately. Continue the
+  already-requested debit-spread reconciliation, paired-exit and assignment/expiration/
+  partial-fill validation. Wire its research/paper screening into the scanner, but retain its
+  separate live hold until readiness is established and reviewed... development/read-only
+  validation only, not orders or spread activation."** Explicitly did not repeat the policy
+  audit or ask the user to reauthorize existing single-leg §18/§19 options/LEAPS — their
+  existing authorization, gate, sizing, DTE window, and delta floor are untouched by this entry.
+
+  **1. Options/LEAPS sourcing-coverage repair (§18 item 12, §19 item 8's new cross-reference).**
+  The real gap: §18 item 11/§19 item 8's proactive sourcing had no protected call budget and no
+  persistence, so a tight-budget cycle (equity rotation or the mandatory §22 ETF screen
+  consuming the available TradingView calls) could let options/LEAPS sourcing silently not run
+  at all, with nothing distinguishing that from "evaluated and found wanting." Fixed with two
+  new, tested functions in `dev_scanner/tv_structure.py`: `allocate_scan_budget()` extended with
+  an `options_leaps_calls_needed` reservation ranked ahead of the Mode B equity rotation (after
+  the mandatory §22 ETF screen and Mode C), flagging `options_leaps_deferred` explicitly rather
+  than silently zeroing; `rotate_options_leaps_sourcing_queue()`, a deterministic
+  least-recently-sourced-first rotation mirroring §5B's own equity-rotation discipline, with
+  state now persisted in `near_miss_queue.md`'s new "Options/LEAPS Sourcing Queue" table (seeded
+  empty — every symbol starts unsourced and ranks oldest). A new `validate_options_leaps_
+  sourcing_label()` codifies exactly four non-overlapping labels — evaluated / rejected /
+  data_blocked / deferred — so a tool failure is never logged as a rejection and an unreached
+  rotation slot is never logged as either. `python3 -I dev_scanner/test_tv_structure.py` run and
+  verified **73/73 passing** (69 before this pass + 4 new tests covering the label validator and
+  the rotation function's never-sourced-ranks-oldest, cross-cycle-persistence, and
+  smaller-than-slots behavior). **No gate, R:R floor, confirmation count, position cap, or
+  instrument permission was changed** — this is coverage/accounting only.
+
+  **2. Continued §24 vertical-debit-spread capability research (development/read-only, no real
+  spread opened).** Two concrete findings added to item 6/item 7's checklist, neither closing a
+  gap outright but each removing a specific unknown: (a) `get_alerts`/`get_alert_log` confirmed,
+  by their own schemas, to be price/indicator alert tools for equities and crypto only, with no
+  options-assignment event type — ruling them out as the short-leg-assignment surfacing
+  mechanism, not merely leaving it unconfirmed; (b) a direct tool search confirmed
+  `replace_option_order` does **not** exist as a callable tool in this session, despite being
+  referenced in `review_option_order`'s/`place_option_order`'s own guide text — meaning any
+  future multi-leg order correction (e.g. repricing a partial fill's unfilled remainder) must go
+  through `cancel_option_order` + a fresh `place_option_order`, never an in-place replace. Item
+  7's gate remains **NOT PASSED — still 3 of 8 checks complete**; neither finding closes an open
+  checklist item, both narrow what still needs a real controlled test.
+
+  **3. Research/paper screening wired into the Fresh Candle trigger (§24 item 10 updated).**
+  Every eligible Mode B cycle, for an underlying that independently clears the full §5B/Bearish-
+  Mirror gate, the trigger now computes a candidate vertical debit spread via the existing
+  `validate_vertical_spread()`/`vertical_spread_max_loss()`/`vertical_spread_risk_reward()`/
+  `vertical_spread_position_size()` functions and logs it per §7, tagged `PAPER — NOT EXECUTED`
+  — exactly the research-phase behavior §24 item 9 already required, now actually running
+  instead of only being documented as available. **The trigger prompt explicitly instructs this
+  step must never call `place_option_order` with a multi-leg `legs` array** — live execution
+  stays gated on item 7 passing in full and being marked passed here via its own dated §12
+  entry, neither of which this change makes. No separate call budget is drawn for this step; it
+  rides on candidates the ordinary §5B/Bearish-Mirror screening already surfaces.
+
+  **No orders were placed. No account setting, activation state, or existing risk number/cap/
+  floor/permission was changed. §24 remains research/paper-only.**
 - **2026-11-11 (later same day): RDW authority breach — recorded honestly, not retroactively
   excused, plus the structural fix (Universal Safety Kernel item 12, execution-origin
   validation). User instructed fixing the authority-routing gap without broadening any
@@ -4408,6 +4467,35 @@ Mode A remains research/alert-only and has no order authority of any kind, optio
       and remain the hard ceilings on single-trade and aggregate dollar risk; this item touches
       candidate-finding and strike selection only.
 
+12. **Scheduled research-coverage repair (added 2026-11-11, development/read-only — see §12
+    change log; existing §18 authorization and its own gate/sizing/DTE/delta rules above are
+    unchanged and not re-litigated by this item).** Item 11's proactive sourcing had no protected
+    budget and no persistence — on a cycle where the equity rotation or §22 ETF screen consumed
+    the available TradingView-call budget, options/LEAPS sourcing could silently not run at all,
+    with no distinct record that it had been skipped rather than evaluated and found wanting.
+    Two fixes, both coverage/accounting only, neither touching this section's own gate (item 2),
+    sizing (item 5), DTE window (item 3), or delta floor (item 11):
+    - `dev_scanner/tv_structure.py::allocate_scan_budget()` now reserves a dedicated
+      `options_leaps_calls_needed` budget for this sourcing step, ranked ahead of the ordinary
+      Mode B equity rotation (after the mandatory §22 ETF screen and Mode C) — it is reduced below
+      what it asked for only if those higher-priority reservations already exhausted the cycle's
+      total, and that case is flagged via `options_leaps_deferred`, never silently zeroed.
+    - `rotate_options_leaps_sourcing_queue()` gives this sourcing step a persistent,
+      least-recently-sourced-first rotation, state carried in `near_miss_queue.md`'s new "Options/
+      LEAPS Sourcing Queue" table — the same rotation discipline §5B's own Screening Coverage
+      subsection already uses for the equity universe, applied here so a quiet cycle for one name
+      doesn't mean that name waits forever while others are repeatedly re-checked.
+    - **Four-way labeling, every symbol this step touches, every cycle** (`validate_
+      options_leaps_sourcing_label()`): **evaluated** (a real chain pull plus full item 2 gate
+      check ran), **rejected** (evaluated and failed a named gate item — cite it), **data_blocked**
+      (a tool failure prevented evaluation — never logged as a rejection), **deferred** (rotation/
+      budget didn't reach this symbol this cycle — never logged as a rejection or a tool failure).
+      Mirrors the existing §5B Screening Coverage subsection's tool-failure-vs-rotation-skip
+      distinction, applied to options/LEAPS sourcing specifically.
+    - **Scope**: this item governs coverage/bookkeeping only — whether a candidate gets looked at
+      and how that's recorded. It creates no new or easier path to a trade; every sourced
+      candidate still has to clear item 2's full §5B/Bearish-Mirror gate in full, same as always.
+
 ## 19. LEAPS Options Policy (Mode B, Long-Horizon Lane)
 Added 2026-08-19 at explicit user instruction, immediately after §18, as a separate long-duration
 lane — **§18's 21-75 DTE window (corrected here from a stale "30-60 DTE" restatement — see §18
@@ -4531,6 +4619,14 @@ comes back unaffordable.
      compounded by a 9-12 month hold and the item 4 6%-of-equity premium cap tying up that capital
      for the duration. The item 4 cap itself is unchanged by this item — it bounds single-trade
      exposure regardless of how sourcing or delta selection work.
+   - **Scheduled research-coverage repair (added 2026-11-11, development/read-only — see §12
+     change log and §18 item 12, which this mirrors): this lane's proactive sourcing above now
+     shares §18 item 12's protected call-budget reservation, persistent least-recently-sourced
+     rotation (`near_miss_queue.md`'s "Options/LEAPS Sourcing Queue" table), and four-way
+     evaluated/rejected/data_blocked/deferred labeling** — the same fix for the same gap (sourcing
+     could previously be silently crowded out by the equity rotation with no distinct record of
+     it), applied once across both §18 and §19 rather than built twice. No existing authorization,
+     gate (item 2), sizing (item 4), or delta floor (above) is touched by this item.
 
 ## 20. Mode C — DAY_TRADING (Intraday, Hourly-Adapted)
 Added 2026-08-25 at explicit user instruction, adapted from a full external "Agentic Day-Trading
@@ -5346,9 +5442,12 @@ design does not use this instrument.
      `cancel_option_exercise` tool can retract one's own queued exercise request before it processes.
      **What remains undocumented**: the mechanics of how an assignment on the *short* leg itself is
      surfaced to the agent/account (push/alert vs. only discoverable via a position disappearing
-     from `get_option_positions`) — not described in any schema reviewed. Must be researched further
-     (Robinhood's own account documentation, or observed on a real controlled test) before this
-     checklist item can be marked passed.
+     from `get_option_positions`) — not described in any schema reviewed. **One hypothesis
+     eliminated 2026-11-11 (development/read-only): `get_alerts`/`get_alert_log` are confirmed
+     price/indicator alert tools for equities and crypto only — their own schemas show no
+     options-assignment event type, ruling them out as the surfacing mechanism, not just leaving
+     it unconfirmed.** Must still be researched further (Robinhood's own account documentation, or
+     observed on a real controlled test) before this checklist item can be marked passed.
    - **Expiration handling — partially documented 2026-11-11, not fully resolved.** `get_option_chains`
      returns a per-chain `sellout_time_to_expiration` and `get_option_instruments` returns a
      per-contract `sellout_datetime` — both real, documented fields, with the chain tool's own guide
@@ -5377,7 +5476,14 @@ design does not use this instrument.
      fully verified without observing a real multi-leg order's actual lifecycle**, which requires
      placing one — exactly why this lane stays non-executable until a deliberate, disclosed first
      real test is proposed and separately approved, not inferred from documentation or offline tests
-     alone.
+     alone. **Modification path confirmed 2026-11-11 (development/read-only): despite
+     `review_option_order`'s/`place_option_order`'s own guide text referencing a
+     `replace_option_order` tool, no such tool exists as a callable MCP tool in this session** —
+     confirmed via a direct tool search. Any future correction to an open multi-leg order (e.g. a
+     partial fill needing the unfilled remainder re-priced) must therefore go through
+     `cancel_option_order` followed by a fresh `place_option_order`, never an in-place replace —
+     this is a real, load-bearing constraint on how a partial-fill recovery would actually have to
+     work, not a cosmetic note.
 
 7. **Connector-capability verification gate — EXECUTABLE status blocked until this item is marked
    passed, in writing, in this document, via a dated §12 entry:**
@@ -5423,6 +5529,23 @@ design does not use this instrument.
     act of adding this section** — per the user's own explicit scope for this approval. No autonomous
     trigger prompt currently screens for or executes a vertical spread; wiring this lane into a live
     trigger is a separate, future step that itself requires item 7 to pass first.
+
+    **Updated 2026-11-11 (later same day, development/read-only — see §12 change log): the Fresh
+    Candle trigger now runs a research/paper evaluation step for this lane, explicitly separate
+    from, and never a path to, live execution.** Every eligible Mode B cycle, for an underlying
+    that independently clears the full §5B/Bearish-Mirror gate (item 2), the trigger computes a
+    candidate bull-call or bear-put spread using `validate_vertical_spread()`/
+    `vertical_spread_max_loss()`/`vertical_spread_risk_reward()`/`vertical_spread_position_size()`
+    and logs the result — Trade Card format per §7, tagged **`PAPER — NOT EXECUTED`** per item 9
+    — exactly as item 9 already requires for this lane's research phase. **This step never calls,
+    and the trigger prompt explicitly instructs it must never call, `place_option_order` with a
+    multi-leg `legs` array under this section** — that remains gated on item 7 passing in full and
+    being marked passed here via a dated §12 entry, neither of which this update does. Paper
+    evaluations draw no separate call budget of their own; they ride on whatever candidates the
+    ordinary §5B/Bearish-Mirror screening already surfaces that cycle, so they add no new
+    TradingView-call cost. This is a screening/logging addition only — item 7's gate, this
+    section's risk numbers (item 4), and every other live-lane permission in this document are
+    unchanged.
 
 11. **Change control:** any change to this section's own numbers, permitted shapes, or the item 7
     gate's pass/fail status requires explicit user instruction and a dated §12 change-log entry,

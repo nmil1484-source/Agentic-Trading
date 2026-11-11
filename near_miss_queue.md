@@ -208,6 +208,39 @@ Prior note (historical, now stale): no crypto candidate qualified as a true sing
 while the lane was DATA_BLOCKED (tvremix connector-wide outage) for 7+ consecutive hourly cycles as
 of this file's creation (2026-11-03T21:38:26Z).
 
+## Options/LEAPS Sourcing Queue (§18 item 11 / §19 item 8 — persistent rotation, added 2026-11-11)
+
+**Repairs a real coverage gap, not a gate or risk change.** Options/LEAPS candidate sourcing
+(§18 item 11, §19 item 8) was previously only ever evaluated out of whatever TradingView-call
+budget was left after the Mode B equity rotation — on a tight-budget cycle it could silently
+disappear entirely, with no distinct record that it had been skipped rather than evaluated and
+cleared. Two fixes, both pure coverage/accounting, neither touching any CLAUDE.md gate, R:R
+floor, confirmation count, position cap, or instrument permission:
+1. `dev_scanner/tv_structure.py::allocate_scan_budget()` now reserves
+   `options_leaps_calls_needed` calls for this sourcing step, ranked ahead of the Mode B equity
+   rotation (priority 3 of 4, after the mandatory §22 ETF screen and Mode C) — it can only be
+   reduced below what it asked for if the higher-priority reservations already exhausted the
+   cycle's total budget, and that specific case is flagged via `options_leaps_deferred`, never
+   silently zeroed.
+2. `rotate_options_leaps_sourcing_queue()` gives this sourcing step the same persistent,
+   least-recently-sourced-first rotation `watchlist.md`'s own equity rotation already uses — this
+   table is that rotation's persisted state across cycles. A symbol with no row below (never
+   sourced) ranks oldest and is always selected before any symbol with a real timestamp, however
+   old.
+
+**Four-way labeling, never conflated** (`validate_options_leaps_sourcing_label()`): every symbol
+this step touches this cycle gets exactly one of **evaluated** (a real chain pull + full §18
+item 2/§19 item 2 gate check ran), **rejected** (evaluated and failed a named gate item — cite
+it), **data_blocked** (a tool failure prevented evaluation — never logged as a rejection), or
+**deferred** (rotation/budget didn't reach this symbol this cycle — never logged as a rejection
+or a tool failure). A tool failure and an unreached rotation slot are both honest non-results,
+not disqualifications — same principle as the existing §5B Screening Coverage methodology's
+tool-failure/rotation-skip distinction.
+
+| Symbol | Last sourced (UTC) | Last label | Notes |
+|---|---|---|---|
+| *(empty — table seeded 2026-11-11; first cycle to run the updated Fresh Candle trigger populates this from `watchlist.md`'s current universe, oldest-first since every symbol starts unsourced)* | — | — | — |
+
 ## Pending-eligibility (timing-restricted, not a gate near-miss — priority on eligibility, not a queued gate failure)
 
 | Symbol | Instrument focus | Restriction | Restriction basis | Re-check method | Expected clear |
@@ -221,6 +254,15 @@ Once clear: AMD gets a **prioritized** full §18/§19 Stage-2 slot (via the exis
 
 ## Change log
 
+- **2026-11-11 (later same day): added the Options/LEAPS Sourcing Queue table** (development/
+  read-only, per the user's own scope — "reserve a bounded screening budget and persist
+  unfinished candidates so options/LEAPS sourcing cannot silently disappear behind equity
+  rotation... Log evaluated, rejected, data-blocked and deferred separately"). No gate, R:R
+  floor, confirmation count, position cap, or instrument permission changed — same "tracks WHICH
+  candidates get priority and WHEN, never a shortcut" principle as every other table in this
+  file. See CLAUDE.md §12 change log and `dev_scanner/tv_structure.py`'s
+  `allocate_scan_budget()`/`rotate_options_leaps_sourcing_queue()`/
+  `validate_options_leaps_sourcing_label()` for the mechanism this table persists state for.
 - **2026-11-03: File created, user-approved** ("Authorize the near-miss queue repair only...
   Persist unresolved candidates with their failed/pending gate and data timestamp. Automatically
   prioritize their reassessment on fresh completed data in the existing eligible cycles, while

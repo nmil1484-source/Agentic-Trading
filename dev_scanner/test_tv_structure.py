@@ -24,9 +24,11 @@ from dev_scanner.tv_structure import (
     position_size,
     reconcile_vertical_spread_positions,
     risk_reward,
+    rotate_options_leaps_sourcing_queue,
     rsi14,
     swing_points,
     validate_execution_authority,
+    validate_options_leaps_sourcing_label,
     validate_stop_distance,
     validate_vertical_spread,
     vertical_spread_max_loss,
@@ -347,24 +349,68 @@ def test_orb_breakout_volume_gate_blocks_weak_breakout():
 
 def test_allocate_scan_budget_reserves_mode_c_before_rotation_and_defers_mode_b():
     # tight-ish budget: ETF coverage (mandatory) is funded in full first, Mode C
-    # gets its reserve next, and Mode B rotation absorbs the shortfall
-    r = allocate_scan_budget(total_calls=40, etf_calls_needed=18, mode_c_calls_needed=10, mode_b_default_calls=24)
+    # and options/LEAPS sourcing get their reserves next, and Mode B rotation
+    # absorbs the shortfall
+    r = allocate_scan_budget(total_calls=40, etf_calls_needed=18, mode_c_calls_needed=10,
+                              options_leaps_calls_needed=6, mode_b_default_calls=24)
     assert r["etf_calls"] == 18  # never reduced
-    assert r["mode_c_calls"] == 10  # fully reserved before Mode B
-    assert r["mode_b_calls"] == 12  # 40 - 18 - 10 = 12, below the 24 default cap
+    assert r["mode_c_calls"] == 10  # fully reserved before options/LEAPS and Mode B
+    assert r["options_leaps_calls"] == 6  # fully reserved before Mode B
+    assert r["options_leaps_deferred"] is False
+    assert r["mode_b_calls"] == 6  # 40 - 18 - 10 - 6 = 6, below the 24 default cap
     assert r["mode_b_deferred"] is True
     print("PASS test_allocate_scan_budget_reserves_mode_c_before_rotation_and_defers_mode_b")
 
 
-def test_allocate_scan_budget_etf_coverage_preserved_even_when_budget_cannot_cover_mode_c():
+def test_allocate_scan_budget_options_leaps_deferred_when_budget_too_tight_but_etf_still_preserved():
     # budget so tight that even Mode C can't get its full reserve -- ETF coverage
-    # must still never be reduced
-    r = allocate_scan_budget(total_calls=20, etf_calls_needed=18, mode_c_calls_needed=10, mode_b_default_calls=24)
+    # must still never be reduced, and options/LEAPS sourcing is explicitly
+    # flagged deferred (never silently zeroed with no record of why)
+    r = allocate_scan_budget(total_calls=20, etf_calls_needed=18, mode_c_calls_needed=10,
+                              options_leaps_calls_needed=6, mode_b_default_calls=24)
     assert r["etf_calls"] == 18
     assert r["mode_c_calls"] == 2  # 20 - 18 = 2 left, less than the 10 reserve
+    assert r["options_leaps_calls"] == 0
+    assert r["options_leaps_deferred"] is True
     assert r["mode_b_calls"] == 0
     assert r["mode_b_deferred"] is True
-    print("PASS test_allocate_scan_budget_etf_coverage_preserved_even_when_budget_cannot_cover_mode_c")
+    print("PASS test_allocate_scan_budget_options_leaps_deferred_when_budget_too_tight_but_etf_still_preserved")
+
+
+def test_validate_options_leaps_sourcing_label_accepts_exactly_four():
+    for ok in ("evaluated", "rejected", "data_blocked", "deferred"):
+        assert validate_options_leaps_sourcing_label(ok) is True
+    for bad in ("not_evaluated", "skipped", "", "EVALUATED", "tool_failure"):
+        assert validate_options_leaps_sourcing_label(bad) is False
+    print("PASS test_validate_options_leaps_sourcing_label_accepts_exactly_four")
+
+
+def test_rotate_options_leaps_sourcing_queue_never_sourced_ranks_oldest():
+    # AAPL/MSFT have real timestamps, NVDA has never been sourced -- NVDA must
+    # come first regardless of how old AAPL/MSFT's timestamps are
+    persisted = {"AAPL": "2026-11-10T12:00:00Z", "MSFT": "2026-11-11T08:00:00Z"}
+    r = rotate_options_leaps_sourcing_queue(persisted, ["AAPL", "MSFT", "NVDA"], max_slots=2)
+    assert r["selected"] == ["NVDA", "AAPL"]
+    assert r["deferred"] == ["MSFT"]
+    print("PASS test_rotate_options_leaps_sourcing_queue_never_sourced_ranks_oldest")
+
+
+def test_rotate_options_leaps_sourcing_queue_persists_across_cycles():
+    # a symbol deferred this cycle (not selected) must be selected ahead of
+    # one that WAS just sourced, on the next cycle -- simulated by re-running
+    # with an updated persisted dict reflecting "cycle 1" having sourced AAPL
+    persisted_after_cycle_1 = {"AAPL": "2026-11-11T20:00:00Z"}
+    r2 = rotate_options_leaps_sourcing_queue(persisted_after_cycle_1, ["AAPL", "TSLA"], max_slots=1)
+    assert r2["selected"] == ["TSLA"]  # never-sourced TSLA still ranks ahead of just-sourced AAPL
+    assert r2["deferred"] == ["AAPL"]
+    print("PASS test_rotate_options_leaps_sourcing_queue_persists_across_cycles")
+
+
+def test_rotate_options_leaps_sourcing_queue_handles_universe_smaller_than_slots():
+    r = rotate_options_leaps_sourcing_queue({}, ["ONE"], max_slots=12)
+    assert r["selected"] == ["ONE"]
+    assert r["deferred"] == []
+    print("PASS test_rotate_options_leaps_sourcing_queue_handles_universe_smaller_than_slots")
 
 
 def test_validate_vertical_spread_bull_call_valid():

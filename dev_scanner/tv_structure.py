@@ -314,13 +314,16 @@ def allocate_scan_budget(
     total_calls: int,
     etf_calls_needed: int,
     mode_c_calls_needed: int,
+    options_leaps_calls_needed: int,
     mode_b_default_calls: int,
 ) -> dict:
     """
-    Read-only scanner call-budget allocation (added 2026-11-11) — governs how many
-    TradingView calls a single screening cycle spends where, within the SAME
-    existing per-cycle budget (never a larger one). No order, risk, or schedule
-    effect of any kind.
+    Read-only scanner call-budget allocation (added 2026-11-11, extended
+    2026-11-11 later the same day to add the options_leaps_calls_needed
+    reservation — see CLAUDE.md §12 change log, "options/LEAPS scheduled
+    research coverage repair") — governs how many TradingView calls a single
+    screening cycle spends where, within the SAME existing per-cycle budget
+    (never a larger one). No order, risk, or schedule effect of any kind.
 
     Priority order, applied after mandatory account/protection checks (assumed
     already spent before this is called):
@@ -328,25 +331,97 @@ def allocate_scan_budget(
          funded first and in full, never reduced.
       2. Time-sensitive Mode C setup evaluation — up to mode_c_calls_needed calls,
          reserved next, before the broad Mode B swing rotation.
-      3. The ordinary Mode B rotation — whatever remains, capped at
+      3. §18 item 11 / §19 item 8 options/LEAPS candidate sourcing — up to
+         options_leaps_calls_needed calls, reserved next — this is the real gap
+         being closed: options/LEAPS sourcing was previously only ever evaluated
+         out of whatever was left after the Mode B equity rotation, which let it
+         silently disappear entirely on a tight-budget cycle with no distinct
+         record of that happening. Giving it its own reservation, ranked ahead of
+         Mode B, means it can only be reduced below what it asked for if the
+         higher-priority ETF/Mode C reservations above it already exhausted the
+         total — and that specific case is flagged explicitly via
+         `options_leaps_deferred`, never silently zeroed.
+      4. The ordinary Mode B rotation — whatever remains, capped at
          mode_b_default_calls; this is the bucket that absorbs any shortfall.
 
-    Returns {"etf_calls", "mode_c_calls", "mode_b_calls", "mode_b_deferred"} —
-    mode_b_deferred is True whenever mode_b_calls ends up below
-    mode_b_default_calls because the budget ran out.
+    Returns {"etf_calls", "mode_c_calls", "options_leaps_calls", "mode_b_calls",
+    "mode_b_deferred", "options_leaps_deferred"} — each `_deferred` flag is True
+    whenever that bucket ended up below what it asked for because the budget
+    ran out before reaching it.
     """
     remaining = max(0, total_calls)
     etf_calls = min(etf_calls_needed, remaining)
     remaining -= etf_calls
     mode_c_calls = min(mode_c_calls_needed, remaining)
     remaining -= mode_c_calls
+    options_leaps_calls = min(options_leaps_calls_needed, remaining)
+    remaining -= options_leaps_calls
     mode_b_calls = min(mode_b_default_calls, remaining)
     return {
         "etf_calls": etf_calls,
         "mode_c_calls": mode_c_calls,
+        "options_leaps_calls": options_leaps_calls,
         "mode_b_calls": mode_b_calls,
         "mode_b_deferred": mode_b_calls < mode_b_default_calls,
+        "options_leaps_deferred": options_leaps_calls < options_leaps_calls_needed,
     }
+
+
+_OPTIONS_LEAPS_SOURCING_LABELS = {"evaluated", "rejected", "data_blocked", "deferred"}
+
+
+def validate_options_leaps_sourcing_label(label: str) -> bool:
+    """
+    §18 item 11 / §19 item 8 per-symbol sourcing coverage uses exactly these
+    four distinct labels, never conflated: "evaluated" (a real chain pull and
+    gate check happened this cycle), "rejected" (evaluated and failed a named
+    gate item — cite it), "data_blocked" (a tool failure prevented evaluation —
+    never logged as a rejection), "deferred" (rotation/budget didn't reach this
+    symbol this cycle — never logged as a rejection or a tool failure). Returns
+    True only for one of these four exact strings.
+    """
+    return label in _OPTIONS_LEAPS_SOURCING_LABELS
+
+
+def rotate_options_leaps_sourcing_queue(
+    persisted_last_sourced: dict,
+    universe: Sequence[str],
+    max_slots: int,
+) -> dict:
+    """
+    Deterministic least-recently-sourced-first rotation + persistence for
+    options/LEAPS candidate sourcing (§18 item 11/§19 item 8) — added
+    2026-11-11 so coverage survives across cycles instead of silently
+    restarting from nothing (or silently never reaching a name) whenever the
+    Mode B equity rotation crowds it out. A symbol with no entry in
+    persisted_last_sourced (never sourced) ranks oldest and is always picked
+    before any symbol that already has a real timestamp, regardless of how
+    old that timestamp is.
+
+    persisted_last_sourced: {symbol: iso_timestamp_str} — the queue state
+      carried over from the prior cycle (e.g. persisted in near_miss_queue.md's
+      "Options/LEAPS Sourcing Queue" table). A symbol absent from this dict has
+      never been sourced.
+    universe: every symbol currently eligible for options/LEAPS sourcing this
+      cycle (e.g. watchlist.md plus any earnings-calendar/politician-trade/
+      elevated-IV names already surfaced this cycle).
+    max_slots: this cycle's reserved budget for sourcing, in symbols (not raw
+      tool calls — the caller converts from options_leaps_calls above).
+
+    Returns {"selected": [...], "deferred": [...]} — selected is ordered
+    oldest-first, length <= min(max_slots, len(universe)). This function does
+    not mutate persisted_last_sourced or decide labels — the caller sources
+    each selected symbol, logs its evaluated/rejected/data_blocked label via
+    validate_options_leaps_sourcing_label(), updates that symbol's timestamp to
+    the current cycle's time, and persists the updated dict.
+    """
+    def sort_key(sym: str):
+        ts = persisted_last_sourced.get(sym)
+        return ("", sym) if ts is None else (str(ts), sym)
+
+    ordered = sorted(universe, key=sort_key)
+    slots = max(0, max_slots)
+    return {"selected": ordered[:slots], "deferred": ordered[slots:]}
 
 
 def validate_vertical_spread(
