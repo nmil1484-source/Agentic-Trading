@@ -560,6 +560,57 @@ def classify_multileg_order_state(order: dict) -> dict:
             "note": f"unrecognized state {state!r} — not one of the documented get_option_orders values, treat as unresolved"}
 
 
+def validate_execution_authority(origin: dict, known_scheduled_trigger_ids: Sequence[str]) -> dict:
+    """
+    Universal Safety Kernel item 12 (added 2026-11-11, closing the real RDW
+    authority breach — see CLAUDE.md §12 change log): determines whether THIS
+    turn may use an autonomous order-placement exception (§1 Mode B/Mode C, §21
+    item 6, §22 item 8, §24 once live), or must fall back to §1's default
+    OBSERVE_AND_PROPOSE / exact-CONFIRM-ORDER-phrase requirement.
+
+    Fails closed, always: any ambiguity, missing field, or unrecognized/absent
+    trigger_id resolves to CHAT_REQUESTED_OBSERVE_AND_PROPOSE (no authority) —
+    this function never defaults to granting autonomous authority.
+
+    Deliberately does NOT trust:
+      - A self-assigned `cycle`/label string anywhere in origin, no matter how
+        closely it names or mimics a real scheduled trigger's own cycle name
+        (e.g. "fresh_candle_entry_screening") — a label is never evidence.
+      - `origin["source"] == "scheduled_trigger"` by itself — that claim must
+        be corroborated by a `trigger_id` that is actually in
+        `known_scheduled_trigger_ids` (the real, currently-enabled trigger
+        list — read fresh via list_triggers/get_trigger, never hardcoded from
+        memory by the caller).
+      - A real/valid-looking trigger_id present WITHOUT source=="scheduled_trigger"
+        (e.g. one merely mentioned in a chat message) — both fields must agree.
+
+    origin: {"source": "scheduled_trigger"|"chat_request"|..., "trigger_id": str|None, ...}
+            (extra keys, including any self-labeled "cycle" name, are accepted
+            and ignored for the authority decision — logged by the caller for
+            audit only, never consulted here).
+    known_scheduled_trigger_ids: the real, currently-enabled autonomous trigger
+      ids (e.g. from list_triggers) — authority can only attach to one of these.
+
+    Returns {"authority": "SCHEDULED_AUTONOMOUS"|"CHAT_REQUESTED_OBSERVE_AND_PROPOSE", "reason": str}.
+    """
+    if not isinstance(origin, dict):
+        return {"authority": "CHAT_REQUESTED_OBSERVE_AND_PROPOSE", "reason": "no origin record provided — fails closed"}
+    source = origin.get("source")
+    trigger_id = origin.get("trigger_id")
+    known = set(known_scheduled_trigger_ids or [])
+    if source == "scheduled_trigger" and trigger_id and trigger_id in known:
+        return {"authority": "SCHEDULED_AUTONOMOUS",
+                "reason": f"verified scheduled-trigger origin, trigger_id={trigger_id} matches the known enabled trigger list"}
+    if source == "scheduled_trigger" and trigger_id and trigger_id not in known:
+        return {"authority": "CHAT_REQUESTED_OBSERVE_AND_PROPOSE",
+                "reason": f"source claims scheduled_trigger but trigger_id={trigger_id} is not in the known enabled trigger list — never trusted on the source claim alone"}
+    if source == "scheduled_trigger" and not trigger_id:
+        return {"authority": "CHAT_REQUESTED_OBSERVE_AND_PROPOSE",
+                "reason": "source claims scheduled_trigger but no trigger_id given — a claim alone, including any self-labeled cycle name, is never sufficient"}
+    return {"authority": "CHAT_REQUESTED_OBSERVE_AND_PROPOSE",
+            "reason": "origin is a chat-requested (or unverified) turn — running the same protocol steps a scheduled Routine would run does not confer scheduled authority; exact CONFIRM ORDER phrase required for any order"}
+
+
 def position_size(risk_dollars: float, entry: float, stop: float, direction: str) -> Optional[float]:
     """
     Refuses (returns None) on a backwards stop rather than sizing via abs() — the

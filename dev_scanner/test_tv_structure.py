@@ -26,6 +26,7 @@ from dev_scanner.tv_structure import (
     risk_reward,
     rsi14,
     swing_points,
+    validate_execution_authority,
     validate_stop_distance,
     validate_vertical_spread,
     vertical_spread_max_loss,
@@ -548,6 +549,75 @@ def test_classify_multileg_order_state_did_not_execute():
         r = classify_multileg_order_state({"state": s})
         assert r["legging_risk_materialized"] is False
     print("PASS test_classify_multileg_order_state_did_not_execute")
+
+
+_KNOWN_TRIGGERS = ["trig_01KrBsTt9mssjU4hPGtM3cBe", "trig_01RN6ZbtgxKpoDApzmGswWAs", "trig_01UUXAtYHjn7nBgzkdvZU4Rv"]
+
+
+def test_validate_execution_authority_genuine_scheduled_trigger_grants_authority():
+    origin = {"source": "scheduled_trigger", "trigger_id": "trig_01KrBsTt9mssjU4hPGtM3cBe", "fired_at": "2026-11-11T19:04:06Z"}
+    r = validate_execution_authority(origin, _KNOWN_TRIGGERS)
+    assert r["authority"] == "SCHEDULED_AUTONOMOUS"
+    print("PASS test_validate_execution_authority_genuine_scheduled_trigger_grants_authority")
+
+
+def test_validate_execution_authority_chat_requested_scan_with_self_labeled_cycle_name_gets_no_authority():
+    # the RDW regression case: a chat-requested scan whose OWN log entry used a cycle name
+    # mimicking a real scheduled trigger's protocol -- the label must never grant authority
+    origin = {"source": "chat_request", "trigger_id": None,
+              "cycle": "supplemental_scan_deferred_mode_b_rotation"}
+    r = validate_execution_authority(origin, _KNOWN_TRIGGERS)
+    assert r["authority"] == "CHAT_REQUESTED_OBSERVE_AND_PROPOSE"
+    print("PASS test_validate_execution_authority_chat_requested_scan_with_self_labeled_cycle_name_gets_no_authority")
+
+
+def test_validate_execution_authority_running_scheduled_protocol_text_in_chat_turn_gets_no_authority():
+    # even naming the EXACT real scheduled cycle, from a chat-requested turn, confers nothing --
+    # "running scheduled-routine code does not confer scheduled authority"
+    origin = {"source": "chat_request", "trigger_id": None, "cycle": "fresh_candle_entry_screening"}
+    r = validate_execution_authority(origin, _KNOWN_TRIGGERS)
+    assert r["authority"] == "CHAT_REQUESTED_OBSERVE_AND_PROPOSE"
+    print("PASS test_validate_execution_authority_running_scheduled_protocol_text_in_chat_turn_gets_no_authority")
+
+
+def test_validate_execution_authority_source_claim_alone_without_trigger_id_is_rejected():
+    origin = {"source": "scheduled_trigger", "trigger_id": None}
+    r = validate_execution_authority(origin, _KNOWN_TRIGGERS)
+    assert r["authority"] == "CHAT_REQUESTED_OBSERVE_AND_PROPOSE"
+    print("PASS test_validate_execution_authority_source_claim_alone_without_trigger_id_is_rejected")
+
+
+def test_validate_execution_authority_trigger_id_not_in_known_list_is_rejected():
+    # a trigger_id that looks real but isn't on the currently-enabled list (deleted/disabled/
+    # spoofed) never grants authority on the source claim alone
+    origin = {"source": "scheduled_trigger", "trigger_id": "trig_DOES_NOT_EXIST"}
+    r = validate_execution_authority(origin, _KNOWN_TRIGGERS)
+    assert r["authority"] == "CHAT_REQUESTED_OBSERVE_AND_PROPOSE"
+    print("PASS test_validate_execution_authority_trigger_id_not_in_known_list_is_rejected")
+
+
+def test_validate_execution_authority_trigger_id_mentioned_in_chat_without_scheduled_source_is_rejected():
+    # a real trigger_id pasted into a chat-requested turn, without an actual scheduled dispatch,
+    # must not grant authority -- both fields must agree
+    origin = {"source": "chat_request", "trigger_id": "trig_01KrBsTt9mssjU4hPGtM3cBe"}
+    r = validate_execution_authority(origin, _KNOWN_TRIGGERS)
+    assert r["authority"] == "CHAT_REQUESTED_OBSERVE_AND_PROPOSE"
+    print("PASS test_validate_execution_authority_trigger_id_mentioned_in_chat_without_scheduled_source_is_rejected")
+
+
+def test_validate_execution_authority_missing_origin_fails_closed():
+    assert validate_execution_authority(None, _KNOWN_TRIGGERS)["authority"] == "CHAT_REQUESTED_OBSERVE_AND_PROPOSE"
+    assert validate_execution_authority({}, _KNOWN_TRIGGERS)["authority"] == "CHAT_REQUESTED_OBSERVE_AND_PROPOSE"
+    print("PASS test_validate_execution_authority_missing_origin_fails_closed")
+
+
+def test_validate_execution_authority_genuine_cycle_retains_authority_alongside_rejected_chat_cycle():
+    # a genuine scheduled firing and a chat-requested one, decided independently, in the same batch
+    genuine = {"source": "scheduled_trigger", "trigger_id": "trig_01UUXAtYHjn7nBgzkdvZU4Rv"}
+    chat = {"source": "chat_request", "trigger_id": None, "cycle": "autonomous crypto cycle: 2026-11-11T19:37:41Z"}
+    assert validate_execution_authority(genuine, _KNOWN_TRIGGERS)["authority"] == "SCHEDULED_AUTONOMOUS"
+    assert validate_execution_authority(chat, _KNOWN_TRIGGERS)["authority"] == "CHAT_REQUESTED_OBSERVE_AND_PROPOSE"
+    print("PASS test_validate_execution_authority_genuine_cycle_retains_authority_alongside_rejected_chat_cycle")
 
 
 _ALL_TESTS = [v for k, v in list(globals().items()) if k.startswith("test_")]
