@@ -68101,3 +68101,22 @@ Re-pulled TEM's news (`get_news`) and politician trades (`get_politician_trades`
 ```json
 {"cycle": "ad_hoc_amd_final", "timestamp_utc": "2026-11-11T16:40:00Z", "modes_covered": ["B"], "status_gate": "ACTIVE", "coverage_state": "EVALUATED", "symbol": "AMD", "verdict": "NO_TRADE", "failed_gate": "§13.G item 2 — breakout-bar volume confirmation, 0.41x vs required >=1.2x", "item_2_catalyst": "CLEAR", "item_3_confirmation": "CLEAR (Momentum)", "item_7_trigger": "FAIL", "options_evaluated": false, "options_skip_reason": "underlying failed §5B gate — §18 item 2 requires underlying clearance first", "migration_dry_run": true, "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-11T16:40Z (approx, cont.) — AD HOC: CoreWeave catalyst lead assessed for AMD/AMDG (user-directed)
+
+**Fresh prices re-checked:** AMD $553.20 live (vs. $552.18 ~15 min prior, +0.18%, negligible), SPY $758.74, QQQ $691.55 (both flat vs. the last check — no shock-pause trigger). No change to account/position state (still 0 positions).
+
+**CoreWeave (CRWV) Q3 earnings (reported 2026-11-10, market reaction 2026-11-11) — real, dated, sourced.** `get_news` (CRWV, 15 headlines, all same-day/prior-day): $3.661B revenue, ~$132.5B backlog, $13.0-13.3B 2026 guidance drove CRWV +23.9% today (48.73→60.40) and a broad same-day AI/chip/cloud rally (Reuters: "CoreWeave sparks AI cloud stock rally, **lifts Nvidia**"; WSJ: "CoreWeave Rallies, Lifting Cloud and Chip Stocks"; Barron's names NVDA/CRWV/Teradyne/Rigetti/Applied Aerospace as "stocks that explain today's market"). **CoreWeave's own CEO, same day, on CNBC: "Nvidia is not one person; they will continue to be great partner."**
+
+**Sector read-through vs. AMD-specific catalyst — distinguished, not conflated:**
+- **Not AMD-specific.** None of the 15 pulled headlines mention AMD in connection with CoreWeave's results, backlog, or guidance. CoreWeave's own compute buildout is explicitly NVIDIA-partnered by its CEO's own words. There is no evidence CoreWeave is an AMD customer or contributes to any AMD backlog — this is NVDA's name-specific catalyst, not AMD's.
+- **Is a legitimate sector tailwind for AMD under §5B item 2's own text**, which permits "a verified catalyst, sector tailwind, or clear relative-strength driver" — not only a company-specific event. CoreWeave's results easing "AI bubble"/AI-capex-cut fears broadly lifted chip/semi names today (SOXX +6.6%, broad semis up), a tailwind AMD is riding alongside its own name-specific catalyst (the $2.5B Anthropic stake, Oppenheimer upgrade — already on file from the prior check this hour). This is additive context, not a second independent catalyst clearing the gate on its own — item 2 was already clear via AMD's own catalyst.
+- **AMDG**: same conclusion by direct derivation (mirrors AMD 2x) — sector tailwind applies the same way, AMD's own catalyst remains the primary driver, no new AMD-specific angle from CoreWeave.
+
+**Verdict unchanged: NO_TRADE.** This was a catalyst-completeness check, not a re-opening of the technical gate — §13.G item 2's breakout-bar volume failure (0.41x vs. the required ≥1.2x, computed on the last completed daily bar, which has not changed since the prior check) remains the binding blocker. A sector tailwind, however real, does not cure a failed, mandatory, non-waivable volume confirmation, and no threshold was adjusted to let it. No order placed; hold, protective management, and all three schedules unchanged.
+
+```json
+{"cycle": "ad_hoc_amd_catalyst_followup", "timestamp_utc": "2026-11-11T16:40:00Z", "modes_covered": ["B"], "status_gate": "ACTIVE", "coverage_state": "EVALUATED", "symbol": "AMD/AMDG", "verdict": "NO_TRADE_UNCHANGED", "new_catalyst_evaluated": "CoreWeave Q3 earnings (2026-11-10/11)", "catalyst_classification": "sector_tailwind_not_name_specific", "name_specific_catalyst_source": "NVDA, confirmed by CoreWeave CEO statement", "binding_blocker_unchanged": "§13.G item 2 breakout-bar volume 0.41x vs required >=1.2x", "migration_dry_run": true, "orders_placed": 0, "git_push": "pending"}
+```
