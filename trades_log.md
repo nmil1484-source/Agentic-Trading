@@ -67608,3 +67608,46 @@ rest of today.
 ```json
 {"cycle": "crypto_24_7", "timestamp_utc": "2026-11-10T23:38:11Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "DATA_BLOCKED", "circuit_breakers_active": ["same_day_stop_out_cooldown"], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "BTC", "reason": "tool failure - rate limited 2/2"}, {"symbol": "ETH", "reason": "tool failure - rate limited 2/2"}, {"symbol": "SOL", "reason": "tool failure - rate limited 2/2"}, {"symbol": "XRP", "reason": "tool failure - rate limited 2/2"}, {"symbol": "LINK", "reason": "tool failure - rate limited 2/2"}, {"symbol": "AAVE", "reason": "tool failure - rate limited 2/2"}, {"symbol": "HBAR", "reason": "tool failure - rate limited 2/2"}, {"symbol": "AVAX", "reason": "tool failure - rate limited 2/2"}], "tool_failures": 8}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 7, "calls_made_this_cycle": 2, "tvremix_calls_used_today": "unreliable, see 17:42:34Z gap note", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-11T00:37:46Z — AUTONOMOUS (Crypto 24/7 Scan)
+
+**STEP 0 — Gate check:** §14 Status: ACTIVE confirmed. No kill phrase found.
+
+**New UTC calendar day (2026-11-11):** the cross-mode same-day 2-stop-out cooldown from 2026-11-10 (PATH + IGV options) auto-lifts per §6's standing design — scoped to "that day," no manual phrase needed. 0 stop-outs logged yet today. Cooldown no longer active.
+
+**Account/positions:** `get_crypto_positions` → 0 open crypto positions. Nothing to manage/audit.
+
+**Market-shock check (§6):** inapplicable — outside equity market hours (post-close).
+
+**Portfolio heat cap (§3):** 0% used, full headroom — moot, data-blocked regardless.
+
+**Near-miss queue (crypto table):** empty — nothing to reassess.
+
+**Full-allowlist structure check — material change from prior cycles:** attempted `analyze_structure_batch`; `ToolSearch` confirms the entire Trading_View MCP server is now **disconnected** (0 matching tools), not merely rate-limited as in the prior 7 cycles ("Too Many Requests" implied the tool was reachable but throttled; this is the connector itself gone). This is consistent with the previously-flagged scheduled tvremix connector shutdown (2026-11-11) apparently now in effect, rather than a continuation of the same transient rate-limit episode. **No Robinhood-native fallback exists for crypto 4H/1H structure data** (per the 2026-11-03 §12 change-log note: crypto has no OHLC/historicals tool on Robinhood MCP) — this lane is fully data-blocked with no workaround. **DATA_BLOCKED, 8th consecutive cycle.** Still below the next consolidated-alert threshold (reached at 6, logged 22:38:18Z; next at 18) — flagging the qualitative change (disconnect vs. rate-limit) to chat this cycle since it's new information, without treating it as a fresh alert-threshold trigger.
+
+**Outcome:** No orders placed. No exits.
+
+```json
+{
+  "cycle": "crypto_24_7",
+  "timestamp_utc": "2026-11-11T00:37:46Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "DATA_BLOCKED",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "BTC", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "ETH", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "SOL", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "XRP", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "LINK", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "AAVE", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "HBAR", "reason": "tool failure - Trading_View MCP server disconnected"}, {"symbol": "AVAX", "reason": "tool failure - Trading_View MCP server disconnected"}], "tool_failures": 8},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 8,
+  "calls_made_this_cycle": 1,
+  "tvremix_calls_used_today": "n/a - new UTC day, 1 attempt this cycle, server disconnected (not a quota question)",
+  "note": "connector state changed from rate-limited to fully disconnected this cycle - likely the previously-flagged 2026-11-11 scheduled tvremix shutdown now in effect",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
