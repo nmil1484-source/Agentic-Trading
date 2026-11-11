@@ -176,10 +176,9 @@ SOXL/SOXS not queued, same tool-failure block applies to them too — both retri
 (2026-11-03T22:38Z through 2026-11-04T05:38Z, `tvremix_consecutive_failed_cycles: 0` throughout);
 the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
-*Empty as of the 2026-11-04T07:38:39Z reassessment below.*
-
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
+| AVAX | Crypto (§21), spot long | **§21 item 4** — no stop level is simultaneously a genuine technical invalidation and inside the 2–2.5× ATR(14) stop-distance ceiling. The one real invalidation (swing low 8.068, 4H bar t=1794312000) sits 6.01% below entry (8.584) — inside the loose 2.5×ATR reading (6.33%) but outside the tight 2×ATR reading (5.06%), genuinely ambiguous given CLAUDE.md doesn't fix which multiple applies. A tighter alternative (8.431, 1.78% away) is inside the ceiling but sits in ordinary noise, not a real invalidation level — not usable as a substitute. R:R not computed past this point. | Items 1 (allowlist/liquid), 2 (RS driver: 4H RSI 56.87 and bullish MACD cross vs. all 7 other allowlisted pairs showing RSI<45 and bearish MACD this cycle), 3 (Momentum + Location role-groups both confirm independently — well above the 1-of-6 floor; volume on both the 4H bar and 1H trigger bar does NOT confirm, 0.85x/0.88x of the §13.H 3-bar baseline, logged but non-blocking since two other role-groups already clear), and 6 (4H pullback-to-reclaim setup + genuine 1H reclaim-candle trigger at t=1794380400, close 8.584 above the prior 3h consolidation) all clear. Item 7 (macro blackout) not independently re-checked against a calendar this cycle — no known conflict, moot since item 4 already blocks. | 2026-11-11T08:37:00Z (Crypto 24/7 Scan, last completed 4H bar t=1794369600 / 1H bar t=1794380400) | 2026-11-11 | 1 | 2026-11-21 |
 
 **Removed 2026-11-04T07:38:39Z — BTC, reassessed and invalidated on a methodology correction, not
 a market change.** Queued last cycle (06:38:39Z) as a near-miss failing only item 2 (catalyst),
