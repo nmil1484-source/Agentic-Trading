@@ -1122,6 +1122,55 @@ was moved — it was already written as a dated log; this makes its non-operativ
 rather than merely implied.
 
 ## 12. Change log
+- **2026-11-11 (later same day): User instructed continuing the §24 vertical-debit-spread work as
+  development/read-only validation only — no orders, activation, or account-setting changes.**
+  Four pieces of work, all read-only or offline:
+  1. **Deterministic position reconciliation built and tested.** New
+     `dev_scanner/tv_structure.py::reconcile_vertical_spread_positions()` matches a recorded
+     spread's two leg ids against real `get_option_positions`-shaped data by **exact `option_id`
+     equality only — never guesses a pairing** by strike/expiration proximity or any other
+     heuristic. Classifies `MATCHED`, `MISMATCHED_QUANTITY`, `SHORT_LEG_ABSENT`/`LONG_LEG_ABSENT`
+     (both explicitly `NEEDS_INVESTIGATION` — never asserted as "assignment," since position data
+     alone can't distinguish that from an independent manual close), `WRONG_TYPE`,
+     `AMBIGUOUS_DUPLICATE_POSITION`, and `NOT_OPEN`; always reports any unrecognized position
+     rather than dropping it. Verified via 9 offline fixture tests, plus one live check against
+     this account's real (empty) option positions — correctly reconciles to `NOT_OPEN`, the only
+     live case possible since no real spread has ever existed under this policy.
+  2. **Partial-fill classification built and tested.** New
+     `classify_multileg_order_state()` reads `get_option_orders`' documented `state` enum and
+     flags `partially_filled` explicitly as `legging_risk_materialized: True` — the schema does
+     not state multi-leg orders are exempt from partial fills, so this is never assumed resolved
+     by the order being native/paired. Verified via 4 offline tests.
+  3. **Native paired-leg closing validated via a non-submitting preview, not a real position.**
+     Live `review_option_order` (simulate only — places nothing) accepted a real 2-leg SPY
+     close-shaped request (both legs `position_effect: "close"`, sides reversed,
+     `direction: "credit"`) and returned a clean combined preview. **Real finding**: this
+     succeeded with the account's real option positions confirmed empty immediately before and
+     after (`get_option_positions(nonzero=true)` → `[]`) and returned no `collateral` field
+     (present on the entry-side preview, absent here) — `review_option_order` does not validate
+     against actually-held positions, so a clean preview is never itself proof a real close will
+     succeed against a real spread. No real spread was opened to test this end-to-end, per this
+     entry's own explicit scope.
+  4. **Assignment/expiration/partial-fill handling researched further — moved from "undocumented"
+     to "partially documented," not resolved.** `exercise_option`'s `reason` parameter includes
+     `covering_early_assignment`, confirming early assignment is a named, recognized event with a
+     documented remedy path (exercise the offsetting long leg); how a short-leg assignment itself
+     is *surfaced* to the agent remains unresearched. `get_option_chains`/`get_option_instruments`
+     document `sellout_time_to_expiration`/`sellout_datetime` — real evidence of an automated
+     pre-expiration force-close mechanism; its exact per-leg behavior on an open spread remains
+     unresearched. §24 item 7's checklist updated to reflect all of this precisely — **still NOT
+     PASSED, 3 of 8 items fully complete**, same count as before this pass, but every remaining
+     item now carries real documentation and/or tested logic instead of a flat "undocumented."
+  5. **`limited_margin` clarified, separate from borrowing.** The connector's own
+     `get_limited_margin_upgrade_info` tool documents the feature directly: it lets an account
+     trade with unsettled sale proceeds "while adding no borrowing or leverage" — distinct from a
+     standard `margin` account (the retail account's own type, permanently walled off per §1).
+     Added to §24 item 6 as a sourced clarification; changes no funding rule — settled,
+     non-margin buying power is still required for every live order (§17/§14 item 2, unaffected).
+  **No existing numeric risk cap, position cap, R:R floor, account-firewall rule, or circuit
+  breaker was touched. No order was placed. No trigger prompt was modified. No account setting was
+  changed.** `python3 -I dev_scanner/test_tv_structure.py` run and verified **61/61 passing** (48
+  before this pass + 13 new) before this entry was logged.
 - **2026-11-11: User approved a narrow policy amendment permitting Mode B vertical debit spreads
   (bull call / bear put only, two legs, same underlying/expiration, equal quantity, net debit),
   explicitly keeping naked options, credit spreads, ratio spreads, calendars, and every other
@@ -5159,50 +5208,99 @@ design does not use this instrument.
      `option_level: option_level_3` and `type: limited_margin` (not `cash`) — both required by the
      tool's own documented restriction ("multi-leg is not available on cash or retirement accounts");
      this account already qualifies, no account-setting change needed or made.
+     **The `limited_margin` label clarified, 2026-11-11 (development/read-only research, no
+     account-setting touched):** this is not evidence of borrowing. The connector's own
+     `get_limited_margin_upgrade_info` tool defines the feature directly: **"Limited margin lets the
+     account trade with unsettled funds — proceeds from a sale can go into a new order before that
+     sale settles — while adding no borrowing or leverage."** It is Robinhood's label for an
+     account that may use not-yet-settled sale proceeds for a new order, nothing more — it is a
+     different thing from a standard `margin` account (which the retail account, ••••7533, carries,
+     and which this system is permanently walled off from per §1) and does not conflict with the
+     Universal Safety Kernel item 3 settled-cash/no-borrowing rule or the Effective Policy's
+     margin-vs-embedded-leverage note. Every live order placed under this policy must still use
+     confirmed settled, non-margin buying power exactly as §17/§14 item 2 already require —
+     `limited_margin` does not relax that, and this clarification changes no funding rule.
    - **Entry**: one `place_option_order` call, two legs, both `position_effect: "open"`, opposite
      `side`, `direction: "debit"`, a single net limit `price`, `type: "limit"` (multi-leg supports
      limit only — confirmed in the tool's own schema). Never two separate single-leg
      `place_option_order` calls for the two legs of one spread.
    - **Exit**: one order closing both legs together — both legs' `position_effect: "close"`, side
      reversed from the opening leg (documented directly in the tool's own leg-layout guidance,
-     "to close a long use sell; to close a short use buy"). **Not yet live-tested** (there is no
-     open spread position to close while this lane has placed zero live orders) — treat as
-     documented-but-unverified until the first real spread is actually opened and closed under this
-     policy; re-confirm at that time rather than assuming the documented path behaves exactly as
-     described.
-   - **Position reconciliation — a real, documented gap, not assumed solved:** `get_option_positions`
-     returns each leg as its own independent long/short position; the tool does not return a
-     single combined "spread" object. Reconciling two single-leg positions into one logical spread
-     position (matching same underlying + same expiration + opposite type-or-side + equal quantity)
-     is this system's own responsibility, not something the connector does automatically. Any
-     capability-verification pass under item 7 below must include confirming this matching logic
-     works correctly against real position data before the lane goes live — a mismatch here would
-     let a spread's two legs be mistaken for two unrelated single-leg positions (or vice versa),
-     corrupting the heat-cap and position-count accounting in either direction.
-   - **Assignment handling — undocumented in the tool schema, flagged as an open item, not
-     resolved by this entry.** Early-assignment risk exists only on the short leg; because the long
-     leg of the same expiration can offset it (exercise the long leg to resolve), the position's
-     worst case stays bounded at the original max loss even through an assignment event — but the
-     *mechanics* of how Robinhood Agentic actually surfaces or auto-handles an assignment on an
-     agent-held short leg are not described anywhere in the tool schemas reviewed for this entry.
-     Must be researched (Robinhood's own documentation, or a controlled real test once live) and
-     documented here before item 7 can be marked passed.
-   - **Expiration handling — undocumented in the tool schema, flagged as an open item, not resolved
-     by this entry.** How an in-the-money long or short leg is auto-exercised/auto-assigned at
-     expiration, versus requiring an explicit close beforehand, is not described in the schemas
-     reviewed. Must be researched and documented before item 7 can be marked passed — in practice,
-     this section's own item 5 time-stop (5 sessions before expiration) is designed to close every
-     position before this question can actually matter, but the mechanics should still be
-     understood and written down, not assumed.
-   - **Partial/failed multi-leg order handling — undocumented in the tool schema, flagged as an open
-     item, not resolved by this entry.** A multi-leg order is limit-only, which structurally rules
-     out two independently-submitted legs filling at different uncontrolled prices (the classic
-     legging-risk failure mode) — but the schema does not explicitly state whether a multi-leg limit
-     order fills all legs atomically or can partially fill one leg without the other. This can only
-     be fully verified by observing a real multi-leg order's lifecycle via `get_option_orders`,
-     which requires actually placing one — exactly why this lane stays non-executable until a
-     deliberate, disclosed first real test is proposed and separately approved, not inferred from
-     documentation alone.
+     "to close a long use sell; to close a short use buy"). **Live-tested (simulate only) 2026-11-11,
+     development/read-only pass:** `review_option_order` accepted the same SPY legs reversed
+     (`sell`/`close` + `buy`/`close`, `direction: "credit"`) and returned a clean combined preview —
+     confirming the close-side structure is accepted. **Real finding, not previously known:** this
+     preview succeeded with **zero open positions in the account at the time** (`get_option_positions`
+     confirmed empty immediately before and after) and returned no `collateral` field at all (present
+     on the entry-side preview, absent here) — `review_option_order` does **not** validate the
+     request against actually-held positions; it is a pure pricing/structural preview. This means a
+     clean preview is never itself evidence that a real close against a real spread will succeed —
+     `place_option_order` is where a real position mismatch would actually surface, and that has
+     still never been tested (doing so requires a real open spread, which this lane has never
+     created). Still **not fully live-tested end-to-end** (open → real close) — only the structural
+     shape is confirmed.
+   - **Position reconciliation — matching logic now built and offline-tested; still not tested
+     against a real open spread, because none has ever existed under this policy.** `get_option_positions`
+     returns each leg as its own independent long/short position, never a combined "spread" object
+     — confirmed unchanged. `dev_scanner/tv_structure.py`'s `reconcile_vertical_spread_positions()`
+     (added 2026-11-11) does this matching deterministically, by **exact `option_id` equality only
+     — never strike/expiration proximity or any other heuristic ("never guess pairings")** — and
+     classifies every outcome: `MATCHED`, `MISMATCHED_QUANTITY`, `SHORT_LEG_ABSENT`/`LONG_LEG_ABSENT`
+     (both explicitly labeled `NEEDS_INVESTIGATION` — position data alone cannot distinguish an
+     assignment from an independent manual close of just one leg, so neither is ever asserted),
+     `WRONG_TYPE` (a real data inconsistency), `AMBIGUOUS_DUPLICATE_POSITION` (more than one position
+     reports the same `option_id` — never picked arbitrarily), and `NOT_OPEN`. Any unrecognized
+     position (an `option_id` matching neither recorded leg) is always reported, never silently
+     dropped or folded in. Verified via 9 offline fixture tests (`python3 -I
+     dev_scanner/test_tv_structure.py`) covering every status above, **and** against this account's
+     real live position data (`get_option_positions(nonzero=true)` returned `[]` on 2026-11-11 —
+     correctly reconciles to `NOT_OPEN`, the only live-data case possible since no real spread has
+     ever existed here). **Still cannot be tested against a real `MATCHED`/`MISMATCHED`/assignment
+     case without actually opening a real spread first** — explicitly not done, per this entry's own
+     scope (development/read-only only).
+   - **Assignment handling — partially documented 2026-11-11, not fully resolved.** Early-assignment
+     risk exists only on the short leg; the long leg of the same expiration can offset it. The
+     connector's own `exercise_option` tool documents a `reason` parameter value
+     `covering_early_assignment` — direct, real evidence that early assignment is a named, recognized
+     event in this system and that the documented remedy (exercising the matching long leg) is a
+     supported, explicit action, not something Robinhood silently auto-resolves on the agent's
+     behalf. `exercise_option` requires explicit user confirmation before every call (never silent)
+     and is long-leg-only (a short position cannot be "exercised," only assigned); a companion
+     `cancel_option_exercise` tool can retract one's own queued exercise request before it processes.
+     **What remains undocumented**: the mechanics of how an assignment on the *short* leg itself is
+     surfaced to the agent/account (push/alert vs. only discoverable via a position disappearing
+     from `get_option_positions`) — not described in any schema reviewed. Must be researched further
+     (Robinhood's own account documentation, or observed on a real controlled test) before this
+     checklist item can be marked passed.
+   - **Expiration handling — partially documented 2026-11-11, not fully resolved.** `get_option_chains`
+     returns a per-chain `sellout_time_to_expiration` and `get_option_instruments` returns a
+     per-contract `sellout_datetime` — both real, documented fields, with the chain tool's own guide
+     stating this is "the authoritative per-contract timestamp covering equity/index, AM/PM settle,
+     and T-1 logic" for when Robinhood will force-close a position. This is direct evidence Robinhood
+     has an automated pre-expiration close-out mechanism, not silent auto-exercise with no warning.
+     **What remains undocumented**: exactly what "force-close" does to each leg of an open spread
+     specifically (closes both legs together, or each independently, and in what order) and how it
+     interacts with an account that holds offsetting long/short legs of the same expiration — not
+     described in any schema reviewed. This section's own item 5 time-stop (5 sessions before
+     expiration) is designed to close every position well before `sellout_datetime` could matter, so
+     the practical exposure is already minimized regardless — but the mechanics should still be
+     confirmed, not assumed, before this item is marked passed.
+   - **Partial/failed multi-leg order handling — classification logic now built and offline-tested
+     against the documented order-state enum; still not observed on a real multi-leg order, because
+     none has ever been placed.** `get_option_orders`' own documented `state` enum
+     (queued/confirmed/**partially_filled**/filled/rejected/cancelled/failed/voided/pending_cancelled)
+     explicitly includes `partially_filled` as a possible outcome, with nothing in any schema
+     reviewed stating multi-leg orders are exempt from it or guaranteed to fill atomically — **a
+     native multi-leg order reduces legging risk by removing independently-timed submission, but the
+     documented state enum does not prove it eliminates partial fills.** `tv_structure.py`'s new
+     `classify_multileg_order_state()` (added 2026-11-11) reads an order's `state` and explicitly
+     flags `partially_filled` as `legging_risk_materialized: True` — requiring reconciliation against
+     real positions (`reconcile_vertical_spread_positions()`) rather than being assumed to self-
+     resolve. Verified via 4 offline tests covering every documented state value. **Still cannot be
+     fully verified without observing a real multi-leg order's actual lifecycle**, which requires
+     placing one — exactly why this lane stays non-executable until a deliberate, disclosed first
+     real test is proposed and separately approved, not inferred from documentation or offline tests
+     alone.
 
 7. **Connector-capability verification gate — EXECUTABLE status blocked until this item is marked
    passed, in writing, in this document, via a dated §12 entry:**
@@ -5211,14 +5309,24 @@ design does not use this instrument.
      (item 6).
    - [x] Account prerequisites met (`option_level_3`, non-cash account) — verified 2026-11-11
      (item 6).
-   - [ ] Native paired-leg exit — documented, **not yet live-tested** (item 6).
-   - [ ] Reliable position reconciliation (two legs → one logical spread) — **gap identified, no
-     reconciliation logic built or tested yet** (item 6).
-   - [ ] Assignment handling — **undocumented, not yet researched** (item 6).
-   - [ ] Expiration handling — **undocumented, not yet researched** (item 6).
-   - [ ] Partial/failed multi-leg order handling — **undocumented, cannot be fully verified without
-     a live order** (item 6).
-   **Status as of 2026-11-11: NOT PASSED — 3 of 8 checks complete.** This lane remains
+   - [ ] Native paired-leg exit — structural preview confirmed 2026-11-11 (live, simulate-only,
+     zero open positions at the time), but a real open-then-close round trip has never been
+     performed (item 6).
+   - [ ] Reliable position reconciliation (two legs → one logical spread) — **deterministic logic
+     built and tested 2026-11-11 (9 offline fixtures + 1 live real-data check against this
+     account's actual, empty option positions); not yet tested against a real open spread** (item 6).
+   - [ ] Assignment handling — **partially documented 2026-11-11** (`exercise_option`'s
+     `covering_early_assignment` reason code confirms a supported remedy path exists); **how a
+     short-leg assignment itself is surfaced to the agent remains unresearched** (item 6).
+   - [ ] Expiration handling — **partially documented 2026-11-11** (`sellout_datetime`/
+     `sellout_time_to_expiration` confirm an automated pre-expiration force-close mechanism exists);
+     **its exact per-leg behavior on an open spread remains unresearched** (item 6).
+   - [ ] Partial/failed multi-leg order handling — **classification logic built and tested 2026-11-11
+     against the documented `partially_filled` state value; never observed on a real multi-leg
+     order** (item 6).
+   **Status as of 2026-11-11 (second pass): still NOT PASSED — 3 of 8 checks fully complete**, but
+   every remaining item now has real documentation, tested logic, or both, where the first pass
+   (same date, earlier) left several flatly "undocumented"/"not built." This lane remains
    research/paper-only. Do not place a live spread order, and do not treat a future cycle's silence
    on this gate as implicit permission — the gate must be explicitly marked passed here, with a
    dated §12 entry, before `place_option_order` may ever be called with a multi-leg `legs` array

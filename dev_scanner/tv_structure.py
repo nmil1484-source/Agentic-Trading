@@ -427,6 +427,139 @@ def vertical_spread_position_size(risk_dollars: float, net_debit: float, multipl
     return qty if qty >= 1 else None
 
 
+def reconcile_vertical_spread_positions(recorded: dict, positions: Sequence[dict]) -> dict:
+    """
+    Deterministic, read-only reconciliation of a recorded vertical-debit-spread
+    (CLAUDE.md §24 item 7) against actual broker position data. Matches ONLY by
+    exact `option_id` equality — never by strike/expiration proximity or any
+    other heuristic. A position whose option_id doesn't exactly equal one of the
+    two recorded leg ids is never assumed to belong to this spread, no matter how
+    similar it looks (same underlying, adjacent strike, etc.) — "never guess
+    pairings" is the entire point of this function.
+
+    recorded: {"long_option_id": str, "short_option_id": str, "quantity": int}
+      — the two leg ids and the equal per-leg quantity this spread was opened
+      with (both legs always have the same quantity by definition of a vertical).
+    positions: sequence of dicts shaped like get_option_positions entries, each
+      with at least {"option_id": str, "quantity": float, "type": "long"|"short"}
+      — only nonzero positions should be passed in (filter before calling, same
+      as the broker tool's own `nonzero=true` convention).
+
+    Returns {"status", "detail", "long_leg", "short_leg", "unrecognized_positions"}:
+      - status "MATCHED": both legs found, correct type, quantities equal to
+        `recorded["quantity"]` and to each other.
+      - status "MISMATCHED_QUANTITY": both legs found but quantities disagree
+        (with each other or with the recorded quantity) — flagged, never
+        silently averaged or assumed to be the smaller/larger figure.
+      - status "SHORT_LEG_ABSENT": the long leg is present as recorded but the
+        short leg is not found at all. This is NOT asserted to be an assignment
+        — a manual close of just the short leg produces the exact same observed
+        state from position data alone. Flagged "NEEDS_INVESTIGATION", always;
+        the caller must check get_option_orders history to actually determine
+        the cause before acting.
+      - status "LONG_LEG_ABSENT": the mirror case (short leg present, long leg
+        missing) — e.g. the long leg was independently exercised or closed.
+        Also flagged NEEDS_INVESTIGATION, same reasoning.
+      - status "NOT_OPEN": neither leg found — the spread is fully closed or was
+        never opened under these exact ids.
+      - status "WRONG_TYPE": a position with a matching option_id exists but its
+        `type` field contradicts the recorded leg role (e.g. the recorded long
+        leg's option_id shows up with type="short") — a real data inconsistency,
+        never silently reinterpreted.
+      `unrecognized_positions` always lists every position in the input whose
+      option_id matches neither recorded leg id, regardless of status above —
+      these are never folded into this spread's reconciliation, and never
+      silently dropped from the report either.
+    """
+    long_id = recorded["long_option_id"]
+    short_id = recorded["short_option_id"]
+    expected_qty = recorded["quantity"]
+
+    long_matches = [p for p in positions if p.get("option_id") == long_id]
+    short_matches = [p for p in positions if p.get("option_id") == short_id]
+    unrecognized = [p for p in positions if p.get("option_id") not in (long_id, short_id)]
+
+    long_leg = long_matches[0] if len(long_matches) == 1 else (long_matches or None)
+    short_leg = short_matches[0] if len(short_matches) == 1 else (short_matches or None)
+
+    # Multiple positions reporting the SAME option_id is itself a data anomaly —
+    # never pick one arbitrarily.
+    if len(long_matches) > 1 or len(short_matches) > 1:
+        return {"status": "AMBIGUOUS_DUPLICATE_POSITION", "detail":
+                "more than one position reported the same option_id for a recorded leg — cannot reconcile without guessing",
+                "long_leg": long_matches or None, "short_leg": short_matches or None,
+                "unrecognized_positions": unrecognized}
+
+    long_present = long_leg is not None
+    short_present = short_leg is not None
+
+    if not long_present and not short_present:
+        return {"status": "NOT_OPEN", "detail": "neither recorded leg found in current positions — closed or never opened",
+                "long_leg": None, "short_leg": None, "unrecognized_positions": unrecognized}
+
+    if long_present and long_leg.get("type") != "long":
+        return {"status": "WRONG_TYPE", "detail": f"recorded long leg's option_id has type={long_leg.get('type')!r}, not 'long'",
+                "long_leg": long_leg, "short_leg": short_leg, "unrecognized_positions": unrecognized}
+    if short_present and short_leg.get("type") != "short":
+        return {"status": "WRONG_TYPE", "detail": f"recorded short leg's option_id has type={short_leg.get('type')!r}, not 'short'",
+                "long_leg": long_leg, "short_leg": short_leg, "unrecognized_positions": unrecognized}
+
+    if long_present and not short_present:
+        return {"status": "SHORT_LEG_ABSENT — NEEDS_INVESTIGATION", "detail":
+                "long leg still open, short leg not found — could be assignment, exercise, or an independent manual close; position data alone cannot distinguish these, check get_option_orders/get_option_positions(nonzero=false) history",
+                "long_leg": long_leg, "short_leg": None, "unrecognized_positions": unrecognized}
+    if short_present and not long_present:
+        return {"status": "LONG_LEG_ABSENT — NEEDS_INVESTIGATION", "detail":
+                "short leg still open, long leg not found — could be an independent exercise/close of the long leg; check order history before acting",
+                "long_leg": None, "short_leg": short_leg, "unrecognized_positions": unrecognized}
+
+    long_qty = long_leg.get("quantity")
+    short_qty = short_leg.get("quantity")
+    if long_qty != short_qty or long_qty != expected_qty:
+        return {"status": "MISMATCHED_QUANTITY", "detail":
+                f"long_qty={long_qty}, short_qty={short_qty}, recorded_quantity={expected_qty} — not all equal",
+                "long_leg": long_leg, "short_leg": short_leg, "unrecognized_positions": unrecognized}
+
+    return {"status": "MATCHED", "detail": "both legs present, correct type, quantities agree",
+            "long_leg": long_leg, "short_leg": short_leg, "unrecognized_positions": unrecognized}
+
+
+def classify_multileg_order_state(order: dict) -> dict:
+    """
+    Classifies a multi-leg option order's broker-reported `state` (the field
+    get_option_orders returns: queued/confirmed/partially_filled/filled/
+    rejected/cancelled/failed/voided/pending_cancelled) for the one state that
+    matters specifically for paired-leg execution risk: `partially_filled`.
+
+    A native multi-leg order structurally prevents the two legs being submitted
+    as independently-timed orders — but the broker's own documented state enum
+    still includes `partially_filled` as a possible outcome for ANY option
+    order, multi-leg included, and nothing in the tool schema states multi-leg
+    orders are exempt from it or guaranteed to fill/cancel atomically. This
+    function does not assume legging risk is fully eliminated just because the
+    order was submitted as one native multi-leg request — `partially_filled`
+    must always be checked and reconciled before trusting the position to match
+    what the order was supposed to open.
+
+    Returns {"state", "legging_risk_materialized", "note"}.
+    """
+    state = order.get("state")
+    if state == "filled":
+        return {"state": state, "legging_risk_materialized": False,
+                "note": "fully filled — reconcile against positions to confirm, never assume from order state alone"}
+    if state == "partially_filled":
+        return {"state": state, "legging_risk_materialized": True,
+                "note": "one or more legs filled and at least one did not — this is exactly the legging-risk scenario a native multi-leg order is meant to avoid structurally; the documented order-state enum shows it is still possible, so this must be manually reconciled against real positions (reconcile_vertical_spread_positions) rather than assumed to self-resolve or auto-cancel"}
+    if state in ("queued", "confirmed"):
+        return {"state": state, "legging_risk_materialized": False,
+                "note": "not yet executed — no position exists from this order yet"}
+    if state in ("rejected", "cancelled", "failed", "voided", "pending_cancelled"):
+        return {"state": state, "legging_risk_materialized": False,
+                "note": "did not execute — no position should exist from this order; verify via reconcile_vertical_spread_positions if in doubt"}
+    return {"state": state, "legging_risk_materialized": None,
+            "note": f"unrecognized state {state!r} — not one of the documented get_option_orders values, treat as unresolved"}
+
+
 def position_size(risk_dollars: float, entry: float, stop: float, direction: str) -> Optional[float]:
     """
     Refuses (returns None) on a backwards stop rather than sizing via abs() — the

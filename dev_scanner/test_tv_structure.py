@@ -15,12 +15,14 @@ from dev_scanner.tv_structure import (
     allocate_scan_budget,
     atr14,
     atr_target,
+    classify_multileg_order_state,
     completed_bars,
     ema,
     macd,
     orb_breakout,
     pullback_depth,
     position_size,
+    reconcile_vertical_spread_positions,
     risk_reward,
     rsi14,
     swing_points,
@@ -429,6 +431,123 @@ def test_vertical_spread_position_size_skips_when_one_spread_exceeds_cap():
     qty = vertical_spread_position_size(risk_dollars=150, net_debit=2.00)
     assert qty is None
     print("PASS test_vertical_spread_position_size_skips_when_one_spread_exceeds_cap")
+
+
+_RECORDED = {"long_option_id": "LONG-1", "short_option_id": "SHORT-1", "quantity": 3}
+
+
+def test_reconcile_vertical_spread_matched():
+    positions = [
+        {"option_id": "LONG-1", "quantity": 3, "type": "long"},
+        {"option_id": "SHORT-1", "quantity": 3, "type": "short"},
+    ]
+    r = reconcile_vertical_spread_positions(_RECORDED, positions)
+    assert r["status"] == "MATCHED" and r["unrecognized_positions"] == []
+    print("PASS test_reconcile_vertical_spread_matched")
+
+
+def test_reconcile_vertical_spread_not_open():
+    r = reconcile_vertical_spread_positions(_RECORDED, [])
+    assert r["status"] == "NOT_OPEN"
+    print("PASS test_reconcile_vertical_spread_not_open")
+
+
+def test_reconcile_vertical_spread_short_leg_absent_flagged_not_asserted():
+    # long still open, short gone -> could be assignment OR a manual close; never asserted as either
+    positions = [{"option_id": "LONG-1", "quantity": 3, "type": "long"}]
+    r = reconcile_vertical_spread_positions(_RECORDED, positions)
+    assert r["status"] == "SHORT_LEG_ABSENT — NEEDS_INVESTIGATION"
+    assert "cannot distinguish" in r["detail"] or "check get_option_orders" in r["detail"]
+    print("PASS test_reconcile_vertical_spread_short_leg_absent_flagged_not_asserted")
+
+
+def test_reconcile_vertical_spread_long_leg_absent():
+    positions = [{"option_id": "SHORT-1", "quantity": 3, "type": "short"}]
+    r = reconcile_vertical_spread_positions(_RECORDED, positions)
+    assert r["status"] == "LONG_LEG_ABSENT — NEEDS_INVESTIGATION"
+    print("PASS test_reconcile_vertical_spread_long_leg_absent")
+
+
+def test_reconcile_vertical_spread_mismatched_quantity():
+    positions = [
+        {"option_id": "LONG-1", "quantity": 3, "type": "long"},
+        {"option_id": "SHORT-1", "quantity": 2, "type": "short"},  # partially closed short only
+    ]
+    r = reconcile_vertical_spread_positions(_RECORDED, positions)
+    assert r["status"] == "MISMATCHED_QUANTITY"
+    print("PASS test_reconcile_vertical_spread_mismatched_quantity")
+
+
+def test_reconcile_vertical_spread_wrong_type_flagged():
+    positions = [
+        {"option_id": "LONG-1", "quantity": 3, "type": "short"},  # data inconsistency
+        {"option_id": "SHORT-1", "quantity": 3, "type": "short"},
+    ]
+    r = reconcile_vertical_spread_positions(_RECORDED, positions)
+    assert r["status"] == "WRONG_TYPE"
+    print("PASS test_reconcile_vertical_spread_wrong_type_flagged")
+
+
+def test_reconcile_vertical_spread_never_guesses_similar_but_different_option_id():
+    # a position on a strike one dollar away is NOT the recorded leg, no matter how close
+    positions = [
+        {"option_id": "LONG-1", "quantity": 3, "type": "long"},
+        {"option_id": "SHORT-1-DIFFERENT-STRIKE", "quantity": 3, "type": "short"},
+    ]
+    r = reconcile_vertical_spread_positions(_RECORDED, positions)
+    assert r["status"] == "SHORT_LEG_ABSENT — NEEDS_INVESTIGATION"
+    assert len(r["unrecognized_positions"]) == 1
+    assert r["unrecognized_positions"][0]["option_id"] == "SHORT-1-DIFFERENT-STRIKE"
+    print("PASS test_reconcile_vertical_spread_never_guesses_similar_but_different_option_id")
+
+
+def test_reconcile_vertical_spread_duplicate_option_id_is_ambiguous():
+    positions = [
+        {"option_id": "LONG-1", "quantity": 3, "type": "long"},
+        {"option_id": "LONG-1", "quantity": 3, "type": "long"},  # duplicate — data anomaly
+        {"option_id": "SHORT-1", "quantity": 3, "type": "short"},
+    ]
+    r = reconcile_vertical_spread_positions(_RECORDED, positions)
+    assert r["status"] == "AMBIGUOUS_DUPLICATE_POSITION"
+    print("PASS test_reconcile_vertical_spread_duplicate_option_id_is_ambiguous")
+
+
+def test_reconcile_vertical_spread_reports_unrecognized_positions_without_dropping_them():
+    positions = [
+        {"option_id": "LONG-1", "quantity": 3, "type": "long"},
+        {"option_id": "SHORT-1", "quantity": 3, "type": "short"},
+        {"option_id": "SOME-OTHER-OPTION", "quantity": 1, "type": "long"},
+    ]
+    r = reconcile_vertical_spread_positions(_RECORDED, positions)
+    assert r["status"] == "MATCHED"
+    assert len(r["unrecognized_positions"]) == 1 and r["unrecognized_positions"][0]["option_id"] == "SOME-OTHER-OPTION"
+    print("PASS test_reconcile_vertical_spread_reports_unrecognized_positions_without_dropping_them")
+
+
+def test_classify_multileg_order_state_filled():
+    r = classify_multileg_order_state({"state": "filled"})
+    assert r["legging_risk_materialized"] is False
+    print("PASS test_classify_multileg_order_state_filled")
+
+
+def test_classify_multileg_order_state_partially_filled_flags_legging_risk():
+    r = classify_multileg_order_state({"state": "partially_filled"})
+    assert r["legging_risk_materialized"] is True
+    print("PASS test_classify_multileg_order_state_partially_filled_flags_legging_risk")
+
+
+def test_classify_multileg_order_state_not_yet_executed():
+    for s in ("queued", "confirmed"):
+        r = classify_multileg_order_state({"state": s})
+        assert r["legging_risk_materialized"] is False
+    print("PASS test_classify_multileg_order_state_not_yet_executed")
+
+
+def test_classify_multileg_order_state_did_not_execute():
+    for s in ("rejected", "cancelled", "failed", "voided", "pending_cancelled"):
+        r = classify_multileg_order_state({"state": s})
+        assert r["legging_risk_materialized"] is False
+    print("PASS test_classify_multileg_order_state_did_not_execute")
 
 
 _ALL_TESTS = [v for k, v in list(globals().items()) if k.startswith("test_")]
