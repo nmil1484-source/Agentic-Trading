@@ -68083,3 +68083,21 @@ Re-pulled TEM's news (`get_news`) and politician trades (`get_politician_trades`
 ```json
 {"cycle": "ad_hoc_gap_completion", "timestamp_utc": "2026-11-11T16:30:00Z", "modes_covered": ["B"], "status_gate": "ACTIVE", "coverage_state": "EVALUATED", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "new_added": 1, "catalyst_resolved_clear": 2, "catalyst_resolved_fail": 1}, "helper_module": {"path": "dev_scanner/tv_structure.py", "tests_total": 31, "tests_passing": 31, "bugs_found_and_fixed": 2, "cross_checked_against": "AVAX 15:37Z crypto cycle manual calc, exact match"}, "migration_dry_run": true, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-11T16:40Z (approx) — AD HOC: AMD final determination (user-directed, not a scheduled trigger)
+
+**Fresh data pulled this check:** `get_accounts`/`get_portfolio` (equity $5,686.33, 0 open positions, buying power = full cash), `get_equity_quotes` (AMD $552.18 live, SPY/QQQ shock-check negative), `get_ohlcv` (AMD 1D×60 and 1h×60, TRADING_VIEW_2), processed through the newly-built `dev_scanner/tv_structure.py`.
+
+**Item 2 (catalyst): CLEARS, unchanged from the prior check this hour** — $2.5B Anthropic stake commitment (dated 2026-11-11), Oppenheimer upgrade, 6th-Gen EPYC launch, all same-day/sourced. No politician-trade signal either way. No §4 earnings conflict (next report 2027-02-02).
+
+**Item 3 (confirmation): CLEARS on Momentum** — daily MACD histogram improving 3 completed bars running (-13.75 → -8.51 → -4.22). Trend/State does NOT independently clear (daily EMA9 493.87 < EMA20 516.20; last completed close 515.21 below the 50-SMA 548.56) — moot since Momentum alone satisfies the 1-of-5 floor.
+
+**Item 7 (daily+hourly trigger) — FAILS, the binding blocker.** No classic pullback-to-support setup exists (EMA9<EMA20, price<50-SMA). The §13.G breakout-continuation method DOES produce a real setup: the last completed daily bar (close 552.31, high 555.68, 2026-11-10) closed above the prior 5-bar swing high (539.25) — `tv_structure.swing_points()` confirms `current_above_prior_swing_high: True`. **But §13.G's own mandatory, non-waivable volume confirmation on that breakout bar fails decisively**: `tv_structure.volume_baseline_13h()` on the 3 completed bars immediately preceding it = 48,059,960 shares; the breakout bar's own volume = 19,827,344 shares — a ratio of **0.41x**, far below the required ≥1.2x. §13.G item 2 states explicitly this condition "cannot be waived under this method." No other currently-permitted daily setup exists.
+
+**Verdict: NO_TRADE.** Equity thesis fails §13.G item 2 (breakout-bar volume confirmation, 0.41x vs. the required ≥1.2x) — a clean, specific gate failure, not an operational blocker and not a close call. Per §18 item 2, a call requires the underlying to independently clear the full §5B gate first; since the underlying fails here, no options chain was pulled — evaluating a call would be moot against a failed underlying, not a budget or lane restriction. No Trade Card produced. No order placed. Migration hold, protective management, and all schedules unchanged (moot — no order was ever reached).
+
+```json
+{"cycle": "ad_hoc_amd_final", "timestamp_utc": "2026-11-11T16:40:00Z", "modes_covered": ["B"], "status_gate": "ACTIVE", "coverage_state": "EVALUATED", "symbol": "AMD", "verdict": "NO_TRADE", "failed_gate": "§13.G item 2 — breakout-bar volume confirmation, 0.41x vs required >=1.2x", "item_2_catalyst": "CLEAR", "item_3_confirmation": "CLEAR (Momentum)", "item_7_trigger": "FAIL", "options_evaluated": false, "options_skip_reason": "underlying failed §5B gate — §18 item 2 requires underlying clearance first", "migration_dry_run": true, "orders_placed": 0, "git_push": "pending"}
+```
