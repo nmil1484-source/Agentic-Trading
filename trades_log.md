@@ -68120,3 +68120,39 @@ Re-pulled TEM's news (`get_news`) and politician trades (`get_politician_trades`
 ```json
 {"cycle": "ad_hoc_amd_catalyst_followup", "timestamp_utc": "2026-11-11T16:40:00Z", "modes_covered": ["B"], "status_gate": "ACTIVE", "coverage_state": "EVALUATED", "symbol": "AMD/AMDG", "verdict": "NO_TRADE_UNCHANGED", "new_catalyst_evaluated": "CoreWeave Q3 earnings (2026-11-10/11)", "catalyst_classification": "sector_tailwind_not_name_specific", "name_specific_catalyst_source": "NVDA, confirmed by CoreWeave CEO statement", "binding_blocker_unchanged": "§13.G item 2 breakout-bar volume 0.41x vs required >=1.2x", "migration_dry_run": true, "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-11T16:50Z (approx) — AD HOC: trigger-path verification, §18/§19/Mode C separated for AMD, TNA RS correction (user-directed)
+
+**Scope, per explicit instruction: keep all entry holds, risk rules, schedules unchanged. No orders, no hold removal, no larger budgets.**
+
+### 1. Trigger-path verification — both First Scan and Fresh Candle corrected, pending live confirmation on next natural fire
+
+Fetched both triggers' current saved prompts (`get_trigger`). Confirmed neither referenced the module by its real path — both said "the tested `tv_structure.py` module (built and live-verified... delivered to the user as a file)" with no actual path and no import instruction, which is what let every cycle this session run ad-hoc inline calculations instead. **Corrected ONLY that one reference in each prompt** (verified via exact-text diff before submitting — cron_expression, enabled, and every other field confirmed byte-identical before and after via the tool's own echoed response):
+- First Scan (`trig_01RN6ZbtgxKpoDApzmGswWAs`): cron unchanged (`0 15 * * 1-5`), enabled unchanged (`true`), next_run_at unchanged (`2026-11-12T15:03:24Z`). Prompt now reads: "using the real, tested structure/sizing module at `dev_scanner/tv_structure.py` in this repository (import as `from dev_scanner.tv_structure import ...` — run from the repo root, `/home/user/Agentic-Trading`...)".
+- Fresh Candle (`trig_01KrBsTt9mssjU4hPGtM3cBe`): cron unchanged (`3 16-20 * * 1-5`), enabled unchanged (`true`), next_run_at unchanged (`2026-11-11T17:03:00Z`). Same correction applied.
+
+**Test suite re-run for this check, final output:**
+```
+31/31 passed
+```
+(`python3 -I dev_scanner/test_tv_structure.py`, run fresh this turn, not reused from earlier — git blob `b1d4a424f548d4be2e385f0c69399602e34ee63a`.)
+
+**Actual execution evidence — honestly incomplete, not fabricated.** Fresh Candle's next natural fire is 2026-11-11T17:03:00Z; First Scan's is tomorrow (2026-11-12T15:03:24Z). Neither has fired since this correction landed. **This entry does not claim a live-fire confirmation** — the real test is Fresh Candle's 17:03Z firing, which will be logged in that cycle's own trades_log.md entry with the exact module path/version it actually invoked and its returned results, per the user's request. Flagging this plainly rather than asserting success before it's observed.
+
+### 2. §18, §19 LEAPS, and Mode C — reported separately for AMD, §19 evaluated independently (not inheriting §18's rejection)
+
+- **§18 (21-75 DTE call): REJECTED on a named prerequisite** — §13.G item 2, the breakout-bar volume confirmation (0.41x vs. the required ≥1.2x), established in the prior AMD-final-determination entry this session. This blocks the underlying equity thesis that §18 item 2 requires a call to ride on.
+- **§19 (LEAPS, 9-12mo DTE): EVALUATED independently this check — REJECTED on its own, different, named prerequisite (affordability), not on §18's blocker.** §19 item 2's research gate does not use §13.G's breakout-volume test at all — its own structure/catalyst requirement was checked fresh and fares differently from §18: the durable multi-quarter AI-chip-demand thesis (Anthropic stake, EPYC launch) stands on its own terms, and a basing/recovery structure is visible on the daily chart since the Nov-4 crash low (a real sequence of higher lows: 402.10→433.30→468.21→495.00→522.65) — arguably clearing §19's own weekly/daily structure test. **But §19 item 4's premium cap fails decisively on fresh data**, independent of §18 entirely: pulled the real 2027-09-17 (~10.2mo DTE) chain via `get_option_chains`/`get_option_instruments`/`get_option_quotes` — the nearest ~0.20-delta strike is the $1000 call (delta 0.206, mark $26.375/contract = **$2,637.50 total for one contract**) against a current 6%-of-equity cap of **$341.18** (6% × $5,686.33) — **≈7.7x over the cap**, worse than the 2026-11-04 finding (~6.5x then, at a larger equity base and a lower AMD price). **Verdict: NO_TRADE on affordability, a completely separate blocker from §18's volume-confirmation failure** — exactly the independent evaluation requested, not an inherited rejection.
+- **Mode C: NOT_RUN for AMD specifically, reason stated plainly — not a rejection.** Mode C's own VWAP-pullback/ORB/mean-reversion setup screening was deferred across all three Mode B/C cycles today for budget reasons (logged explicitly each time). AMD was never run through Mode C's own setup test this session; this is a scope gap, not a gate failure, and is named as such rather than folded into a false "rejected" label.
+
+### 3. TNA — catalyst/sector-tailwind/RS rule corrected and reapplied properly
+
+The prior check (this session, same day) wrongly required a fresh IWM headline and substituted a single trading day's underperformance for what §5B item 2 actually asks — catalyst OR sector tailwind OR relative strength, with RS specifically requiring "a specific, checkable comparison... over Z sessions," not one day. **Redone correctly**: real `get_ohlcv` (IWM, SPY, daily, last 5 completed sessions spanning the Nov-4 crash-and-recovery window) shows **IWM +3.54% vs. SPY +2.31% — a real +1.23pp outperformance over 5 sessions.** Item 2 now clears on this RS basis — the prior "checked and failed" finding is reversed and corrected in `near_miss_queue.md`. The standing blocker remains item 4 (R:R), last computed at ≈1.15-1.18:1 against a lower price; TNA has since moved higher and that figure was not re-verified fresh this check.
+
+**Migration hold, risk rules, and all three trigger schedules: unchanged.** No order placed. No numeric threshold, cap, or floor changed anywhere in this entry.
+
+```json
+{"cycle": "ad_hoc_trigger_verification_and_separation", "timestamp_utc": "2026-11-11T16:50:00Z", "modes_covered": ["B"], "status_gate": "ACTIVE", "coverage_state": "EVALUATED", "trigger_prompts_corrected": ["trig_01RN6ZbtgxKpoDApzmGswWAs", "trig_01KrBsTt9mssjU4hPGtM3cBe"], "cron_schedules_changed": false, "tv_structure_test_result": "31/31 passed", "amd_verdict": {"equity": "NO_TRADE - §13.G item 2 volume 0.41x", "options_18": "REJECTED - §13.G item 2 (same underlying blocker)", "leaps_19": "NO_TRADE - §19 item 4 affordability, ~1000C delta 0.206 costs $2637.50 vs $341.18 cap (7.7x over), evaluated independently of §18", "mode_c": "NOT_RUN - budget deferral this session, not a rejection"}, "tna_correction": {"item_2_catalyst_sector_rs": "now CLEARS via 5-session RS (IWM +3.54% vs SPY +2.31%)", "item_4_rr": "still the standing blocker, last computed at a stale lower price"}, "migration_dry_run": true, "orders_placed": 0, "git_push": "pending"}
+```
