@@ -67924,3 +67924,19 @@ No orders placed. No exits (0 positions). Near-miss queue: 1 reassessed (AVAX, s
 ```json
 {"cycle": "premarket_prep", "timestamp_utc": "2026-11-11T14:05:42Z", "read_only": true, "calls_made_this_cycle": 3, "coverage_state": "DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE", "candidates_found": 0, "watchlist_candidates": 0, "offwatchlist_research_only_candidates": 0, "git_push": "pending", "note": "SPY 5m ohlcv bar was ~17.2 hours stale at fire time; today is not a market holiday (Veterans Day is a bank holiday only), so this is logged as a likely connector/data-pipeline staleness issue, not a holiday; the parallel watchlist batch calls' premarket_* figures were not trusted/reported given the same pipeline failed its own freshness test"}
 ```
+
+## 2026-11-11T14:37:54Z — AUTONOMOUS (Crypto 24/7 Scan, real scheduled fire)
+
+**§14/§21 status check**: ACTIVE, no kill phrase. **MIGRATION DRY-RUN HOLD standing**, moot this cycle. 0 stop-outs today, SPY/QQQ check inapplicable (pre-market). Account: $5,686.33 cash/total, 0 crypto positions, 0% heat used, nothing to manage/audit.
+
+**Data-pipeline note**: this cycle's crypto OHLCV calls all returned genuinely fresh data (last 1H bar only 2,274s old at fire time), confirming the ~17-hour-stale SPY read seen on this hour's earlier Premarket Prep cycle was isolated to that one equity call, not a general TRADING_VIEW_2 outage — crypto (Binance route) is unaffected.
+
+**Full allowlist screen** (Stage A+B, all 8 pairs, 17 fresh calls). Last completed bars: 4H t=1794384000 (08:00–12:00 UTC, still the same bar — no new 4H candle has completed since), 1H t=1794402000 (13:00–14:00 UTC). All 7 non-AVAX pairs: **rejected with evidence**, same basis as prior cycles — no bullish 4H role-group confirmation on a completed-bar basis. **One watch item**: HBAR's live/forming-bar RSI(4h) read 45.48 (Stage A, includes the still-forming candle) — the first time any of the 7 has approached the 45 threshold — but the last completed 4H bar shows no fresh confirmation, so this is logged as a watch item, not a clearance; worth a closer look once a new 4H candle actually completes and this holds.
+
+**AVAX reassessment**: still a near-miss, same item (§21 item 4). Last completed 1H bar (13:00–14:00 UTC) printed a higher low (8.521, above the prior bar's 8.491) — a first hint the pullback may be finding support, though not yet a confirmed pivot. Distance to the 8.068 stop is 5.75% (essentially flat vs. last cycle's 5.57%), still inside the 2×ATR(5.05%)/2.5×ATR(6.31%) straddle. `near_miss_queue.md` updated (cycles_checked 6→7).
+
+No orders placed. No exits (0 positions). Near-miss queue: 1 reassessed (AVAX, still near-miss), 0 cleared/invalidated/ineligible/expired.
+
+```json
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-11-11T14:37:54Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 17, "migration_dry_run": true, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending", "note": "crypto data pipeline confirmed fresh this cycle (unlike the earlier SPY staleness on the Premarket Prep cycle this same hour); HBAR's live RSI(4h) approaching 45 is a watch item only, not a completed-bar clearance; AVAX pullback showing a tentative higher low"}
+```
