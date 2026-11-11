@@ -242,6 +242,113 @@ def validate_stop_distance(entry: float, stop: float, atr_value: float, ceiling_
     }
 
 
+def orb_breakout(
+    bars: Sequence[Bar],
+    session_start_index: int,
+    as_of_index: int,
+    volume_lookback: int = 3,
+    min_volume_multiple: float = 1.2,
+) -> dict:
+    """
+    §20 item 5 Opening Range Breakout, hourly-adapted — corrected 2026-11-11: the
+    qualifying breakout candle is NEVER assumed to be the second bar. The opening
+    range is bars[session_start_index] (the session's first completed hourly bar).
+    This scans every completed bar after it, in chronological order up to
+    as_of_index, for the FIRST one whose close breaks the opening range's high
+    (long) or low (short) with volume >= min_volume_multiple times the §13.H
+    baseline (volume_baseline_13h) computed at that bar — whichever bar that
+    actually is: second, third, fourth, or later. "Only one ORB attempt per name
+    per day" means once a qualifying bar is found, no further bars are scanned
+    for a new breakout that day on this symbol.
+
+    Returns a dict:
+      - opening_range_high / opening_range_low
+      - breakout_bar_index / breakout_bar_t / breakout_direction: the qualifying
+        bar, or None/None/None if no completed bar so far qualifies
+      - is_fresh: True only if the qualifying bar IS as_of_index (the most
+        recently completed bar — actionable this cycle). False means a real
+        breakout occurred on an earlier bar that was never evaluated while it
+        was fresh; the caller logs this as MISSED_NOT_EVALUATED, never as a
+        setup rejection.
+      - no_breakout_yet: True if every completed bar scanned stayed inside the
+        opening range — not a rejection, a later completed bar may still break
+        out on a future cycle.
+    """
+    if session_start_index < 0 or session_start_index >= len(bars):
+        raise ValueError("session_start_index out of range")
+    if as_of_index < session_start_index or as_of_index >= len(bars):
+        raise ValueError("as_of_index out of range")
+    opening = bars[session_start_index]
+    or_high, or_low = opening.h, opening.l
+    for i in range(session_start_index + 1, as_of_index + 1):
+        bar = bars[i]
+        vb = volume_baseline_13h(bars, as_of_index=i, lookback=volume_lookback)
+        vol_ok = vb is not None and bar.v >= min_volume_multiple * vb["baseline"]
+        if vol_ok and bar.c > or_high:
+            direction = "long"
+        elif vol_ok and bar.c < or_low:
+            direction = "short"
+        else:
+            continue
+        return {
+            "opening_range_high": or_high,
+            "opening_range_low": or_low,
+            "breakout_bar_index": i,
+            "breakout_bar_t": bar.t,
+            "breakout_direction": direction,
+            "is_fresh": i == as_of_index,
+            "no_breakout_yet": False,
+        }
+    return {
+        "opening_range_high": or_high,
+        "opening_range_low": or_low,
+        "breakout_bar_index": None,
+        "breakout_bar_t": None,
+        "breakout_direction": None,
+        "is_fresh": False,
+        "no_breakout_yet": True,
+    }
+
+
+def allocate_scan_budget(
+    total_calls: int,
+    etf_calls_needed: int,
+    mode_c_calls_needed: int,
+    mode_b_default_calls: int,
+) -> dict:
+    """
+    Read-only scanner call-budget allocation (added 2026-11-11) — governs how many
+    TradingView calls a single screening cycle spends where, within the SAME
+    existing per-cycle budget (never a larger one). No order, risk, or schedule
+    effect of any kind.
+
+    Priority order, applied after mandatory account/protection checks (assumed
+    already spent before this is called):
+      1. The mandatory §22 leveraged/inverse-ETF screen — etf_calls_needed calls,
+         funded first and in full, never reduced.
+      2. Time-sensitive Mode C setup evaluation — up to mode_c_calls_needed calls,
+         reserved next, before the broad Mode B swing rotation.
+      3. The ordinary Mode B rotation — whatever remains, capped at
+         mode_b_default_calls; this is the bucket that absorbs any shortfall.
+
+    Returns {"etf_calls", "mode_c_calls", "mode_b_calls", "mode_b_deferred"} —
+    mode_b_deferred is True whenever mode_b_calls ends up below
+    mode_b_default_calls because the budget ran out.
+    """
+    remaining = max(0, total_calls)
+    etf_calls = min(etf_calls_needed, remaining)
+    remaining -= etf_calls
+    mode_c_calls = min(mode_c_calls_needed, remaining)
+    remaining -= mode_c_calls
+    mode_b_calls = min(mode_b_default_calls, remaining)
+    return {
+        "etf_calls": etf_calls,
+        "mode_c_calls": mode_c_calls,
+        "mode_b_calls": mode_b_calls,
+        "mode_b_deferred": mode_b_calls < mode_b_default_calls,
+    }
+
+
 def position_size(risk_dollars: float, entry: float, stop: float, direction: str) -> Optional[float]:
     """
     Refuses (returns None) on a backwards stop rather than sizing via abs() — the

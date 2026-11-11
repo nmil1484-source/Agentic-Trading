@@ -12,11 +12,13 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from dev_scanner.tv_structure import (
     REGULAR_SESSION_SECONDS,
     Bar,
+    allocate_scan_budget,
     atr14,
     atr_target,
     completed_bars,
     ema,
     macd,
+    orb_breakout,
     pullback_depth,
     position_size,
     risk_reward,
@@ -267,6 +269,95 @@ def test_position_size_refuses_backwards_short_stop():
 def test_position_size_refuses_zero_or_negative_entry():
     assert position_size(risk_dollars=100, entry=0, stop=-5, direction="long") is None
     print("PASS test_position_size_refuses_zero_or_negative_entry")
+
+
+def test_orb_breakout_second_candle_is_fresh():
+    # opening range bar, then the very next bar breaks it on real volume
+    opening = Bar(t=0, o=9.5, h=10.0, l=9.0, c=9.5, v=1000)
+    breakout = Bar(t=3600, o=9.5, h=10.6, l=9.4, c=10.5, v=1500)  # closes above 10.0, vol 1.5x
+    bars = [opening, breakout]
+    r = orb_breakout(bars, session_start_index=0, as_of_index=1)
+    assert r["breakout_bar_index"] == 1
+    assert r["breakout_direction"] == "long"
+    assert r["is_fresh"] is True
+    assert r["no_breakout_yet"] is False
+    print("PASS test_orb_breakout_second_candle_is_fresh")
+
+
+def test_orb_breakout_later_first_breakout_not_assumed_second():
+    # bars 1-2 stay inside the opening range; bar 3 (the 4th candle) is the real
+    # first breakout -- must not be reported as the second candle
+    opening = Bar(t=0, o=9.5, h=10.0, l=9.0, c=9.5, v=1000)
+    b1 = Bar(t=3600, o=9.5, h=9.8, l=9.4, c=9.6, v=900)   # inside range, no breakout
+    b2 = Bar(t=7200, o=9.6, h=9.9, l=9.5, c=9.7, v=950)   # inside range, no breakout
+    b3 = Bar(t=10800, o=9.7, h=10.7, l=9.6, c=10.6, v=1500)  # real breakout, 4th candle
+    bars = [opening, b1, b2, b3]
+    r = orb_breakout(bars, session_start_index=0, as_of_index=3)
+    assert r["breakout_bar_index"] == 3  # not 1 -- not hardcoded to the second candle
+    assert r["breakout_direction"] == "long"
+    assert r["is_fresh"] is True  # breakout bar IS the most recent completed bar
+    print("PASS test_orb_breakout_later_first_breakout_not_assumed_second")
+
+
+def test_orb_breakout_stale_when_evaluated_late_missed_not_rejected():
+    # same breakout as above (bar 3), but evaluated two cycles later (as_of_index=5)
+    # -- freshness rules must mark this stale, not "fresh," so the caller logs
+    # MISSED_NOT_EVALUATED rather than treating it as a live, actionable setup
+    opening = Bar(t=0, o=9.5, h=10.0, l=9.0, c=9.5, v=1000)
+    b1 = Bar(t=3600, o=9.5, h=9.8, l=9.4, c=9.6, v=900)
+    b2 = Bar(t=7200, o=9.6, h=9.9, l=9.5, c=9.7, v=950)
+    b3 = Bar(t=10800, o=9.7, h=10.7, l=9.6, c=10.6, v=1500)  # the real breakout bar
+    b4 = Bar(t=14400, o=10.6, h=10.8, l=10.5, c=10.7, v=600)
+    b5 = Bar(t=18000, o=10.7, h=10.9, l=10.6, c=10.75, v=550)
+    bars = [opening, b1, b2, b3, b4, b5]
+    r = orb_breakout(bars, session_start_index=0, as_of_index=5)
+    assert r["breakout_bar_index"] == 3
+    assert r["is_fresh"] is False  # stale: breakout bar (3) != as_of_index (5)
+    print("PASS test_orb_breakout_stale_when_evaluated_late_missed_not_rejected")
+
+
+def test_orb_breakout_no_breakout_yet():
+    opening = Bar(t=0, o=9.5, h=10.0, l=9.0, c=9.5, v=1000)
+    b1 = Bar(t=3600, o=9.5, h=9.8, l=9.4, c=9.6, v=900)
+    b2 = Bar(t=7200, o=9.6, h=9.9, l=9.5, c=9.7, v=950)
+    bars = [opening, b1, b2]
+    r = orb_breakout(bars, session_start_index=0, as_of_index=2)
+    assert r["no_breakout_yet"] is True
+    assert r["breakout_bar_index"] is None
+    print("PASS test_orb_breakout_no_breakout_yet")
+
+
+def test_orb_breakout_volume_gate_blocks_weak_breakout():
+    # price clears the range but volume is below the baseline multiple -- must
+    # not qualify
+    opening = Bar(t=0, o=9.5, h=10.0, l=9.0, c=9.5, v=1000)
+    weak = Bar(t=3600, o=9.5, h=10.6, l=9.4, c=10.5, v=500)  # price clears, volume thin
+    bars = [opening, weak]
+    r = orb_breakout(bars, session_start_index=0, as_of_index=1)
+    assert r["no_breakout_yet"] is True
+    print("PASS test_orb_breakout_volume_gate_blocks_weak_breakout")
+
+
+def test_allocate_scan_budget_reserves_mode_c_before_rotation_and_defers_mode_b():
+    # tight-ish budget: ETF coverage (mandatory) is funded in full first, Mode C
+    # gets its reserve next, and Mode B rotation absorbs the shortfall
+    r = allocate_scan_budget(total_calls=40, etf_calls_needed=18, mode_c_calls_needed=10, mode_b_default_calls=24)
+    assert r["etf_calls"] == 18  # never reduced
+    assert r["mode_c_calls"] == 10  # fully reserved before Mode B
+    assert r["mode_b_calls"] == 12  # 40 - 18 - 10 = 12, below the 24 default cap
+    assert r["mode_b_deferred"] is True
+    print("PASS test_allocate_scan_budget_reserves_mode_c_before_rotation_and_defers_mode_b")
+
+
+def test_allocate_scan_budget_etf_coverage_preserved_even_when_budget_cannot_cover_mode_c():
+    # budget so tight that even Mode C can't get its full reserve -- ETF coverage
+    # must still never be reduced
+    r = allocate_scan_budget(total_calls=20, etf_calls_needed=18, mode_c_calls_needed=10, mode_b_default_calls=24)
+    assert r["etf_calls"] == 18
+    assert r["mode_c_calls"] == 2  # 20 - 18 = 2 left, less than the 10 reserve
+    assert r["mode_b_calls"] == 0
+    assert r["mode_b_deferred"] is True
+    print("PASS test_allocate_scan_budget_etf_coverage_preserved_even_when_budget_cannot_cover_mode_c")
 
 
 _ALL_TESTS = [v for k, v in list(globals().items()) if k.startswith("test_")]
