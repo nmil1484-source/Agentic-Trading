@@ -68950,3 +68950,31 @@ Per-symbol labels: **AVAX — evaluated** (fails item 4). **BTC, ETH, SOL, XRP, 
 ```json
 {"cycle": "crypto_24_7", "timestamp_utc": "2026-11-12T11:38:28Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "execution_origin": {"validated": true, "trigger_id": "trig_01UUXAtYHjn7nBgzkdvZU4Rv", "source": "scheduled_trigger"}, "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 1, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "portfolio_heat": {"existing_open_risk_usd": 46.64, "new_trade_risk_usd": 0, "total_heat_usd": 46.64, "equity_usd": 5633.70, "heat_pct": 0.83, "cap_pct": 6.0, "headroom_usd": 291.38}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+## 2026-11-12T12:38:13Z — AUTONOMOUS (Crypto 24/7 Scan, real scheduled fire, trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv, status_gate ACTIVE — AVAX's R:R numerically cleared but the real gate correctly still fails on item 2/item 7; no order)
+
+**STEP 0 gate check**: §14 `Status: ACTIVE` confirmed. No kill phrase. Execution origin validated: `trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv`, fired 2026-11-12T12:38:13Z.
+
+**Account/position check**: `get_accounts`/`get_portfolio` (748688058) — total_value $5,637.39, crypto_value $0. `get_crypto_positions` — 0 open. No §6 circuit breaker. SPY/QQQ shock check inapplicable (outside equity hours). Robinhood MCP fully authenticated.
+
+**Portfolio heat cap**: carried-forward cross-mode open-risk $46.64. 6% of $5,637.39 = $338.24; heat_pct 0.83%, headroom $291.60.
+
+**Near-miss queue reassessment — the important one this cycle.** AVAX's 4H candle finally rolled to a genuinely new completed bar (t=1794470400, close $8.473, down sharply from $8.629). This changed the R:R math materially:
+- Recomputed R:R: entry $8.473, stop $8.379 (same confirmed 4H/1H swing low — unchanged structural level), target $8.7895 (1.5×ATR4H=0.2110) → **R:R = 3.367:1 — clears the 1.5:1 floor decisively**, because the entry dropped much closer to the fixed stop. `validate_stop_distance()` flags `needs_structural_justification: true` (stop now <0.5×ATR from entry) — per protocol this is a flag only, never an auto-reject; the stop's structural basis (the same independently-confirmed 5-bar-fractal swing low used every prior cycle) was checked and is real, so this R:R figure is trusted rather than discarded.
+- **But I did not stop at the favorable R:R number** — checked the rest of the gate properly, and two items genuinely fail:
+  1. **Item 2 (catalyst/relative strength)**: AVAX fell ~1.8% this window (8.629→8.473) vs. BTC's ~0.76% decline (73,470→72,909) — AVAX **underperformed** BTC, i.e. relative weakness, the opposite of the required relative strength. No fresh catalyst was independently re-verified this cycle to substitute for the RS path.
+  2. **Item 7 (1H execution trigger)**: the last completed 1H bar (t=1794481200, close $8.473) shows `swing_points().current_below_prior_swing_low: true` — a confirmed break **below** the prior 1H swing low ($8.48). 1H RSI14 40.39 (<45), 1H MACD hist −0.0135 and negative. This is a real bearish breakdown signal, not an absent bullish trigger — the opposite of what item 7 requires.
+  - **Momentum role-group (item 3) also no longer confirms on 4H**: RSI14 45.69, declining for 2 consecutive bars; MACD histogram declining for 3 consecutive bars (0.0261→0.0253→0.0131). Trend/State (EMA9 8.5329>EMA20 8.4720, narrowly) and Volume (1.486x the 3-bar baseline, clears 1.2x) are the only two role-groups still confirming — item 3 still technically clears (≥1-of-5) but on a visibly weaker basis than two cycles ago.
+- **Outcome: STILL NO_TRADE, but the blocking item changed** — from item 4 (R:R) to item 2 (relative-strength weakness) and item 7 (a confirmed 1H bearish breakdown, not merely an absent trigger). Not reclassified as fully invalidated this cycle, since no completed 4H bar has yet closed below the $8.379 structural stop itself — but flagged plainly: this candidate is trending toward invalidation, not toward clearing, despite the R:R figure alone looking better than ever. Updated `near_miss_queue.md`: `cycles_checked` 8→9, full rewrite of the failed-item description.
+
+**General allowlist screen (Stage A)**: BTC, ETH, SOL, XRP, LINK, AAVE, HBAR all remain StrongSell both TFs in this continuing market-wide decline — decisive structural rejects (Trend/State and Momentum both fail on Stage A for all seven).
+
+Per-symbol labels: **AVAX — evaluated** (full Stage-B gate check; R:R clears but item 2/item 7 fail — correctly not advanced). **BTC, ETH, SOL, XRP, LINK, AAVE, HBAR — rejected with evidence.**
+
+**Stop-audit**: 0 open crypto positions — nothing to audit.
+
+**No order placed.** This is a meaningful enough reassessment (R:R flipping from fail to pass) that it's worth a brief chat note even though no trade resulted, so the reasoning for declining despite a passing R:R is visible, not just logged.
+
+```json
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-11-12T12:38:13Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "execution_origin": {"validated": true, "trigger_id": "trig_01UUXAtYHjn7nBgzkdvZU4Rv", "source": "scheduled_trigger"}, "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 1, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "portfolio_heat": {"existing_open_risk_usd": 46.64, "new_trade_risk_usd": 0, "total_heat_usd": 46.64, "equity_usd": 5637.39, "heat_pct": 0.83, "cap_pct": 6.0, "headroom_usd": 291.60}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
