@@ -69261,3 +69261,41 @@ Batch technicals pulled (`mcp-tv-get-symbol-data-batch`, RSI|60/MACD|60/Recommen
 ```json
 {"cycle": "crypto_24_7", "timestamp_utc": "2026-11-12T17:38:01Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "execution_origin": {"validated": true, "trigger_id": "trig_01UUXAtYHjn7nBgzkdvZU4Rv", "source": "scheduled_trigger"}, "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0, "note": "7/8 rejected on Stage-A (unchanged, consistent with recent cycles' full Stage-B evidence) + 1/8 (AAVE, today's largest mover) fresh Stage-B spot-check this cycle"}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "queue empty"}, "portfolio_heat": {"existing_open_risk_usd": 32.12, "new_trade_risk_usd": 0, "total_heat_usd": 32.12, "equity_usd": 5636.48, "heat_pct": 0.57, "cap_pct": 6.0, "headroom_usd": 306.07}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 2, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
 ```
+
+## 2026-11-12T18:03:57Z — AUTONOMOUS (Mode B/C Entry Screening — Fresh Candle, live authority)
+
+**Execution-origin validation:** `trigger_id` = `trig_01KrBsTt9mssjU4hPGtM3cBe`, matches the registered Fresh Candle trigger. §14 Status re-confirmed ACTIVE. No kill phrase found.
+
+**Account (••••8058):** total value $5,639.56, equity $728.64, cash $4,910.92. 1 Mode B position: RDW 88 sh, current $8.28. 0 Mode C positions. 0 options.
+
+**Mode B stop-audit (§16 item 15):** RDW resting stop confirmed ($7.88, order `6af4c2a3-...`, confirmed/resting). **Checked: 1, missing: 0.**
+
+**§18/§19 options stop-check / Mode C (steps 2b/9/9a):** 0 open positions in either — trivial passes.
+
+**Circuit breakers:** SPY $760.83 (prior cycle $761.12, -0.04%), QQQ $690.96 (prior $691.12, -0.02%) — no shock. No stop-outs today. **circuit_breakers_active: []**.
+
+**Portfolio heat:** RDW open risk = ($8.28−$7.88)×88 = **$35.20**. Equity $5,639.56 → cap $338.37. **Headroom: $303.17.**
+
+**Near-miss queue reassessment — AMDG, TEM, IGV, HPE, all with a fresh completed 1h bar since the 17:04Z cycle:**
+- **AMDG (§22 table):** next completed bar (t=1794501000: O107.21/H107.25/L103.53/C103.53 — a pullback off the 108.8 intrabar high). `swing_points()` unchanged (stop $94.80, swing high now $108.8). Fresh quote $104.62 → `finalize_candidate()`: **still NO_TRADE, `stop_distance_exceeds_ceiling`** — 9.39% vs. 8% (essentially flat vs. last cycle's 9.19%; has ranged 9.19-11.14% across the last three checks as price chops $103-108). No order placed.
+- **TEM:** next completed bar closed $76.40 — holding its recovery, still short of the $79.41 reclaim level. Still near-miss.
+- **IGV:** next completed bar closed $102.22 — still inside the 98-104 chop range. Expires next cycle (2026-11-13).
+- **HPE:** next completed bar closed $50.45 — holding its recovery. No new catalyst evidence pulled this cycle (last pulled 17:04Z, still positive-leaning/not bearish). Still near-miss.
+- **Reassessed: 4. Cleared: 0. Still near-miss: 3 (TEM, IGV, HPE). Invalidated: 0.** AMDG tracked separately in the §22 table.
+
+**§22 screen — quote-level reaffirmation this cycle (full Stage-B depth not re-run; budget went to the near-miss reassessments above), carried forward from the 17:04Z cycle's full checks:**
+- **AMDG** — near-miss, evaluated above.
+- **SQQQ** (-0.22% today), **SOXS** (+0.44%), **SPXU** (-0.49%) — modest moves, no reversal signal; **REJECTED with evidence, carried forward** (their underlyings were confirmed bullish-leaning at 17:04Z; nothing in this cycle's quotes suggests that flipped).
+- **TNA** (-2.53% today, continuing its decline) — **REJECTED with evidence, carried forward** (standing R:R/stop-distance failure, consistent with continued weakness).
+- **TZA** (+2.58%), **TQQQ** (+0.25%), **SOXL** (-0.34%), **SPXL** (+0.36%) — **NOT EVALUATED — rotation/capacity**, same as last cycle; no full daily-structure/catalyst check run this cycle.
+- **Completion check: 9/9 accounted for.** COVERAGE: complete.
+
+**Mode B broad rotation, options/LEAPS sourcing, §24 paper screening, Mode C ORB — deferred again this cycle, same reason as 17:04Z: budget went to near-miss maintenance (4 reassessed) plus the §22 reaffirmation.**
+
+## Outcome
+
+**NO_TRADE.** 0 orders placed. RDW stop-audit passed. Near-miss queue: all 4 reassessed, none cleared or invalidated, AMDG's stop-distance ceiling miss essentially unchanged (9.39% vs. 8%). §22: 9/9 accounted for, no change from last cycle's conclusions. Mode B rotation/options/LEAPS/§24/Mode C ORB deferred, stated plainly.
+
+```json
+{"cycle": "fresh_candle", "timestamp_utc": "2026-11-12T18:03:57Z", "coverage_state": "EVALUATED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "execution_origin": {"validated": true, "trigger_id": "trig_01KrBsTt9mssjU4hPGtM3cBe", "source": "scheduled_trigger"}, "circuit_breakers_active": [], "positions": {"mode_b_count": 1, "mode_c_count": 0}, "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": 0, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"reason": "Mode B broad rotation not drawn this cycle - budget allocated to near-miss queue (4 reassessed) + §22 quote-level reaffirmation"}], "tool_failures": 0}, "near_miss_queue": {"reassessed": 4, "cleared": 0, "still_near_miss": 3, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AMDG (§22 table) still single-item near-miss, 9.39% vs 8%; TEM/IGV/HPE all still near-miss", "amd_pending_eligibility_status": "resolved 2026-11-04, no change"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 1, "rejected_with_evidence": 4, "not_evaluated": 4, "near_miss": 1, "coverage_complete": true, "not_evaluated_symbols": ["TZA", "TQQQ", "SOXL", "SPXL"], "rejected_symbols": ["SQQQ", "SOXS", "SPXU", "TNA"]}, "scan_budget_allocation": {"mode_b_deferred": true, "options_leaps_deferred": true, "note": "near-miss queue + AMDG finalize_candidate() re-run + §22 quote-level reaffirmation funded first; Mode B rotation, options/LEAPS sourcing, §24 paper screening, Mode C ORB all deferred"}, "options_leaps_coverage": {"selected": [], "deferred": [], "evaluated": [], "rejected": [], "data_blocked": []}, "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": [], "note": "no fresh Mode B candidate this cycle - rotation deferred"}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "NOT_RUN this cycle - resource allocation"}, "portfolio_heat": {"existing_open_risk_usd": 35.20, "new_trade_risk_usd": 0, "total_heat_usd": 35.20, "equity_usd": 5639.56, "heat_pct": 0.62, "cap_pct": 6.0, "headroom_usd": 303.17}, "calls_made_this_cycle": 10, "tvremix_calls_used_today": 106, "exits": [], "entries": [], "orders_placed": 0, "git_push": "success"}
+```
