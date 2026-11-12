@@ -18,7 +18,9 @@ from dev_scanner.tv_structure import (
     classify_multileg_order_state,
     completed_bars,
     ema,
+    finalize_candidate,
     macd,
+    option_realistic_exit_value,
     orb_breakout,
     pullback_depth,
     position_size,
@@ -33,6 +35,7 @@ from dev_scanner.tv_structure import (
     validate_vertical_spread,
     vertical_spread_max_loss,
     vertical_spread_position_size,
+    vertical_spread_realistic_exit_value,
     vertical_spread_risk_reward,
     volume_baseline_13h,
 )
@@ -698,6 +701,120 @@ def test_validate_execution_authority_genuine_cycle_retains_authority_alongside_
     assert validate_execution_authority(genuine, _KNOWN_TRIGGERS)["authority"] == "SCHEDULED_AUTONOMOUS"
     assert validate_execution_authority(chat, _KNOWN_TRIGGERS)["authority"] == "CHAT_REQUESTED_OBSERVE_AND_PROPOSE"
     print("PASS test_validate_execution_authority_genuine_cycle_retains_authority_alongside_rejected_chat_cycle")
+
+
+def test_finalize_candidate_ready_when_everything_clears():
+    r = finalize_candidate(
+        fresh_entry=100.0, stop=95.0, target=115.0, direction="long",
+        atr_value=10.0, stop_distance_ceiling_multiple=0.8,  # ceiling = 8.0
+        rr_floor=1.3, risk_dollars=50.0, position_cap_dollars=10000.0,
+    )
+    assert r["status"] == "READY"
+    assert r["risk_reward"] == 3.0  # (115-100)/(100-95)
+    assert r["shares"] == 10  # 50/5
+    assert r["binding_constraint"] == "risk_budget"
+    print("PASS test_finalize_candidate_ready_when_everything_clears")
+
+
+def test_finalize_candidate_rejects_on_stop_distance_ceiling_regardless_of_rr():
+    # replays the real AMDG incident: at the fresh/live price, R:R alone would
+    # still clear comfortably, but the real structural stop is now too far away
+    r = finalize_candidate(
+        fresh_entry=106.68, stop=94.80, target=127.02, direction="long",
+        atr_value=13.559028571428572, stop_distance_ceiling_multiple=0.08 * 106.68 / 13.559028571428572,
+        rr_floor=1.3, risk_dollars=56.33, position_cap_dollars=844.94,
+    )
+    assert r["status"] == "NO_TRADE"
+    assert r["reason"] == "stop_distance_exceeds_ceiling"
+    assert r["stop_distance_check"]["exceeds_ceiling"] is True
+    assert abs(r["stop_distance_check"]["distance_pct_of_entry"] - 11.14) < 0.1
+    print("PASS test_finalize_candidate_rejects_on_stop_distance_ceiling_regardless_of_rr")
+
+
+def test_finalize_candidate_would_have_been_ready_at_the_earlier_stale_price():
+    # same structural stop/catalyst, but anchored to the stale completed-bar
+    # close used in the original (buggy) two-pass evaluation — demonstrates
+    # that this candidate genuinely looked fine at that price, i.e. the bug was
+    # a stale anchor, not a flawed R:R/stop computation at the time it ran
+    r = finalize_candidate(
+        fresh_entry=97.61, stop=94.80, target=117.95, direction="long",
+        atr_value=13.559028571428572, stop_distance_ceiling_multiple=0.08 * 97.61 / 13.559028571428572,
+        rr_floor=1.3, risk_dollars=56.33, position_cap_dollars=844.94,
+    )
+    assert r["status"] == "READY"
+    assert r["stop_distance_check"]["exceeds_ceiling"] is False
+    print("PASS test_finalize_candidate_would_have_been_ready_at_the_earlier_stale_price")
+
+
+def test_finalize_candidate_rejects_on_rr_below_floor():
+    r = finalize_candidate(
+        fresh_entry=100.0, stop=95.0, target=104.0, direction="long",
+        atr_value=10.0, stop_distance_ceiling_multiple=0.8,
+        rr_floor=1.3, risk_dollars=50.0, position_cap_dollars=10000.0,
+    )
+    assert r["status"] == "NO_TRADE"
+    assert r["reason"] == "risk_reward_below_floor"
+    print("PASS test_finalize_candidate_rejects_on_rr_below_floor")
+
+
+def test_finalize_candidate_position_cap_binds_over_risk_budget():
+    r = finalize_candidate(
+        fresh_entry=100.0, stop=95.0, target=115.0, direction="long",
+        atr_value=10.0, stop_distance_ceiling_multiple=0.8,
+        rr_floor=1.3, risk_dollars=5000.0, position_cap_dollars=700.0,
+    )
+    assert r["status"] == "READY"
+    assert r["shares"] == 7  # 700 // 100, smaller than the 1000-share risk-based size
+    assert r["binding_constraint"] == "position_cap"
+    print("PASS test_finalize_candidate_position_cap_binds_over_risk_budget")
+
+
+def test_finalize_candidate_invalid_entry_rejected():
+    r = finalize_candidate(
+        fresh_entry=0, stop=95.0, target=115.0, direction="long",
+        atr_value=10.0, stop_distance_ceiling_multiple=0.8,
+        rr_floor=1.3, risk_dollars=50.0,
+    )
+    assert r["status"] == "NO_TRADE"
+    assert r["reason"] == "invalid_fresh_entry"
+    print("PASS test_finalize_candidate_invalid_entry_rejected")
+
+
+def test_option_realistic_exit_value_nbis_put_far_short_of_max_expiration_math():
+    # NBIS 2026-11-12: $115p/Dec-4 expiry, delta -0.2598, ask $6.05, move to the
+    # §13.F ATR target (105.46) from entry (130.235) = 24.78
+    r = option_realistic_exit_value(premium_paid=6.05, delta=-0.2598, price_move_in_favor=24.78)
+    assert abs(r["estimated_risk_reward"] - 1.065) < 0.01
+    assert r["estimated_risk_reward"] < 1.5  # fails §18 item 2's floor even at the more aggressive target
+    print("PASS test_option_realistic_exit_value_nbis_put_far_short_of_max_expiration_math")
+
+
+def test_vertical_spread_realistic_exit_value_far_below_max_profit_figure():
+    # NBIS 2026-11-12 §24 paper candidate: long $115p / short $105p, Dec-18,
+    # net debit $3.55, width $10. vertical_spread_risk_reward() reports 1.82:1
+    # (the max-profit-at-expiration figure) -- the realistic early-exit figure
+    # at the equity-thesis target (move=16.935) is far lower.
+    max_profit_rr = vertical_spread_risk_reward(net_debit=3.55, width=10)
+    realistic = vertical_spread_realistic_exit_value(
+        net_debit=3.55, long_leg_delta=-0.2809, short_leg_delta=-0.1917,
+        price_move_in_favor=16.935, width=10,
+    )
+    assert abs(max_profit_rr - 1.817) < 0.01
+    assert abs(realistic["estimated_risk_reward"] - 0.425) < 0.01
+    assert realistic["estimated_risk_reward"] < max_profit_rr
+    assert realistic["estimated_risk_reward"] < 1.5  # fails §24 item 4's own floor on a realistic exit basis
+    print("PASS test_vertical_spread_realistic_exit_value_far_below_max_profit_figure")
+
+
+def test_vertical_spread_realistic_exit_value_clamped_to_width():
+    # an implausibly large price_move_in_favor must never push the estimate
+    # past the spread's own maximum possible value
+    r = vertical_spread_realistic_exit_value(
+        net_debit=3.55, long_leg_delta=-0.9, short_leg_delta=-0.1,
+        price_move_in_favor=500.0, width=10,
+    )
+    assert r["estimated_exit_value"] == 10.0
+    print("PASS test_vertical_spread_realistic_exit_value_clamped_to_width")
 
 
 _ALL_TESTS = [v for k, v in list(globals().items()) if k.startswith("test_")]

@@ -753,3 +753,210 @@ def position_size(risk_dollars: float, entry: float, stop: float, direction: str
     if stop_distance <= 0:
         return None
     return risk_dollars / stop_distance
+
+
+def finalize_candidate(
+    fresh_entry: float,
+    stop: float,
+    target: float,
+    direction: str,
+    atr_value: float,
+    stop_distance_ceiling_multiple: float,
+    rr_floor: float,
+    risk_dollars: float,
+    position_cap_dollars: Optional[float] = None,
+) -> dict:
+    """
+    Atomic final-validation step, added 2026-11-12 to fix a real staleness bug
+    found in live use (the AMDG incident, same date): structure/confirmation
+    checks (EMA/RSI/MACD/swing_points/volume_baseline_13h) were correctly
+    computed from completed bars, but the entry-PRICE-dependent checks —
+    stop-distance-vs-ceiling and R:R — were then computed against that same
+    stale completed-bar close (used as a stand-in for "current price") in one
+    pass, and position sizing was computed minutes later against a second,
+    different, genuinely fresh quote in a separate pass. By the time the
+    second pass ran, the underlying had moved enough that the stop-distance
+    ceiling — which had appeared to clear in the first pass — now failed. The
+    candidate was correctly not traded, but only because a second, disjoint
+    check happened to catch it; nothing structural prevented the first,
+    stale-anchored pass from being treated as final.
+
+    This function closes that gap by doing the ceiling check, the R:R check,
+    and position sizing together, from ONE fresh_entry, in one call, so there
+    is never a window between "stop-distance/R:R looked fine" and "now size
+    it" where the price can move without being re-checked. Call this exactly
+    once, immediately before get_equity_tradability/review_equity_order,
+    using the single freshest quote available at that moment — never reuse an
+    older completed-bar close or an earlier snapshot as fresh_entry. If the
+    underlying moves further between this call and order placement, that is a
+    new evaluation: re-run this function again from scratch rather than acting
+    on its earlier result.
+
+    Does NOT re-run or second-guess the structure/confirmation checks (items
+    1-3/5-7 of the applicable gate) — those are unaffected by this fix and
+    stay computed from completed bars exactly as before. `target` is assumed
+    already recomputed relative to fresh_entry by the caller when it is an
+    ATR-relative target (§13.F `atr_target(fresh_entry, atr_value, direction)`)
+    rather than a fixed structural level — passing a target that was computed
+    against a different, older entry price silently reintroduces the same
+    staleness bug this function exists to close.
+
+    Returns a single dict:
+      status: "READY" (every check passed; "shares" is the final size) or
+        "NO_TRADE" (with "reason" naming exactly which check failed — never a
+        partial/ambiguous result the caller has to re-interpret).
+      stop_distance_check: the full validate_stop_distance() result, always
+        included, so needs_structural_justification is still visible to log
+        even on a READY result (it is a flag, never itself a reject).
+      risk_reward, rr_floor: present once the stop-distance check passes.
+      risk_based_shares, cap_based_shares, shares, binding_constraint: present
+        only on a READY result — binding_constraint names whichever of the
+        risk budget or the position cap actually produced the smaller size,
+        per §3/§16's existing "whichever constraint produces the smaller
+        position wins" sizing rule.
+    """
+    if fresh_entry is None or fresh_entry <= 0:
+        return {"status": "NO_TRADE", "reason": "invalid_fresh_entry", "fresh_entry": fresh_entry}
+
+    stop_check = validate_stop_distance(fresh_entry, stop, atr_value, stop_distance_ceiling_multiple)
+    if stop_check["exceeds_ceiling"]:
+        return {
+            "status": "NO_TRADE",
+            "reason": "stop_distance_exceeds_ceiling",
+            "fresh_entry": fresh_entry,
+            "stop_distance_check": stop_check,
+        }
+
+    rr = risk_reward(fresh_entry, stop, target, direction)
+    if rr is None or rr < rr_floor:
+        return {
+            "status": "NO_TRADE",
+            "reason": "risk_reward_below_floor",
+            "fresh_entry": fresh_entry,
+            "stop_distance_check": stop_check,
+            "risk_reward": rr,
+            "rr_floor": rr_floor,
+        }
+
+    risk_shares = position_size(risk_dollars, fresh_entry, stop, direction)
+    if risk_shares is None:
+        return {
+            "status": "NO_TRADE",
+            "reason": "backwards_stop_or_invalid",
+            "fresh_entry": fresh_entry,
+            "stop_distance_check": stop_check,
+            "risk_reward": rr,
+            "rr_floor": rr_floor,
+        }
+
+    cap_shares = None
+    if position_cap_dollars is not None:
+        cap_shares = int(position_cap_dollars // fresh_entry) if fresh_entry > 0 else 0
+
+    shares = int(risk_shares)
+    binding_constraint = "risk_budget"
+    if cap_shares is not None and cap_shares < shares:
+        shares = cap_shares
+        binding_constraint = "position_cap"
+
+    if shares < 1:
+        return {
+            "status": "NO_TRADE",
+            "reason": "sizes_to_zero_shares",
+            "fresh_entry": fresh_entry,
+            "stop_distance_check": stop_check,
+            "risk_reward": rr,
+            "rr_floor": rr_floor,
+            "risk_based_shares": risk_shares,
+            "cap_based_shares": cap_shares,
+        }
+
+    return {
+        "status": "READY",
+        "fresh_entry": fresh_entry,
+        "stop": stop,
+        "target": target,
+        "stop_distance_check": stop_check,
+        "risk_reward": rr,
+        "rr_floor": rr_floor,
+        "risk_based_shares": risk_shares,
+        "cap_based_shares": cap_shares,
+        "shares": shares,
+        "binding_constraint": binding_constraint,
+    }
+
+
+def option_realistic_exit_value(premium_paid: float, delta: float, price_move_in_favor: float) -> dict:
+    """
+    First-order (delta-only) estimate of a long option's value at a REALISTIC
+    pre-expiration exit point — e.g. the underlying reaching a swing target
+    within a Mode B 2-15 session hold — added 2026-11-12 because
+    `risk_reward()`/intrinsic-value-at-expiration math overstates what a
+    swing trade that exits long before expiration would actually realize.
+
+    price_move_in_favor is the ABSOLUTE underlying move from entry toward the
+    target, always >= 0 regardless of call/put — delta's own sign already
+    encodes direction, so the caller never needs to sign price_move_in_favor.
+
+    This is a first-order (delta-only) estimate: it ignores gamma, which
+    understates a winning long option's real gain (delta itself grows as the
+    position moves further in the money), and ignores theta, which overstates
+    it (real time decay accrues over any real multi-day hold). These two
+    omissions are not verified to net to zero — log this as an approximation,
+    never as a precise valuation, and never use it to justify stretching a
+    strike/expiration choice that otherwise fails the applicable R:R floor.
+    """
+    estimated_value = premium_paid + abs(delta) * price_move_in_favor
+    profit = estimated_value - premium_paid
+    rr = profit / premium_paid if premium_paid > 0 else None
+    return {
+        "estimated_exit_value": estimated_value,
+        "estimated_profit": profit,
+        "estimated_risk_reward": rr,
+        "method": "first_order_delta_only — ignores gamma (understates) and theta (overstates); approximation, not a precise valuation",
+    }
+
+
+def vertical_spread_realistic_exit_value(
+    net_debit: float,
+    long_leg_delta: float,
+    short_leg_delta: float,
+    price_move_in_favor: float,
+    width: float,
+) -> dict:
+    """
+    First-order (delta-only) estimate of a vertical debit spread's value at a
+    REALISTIC pre-expiration exit — added 2026-11-12 because
+    `vertical_spread_risk_reward()`'s (width - net_debit) / net_debit figure is
+    the MAXIMUM profit at expiration with the underlying at or beyond the
+    short strike; it is never what a Mode B swing exit (2-15 sessions, far
+    short of a 21-75 DTE spread's expiration) would actually realize unless
+    the underlying has already moved past the short strike by then.
+
+    The spread's net delta (the two legs partially offsetting — for a bear
+    put spread, |long_leg_delta| is normally larger than |short_leg_delta|
+    since the long strike sits closer to the money) times how far the
+    underlying has actually moved toward the target gives a far more honest
+    early-exit estimate. The result is clamped to [0, width] because a real
+    spread's value can never go negative or exceed its own strike width,
+    regardless of what the linear delta estimate alone would imply.
+
+    Same gamma/theta caveat as option_realistic_exit_value() — an
+    approximation, not a precise valuation. Never log
+    `vertical_spread_risk_reward()`'s max-profit figure as if it were this
+    realistic-exit figure; report both, labeled, when logging a §24 paper
+    candidate.
+    """
+    net_delta_magnitude = abs(abs(long_leg_delta) - abs(short_leg_delta))
+    estimated_gain_per_share = net_delta_magnitude * price_move_in_favor
+    estimated_value = net_debit + estimated_gain_per_share
+    estimated_value = max(0.0, min(estimated_value, width))
+    profit = estimated_value - net_debit
+    rr = profit / net_debit if net_debit > 0 else None
+    return {
+        "net_delta_magnitude": net_delta_magnitude,
+        "estimated_exit_value": estimated_value,
+        "estimated_profit": profit,
+        "estimated_risk_reward": rr,
+        "method": "first_order_delta_only, clamped to [0,width] — ignores gamma/theta; approximation, not a precise valuation",
+    }

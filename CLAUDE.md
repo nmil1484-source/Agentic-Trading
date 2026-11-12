@@ -1151,6 +1151,76 @@ was moved — it was already written as a dated log; this makes its non-operativ
 rather than merely implied.
 
 ## 12. Change log
+- **2026-11-12: user-directed diagnosis and repair of a real staleness bug found in live use the
+  same day (the AMDG incident, §22) plus a related options/spread valuation gap (the NBIS
+  candidate) — development/read-only, no order placed, no risk number/cap/floor/permission
+  changed.**
+
+  **1. AMDG diagnosis, confirmed from the actual tool-call sequence, not inference.** The $97.61
+  figure used for AMDG's stop-distance/R:R check was the last-**completed**-hourly-bar close
+  (correct and intentional for the structure/confirmation checks — Trend/State, Momentum, Volume
+  — which must use completed bars under the no-lookahead rule), but it was then also reused as the
+  stand-in for "current price" in the entry-price-dependent risk math (stop-distance-vs-ceiling,
+  R:R) — even though a materially fresher live quote (~$106.5, from the mandatory §22 Stage-A
+  batch pull that had already run *before* the completed-bar OHLCV was even fetched) was already
+  in hand showing the stock had moved far past that level. Sizing was then computed minutes later
+  against a second, different fresh quote ($106.68, from a dedicated `get_equity_quotes` call made
+  specifically for order placement) — by which point the same real structural stop put the
+  distance at 11.14% of entry, over the §22 8% ceiling, and the trade was correctly not placed.
+  **This was a stale-anchor-price bug in the evaluation sequence, not the market "outrunning" a
+  careful check** — the live price was already available before the stop-distance/R:R math was
+  ever run; it simply wasn't the price that math used. No safety check was ever bypassed and no
+  order was ever placed on stale pricing — the existing ceiling caught it — but nothing
+  structurally prevented an earlier, stale-anchored pass from being treated as final if it had
+  happened to clear instead.
+
+  **2. Repair: `dev_scanner/tv_structure.py::finalize_candidate()`, added and tested.** Takes one
+  fresh quote and computes the stop-distance-ceiling check, the R:R check, and position sizing
+  together, atomically, returning a single `READY`/`NO_TRADE` result with the exact failed check
+  named — closing the gap where those three checks could previously be computed from two or three
+  different prices across a disjoint sequence. Does not touch, replace, or re-run the
+  structure/confirmation checks, which remain correctly computed from completed bars. Verified via
+  `python3 -I dev_scanner/test_tv_structure.py`: **85/85 passing** (77 before this pass + 8 new),
+  including a direct replay of the AMDG incident's own numbers at both the stale anchor price
+  ($97.61, where the test confirms the candidate genuinely would have read READY) and the fresh
+  price ($106.68, where the test confirms `finalize_candidate()` now reaches the correct
+  `stop_distance_exceeds_ceiling` rejection in one atomic call instead of two disjoint passes).
+  The "Mode B/C Entry Screening — Fresh Candle" trigger (`trig_01KrBsTt9mssjU4hPGtM3cBe`) — the
+  one whose run produced the incident — had its prompt updated the same date to mandate this
+  function at the fresh-price finalization step, immediately before `get_equity_tradability`/
+  `review_equity_order`, for Mode B, §18/§19 sourcing, §22, §24, and Mode C ORB entries alike.
+  **Not yet applied to the "Mode B/C First Scan of Day" (`trig_01RN6ZbtgxKpoDApzmGswWAs`) or
+  "Crypto 24/7 Scan" (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`) triggers**, which share the same sizing-step
+  shape and should receive the identical patch — flagged as the explicit remaining gap from this
+  pass, not applied yet.
+
+  **3. NBIS valuation gap, found while verifying the same date's §24 paper-spread candidate.** The
+  logged bear-put-spread R:R (1.82:1, via `vertical_spread_risk_reward()`) is the
+  maximum-profit-**at-expiration** figure — realized only if the underlying is at or beyond the
+  short strike at or near the spread's own expiration. A Mode B swing exit (2-15 sessions) happens
+  far short of a 21-75 DTE spread's expiration, so this figure was never a realistic estimate of
+  what an actual planned-exit would realize. Added
+  `option_realistic_exit_value()`/`vertical_spread_realistic_exit_value()` — a first-order
+  (delta-only) estimate of the option's/spread's value at a realistic early-exit point, clamped to
+  the spread's own width. Recomputed against the same NBIS numbers: the single-leg $115p/Dec-4 put
+  (delta -0.2598, ask $6.05) gives an estimated R:R of **~1.065:1** at the aggressive §13.F ATR
+  target — matching what had already been estimated by hand and logged as NO_TRADE for the
+  single-leg path. The bear-put-spread's realistic-exit R:R, by contrast, comes to only **~0.425:1**
+  at the equity-thesis target (~0.62:1 at the more aggressive ATR target) — **far below both the
+  1.82:1 figure actually logged and the 1.5:1 §24 item 4 floor it was logged as clearing.** The
+  §24 paper candidate logged for NBIS therefore should NOT have been reported as clearing item 4;
+  it cleared only on the wrong (max-expiration) basis. No order was ever placed on this (§24 stays
+  NOT PASSED, research/paper-only regardless), but the paper-screening methodology itself was
+  silently wrong until this correction. §24 item 10's paper-screening step (and the Fresh Candle
+  trigger's own §24 step) now require logging both figures, explicitly labeled, with the
+  realistic-exit figure as the one that must actually clear the floor. See `near_miss_queue.md`'s
+  AMDG (§22 table) and the NBIS removal note (Mode B/C table) for addenda pointing back to this
+  entry — those entries are left as originally written, not retroactively rewritten.
+
+  **No existing numeric risk cap, position cap, R:R floor, stop-distance ceiling, confirmation
+  count, account-firewall rule, or circuit breaker was changed by this entry** — this closes a gap
+  in how those existing numbers are computed (which price, and on what valuation basis), it does
+  not add a new restriction or loosen an existing one.
 - **2026-11-11 (later same day, after the options/LEAPS coverage repair below): correction from a
   focused external review of this document ("CLAUDE(2).md") — `classify_multileg_order_state()`
   previously asserted `legging_risk_materialized: True` from the bare `partially_filled` order
