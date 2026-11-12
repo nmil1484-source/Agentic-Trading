@@ -183,9 +183,33 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| AVAX | Crypto (§21), spot long | **Reassessed 2026-11-12T12:38:13Z (Crypto 24/7 Scan) — the 4H candle rolled to a new completed bar (t=1794470400, close $8.473), and the blocking item genuinely shifted: R:R now numerically CLEARS, but two other items now fail for real, so this is still correctly NO_TRADE.** Entry dropped to $8.473 (down from $8.629), tightening the distance to the unchanged $8.379 structural stop (4H/1H confirmed swing low) — recomputed R:R = entry 8.473, stop 8.379, target 8.7895 (1.5×ATR4H=0.2110) → **R:R = 3.367:1, clears 1.5:1 easily.** `validate_stop_distance()` flags `needs_structural_justification: true` (stop now <0.5×ATR from entry) — per protocol this is a flag only, never an auto-reject, and the stop's structural basis (the same independently-confirmed 5-bar-fractal swing low used every prior check) was verified, so the R:R figure is trusted. **But the full gate does not clear, on two independent grounds, checked properly rather than stopping at the favorable R:R number:** (1) **Item 2 (catalyst/RS) fails on the relative-strength path** — AVAX fell ~1.8% this window (8.629→8.473) vs. BTC's ~0.76% decline (73,470→72,909): AVAX **underperformed** BTC, i.e. relative *weakness*, not the required relative *strength*; no fresh catalyst was independently re-verified this cycle to substitute. (2) **Item 7 (1H execution trigger) fails outright, and not merely by absence — the 1H chart shows a confirmed bearish breakdown**: `swing_points()` on the last completed 1H bar (t=1794481200, close $8.473) reports `current_below_prior_swing_low: true` (broke the prior 1H swing low $8.48), 1H RSI14 40.39 (<45), 1H MACD hist −0.0135 and negative — this is the opposite of a bullish reclaim/breakout trigger; it is a real bearish structural signal. **Momentum role-group (item 3) also no longer confirms on 4H** (RSI14 45.69, declining for 2 bars; MACD hist declining for 3 consecutive bars, 0.0261→0.0253→0.0131) — Trend/State (EMA9 8.5329>EMA20 8.4720, barely) and Volume (1.486x baseline, clears) are the only two role-groups still confirming, still ≥1-of-5 so item 3 technically clears, but on a visibly weaker basis. **The failed item for queue-tracking purposes moves from item 4 (R:R) to item 7 (1H trigger, now a confirmed bearish breakdown) plus item 2 (RS weakness)** — not invalidated outright, since no completed bar has yet closed below the $8.379 stop itself, but flagged plainly: this is trending toward invalidation, not toward clearing, despite the R:R number alone looking better. No order placed — the R:R figure must never be read in isolation from the rest of the gate, and it wasn't here. | Item 1/6 clear by default; item 3 clears narrowly (Trend/State+Volume only, Momentum now fails too); item 4 (R:R) now clears at 3.367:1 but is moot; **item 2 (RS, now showing weakness not strength) and item 7 (1H trigger, now a confirmed bearish breakdown) are the real blockers** | 2026-11-12T12:38:13Z (Crypto 24/7 Scan), last completed 4H bar t=1794470400 (new bar, 9th check overall) / 1H bar t=1794481200, via `dev_scanner/tv_structure.py` | 2026-11-12 | 9 | 2026-11-22 |
+*(Queue empty as of 2026-11-12T13:38:16Z — see the removal notes below for the most recent exit.)*
 
-*(Queue empty as of 2026-11-11T23:37:54Z — see the removal notes below for the two most recent exits.)*
+**Removed 2026-11-12T13:38:16Z — AVAX, invalidated (not merely still-near-miss).** Last cycle
+(12:38:13Z) had already found two genuinely new structural failures — item 2 (relative strength,
+now weakness not strength) and item 7 (a confirmed 1H bearish breakdown) — while holding off on
+formal invalidation because no completed bar had yet closed below the $8.379 structural stop.
+This cycle removes that last hesitation: the last completed 4H bar is still t=1794470400 (no new
+4H close yet — next due 16:00:00Z), but the broader decline has continued and deepened on every
+available measure. Stage A shows AVAX live at $8.3424 — already trading **below** the $8.379
+stop level intraday (not yet a completed-bar close below it, but the forming 4H/1H candles both
+show lows well through it: 4H forming bar low $8.243, 1H forming bar low $8.243 too). Relative
+strength has not just failed to recover but worsened: AVAX down ~1.54% from the last completed
+close ($8.473→$8.3424 live) vs. BTC down ~0.58% over the same window ($72,909→$72,484.52) —
+continued, deepening underperformance, the opposite of the relative-strength driver item 2
+requires. The last completed 1H bar (t=1794484800, close $8.412) confirms the 1H breakdown
+identified last cycle was real and continuing, not a one-bar wobble. **Given two structurally
+different items (RS and the 1H trigger) have now failed for two consecutive cycles, with price
+having fallen through the stop level itself on an intracandle basis and continuing to deteriorate
+on every completed read available, waiting for the technicality of one more completed-bar close
+below $8.379 before calling this invalidated would be a distinction without a difference — the
+original bullish thesis (confirmed 4H uptrend, bullish momentum, RS-driven entry) no longer holds
+on any dimension.** Removed as invalidated rather than carried forward as a technically-still-
+near-miss. No order was ever placed against this read (0 crypto positions held throughout). | 1H
+confirmed bearish breakdown (12:38:13Z) + RS weakness, now deepening (13:38:16Z) + live price
+trading through the $8.379 structural stop intraday | 2026-11-12T13:38:16Z (Crypto 24/7 Scan),
+last completed 4H bar t=1794470400 (unchanged) / 1H bar t=1794484800, via
+`dev_scanner/tv_structure.py` | — | 10 (final) | invalidated, not expired |
 
 **Removed 2026-11-11T23:37:54Z — HBAR, invalidated (not cleared, not merely still-near-miss).**
 Reassessed on fresh completed bars (4H t=1794412800 close 0.0664, unchanged from the prior cycle;

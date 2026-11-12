@@ -68978,3 +68978,29 @@ Per-symbol labels: **AVAX — evaluated** (full Stage-B gate check; R:R clears b
 ```json
 {"cycle": "crypto_24_7", "timestamp_utc": "2026-11-12T12:38:13Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "execution_origin": {"validated": true, "trigger_id": "trig_01UUXAtYHjn7nBgzkdvZU4Rv", "source": "scheduled_trigger"}, "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 1, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "portfolio_heat": {"existing_open_risk_usd": 46.64, "new_trade_risk_usd": 0, "total_heat_usd": 46.64, "equity_usd": 5637.39, "heat_pct": 0.83, "cap_pct": 6.0, "headroom_usd": 291.60}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+## 2026-11-12T13:38:16Z — AUTONOMOUS (Crypto 24/7 Scan, real scheduled fire, trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv, status_gate ACTIVE — AVAX formally invalidated and removed from the near-miss queue; market-wide decline continues; no order)
+
+**STEP 0 gate check**: §14 `Status: ACTIVE` confirmed. No kill phrase. Execution origin validated: `trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv`, fired 2026-11-12T13:38:16Z.
+
+**Account/position check**: `get_accounts`/`get_portfolio` (748688058) — total_value $5,627.24, crypto_value $0. `get_crypto_positions` — 0 open. No §6 circuit breaker. SPY/QQQ shock check inapplicable (outside equity hours). Robinhood MCP fully authenticated.
+
+**Portfolio heat cap**: carried-forward cross-mode open-risk $46.64. 6% of $5,627.24 = $337.63; heat_pct 0.83%, headroom $290.99.
+
+**Near-miss queue reassessment — AVAX invalidated this cycle.** Last cycle (12:38:13Z) identified two genuinely new structural failures (item 2 relative-strength weakness, item 7 confirmed 1H bearish breakdown) but held off on formal invalidation since no completed bar had closed below the $8.379 structural stop. This cycle removes that hesitation:
+- Last completed 4H bar is still t=1794470400 (close $8.473, unchanged — next close due 16:00:00Z), but Stage A shows AVAX live at **$8.3424 — already trading below the $8.379 stop intraday**. The forming 4H bar's low is $8.243, well through the stop; the forming 1H bar shows the same.
+- Relative strength continued deteriorating rather than recovering: AVAX down ~1.54% from the last completed close ($8.473→$8.3424 live) vs. BTC down only ~0.58% over the same window ($72,909→$72,484.52) — continued, worsening underperformance.
+- Last completed 1H bar (t=1794484800, close $8.412) confirms last cycle's 1H breakdown was real and continuing, not a one-bar wobble.
+- **Judgment call, stated plainly**: with two structurally distinct items (RS and the 1H trigger) failing for a second consecutive cycle, price already trading through the stop level intraday, and every completed read continuing to deteriorate, waiting for one more completed 4H close below $8.379 before calling this invalidated would be a technicality without substance — the original bullish thesis (confirmed uptrend, bullish momentum, RS-driven entry) no longer holds on any dimension. **Removed from `near_miss_queue.md` as invalidated**, full reasoning logged there. No order was ever placed against this read (0 crypto positions held throughout its time in the queue).
+
+**General allowlist screen (Stage A)**: BTC, ETH, SOL, XRP, LINK, AAVE, HBAR all remain StrongSell both TFs, RSI mostly in the 20s-30s — the market-wide decline that started two cycles ago continues and has deepened. No Stage B pulls warranted for any of these seven; all are decisive, unambiguous structural rejects.
+
+Per-symbol labels: **AVAX — evaluated** (invalidated this cycle, removed from queue). **BTC, ETH, SOL, XRP, LINK, AAVE, HBAR — rejected with evidence.**
+
+**Stop-audit**: 0 open crypto positions — nothing to audit.
+
+**No order placed.** Reporting this one briefly in chat since a queue entry was formally invalidated this cycle, even though no fill occurred.
+
+```json
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-11-12T13:38:16Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "execution_origin": {"validated": true, "trigger_id": "trig_01UUXAtYHjn7nBgzkdvZU4Rv", "source": "scheduled_trigger"}, "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 1, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 0, "invalidated": 1, "ineligible": 0, "expired": 0, "note": "AVAX invalidated and removed; queue now empty"}, "portfolio_heat": {"existing_open_risk_usd": 46.64, "new_trade_risk_usd": 0, "total_heat_usd": 46.64, "equity_usd": 5627.24, "heat_pct": 0.83, "cap_pct": 6.0, "headroom_usd": 290.99}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
