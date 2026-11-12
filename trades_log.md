@@ -68856,3 +68856,31 @@ Per-symbol labels: **AVAX — evaluated** (fails item 4, remains queued). **BTC,
 ```json
 {"cycle": "crypto_24_7", "timestamp_utc": "2026-11-12T07:37:54Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "execution_origin": {"validated": true, "trigger_id": "trig_01UUXAtYHjn7nBgzkdvZU4Rv", "source": "scheduled_trigger"}, "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 1, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "portfolio_heat": {"existing_open_risk_usd": 46.64, "new_trade_risk_usd": 0, "total_heat_usd": 46.64, "equity_usd": 5629.88, "heat_pct": 0.83, "cap_pct": 6.0, "headroom_usd": 291.15}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+## 2026-11-12T08:38:06Z — AUTONOMOUS (Crypto 24/7 Scan, real scheduled fire, trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv, status_gate ACTIVE — AVAX's 4H candle finally rolled; same item (R:R) still fails, but setup quality has genuinely weakened; no order)
+
+**STEP 0 gate check**: §14 `Status: ACTIVE` confirmed. No kill phrase. Execution origin validated: `trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv`, fired 2026-11-12T08:38:06Z.
+
+**Account/position check**: `get_accounts`/`get_portfolio` (748688058) — total_value $5,629.88, crypto_value $0. `get_crypto_positions` — 0 open. No §6 circuit breaker. SPY/QQQ shock check inapplicable (outside equity hours). Robinhood MCP fully authenticated.
+
+**Portfolio heat cap**: carried-forward cross-mode open-risk $46.64. 6% of $5,629.88 = $337.79; heat_pct 0.83%, headroom $291.15.
+
+**Near-miss queue reassessment**: AVAX reassessed, 5th check overall. The 4H bar at t=1794456000 is now genuinely completed (`now_epoch=1794472696` ≥ `t+14400=1794470400`) — the first real new 4H bar since the 04:37:38Z check. The picture has weakened, not merely shifted:
+- **Trend/State**: still confirms (4H EMA9 8.5478>EMA20 8.4715).
+- **Momentum: no longer clearly confirms.** 4H RSI14 fell to 48.72 (down from 52.46 — declining, not "improving"). 4H MACD histogram has now declined for 2 consecutive completed bars (0.02585→0.02501) — deteriorating, not improving. Neither Momentum leg (RSI-improving OR MACD-improving) is satisfied on this bar.
+- **Volume: now fails outright.** Last 4H bar volume 244,588.64 vs. 3-bar §13.H baseline 323,545.34 = **0.756x — below the 1.2x floor**, a real reversal from the prior 4 checks' 1.354x pass.
+- Only Trend/State confirms cleanly now — item 3 still technically clears (≥1-of-5 floor met on one role-group), but on a materially thinner basis than the prior 3-role-group reads.
+- **R:R recomputed**: entry $8.629, stop $8.379 (same 4H swing low), target $8.9351 (1.5×ATR4H=0.2041) → **1.2244:1 — still fails the 1.5:1 floor, by a wider margin than the prior 4 checks' 1.3116:1.**
+- **Outcome: STILL A NEAR-MISS (same named item, R:R), but flagged plainly as a genuine deterioration, not a repeat.** If Momentum/Volume stay weak and/or R:R widens its shortfall further on the next check, this may warrant reclassifying as invalidated — not done this cycle since item 3 still technically clears and item 4 is still the same blocker. Updated `near_miss_queue.md`: `cycles_checked` 4→5, full re-description of the weakened state.
+
+**General allowlist screen (Stage A)**: BTC, ETH, SOL, XRP, LINK, AAVE still StrongSell/RSI<45 both TFs, decisive rejects. HBAR showed a mild uptick (4H RSI 45.0, 1H RSI 50.68, 1H rating "Sell" not "StrongSell") but remains net-bearish on Stage A — not promising enough to warrant a Stage B pull this cycle; will watch next cycle if the drift continues. AVAX covered above.
+
+Per-symbol labels: **AVAX — evaluated** (fails item 4, remains queued). **BTC, ETH, SOL, XRP, LINK, AAVE, HBAR — rejected with evidence.**
+
+**Stop-audit**: 0 open crypto positions — nothing to audit.
+
+**No order placed.** Quiet cycle.
+
+```json
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-11-12T08:38:06Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "execution_origin": {"validated": true, "trigger_id": "trig_01UUXAtYHjn7nBgzkdvZU4Rv", "source": "scheduled_trigger"}, "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 1, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "portfolio_heat": {"existing_open_risk_usd": 46.64, "new_trade_risk_usd": 0, "total_heat_usd": 46.64, "equity_usd": 5629.88, "heat_pct": 0.83, "cap_pct": 6.0, "headroom_usd": 291.15}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
