@@ -69004,3 +69004,27 @@ Per-symbol labels: **AVAX — evaluated** (invalidated this cycle, removed from 
 ```json
 {"cycle": "crypto_24_7", "timestamp_utc": "2026-11-12T13:38:16Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "execution_origin": {"validated": true, "trigger_id": "trig_01UUXAtYHjn7nBgzkdvZU4Rv", "source": "scheduled_trigger"}, "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 1, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 0, "invalidated": 1, "ineligible": 0, "expired": 0, "note": "AVAX invalidated and removed; queue now empty"}, "portfolio_heat": {"existing_open_risk_usd": 46.64, "new_trade_risk_usd": 0, "total_heat_usd": 46.64, "equity_usd": 5627.24, "heat_pct": 0.83, "cap_pct": 6.0, "headroom_usd": 290.99}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+## 2026-11-12T14:11:25Z — PREMARKET_PREP (Premarket Preparation Scan, read-only, no order authority, trigger_id trig_01FRC5Yt8UVcGH8GxcAURYXX)
+
+**Timestamp**: 2026-11-12T14:11:25Z UTC / 2026-11-12 06:11:25 America/Los_Angeles (scheduled for 14:07:38Z, fired ~4 min later). `calls_made_this_cycle`: **10 of 10** (at the hard cap, not exceeded).
+
+**Step 0**: §14 reads `Status: ACTIVE`; no kill phrase found. (Not a gate for this read-only trigger — logged for context only.)
+
+**Step 1 — SPY freshness check**: `get_ohlcv(AMEX:SPY, interval="5m", count=3)` returned a bar ~17.3 hours stale (last bar 2026-11-11T20:55:00Z) carrying this tool's standing "regular session only" notice — this is a documented limitation of the 5m-OHLCV endpoint (it doesn't serve premarket bars at all), not evidence of a holiday or outage today. **Corroborated directly instead** via the Step 2 watchlist batch pull: every one of the 74 names returned real, non-null, non-zero `premarket_volume`/`premarket_change` with `update_mode: "streaming"` — genuinely live premarket data this cycle. **`coverage_state: "EVALUATED"`**, not `DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE`.
+
+**Step 2 — watchlist batch** (2 calls, 74 names from `watchlist.md`'s exchange-prefix reference table): full premarket_* pull across the entire pool. Broad, deep red this morning — see shortlist below.
+
+**Step 3 — bounded liquid screener** (2 calls, `market=america`, `volume: [500000, null]`, sorted by `premarket_change` desc/asc, limit 20 each): returned almost entirely penny stocks and leveraged single-stock NVDA ETNs (NVDL/NVDS/NVDU/NVDX/NVDG/NVDQ/NVD, all mechanically tracking NVDA's own move) — no genuine quality off-watchlist candidates found at this floor. None advanced; the watchlist pool itself was the stronger candidate set this cycle.
+
+**Step 4 — shortlist selection**: top 5 by |premarket_change| among liquidity-floor-clearing watchlist names: **NBIS (-19.45%), CRWV (-13.63%), NVDA (-11.51%), IREN (-8.40%), DELL (-7.89%)**.
+
+**Step 5 — catalyst check** (5 calls, `get_news`, one per shortlisted name): **major finding — NVDA CEO Jensen Huang has resigned (WSJ/Dow Jones Newswires, same-day).** This appears to be the dominant catalyst behind a broad AI/semiconductor/datacenter-infrastructure selloff this morning: NBIS (verified — Q3 guidance cut, capacity/financing concerns), CRWV (verified — price-target cut, "NVDA danger zone" framing, Q3 earnings miss), NVDA itself (the Huang resignation directly), IREN (unverified same-day catalyst — most recent headlines are Nov 9-11 and don't explain today's specific move; likely swept up in the broader selloff), DELL (unverified negative catalyst — prior day's headlines are explicitly bullish; today's decline reads as giving back yesterday's AI-server-spending rally amid the broader risk-off). This also lines up with the market-wide crypto decline logged across today's Crypto 24/7 cycles — consistent with one shared shock, not coincidence.
+
+**Step 7**: `premarket_shortlist.md` written (new file), full fields per Step 6, banner included.
+
+**coverage_state**: EVALUATED. `watchlist_candidates`: 5 of 5 shortlist entries on-watchlist. `offwatchlist_research_only_candidates`: 0 (screener results were all excluded as low-quality noise, per Step 3's own finding — logged, not advanced).
+
+```json
+{"cycle": "premarket_prep", "timestamp_utc": "2026-11-12T14:11:25Z", "read_only": true, "calls_made_this_cycle": 10, "coverage_state": "EVALUATED", "candidates_found": 5, "watchlist_candidates": 5, "offwatchlist_research_only_candidates": 0, "git_push": "pending"}
+```
