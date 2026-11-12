@@ -68749,3 +68749,31 @@ Confirmed: 0 crypto orders placed; crypto position count 0/2; per-symbol coverag
 ```
 
 Confirmed: 0 crypto orders placed; crypto position count 0/2; coverage labels above; near-miss queue unchanged (empty); stop-audit N/A; portfolio-heat-cap check passed; Robinhood MCP fully connected; git push to follow.
+
+## 2026-11-12T04:37:38Z — AUTONOMOUS (Crypto 24/7 Scan, real scheduled fire, trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv, status_gate ACTIVE — AVAX's 4H candle finally rolled; a clean, decisive R:R-only near-miss, queued)
+
+**§14/§21 status check**: Status confirmed **ACTIVE**. No kill phrase found.
+
+**Account state**: total_value $5,634.28, cash $4,910.92, equity_value $723.36 (RDW), crypto_value $0. 0 open crypto positions.
+
+**Stage A**: AVAX Buy/Buy (RSI4H 53.97, RSI1H 50.85). HBAR/AAVE/BTC/ETH/LINK/SOL/XRP: no material change, all cleanly rejected (StrongSell and/or RSI well under 45).
+
+**AVAX — the 4H candle finally rolled past the stop-hunt bar.** Last completed 4H bar is now t=1794441600 (close $8.619) — the first genuinely fresh 4H read since the 21:37:41Z stop-out, after 4 consecutive cycles stuck on the same stale bar. Computed via `dev_scanner/tv_structure.py`:
+- **Trend/State confirms**: 4H EMA9 $8.528 > EMA20 $8.455.
+- **Momentum confirms on both TFs**: 4H RSI14 52.46 (>45), MACD macd 0.0636 > signal 0.0378, hist +0.0258 and widening; 1H RSI14 55.53 (>45).
+- **Volume confirms**: last 4H bar volume 441,375 vs. the §13.H 3-bar baseline 325,861 = 1.354x, clears the 1.2x floor.
+- That's **3 of 5 role-groups** — well past the 1-of-5 floor. This is the first cycle this candidate has cleared item 3 this decisively since the original 21:37:41Z entry.
+- **Item 4 (R:R) fails, cleanly**: the only real structural stop available is the 4H/1H swing low at $8.379 (the exact same stop-hunt wick low from the prior stop-out — `validate_stop_distance()` does NOT flag it tight, i.e. this is a genuine, non-circular structural level). Entry $8.619, target $8.9338 (1.5×ATR4H, ATR4H=0.20986) → **R:R = 1.31:1 — short of the 1.5:1 floor, by a real margin, not a rounding artifact.** No tighter genuine structural stop exists (the 1H prior swing low is the identical level).
+- **Declined — a clean, single-item near-miss**, queued to `near_miss_queue.md` for mandatory full-gate reassessment next cycle. Catalyst (item 2) was not independently re-checked this cycle since R:R already disqualifies the trade regardless; will need fresh verification if/when R:R eventually clears.
+
+**Coverage**: 8/8 triaged, 1/8 full Stage-B-evaluated (AVAX), 7/8 rejected on Stage A alone, 0 not-evaluated, 0 tool failures. Near-miss queue: AVAX added (new, item 4 only).
+
+**Portfolio heat**: 0 crypto positions. RDW carried-forward open-risk ~$46.64 against $5,634.28 equity (6% cap $338.06) — ample headroom, moot.
+
+**0 crypto orders placed. No trade — R:R floor genuinely not met on the only real stop available.**
+
+```json
+{"cycle": "crypto_24_7", "timestamp_utc": "2026-11-12T04:37:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "execution_origin": {"validated": true, "trigger_id": "trig_01UUXAtYHjn7nBgzkdvZU4Rv", "source": "scheduled_trigger"}, "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 1, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": ["AVAX"]}, "portfolio_heat": {"existing_open_risk_usd": 46.64, "new_trade_risk_usd": 0, "total_heat_usd": 46.64, "equity_usd": 5634.28, "heat_pct": 0.83, "cap_pct": 6.0, "headroom_usd": 291.64}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 5, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+Confirmed: 0 crypto orders placed; crypto position count 0/2; coverage labels above; near-miss queue changed (AVAX added, R:R-only blocker, 1.31:1 vs. 1.5:1); stop-audit N/A; portfolio-heat-cap check passed; Robinhood MCP fully connected; stop-distance-validation computed and logged (not flagged tight, genuinely fails the floor); git push to follow.
