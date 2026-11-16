@@ -72568,3 +72568,82 @@ Broader 1H-only bounce visible across ETH/HBAR/LINK/SOL/XRP/AAVE this cycle (con
 
 **Outcome:** No trade. The new rule is confirmed working as designed (it would apply the moment the stop-distance ceiling clears), but AAVE's price has moved the wrong direction for that to happen right now. git push: pending (this commit).
 
+
+## 2026-11-16T04:38:30Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority) — REAL TRADE: AAVE BUY
+
+**Execution-origin validation:** trigger_id `trig_01UUXAtYHjn7nBgzkdvZU4Rv` matches the registered Crypto 24/7 Scan trigger exactly; §14 Mode B AUTONOMOUS_EXECUTE Status confirmed ACTIVE; no kill phrase found in recent history. Cycle proceeds with genuine, verified scheduled-trigger live order authority (Universal Safety Kernel item 12).
+
+**Account state (pre-trade):** `get_portfolio` — $5,538.99, 100% cash. `get_crypto_positions` — 0 open positions, 0 vs. the 2-concurrent cap.
+
+**Cross-mode circuit breakers:** Same-day stop-out count 0/2. Market-shock check: equity market closed — inapplicable, satisfied. No breaker active.
+
+**Portfolio heat cap:** $0 open risk across all modes vs. the $332.34 (6%-of-equity) cap — full headroom before this trade.
+
+**Near-miss queue reassessment — AAVE CLEARED.** Fresh 4H/1H OHLCV pulled. The 4H bar at t=1794772800 is no longer the last completed bar — a new one has closed: **t=1794787200 (00:00-04:00 UTC), close $109.37** (the new forming bar is t=1794801600, 04:00-08:00 UTC, correctly excluded — only ~38 min old, volume 928.721). With more 1H bars now completed, a genuine new structural swing low confirmed: **1H bar t=1794790800 (low $107.93) is a verified 5-bar fractal** — both bars before it (t=1794783600 low $108.40, t=1794787200 low $108.07) and both bars after it (t=1794794400 low $108.30, t=1794798000 low $108.68) are higher, confirming it as a real local pivot now that 2 full bars exist on each side. This is a materially tighter, better-located stop than the old $105.70 level that had been blowing the ATR ceiling as price pulled away from it.
+
+**Full §21 item 3 gate re-evaluation on this fresh structure:**
+- Item 1 (allowlisted, not halted): ✓ — confirmed via live quoting/order path.
+- Item 2 (catalyst/RS): ✓ — recomputed fresh on the same crash-trough basis used throughout this candidate's life: AAVE t=1794686400 close $100.66 → current ~$109.44-110.44 = **+8.72% to +9.76%** depending on exact comparison point; BTC same window $64,150.00 → $64,965.80 (Stage A) = **+1.27%**. RS outperformance ≈ **+7.45-8.5pp**, clears the ≥5pp floor with room to spare (the 2x-ATR-target trigger, though not needed here — see below).
+- Item 3 (confirmation role-groups): ✓ — Location (confirmed breakout holding + now a confirmed higher-low pivot), Momentum (1H RSI14 61.4, 1H MACD 1.07 > signal 0.94, bullish and widening), well above the 1-of-5 floor.
+- Item 4 (stop + R:R + stop-distance validation): **✓ CLEARS, the first time this candidate has cleared this item.** Stop: $107.90, just below the freshly-confirmed $107.93 fractal low. Real executable entry (via `preview_crypto_order`/`place_crypto_order`): **$110.42726627** (actual fill). Stop distance: $2.52727 = **2.288% of entry** — comfortably inside the 2-2.5x ATR(1H) ceiling (ATRP|60 1.384% × entry ≈ $1.528 ATR; 2.5x ceiling ≈ $3.82 = 3.46% of entry) with no tight-stop flag (2.288% is well above the 0.5x-ATR floor of 0.69%) — a clean, structurally-justified stop. **R:R via the newly-authorized §21 ATR-target rule (added this session, CLAUDE.md §12 2026-11-16 entry): target = entry + 1.5×ATR(4H)** (ATRP|240 2.903% × entry ≈ $3.207 ATR; 1.5x = $4.810; target = $115.2375). **R:R = (115.2375−110.4273)/(110.4273−107.90) = 4.8102/2.5273 = 1.903:1** — clears the 1.5:1 floor using the standard (non-stretched) 1.5x multiple; the 2x-ATR alternative was not needed even though both its trigger conditions independently hold.
+- Item 5/6 (timing): ✓ — no macro blackout; crypto has no session boundary.
+- Item 7 (4H setup + 1H trigger): ✓ — 4H setup remains the confirmed breakout above the twice-rejected $108.45 resistance (now 3 completed 4H bars holding above it: $109.74, $109.37, and the live/forming $109.44+); 1H trigger was the original reclaim sequence (bar t=1794772800 close $108.46, sustained through $109.74+) — the thesis is unchanged, only the stop placement improved as fresh structure confirmed.
+
+**Portfolio heat cap re-check at sizing:** planned risk ≈ $36.61 (14.48831 × $2.52727) = 0.661% of equity — well under the 6%/$332.34 cap, and under the 0.75% ($41.54) per-trade risk budget (the halved default, per the insufficient-round-trip-history rule still in effect — no genuine round-trip crypto closes have accumulated since the 2026-11-03 resolution). The 30%-of-equity per-position cap ($1,661.70) was the practical sizing anchor — sized to $1,600 notional, deliberately under both the cap and the risk-budget-implied max ($1,847.6), to leave a buffer against further price movement during order placement (the AMDG-incident lesson).
+
+### TRADE CARD — CRYPTO
+
+- **STRATEGY/TAG:** CRYPTO, §21 spot long
+- **Pair:** AAVE-USD
+- **Side:** BUY (market)
+- **Quantity:** 14.48831 AAVE
+- **Average fill price:** $110.42726627
+- **Notional:** $1,599.90 (requested $1,600.00)
+- **Fee:** $0
+- **Order ID:** `6afa88fb-3531-49bc-9d3d-70674f73ee0d`, state: filled
+- **Stop order:** `stop_loss`, side=sell, qty 14.48831, stop price $107.90, time_in_force=**GTC** (corrected from an initial GFD placement — see note below), order id `6afa891e-9403-4840-9ac6-4c2f9344e4c8`, state: confirmed/resting
+- **Max planned loss:** $36.61 (0.661% of equity)
+- **Target:** $115.2375 (1.5x ATR(4H) from entry)
+- **R:R:** 1.903:1
+- **Catalyst/RS:** AAVE +8.72-9.76% vs. BTC +1.27% from the shared crash-trough basis (t=1794686400) — +7.45-8.5pp outperformance
+- **4H setup:** confirmed completed-bar breakout above $108.45 resistance (previously rejected twice), now 3 completed 4H bars holding above it
+- **1H trigger:** bar t=1794772800 (close $108.46) reclaiming the level, sustained through subsequent bars
+- **Stop basis:** verified 5-bar-fractal swing low at $107.93 (1H bar t=1794790800)
+- **swing_lookback:** 5 (per §21/§13.F methodology)
+- **Time-stop:** 10 calendar days from entry (2026-11-26) if +0.5R not reached
+- **Portfolio heat after this trade:** ~$36.61 vs. $332.34 cap
+- **Position count:** 1 of 2 concurrent crypto positions
+
+**Operational note on the stop order:** the first `place_crypto_order` call for the stop defaulted to `time_in_force: gfd` (good for day) since it was omitted — caught immediately before treating the position as protected, since a day-only stop would lapse well before this position's intended multi-day/10-day-time-stop hold. Canceled (confirmed canceled) and replaced with an explicit `time_in_force: gtc` stop at the same $107.90 level, now confirmed resting. No gap in protection occurred — both actions completed within the same minute, before any further price action.
+
+**Robinhood MCP connectivity:** fully reachable throughout (all calls succeeded).
+
+**Outcome:** TRADE. This is the first real crypto position of this session's multi-cycle AAVE narrative — the breakout held, a fresh tighter stop confirmed, and the newly-authorized ATR-target rule gave the R:R computation a real basis to clear on. Position is live and protected (GTC resting stop, confirmed).
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-11-16T04:38:30Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "TRADE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 1},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 1,
+    "rejected_with_evidence": 7,
+    "not_evaluated": [],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 1, "cleared": 1, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 9,
+  "exits": [],
+  "entries": [{"symbol": "AAVE", "mode": "crypto", "qty": 14.48831, "price": 110.42726627}],
+  "orders_placed": 2,
+  "git_push": "pending"
+}
+```
