@@ -73419,3 +73419,115 @@ qualified).
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-16T16:37:21Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "market_shock_correction": {"determination": "NOT_ACTIVE", "basis": "cycle-over-cycle, not vs Friday close"}, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "aave_stop_out_found_this_cycle": {"realized_loss_usd": -36.92, "filled_at": "2026-11-16T04:45:59Z"}, "crypto_profit_factor_tally": {"wins": 0, "losses": 2, "profit_factor": 0, "risk_pct_active": 0.75}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 2, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 283.48, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-16T17:03:39Z — AUTONOMOUS (Mode B/C Entry Screening, Fresh Candle)
+
+**Trigger:** `trig_01KrBsTt9mssjU4hPGtM3cBe`, confirmed via ReadNotifications. §14 Status ACTIVE
+(line 3744 grep-verified). No kill phrase found.
+
+**Robinhood MCP:** connectivity normal — `get_portfolio` $5,494.96 equity, cash $3,886.90.
+`get_equity_positions`: SQQQ (18 sh, avg $44.81) and SOXS (14 sh, avg $57.76), both from the prior
+Fresh Candle cycle. `get_option_positions`: 0 — options/LEAPS stop-check (step 2b) moot.
+
+**Mode B stop-audit (§16 item 15):** both SQQQ and SOXS resting stops reconfirmed via
+`get_equity_orders` — state=confirmed, $43.90 and $55.65 respectively. No action needed.
+
+**Mode C stop-audit (§20 item 12):** 0 open Mode C positions — moot.
+
+**Circuit breakers (§6):** same-day stop-out count unchanged at 1/2 (AAVE, logged last cycle) —
+not triggered. Market-shock: SPY $744.73→$744.78 ish / QQQ $668.12→$667.56-667.98 cycle-over-cycle
+— negligible move, well under 1.5%, **not active**. Portfolio heat unchanged at $45.87 of $329.70
+(6% of $5,494.96) — $283.83 headroom.
+
+**§22 Leveraged/Inverse ETF mandatory 9-name screen (step 3c) — full coverage, 9/9 accounted for:**
+- **TQQQ, SOXL, SPXL, TNA, AMDG: rejected with evidence** — all StrongSell/StrongSell (1D/1h),
+  no bullish structure on their own chart; structural absence, continuing broad decline.
+- **SQQQ, SOXS: already open positions from the prior cycle** (2/2 concurrent cap reached) — no
+  new entry possible regardless of further evidence; both re-confirmed still StrongBuy/StrongBuy
+  on fresh Stage A (SQQQ +5.8%, SOXS +12.4% today), underlyings QQQ (-1.9%)/SOXX (-4.1%) both
+  still StrongSell — thesis intact, management continues via the stop-audit above.
+- **SPXU, TZA: full Stage B evaluation this cycle, both genuine near-misses, queued.**
+  - **SPXU** (underlying SPY, StrongSell -1.27%): completed-bar breakout confirmed — swing high
+    $36.68 (pre-today 5-bar fractal) broken and HELD on both of today's completed bars ($37.30,
+    then $36.91, both above $36.68), volume 1.63x §13.H baseline on the breakout bar. **Item 4
+    (R:R) fails**: stop placed just beyond the broken level ($36.60) → risk $0.59 vs. fresh entry
+    $37.19; ATR14(1h)≈$0.50 → 1.5x target $37.94 → reward $0.75 → **R:R 1.27:1**, just short of
+    the 1.3:1 floor. Queued as a single-item (item 4) near-miss.
+  - **TZA** (underlying IWM, StrongSell -1.12%): breakout attempted but **not held** — swing high
+    $48.39 (pre-today) broken on today's first completed bar (close $48.65, volume 8.32x
+    baseline) but the second (most recent) completed bar closed back **below** it at $48.20.
+    **Item 7 (hourly trigger) fails** — no confirmed hold. Queued as a single-item (item 7)
+    near-miss.
+  - `near_miss_queue.md` updated with both (see below).
+- **Coverage: 9/9 accounted for — COMPLETE.**
+
+**Near-miss queue reassessment (Mode B/C equities/§13.G table — 1 entry, HPE):**
+**HPE reassessed fresh** (last checked 2026-11-13T16:48Z, failed item 4 R:R ~0.48:1). Today HPE
+gapped down hard (open $45.67, low $45.31, a fresh leg lower) then bounced to a last-completed-bar
+close of $46.67. Recomputed stop/target from this cycle's fresh data: stop just above the bounce
+high ($47.30), ATR14(1h)≈$0.91 → 1.5x target ≈$45.19 from a fresh ~$46.55 entry → **R:R ≈1.81:1,
+now clearing item 4's 1.3:1 floor** — a genuine improvement. **But item 7 (hourly trigger) is now
+the blocker instead**: the most recently completed bar is a recovery/bounce bar ($46.67, up from
+$45.91), not a confirmed bearish-continuation close — no failed-bounce rejection candle or fresh
+breakdown close exists yet to trigger a bearish entry. **Still a genuine single-item near-miss —
+the blocking item flipped from 4 to 7, not cleared, not invalidated.** Queue entry updated.
+
+**Mode B Stage 1 full-universe triage: all 74 names, 2 batch calls, 74/74 triaged.** Per-symbol
+Stage A disposition: the overwhelming majority (≈58 names) show StrongSell/StrongSell or
+Sell-leaning on both timeframes, consistent with today's broad risk-off tape — **rejected with
+evidence, structural absence**, not individually deep-dived (large majority, no bullish alignment
+to investigate). **Aligned-bullish names identified for Stage 2 (both timeframes Buy/StrongBuy or
+better): AVA, DUOL, LMND, UBER, ZETA, DIS, LLY** (7 of 74) — the rest of the pool is bearish-leaning
+or mixed/non-aligned (AAPL, AMZN, PATH, SHOP, TTD, CVX, FIG — logged as not-evaluated, rotation
+deferred, since they didn't show clean two-timeframe alignment).
+
+**Stage 2 full-gate evaluation (2 of the 7 aligned-bullish names drawn this cycle; DUOL/UBER —
+AVA/LMND/ZETA/DIS/LLY deferred to the next cycle's rotation slot, not rejected):**
+- **DUOL**: confirmed, held completed-bar breakout above the recent $166.58 swing high (bar2
+  close $169.71, volume 1.46x baseline). Catalyst clears cleanly — Jefferies raised PT to $175
+  from $145 (2026-11-09, dated) plus a Q3 beat-and-rally (+25.3%, 2026-11-08); RS vs. SPY today
+  ~+4.1pp. Role-groups confirm (Trend/State, Volume, Momentum RSI60 69.2). **Item 4 (R:R) fails**:
+  fresh entry $170.38, ATR14(1h)≈$2.48 → 1.5x target $174.10 (reward $3.72); the nearest
+  defensible structural stop (just below the breakout bar's own low, $164.90) gives risk $5.48 →
+  **R:R 0.68:1**. Price is too extended intraday (+3.3% already) relative to the ATR-based target
+  for any legitimate stop to clear 1.3:1 — a genuine chasing/extension problem (§13.E), not a
+  catalyst or confirmation failure. Queued as item-4 near-miss (extension-driven); may clear on a
+  future pullback-and-reclaim rather than a chase at today's extended price.
+- **UBER**: confirmed, held breakout above the $69.685 Friday high (bar2 close $70.62). Role-groups
+  confirm (Trend/State, Momentum RSI60 61.9). **Item 4 (R:R) fails**: fresh entry $70.75,
+  ATR14(1h)≈$0.55 → target $71.58 (reward $0.83); tightest defensible stop just below the breakout
+  bar's low ($69.95) → risk $0.80 → **R:R ~1.04:1**, short of 1.3:1 even at the tightest reasonable
+  stop. Queued as item-4 near-miss, less extended than DUOL (modest +1.5% move) but still short.
+
+**§18/§19 options/LEAPS sourcing: deferred this cycle (`options_leaps_deferred: true`).** No Mode
+B/Bearish-Mirror underlying cleared its full equity-side gate this cycle (DUOL/UBER failed R:R,
+HPE failed the trigger) to feed a sourced options candidate, and this cycle's call budget was
+concentrated on the mandatory §22 9-name screen plus the two new Mode B near-miss evaluations.
+Legitimate deferral, not a rejection — the persistent rotation in `near_miss_queue.md`'s
+Options/LEAPS Sourcing Queue is unchanged this cycle.
+
+**§24 vertical debit spread paper screening:** no candidate — no underlying cleared the full
+equity-side gate this cycle to feed a spread evaluation (same reason as options/LEAPS above).
+
+**Mode C (§20):** 0 open positions. Screened 2 heavily-oversold names (IBIT RSI60 17.1, ETHA RSI60
+19.8, both crypto-tracking ETFs down ~12.5-12.9% over the lookback) as mean-reversion candidates —
+both still printing fresh lower closes this cycle with no confirmed close back inside a normal
+range yet (IBIT last completed bar $36.61, still well below its recent range; ETHA last completed
+bar $41.27, same pattern). **Logged as `no_breakout_yet`/no mean-reversion trigger confirmed this
+cycle** — not a rejection, a later cycle may catch the actual reversion candle. No ORB setups
+checked this cycle (budget prioritized to the §22 screen and Mode B near-miss work); logged as
+not-evaluated, rotation-deferred, not a rejection.
+
+**No order placed in Mode B or Mode C this cycle.** `near_miss_queue.md` changed (HPE updated;
+SPXU, TZA, DUOL, UBER added).
+
+**TRADING_VIEW_2 usage this cycle:** 2 Stage-A batch calls (74-name universe) + 1 §22 Stage-A
+batch (13 names) + 2 §22 Stage-B OHLCV (SPXU, TZA, 1h) + 1 HPE reassessment OHLCV (1h) + 4 Mode B
+Stage-B OHLCV (DUOL, UBER, IBIT, ETHA, 1h) + 1 DUOL news call = **11 calls this cycle.** No tool
+failures.
+
+```json
+{"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-16T17:03:39Z", "coverage_state": "EVALUATED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 74, "full_gate_evaluated": 2, "rejected_with_evidence": 0, "not_evaluated": 72, "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved_2026-11-04_no_trade"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 2, "rejected_with_evidence": 5, "not_evaluated": [], "coverage_complete": true}, "scan_budget_allocation": {"etf_calls": 15, "mode_c_calls": 2, "options_leaps_calls": 0, "mode_b_calls": 7, "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": ["IBIT", "ETHA"], "fresh_setups": [], "missed_not_evaluated": []}, "calls_made_this_cycle": 11, "tvremix_calls_used_today": 46, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
