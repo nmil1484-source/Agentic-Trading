@@ -73325,3 +73325,97 @@ cycle.** No tool failures.
 ```json
 {"cycle": "Mode B/C Fresh Candle Entry Screening", "timestamp_utc": "2026-11-16T16:03:23Z", "modes_covered": ["B"], "status_gate": "ACTIVE", "coverage_state": "EVALUATED", "circuit_breakers_active": [], "market_shock_correction": {"prior_cycles_flagged_active": true, "this_cycle_determination": "NOT_ACTIVE", "reason": "re-read of §6's own text: trigger is a single hourly inter-cycle gap, not a multi-hour drift since open; SPY/QQQ moved <1.5% cycle-over-cycle (15:04Z vs 16:03Z), not vs Friday's close"}, "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 2, "note": "both new fills protected same-cycle, GTC stop_market, confirmed resting"}, "coverage": {"universe_size": 2, "triaged": 2, "full_gate_evaluated": 2, "rejected_with_evidence": 0, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 2, "cleared": 2, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 2, "cleared_to_trade": 2, "concurrent_cap_now": "2/2"}, "calls_made_this_cycle": 2, "tvremix_calls_used_today": 17, "exits": [], "entries": [{"symbol": "SQQQ", "mode": "B", "qty": 18, "price": 44.8071}, {"symbol": "SOXS", "mode": "B", "qty": 14, "price": 57.7599}], "orders_placed": 4, "portfolio_heat_after": 45.87, "total_deployed_after_pct": 29.35, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-16T16:37:21Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Trigger:** `trig_01UUXAtYHjn7nBgzkdvZU4Rv`, confirmed via ReadNotifications. §14 Status ACTIVE
+(grep-verified). No kill phrase (`STOP AUTONOMOUS EXECUTION`/`PAUSE AUTONOMOUS TRADING`) found in
+trades_log.md history or session.
+
+**Robinhood MCP:** connectivity normal — `get_portfolio` **$5,489.15** total equity (down from
+$5,502.07, reflecting the two new §22 Mode B fills marked slightly below cost plus the AAVE
+realized loss below), cash $3,886.90. `get_crypto_positions`: **0 open crypto positions.**
+
+**Real finding this cycle, not previously visible in this session's own context: AAVE was bought
+and stopped out entirely within this account's recent history, found via `get_crypto_orders`.**
+Buy: 14.48831 AAVE @ avg $110.42726627, filled 2026-11-16T04:39:23Z. Protective stop placed at
+$107.90 (cancel-and-replace once, same stop price, at 04:39:58Z). That stop **filled** at
+04:45:59Z, avg $107.87975567 — a real, fast stop-out roughly 6 minutes after entry (price moved
+from ~$110.43 through $107.90 that quickly). This matches `near_miss_queue.md`'s existing removal
+note (AAVE cleared into a real trade at 04:38Z) — the stop-out itself was not previously logged as
+its own trades_log.md entry in a way this session's compacted context retained, so logging it
+explicitly here for the record. **Realized loss**: entry notional $1,599.91, exit notional
+$1,562.99 → **-$36.92** (excluding the position's earlier accumulated history; see §16 item 16
+below). This loss is already reflected in the current $5,489.15 equity figure used for all sizing
+in this cycle.
+
+**Same-day stop-out count (§6, cross-mode, checked via `get_crypto_orders`/`get_equity_orders`
+filtered to `created_at_gte=2026-11-16T00:00:00Z`): 1/2** — the AAVE stop-out above (04:45:59Z) is
+the only stop-out today across Mode B/C/crypto combined (today's two new Mode B equity fills,
+SQQQ/SOXS, were buys, not stop-outs). **Breaker NOT triggered** (needs 2).
+
+**Market-shock breaker (§6):** checked cycle-over-cycle (this cycle's fresh SPY/QQQ quote vs. the
+15:04Z First Scan's logged QQQ read), not vs. Friday's close — same corrected methodology adopted
+at the 16:03:23Z Fresh Candle cycle. QQQ: -2.1% at 15:04Z → -1.73% now (an improvement, not a
+further decline). SPY: ~-1.25% at 15:37Z → -1.15% now. Both moves are small and in the recovering
+direction, well under the 1.5% single-cycle-gap threshold. **Breaker NOT active.**
+
+**Portfolio heat cap (§3):** current open-risk = $45.87 (SQQQ $16.33 + SOXS $29.54, both Mode B
+§22 positions from the prior cycle; 0 crypto open-risk). 6% of $5,489.15 = **$329.35**. Headroom
+= **$283.48** — full headroom for any new crypto entry sized against it.
+
+**Near-miss queue (`near_miss_queue.md`, Crypto §21 table): empty.** 0 pairs to reassess.
+
+**Existing crypto positions: 0** — stop-audit moot, no management action needed.
+
+**Full-allowlist screen, all 8 pairs (Stage A batch + 1 Stage B OHLCV spot-check):**
+
+Stage A (`mcp-tv-get-symbol-data-batch`, live snapshot, prioritization only): **BTC, SOL, XRP,
+LINK, AAVE, HBAR, AVAX all StrongSell/StrongSell (4H/1H)**, high 4H trend strength (ADX 39-60,
+confirming a genuine continuing downtrend, not chop) — the same broad crypto selloff in sympathy
+with today's equity/AI-trade weakness logged throughout this cycle-block. **ETH: StrongSell (4H) /
+Neutral (1H)** — the one pair with a non-uniform read, given a closer look via Stage B.
+
+Stage B (`get_ohlcv`, 1h, BINANCE:ETHUSDT, 60 bars, no-forming-candle discipline applied — last
+bar t=1794844800 = 16:00-17:00 UTC still forming, correctly excluded): last **completed** bar
+(15:00-16:00 UTC, t=1794841200) closed $1,820.00, pulling back from the prior completed bar's
+sharp spike (14:00-15:00 UTC, close $1,846.46 on a 40,999-unit volume spike, high $1,866.89) —
+a bounce-and-pullback, not a confirmed breakout hold. 1H trend strength weak (ADX 14, choppy).
+**4H remains StrongSell** (MACD deeply negative and widening on the 4H read) — with no 4H bullish
+setup to anchor it, a transient 1H bounce does not satisfy §21 item 3's 4H-setup-plus-1H-trigger
+requirement (the 4H setup itself is the missing piece, not just the trigger).
+
+**Per-symbol disposition — all 8 pairs rejected with evidence, 0 cleared, 0 queued as new
+near-misses:**
+- BTC, SOL, XRP, LINK, AAVE, HBAR, AVAX: no bullish-aligned structure on either timeframe,
+  StrongSell/StrongSell, strong confirmed downtrend (high ADX) — structural absence, not a
+  near-miss.
+- ETH: 4H setup absent (StrongSell, no bullish structure); 1H shows only an unconfirmed
+  spike-and-pullback with weak trend strength — fails the 4H-setup-plus-1H-trigger requirement on
+  the 4H leg specifically.
+
+**AAVE note:** today's stopped-out AAVE (above) shows Stage A RSI(4H) 41.9/RSI(1H) 48.7, ADX(4H)
+39.4 — still cleanly bearish, no basis for an immediate re-entry on fresh structure; rejected with
+the rest of the allowlist, not treated any differently for having just been stopped out (no
+same-day-loss re-entry prohibition exists for crypto the way §17 item 4 scopes it to Mode B
+equities, but there is also no qualifying fresh setup here regardless).
+
+**OBSERVE — no trade this cycle.**
+
+**§16 item 16 tally update (crypto, round-trip counting):** AAVE's round-trip closed today adds
+one more loss to the trailing window — now **0 wins, 2 losses** under the 2026-11-03 counting-rule
+reconstruction (first loss logged ~2026-11-16T04:38Z per the prior entry referenced above, this is
+the second). Profit factor remains undefined/0 — trailing PF stays below 1.0, so crypto's
+per-trade risk stays at the **halved 0.75%-of-equity** figure (moot this cycle since no entry
+qualified).
+
+**TRADING_VIEW_2 usage this cycle:** 1 Stage-A batch call (8 pairs) + 1 Stage-B OHLCV call (ETH,
+1h) = **2 calls this cycle.** No tool failures.
+
+**No order placed. `near_miss_queue.md` unchanged this cycle (queue was already empty).**
+
+```json
+{"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-16T16:37:21Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "market_shock_correction": {"determination": "NOT_ACTIVE", "basis": "cycle-over-cycle, not vs Friday close"}, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "aave_stop_out_found_this_cycle": {"realized_loss_usd": -36.92, "filled_at": "2026-11-16T04:45:59Z"}, "crypto_profit_factor_tally": {"wins": 0, "losses": 2, "profit_factor": 0, "risk_pct_active": 0.75}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 2, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 283.48, "git_push": "pending"}
+```
