@@ -72917,3 +72917,57 @@ Broader 1H-only bounce visible across ETH/HBAR/LINK/SOL/XRP/AAVE this cycle (con
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-16T13:38:07Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": false, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 0, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 1, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-16T14:08:40Z — PREMARKET_PREP (read-only, no order authority)
+
+**Trigger:** `trig_01FRC5Yt8UVcGH8GxcAURYXX` ("Premarket Preparation Scan"), confirmed via
+ReadNotifications. §14 Status ACTIVE (per CLAUDE.md), no kill phrase found — informational only,
+this trigger has no order authority to gate regardless.
+
+**Calls made this cycle: 10 of 10** (1 SPY freshness check + 2 watchlist batch calls [37 names
+each, full 74-name universe] + 2 screener calls [gainers/losers] + 5 news/catalyst checks). At the
+hard cap — no further calls attempted.
+
+**SPY freshness check result:** `get_ohlcv(AMEX:SPY, interval=5m, count=3)` returned only
+Friday 2026-11-13's regular-session bars (last bar t=1794603300, ~3:55pm ET Friday) — stale by the
+letter of the check, but this tool is documented "regular session only" and structurally cannot
+see premarket bars at all while premarket is in progress, which is exactly the situation at
+14:08 UTC (~6:08am PT / 9:08am ET, before the 9:30am ET open). **Not treated as
+DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE** — the `premarket_*` fields from the watchlist batch pull
+independently show rich, highly differentiated, internally consistent data across all 74 names
+(a coherent broad tech/AI-compute/crypto-adjacent selloff: SPY -0.63%, QQQ -1.31%, AMD -5.0%,
+NBIS -8.5%, CRWV -7.5%, INTC -5.0%, TSM -4.7% premarket), which is not the signature of a
+frozen/placeholder snapshot. Logging this as a real gap in the check's own method (this 5m tool
+can never corroborate premarket freshness via its own timestamp during premarket hours) rather
+than a genuine stale/outage condition — **coverage_state: EVALUATED**.
+
+**Liquidity floor used:** regular-session volume ≥ 500,000 shares, applied identically to the
+watchlist batch and the screener results.
+
+**Shortlist (5 names, ranked by |premarket % change| among liquid names):**
+1. **CGON** (off-watchlist, RESEARCH-ONLY) +31.92% — verified catalyst: Phase 3 PIVOT-006 trial,
+   68% lower bladder-cancer recurrence risk (Reuters/GlobeNewswire, today)
+2. **TU** (Telus, off-watchlist, RESEARCH-ONLY) +20.05% — verified catalyst: Quebecor C$31B
+   unsolicited takeover proposal, ~60% premium (Reuters/DJ Newswires, today)
+3. **PURR** (on-watchlist) -9.31% — unverified same-day catalyst; likely broad crypto-adjacent
+   weakness, not confirmed
+4. **NBIS** (on-watchlist) -8.52% — verified catalyst: ongoing AI-datacenter capacity delays /
+   customer-prepayment concerns, 6th straight weekly loss (today + recent days)
+5. **CRCL** (on-watchlist) -7.77% — unverified same-day catalyst; likely broad crypto/stablecoin
+   sector weakness, not confirmed
+
+Full detail, prior-session closes, and the "other notable movers" list (BMNR, CRWV, ETHA, IBIT,
+BE, HOOD, DRAM, HPE, MU, INTC, and AMDG — AMDG excluded from the shortlist on liquidity grounds
+despite the largest single % move, volume 132,890 below the 500k floor) written to
+`premarket_shortlist.md`. **`premarket_shortlist.md` changed: yes (created/overwritten this cycle).**
+
+Per this trigger's own standing scope limits: no §5B/Bearish-Mirror-Gate/§20 evaluation was run on
+any of these names this cycle, no option-chain pull, no order-adjacent tool call of any kind. This
+is context for the post-open First Scan/Fresh Candle cycles only, same tier as the existing §8
+items 8-11 — never a gate, never a confirmation substitute.
+
+```json
+{"cycle": "premarket_prep", "timestamp_utc": "2026-11-16T14:08:40Z", "read_only": true, "calls_made_this_cycle": 10, "coverage_state": "EVALUATED", "candidates_found": 5, "watchlist_candidates": 3, "offwatchlist_research_only_candidates": 2, "git_push": "pending"}
+```
