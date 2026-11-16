@@ -72420,3 +72420,68 @@ NO_TRADE. Market strength now nearly universal (7/8 pairs Buy on 1H). AAVE's dec
   "git_push": "pending"
 }
 ```
+
+## 2026-11-16T02:38:10Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Execution-origin validation:** trigger_id `trig_01UUXAtYHjn7nBgzkdvZU4Rv` matches; §14 Status ACTIVE; no kill phrase found. Cycle proceeds with live order authority.
+
+**Account state:** `get_portfolio` (••••8058) — $5,538.99, 100% cash. `get_crypto_positions` — 0 open positions, 0 vs. the 2-concurrent cap.
+
+**Cross-mode circuit breakers:** Same-day stop-out count 0/2. Market-shock check: equity market closed — inapplicable, satisfied.
+
+**Portfolio heat cap:** $0 open risk vs. the $332.34 cap — full headroom.
+
+**Near-miss queue reassessment: AAVE INVALIDATED, removed.** Last completed 4H bar still unchanged (t=1794772800, close $109.74 — next 4H close due 04:00 UTC). One new completed 1H bar: t=1794790800, close $108.39 — a minor retest dip just below the $108.45 resistance (by $0.06), already bought back above it in the forming bar (live $109.65-110.63). Not itself disqualifying — a breakout-then-retest is normal structure. **What actually invalidated the candidate: price continuing to run (fresh `preview_crypto_order` resolved the real executable price at $110.6349, up from $109.16 the prior two cycles) while the only confirmed structural stop remains fixed at $105.70** (the 1H retest low of $107.93 is only 1 bar past — not yet a confirmed 5-bar fractal, cannot be used as a tighter stop). Stop distance at the new price: $4.9349 = 4.46% of entry — **now exceeds the 2-2.5x ATR(1H) stop-distance ceiling** (≈3.62% max, ATRP|60 1.446%). This is a harder failure than last cycle's marginal R:R shortfall (1.45:1) — the stop-distance ceiling check itself now fails outright, a different structural item, not a continuing near-miss on the same basis. Removed from near_miss_queue.md as invalidated per its own rules. No order ever placed against this candidate.
+
+**Stop-audit:** N/A — 0 open positions.
+
+**Full allowlist screen (8 pairs):**
+
+| Pair | Label | Evidence |
+|---|---|---|
+| BTC | Rejected with evidence | 4H StrongSell (ADX 62.8, deep downtrend), 1H flipped to Neutral — no 4H setup evidence, 1H alone insufficient per item 7 |
+| ETH | Rejected with evidence | 4H StrongSell, 1H Buy — same pattern, no confirmed 4H setup |
+| SOL | Rejected with evidence | 4H StrongSell, 1H Buy — same pattern |
+| XRP | Rejected with evidence | 4H StrongSell, 1H Buy — same pattern |
+| LINK | Rejected with evidence | 4H StrongSell, 1H Buy — same pattern |
+| AAVE | Reassessed — INVALIDATED, removed from near-miss queue | See above. |
+| HBAR | Rejected with evidence | 4H StrongSell (unchanged structure from last cycle's Stage-B check — still no confirmed breakout), 1H Buy |
+| AVAX | Rejected with evidence | 4H StrongSell, 1H Neutral — no bullish structure |
+
+Broader 1H-only bounce visible across ETH/HBAR/LINK/SOL/XRP/AAVE this cycle (consistent with the market-wide retest/relief move already tracked for AAVE), but none show a confirmed 4H completed-bar breakout — §21 item 7 requires both legs, so 1H alone does not qualify any of them. Full Stage-B OHLCV was pulled for AAVE (reassessment) only; the other 7 pairs' 4H StrongSell readings, strong ADX, and the absence of any completed-bar breakout evidence already gathered this session (HBAR checked explicitly last cycle) support rejection from Stage A alone this cycle, consistent with the established decisive-reject shortcut.
+
+**No order placed this cycle.** One `preview_crypto_order` simulate (AAVE-USD, $1,300 notional) was run for the near-miss reassessment's price check; resolved cleanly, not followed by `place_crypto_order`.
+
+**Coverage:** universe_size 8, triaged 8, full_gate_evaluated 1 (AAVE reassessment), rejected_with_evidence 7, tool_failures 0.
+
+**Robinhood MCP connectivity:** fully reachable this cycle.
+
+**Outcome:** OBSERVE — no trade. AAVE's breakout thesis is removed from the near-miss queue on a genuine structural basis (stop too far from a price that's run away from it), not because the underlying move failed — if it offers a fresh, tighter confirmed structural stop on a future cycle it will be re-evaluated from scratch. git push: pending (this commit).
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21)",
+  "timestamp_utc": "2026-11-16T02:38:10Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 1,
+    "rejected_with_evidence": 7,
+    "not_evaluated": [],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 0, "invalidated": 1, "ineligible": 0, "expired": 0, "added": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 6,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
