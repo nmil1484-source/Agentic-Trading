@@ -72618,7 +72618,26 @@ Broader 1H-only bounce visible across ETH/HBAR/LINK/SOL/XRP/AAVE this cycle (con
 
 **Robinhood MCP connectivity:** fully reachable throughout (all calls succeeded).
 
-**Outcome:** TRADE. This is the first real crypto position of this session's multi-cycle AAVE narrative — the breakout held, a fresh tighter stop confirmed, and the newly-authorized ATR-target rule gave the R:R computation a real basis to clear on. Position is live and protected (GTC resting stop, confirmed).
+**Outcome:** TRADE — entry filled, GTC stop confirmed resting at the time this entry was first logged.
+
+**UPDATE, same cycle, discovered on user follow-up ("I don't see that you bought it on mcp") — the position was already stopped out by the time this was checked.** A fresh `get_crypto_orders` pull (triggered by the user's question, not a scheduled check) shows the resting stop order (`6afa891e-9403-4840-9ac6-4c2f9344e4c8`) **filled at 2026-11-15T23:45:59 ET** — roughly 6.5 minutes after the entry filled (23:39:23 ET) — at **average price $107.87975567**, slightly below the $107.90 stop trigger (normal stop-order slippage, not a malfunction). `get_crypto_positions` now confirms 0 open crypto positions; `get_portfolio` shows total value $5,502.07, down from the pre-trade $5,538.99.
+
+**Realized result:** entry notional $1,599.91, exit notional $1,562.99 → **realized loss $36.92** (0.667% of the pre-trade $5,538.99 equity — essentially the planned $36.61 max loss, +$0.31 of normal stop slippage). The stop mechanism worked exactly as designed — it is the price action itself that reversed unusually fast: AAVE fell from the $110.43 entry through the $107.90 stop in under 7 minutes, a materially faster reversal than the hourly-cycle structure this gate was read on would normally suggest. This is the same category of risk already disclosed in §21 item 7 (a fast intra-hour move can outrun the hourly check) — it did not outrun the *stop*, which filled correctly, but it did invalidate the thesis far faster than the 4H/1H structure the entry was based on implied was likely.
+
+**Same-day stop-out count: 1/2** (§6 cross-mode breaker) — one more stop-out across Mode B/C/crypto today would trigger the no-new-entries-rest-of-day cooldown. Not yet triggered.
+
+**No orphaned order cleanup needed** — the stop itself was the exit; nothing is left resting.
+
+### EXIT RECORD
+
+- **Pair:** AAVE-USD, SELL via stop_loss trigger
+- **Quantity:** 14.48831 AAVE (full position)
+- **Average fill price:** $107.87975567
+- **Exit notional:** $1,562.99
+- **Order ID:** `6afa891e-9403-4840-9ac6-4c2f9344e4c8`, state: filled
+- **Realized P&L:** −$36.92 (planned max loss: −$36.61; actual slippage: −$0.31)
+- **Entry-to-exit elapsed:** ~6.5 minutes
+- **Reason:** stop triggered — price fell below the $107.90 structural stop
 
 ```json
 {
@@ -72641,9 +72660,10 @@ Broader 1H-only bounce visible across ETH/HBAR/LINK/SOL/XRP/AAVE this cycle (con
   "near_miss_queue": {"reassessed": 1, "cleared": 1, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0},
   "tvremix_consecutive_failed_cycles": 0,
   "calls_made_this_cycle": 9,
-  "exits": [],
+  "exits": [{"symbol": "AAVE", "reason": "stop_loss_triggered", "realized_pl": -36.92}],
   "entries": [{"symbol": "AAVE", "mode": "crypto", "qty": 14.48831, "price": 110.42726627}],
   "orders_placed": 2,
-  "git_push": "pending"
+  "git_push": "pending",
+  "note": "position closed by its own stop ~6.5 minutes after entry, discovered on user follow-up rather than a scheduled cycle; same_day_stop_out_count now 1/2"
 }
 ```
