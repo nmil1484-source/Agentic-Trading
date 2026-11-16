@@ -1151,6 +1151,43 @@ was moved — it was already written as a dated log; this makes its non-operativ
 rather than merely implied.
 
 ## 12. Change log
+- **2026-11-16: user instructed formally extending ATR-based reward targets to crypto (§21), with
+  an explicit, narrowly-scoped 2x-ATR option alongside the existing 1.5x default, after a live
+  diagnosis of a real missed trade this session.** AAVE's 4H candle closed above a resistance level
+  it had already rejected twice (close $109.74 vs. $108.45 resistance, 2026-11-16T00:38Z cycle);
+  every §21 item 3 gate condition cleared except R:R, which came in at ~1.43:1 against the 1.5:1
+  floor because the R:R computation used a 1.5x-ATR(4H) target — a method borrowed informally from
+  §13.F, which explicitly scopes itself to Mode B equities and says in its own text that extending
+  ATR-based *targets* (not stops, which §21 already uses) to crypto "would need its own separate
+  decision." That decision had never actually been made. By the time this gap was found and raised
+  with the user, AAVE had run far enough (to a real executable price of $110.63, 2026-11-16T02:38Z
+  cycle) that the position's only confirmed structural stop ($105.70) no longer fit inside the
+  existing stop-distance ATR ceiling at all — the setup was removed from `near_miss_queue.md` as
+  invalidated, a real missed trade, not a near-miss that's still pending. **Fix, scoped narrowly
+  per the user's own direction, not a general loosening:**
+  1. **§21 item 3 now formally authorizes an ATR-based reward target for crypto** — 1.5x the coin's
+     own ATR(14) on the setup's own timeframe (same default and computation as §13.F), closing the
+     gap §13.F's own text had left open rather than silently continuing to borrow it.
+  2. **A 2x-ATR target may be used instead of 1.5x only when both of two objective, logged
+     conditions hold**: (a) a specific, computed RS outperformance vs. BTC of at least 5
+     percentage points over the move being traded, and (b) the level being broken/reclaimed has
+     already produced two or more confirmed rejections before this attempt. Both conditions are
+     checkable facts, not a discretionary "this setup looks strong enough" call — deliberately
+     narrow so this remains a documented exception for a specific class of setup (AAVE's own
+     situation this session is the precedent case: +7.15pp RS outperformance vs. BTC, and this was
+     literally its third attempt at the same level) rather than a routine loosening of the ordinary
+     1.5x case. The underlying breakout bar and the RS comparison must still be computed from
+     genuinely completed bars — no exception to the no-forming-candle rule anywhere else in this
+     document.
+  **No existing R:R floor (still 1.5:1), stop-distance ceiling, risk-per-trade percentage, position
+  cap, or confirmation-count threshold was changed by this entry** — this adds a previously-missing
+  target-computation method (and a narrow, objective exception within it), the same category of fix
+  as §13.F's own original addition for Mode B, not a new or loosened risk number. Disclosed to the
+  user plainly before adoption: this is a genuine increase in risk acceptance for the narrow class
+  of setups that meet both triggers — a 2x target is a less conservative claim about achievable
+  price movement than 1.5x — adopted specifically because the stricter default had just cost the
+  account a real, confirmed breakout trade. No order was placed by this entry itself; it changes
+  policy only, for future cycles to apply.
 - **2026-11-12: user-directed diagnosis and repair of a real staleness bug found in live use the
   same day (the AMDG incident, §22) plus a related options/spread valuation gap (the NBIS
   candidate) — development/read-only, no order placed, no risk number/cap/floor/permission
@@ -5041,6 +5078,37 @@ halted on this account. `preview_crypto_order` confirmed the order-submission pa
      (which the point estimate suggests is more likely — true breakeven was closer to 6:1), this
      floor is undersized relative to the account's own documented track record, not just a smaller
      margin of safety.)
+   - **ATR-based reward target, formally extended to crypto (added 2026-11-16, explicit user
+     instruction — see §12 change log).** §13.F's Mode B ATR-based target methodology was written
+     to explicitly exclude crypto ("not crypto... this entry does not extend ATR-based targets to
+     crypto, which would need its own separate decision") — that separate decision had never
+     actually been made, even though this gate's own R:R computation requires a target basis to
+     compute against. This item makes that decision, for §21 specifically:
+     - **Default target: 1.5× the coin's own ATR(14)** on the timeframe that established the setup
+       (4H for the standard 4H-setup-plus-1H-trigger case), projected from entry in the direction
+       of the thesis — same default multiple and same computation as §13.F, just actually
+       authorized here rather than borrowed informally.
+     - **2× ATR instead of 1.5× only when BOTH of these hold, objectively, not as a discretionary
+       call made trade-by-trade:**
+       1. A specific, logged relative-strength outperformance vs. BTC (or the relevant benchmark)
+          of **at least 5 percentage points** over the move/window actually being traded — a
+          computed number cited on the Trade Card, not an impression.
+       2. The level being broken/reclaimed has **already produced two or more confirmed rejections**
+          before this attempt — a third-or-later attempt at the same level carries more technical
+          weight than a first-attempt break, and this is the specific, checkable condition that
+          earns the wider multiple, not "the setup looks strong."
+     - Both the breakout/reclaim bar and the RS comparison must still be computed from genuinely
+       completed bars — this item grants no exception to the no-forming-candle rule anywhere else
+       in this document.
+     - **Disclosed plainly, not glossed over**: this is a real acceptance of additional risk, not a
+       free upgrade — a 2x target is a less conservative claim about how far price will travel
+       inside the trade's window than the 1.5x default, and it was adopted specifically because the
+       stricter, more conservative default had just left a real, confirmed AAVE breakout (clearing
+       a level that had already rejected it twice) sitting as an unexecuted near-miss for three
+       consecutive hourly cycles while it kept climbing. The two objective triggers above are
+       deliberately narrow — a double-digit RS gap plus a multi-rejection level — specifically so
+       this stays a documented exception for a specific, stronger class of setup, not a routine
+       loosening of the ordinary 1.5x case.
    - **Regime filter (ADX/trend-strength, added 2026-10-15) — removed 2026-10-28 at explicit user
      instruction, see §12 change log.** The requirement that the 4H chart also show a trending
      (not choppy/range-bound) regime via ADX(14) or `analyze_swing_tool`'s trend-strength field is
