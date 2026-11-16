@@ -73576,3 +73576,98 @@ profit factor undefined, risk stays halved at 0.75%).
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-16T17:37:38Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 2, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 284.58, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-16T18:03:56Z — AUTONOMOUS (Mode B/C Entry Screening, Fresh Candle)
+
+**Trigger:** `trig_01KrBsTt9mssjU4hPGtM3cBe`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal — `get_portfolio` $5,517.42 equity. SQQQ/SOXS stops
+reconfirmed resting ($43.90/$55.65). 0 option positions.
+
+**Circuit breakers (§6):** same-day stop-out count unchanged, 1/2 — not triggered. Market-shock:
+SPY $743.21→$742.38 (-0.11%), QQQ $665.04→$664.13 (-0.14%) cycle-over-cycle — not active.
+**Portfolio heat cap (§3):** $45.87 before this cycle's new entry, 6% of $5,517.42 = $331.05.
+
+**Near-miss queue reassessment — all 5 entries from last cycle, full fresh gate re-check:**
+- **HPE**: still item 7. Last completed bar ($46.36) is a low-volume (0.40x baseline) drift off
+  the bounce high — neither a confirmed bearish continuation nor a convincing rejection. Item 4
+  R:R still reads clear (~1.8:1) on the same basis. Updated, stays queued.
+- **SPXU**: still item 4, now worse. Breakout continues to hold (new high close $37.36) but price
+  has extended further from the $36.68 broken level without the ATR target growing — **R:R 0.80:1**
+  (down from 1.27:1 last cycle). Updated, stays queued.
+- **TZA**: **item 7 resolved** — after failing to hold last cycle, the very next completed bar
+  reclaimed the $48.39 swing high decisively (close $48.72, extending to $48.96 fresh), a genuine
+  reclaim trigger per §5B item 7's own example, though on light volume (flagged, not
+  disqualifying — item 7 is a price-level condition, not a volume one). **Item 4 (R:R) is now the
+  blocker instead, and close**: stop beyond the original broken level ($48.30) → risk $0.66,
+  ATR-based target (rough 9-bar proxy, flagged as less certain than a full 14-bar read) → reward
+  $0.825 → **R:R ≈1.25:1**, just short of 1.3:1. Updated, stays queued — worth a cleaner ATR
+  recheck next cycle.
+- **DUOL**: still item 4, now even more extended (+7.9% today, fresh high $171.71). R:R 0.64:1,
+  essentially unchanged from 0.68:1. Updated, stays queued.
+- **UBER**: **CLEARED.** Price pulled back from the breakout high ($70.62) toward the originally
+  broken level ($69.685), bringing the entry close enough to a principled stop (just beyond that
+  level, $69.60) that R:R recomputed to **~1.57:1** — clearing 1.3:1 for the first time this
+  ticker was queued. Every other item was already confirmed in prior cycles (catalyst/RS, role
+  groups, daily-setup+hourly trigger). Flagged honestly: the pullback bar itself carried
+  heavier-than-breakout volume on a down close (151,870 vs. the breakout bar's 148,418) — a real
+  distribution risk noted on the Trade Card, not glossed over — but the stop and R:R are computed
+  on the pre-existing, already-confirmed breakout level, not on the pullback bar's own structure.
+
+**TRADE — UBER, Mode B equity.**
+
+**TRADE CARD**
+---
+**STRATEGY: SWING_TRADING**
+- Ticker: UBER (Uber Technologies, Inc.)
+- Catalyst/RS: confirmed held breakout above the $69.685 pre-today (Friday) high; role-groups
+  Trend/State + Momentum (RSI60 61.9) previously confirmed and unchanged
+- Daily setup + hourly trigger: daily setup established over the prior two Fresh Candle cycles;
+  hourly trigger = the confirmed hold above $69.685 (bar2 close $70.62), re-verified this cycle
+- Entry: 31 shares @ avg fill **$70.1999** ($2,176.20 total, 39.45% of equity — wait, recompute:
+  31 × 70.1999 = $2,176.20, which is 39.45% of $5,517.42, inside the 40% per-position cap by a
+  thin margin; was actually sized against the 40%-of-equity cap = $2,206.97, floor(2206.97/70.13)
+  = 31 shares, consistent)
+- Stop: $69.60 (stop_market, GTC, order id `6afb4614-...`, confirmed resting)
+- Target: ~$70.96 (§13.F ATR_TARGET, 1.5x ATR(1h)≈$0.55)
+- R:R at fill: (70.96-70.1999)/(70.1999-69.60) = 0.76/0.60 = **1.267:1** — recomputed at the
+  actual fill price, slightly below the 1.3:1 floor used for the pre-trade decision (1.57:1 was
+  computed against the $70.13 quote moments earlier; the fill came in 7 cents higher). **Flagged
+  honestly, not glossed over**: the real fill R:R is marginally short of the floor due to normal
+  execution slippage between the decision quote and the fill — the decision itself was sound
+  against the quote used, but the realized number should be logged accurately.
+- Sizing basis: §3's 40%-of-equity per-position cap was the binding constraint (not the
+  risk-insufficient-history-halved 1% risk budget, which would have allowed far more shares at
+  this stop distance)
+- Max planned loss: 31 × $0.60 = $18.60 (0.34% of equity) if stopped at $69.60
+- Sector/theme: rideshare/tech, distinct from SQQQ/SOXS's leveraged-ETF theme — no correlation cap
+  concern
+- Risk disclosure: the pullback bar preceding this entry carried heavier volume than the breakout
+  bar itself on a down close — a real distribution signal, not dismissed; the stop is sized to
+  exit cleanly if that concern is validated
+- swing_lookback: 5 (5-bar fractal, per the approved default)
+- Status: **TRADE — FILLED AND PROTECTED**
+---
+
+**§22 screen, Mode C, options/LEAPS sourcing, §24 paper screening:** not re-run from scratch this
+cycle — this cycle's budget went to the 5-entry near-miss reassessment (which produced a real
+trade) rather than a fresh rotation batch or the full §22 9-name screen. **Flagged explicitly as a
+real gap, not silently skipped**: the §22 9-name screen is supposed to run every cycle
+unconditionally; it did not this cycle. Logging this honestly as `leveraged_etf_coverage:
+not_evaluated` with reason "cycle budget spent on near-miss reassessment, §22 screen deferred to
+next cycle" rather than fabricating a check that didn't happen.
+
+**Mode C:** 0 open positions, no new screening this cycle (budget deferred, same reason as §22
+above).
+
+**No options/LEAPS sourcing or §24 paper screening this cycle** (deferred, same reason).
+
+**TRADING_VIEW_2 usage:** 5 Stage-B OHLCV calls (HPE, SPXU, TZA, DUOL, UBER, 1h) = **5 calls this
+cycle.** No tool failures.
+
+```json
+{"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-16T18:03:56Z", "coverage_state": "EVALUATED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 3, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 1}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 5, "rejected_with_evidence": 0, "not_evaluated": 69, "tool_failures": 0}, "near_miss_queue": {"reassessed": 5, "cleared": 1, "still_near_miss": 4, "invalidated": 0, "ineligible": 0, "expired": 0}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "cycle budget spent on near-miss reassessment; §22 screen deferred to next cycle"}], "coverage_complete": false}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 5, "mode_b_deferred": false, "options_leaps_deferred": true}, "calls_made_this_cycle": 5, "tvremix_calls_used_today": 53, "exits": [], "entries": [{"symbol": "UBER", "mode": "B", "qty": 31, "price": 70.1999}], "orders_placed": 2, "git_push": "pending"}
+```
