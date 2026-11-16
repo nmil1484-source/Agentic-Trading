@@ -72550,3 +72550,21 @@ Broader 1H-only bounce visible across ETH/HBAR/LINK/SOL/XRP/AAVE this cycle (con
   "git_push": "pending"
 }
 ```
+
+## 2026-11-16T~03:57Z — AD-HOC (user-requested, chat), AAVE reassessment against the new 2x-ATR-target rule
+
+**Origin note:** this entry is a manual, chat-requested reassessment of the existing AAVE near-miss candidate, explicitly requested by the user in this conversation ("Reassess AAVE against the new rule now") — not a scheduled §21 trigger firing. No order-placement authority is implied or used by a chat-requested turn under this document's own execution-origin-validation rule (Universal Safety Kernel item 12); this is research/evaluation only, consistent with that rule, and nothing here would have authorized a live order even if the gate had cleared. Account reconfirmed flat ($5,538.99, 0 crypto positions) before proceeding.
+
+**Purpose:** check whether AAVE — still queued as a near-miss on the stop-distance ceiling — would now qualify under the 2x-ATR-target rule added this session (CLAUDE.md §21 item 3, §12 entry 2026-11-16).
+
+**Both of the new rule's objective triggers re-verified fresh, independent of the stop-distance question:**
+- RS vs. BTC: recomputed from the same crash-trough basis used throughout this session (AAVE t=1794686400 close $100.66 → last completed 4H bar t=1794772800 close $109.74 = +9.02%; BTC same window $64,150.00 → $65,351.05 = +1.87%) = **+7.15 percentage points — clears the ≥5pp floor.**
+- Prior-rejection count: the $108.45 level carries its 2 confirmed rejections (bar t=1794744000 close $106.68; bar t=1794758400 close $108.17) before the t=1794772800 breakout — **clears the ≥2 floor.**
+- Both new-rule triggers independently hold.
+
+**But the reassessment is moot — the stop-distance ceiling fails before the target rule is ever reached.** Fresh `preview_crypto_order` (AAVE-USD, $1,300 notional) resolved the real executable price at **$110.3116** — price has continued climbing since the last logged cycle ($109.7248 → $110.3116), not pulling back. The only confirmed structural stop remains $105.70 (same 5-bar-fractal swing low at $105.72; the 1H retest low of $107.93 still lacks a second confirming completed bar after it). Stop distance at the new price: $4.6116 = **4.18% of entry — now exceeds the 2.5x-ATR(1H) ceiling ($3.9085 = 3.543%) by $0.70/0.63pp**, a larger shortfall than the prior cycle's $0.11. `validate_stop_distance()`'s ceiling check runs independently of, and before, the R:R/target computation — the new 2x-ATR rule only changes how the target is derived once the stop passes the ceiling; it has no mechanism to rescue a stop that fails the ceiling outright. **No order placed, none possible this cycle regardless of the new rule.**
+
+**near_miss_queue.md updated**: AAVE's entry refreshed with this cycle's evidence (cycles_checked 1→2, data timestamp and figures updated) — still a near-miss on the same item (stop-distance ceiling), now slightly worse than before rather than closer.
+
+**Outcome:** No trade. The new rule is confirmed working as designed (it would apply the moment the stop-distance ceiling clears), but AAVE's price has moved the wrong direction for that to happen right now. git push: pending (this commit).
+
