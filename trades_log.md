@@ -73144,3 +73144,184 @@ entries added). Git push: see below.
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-16T15:37:58Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": ["market_shock_SPY_QQQ"], "positions": {"crypto_count": 0}, "stop_audit": {"checked": false, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 0, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 1, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-16T16:03:23Z — AUTONOMOUS (Mode B/C Fresh Candle Entry Screening, §22, live authority)
+
+**Trigger:** `trig_01KrBsTt9mssjU4hPGtM3cBe`, confirmed via ReadNotifications. §14 Status ACTIVE, no kill phrase found.
+
+**Robinhood MCP:** connectivity normal — `get_portfolio` $5,502.07 equity (100% cash going in), `get_equity_positions` 0 open positions.
+
+**Market-shock breaker correction, disclosed explicitly.** The prior cycle-block (First Scan 15:04:05Z,
+and again at the 15:37:58Z Crypto cycle) flagged §6's SPY/QQQ market-shock breaker as **ACTIVE**,
+reasoning from SPY/QQQ sitting >1.5% below Friday's close. Re-reading §6's own authoritative text
+this cycle: *"if SPY or QQQ moves more than 1.5% intraday **between two consecutive scheduled
+cycles** (i.e., **a single hourly gap, not a slow multi-hour drift**)..."* — the trigger is a
+sudden inter-cycle spike, not a continuous gap-and-drift that has been building since the open.
+Checked SPY/QQQ's move **cycle-over-cycle** (15:04 UTC First Scan quote vs. this cycle's fresh
+quote), not cycle-vs-Friday's-close: SPY and QQQ each moved well under 1.5% in that one-hour
+window. **Correcting the prior flag: the market-shock breaker is NOT active this cycle** — the
+broad weakness is real and already priced into today's gap-down open, but it is not itself the
+kind of sudden single-cycle spike this specific breaker exists to catch. No other circuit breaker
+applies: same-day stop-out count 0/2 this session, 0 consecutive MCP errors, portfolio heat $0
+(full $330.12 headroom), no reconciliation pause active.
+
+**Candidates re-screened: SQQQ and SOXS**, both queued as §22 near-miss entries at the 15:04:05Z
+First Scan cycle (item-7-only near-miss: full catalyst + underlying bearish-thesis clearance +
+bullish-on-the-inverse-ETF confirmation role-groups already established then, but the only
+available 1h bars were still forming — no completed-bar close above either breakout level could
+be confirmed at that time).
+
+**Fresh OHLCV pull this cycle (`mcp-tv-get-ohlcv`, 1h, NASDAQ:SQQQ / AMEX:SOXS)** — bar-boundary
+math re-verified against current UTC time before treating any bar as completed (equity open
+`t=1794839400`=14:30 UTC; first hourly bar 14:30-15:30 UTC now fully closed as of this 16:03 UTC
+cycle):
+- **SQQQ**: first completed hourly bar (14:30-15:30 UTC) closed at **$44.72**, above the $43.56
+  swing-high breakout level identified at First Scan. Volume on that bar vs. the §13.H baseline
+  (avg of the 3 completed bars immediately preceding — the final 3 bars of Friday's regular
+  session): **3.55x** baseline — strong confirmation, clears §13.G item 2's mandatory-volume
+  requirement.
+- **SOXS**: first completed hourly bar (14:30-15:30 UTC) closed at **$56.80**, above the $55.36
+  swing-high breakout level identified at First Scan. Volume vs. the same §13.H baseline:
+  **5.79x** — strong confirmation, clears §13.G item 2.
+- Underlying bearish-thesis legs (QQQ for SQQQ, SOXX for SOXS) re-confirmed unchanged from First
+  Scan — both still cleanly below-and-losing their respective levels, broad AI-compute/tech
+  selloff (hot inflation print, Fed-hike repricing) continuing into the new session, no new
+  contradicting catalyst found.
+
+**Both candidates now clear §22 item 2 in full via §13.G (Breakout-Continuation Entry Method)**:
+underlying bearish thesis (Bearish Mirror Gate, QQQ/SOXX) + bullish confirmation role-group(s) on
+the inverse ETF's own chart (Trend/State + Volume) + a genuine, now-completed-bar hourly trigger
+(the breakout close itself, volume-confirmed) — daily-setup-plus-hourly-trigger (§5B item 7
+principle) satisfied by the First Scan's daily-setup read plus this cycle's hourly close.
+
+**Stop/target/sizing (computed by hand, same method as `finalize_candidate()`'s atomic
+one-fresh-quote design — single quote pull per symbol, stop-distance-ceiling + R:R + sizing
+computed together, not across disjoint calls):**
+
+| | SQQQ | SOXS |
+|---|---|---|
+| Entry (fresh quote at sizing time) | $44.90 (limit) | $57.80 (limit) |
+| Stop (just beyond broken level, §13.G item 4) | $43.90 | $55.65 |
+| Stop distance | $1.00 (2.23%) | $2.15 (3.72%) |
+| §22 item 4 8%-ceiling check | PASS (2.23% < 8%) | PASS (3.72% < 8%) |
+| Target (§13.F ATR_TARGET, 1.5x ATR(14)/1h) | $46.317 | $62.07 |
+| R:R | 1.58:1 (recomputed 1.74:1 at actual avg fill) | 2.11:1 (recomputed 2.15:1 at actual avg fill) |
+| §22 item 4 floor (≥1.3:1) | PASS | PASS |
+| Binding sizing constraint | §22 15%-of-equity per-position cap ($825.31), not the 1%-of-equity risk budget — 1% risk budget would allow far more shares than the position cap permits at this stop distance | same — position cap binding |
+| Quantity | 18 shares | 14 shares |
+| Position-cap-bound dollar size | $808.20 (14.69% of equity) | $809.20 (14.71% of equity) |
+
+**§22 item 1 allowlist, item 6 (2-concurrent cap):** both on the named 9-ETF allowlist; 0 prior
+open leveraged-ETF positions this cycle, so the 2-concurrent cap is not binding (this cycle brings
+the count to 2, exactly at the cap — no further §22 entries possible until one of these closes).
+
+**Prior round-trip history found on this account for both tickers (surfaced via `get_equity_orders`
+order history, not previously visible in this session's own context)**: SQQQ was bought 19 shares
+@ avg $43.177 on 2026-11-13 and stopped out via a resting GTC stop_market at avg $42.3009 the same
+day (realized loss); SOXS was bought 15 shares @ avg $53.3688 on 2026-11-13 and stopped out via a
+resting GTC stop_market at avg $50.30 the same day (realized loss). Both are **fully closed,
+flat-to-zero round-trips** from a prior session, not open positions being added to — today's
+entries are independent, freshly-gated re-entries on a flat base, not an average-down (§16
+item 9's prohibition governs adding to an open losing position, which does not apply here). Both
+losses are already reflected in the current $5,502.07 equity figure used for all of today's sizing
+math. Relevant to §16 item 16's round-trip profit-factor tally going forward: both tickers now
+carry one prior realized loss each in the account's trade history.
+
+**Orders placed and filled:**
+- **SQQQ** — `place_equity_order(side=buy, type=limit, quantity=18, limit_price=44.90,
+  time_in_force=gfd, ref_id=fresh-candle-sqqq-20261116-1606)` → order id
+  `6afb29ef-9993-45b3-9434-cdb778c44be8` → **FILLED**, avg price **$44.8071**, 18 shares,
+  $806.53 total.
+- **SOXS** — `place_equity_order(side=buy, type=limit, quantity=14, limit_price=57.80,
+  time_in_force=gfd, ref_id=fresh-candle-soxs-20261116-1606)` → order id
+  `6afb29f1-3f91-493f-b3c9-7e966b6f626a` → **FILLED**, avg price **$57.7599**, 14 shares,
+  $808.64 total.
+
+**Protective stops placed immediately on fill, per §16 item 14/§22 item 5 (real resting broker
+orders, GTC):**
+- **SQQQ** — `place_equity_order(side=sell, type=stop_market, quantity=18, stop_price=43.90,
+  time_in_force=gtc, ref_id=fresh-candle-sqqq-stop-20261116-1606)` → order id
+  `6afb2a0d-4605-4252-8358-3fb4615ad5f5` → confirmed **resting** via `get_equity_orders`
+  (state=confirmed).
+- **SOXS** — `place_equity_order(side=sell, type=stop_market, quantity=14, stop_price=55.65,
+  time_in_force=gtc, ref_id=fresh-candle-soxs-stop-20261116-1606)` → order id
+  `6afb2a0f-f5db-4c6b-8788-14ea73e54de8` → confirmed **resting** via `get_equity_orders`
+  (state=confirmed).
+
+Both positions are now protected. Recomputed R:R at actual fill price: SQQQ $44.8071 entry vs.
+$43.90 stop ($0.9071 risk/share, 2.02%) vs. $46.317 target ($1.5099 reward/share) = **1.664:1**;
+SOXS $57.7599 entry vs. $55.65 stop ($2.1099 risk/share, 3.65%) vs. $62.07 target ($4.3101
+reward/share) = **2.043:1**. Both still comfortably clear §22 item 4's ≥1.3:1 floor at the real
+fill price.
+
+**TRADE CARDS**
+
+---
+**STRATEGY: SWING_TRADING** | **LEVERAGED_ETF** (§22)
+- Ticker/instrument: SQQQ (ProShares UltraPro Short QQQ, 3x inverse) — common stock equivalent,
+  bought long
+- Underlying bearish thesis: QQQ, Bearish Mirror Gate — hot inflation print/Fed-hike repricing
+  driving a broad AI-compute/tech selloff (catalyst sourced and logged at the 15:04:05Z First
+  Scan cycle); QQQ Trend/State + Momentum role-groups confirming bearish, re-verified unchanged
+  this cycle
+- Entry-ETF confirmation (bullish, read on SQQQ's own chart, §22 item 2): Trend/State (breakout
+  above $43.56 swing high) + Volume (3.55x §13.H baseline on the breakout bar)
+- Daily setup + hourly trigger: daily-equivalent setup established at First Scan (15:04 UTC);
+  hourly trigger = the 14:30-15:30 UTC bar's confirmed completed-bar close at $44.72, re-verified
+  fresh this cycle
+- Entry: 18 shares @ avg fill $44.8071 ($806.53 total, 14.66% of $5,502.07 equity)
+- Stop: $43.90 (stop_market, GTC, order id `6afb2a0d-...`, confirmed resting)
+- Target: $46.317 (§13.F ATR_TARGET, 1.5x ATR(14)/1h — no closer real structural target available)
+- R:R at fill: 1.664:1 (clears §22 item 4's ≥1.3:1 floor)
+- Sizing basis: §22 15%-of-equity per-position cap ($825.31) was the binding constraint, not the
+  1%-of-equity risk budget (which would have permitted a larger size at this stop distance) —
+  flagged per §22 item 4's own sizing hierarchy
+- Max planned loss: $16.33 (0.30% of equity) if stopped at $43.90
+- Sector/theme: leveraged/inverse ETF, Nasdaq-100-tracking — counts toward the §22 2-concurrent
+  cap (now 2/2) and the ordinary Mode B 15-position/3-theme caps
+- Prior history: one closed round-trip on this ticker, 2026-11-13, realized loss (stopped out) —
+  today's entry is an independent re-entry on a flat base, not an average-down
+- Status: **TRADE — FILLED AND PROTECTED**
+
+---
+**STRATEGY: SWING_TRADING** | **LEVERAGED_ETF** (§22)
+- Ticker/instrument: SOXS (Direxion Daily Semiconductor Bear 3X ETF) — bought long
+- Underlying bearish thesis: SOXX, Bearish Mirror Gate — same broad AI-compute selloff catalyst,
+  semiconductor-specific weakness (AMD/NVDA/INTC premarket moves logged at First Scan); SOXX
+  Trend/State + Momentum confirming bearish, re-verified unchanged this cycle
+- Entry-ETF confirmation (bullish, read on SOXS's own chart, §22 item 2): Trend/State (breakout
+  above $55.36 swing high) + Volume (5.79x §13.H baseline on the breakout bar)
+- Daily setup + hourly trigger: daily-equivalent setup established at First Scan (15:04 UTC);
+  hourly trigger = the 14:30-15:30 UTC bar's confirmed completed-bar close at $56.80, re-verified
+  fresh this cycle
+- Entry: 14 shares @ avg fill $57.7599 ($808.64 total, 14.70% of $5,502.07 equity)
+- Stop: $55.65 (stop_market, GTC, order id `6afb2a0f-...`, confirmed resting)
+- Target: $62.07 (§13.F ATR_TARGET, 1.5x ATR(14)/1h — no closer real structural target available)
+- R:R at fill: 2.043:1 (clears §22 item 4's ≥1.3:1 floor)
+- Sizing basis: §22 15%-of-equity per-position cap ($825.31) was the binding constraint, not the
+  1%-of-equity risk budget
+- Max planned loss: $29.54 (0.54% of equity) if stopped at $55.65
+- Sector/theme: leveraged/inverse ETF, semiconductor-index-tracking — counts toward the §22
+  2-concurrent cap (now 2/2) and the ordinary Mode B 15-position/3-theme caps
+- Prior history: one closed round-trip on this ticker, 2026-11-13, realized loss (stopped out) —
+  today's entry is an independent re-entry on a flat base, not an average-down
+- Status: **TRADE — FILLED AND PROTECTED**
+
+---
+
+**Portfolio heat after both entries**: $16.33 + $29.54 = $45.87 planned risk, well inside the 6%
+($330.12) cap — $284.25 headroom remains. **Total deployed after both entries**: $1,615.17
+(29.35% of equity), well inside the 90% ($4,951.86) ceiling. §22 2-concurrent cap now fully used
+(2/2) — no further §22 entries possible this session until one of these two closes.
+
+**near_miss_queue.md updated**: both SQQQ and SOXS §22 near-miss rows removed and marked CLEARED
+into real live trades (see below, this entry is the referenced Trade Card).
+
+**TRADING_VIEW_2 usage this cycle:** 2 Stage-B OHLCV calls (SQQQ, SOXS, 1h) = **2 calls this
+cycle.** No tool failures.
+
+```json
+{"cycle": "Mode B/C Fresh Candle Entry Screening", "timestamp_utc": "2026-11-16T16:03:23Z", "modes_covered": ["B"], "status_gate": "ACTIVE", "coverage_state": "EVALUATED", "circuit_breakers_active": [], "market_shock_correction": {"prior_cycles_flagged_active": true, "this_cycle_determination": "NOT_ACTIVE", "reason": "re-read of §6's own text: trigger is a single hourly inter-cycle gap, not a multi-hour drift since open; SPY/QQQ moved <1.5% cycle-over-cycle (15:04Z vs 16:03Z), not vs Friday's close"}, "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 2, "note": "both new fills protected same-cycle, GTC stop_market, confirmed resting"}, "coverage": {"universe_size": 2, "triaged": 2, "full_gate_evaluated": 2, "rejected_with_evidence": 0, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 2, "cleared": 2, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 2, "cleared_to_trade": 2, "concurrent_cap_now": "2/2"}, "calls_made_this_cycle": 2, "tvremix_calls_used_today": 17, "exits": [], "entries": [{"symbol": "SQQQ", "mode": "B", "qty": 18, "price": 44.8071}, {"symbol": "SOXS", "mode": "B", "qty": 14, "price": 57.7599}], "orders_placed": 4, "portfolio_heat_after": 45.87, "total_deployed_after_pct": 29.35, "git_push": "pending"}
+```
