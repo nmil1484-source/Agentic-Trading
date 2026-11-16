@@ -73011,3 +73011,112 @@ insufficient).
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-16T14:37:49Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": false, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-16T15:04:05Z — AUTONOMOUS (Mode B/C First Scan of Day, live order authority)
+
+**Timestamps:** 2026-11-16T15:04:05Z UTC / 2026-11-16 07:04:05 Pacific / ~10:04am ET (market open
+was 14:30 UTC/9:30am ET — this cycle fired 34 minutes into the regular session).
+
+**Trigger:** `trig_01RN6ZbtgxKpoDApzmGswWAs` ("Mode B/C First Scan of Day"), confirmed via
+ReadNotifications. §14 Status ACTIVE (per CLAUDE.md), no kill phrase found.
+
+**Account state:** `get_portfolio`/`get_accounts`/`get_equity_positions`/`get_equity_orders`/
+`get_option_positions` all succeeded cleanly — **fully flat**: $5,502.07 total value, 100% cash,
+0 equity positions, 0 equity orders, 0 option positions. No stop-audit action needed for Mode B
+equities or §18/§19 options/LEAPS (nothing open to audit). Mode C: 0 positions, today's realized +
+open-unrealized Mode C P&L = $0 (flat all session); no stop-audit action needed. Robinhood MCP
+connectivity normal throughout.
+
+**FTA Regime Dashboard** (`/api/dashboard-data`, live JSON): `regime.call = "cautious"` — a live,
+valid classification (not UNKNOWN_DEGRADED). VIX 18.7, HY OAS 3.2 (credit not stressed), MOVE 90.0
+(elevated rates volatility). Sector YTD leaders: Energy +42.3%, Health Care +21.4%, Consumer
+Staples +18.9%, Technology +18.0%; laggard: Communication Services -7.0%. Soft-tilt context only,
+per §8 item 10 — not a gate.
+
+**MARKET CONTEXT — the governing finding this cycle:** this is a sharp, broad risk-off session.
+QQQ -2.1%, SPY -1.25%, IWM -1.0% intraday; AI-compute/semis names down hard across the board
+(IREN -10.0%, MU -7.1%, NBIS -7.6%, CRWV -6.3%, BE -7.1%, DELL -6.3%, VRT -6.1%, INTC -6.0%,
+TSM -5.8%, AMD -4.4%, CRCL -5.7%, BMNR -5.8%, PURR -5.9%, AMDG -8.4%). **Verified, dated macro
+catalyst** (`get_news(AMEX:SPY)`): October PPI +6.5% YoY ("highest in nearly 4 years") and CPI
++0.4% MoM ("exceeding forecasts"), with BofA flagging the Fed "may be falling behind on inflation...
+opening the door to a half-point hike" — a real, checkable rate-hike-risk headwind, compounding
+the already-known AI-capex-financing concerns logged in CLAUDE.md §8 item 11. This is a legitimate
+sector/macro headwind for the Bearish Mirror Gate's item 2, not an inferred one.
+
+**STRUCTURAL BLOCKER FOUND AND APPLIED UNIFORMLY: no completed hourly bar exists yet today, on
+any timeframe, for any symbol.** The regular session opened at 14:30 UTC; this cycle fired at
+15:04 UTC — only 34 minutes in. The first hourly bar of the day (14:30-15:30 UTC) is still
+forming on every single name checked (confirmed directly via `get_ohlcv` on SQQQ/QQQ/SOXS/SOXX —
+each returned its most recent bar at t=1794839400 = 14:30 UTC today, still forming; the last
+**completed** bar on every timeframe is Friday 2026-11-13's close, t=1794601800/1794601800).
+**This means §5B item 7 / the Bearish Mirror Gate item 7 / §13.G's hourly-execution-trigger
+requirement cannot be satisfied for ANY candidate this cycle, however clean the daily setup or
+however dramatic today's still-forming move looks** — this is a session-timing fact, not a
+per-symbol rejection, and is the reason no trade was placed despite a very active-looking tape.
+
+**§22 Leveraged/Inverse ETF screen (mandatory, all 9 names) — full detail:**
+- **TQQQ, SOXL, SPXL, TNA, AMDG (leveraged-long, 5 names): Rejected with evidence.** All five
+  show Stage A `MARating_1D`/`MARating_1h` StrongSell, down -3.0% to -15.7% today — the broad
+  selloff is the wrong direction for a leveraged-long entry on any of them. No Stage B needed —
+  Stage A is unambiguous.
+- **SQQQ, SOXS (inverse, 2 names): Evaluated (full Stage B gate check) — genuine single-item
+  near-misses, item 7 only.** Full detail in `near_miss_queue.md`'s new entries (added this
+  cycle): underlying bearish thesis (QQQ/SOXX) confirmed on completed Friday data plus today's
+  live StrongSell read; the dated macro/semis-specific catalyst above; SQQQ/SOXS's own charts
+  show the required bullish breakout structure (above the recent 2-bar-prior swing high) **but
+  only on the still-forming candle** — no completed hourly bar exists to confirm it. **NO_TRADE,
+  not a structural rejection** — flagged for priority reassessment at the next eligible cycle
+  (~16:00 UTC Fresh Candle) once the 14:30-15:30 UTC hourly bar actually closes.
+- **SPXU, TZA (inverse, 2 names): NOT_EVALUATED — Stage 1 only this cycle.** Their underlyings
+  (SPY, IWM) and their own charts show the identical directional pattern as SQQQ/SOXS (Stage A
+  StrongSell/StrongBuy respectively) — not separately deep-dived to avoid spending a second
+  Stage-2 slot re-confirming an already-established finding (the item-7 blocker is session-wide,
+  not name-specific). Flagged for a proper Stage-B deep-dive next cycle.
+- **Completion check: 5 + 2 + 2 = 9 of 9 allowlisted names accounted for.
+  `leveraged_etf_coverage.coverage_complete: true`.**
+
+**Mode B/C equity universe (74 names, watchlist.md) — Stage 1 full-universe batch triage run
+(2 batched calls, all 74 names covered).** Given the session-wide item-7 blocker confirmed above
+via the §22 deep-dive, individual Stage-2 full-gate evaluations on the equity universe were
+**deferred this cycle rather than spending 12 slots re-confirming the identical finding** on
+names that would face the exact same unconfirmable-hourly-trigger wall (IREN, MU, NBIS, CRWV, BE,
+DELL, VRT, INTC, TSM, AMD, CRCL, BMNR, PURR, and the rest of the 74 all triaged at Stage 1 only).
+**This is a deliberate, disclosed policy call for this cycle's unusual circumstance (34 minutes
+into a violently volatile session), not a silent skip** — every name was triaged (Stage 1), the
+governing blocker was independently confirmed via real OHLCV pulls (not assumed), and the full
+Stage-2 rotation resumes at the very next eligible cycle once real hourly data exists. Universe
+size 74, triaged 74, full_gate_evaluated 0 (Mode B/C equities), not_evaluated 74 (same shared
+reason — session-wide item-7 blocker), tool_failures 0.
+
+**Near-miss queue (Mode B/C equities/§13.G):** HPE is the only standing entry (item 4, R:R
+~0.48:1, added 2026-11-11). **Not reassessed this cycle** — no completed bar exists beyond
+Friday's close for HPE either (same session-timing constraint), so there is no fresher data to
+reassess against yet; stays queued unchanged, due for a real reassessment at the next cycle.
+**Near-miss queue (§22):** two new entries added this cycle (SQQQ, SOXS — see above).
+**Near-miss queue (Options/LEAPS Sourcing Queue):** not populated this cycle — deferred for the
+same reason; the table remains seeded-empty.
+**Pending-eligibility (AMD):** already resolved 2026-11-04 (NO_TRADE, both §18/§19 checked and
+failed affordability/direction) — no change, no action needed.
+
+**Options/LEAPS stop-check (§18/§19, step 2b):** 0 open option positions — nothing to check,
+logged per the mandatory every-cycle requirement even at zero.
+
+**Mode C (§20):** 0 open positions, $0 daily P&L, no stop-audit action needed. No ORB/VWAP-
+pullback/mean-reversion setup could be confirmed this cycle for the same reason as Mode B — the
+opening range itself is still being formed (14:30-15:30 UTC) and no completed hourly close exists
+yet to trigger an ORB entry or confirm a pullback reclaim.
+
+**TRADING_VIEW_2 usage this cycle:** 2 Stage-1 batch calls (74-name universe) + 1 §22/underlying
+Stage-1 batch call (9 names + SOXX) + 8 Stage-B OHLCV calls (SQQQ/QQQ/SOXS/SOXX, 1D+1h each) +
+1 news/catalyst call (SPY) = **12 calls this cycle.** No tool failures (the 2 initial `AMEX:SQQQ`
+attempts errored on a wrong exchange prefix — corrected to `NASDAQ:SQQQ` on retry, not counted as
+a data-blocked condition, just a prefix-guess correction).
+
+**No order placed in Mode B or Mode C this cycle.** `near_miss_queue.md` changed (2 new §22
+entries added). Git push: see below.
+
+```json
+{"cycle": "first_scan_of_day", "timestamp_utc": "2026-11-16T15:04:05Z", "coverage_state": "EVALUATED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": false, "missing_found": 0, "placed": 0, "note": "0 open positions both modes, audit moot"}, "options_stop_check": {"checked": false, "breached": 0, "exited": 0, "note": "0 open option positions"}, "coverage": {"universe_size": 74, "triaged": 74, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 74, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved_2026-11-04_no_trade"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 2, "rejected_with_evidence": 5, "not_evaluated": [{"symbol": "SPXU", "reason": "Stage 1 only this cycle, deferred to avoid duplicate Stage-2 spend confirming the identical SQQQ/SOXS finding"}, {"symbol": "TZA", "reason": "Stage 1 only this cycle, same deferral as SPXU"}], "coverage_complete": true}, "calls_made_this_cycle": 12, "tvremix_calls_used_today": 15, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
