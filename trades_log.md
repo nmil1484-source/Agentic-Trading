@@ -73712,3 +73712,62 @@ failures.
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-16T18:37:32Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 1, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 266.80, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-16T19:03:30Z — AUTONOMOUS (Mode B/C Entry Screening, Fresh Candle)
+
+**Trigger:** `trig_01KrBsTt9mssjU4hPGtM3cBe`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal — `get_portfolio` $5,502.58 equity.
+
+**REAL EXIT FOUND THIS CYCLE: UBER stopped out.** `get_equity_orders` shows the GTC stop_market
+placed last cycle (stop $69.60) **triggered and filled at 2026-11-16T18:34:29Z**, avg price
+**$69.59**, 31 shares, $0.05 fee — well before this cycle's own firing, caught here because this
+is the first check since. This is a real, resting-order-executed protective exit, not an action
+this turn took.
+
+**TRADE CARD — EXIT**
+---
+**STRATEGY: SWING_TRADING**
+- Ticker: UBER
+- Entry: 31 sh @ avg $70.1999 (2026-11-16T18:06:05Z)
+- Exit: 31 sh @ avg $69.59 (2026-11-16T18:34:29Z), stop_market, GTC, order id `6afb4614-...`
+- Realized loss: 31 × ($70.1999 − $69.59) + $0.05 fee = **-$18.96** (0.34% of equity)
+- Reason: resting protective stop triggered — the position moved against the thesis and was
+  closed exactly per the documented exit plan, no discretionary action involved
+- Held: 28 minutes — a fast stop-out, consistent with the distribution-volume risk flagged
+  explicitly on this trade's own entry Trade Card last cycle (the pullback bar preceding entry had
+  carried heavier volume than the breakout bar itself on a down close); that risk materialized
+---
+
+**Same-day stop-out count (§6): now 2/2 — AAVE (crypto, 04:45:59Z) + UBER (Mode B, 18:34:29Z).**
+**Breaker TRIGGERED: no new entries in ANY mode for the remainder of today (2026-11-16 UTC
+calendar day).** Existing protective exits/stops/management continue unaffected — this only
+blocks new/exposure-increasing entries.
+
+**Mode B stop-audit (§16 item 15):** SQQQ and SOXS both reconfirmed resting ($43.90/$55.65) via
+`get_equity_orders`. UBER's position is now flat (fully exited by its own stop) — no stop to
+audit. 0 open options/LEAPS positions — step 2b moot.
+
+**Mode C stop-audit:** 0 open positions — moot.
+
+**Portfolio heat cap (§3):** now $45.87 (SQQQ $16.33 + SOXS $29.54 — UBER's risk dropped off
+entirely now that it's closed) of 6% of $5,502.58 = $330.15 — $284.28 headroom, though moot this
+cycle since the stop-out cooldown blocks any new entry regardless of headroom.
+
+**Screening: skipped this cycle, by design, not an oversight.** With the same-day 2-stop-out
+cooldown active, no new entry in any mode (Mode B, Mode C, §22, options/LEAPS) can be placed
+today regardless of what a fresh Stage 1/Stage 2 rotation or the mandatory §22 9-name screen
+would find. Running that screening anyway would spend real TradingView call budget for zero
+possible action this cycle — skipped deliberately, logged as such, not silently omitted. The
+mandatory §22 9-name screen resumes at the next eligible cycle this breaker isn't active (next
+trading day, since this is a same-calendar-day cooldown).
+
+**No order placed this cycle** (the stop-out itself executed earlier, at the broker, outside any
+cycle's active turn). `near_miss_queue.md` unchanged this cycle.
+
+```json
+{"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-16T19:03:30Z", "coverage_state": "EVALUATED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": ["same_day_2_stop_out_cooldown"], "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 74, "tool_failures": 0, "reason": "same-day 2-stop-out cooldown active; screening skipped, no entry possible today"}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "same-day 2-stop-out cooldown active"}], "coverage_complete": false}, "same_day_stop_out_count": 2, "exits": [{"symbol": "UBER", "mode": "B", "qty": 31, "price": 69.59, "realized_pl": -18.96}], "entries": [], "orders_placed": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 54, "git_push": "pending"}
+```
