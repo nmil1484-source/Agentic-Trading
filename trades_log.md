@@ -75302,3 +75302,40 @@ near-miss. Logging tersely per the trigger's own reporting rule.
 ```json
 {"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-17T19:03:42Z", "coverage_state": "BUDGET_BLOCKED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 74, "tool_failures": 0, "note": "TRADING_VIEW_2 EXHAUSTED; near-miss queue empty this cycle, but full-universe Robinhood-fallback rotation still exceeds realistic per-cycle budget"}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved_2026-11-04_not_pending", "note": "queue empty"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "concurrent-position cap already at 2/2"}], "coverage_complete": true}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "NOT_RUN this cycle"}, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 46, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+### 2026-11-17T19:37:21Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Trigger:** `trig_01UUXAtYHjn7nBgzkdvZU4Rv`, confirmed. §14 Status ACTIVE, no kill phrase.
+
+**Robinhood MCP:** connectivity normal. `get_portfolio`: $5,081.68 total (cash $3,367.94
+unchanged, equity_value $1,713.74). `get_crypto_positions`: 0 open crypto positions.
+
+**Circuit breakers (§6):** 0/2 stop-outs. Market-shock: SPY $730.99 vs. last cycle $730.71
+(+0.04%), QQQ $654.16 vs. $653.85 (+0.05%) — no shock.
+
+**Portfolio heat cap (§3):** unchanged — SQQQ $0, SOXS $29.54. Total heat $29.54 of $304.90
+(6% of $5,081.68) — $275.36 headroom.
+
+**TradingView: confirmed still EXHAUSTED** — skipped straight to Kraken. **Kraken fallback: all
+8 pairs returned usable data** (1H fetched fresh for all 8; 4H served from the still-fresh
+local cache, no new 4H bar due yet). `data_source: "kraken_fallback"`.
+`tvremix_consecutive_failed_cycles` stays **0**.
+
+**Full-allowlist screen:** broad weakness continues — 1H RSI readings still all sub-45 (BTC
+33.9, ETH 36.2, HBAR 34.7, XRP 43.4, LINK 39.5, AVAX 39.6, SOL 45.3, AAVE 42.4), every pair's 1H
+close at or below its own EMA9. HBAR's 1H now shows a confirmed breakdown below its prior 1H
+swing low (bearish, no long setup). **AAVE** (4H still shows the same pullback-hold structure —
+close above EMA9/20, RSI 77.3 — as the last two cycles) still has no confirming 1H trigger: close
+$110.57 remains below both 1H EMA9 ($111.50) and EMA20 ($111.26), RSI 1H 42.4, MACD hist 1H
+-0.358 (continuing to deteriorate, not turning). **SOL** 1H close $72.40 essentially flat against
+its EMA9 ($72.62)/EMA20 ($72.49) — no clean reclaim either. **Rejected — item 3** for BTC, ETH,
+XRP, LINK, HBAR, AVAX; **rejected — item 7** for AAVE and SOL (no confirming 1H trigger).
+
+**Per-symbol labeling:** all 8 evaluated, 0 tool failures, 8 rejected-with-evidence.
+
+**Near-miss queue:** empty, unchanged. **Stop-audit:** 0 open positions, moot. **No order
+placed.**
+
+```json
+{"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T19:37:21Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "queue empty"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 275.36, "git_push": "pending"}
+```
