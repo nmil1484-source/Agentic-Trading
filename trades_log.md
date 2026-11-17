@@ -75017,3 +75017,42 @@ crypto positions, moot. **No order placed.**
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T16:38:01Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "DATA_BLOCKED", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": ["AAVE", "AVAX", "BTC", "ETH", "HBAR", "LINK", "SOL", "XRP"], "tool_failures": 8}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE row left unchanged — no fresh data this cycle"}, "tvremix_consecutive_failed_cycles": 3, "calls_made_this_cycle": 1, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 275.62, "git_push": "pending"}
 ```
+
+### 2026-11-17T17:03:31Z UTC / 09:03:31 PT — AUTONOMOUS (Mode B/C Entry Screening, Fresh Candle)
+
+**Trigger:** `trig_01KrBsTt9mssjU4hPGtM3cBe`, confirmed. §14 Status ACTIVE, no kill phrase.
+**Robinhood:** normal. Equity $5,107.15 (cash $3,367.94 unchanged, equity_value $1,739.21). Mode
+B positions unchanged (SQQQ, SOXS). 0 Mode C, 0 options.
+
+**Circuit breakers:** 0/2 stop-outs. Market-shock: SPY $729.35 vs. last cycle $730.32 (-0.13%),
+QQQ $650.94 vs. $652.50 (-0.24%) — no shock. **Heat cap:** unchanged, $29.54 of $306.43 (6% of
+$5,107.15) — $276.89 headroom.
+
+**Stop-audit:** SQQQ ($45.30) and SOXS ($55.65) both confirmed resting, unchanged. **Options
+stop-check:** 0 open positions, moot.
+
+**TradingView: still BUDGET_BLOCKED**, 4th consecutive blocked attempt this session for Mode B/C.
+Fell back to Robinhood historicals for the 3-item near-miss queue only (ZS, BE, FIG) — no budget
+left this cycle for a fresh rotation batch or Mode C ORB screen (logged honestly as NOT_RUN,
+same as last cycle).
+
+**Near-miss queue reassessment (3 of 3 queued items, using today's 2nd completed hourly bar,
+16:00-17:00Z):**
+- **FIG — INVALIDATED.** 2nd hourly bar closed $18.465, up from bar1's $18.20 — a second
+  consecutive hour moving away from the $18.08 floor. Removed.
+- **ZS — still near-miss, item 7.** Bar1 (15:00-16:00Z, not evaluated last cycle — budget went to
+  HPE/NOW) closed $183.77, a genuine breakdown below Friday's $189 floor that was a fresh trigger
+  at the time but went unchecked. Bar2 closed $184.28 — consolidating, not a fresh continuation.
+  Entering now would be chasing a stale trigger.
+- **BE — still near-miss, item 7, same pattern.** Bar1 closed $168.09 (real breakdown, missed).
+  Bar2 closed $168.055 — flat, no fresh continuation.
+
+**§22/options/LEAPS/Mode C:** not separately screened this cycle — all available budget went to
+the 3-item near-miss reassessment above.
+
+**No order placed.** Quiet cycle — no candidate newly cleared, no fill, no exit. Per the trigger's
+own reporting rule, logging tersely rather than a full chat report.
+
+```json
+{"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-17T17:03:31Z", "coverage_state": "BUDGET_BLOCKED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 3, "rejected_with_evidence": 0, "not_evaluated": 71, "tool_failures": 0, "note": "TRADING_VIEW_2 BUDGET_BLOCKED; all available budget spent on the 3-item near-miss queue (ZS, BE, FIG)"}, "near_miss_queue": {"reassessed": 3, "cleared": 0, "still_near_miss": 2, "invalidated": 1, "ineligible": 0, "expired": 0, "note": "FIG invalidated; ZS and BE both had a genuine fresh breakdown bar last cycle that went unevaluated (budget prioritized to HPE/NOW), now 1 cycle stale with no fresh continuation this cycle"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "budget prioritized to near-miss reassessment this cycle"}], "coverage_complete": false}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "NOT_RUN this cycle"}, "calls_made_this_cycle": 1, "tvremix_calls_used_today": 46, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
