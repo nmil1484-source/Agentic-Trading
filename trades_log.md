@@ -74291,3 +74291,56 @@ calls this cycle.** No tool failures.
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T05:37:47Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE remains item_4 near-miss, essentially unchanged; no pullback yet to form a tighter confirmed stop"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 299.68, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-17T06:37:25Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Trigger:** `trig_01UUXAtYHjn7nBgzkdvZU4Rv`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal (same transient stale auth notice, confirmed spurious via
+`get_accounts`). `get_portfolio` $5,517.20 equity (cash $3,867.94, equity_value $1,649.26).
+`get_crypto_positions`: 0 open crypto positions. Note: `get_accounts` unsettled_funds on ••••8058
+read $0.00 this cycle (was $2,157.24 last cycle) — a decrease (settling), not an unexplained
+increase; no cash-discrepancy concern per §6's cash-only handling rule.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown remains 0/2 for 2026-11-17 UTC. Market-
+shock check inapplicable (overnight). No breaker active.
+
+**Portfolio heat cap (§3):** unchanged — SQQQ $0, SOXS $29.54. Total heat $29.54 of $331.03
+(6% of $5,517.20) — $301.49 headroom.
+
+**Near-miss queue reassessment (Crypto §21 table): AAVE reassessed — STILL a near-miss, item 4,
+R:R continuing to improve gradually.** The broader market-wide bounce from the last two cycles
+has faded — AVAX/BTC/ETH/HBAR/LINK/XRP all flipped back to StrongSell on both timeframes; AAVE
+remains the lone pair with a 4H "Buy" rating. AAVE's price has eased back to ~$112.0 (completed
+1H close $112.83, down from $113.23). Checked again for a confirmed fractal low: still none — the
+new bar's low ($112.34) stays above the prior bar's low ($112.01), so this is a slower close, not
+a dip below a prior low; the staircase-of-higher-lows pattern (no real fractal pivot) continues.
+Structural stop remains $108.05 (unchanged). R:R: old structural target ≈0.47:1; ATR target
+(ATR$≈$3.05, target≈$116.57) ≈1.16:1 — improving cycle-over-cycle (0.97→1.16) purely because the
+unchanged stop's risk leg shrinks as price pulls back, not because any new structural evidence
+confirmed. RS vs. BTC now +4.14pp (closer to, still short of, the 5pp 2x-ATR threshold). No order
+attempted.
+
+**Full-allowlist screen, remaining 7 pairs:** AVAX, BTC, ETH, HBAR, LINK, XRP — all StrongSell
+both timeframes this cycle (the bounce faded), rejected with evidence. SOL — 1H Buy, 4H
+StrongSell, 4H leg fails, rejected.
+
+**Per-symbol disposition:** AVAX, BTC, ETH, HBAR, LINK, SOL, XRP — rejected with evidence. AAVE —
+reassessed, still near-miss (item 4). **0 cleared, 0 trades.**
+
+**Stop-audit:** 0 open crypto positions, audit moot.
+
+**OBSERVE — no trade this cycle.**
+
+**TRADING_VIEW_2 usage:** 1 Stage-A batch call + 2 Stage-B OHLCV calls (AAVE 4H, AAVE 1H) = **3
+calls this cycle.** No tool failures.
+
+**No order placed. `near_miss_queue.md` updated (AAVE evidence refreshed, still item 4, R:R
+improving gradually).**
+
+```json
+{"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T06:37:25Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE remains item_4 near-miss, R:R improving gradually (0.97->1.16) as price pulls back toward the unchanged $108.05 stop; no fresh fractal low confirmed yet"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 301.49, "git_push": "pending"}
+```
