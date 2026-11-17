@@ -74686,3 +74686,52 @@ calls this cycle.** No tool failures. (1 additional Robinhood `get_crypto_quotes
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T13:37:29Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE structure continuing to hold (higher low at $113.24), spread remains the sole blocker (~1.95%, R:R ~1.17:1 at realistic ask)"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 299.35, "git_push": "pending"}
 ```
+
+### 2026-11-17T14:37:25Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Trigger:** `trig_01UUXAtYHjn7nBgzkdvZU4Rv`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal (confirmed via `get_accounts`). `get_portfolio` $5,512.65
+equity (cash $3,867.94, equity_value $1,644.71). `get_crypto_positions`: 0 open crypto positions.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown remains 0/2 for 2026-11-17 UTC.
+Market-shock check: SPY $738.19 vs. prior close $739.95 (-0.24%), QQQ $661.69 vs. prior close
+$661.75 (-0.01%) — both well under the 1.5% threshold; markets just opened for the day, no shock.
+No breaker active.
+
+**Portfolio heat cap (§3):** unchanged — SQQQ $0, SOXS $29.54. Total heat $29.54 of $330.76
+(6% of $5,512.65) — $301.22 headroom.
+
+**DATA_BLOCKED this cycle — TradingView connector (TRADING_VIEW_2) returned
+`TOOL_QUOTA_EXCEEDED` on the Stage A batch call, citing "reached your daily usage limit" plus a
+10-minute cooldown. This is a daily cap, not the ordinary transient throttling the outage-
+reporting mechanism was written for — retrying within this cycle would not succeed, so no
+further TRADING_VIEW_2 calls were attempted this cycle rather than spending calls against a
+cooldown known to still be active.** No Stage B structure data obtained for any of the 8
+allowlisted pairs. Per the per-symbol labeling rule, every pair is **not evaluated — tool
+failure** this cycle: AAVE, AVAX, BTC, ETH, HBAR, LINK, SOL, XRP. This is explicitly not logged
+as a rejection for any pair — a tool outage is not a failed trading setup.
+
+**Near-miss queue:** AAVE's queue row (item 4, spread-blocked, structure holding as of the prior
+13:37:29Z cycle) is **left unchanged** — no fresh data to reassess it against this cycle, so
+no `near_miss_queue.md` edit was made (editing it with stale/no data would misrepresent a real
+reassessment). AAVE remains queued, 13 cycles checked as of last update, expires
+2026-11-27T01:37:34Z.
+
+**Stop-audit:** 0 open crypto positions, audit moot.
+
+**Existing position management:** no open crypto positions to manage; Mode B/C's own open
+positions (SOXS protective stop) are unaffected by this outage — that stop lives at the broker
+independently of this trigger's data access.
+
+**No order placed, no order attempted.** This cycle's outcome is a genuine data outage, not an
+ordinary no-setup OBSERVE — logged as `DATA_BLOCKED` per the outage-reporting mechanism.
+`tvremix_consecutive_failed_cycles` increments from 0 to **1** (first failed cycle of this
+episode; recovery requires a future cycle's Stage B calls to actually return fresh, correctly-
+timestamped structure data — a quote alone will not reset this counter). No consolidated alert
+yet (threshold is 6 consecutive failed cycles).
+
+```json
+{"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T14:37:25Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "DATA_BLOCKED", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": ["AAVE", "AVAX", "BTC", "ETH", "HBAR", "LINK", "SOL", "XRP"], "tool_failures": 8}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE row left unchanged — no fresh data this cycle to reassess against (TRADING_VIEW_2 daily quota exceeded)"}, "tvremix_consecutive_failed_cycles": 1, "calls_made_this_cycle": 1, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 301.22, "git_push": "pending"}
+```
