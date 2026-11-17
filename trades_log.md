@@ -74867,3 +74867,36 @@ EMA batches×2(9,20) = 15 total Robinhood data calls, plus the account/position/
 ```json
 {"cycle": "Mode B/C First Scan of Day", "timestamp_utc": "2026-11-17T15:04:14Z", "coverage_state": "EVALUATED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 74, "full_gate_evaluated": 12, "rejected_with_evidence": 5, "not_evaluated": 62, "tool_failures": 0, "note": "TRADING_VIEW_2 BUDGET_BLOCKED (daily quota) this cycle — Stage 1/Stage 2 ran via Robinhood get_equity_quotes/get_equity_historicals/get_equity_technical_indicators fallback per the exhaustion-handling note; Stage-2 cap effectively limited to 12 names this cycle (vs. the normal TradingView-batched cap) given the fallback's higher per-name call cost"}, "near_miss_queue": {"reassessed": 2, "cleared": 0, "still_near_miss": 2, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 5, "amd_pending_eligibility_status": "not checked this cycle - budget prioritized elsewhere"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "concurrent-position cap already at 2/2 (SQQQ, SOXS) - no capacity for a new entry this cycle"}], "coverage_complete": true}, "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0, "note": "no underlying cleared the full gate this cycle to source an option against"}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "opening range not yet elapsed, 45 min into session at cycle time"}, "calls_made_this_cycle": 1, "tvremix_calls_used_today": 42, "exits": [], "entries": [], "orders_placed": 0, "mode_c_daily_entries": 0, "git_push": "pending"}
 ```
+
+### 2026-11-17T15:37:35Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Trigger:** `trig_01UUXAtYHjn7nBgzkdvZU4Rv`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal. `get_portfolio` $5,574.81 equity (cash $3,867.94,
+equity_value $1,706.87). `get_crypto_positions`: 0 open crypto positions.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown 0/2. Market-shock: SPY $734.33 vs. last
+cycle's $737.20 (-0.39%), QQQ $655.83 vs. $659.35 (-0.53%) — both well under 1.5%, no shock.
+
+**Portfolio heat cap (§3):** unchanged — SQQQ $0, SOXS $29.54. Total heat $29.54 of $334.49 (6%
+of $5,574.81) — $304.95 headroom.
+
+**DATA_BLOCKED again this cycle — TradingView (TRADING_VIEW_2) still returning
+`TOOL_QUOTA_EXCEEDED`, "reached your daily usage limit."** Same outage as the prior two cycles,
+confirmed by a fresh attempt at this cycle's own Stage A step, not assumed carried over. No Stage
+B structure data for any of the 8 allowlisted pairs. Crypto has no Robinhood-native OHLC
+fallback (confirmed earlier this session) — unlike equities, this lane stays fully blocked until
+TradingView itself recovers. All 8 pairs labeled **not evaluated — tool failure**: AAVE, AVAX,
+BTC, ETH, HBAR, LINK, SOL, XRP.
+
+**Near-miss queue:** AAVE's row left unchanged — no fresh data this cycle to reassess against.
+
+**Stop-audit:** 0 open crypto positions, audit moot.
+
+**No order placed, no order attempted.** `tvremix_consecutive_failed_cycles` increments from 1 to
+**2** (2nd consecutive DATA_BLOCKED crypto cycle; alert threshold is 6).
+
+```json
+{"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T15:37:35Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "DATA_BLOCKED", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": ["AAVE", "AVAX", "BTC", "ETH", "HBAR", "LINK", "SOL", "XRP"], "tool_failures": 8}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE row left unchanged — no fresh data this cycle"}, "tvremix_consecutive_failed_cycles": 2, "calls_made_this_cycle": 1, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 304.95, "git_push": "pending"}
+```
