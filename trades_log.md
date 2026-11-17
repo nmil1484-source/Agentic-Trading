@@ -75210,3 +75210,58 @@ cycle otherwise — logging tersely per the trigger's own reporting rule.
 ```json
 {"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-17T18:03:23Z", "coverage_state": "BUDGET_BLOCKED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 2, "rejected_with_evidence": 0, "not_evaluated": 72, "tool_failures": 0, "note": "TRADING_VIEW_2 EXHAUSTED (confirmed via shared data_budget state); Robinhood-historicals budget spent entirely on the 2-item near-miss queue (ZS, BE), both invalidated"}, "near_miss_queue": {"reassessed": 2, "cleared": 0, "still_near_miss": 0, "invalidated": 2, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved_2026-11-04_not_pending", "note": "ZS and BE both invalidated - 3 consecutive hourly bars with no breakdown continuation, each higher than the last"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "concurrent-position cap already at 2/2"}], "coverage_complete": true}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "NOT_RUN this cycle"}, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 46, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+### 2026-11-17T18:37:27Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Trigger:** `trig_01UUXAtYHjn7nBgzkdvZU4Rv`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal. `get_portfolio`: $5,062.05 total (cash $3,367.94
+unchanged, equity_value $1,694.11). `get_crypto_positions`: 0 open crypto positions.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown 0/2. Market-shock: SPY $732.42 vs. last
+cycle's $731.29 (+0.15%), QQQ $655.69 vs. $653.61 (+0.32%) — no shock.
+
+**Portfolio heat cap (§3):** unchanged — SQQQ $0 (breakeven-or-better), SOXS $29.54. Total heat
+$29.54 of $303.72 (6% of $5,062.05) — $274.18 headroom. Not binding (0 crypto positions, no
+candidate reached sizing).
+
+**TradingView: confirmed still EXHAUSTED** via the shared `data_budget` state (`should_attempt_tradingview`
+False) — skipped straight to Kraken, no wasted attempt. **Kraken fallback: all 8 pairs, both
+timeframes returned usable data** — 7 of 16 fetches served from the still-fresh local cache (4h,
+not yet due for a new bar), the other 9 (all 1h, plus none needed fresh on 4h) fetched live and
+merged into the cache. `data_source: "kraken_fallback"` for every pair. `tvremix_consecutive_failed_cycles`
+stays at **0** (full coverage again this cycle).
+
+**Full-allowlist screen, all 8 pairs (EMA9/20/50, RSI14, MACD, ATR14, swing points, pullback
+depth via `tv_structure.py` on the Kraken bars):** broad weakness across the board this cycle —
+1H RSI readings all in the 34-46 range (BTC 34.3, ETH 36.3, HBAR 35.7, XRP 43.4, LINK 43.3, AVAX
+43.4, SOL 46.3, AAVE 42.3), none showing a confirmed bullish 1H reclaim (every pair's 1H close
+sits at or below its own EMA9/20). 4H readings are mostly bearish-aligned too (price below
+EMA9/20/50) except AAVE and SOL, which remain mixed/consolidating rather than bullish-confirmed.
+- **AAVE** (the lane's one recent near-miss, invalidated last cycle): 4H still shows the same
+  pullback-hold structure as last cycle (close above EMA9/20, RSI 77.3 extreme, pullback depth
+  40.5%), but the 1H has not recovered its bullish trigger — close $110.13 now sits BELOW both
+  1H EMA9 ($111.73) and EMA20 ($111.33), RSI 1H 42.3 (not improving), MACD hist 1H -0.303
+  (deteriorating further, not turning). No confirming hourly reclaim this cycle either.
+  **Rejected — item 7** (no bullish 1H trigger; weakness continuing, not resolving). Not
+  re-added to the queue — nothing has changed in the qualifying direction since last cycle's
+  invalidation.
+- **BTC, ETH, XRP, LINK, HBAR, AVAX:** all bearish-or-neutral on both timeframes, no role-group
+  confirmation clears for a bullish setup. **Rejected — item 3.**
+- **SOL:** 4H mixed (RSI 61.6, MACD hist +0.61 — real Momentum confirmation) but 1H close $72.31
+  sits just below EMA9 ($72.68), RSI 1H 46.3 marginal, MACD hist 1H -0.074 (barely negative, not
+  clearly improving). No clean confirming 1H trigger. **Rejected — item 7.**
+
+**Per-symbol labeling:** all 8 evaluated, 0 tool failures, 7 rejected-with-evidence on item 3,
+1 (AAVE) rejected-with-evidence on item 7.
+
+**Near-miss queue:** empty (AAVE invalidated last cycle, nothing met the single-item near-miss
+bar this cycle). 0 reassessed, 0 cleared, 0 still-near-miss, 0 invalidated. `near_miss_queue.md`
+unchanged this cycle.
+
+**Stop-audit:** 0 open crypto positions — moot. **No order placed.**
+
+```json
+{"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T18:37:27Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "queue empty this cycle"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 274.18, "git_push": "pending"}
+```
