@@ -75421,3 +75421,107 @@ cycles tonight. All 8 REJECTED:**
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-17T20:37:47Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 46, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+### 2026-11-17T20:55:53Z UTC / 12:55:53 PT — AUTONOMOUS (Mode B/C End-of-Day Protective Check)
+
+**Trigger:** `trig_01PpS6WWjQ6Wxdpa2sSuLsm2`, confirmed via `ReadNotifications`. §14 Status
+ACTIVE. No kill phrase found. Robinhood MCP: live (verified directly; a stale ambient
+authentication warning was disregarded, same pattern as earlier cycles today). DST check: 20:55
+UTC = 3:55pm ET (EST, UTC-5) — 5 minutes before the 4:00pm ET close, cron correctly aligned.
+
+**Account at cycle start:** $5,066.78 total ($3,367.94 cash, $1,698.84 equity_value). 2 open Mode
+B positions (SQQQ 18 sh, SOXS 14 sh — both §22). 0 Mode C, 0 options.
+
+**2a. Mode B equity stop-audit:** both SQQQ ($45.30) and SOXS ($55.65) resting stops confirmed
+intact at cycle start.
+
+**2b. §18/§19 options/LEAPS stop-check:** 0 open option positions — moot.
+
+**3. §16 exit-condition check — MATERIAL FINDING, both positions breached the +1.5R
+peak-retracement rule (§16 item 12).** Pulled hourly historicals back to entry for both names to
+establish each position's actual intraday peak since entry, which had never been explicitly
+checked against current price in any prior cycle today (only the resting-stop level was audited,
+cycle after cycle) — the 15:00-16:00Z UTC hourly bar today contained an enormous spike in both
+names that fully reversed by this cycle:
+
+- **SQQQ**: entry $44.8071, initial stop $43.90 → R = $0.9071. **Peak today: $49.0499**
+  (15:00-16:00Z bar high — confirmed no later bar exceeded it: 16:00Z high $48.38, 17:00Z $48.24,
+  18:00Z $47.68, 19:00Z $47.935). Gain to peak = $4.2428 (4.68R). 30%-giveback trigger level =
+  peak − 0.30×gain = **$47.777**. Live price at this cycle: **$47.173-47.335 range** —
+  **giveback ≈ 40.4%, breaching the 30% threshold.**
+- **SOXS**: entry $57.7599, initial stop $55.65 → R = $2.1099. **Peak today: $65.445**
+  (same 15:00-16:00Z bar — confirmed no later bar exceeded it: 16:00Z $62.96, 17:00Z $62.60,
+  18:00Z $61.62, 19:00Z $62.24). Gain to peak = $7.6851 (3.64R). 30%-giveback trigger level =
+  **$63.140**. Live price at this cycle: **$59.38-60.33 range** — **giveback ≈ 66.6%, breaching
+  the 30% threshold far more severely.**
+
+Both positions had already cleared +1.5R days ago and this morning's spike took both to a large
+multi-R peak, but no cycle today explicitly re-checked price against that peak — only the
+unchanged resting-stop level was verified each cycle. This is logged plainly as a real gap in
+today's intraday checking discipline, not asserted as something that was properly caught earlier.
+§16 item 12 is unconditional once triggered ("immediately exit the full remaining position") and
+explicitly overrides nothing else needed here (both positions already cleared the §17 same-day-
+hold gate days ago). Actioned immediately, with urgency given ~2 minutes remained before the
+regular-session close:
+
+**Orders placed and filled:**
+- Cancelled both resting protective stops first (`6afb6dee-...` SQQQ $45.30, `6afb2a0f-...` SOXS
+  $55.65 — both confirmed `cancelled`), since the shares were held as collateral against them
+  (`EQUITY_MAX_SELL_SHARES_EXCEEDED`, `sharesCanSell: 0` on the first sell attempt) — orphaned-
+  stop cleanup per §16 item 14, done as part of the same protective action.
+- **SQQQ** — `place_equity_order(side=sell, type=limit, quantity=18, limit_price=46.80,
+  time_in_force=gfd, ref_id=eod-peak-retrace-sqqq-20261117-2058)` → order id
+  `6afcbff6-a270-4ebc-9132-fa6a1175748a` → **FILLED**, avg price **$47.1732**, fees $0.02.
+- **SOXS** — `place_equity_order(side=sell, type=limit, quantity=14, limit_price=59.00,
+  time_in_force=gfd, ref_id=eod-peak-retrace-soxs-20261117-2058)` → order id
+  `6afcbff7-834a-49ee-b482-2f7de751f5ab` → **FILLED**, avg price **$59.46**, fees $0.02.
+
+**Realized P&L:** SQQQ +$42.57 ((47.1732−44.8071)×18 − 0.02); SOXS +$23.78
+((59.46−57.7599)×14 − 0.02). **Combined realized gain: +$66.35.**
+
+**TRADE CARDS**
+
+---
+**STRATEGY: SWING_TRADING** | **LEVERAGED_ETF** (§22) | **EXIT**
+- Ticker: SQQQ — peak-retracement protective exit (§16 item 12)
+- Entry: 18 sh @ $44.8071 (2026-11-16T16:06Z) | Exit: 18 sh @ $47.1732 (2026-11-17T20:58:30Z)
+- Peak since entry: $49.0499 (4.68R) | Exit trigger level: $47.777 (30% giveback from peak)
+- Realized P&L: **+$42.57** (+5.28% on cost)
+- Reason: full position exited per §16 item 12 — price retraced ~40% of the entry-to-peak gain
+- Status: **EXIT — FILLED**
+
+---
+**STRATEGY: SWING_TRADING** | **LEVERAGED_ETF** (§22) | **EXIT**
+- Ticker: SOXS — peak-retracement protective exit (§16 item 12)
+- Entry: 14 sh @ $57.7599 (2026-11-16T16:06Z) | Exit: 14 sh @ $59.46 (2026-11-17T20:58:32Z)
+- Peak since entry: $65.445 (3.64R) | Exit trigger level: $63.140 (30% giveback from peak)
+- Realized P&L: **+$23.78** (+2.94% on cost)
+- Reason: full position exited per §16 item 12 — price retraced ~67% of the entry-to-peak gain
+- Status: **EXIT — FILLED**
+
+---
+
+**Account now fully flat: 0 Mode B, 0 Mode C, 0 options, 0 crypto positions. 100% cash
+($5,049.46 of $5,049.46 total value).** §22 concurrent-position cap is now 0/2 — full capacity
+available for the next qualifying §22 candidate, and Mode B's 15-position/3-theme caps likewise
+have full headroom.
+
+**STEP 0.5 — Mandatory Mode C flatten:** 0 Mode C positions found — confirmed already flat, no
+action needed.
+
+**9. Mode C daily P&L:** $0 (no Mode C activity today, 0/8 entries).
+
+**9a. Mode C stop-audit:** 0 open positions — moot.
+
+**Portfolio heat cap (§3):** both positions' heat ($0 SQQQ, $29.54 SOXS) is now $0 — fully
+closed, no open risk anywhere in the account.
+
+**Circuit breakers (§6):** 0/2 same-day stop-outs (both exits were gains, not stop-outs — the
+same-day-2-stop-out cooldown does not apply). No breaker active.
+
+**No new-entry screening this cycle, by design** — this trigger's scope is protective management
+and the close-of-day flatten only.
+
+```json
+{"cycle": "Mode B/C End-of-Day Protective Check", "timestamp_utc": "2026-11-17T20:55:53Z", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "both resting stops cancelled as part of the peak-retracement exit action (orphaned-stop cleanup, §16 item 14)"}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"note": "no new-entry screening this cycle by design — protective-management/close-of-day cycle only"}, "step_0_5_flatten": {"applicable": true, "mode_c_positions_found": 0, "action_taken": "none - confirmed already flat"}, "peak_retracement_exits": {"triggered": 2, "symbols": ["SQQQ", "SOXS"]}, "exits": [{"symbol": "SQQQ", "reason": "peak_retracement_30pct_giveback", "realized_pl": 42.57, "fill_time": "2026-11-17T20:58:30Z"}, {"symbol": "SOXS", "reason": "peak_retracement_30pct_giveback", "realized_pl": 23.78, "fill_time": "2026-11-17T20:58:32Z"}], "entries": [], "orders_placed": 4, "combined_realized_pl": 66.35, "account_now_flat": true, "git_push": "pending"}
+```
