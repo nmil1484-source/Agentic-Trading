@@ -74900,3 +74900,92 @@ BTC, ETH, HBAR, LINK, SOL, XRP.
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T15:37:35Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "DATA_BLOCKED", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": ["AAVE", "AVAX", "BTC", "ETH", "HBAR", "LINK", "SOL", "XRP"], "tool_failures": 8}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE row left unchanged — no fresh data this cycle"}, "tvremix_consecutive_failed_cycles": 2, "calls_made_this_cycle": 1, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 304.95, "git_push": "pending"}
 ```
+
+### 2026-11-17T16:03:45Z UTC / 08:03:45 PT — AUTONOMOUS (Mode B/C Entry Screening, Fresh Candle)
+
+**Trigger:** `trig_01KrBsTt9mssjU4hPGtM3cBe`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal. `get_portfolio`: total_value $5,063.97 (cash $3,367.94,
+equity_value $1,696.03). **Cash-only discrepancy flagged (§6):** cash dropped $500.00 exactly
+since the 15:37:35Z cycle ($3,867.94 → $3,367.94) with equity_value essentially flat (-0.64%) and
+both open positions (SOXS, SQQQ) and both resting stop orders completely unchanged — no position
+or order mismatch, purely a cash change. Per §6's cash-only-discrepancy rule, this does not pause
+new-entry authority; logged prominently here and the `total_value` drop (-9.2%) should be read as
+this cash change, not a market-driven equity decline — the 3%-intraday-decline breaker is
+evaluated against the equity_value/market-driven component, which is flat, not total_value.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown 0/2. Market-shock: SPY $731.60 vs. last
+cycle's $734.33 (-0.37%), QQQ $653.74 vs. $655.83 (-0.32%) — both under 1.5%, no shock (though the
+broader session is now down SPY -1.13%/QQQ -1.22% since yesterday's close — a real risk-off day
+developing, not a single-cycle shock).
+
+**Portfolio heat cap (§3):** SQQQ $0, SOXS $29.54. Total heat $29.54 of $303.84 (6% of
+$5,063.97) — $274.30 headroom.
+
+**2a. Mode B equity stop-audit:** SQQQ stop confirmed resting $45.30, SOXS stop confirmed resting
+$55.65 — both unchanged, both `state: confirmed`. 0 missing, 0 placed.
+
+**2b. §18/§19 options/LEAPS stop-check:** 0 open option positions — moot.
+
+**TradingView (TRADING_VIEW_2): still BUDGET_BLOCKED**, confirmed by a fresh Stage-A attempt this
+cycle (`TOOL_QUOTA_EXCEEDED`). Fell back to Robinhood's `get_equity_quotes`/`get_equity_historicals`
+per the exhaustion-handling note — logged explicitly, not silently.
+
+**Near-miss queue reassessment — 5 of 12 Stage-2 slots used (HPE, DUOL, DIS, FIG, NOW; ZS/BE left
+for next cycle), using today's first completed hourly bar (15:00-16:00Z, now available for the
+first time this session):**
+- **HPE — CLEARED the Bearish Mirror Gate in full, resolved NO_TRADE.** Today's first hourly bar
+  (close $45.64, low $44.84) is a genuine bearish breakdown-continuation candle, volume 1.33x the
+  §13.H baseline — item 7 now confirms. Equity-thesis R:R (entry $46.00/stop $46.83/target $42.25
+  via 1.5x ATR) = **4.52:1**. No inverse-ETF path, short banned → only a §18 put. The $44p (Dec
+  18, delta -0.380, ask $4.00) gives a realistic-exit R:R of only **0.356:1** — fails decisively.
+  No instrument clears. Removed from queue, not re-queued (same resolution category as the
+  2026-11-12 NBIS entry).
+- **NOW — CLEARED the Bearish Mirror Gate in full, resolved NO_TRADE.** First hourly bar (close
+  $93.12, low $92.254) is a strong breakdown-continuation candle, volume **4.86x** baseline.
+  Equity-thesis R:R (entry $93.415/stop $95.82/target $88.30, §13.F post-crash ATR target) =
+  **2.13:1**. The $86p (delta -0.372, ask $4.35) gives realistic-exit R:R of only **0.438:1**.
+  Also checked a §24 paper bear-put-spread (long $86p/short $80p, net debit $2.91, width $6): even
+  the max-profit-**at-expiration** basis is only **1.06:1** — fails before even reaching a
+  realistic-exit computation, so not logged as a §24 PAPER candidate. No instrument clears.
+  Removed from queue.
+- **DUOL — INVALIDATED.** First hourly bar's low ($158.67) broke well below the $162.00 level the
+  bullish pullback thesis needed to hold above — price moved through the would-be stop before any
+  reclaim trigger confirmed. Removed.
+- **DIS — INVALIDATED, failed breakout.** First hourly bar: high $122.10 (briefly exceeded the
+  $120.44 breakout level) but closed $119.47, back below it, on a broad market selloff. A rejected
+  breakout, not a continuation. Removed.
+- **FIG — still near-miss, item 7.** First hourly bar low $18.044 briefly pierced the $18.08 floor
+  but closed $18.20, back above it — basing at the floor, not a confirmed breakdown-and-hold.
+  Cycles checked: 2.
+
+**Options/LEAPS sourcing (3a/3b):** HPE and NOW both **evaluated** (full chain pull + gate check)
+and **rejected** — specific item cited above (option's own realistic-exit R:R below 1.5:1 in both
+cases). No other symbols sourced this cycle — budget was spent on the near-miss reassessment and
+this options work rather than drawing a fresh rotation batch.
+
+**§22 leveraged/inverse-ETF screen (3c):** concurrent-position cap still 2/2 (SQQQ, SOXS) — no
+capacity for a new entry. All 9 allowlisted names labeled **NOT_EVALUATED — concurrent-position
+cap already at 2/2**, `coverage_complete: true` (deliberate capacity reason, not a gap).
+
+**§24 vertical-debit-spread paper screening (3d):** NOW's spread checked above and failed before
+reaching a loggable candidate; HPE's was not separately checked (NOW's result made it clear the
+single-put rejection pattern would very likely repeat, and cycle time was prioritized elsewhere).
+0 candidates logged this cycle.
+
+**Mode B ordinary rotation (step 3) and Mode C ORB screening (step 10): NOT RUN this cycle.**
+All of this cycle's TradingView/Robinhood-fallback budget went to the 5-name near-miss
+reassessment plus the HPE/NOW options-sourcing work above, which turned up two genuine full-gate
+clears worth the time — logged honestly as a real reduction, not silently presented as full
+coverage. The 69 other watchlist names and Mode C's opening-range screen are deferred to the next
+eligible cycle(s).
+
+**No order placed in Mode B or Mode C this cycle.** Two names (HPE, NOW) genuinely cleared the
+full Bearish Mirror Gate for the first time — a real, notable finding — but resolved to NO_TRADE
+because no permitted instrument (equity short banned, no inverse ETF, the option's own economics,
+and even a paper spread for NOW) clears its own required R:R floor.
+
+```json
+{"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-17T16:03:45Z", "coverage_state": "BUDGET_BLOCKED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 5, "rejected_with_evidence": 0, "not_evaluated": 69, "tool_failures": 0, "note": "TRADING_VIEW_2 BUDGET_BLOCKED; Robinhood fallback used, budget spent entirely on near-miss reassessment (5 names) + options sourcing for the 2 that cleared, not the ordinary 7-name rotation"}, "near_miss_queue": {"reassessed": 5, "cleared": 0, "still_near_miss": 1, "invalidated": 2, "ineligible": 0, "expired": 0, "note": "HPE and NOW cleared the equity-thesis gate in full but resolved NO_TRADE (no instrument clears its own R:R floor) and were removed, not re-queued; DUOL and DIS invalidated; FIG still near-miss"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "concurrent-position cap already at 2/2"}], "coverage_complete": true}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 2, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": false}, "options_leaps_coverage": {"selected": ["HPE", "NOW"], "deferred": [], "evaluated": 2, "rejected": 2, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 1, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": [], "failed_before_realistic_check": ["NOW"]}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "NOT_RUN this cycle - budget prioritized to near-miss reassessment/options sourcing"}, "calls_made_this_cycle": 1, "tvremix_calls_used_today": 44, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
