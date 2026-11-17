@@ -207,7 +207,28 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| AAVE | Spot crypto (§21) | Item 4 — still fails, structure continuing to hold (good), but spread remains the blocker. Since last cycle, price made a higher low ($113.24, t=1794916800) without breaking back below the $110.40 double-bottom — the base continues to hold. Stop stays $110.25. Fresh quote: bid $111.87 / ask $114.06 (~1.95% spread, still wide). At the realistic ask-side execution price, ATR target R:R≈1.17:1 — still short of 1.5:1. RS vs. BTC +4.04pp, down slightly (BTC caught a bid too this cycle). No order attempted. | Structure (items 2/3/7) remains the best of the night — holding its higher low. Pure blocker is the ~2% spread; would need either a deeper pullback (lowering the realistic entry) or the spread narrowing to actually clear 1.5:1. | 2026-11-17T13:37:29Z (4H bar t=1794902400, still last completed; 1H bar t=1794916800) | 2026-11-17T01:37:34Z | 13 | 2026-11-27T01:37:34Z |
+
+**Removed 2026-11-17T17:38Z — AAVE, invalidated (not merely still a near-miss — a different,
+harder item now fails).** First reassessment using the new Kraken-fallback data path (TradingView
+confirmed quota-exhausted this cycle via a real Stage-A attempt — `TOOL_QUOTA_EXCEEDED`, recorded
+in the shared `dev_scanner/data_budget.py` state; fell back to `dev_scanner/kraken_fallback.py`
+for real OHLC on all 8 allowlist pairs, 1h/4h, 720 bars each — the first live use of today's
+newly-enabled fallback). The prior recorded blocker (item 4, R:R ~1.17:1 on the ask-side spread)
+is now moot: price has fallen through the structure that blocker was computed against. Fresh
+4H close (t=1794916800) $112.50 with `pullback_low` $110.92 (the 4H pullback's own support) and
+a confirmed 1H breakdown — last completed 1H bar (t=1794931200) closed $110.27, **below** the
+prior confirmed 1H swing low ($110.63) — `current_below_prior_swing_low: true`. A fresh live
+quote (`get_crypto_quotes`, updated 17:41:12Z) shows bid $108.304 / ask $110.3897 / mark
+$109.3468 — **already trading below both the 4H pullback-low ($110.92) and the 1H swing low
+($110.63)** that would have served as this setup's stop. The bullish pullback-hold thesis (which
+cleared items 1/2/3/5/6 — RS vs. BTC still +4.23%/24h and +4.07pp/7d outperformance, several
+confirmation role-groups on the 4H) no longer holds on the one item that matters most: item 7's
+1H execution trigger has flipped from "awaiting" to a confirmed opposing breakdown, and live
+price is now through the level a stop would sit at. Per the same principle used for AVAX's
+2026-11-12 invalidation, this is a structural reversal, not a technicality — removed outright
+rather than carried forward. No order was ever placed against this candidate this time around
+(0 crypto positions held). If AAVE reclaims $110.63+ on a fresh completed 1H bar with a newly
+confirmed higher low, it is re-added fresh on that new evidence, not restored from this entry.
 
 **Removed 2026-11-16T04:38Z — AAVE, CLEARED into a real live trade (§21, Crypto 24/7 Scan, genuine
 scheduled-trigger authority, `trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv`).** A fresh completed 4H

@@ -75056,3 +75056,88 @@ own reporting rule, logging tersely rather than a full chat report.
 ```json
 {"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-17T17:03:31Z", "coverage_state": "BUDGET_BLOCKED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 3, "rejected_with_evidence": 0, "not_evaluated": 71, "tool_failures": 0, "note": "TRADING_VIEW_2 BUDGET_BLOCKED; all available budget spent on the 3-item near-miss queue (ZS, BE, FIG)"}, "near_miss_queue": {"reassessed": 3, "cleared": 0, "still_near_miss": 2, "invalidated": 1, "ineligible": 0, "expired": 0, "note": "FIG invalidated; ZS and BE both had a genuine fresh breakdown bar last cycle that went unevaluated (budget prioritized to HPE/NOW), now 1 cycle stale with no fresh continuation this cycle"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "budget prioritized to near-miss reassessment this cycle"}], "coverage_complete": false}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "NOT_RUN this cycle"}, "calls_made_this_cycle": 1, "tvremix_calls_used_today": 46, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+### 2026-11-17T17:37:55Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Trigger:** `trig_01UUXAtYHjn7nBgzkdvZU4Rv`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal. `get_portfolio`: total_value $5,058.78 (cash $3,367.94
+unchanged — no new cash discrepancy, equity_value $1,690.84, a modest decline from last cycle
+consistent with the broader session). `get_crypto_positions`: 0 open crypto positions.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown 0/2. Market-shock: SPY $732.31 vs. last
+Mode B/C cycle's $729.35 (+0.41%), QQQ $654.83 vs. $650.94 (+0.60%) — both a bounce, well under
+1.5%, no shock.
+
+**Portfolio heat cap (§3):** unchanged from the last Mode B/C cycle — SQQQ $0, SOXS $29.54. Total
+heat $29.54 of $303.53 (6% of $5,058.78) — $273.99 headroom. Not the binding constraint this
+cycle (no candidate reached sizing).
+
+**First live use of the Kraken fallback, enabled earlier this cycle (see CLAUDE.md §12, "Kraken
+OHLC fallback enabled for §21 crypto data sourcing").** Checked the shared `data_budget` state
+before attempting TradingView: `should_attempt_tradingview` returned True (date untested in the
+persisted state — the state file had never actually been written to by a real attempt before
+today's enablement). Made one real Stage-A attempt (`mcp-tv-get-symbol-data-batch`, all 8
+allowlist pairs) — **`TOOL_QUOTA_EXCEEDED`**, confirming the quota is still exhausted for today.
+Recorded this via `record_tradingview_result(quota_error=True)` and `save_state()`. Fell
+through to the Kraken fallback path for every pair and both timeframes — **all 16 fetches
+returned `status: "OK"`**, 720 completed bars each, cached via `merge_bars`/`save_cached_bars`.
+`data_source: "kraken_fallback"` for every pair this cycle. **DATA_BLOCKED did not apply** —
+per the redefined rule, TradingView alone being exhausted is no longer DATA_BLOCKED now that
+Kraken covers every currently-allowlisted pair; `tvremix_consecutive_failed_cycles` resets to
+**0** (last cycle was 3; this is a full recovery under the updated both-sources-failed
+definition, since real structure data was obtained for every pair this cycle).
+
+**Full-allowlist screen (step 5), all 8 pairs, using `dev_scanner/tv_structure.py` on the
+Kraken-sourced completed bars (EMA9/20/50, RSI14, MACD, ATR14, §13.H volume baseline, 5-bar
+swing points, pullback depth) plus relative-strength vs. BTC computed directly from the cached
+4H closes (24h = 6 bars back, 7d = 42 bars back — no catalyst/news tool was available this cycle,
+since that capability lived on the now-exhausted TradingView connector; RS vs. BTC is the only
+item-2 driver available via Kraken-only data, and it is independently sufficient per item 2's
+"or" wording):**
+
+- **BTC:** 4H inside its recent range (not above/below the prior swing high/low), 1H bearish
+  (close $63,677.6 below EMA9/20/50, RSI 41.4 not improving). No bullish Trend/State/Location/
+  Momentum confirmation clears, and BTC has no RS-vs-itself path and no catalyst source this
+  cycle — moot anyway since no confirmation clears. **Rejected — item 3** (no qualifying
+  role-group confirmation).
+- **ETH:** 4H and 1H both bearish-aligned (close below EMA9/20/50 on both), 4H
+  `current_below_prior_swing_low: true` (a confirmed breakdown, not a bullish setup). **Rejected
+  — item 3/7** (wrong direction; no bullish setup exists to trigger).
+- **SOL:** 4H mixed (close above EMA9 but below EMA20/50; RSI 61.6, MACD hist positive — a
+  real Momentum confirmation) but 1H close ($71.96) sits below all three 1H EMAs — no confirmed
+  bullish hourly reclaim. **Rejected — item 7** (daily-equivalent lean is there, no confirming
+  hourly trigger).
+- **XRP:** 4H bearish-aligned (close below EMA9/20/50), RSI 56.0 mild. 1H close below EMA9. RS
+  vs. BTC modestly positive (+1.43pp/24h) but no role-group confirmation clears on either
+  timeframe. **Rejected — item 3**.
+- **LINK:** 4H and 1H both bearish-aligned (close below EMA9/20/50 on both). **Rejected — item
+  3**.
+- **AAVE:** the session's one real near-miss — see the dedicated `near_miss_queue.md` update
+  (removed as invalidated this cycle, not carried forward): 4H showed a genuine bullish
+  pullback-hold (close above EMA9/20, RSI 77.3 extreme but not an auto-block per §13.F,
+  Location/Momentum confirmed, RS vs. BTC +4.23pp/24h and +4.07pp/7d) but the 1H execution
+  trigger flipped to a confirmed breakdown (close $110.27 below the prior 1H swing low $110.63),
+  and a fresh live quote (bid $108.304/ask $110.3897/mark $109.3468) shows price already trading
+  below both that 1H swing low and the 4H pullback-low ($110.92) that would have served as the
+  stop. **Rejected — item 7** (confirmed opposing hourly trigger, structural invalidation, not a
+  technicality).
+- **HBAR:** 4H and 1H both bearish-aligned. **Rejected — item 3**.
+- **AVAX:** 4H and 1H both bearish-aligned (RSI 45.9 on 4H, just under the "above 45" momentum
+  threshold). **Rejected — item 3**.
+
+**Per-symbol labeling:** all 8 pairs **evaluated** (full gate check run, Stage B equivalent via
+Kraken) — 7 rejected with evidence (item 3 or 7, cited above), 0 tool failures. Full-allowlist
+coverage achieved this cycle for the first time since the TradingView outage began, via the new
+fallback.
+
+**Near-miss queue:** AAVE reassessed and removed as **invalidated** (full detail in
+`near_miss_queue.md`'s own update). 0 cleared, 0 still-near-miss, 1 invalidated, 0 ineligible,
+0 expired.
+
+**Stop-audit:** 0 open crypto positions — moot. **No order placed.**
+
+```json
+{"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T17:37:55Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 0, "invalidated": 1, "ineligible": 0, "expired": 0, "note": "AAVE invalidated - confirmed 1H breakdown + live price through both candidate stop levels"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 1, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 273.99, "git_push": "pending"}
+```
