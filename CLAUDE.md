@@ -1151,6 +1151,75 @@ was moved — it was already written as a dated log; this makes its non-operativ
 rather than merely implied.
 
 ## 12. Change log
+- **2026-11-17: Kraken public-OHLC fallback enabled for §21 crypto data sourcing, at explicit user
+  instruction, closing the gap left by TradingView's new daily MCP call quota.** TradingView
+  introduced a daily call quota effective 2026-11-17 (`TOOL_QUOTA_EXCEEDED` once exhausted) —
+  equities already had a non-TradingView fallback (`get_equity_historicals`/
+  `get_equity_technical_indicators`, Robinhood-native) for exactly this situation, but crypto
+  (§21) had none, so an exhausted quota meant the Crypto 24/7 trigger went fully DATA_BLOCKED with
+  no recourse until TradingView reset. Measured same-day: this account's TradingView usage before
+  first failure totaled 43 calls (summed directly from `trades_log.md`'s own historical
+  `calls_made_this_cycle` JSON fields, not estimated); published TradingView tiers (verified via
+  web search against TradingView's own documentation) range Essential/legacy 10/day up to Ultimate
+  150/day plus a 500/day AI-subscription add-on — this account's exact tier, and therefore the
+  precise daily ceiling actually in force, remains unverified (no query tool exists for it), but
+  the quota's real, persistent effect (repeated `TOOL_QUOTA_EXCEEDED` across multiple cycles at
+  different times of day) was confirmed directly rather than assumed.
+
+  **Repair built first as development/read-only, then enabled live only after a separate explicit
+  approval ("Ok let's move forward with kraken"), per the user's own two-step instruction.**
+  1. **`dev_scanner/kraken_fallback.py` (new)** — a read-only Kraken public REST client
+     (`https://api.kraken.com/0/public/OHLC`, unauthenticated, no account/trading access of any
+     kind) for the 8 current §21 allowlist pairs (BTC, ETH, SOL, XRP, LINK, AAVE, HBAR, AVAX),
+     1h/4h intervals only. Pair mapping (`KRAKEN_PAIR_MAP`) verified live against Kraken's own
+     `AssetPairs` endpoint, not guessed. Reuses `dev_scanner/tv_structure.py`'s existing
+     `completed_bars()` for the same no-lookahead/forming-candle-exclusion discipline already
+     applied to TradingView bars — every indicator/swing/ATR/volume-baseline function downstream
+     (`ema`/`rsi14`/`macd`/`atr14`/`swing_points`/`pullback_depth`/`volume_baseline_13h`/
+     `validate_stop_distance`/`finalize_candidate`) runs unmodified on Kraken-sourced bars, exactly
+     as it already does on TradingView-sourced bars — `tv_structure.py` itself was not touched.
+     Flags staleness and gaps explicitly (`DATA_BLOCKED` status) rather than silently serving old
+     data; an unsupported pair or interval is its own distinct status, never conflated with a
+     genuine fetch failure. 36/36 tests passing (`dev_scanner/test_kraken_fallback.py`), including
+     one live network call and two end-to-end `finalize_candidate()` runs on hand-verified
+     qualifying/rejected fixtures.
+  2. **`dev_scanner/data_budget.py` (new)** — persistent, cross-trigger state on disk
+     (`dev_scanner/state/data_budget_state.json` + a per-symbol/interval candle cache under
+     `dev_scanner/state/candle_cache/`), since each trigger firing is an independent fresh turn
+     with no shared memory otherwise. Tracks, per UTC calendar date, whether TradingView has
+     already been found quota-exhausted today (`should_attempt_tradingview`/
+     `record_tradingview_result`) — **never assumes a midnight reset**: a new date always starts
+     "untested" and gets exactly one real attempt before anything is assumed, and an exhausted flag
+     clears only on an actually-recorded success, never a time-based guess. Also merges/caches
+     completed bars (`merge_bars`/`is_cache_fresh_enough`/`load_cached_bars`/`save_cached_bars`) so
+     a symbol/interval whose latest completed bar hasn't changed since last fetched skips the
+     network call entirely that cycle. 25/25 tests passing
+     (`dev_scanner/test_data_budget.py`), covering cold start, the exhaustion/recovery state
+     machine, atomic file writes, and cache merge/freshness logic.
+  3. **Wired into the live Crypto 24/7 Scan trigger** (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`) via
+     `update_trigger`, 2026-11-17 ~17:28 UTC: before any TradingView Stage A/Stage B call each
+     cycle, the trigger now checks `should_attempt_tradingview()` against the shared state; if
+     TradingView is already known-exhausted for today, it skips straight to the Kraken fallback for
+     every allowlisted pair (checking the candle cache first, fetching from Kraken only when the
+     cache is stale) instead of re-attempting and re-discovering the same exhaustion every hour.
+     Every real TradingView attempt's outcome is still recorded via `record_tradingview_result()`
+     regardless of which branch runs, so the state stays accurate for this and the other two
+     triggers (Mode B/C First Scan, Mode B/C Fresh Candle) that separately track TradingView for
+     their own equity lane against the same shared file. The trigger's Outage-reporting section
+     (DATA_BLOCKED definition, the `tvremix_consecutive_failed_cycles` counter, the 6-cycle
+     consolidated-alert threshold, and the recovery-verification criteria) was updated to match:
+     a pair is now DATA_BLOCKED only if **both** TradingView and Kraken fail to produce usable
+     structure data for it — TradingView's quota being exhausted is, by itself, no longer a
+     DATA_BLOCKED condition, since Kraken now covers that case for every currently-allowlisted
+     pair. New JSON-summary fields `data_source` (`"tradingview"`/`"kraken_fallback"`/mixed) and
+     `tradingview_quota_status` (from `tradingview_status_summary()`) were added for traceability.
+  **No existing gate, risk percentage, position cap, R:R floor, confirmation count, allowlist, or
+  order-placement authority was changed by this entry** — this closes a data-sourcing gap only
+  (which tool supplies completed OHLCV bars when TradingView's own daily quota is already known
+  exhausted for the day); every entry/exit decision still runs through the exact same
+  `tv_structure.py` thresholds and logic regardless of which venue supplied the bars. No
+  `place_crypto_order`/`place_equity_order`/`place_option_order` call was made to produce this
+  entry, and no account setting was touched.
 - **2026-11-16: user instructed formally extending ATR-based reward targets to crypto (§21), with
   an explicit, narrowly-scoped 2x-ATR option alongside the existing 1.5x default, after a live
   diagnosis of a real missed trade this session.** AAVE's 4H candle closed above a resistance level
