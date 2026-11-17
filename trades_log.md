@@ -74989,3 +74989,31 @@ and even a paper spread for NOW) clears its own required R:R floor.
 ```json
 {"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-17T16:03:45Z", "coverage_state": "BUDGET_BLOCKED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 5, "rejected_with_evidence": 0, "not_evaluated": 69, "tool_failures": 0, "note": "TRADING_VIEW_2 BUDGET_BLOCKED; Robinhood fallback used, budget spent entirely on near-miss reassessment (5 names) + options sourcing for the 2 that cleared, not the ordinary 7-name rotation"}, "near_miss_queue": {"reassessed": 5, "cleared": 0, "still_near_miss": 1, "invalidated": 2, "ineligible": 0, "expired": 0, "note": "HPE and NOW cleared the equity-thesis gate in full but resolved NO_TRADE (no instrument clears its own R:R floor) and were removed, not re-queued; DUOL and DIS invalidated; FIG still near-miss"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "concurrent-position cap already at 2/2"}], "coverage_complete": true}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 2, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": false}, "options_leaps_coverage": {"selected": ["HPE", "NOW"], "deferred": [], "evaluated": 2, "rejected": 2, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 1, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": [], "failed_before_realistic_check": ["NOW"]}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "NOT_RUN this cycle - budget prioritized to near-miss reassessment/options sourcing"}, "calls_made_this_cycle": 1, "tvremix_calls_used_today": 44, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+### 2026-11-17T16:38:01Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Trigger:** `trig_01UUXAtYHjn7nBgzkdvZU4Rv`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal. `get_portfolio` $5,086.02 equity (cash $3,367.94,
+equity_value $1,718.08 — cash unchanged from last cycle, no new discrepancy). `get_crypto_positions`:
+0 open crypto positions.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown 0/2. Market-shock: SPY $730.32 vs. last
+cycle's $731.60 (-0.17%), QQQ $652.50 vs. $653.74 (-0.19%) — both well under 1.5%, no shock
+(broader session still down SPY -1.3%/QQQ -1.4% vs. yesterday's close).
+
+**Portfolio heat cap (§3):** unchanged — SQQQ $0, SOXS $29.54. Total heat $29.54 of $305.16 (6%
+of $5,086.02) — $275.62 headroom.
+
+**DATA_BLOCKED again — 3rd consecutive cycle.** TradingView still `TOOL_QUOTA_EXCEEDED`, confirmed
+by a fresh Stage-A attempt this cycle. No Robinhood-native fallback for crypto. All 8 pairs
+labeled not evaluated — tool failure. `tvremix_consecutive_failed_cycles` increments to **3**
+(alert threshold 6).
+
+**Near-miss queue:** AAVE's row left unchanged — no fresh data this cycle. **Stop-audit:** 0 open
+crypto positions, moot. **No order placed.**
+
+```json
+{"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T16:38:01Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "DATA_BLOCKED", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": ["AAVE", "AVAX", "BTC", "ETH", "HBAR", "LINK", "SOL", "XRP"], "tool_failures": 8}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE row left unchanged — no fresh data this cycle"}, "tvremix_consecutive_failed_cycles": 3, "calls_made_this_cycle": 1, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 275.62, "git_push": "pending"}
+```
