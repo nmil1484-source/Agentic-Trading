@@ -74491,3 +74491,57 @@ stop deliberately not tightened this cycle).**
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T09:37:58Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE's $111.88 fractal technically confirmed but intraperiod-breached by the forming bar (low $111.56); stop deliberately kept at $108.05 pending next cycle's close"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 304.26, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-17T10:37:26Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Trigger:** `trig_01UUXAtYHjn7nBgzkdvZU4Rv`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal (confirmed via `get_accounts`). `get_portfolio` $5,547.72
+equity (cash $3,867.94, equity_value $1,679.78). `get_crypto_positions`: 0 open crypto positions.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown remains 0/2 for 2026-11-17 UTC. Market-
+shock check inapplicable (overnight). No breaker active.
+
+**Portfolio heat cap (§3):** unchanged — SQQQ $0, SOXS $29.54. Total heat $29.54 of $332.86
+(6% of $5,547.72) — $303.32 headroom.
+
+**Near-miss queue reassessment (Crypto §21 table): AAVE reassessed — STILL a near-miss, item 4,
+R:R closest yet (~1.44:1) but for the wrong reason, and the structure has turned genuinely
+choppy.** Last cycle's open question resolved: the 09:00-10:00Z bar closed $112.23 (above
+$111.88) but its own low was $111.56 — the level was pierced intraperiod before recovering,
+confirming a stop placed just under $111.88 would have been triggered by that wick. The next
+completed bar then closed $111.19 with an even lower low ($111.15) — the "recovery" didn't hold
+either. **Correction to recent cycles' bar tracking: the last completed 4H bar is now
+t=1794888000 (04:00-08:00Z, close $113.12, low $111.88) — not t=1794873600 as reported in prior
+entries, which has since completed and rolled forward.** That 4H bar looks bullish in isolation
+(closed well off its low), but the currently-forming 4H bar (08:00-12:00Z) has already broken
+below $111.88 intraperiod (to $111.15) and sits near its own low — so the whole $111-113.5 zone
+is chopping, not basing cleanly. No tighter stop is confirmed or trustworthy; stop stays $108.05.
+At ~$111.19: old structural target R:R≈0.85:1; ATR target R:R≈1.44:1 — the closest to the 1.5:1
+floor all night, but this is pure arithmetic from the fixed stop and a declining entry price, not
+evidence of a strengthening setup. RS vs. BTC +3.57pp. No order attempted — the $111.88 whipsaw
+is a reason for more caution, not less; item 7's 1H trigger is now genuinely ambiguous (failed
+bounce vs. continuation) rather than confirmed.
+
+**Full-allowlist screen, remaining 7 pairs:** AVAX, BTC, ETH, HBAR, LINK, XRP — all StrongSell
+both timeframes, rejected with evidence. SOL — 1H Buy, 4H Sell, 4H leg fails, rejected.
+
+**Per-symbol disposition:** AVAX, BTC, ETH, HBAR, LINK, SOL, XRP — rejected with evidence. AAVE —
+reassessed, still near-miss (item 4). **0 cleared, 0 trades.**
+
+**Stop-audit:** 0 open crypto positions, audit moot.
+
+**OBSERVE — no trade this cycle.**
+
+**TRADING_VIEW_2 usage:** 1 Stage-A batch call + 2 Stage-B OHLCV calls (AAVE 4H, AAVE 1H) = **3
+calls this cycle.** No tool failures.
+
+**No order placed. `near_miss_queue.md` updated (AAVE's whipsaw at $111.88 logged; structure now
+flagged as genuinely ambiguous, not basing).**
+
+```json
+{"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T10:37:26Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE R:R closest yet (~1.44:1) purely from price decline toward the fixed $108.05 stop; $111.88 level whipsawed (pierced to $111.56 then $111.15), structure now ambiguous not basing"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 303.32, "git_push": "pending"}
+```
