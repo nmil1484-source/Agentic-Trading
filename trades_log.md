@@ -74132,3 +74132,61 @@ calls this cycle.** No tool failures.
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T02:37:22Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE blocker moved item_7 -> item_4 (R:R fails at real execution price $111.105)"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 299.70, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-17T03:37:49Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Trigger:** `trig_01UUXAtYHjn7nBgzkdvZU4Rv`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal (same transient stale "requires authentication" system
+notice reappeared and was again confirmed spurious via a direct `get_accounts` call — logged for
+the record, no real auth lapse, no action needed). `get_portfolio` $5,444.70 equity (cash
+$3,867.94, equity_value $1,576.76). `get_crypto_positions`: 0 open crypto positions.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown remains 0/2 for 2026-11-17 UTC. Market-
+shock check inapplicable (overnight, equity market closed). No breaker active.
+
+**Portfolio heat cap (§3):** unchanged mechanics — SQQQ $0, SOXS $29.54. Total heat $29.54 of
+$326.68 (6% of $5,444.70) — $297.14 headroom.
+
+**Near-miss queue reassessment (Crypto §21 table): AAVE reassessed — STILL a near-miss, item 4,
+and now failing more clearly, not less.** A broad crypto bounce hit this hour (BTC/ETH/SOL/XRP/
+LINK all flipped positive 1H-rated, though 4H remains bearish/Sell on every one of them except
+AAVE). AAVE's live Stage A snapshot shows mark $113.38 (+4.45% today) — but the no-forming-candle
+rule still correctly excludes the in-progress bars: the last **completed** 4H bar is unchanged at
+$108.52 (t=1794859200) and the last **completed** 1H bar is $110.24 (t=1794880800) — a genuine
+second follow-through close above the breakout level, confirming item 7 is not a one-bar fluke.
+**The problem is pure price extension**: against the only valid structural stop ($108.05) and the
+real executable price (~$113.38 per a fresh `get_crypto_quotes` check — mark $113.379, bid
+$112.275, ask $114.482), the old structural target ($113.85) is nearly already reached (reward
+≈$0.47, R:R≈0.09:1), and even the ATR target (≈$118.29) gives R:R≈0.88:1 — both far below the
+1.5:1 floor. **No `preview_crypto_order` was attempted this cycle** — the math fails clearly
+enough without simulating a fill, and chasing further would require either an unjustifiably
+distant target or an artificially tightened stop, neither acceptable. Logged and left in the
+queue; a future cycle needs either a meaningful pullback toward the $108-110 zone or a fresh,
+tighter confirmed low closer to whatever price settles at.
+
+**Full-allowlist screen, remaining 7 pairs:** AVAX, BTC, ETH, LINK, SOL, XRP all flipped to 1H
+Buy this hour (the broad bounce) but **4H remains Sell/StrongSell on every one of them** — the
+4H setup leg of item 7 fails outright for all six, rejected with evidence, no Stage B deep-dive
+needed (a bearish/neutral 4H read with a same-hour 1H bounce is not a qualifying setup, same
+principle as last cycle's SOL rejection). HBAR: StrongSell on both timeframes, rejected.
+
+**Per-symbol disposition:** AVAX, BTC, ETH, HBAR, LINK, SOL, XRP — rejected with evidence (4H
+leg fails, or both timeframes bearish for HBAR). AAVE — reassessed, still a near-miss (item 4,
+now extension-driven rather than trigger-absent). **0 cleared, 0 trades.**
+
+**Stop-audit:** 0 open crypto positions, audit moot.
+
+**OBSERVE — no trade this cycle.**
+
+**TRADING_VIEW_2 usage:** 1 Stage-A batch call + 2 Stage-B OHLCV calls (AAVE 4H, AAVE 1H) = **3
+calls this cycle.** No tool failures.
+
+**No order placed. `near_miss_queue.md` updated (AAVE's evidence refreshed, still item 4).**
+
+```json
+{"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T03:37:49Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE remains item_4 near-miss, now extension-driven (price ran to ~$113.38, R:R collapsed)"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 297.14, "git_push": "pending"}
+```
