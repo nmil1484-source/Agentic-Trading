@@ -75141,3 +75141,72 @@ fallback.
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T17:37:55Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 0, "invalidated": 1, "ineligible": 0, "expired": 0, "note": "AAVE invalidated - confirmed 1H breakdown + live price through both candidate stop levels"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 1, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 273.99, "git_push": "pending"}
 ```
+
+### 2026-11-17T18:03:23Z UTC / 10:03:23 PT — AUTONOMOUS (Mode B/C Entry Screening, Fresh Candle)
+
+**Trigger:** `trig_01KrBsTt9mssjU4hPGtM3cBe`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found since last cycle.
+
+**Robinhood MCP:** connectivity normal. `get_portfolio`: $5,084.72 total (cash $3,367.94
+unchanged, equity_value $1,716.78). Mode B positions unchanged: SQQQ (18 sh, avg $44.81), SOXS
+(14 sh, avg $57.76). 0 Mode C positions, 0 option positions.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown 0/2. Market-shock: SPY $731.29 vs. last
+cycle's $732.31 (-0.14%), QQQ $653.61 vs. $654.83 (-0.19%) — no shock.
+
+**Portfolio heat cap (§3):** SQQQ stop $45.30 > avg buy $44.81 → already at breakeven-or-better,
+contributes $0. SOXS stop $55.65 < avg buy $57.76 → $(57.76-55.65)×14 = **$29.54** open risk.
+Total heat $29.54 of $305.08 (6% of $5,084.72) — **$275.54 headroom**. Not binding this cycle (no
+candidate reached sizing).
+
+**Mode B equity stop-audit (2a):** `get_equity_orders` — SQQQ stop confirmed resting $45.30
+(order `6afb6dee...`), SOXS stop confirmed resting $55.65 (order `6afb2a0f...`), both
+`state: confirmed`, unchanged. 0 missing, 0 placed.
+
+**§18/§19 options/LEAPS stop-check (2b):** `get_option_positions(nonzero=true)` → 0 open
+positions. Moot.
+
+**Mode C stop-audit (9a):** 0 open Mode C positions. Moot.
+
+**TradingView (TRADING_VIEW_2): confirmed EXHAUSTED for today** via the shared
+`dev_scanner/data_budget.py` state (recorded by the Crypto 24/7 cycle this same UTC date,
+`should_attempt_tradingview` returned False — correctly not re-attempted). Per the existing
+exhaustion-handling note, fell back to Robinhood's own `get_equity_historicals`/`get_equity_quotes`
+for the work this cycle actually reached. `coverage_state: BUDGET_BLOCKED`.
+
+**Near-miss queue reassessment (2 of 2 queued items — ZS, BE — using the 3rd completed hourly bar,
+17:00-18:00Z, not yet checked by any prior cycle):**
+- **ZS — INVALIDATED.** Third consecutive completed 1h bar closed $184.43 (high $184.699, low
+  $182.76), the third straight hour holding/grinding higher off the original $180.47 breakdown
+  low (bar1 $183.77 → bar2 $184.28 → bar3 $184.43); live quote now $184.77, the highest read yet.
+  Three hours without continuation, each slightly higher, is active evidence the breakdown failed
+  to hold, not merely a stale-but-still-valid trigger. Removed.
+- **BE — INVALIDATED, same pattern.** Third completed 1h bar closed $169.70 (high $171.91, low
+  $166.91) — the highest close of the three bars (bar1 $168.09 → bar2 $168.055 → bar3 $169.70);
+  live quote now $169.25. Removed.
+
+Both removals logged in full in `near_miss_queue.md`. Queue's Mode B/C table is now empty.
+**AMD pending-eligibility:** already resolved 2026-11-04 (not re-checked, nothing pending there).
+
+**§22 leveraged/inverse-ETF screen (3c):** concurrent-position cap confirmed still **2/2**
+(SQQQ, SOXS) — no capacity for any new §22 entry regardless of chart quality. All 9 allowlisted
+names (TQQQ, SQQQ, SOXL, SOXS, SPXL, SPXU, TNA, TZA, AMDG) labeled **NOT_EVALUATED —
+concurrent-position cap already at 2/2**, `coverage_complete: true` (a deliberate capacity reason,
+not a coverage gap — consistent with every cycle since the cap was reached).
+
+**Mode B ordinary rotation (step 3), options/LEAPS sourcing beyond ZS/BE (3a/3b), §24
+vertical-spread paper screening (3d), and Mode C ORB screening (step 10): NOT RUN this cycle.**
+With TradingView exhausted, this cycle's effective budget (Robinhood-fallback historicals/quotes
+calls) went entirely to the mandatory account/circuit-breaker/heat/stop-audit checks above plus
+the 2-item near-miss reassessment (6 historicals/quote calls for ZS+BE's 3rd hourly bar and
+current quotes). The other 72 watchlist names, fresh options/LEAPS sourcing, and the Mode C ORB
+screen are deferred to the next eligible cycle(s) — logged honestly as not run, not silently
+presented as full coverage.
+
+**No order placed in Mode B or Mode C this cycle.** Two names (ZS, BE) that had looked like real
+breakdown setups two cycles ago are now confirmed invalidated rather than merely stale. Quiet
+cycle otherwise — logging tersely per the trigger's own reporting rule.
+
+```json
+{"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-17T18:03:23Z", "coverage_state": "BUDGET_BLOCKED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 2, "rejected_with_evidence": 0, "not_evaluated": 72, "tool_failures": 0, "note": "TRADING_VIEW_2 EXHAUSTED (confirmed via shared data_budget state); Robinhood-historicals budget spent entirely on the 2-item near-miss queue (ZS, BE), both invalidated"}, "near_miss_queue": {"reassessed": 2, "cleared": 0, "still_near_miss": 0, "invalidated": 2, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved_2026-11-04_not_pending", "note": "ZS and BE both invalidated - 3 consecutive hourly bars with no breakdown continuation, each higher than the last"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "concurrent-position cap already at 2/2"}], "coverage_complete": true}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "NOT_RUN this cycle"}, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 46, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
