@@ -75569,3 +75569,52 @@ and XRP's emerging 1h bullish tilts are flagged for next cycle's attention but d
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-17T21:37:38Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 46, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+### 2026-11-17T22:37:26Z UTC / 14:37:26 PT — AUTONOMOUS (Crypto 24/7 Scan, §21)
+
+**Execution-origin validation:** `trigger_id: trig_01UUXAtYHjn7nBgzkdvZU4Rv` confirmed via
+`ReadNotifications`. §14 Status ACTIVE. No kill phrase. Robinhood MCP: live.
+
+**Account:** $5,049.46 total, 100% cash. 0 crypto positions (0/2 cap), 0 Mode B/C/options.
+**Circuit breakers:** 0/2 same-day stop-outs. Market-shock: inapplicable (equities closed).
+**Heat cap:** $0 of $302.97 — full headroom.
+
+**TradingView: confirmed still EXHAUSTED.** 4h cache fresh for all 8 pairs (reused, 0 fetches);
+1h stale for all 8 — fetched fresh from Kraken (8 fetches, all `status: "OK"`). **0 TradingView
+calls this cycle.**
+
+**Near-miss queue (Crypto §21): 1 new addition this cycle.**
+- **SOL — added, single-item near-miss.** 1H confirmed a genuine breakout: last completed 1h
+  bar closed $73.44, above the prior confirmed 1h swing high ($73.24) — `current_above_prior_
+  swing_high: true`. 1H trend also turned bullish (EMA9 $72.87 > EMA20 $72.65 > EMA50 $72.48,
+  RSI 54.25 improving). RS vs. BTC: +1.10pp over the last 6h (modest). **But the 4H chart — the
+  daily-equivalent setup timeframe — does not independently confirm**: EMA9 ($72.46) still below
+  EMA20 ($73.21), price sitting mid-way through an 80.7%-deep pullback toward the recent impulse
+  low, no 4H breakout. Per item 3's dual-timeframe requirement, a 1H trigger alone without a
+  genuine 4H setup is insufficient — same principle already applied in the other direction
+  (a 4H setup alone needs a confirming 1H trigger). Queued rather than rejected outright since
+  this is a clean, single, checkable blocker (item 7's 4H leg) with everything else already
+  real. AVAX showed a similar but far thinner 1h "breakout" ($7.157 vs. prior swing high $7.150,
+  +0.10% — within normal bar-to-bar noise) and its own 4H chart is equally unconfirmed — not
+  queued, logged as rejected rather than a genuine near-miss given how marginal the 1h print is.
+
+**Full allowlist screen — 7 of 8 REJECTED, 1 queued (SOL, above):**
+- **BTC**: 1h RSI crossed to 45.09 (right at the threshold) but EMA/MACD both still bearish, no
+  breakout. Rejected — item 3.
+- **ETH**: bearish alignment both timeframes, RSI 38.8/41.9. Rejected — item 3.
+- **XRP**: 1h EMA9>20>50 now bullish (0.9643>0.9628>0.9624) and RSI 55.5 improving, but **no 1h
+  breakout confirmed** (`above_swing_high: false`) — weaker than SOL's case, no trigger yet.
+  Rejected — item 7, no execution trigger.
+- **LINK**: bearish alignment both timeframes, RSI 49.3 neutral, no breakout.
+- **AAVE**: continues weakening — 1h RSI fell further to 40.27, MACD deteriorating (0.276 vs.
+  signal 0.651), volume below baseline. Rejected — item 3.
+- **HBAR**: bearish 4h, 1h RSI 47.9 (improving but no breakout, 4h still fully bearish). Rejected
+  — item 7, no 4H setup.
+- **AVAX**: see SOL note above — 1h "breakout" too marginal (+0.10%) to treat as confirmed;
+  4h unconfirmed either way. Rejected with evidence, not queued.
+
+**No order placed.** Account remains fully flat.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-17T22:37:26Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 1, "note": "SOL added - 4H setup missing, 1H trigger confirmed"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 46, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```

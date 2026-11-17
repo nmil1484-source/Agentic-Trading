@@ -207,6 +207,7 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
+| SOL | crypto spot | Item 3's dual-timeframe test: 1H execution trigger confirmed (close $73.44 > prior 1H swing high $73.24, bar t=1794949200) but no genuine 4H setup — 4H structure still bearish-leaning (EMA9 $72.46 < EMA20 $73.21), mid-deep-pullback (depth 80.7% toward the impulse low), no 4H breakout or clean reclaim confirmed | Confirmation clears (1H EMA9>20>50 bullish alignment + confirmed breakout); RS vs. BTC +1.10pp/6h (modest, not strong); stop/R:R not computed — no 4H setup to anchor a stop against yet | 2026-11-17T21:00Z (1h), 2026-11-17T16:00Z (4h) | 2026-11-17T22:37Z | 1 | 2026-11-27T22:37Z |
 
 **Removed 2026-11-17T17:38Z — AAVE, invalidated (not merely still a near-miss — a different,
 harder item now fails).** First reassessment using the new Kraken-fallback data path (TradingView
