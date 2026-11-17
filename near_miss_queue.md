@@ -202,7 +202,7 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-*(Queue empty as of 2026-11-16T04:38Z — AAVE cleared into a real live trade this cycle, see the removal note immediately below.)*
+| AAVE | Spot crypto (§21) | Item 7 — no confirmed 1H execution trigger. 4H chart (last completed bar t=1794859200, close $108.52) shows a basing/consolidation structure holding above the $107.93 structural low from the prior (now-stopped-out) trade, but the 1H chart over the last ~10 completed bars is choppy (range ~$106.76-$109.72) with no decisive hourly close reclaiming a level — nothing clean enough to call a trigger. | Item 2 (catalyst/RS): holds — AAVE +0.63% today vs. BTC -0.35%, a real intraday RS divergence. Item 3 (confirmation role-groups): marginal 1-of-5 (Momentum — RSI(4H) 46.3, just above the 45 floor, MACD(4H) macd -1.70 above signal -2.60 and narrowing = improving); Volume role-group does NOT confirm (last completed 4H bar volume 12,566.8 vs. the §13.H 3-bar baseline of 23,478.0 — well below, not 1.2x). Items 5/6 (timing/macro blackout): clear. | 2026-11-17T01:37:34Z (4H bar t=1794859200; 1H bar t=1794873600) | 2026-11-17T01:37:34Z | 1 | 2026-11-27T01:37:34Z |
 
 **Removed 2026-11-16T04:38Z — AAVE, CLEARED into a real live trade (§21, Crypto 24/7 Scan, genuine
 scheduled-trigger authority, `trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv`).** A fresh completed 4H

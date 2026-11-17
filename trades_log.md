@@ -73992,3 +73992,75 @@ HBAR, AVAX — structural absence, 0 cleared, 0 near-misses queued.
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T00:37:25Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 1, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 302.02, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-17T01:37:34Z — AUTONOMOUS (Crypto 24/7 Scan, §21, live authority)
+
+**Trigger:** `trig_01UUXAtYHjn7nBgzkdvZU4Rv`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found.
+
+**Robinhood MCP:** connectivity normal (a transient "robinhood-trading requires authentication"
+system notice appeared mid-cycle but a direct `get_accounts` call immediately succeeded with live
+data — treated as a stale/spurious notice, not a real auth lapse; logged for the record, no action
+needed). `get_portfolio` $5,494.68 equity (cash $3,867.94, equity-value positions $1,626.74 —
+SQQQ/SOXS still open). `get_crypto_positions`: 0 open crypto positions. `get_accounts` confirms
+Agentic Account ••••8058 active, `agentic_allowed: true` — retail ••••7533 untouched.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown remains at 0/2 for 2026-11-17 UTC (no new
+stop-outs since the 00:37:25Z reset). Market-shock check inapplicable (overnight, equity market
+closed). No other breaker active.
+
+**Portfolio heat cap (§3):** unchanged from the last check — SQQQ contributes $0 (stop above
+entry, breakeven-or-better); SOXS still carries its original $29.54 planned risk. Total heat
+$29.54 of ~$329.68 (6% of $5,494.68) — ~$300.14 headroom. Not a binding constraint this cycle
+(OBSERVE).
+
+**Near-miss queue (Crypto §21 table):** empty at cycle start — 0 to reassess.
+
+**Full-allowlist screen, all 8 pairs (Stage A, `get_symbol_data_batch`):** BTC, ETH, XRP, LINK,
+HBAR, AVAX all read StrongSell on both 1H and 4H MA ratings, RSI(4H) in the 30s-40s, MACD(4H)
+still negative and not meaningfully improving — structural absence of any bullish confirmation,
+rejected with evidence. SOL: 1H Buy but 4H StrongSell — the 4H (setup-establishing) timeframe is
+still bearish, rejected (item 7's daily/4H-setup leg fails outright, no deeper look needed).
+**AAVE stood out** — 1H StrongBuy, 4H Neutral (the only non-StrongSell 4H read on the allowlist),
+RSI(4H) 46.3 and RSI(1H) 55.3 both above neutral, MACD(4H) improving (macd above signal, gap
+narrowing), ADX(4H) 37.5 showing a real trend forming, today's change +0.63% vs. BTC's -0.35%.
+Pulled Stage B (`get_ohlcv`, 4H and 1H, 20 bars each) for AAVE specifically — excluded the
+still-forming last bar on both timeframes per the no-forming-candle rule (4H bar t=1794873600,
+00:00-04:00Z, and 1H bar t=1794877200, 01:00-02:00Z, both span the 01:37:34Z cycle time).
+
+**AAVE evaluated in full against §21 item 3 — NEAR-MISS, item 7 (no confirmed 1H trigger), not a
+qualifying trade:**
+- Catalyst/RS (item 2): **holds** — the +0.63%-vs.-BTC-(-0.35%) divergence above is a specific,
+  checkable comparison.
+- Confirmation role-groups (item 3): marginal **1-of-5** — Momentum confirms (RSI(4H) 46.3, just
+  above the 45 floor, and MACD(4H) improving/narrowing toward a crossover), clearing the 2026-10-28
+  1-of-5 floor on its own. Volume does **not** confirm: the last completed 4H bar (t=1794859200,
+  close $108.52, volume 12,566.8) sits well below the §13.H 3-bar baseline (avg of the 3 preceding
+  completed 4H bars = 23,478.0) — not the required 1.2x. Price is holding above the $107.93
+  structural low established during the prior (now-stopped-out) AAVE trade, a Location-adjacent
+  observation, but not a clean breakout/retest in its own right.
+- **Item 7 fails**: the 4H chart shows a plausible basing/consolidation structure (holding the
+  $107.93 low, RS divergence, improving momentum), but the 1H chart over the last ~10 completed
+  bars is genuinely choppy (range ~$106.76-$109.72, no decisive hourly close reclaiming any
+  specific level) — there is no clean, nameable hourly trigger to point to. A 4H setup without a
+  confirming hourly trigger stays OBSERVE per §21 item 3's own text.
+- **Added to `near_miss_queue.md`** (Crypto §21 table) for rotation/reassessment on subsequent
+  cycles, tagged item 7, with items 2/3's partial evidence logged so a future cycle isn't
+  re-deriving this from scratch.
+
+**Per-symbol disposition:** BTC, ETH, SOL, XRP, LINK, HBAR, AVAX — rejected with evidence (0
+qualifying role-groups or wrong-direction 4H setup). AAVE — near-miss, item 7, added to queue.
+**0 cleared, 0 trades.**
+
+**OBSERVE — no trade this cycle.**
+
+**TRADING_VIEW_2 usage:** 1 Stage-A batch call + 2 Stage-B OHLCV calls (AAVE 4H, AAVE 1H) = **3
+calls this cycle.** No tool failures.
+
+**No order placed. `near_miss_queue.md` updated (AAVE added).**
+
+```json
+{"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T01:37:34Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 1, "added_symbol": "AAVE", "added_blocker": "item_7_no_1h_trigger"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 300.14, "git_push": "pending"}
+```
