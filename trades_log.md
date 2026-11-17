@@ -74735,3 +74735,135 @@ yet (threshold is 6 consecutive failed cycles).
 ```json
 {"cycle": "Crypto 24/7 Scan (§21)", "timestamp_utc": "2026-11-17T14:37:25Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "DATA_BLOCKED", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": ["AAVE", "AVAX", "BTC", "ETH", "HBAR", "LINK", "SOL", "XRP"], "tool_failures": 8}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "note": "AAVE row left unchanged — no fresh data this cycle to reassess against (TRADING_VIEW_2 daily quota exceeded)"}, "tvremix_consecutive_failed_cycles": 1, "calls_made_this_cycle": 1, "exits": [], "entries": [], "orders_placed": 0, "portfolio_heat_headroom": 301.22, "git_push": "pending"}
 ```
+
+### 2026-11-17T15:04:14Z UTC / 07:04:14 PT — AUTONOMOUS (Mode B/C First Scan of Day, 10am ET)
+
+**Trigger:** `trig_01RN6ZbtgxKpoDApzmGswWAs`, confirmed via ReadNotifications. §14 Status ACTIVE,
+no kill phrase found. DST check: 15:04 UTC = 10:04am ET (EST, UTC-5) — cron and actual ET time
+aligned, no drift.
+
+**Robinhood MCP:** connectivity normal. `get_portfolio` $5,512.68 equity (cash $3,867.94,
+equity_value $1,644.74). `get_equity_positions`: 2 open Mode B positions (SQQQ 18 sh @ $44.81,
+SOXS 14 sh @ $57.76 — both §22 leveraged/inverse ETFs). 0 Mode C positions. `get_option_positions`
+(nonzero=true): 0 — step 2b moot.
+
+**Circuit breakers (§6):** same-day 2-stop-out cooldown 0/2 for 2026-11-17 UTC. Market-shock:
+SPY $737.20 vs. prior close $739.95 (-0.37%), QQQ $659.35 vs. prior close $661.75 (-0.36%) — both
+under 1.5%, no shock. No breaker active.
+
+**Portfolio heat cap (§3):** SQQQ $0 (stop ratcheted to breakeven+, confirmed resting $45.30 vs.
+avg cost $44.81), SOXS $29.54 (stop $55.65 vs. avg cost $57.76, not yet at breakeven). Total heat
+$29.54 of $330.76 (6% of $5,512.68) — $301.22 headroom.
+
+**Mode B equity stop-audit (2a):** `get_equity_orders(state_group=open)` — both SQQQ ($45.30) and
+SOXS ($55.65) stops confirmed resting (state: confirmed, trigger: stop). 0 missing, 0 placed.
+
+**§18/§19 options/LEAPS stop-check (2b):** 0 open option positions — moot, nothing to check.
+
+**TradingView (TRADING_VIEW_2) connector: still BUDGET_BLOCKED this cycle — same daily-quota
+exhaustion as the prior crypto cycle, confirmed by a fresh attempt at this cycle's own Stage A
+step** (`mcp-tv-get-symbol-data-batch` on the 50-name first half of the watchlist → `TOOL_QUOTA_EXCEEDED`,
+"daily usage limit" + an active cooldown). Per the Exhaustion Handling note, fell back to
+Robinhood's own `get_equity_quotes`/`get_equity_historicals`/`get_equity_technical_indicators` for
+both Stage 1 and Stage 2 this cycle — logged explicitly, not silently. (A separate, user-requested
+manual retry of the connector between the last crypto cycle and this one also failed the same
+way — same outage, not a new event.)
+
+**Stage 1 — full-universe triage (74/74, via Robinhood quotes, 2 batched calls):** completed in
+full. Broad risk-off tape this morning: SPY -0.37%, QQQ -0.36%, most individual names red.
+Standout decliners: FIG -4.87%, NOW -4.57%, LMND -4.41%, ZS -3.49%, BE -2.89%, SHOP -1.77%, MU
+-2.56%, TSM -2.42%. Standout advancers bucking the tape: CBRS +3.89%, DIS +2.22%, VRT +2.55%,
+NBIS +2.41%, GDX +1.62%, SLV +1.43%.
+
+**Near-miss queue reassessment (Mode B/C equities table) — 2 of 12 Stage-2 slots, per the
+reservation rule:**
+- **HPE — still near-miss, item 7.** Daily setup now more thoroughly confirmed than before (3 of
+  5 role-groups: Trend/State, RS, Volume/Momentum) — RS vs. SPY quantified for the first time at
+  -16.43pp. Friday's final hour was a modest up-bounce, not a confirmed bearish continuation; no
+  completed hourly bar exists yet today. Cycles checked: 11.
+- **DUOL — still near-miss, item 7, setup shape materially changed.** Friday's final 2 hours
+  faded hard off the day's high ($173.065→$168.75) — the extension-chase thesis (stale
+  $164.90/0.64:1 R:R) is no longer the live read. Today's price is pulling back toward real
+  higher-low support (~$162) instead, which could support a much tighter stop once a completed
+  hourly bar actually confirms a reversal/reclaim. No completed bar yet today. Cycles checked: 3.
+
+**Stage 2 — full-gate evaluation, 12/12 slots used (2 near-miss reassessment + 10 rotation,
+selected from Stage 1's standout movers given no persisted rotation pointer exists under the
+Robinhood-fallback path — disclosed as a real limitation, not the ordinary least-recently-
+evaluated rotation):**
+
+*New near-misses added (item 7 — daily setup confirmed, no completed hourly bar exists yet today
+since the session opened only ~45 minutes before this cycle fired):*
+- **DIS** (bullish, §13.G breakout-continuation) — 4 of 5 role-groups confirmed (Trend/State,
+  Momentum, RS +11.38pp vs. SPY, Location: breaking above the $120.44 consolidation ceiling).
+  Breakout is on today's still-forming candle only.
+- **FIG** (bearish, routes to §18 put only — no inverse-ETF path) — 3 of 5 confirmed (Trend/State,
+  Momentum, RS -11.44pp vs. SPY). Approaching but hasn't broken the $18.08 floor yet.
+- **NOW** (bearish, §18 put only) — 3 of 5 confirmed, RS -28.99pp vs. SPY (severe post-10/29-
+  earnings-crash decline). Breaking the $97.00 floor intraday, unconfirmed.
+- **ZS** (bearish, §18 put only) — 3 of 5 confirmed, RS -9.3pp vs. SPY. Breaking Friday's range
+  floor intraday, unconfirmed.
+- **BE** (bearish, §18 put only) — 2 of 5 confirmed (Trend/State, RS -20.85pp vs. SPY; Momentum
+  ambiguous this cycle). Breaking the recent floor intraday, unconfirmed.
+
+*Rejected with evidence (5):*
+- **NBIS** — bearish structure (Trend/State, RS -43.14pp vs. SPY [NBIS -43.14% Oct15→Nov16 vs.
+  SPY -4.13%], Momentum) is well-confirmed, but today's price is UP +2.41%, bouncing directly
+  against the thesis — no bearish trigger available, item 7 fails outright this direction;
+  bullish case also fails (Trend/State, RS both bearish).
+- **GDX** — insufficient confirmation either direction: RSI 40.9 (not improving), MACD
+  essentially flat, EMA9<EMA20 still bearish despite today's +1.62% bounce, RS -5.15pp vs. SPY
+  (underperforming despite being a "safe-haven" metals ETF). Item 3.
+- **CBRS** — extreme multi-week volatility (±20%+ daily swings) with only Momentum
+  (histogram improving off deeply oversold) arguably confirming; Trend/State and overall
+  structure remain bearish/choppy with no clean stop achievable. Item 3.
+- **VRT** — today's +2.55% bounce is against an intact bearish structure (Trend/State, RS
+  -8.01pp vs. SPY both bearish); no same-direction confirming trigger available either way.
+  Item 7.
+- **LMND** — mixed/ambiguous signals: RSI neutral (52.15), EMA9/20 nearly flat/converging, RS
+  negligible (+1.08pp vs. SPY, not a specific strong signal), and today's -4.41% move reverses
+  the recent bullish momentum rather than confirming a timed entry either direction. Item 3.
+
+**Per-symbol labeling:** evaluated/rejected-with-evidence (12 total: HPE, DUOL unchanged
+near-miss; DIS, FIG, NOW, ZS, BE added as new near-misses; NBIS, GDX, CBRS, VRT, LMND rejected).
+Not evaluated — rotation, not yet reached this cycle (62): every other `watchlist.md` name,
+deferred to a future cycle's rotation slot (no tool failures — this is a capacity/rotation
+reason, same principle as the ordinary TradingView-available cycles, just with a smaller 12-name
+cap this cycle since the fallback path required per-name manual indicator/historicals calls
+rather than one cheap batched TradingView call).
+
+**§18/§19 options sourcing (3a/3b):** no underlying cleared the full gate this cycle (every
+candidate landed as near-miss-on-item-7 or rejected) — no options contract was sourced or priced
+against any of them. Proactive earnings/politician-trade/IV-based sourcing was not separately run
+this cycle; budget was prioritized toward the mandatory full-universe Stage 1 pass and the Stage 2
+near-miss reassessment given the TradingView outage. Labeled NOT_EVALUATED — budget prioritized
+elsewhere this cycle, not a rejection.
+
+**§22 leveraged/inverse-ETF screen (3c):** **concurrent-position cap already at 2/2** (SQQQ +
+SOXS, confirmed via step 1). No capacity exists for a new leveraged/inverse-ETF entry this cycle
+regardless of what a fresh screen would find, so all 9 allowlisted names (TQQQ, SQQQ, SOXL, SOXS,
+SPXL, SPXU, TNA, TZA, AMDG) are labeled **NOT_EVALUATED — concurrent-position cap already at 2/2**,
+same precedent as a same-day-stop-out-cooldown cycle. `coverage_complete: true` (a deliberate,
+documented capacity reason, not a gap). Existing SQQQ/SOXS protective management is unaffected —
+see the stop-audit above.
+
+**Mode C (9-13):** 0 Mode C positions (stop-audit moot). No VWAP-pullback/ORB/mean-reversion
+screen run this cycle — the opening range (first 30-60 min) has not yet elapsed at 45 minutes into
+the session, so there is no completed opening range to break out of yet. Deferred to the next
+Fresh Candle cycle (~16:03 UTC) once a genuine opening range exists. Daily entry count: 0/8 so
+far today (ceiling, not a quota).
+
+**No order placed in Mode B or Mode C this cycle.** Every candidate that reached Stage 2 either
+remains a genuine near-miss (daily setup real, hourly trigger not yet confirmable — a structural
+limitation of firing at market open, 45 minutes before any hourly bar can complete) or was
+rejected with real, computed evidence. This is a legitimate, fully-covered no-trade first scan.
+
+**TRADING_VIEW_2 usage:** 1 failed Stage-A call attempt this cycle (`TOOL_QUOTA_EXCEEDED`), 0
+successful. `tvremix_calls_used_today` (sum of all today's logged cycles, this one included):
+**42**. Robinhood-side calls this cycle: 2 quotes batches + 4 historicals (2 daily batches of 6 +
+2 hourly batches) + 1 SPY/QQQ historicals + 4 technical-indicator batches (RSI×2, MACD×2) + 2 more
+EMA batches×2(9,20) = 15 total Robinhood data calls, plus the account/position/order checks.
+
+```json
+{"cycle": "Mode B/C First Scan of Day", "timestamp_utc": "2026-11-17T15:04:14Z", "coverage_state": "EVALUATED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 2, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 74, "full_gate_evaluated": 12, "rejected_with_evidence": 5, "not_evaluated": 62, "tool_failures": 0, "note": "TRADING_VIEW_2 BUDGET_BLOCKED (daily quota) this cycle — Stage 1/Stage 2 ran via Robinhood get_equity_quotes/get_equity_historicals/get_equity_technical_indicators fallback per the exhaustion-handling note; Stage-2 cap effectively limited to 12 names this cycle (vs. the normal TradingView-batched cap) given the fallback's higher per-name call cost"}, "near_miss_queue": {"reassessed": 2, "cleared": 0, "still_near_miss": 2, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 5, "amd_pending_eligibility_status": "not checked this cycle - budget prioritized elsewhere"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "concurrent-position cap already at 2/2 (SQQQ, SOXS) - no capacity for a new entry this cycle"}], "coverage_complete": true}, "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0, "note": "no underlying cleared the full gate this cycle to source an option against"}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "opening range not yet elapsed, 45 min into session at cycle time"}, "calls_made_this_cycle": 1, "tvremix_calls_used_today": 42, "exits": [], "entries": [], "orders_placed": 0, "mode_c_daily_entries": 0, "git_push": "pending"}
+```
