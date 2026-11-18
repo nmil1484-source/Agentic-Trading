@@ -75940,3 +75940,50 @@ AVAX ($7.146, RSI 45.0/41.1).
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-18T04:37:22Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 20, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+### 2026-11-18T05:38:04Z UTC / 2026-11-17T21:38:04 PT — AUTONOMOUS (Crypto 24/7 Scan, §21)
+
+**Execution-origin validation:** `trigger_id: trig_01UUXAtYHjn7nBgzkdvZU4Rv` confirmed via
+`ReadNotifications`. §14 Status ACTIVE. No kill phrase. Robinhood MCP: live (verified via a
+direct `get_accounts` call despite a stale ambient "needs authentication" system-reminder).
+
+**Account:** $5,013.57 total, 100% cash. 0 crypto positions (0/2 cap), 0 Mode B/C/options
+positions. **Circuit breakers:** 1/2 same-day stop-outs (SOL, 01:00:20Z — cooldown not active).
+Market-shock: inapplicable (equity markets closed overnight). **Heat cap:** $0 of $300.81 — full
+headroom.
+
+**TradingView: confirmed still EXHAUSTED** (`should_attempt_tradingview` → False, `attempts: 3`,
+status EXHAUSTED for 2026-11-18). Went straight to Kraken-fallback cache — **both 4h and 1h
+cache fresh for all 8 pairs (reused, 0 fetches, 0 TradingView calls this cycle).** 4h cache last
+bar t=1794960000 (04:00Z, correctly within the still-forming 04:00-08:00 4H candle); 1h cache
+last bar t=1794970800 (05:00Z, correctly the most recent completed 1H bar for this 05:38Z cycle).
+
+**Near-miss queue: empty**, nothing to reassess.
+
+**Full allowlist screen — all 8 remain structurally unqualified. All 8 REJECTED:**
+- **SOL**: 4H close $75.11 above prior 4H swing high $74.26 (a 4H setup exists) but 1H close
+  $74.45 remains below the 1H swing high $75.69 — no confirming 1H trigger. Same setup already
+  traded and stopped out this session. Rejected — item 7.
+- **XRP**: 4H close $0.9826 above prior 4H swing high $0.9783 (4H setup exists) but 1H close
+  $0.97313 well below the 1H swing high $0.99073 — confirms last cycle's invalidation still
+  stands, no 1H trigger. Rejected — item 7.
+- **AVAX**: 4H close $7.286 marginally above prior 4H swing high $7.283 but 1H close $7.14, well
+  below the 1H swing high $7.306 — no 1H trigger. Rejected — item 7.
+- **BTC**: no fresh 4H breakout (close $64,877 vs. prior swing high $65,378.70); 1H RSI 39.5,
+  declining. Rejected — item 3/7.
+- **ETH**: no fresh 4H breakout (close $1,822.90 vs. prior swing high $1,841.74); 1H RSI 42.0.
+  Rejected — item 7.
+- **LINK**: no fresh 4H breakout (close $9.31175 vs. prior swing high $9.3692); 1H RSI 40.8.
+  Rejected — item 7.
+- **AAVE**: no fresh 4H breakout (close $112.43 vs. prior swing high $114.35); 1H RSI 36.4,
+  still declining. Rejected — item 3/7.
+- **HBAR**: no fresh 4H breakout (close $0.05834 vs. prior swing high $0.05868, marginal miss);
+  1H RSI 43.0. Rejected — item 7.
+
+**No order placed.** Account remains fully flat. Quiet, stable overnight cycle — the three pairs
+with a live 4H setup (SOL, XRP, AVAX) all remain unconfirmed on the 1H leg of the dual-timeframe
+test, same pattern as the last several cycles.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-18T05:38:04Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0, "note": "queue empty"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 20, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
