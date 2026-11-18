@@ -76308,3 +76308,27 @@ not reassessed. No TradingView/Kraken calls needed.
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-18T13:37:42Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": ["same_day_2_stop_out_cooldown"], "same_day_stop_out_count": 2, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 8, "tool_failures": 0, "not_evaluated_reason": "circuit breaker active (same-day 2-stop-out cooldown)"}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0, "note": "queue empty; not reassessed, no screening"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 20, "data_source": "none", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+### 2026-11-18T14:08:41Z UTC / 2026-11-18T06:08:41 PT — PREMARKET_PREP (Premarket Preparation Scan, read-only)
+
+**STEP 0:** CLAUDE.md §14 Status: ACTIVE. No kill phrase found. (Read-only trigger — this check
+is informational only, not an authorization gate.)
+
+**STEP 1 (call 1 of 10):** `get_ohlcv(AMEX:SPY, 5m, count=3)` — **failed: `TOOL_QUOTA_EXCEEDED`**
+(TradingView's daily MCP quota, already recorded exhausted earlier today by the Crypto 24/7
+trigger — consistent with that state, recorded again here for continuity). This trigger has no
+non-TradingView fallback defined (unlike crypto's Kraken fallback) — the SPY freshness check
+itself cannot run, so premarket data cannot be independently verified as live this cycle.
+
+**Per STEP 1's own degraded-connector handling: no candidate reported this cycle** — a stale/
+unverifiable premarket read is worse than no read. `coverage_state:
+DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE` (outage case, not a holiday — today is a regular weekday
+and the outage is independently confirmed as TradingView's known daily quota exhaustion, not a
+market closure). Steps 2-7 (watchlist batch, screener, shortlist, catalyst check,
+`premarket_shortlist.md` write) are skipped entirely — no candidates to persist.
+`premarket_shortlist.md` not modified this cycle. `calls_made_this_cycle: 1` (well under the
+10-call cap).
+
+```json
+{"cycle": "premarket_prep", "timestamp_utc": "2026-11-18T14:08:41Z", "read_only": true, "calls_made_this_cycle": 1, "coverage_state": "DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE", "candidates_found": 0, "watchlist_candidates": 0, "offwatchlist_research_only_candidates": 0, "git_push": "pending"}
+```
