@@ -207,7 +207,18 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| SOL | crypto spot | Item 3's dual-timeframe test: 1H execution trigger confirmed again this cycle (close $73.99 > prior 1H swing high $73.95, bar t=1794952800), RSI now 62.6 — but still no genuine 4H setup. The 4H bar itself has not completed a fresh close since this near-miss was first queued (same stale 4H values both cycles: EMA9 $72.46 < EMA20 $73.21, RSI 52.73) — the daily-equivalent timeframe hasn't moved at all while 1H keeps confirming | Confirmation clears (1H EMA9>20>50 bullish alignment + 2 consecutive confirmed breakouts); RS vs. BTC +1.10pp/6h (modest); stop/R:R not computed — no 4H setup to anchor a stop against yet | 2026-11-17T22:00Z (1h), 2026-11-17T16:00Z (4h, unchanged) | 2026-11-17T22:37Z | 2 | 2026-11-27T22:37Z |
+| XRP | crypto spot | Stop-distance validation unresolved: both 4H (close $0.9837 > prior 4H swing high $0.9793, bar t=1794945600) and 1H (close $0.9837 > prior 1H swing high $0.9793, bar t=1794956400) breakouts are genuinely confirmed with strong 1H volume (2.15x §13.H baseline), but live price ($0.9799) has already pulled back to barely above the broken level itself — a stop placed just beyond that level (per §13.G item 4) is <0.5x ATR(1h) from entry, triggering `needs_structural_justification` with no independently-confirmed deeper swing low checked yet this cycle | Confirmation clears (Location: breakout; Volume: 2.15x); RS vs. BTC +0.82pp/6h (modest but real); R:R not finalized pending a verified structural stop | 2026-11-18T00:00Z (1h close), 2026-11-18T00:00Z (4h close, via TradingView/Binance — note: this pair's levels use the TradingView/Binance price basis, not the Kraken basis used for pre-11/18 crypto cycles, since TradingView's quota reset for the new UTC day and this cycle used it per protocol | 2026-11-18T00:37Z | 1 | 2026-11-28T00:37Z |
+
+**Cleared 2026-11-18T00:37Z — SOL, cleared into a real live trade.** Both 4H (close $75.19 >
+prior 4H swing high ~$73.54, bar t=1794945600) and 1H (close $75.19 > prior 1H swing high $74.20,
+bar t=1794952800) breakouts confirmed on fresh TradingView/Binance data (TradingView's daily quota
+reset for the new UTC day, used per protocol instead of the Kraken fallback). 1H volume 2.08x the
+§13.H baseline; RS vs. BTC +1.91pp/6h — a real, checkable edge. Stop placed at $74.10 (just below
+the broken level, §13.G item 4), passing both `validate_stop_distance` checks (within the 2-2.5x
+ATR(1h) ceiling at $0.9569 ATR, and above the 0.5x-ATR tight-stop threshold). R:R at the actual
+fill (19.9 SOL @ avg $75.8949) = 1.60:1, clearing the 1.5:1 floor. See the
+2026-11-18T00:37:28Z trades_log.md entry and Trade Card for the full detail. Removed from the
+queue — this is the referenced live trade, not carried forward as a near-miss.
 
 **Removed 2026-11-17T17:38Z — AAVE, invalidated (not merely still a near-miss — a different,
 harder item now fails).** First reassessment using the new Kraken-fallback data path (TradingView
