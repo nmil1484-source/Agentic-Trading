@@ -207,7 +207,17 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| XRP | crypto spot | Stop-distance validation unresolved: both 4H (close $0.9837 > prior 4H swing high $0.9793, bar t=1794945600) and 1H (close $0.9837 > prior 1H swing high $0.9793, bar t=1794956400) breakouts are genuinely confirmed with strong 1H volume (2.15x §13.H baseline), but live price ($0.9799) has already pulled back to barely above the broken level itself — a stop placed just beyond that level (per §13.G item 4) is <0.5x ATR(1h) from entry, triggering `needs_structural_justification` with no independently-confirmed deeper swing low checked yet this cycle | Confirmation clears (Location: breakout; Volume: 2.15x); RS vs. BTC +0.82pp/6h (modest but real); R:R not finalized pending a verified structural stop | 2026-11-18T00:00Z (1h close), 2026-11-18T00:00Z (4h close, via TradingView/Binance — note: this pair's levels use the TradingView/Binance price basis, not the Kraken basis used for pre-11/18 crypto cycles, since TradingView's quota reset for the new UTC day and this cycle used it per protocol | 2026-11-18T00:37Z | 1 | 2026-11-28T00:37Z |
+
+**Removed 2026-11-18T01:37Z — XRP, invalidated (structural reversal, not merely still a
+near-miss).** Reassessed with fresh TradingView data (same session as last cycle's own Stage B
+pull, no re-fetch needed for this pair before the quota re-exhausted mid-cycle). The 1H execution
+trigger that qualified this candidate last cycle — close $0.9837 above the broken level $0.9793 —
+has now reversed: the next completed 1H bar (t=1794960000) closed **$0.9781, back below** that
+same $0.9793 level. The breakout failed to hold. 4H itself hasn't produced a fresh close yet
+(still the same $0.9837 bar), but the 1H leg of the dual-timeframe test is what this candidate's
+qualification actually depended on, and that leg has now flipped to the opposite side of the
+level. Removed as invalidated per the same "different, harder item now fails" principle used for
+AAVE's 2026-11-17 and 2026-11-12 removals — not carried forward as a lingering near-miss.
 
 **Cleared 2026-11-18T00:37Z — SOL, cleared into a real live trade.** Both 4H (close $75.19 >
 prior 4H swing high ~$73.54, bar t=1794945600) and 1H (close $75.19 > prior 1H swing high $74.20,

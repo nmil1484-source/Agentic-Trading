@@ -75774,3 +75774,77 @@ cap. **Stop-audit:** 1 checked (SOL), 0 missing, 1 placed and confirmed resting 
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-18T00:37:28Z", "coverage_state": "TRADE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"crypto_count": 1}, "stop_audit": {"checked": 1, "missing_found": 0, "placed": 1}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 6, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 1, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 1, "note": "SOL cleared into a real trade; XRP added (stop-distance validation unresolved)"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 17, "tvremix_calls_used_today": 17, "data_source": "tradingview", "tradingview_quota_status": "AVAILABLE", "stop_distance_validation": {"symbol": "SOL", "exceeds_ceiling": false, "needs_structural_justification": false, "atr_1h": 0.9569, "stop_distance": 1.795, "ceiling_multiple_low": 2.0, "ceiling_multiple_high": 2.5}, "exits": [], "entries": [{"symbol": "SOL", "mode": "crypto", "qty": 19.9, "price": 75.8949}], "orders_placed": 2, "portfolio_heat_after": 35.72, "git_push": "pending"}
 ```
+
+### 2026-11-18T01:37:53Z UTC / 2026-11-17T17:37:53 PT — AUTONOMOUS (Crypto 24/7 Scan, §21)
+
+**Execution-origin validation:** `trigger_id: trig_01UUXAtYHjn7nBgzkdvZU4Rv` confirmed via
+`ReadNotifications`. §14 Status ACTIVE. No kill phrase. Robinhood MCP: live (fresh
+container/session this cycle — reconfirmed via `get_accounts`; `dev_scanner/state/` persisted
+correctly across the restart since it's committed to git each cycle).
+
+**MATERIAL FINDING — SOL stop-out, discovered at cycle start.** `get_crypto_positions` returned
+empty (0 positions) where 1 was expected from the prior cycle's entry. `get_crypto_orders`
+confirmed: the resting stop (order `6afcf4a5-...`, stop $74.10) **filled** at 2026-11-18T01:00:20Z
+UTC, avg price **$74.0915**, full 19.9 SOL. Price fell through the stop within ~17 minutes of
+entry. **Realized loss: −$35.89** ((74.0915−75.8949)×19.9 − fees), matching the account's actual
+equity change exactly ($5,049.46→$5,013.57). This is the account's **1st stop-out today
+(2026-11-18 UTC)** — same-day 2-stop-out cooldown is 1/2, not yet active.
+
+**TRADE CARD**
+
+---
+**STRATEGY: SWING_TRADING** | **CRYPTO** (§21) | **EXIT — STOP-OUT**
+- Pair: SOL-USD
+- Entry: 19.9 SOL @ $75.8949 (2026-11-18T00:42:56Z) | Exit: 19.9 SOL @ $74.0915 (stop_loss,
+  triggered 2026-11-18T01:00:20Z, ~17 min after entry)
+- Realized P&L: **−$35.89** (−2.37% on cost) — within the planned risk budget ($35.72 planned
+  vs. $35.89 actual; the $0.17 difference is normal stop slippage)
+- Reason: resting protective stop triggered — a genuine, fast reversal of the breakout this
+  position was entered on; no rule violated, the stop worked exactly as designed
+- Status: **EXIT — STOP-OUT, FILLED**
+
+---
+
+**Account now fully flat**: $5,013.57 total, 100% cash. 0 crypto/Mode B/Mode C/options positions
+anywhere. **Portfolio heat cap: $0 of $300.81** (6% of $5,013.57) — full headroom.
+
+**TradingView: AVAILABLE for 2026-11-18, then re-exhausted mid-cycle.** Stage A batch succeeded
+(1 call). Stage B: XRP's 4h+1h succeeded (2 calls, confirming the near-miss reassessment below),
+then BTC's 4h call returned `TOOL_QUOTA_EXCEEDED` with a 10-minute cooldown — the daily quota reset
+this morning (~17 calls used) was itself exhausted again after only 3 more calls this cycle,
+confirming the per-day ceiling is materially tighter than yesterday's ~46-call usage suggested (or
+that the add-on's limits reset on a shorter cycle than 24h). Recorded `quota_error=True` — no
+further TradingView calls attempted this cycle. **Fell back to Kraken for the remaining 7 pairs**
+(BTC, ETH, SOL, LINK, AAVE, HBAR, AVAX), all `status: "OK"` (14 fetches). **Mixed data source this
+cycle: XRP via TradingView/Binance, the other 7 via Kraken** — logged explicitly per the
+per-pair data_source requirement.
+
+**Near-miss queue (Crypto §21): XRP reassessed and INVALIDATED** (see `near_miss_queue.md` —
+the 1H execution trigger that qualified it last cycle has reversed: the next completed 1H bar
+closed back below the broken level). No other symbols queued this cycle.
+
+**Full allowlist screen — all 8 REJECTED, 0 qualifying:**
+- **XRP**: invalidated (above) — item 7, 1H trigger reversed.
+- **SOL**: Kraken-basis 4H shows the same breakout already traded (now echoed on this basis too,
+  not new information), but **1H does not confirm** (close $74.91 below the 1H swing high
+  $75.69) — no fresh trigger. This is the same setup already traded and stopped out this cycle;
+  not re-entered. Rejected — item 7, no fresh 1H trigger, and would be a same-setup re-entry
+  regardless.
+- **AVAX**: 4H shows only a marginal, noise-level print above its prior swing high ($7.286 vs.
+  $7.283, +$0.003) — not treated as a decisive breakout; 1H doesn't confirm at all (close $7.244
+  below 1H swing high $7.306). Rejected — item 3/7, insufficient margin.
+- **BTC**: 4h/1h closes ($64,877/$64,719.50) remain below recent swing highs ($65,378.70/
+  $65,184.10). RSI improving (51.5/58.6) but no Location confirm. Rejected — item 7.
+- **ETH**: closes ($1,822.90/$1,818.62) below recent highs ($1,841.74/$1,833.48). Rejected —
+  item 7.
+- **LINK**: closes ($9.31175/$9.24813) below recent highs ($9.3692/$9.39932). Rejected — item 7.
+- **AAVE**: closes ($112.43/$112.04) below recent highs ($114.35/$113.31) — same as last cycle,
+  still basing. Momentum good (RSI 68.6/57.5) but Location doesn't confirm. Rejected — item 7.
+- **HBAR**: closes ($0.05834/$0.05775) below/at recent highs ($0.05868/$0.05834). Rejected —
+  item 7.
+
+**No order placed.** Account fully flat after the stop-out; no new candidate cleared.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-18T01:37:53Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot - the SOL stop already filled and closed the position"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 0, "invalidated": 1, "ineligible": 0, "expired": 0, "added": 0, "note": "XRP invalidated - 1H trigger reversed below the broken level"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 3, "tvremix_calls_used_today": 20, "data_source": "mixed (XRP: tradingview; BTC/ETH/SOL/LINK/AAVE/HBAR/AVAX: kraken_fallback)", "tradingview_quota_status": "EXHAUSTED", "exits": [{"symbol": "SOL", "reason": "resting_protective_stop", "realized_pl": -35.89, "fill_time": "2026-11-18T01:00:20Z"}], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
