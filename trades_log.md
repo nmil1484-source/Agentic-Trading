@@ -76122,3 +76122,94 @@ worth a close look at the next completed 4H candle (10:00Z).
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-18T09:37:22Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0, "note": "queue empty"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 20, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+### 2026-11-18T10:38:01Z UTC / 2026-11-18T02:38:01 PT — AUTONOMOUS (Crypto 24/7 Scan, §21) — REAL FILL
+
+**Execution-origin validation:** `trigger_id: trig_01UUXAtYHjn7nBgzkdvZU4Rv` confirmed via
+`ReadNotifications`. §14 Status ACTIVE. No kill phrase. Robinhood MCP: live.
+
+**Account (pre-trade):** $5,013.57 total, 100% cash. 0 crypto positions (0/2 cap), 0 Mode B/C/
+options. **Circuit breakers:** 1/2 same-day stop-outs (unchanged, cooldown not active).
+Market-shock: inapplicable. **Heat cap:** $0 of $300.81 — full headroom.
+
+**TradingView: confirmed still EXHAUSTED.** Both 4h and 1h cache stale for all 8 pairs (a fresh
+4H bar completing at 10:00Z, plus the hourly 1H roll) — fetched fresh from Kraken for both
+timeframes, all 8 pairs (16 fetches, all `status: "OK"`). **0 TradingView calls this cycle.**
+
+**Near-miss queue: empty**, nothing to reassess.
+
+**Full allowlist screen — XRP CLEARS the full §21 item 3 gate:**
+- **XRP**: fresh completed 4H bar (t=1794974400, 06:00-10:00Z) closed **$1.00128**, decisively
+  above the prior 4H swing high **$0.99073** — a confirmed 4H breakout. The concurrent 1H bar
+  (t=1794985200) also closed $1.00128, above the prior 1H swing high $0.98877 — a confirmed 1H
+  execution trigger. Both legs of the dual-timeframe test clear on the same fresh candle.
+  - **Confirmation role-groups (≥1 of 5 required, cleared on at least 3):** Trend/State — 4H
+    EMA9 ($0.97087) > EMA20 ($0.96469), bullish alignment. Location — breakout/retest above the
+    confirmed prior 4H and 1H swing highs. Momentum — RSI14(4h) 61.0 (improving from 56.98 last
+    cycle), RSI14(1h) 83.6 (extreme but not vetoed per §13.F's RSI-exhaustion removal). Volume on
+    the 4H breakout bar (3,192,125) came in at 0.44x the §13.H 3-bar baseline (7,258,776) — does
+    NOT confirm — but Trend/State, Location, and Momentum all independently confirm regardless.
+  - **Catalyst/RS (item 2):** relative strength vs. BTC — XRP's 4H bar gained +2.56% (close
+    $0.97631→$1.00128) over the same window BTC gained +0.66% ($64,382.40→$64,805.40) — a
+    checkable, specific RS outperformance of **+1.90pp**, satisfying item 2.
+  - **Stop placement and validation:** structural stop placed just below the broken 4H/1H
+    resistance zone. The exact level ($0.9890-$0.9890, just under the broken $0.98877-$0.99073
+    zone) could not be used for the live order — the resting bid ($0.9877, then $0.987678) sat
+    below it, and Robinhood rejects a stop sell priced above the current bid (would trigger
+    immediately on a wide, thin-book spread at the time). Re-set to **$0.9860**, still a
+    structurally-defensible level just beyond the broken zone with a safety buffer against the
+    live book's width, and reconfirmed via `validate_stop_distance()`: distance 2.03% of entry,
+    within the 2-2.5x ATR(1H) ceiling (ATR(1h)=$0.009779, ceiling 2.5x≈2.44%) — **no ceiling
+    breach, no tight-stop flag.**
+  - **R:R:** target via the §13.F/§21 ATR_TARGET method (1.5x ATR(4H)=$0.021409) = $1.038527.
+    At the real fill price, R:R = **1.573:1**, clearing the 1.5:1 floor.
+  - **Sizing:** risk-per-trade budget = 0.75% of equity (halved default — no genuinely
+    reconstructed round-trip-based trailing profit factor exists for crypto per the 2026-11-03
+    Policy Reconciliation's insufficient-history default, so treated as below 1.0) = $37.60.
+    Risk-budget-implied quantity (~2,293 XRP) would exceed the 30%-of-equity per-position cap
+    ($1,504.07) — **the per-position cap binds**, sizing the trade smaller than the risk budget
+    allows (real risk $30.42, well under the $37.60 ceiling). Portfolio heat cap: $30.42 of
+    $300.81 headroom used — no resize needed beyond the per-position cap.
+
+**TRADE CARD — CRYPTO, XRP-USD**
+- Instrument: XRP (spot, §21 named allowlist)
+- Side: BUY (market), $1,500.00 notional requested
+- **Fill: 1,490.418 XRP @ avg $1.00641337 (total $1,499.98)**
+- 4H setup: breakout above prior 4H swing high $0.99073 (bar close $1.00128); EMA9>EMA20 bullish;
+  RSI14(4h) 61.0 improving. `swing_lookback: 5`.
+- 1H execution trigger: breakout above prior 1H swing high $0.98877 (bar close $1.00128); RSI14(1h) 83.6.
+- Catalyst/RS: +1.90pp RS outperformance vs. BTC over the same 4H window (dated, checkable).
+- Stop: **$0.9860** (stop_loss, GTC) — order id `6afd80fe-c59d-4dd1-9ba3-16f979504aa6`, **state:
+  confirmed, resting.**
+- Target: $1.038527 (1.5x ATR(4H) ATR_TARGET method)
+- R:R at fill: **1.573:1**
+- Max planned loss: $30.42 (2.03% of entry, within the 2-2.5x ATR(1H) stop-distance ceiling)
+- Position size vs. caps: $1,499.98 notional = 29.93% of pre-trade equity (30% per-position cap —
+  binding constraint); 0.75% risk-per-trade budget ($37.60) not fully used
+- Portfolio heat cap: $30.42 of $300.81 (6% of equity) — well within headroom
+- Concurrent crypto positions: 1/2
+- Data source: Kraken fallback (TradingView exhausted); confirmed fresh per `fetch_kraken_ohlc`'s
+  own staleness check
+
+**Account (post-trade):** $4,998.65 total (crypto $1,485.06, cash $3,513.59) — the small total-
+value dip vs. pre-trade ($5,013.57) reflects the bid-ask spread/market-order execution cost on a
+thin book, not a loss event; XRP has not moved against the position.
+
+**The other 7 pairs — all REJECTED, item 3 (no confirmed 4H setup):**
+- **BTC**: 1H close $64,805.40 breaks above the prior 1H swing high $64,780.20 — a real 1H
+  trigger — but the 4H leg does not confirm (4H close $64,805.40 still below the 4H prior swing
+  high $65,378.70, ~0.88% short). Same single-leg-only pattern XRP showed before it cleared;
+  worth watching next cycle.
+- **LINK**: 1H close $9.28242 breaks above the prior 1H swing high $9.27824, but 4H close
+  $9.28242 remains below the 4H prior swing high $9.39932 (~1.25% short). Same pattern.
+- **ETH**: no 4H breakout ($1,815.39 vs. $1,841.74 — wait, 4H close $1,815.39 vs. prior swing
+  high $1,833.48); 1H RSI 68.6 but below its own 1h swing high.
+- **SOL**: no 4H breakout ($75.10 vs. $75.69); 1H RSI 74.6 but below its own 1h swing high
+  $75.57.
+- **AAVE**: no 4H breakout ($111.05 vs. $114.35); 1H RSI 55.7.
+- **HBAR**: no 4H breakout ($0.05756 vs. $0.05868); 1H RSI 62.7.
+- **AVAX**: no 4H breakout ($7.193 vs. $7.306); 1H RSI 59.2.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-18T10:38:01Z", "coverage_state": "TRADE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "positions": {"crypto_count": 1}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 1, "note": "new XRP stop placed and confirmed resting"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0, "note": "queue empty"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 20, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [{"symbol": "XRP", "qty": 1490.418, "price": 1.00641337}], "orders_placed": 2, "git_push": "pending"}
+```
