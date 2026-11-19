@@ -77442,3 +77442,31 @@ SQQQ, SOXS, SPXU, TZA all show a genuinely intact two-sided setup (bearish under
 ```json
 {"cycle": "Mode B/C Entry Screening - Fresh Candle", "timestamp_utc": "2026-11-19T16:03:39Z", "coverage_state": "EVALUATED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open Mode B/C equity positions, audit moot"}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0, "note": "0 open options/LEAPS positions, audit moot"}, "coverage": {"universe_size": 74, "triaged": 11, "full_gate_evaluated": 11, "rejected_with_evidence": 9, "not_evaluated": 63}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "already resolved prior cycle"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 5, "not_evaluated": 0, "coverage_complete": true}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": 0, "deferred": 1, "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []}, "mode_c_orb": {"symbols_checked": 11, "no_breakout_yet": ["TTD","ONDS","PATH","ARKG","RGTI","RUN","AVAV","SQQQ","SOXS","SPXU","TZA"], "fresh_setups": [], "missed_not_evaluated": []}, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "robinhood_historicals_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-19T16:37:32Z UTC — Crypto 24/7 Scan (§21, AUTONOMOUS_EXECUTE)
+
+**STEP 0**: Confirmed via `ReadNotifications` — genuine scheduled-trigger delivery, `trigger_id: trig_01UUXAtYHjn7nBgzkdvZU4Rv`. §14 Status ACTIVE, no kill phrase on record.
+
+**Robinhood MCP connectivity**: confirmed working — clean live data.
+
+**Account state**: $4,983.31 total, 100% cash, 0 crypto positions, 0 positions in any mode. No same-day stop-out cooldown (0 stop-outs today). **Market-shock check**: SPY $730.52 (prev close $730.20, +0.04%), QQQ $663.83 (prev close $659.51, +0.66%) — both well under the 1.5% threshold; the intrahour reversal flagged by the 16:03Z Mode B/C Fresh Candle cycle has largely unwound by now. No circuit breaker active. Portfolio heat cap: full $298.99 headroom.
+
+**TradingView quota**: still `EXHAUSTED` for 2026-11-19. Kraken fallback used for all 8 pairs — the 4h candle rolled over for all pairs (fresh fetch, 732 bars each), 1h also refetched (767 bars each), all `status: OK`.
+
+**Market context — broad crypto selloff this cycle**, consistent with the equity-side reversal reported a half-hour ago. Confirmed 1h breakdowns (`current_below_prior_swing_low: True`) on BTC, ETH, SOL, XRP, LINK, AAVE, and AVAX — essentially the whole allowlist. AAVE is the standout: 4h RSI 28.9 (oversold), -4.21% over 4 bars (4h), -4.91% (1h) — a genuinely sharp decline, both 4h and 1h showing breakdowns. None of this is actionable under §21 (spot-only, buy-to-open longs only — no shorting).
+
+**Near-miss queue reassessment — all four queued pairs weakening, none yet invalidated outright**:
+- **SOL**: 1h breakdown confirmed. 4h Trend/State and Momentum still technically confirm but are the closest to flipping yet (EMA9 barely above EMA20, RSI just above 45). Kept, flagged as "watch closely."
+- **XRP**: same pattern, still barely confirming on 4h.
+- **LINK**: **4h Trend/State has now flipped bearish** (EMA9<EMA20) and RSI dropped below 45 — only MACD-improving keeps the Momentum role-group technically confirmed under the OR clause. Weakest reading yet; flagged that one more deteriorating cycle would likely invalidate this entry outright.
+- **AVAX**: similarly weakened — RSI now below 45, only MACD-improving keeps Momentum confirmed.
+
+**Full allowlist screen**: no bullish setup anywhere this cycle — every pair is declining or breaking down. All 8 rejected with evidence (bearish/no confirmation, not a permitted instrument direction).
+
+**Result: OBSERVE. No order placed.**
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-19T16:37:32Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 4, "cleared": 0, "still_near_miss": 4, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
