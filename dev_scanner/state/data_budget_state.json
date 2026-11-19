@@ -13,6 +13,12 @@
       "exhausted_at": 1795018121,
       "last_attempt_at": 1795018121,
       "last_success_at": 1794965948
+    },
+    "2026-11-19": {
+      "attempts": 1,
+      "exhausted": false,
+      "last_attempt_at": 1795048727,
+      "last_success_at": 1795048727
     }
   }
 }
