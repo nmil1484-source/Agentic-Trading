@@ -207,10 +207,10 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| SOL | Crypto spot | 1h RSI dropped to 45.6 (essentially neutral now), -1.79% over 4 bars, no confirmed breakdown. 4h bar still unchanged (3rd cycle on the same bar), still barely confirming. | 4h Trend/State and Momentum confirm, barely, unchanged | 2026-11-19T18:37:29Z (Kraken) | 2026-11-19T04:37:31Z | 15 | 2026-11-29 |
-| XRP | Crypto spot | 1h RSI 50.0, -2.42% over 4 bars, no confirmed breakdown. 4h bar unchanged, still barely confirming. | 4h Trend/State and Momentum confirm, barely, unchanged | 2026-11-19T18:37:29Z (Kraken) | 2026-11-19T05:37:57Z | 14 | 2026-11-29 |
-| LINK | Crypto spot | 1h RSI dropped to 39.0, -2.63% over 4 bars. 4h bar unchanged, still alive only via MACD-improving. | Momentum confirms only via MACD-improving; Trend/State does not | 2026-11-19T18:37:29Z (Kraken) | 2026-11-19T10:37:35Z | 9 | 2026-11-29 |
-| AVAX | Crypto spot | 1h RSI 45.1, -1.75% over 4 bars, no confirmed breakdown. 4h bar unchanged, still barely confirming via MACD-improving only. | Momentum confirms only via MACD-improving; Trend/State does not | 2026-11-19T18:37:29Z (Kraken) | 2026-11-19T14:37:32Z | 5 | 2026-11-29 |
+| SOL | Crypto spot | 1h RSI 44.6, -1.16% over 4 bars, no confirmed breakdown. 4h bar unchanged (5th cycle on same bar), still barely confirming. | 4h Trend/State and Momentum confirm, barely, unchanged | 2026-11-19T19:37:50Z (Kraken) | 2026-11-19T04:37:31Z | 16 | 2026-11-29 |
+| XRP | Crypto spot | 1h RSI 47.3, -1.36% over 4 bars, no confirmed breakdown. 4h bar unchanged, still barely confirming. | 4h Trend/State and Momentum confirm, barely, unchanged | 2026-11-19T19:37:50Z (Kraken) | 2026-11-19T05:37:57Z | 15 | 2026-11-29 |
+| LINK | Crypto spot | 1h RSI 41.9, -1.12% over 4 bars. 4h bar unchanged, still alive only via MACD-improving. | Momentum confirms only via MACD-improving; Trend/State does not | 2026-11-19T19:37:50Z (Kraken) | 2026-11-19T10:37:35Z | 10 | 2026-11-29 |
+| AVAX | Crypto spot | 1h RSI 47.4, -0.40% over 4 bars (smallest decline of the four). 4h bar unchanged, still barely confirming via MACD-improving only. | Momentum confirms only via MACD-improving; Trend/State does not | 2026-11-19T19:37:50Z (Kraken) | 2026-11-19T14:37:32Z | 6 | 2026-11-29 |
 
 **Removed 2026-11-18T01:37Z — XRP, invalidated (structural reversal, not merely still a
 near-miss).** Reassessed with fresh TradingView data (same session as last cycle's own Stage B
