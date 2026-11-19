@@ -77770,3 +77770,59 @@ No new-entry screening performed this cycle, by design (protective-management/cl
 ```
 
 ---
+
+### 2026-11-19T21:38:02Z UTC (2026-11-19 13:38:02 PST) — AUTONOMOUS — Crypto 24/7 Scan (§21)
+
+STEP 0: §14 Status confirmed ACTIVE. No kill phrase found in recent history.
+
+Account (••••8058): $4,983.31 total, 100% cash, 0 positions anywhere (confirmed via `get_accounts`/
+`get_portfolio`). `get_crypto_positions` → 0 crypto positions, well under the 2-concurrent cap —
+stop-audit moot (nothing to audit). No stop-outs today, no §6 circuit breaker active.
+
+**Circuit breakers:** same-day 2-stop-out cooldown — 0 stop-outs today, clear. Market-shock pause —
+current time 21:38 UTC is past the regular equity close (21:00 UTC / 4:00pm ET); per this trigger's
+own text, the SPY/QQQ shock check "is only meaningful during equity market hours" and is treated as
+satisfied/inapplicable outside them. Crypto's own inter-cycle basis has no new equity price point to
+compare against post-close either — inapplicable this cycle, same reasoning.
+
+**Portfolio heat cap:** $0 current open-risk across every mode (0 positions anywhere) — full 6%
+headroom ($298.99) available; moot since no candidate reached sizing.
+
+**TradingView quota:** confirmed `EXHAUSTED` for all of 2026-11-19 (`status: EXHAUSTED, attempts: 2`)
+— skipped straight to the Kraken fallback, 0 TradingView calls spent. 4h bars served from cache
+(fresh, unchanged since last cycle); 1h bars refetched fresh via Kraken for all 8 pairs (`status: OK`
+for all 8, last completed bar `t=1795118400`), merged into cache.
+
+**Near-miss queue reassessment (full gate re-check, all 4 queued pairs):** SOL (18th cycle), XRP
+(17th), LINK (12th), AVAX (8th) — all **still near-misses**, none cleared/invalidated/expired. SOL
+now shows 2 role-groups confirming (Momentum, Volume) — more than the 1-of-5 floor needs — but the
+binding failure for all four remains the same: no genuine 4H setup (no breakout past the confirmed
+swing high/low, no active/valid pullback structure, no range contraction identified). XRP's own
+`pullback_depth()` read (86.4% retracement) is far too deep to count as a qualifying pullback zone.
+`near_miss_queue.md` updated and committed.
+
+**Full-allowlist screen (8/8, per-symbol labels, all rejected with evidence):**
+- **BTC** — rejected: Momentum (MACD -981>signal -1051) + Volume (897K vs 430K baseline, 2.08x)
+  confirm, but no genuine 4H setup (inside prior swing range 62,170-64,014) and no verified catalyst.
+- **ETH** — rejected: Momentum + Volume confirm (9,513 vs 4,363 baseline, 2.18x), no 4H setup, no
+  verified catalyst.
+- **SOL** — rejected (near-miss, see above).
+- **XRP** — rejected (near-miss, see above).
+- **LINK** — rejected (near-miss, see above).
+- **AAVE** — rejected: Momentum fails (RSI 29.5, MACD -1.04<signal -0.63), Trend/State fails,
+  Volume alone confirms (5,196 vs 1,604 baseline, 3.24x) — only 1 role-group, no 4H setup, no
+  catalyst.
+- **HBAR** — rejected: Momentum fails (RSI 33.2, MACD ≈ signal), Trend/State fails, Volume alone
+  confirms (3.21M vs 2.62M baseline, 1.22x) — only 1 role-group, no 4H setup, no catalyst.
+- **AVAX** — rejected (near-miss, see above).
+
+No candidate reached the stop-distance/R:R step this cycle (none has a genuine 4H setup to anchor a
+stop/target from) — `validate_stop_distance()` not invoked.
+
+No order placed. No Robinhood MCP connectivity issues this cycle.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-19T21:38:02Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 4, "cleared": 0, "still_near_miss": 4, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
