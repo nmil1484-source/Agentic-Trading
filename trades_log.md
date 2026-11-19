@@ -76842,3 +76842,75 @@ candidate advanced to that step).
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-19T00:38:03Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0, "note": "queue empty"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 17, "tvremix_calls_used_today": 17, "data_source": "tradingview", "tradingview_quota_status": "AVAILABLE", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+### 2026-11-19T01:37:54Z UTC / 2026-11-18T17:37:54 PT — AUTONOMOUS (Crypto 24/7 Scan, §21)
+
+**Execution-origin validation:** `trigger_id: trig_01UUXAtYHjn7nBgzkdvZU4Rv` confirmed via
+`ReadNotifications`. §14 Status ACTIVE. No kill phrase. Robinhood MCP: live.
+
+**Account:** $4,983.31 total, 100% cash. 0 crypto positions (0/2 cap). No circuit breaker
+active (new UTC day, 0 stop-outs so far 2026-11-19). Stop-audit: 0 positions, moot. Heat cap:
+$0 of $298.99 headroom — full headroom available.
+
+**TradingView quota exhausted again mid-cycle** (`should_attempt_tradingview` was True at
+cycle start, `tradingview_status_summary` showed `AVAILABLE`/1 attempt from the 00:38:03Z
+cycle). Stage A (all 8 pairs) succeeded. BTC's 4h+1h Stage B pulls succeeded. The next call
+(ETH 4h) failed with `TOOL_QUOTA_EXCEEDED` (a 10-minute MCP cooldown), and the remaining 13
+queued OHLCV calls failed the same way. Recorded `quota_error=True` immediately —
+`tradingview_quota_status` now **EXHAUSTED** for 2026-11-19. Per protocol, switched to the
+Kraken fallback path for the 7 pairs still needing fresh data (BTC already had this cycle's
+own fresh TradingView bars, no re-fetch needed). Cache was stale for all 7 (`is_cache_fresh_enough`
+→ false, bars dated back to the last Kraken fetch on 2026-11-17) — fetched fresh via
+`fetch_kraken_ohlc` for ETH/SOL/XRP/LINK/AAVE/HBAR/AVAX × {4h, 1h}, all `status: OK`, merged into
+the shared cache. **Data source this cycle: mixed** (BTC = tradingview, the other 7 = kraken_fallback).
+
+**Full allowlist screen, every pair evaluated against the full §21 item 3 gate using this
+cycle's own fresh data (TradingView for BTC, Kraken for the rest), computed via
+`dev_scanner/tv_structure.py` (`completed_bars`/`ema`/`rsi14`/`macd`/`swing_points`/
+`pullback_depth`):**
+
+The bearish regime from the prior cycle has deepened further, not reversed — every pair is flat
+to slightly lower than an hour ago, with Stage A `MARating` now StrongSell on both 4h and 1h for
+7 of 8 pairs (SOL "Sell" on 4h).
+
+- **BTC**: 4h RSI 32.0 (declining further), MACD −1160 vs signal −1176 (negative, widening).
+  **Rejected — Trend/State and Location both fail**, no change from last cycle's rejection.
+- **ETH**: 4h EMA9 $1,788.19 < EMA20 $1,803.79 (bearish alignment), RSI 40.0, MACD −32.2 vs
+  signal −34.4 (negative). No confirmed break above the prior 4h swing high ($1,817.64).
+  **Rejected — Trend/State and Location both fail.**
+- **SOL**: 4h EMA9 $73.59 > EMA20 $73.24 (marginally bullish), RSI 64.3 (improving), MACD −0.65 vs
+  signal −1.16 (still negative but narrowing). However `pullback_depth` shows a **97.7% retracement**
+  of the prior impulse leg ($75.57→$72.14, pullback low $72.22) — this is a near-complete round
+  trip back to the impulse low, not a shallow, healthy pullback that the Location confirmation's
+  "pullback" branch is meant to capture, and no confirmed break above the prior swing high either.
+  **Rejected — Location fails** (RSI/EMA alone, without a qualifying Location confirmation, is
+  insufficient — at least 1 full role-group confirmation with a valid stop/R:R basis is required,
+  and no defensible stop level exists off a 97.7%-retraced structure).
+- **XRP**: 4h EMA9 $0.9732 > EMA20 $0.9704 (marginally bullish), RSI 55.4, MACD −0.0045 vs signal
+  −0.0080 (negative). `pullback_depth` returns `None` (no valid pullback structure detected) and
+  no confirmed break above the prior swing high ($1.0068). **Rejected — Location fails**, no
+  computable entry under either the pullback or breakout/retest method.
+- **LINK**: 4h EMA9 $9.126 < EMA20 $9.168 (bearish), RSI 47.7, MACD −0.128 vs signal −0.151
+  (negative). No breakout past the prior swing high ($9.298). **Rejected — Trend/State and
+  Location both fail.**
+- **AAVE**: 4h EMA9 $109.81 marginally above EMA20 $109.23, but both declining and converging
+  toward a bearish cross (5-bar EMA9 trend: 111.16→109.81; EMA20: 110.08→109.23 — EMA9 falling
+  faster). MACD line +0.001 is barely positive but **below** its signal line (+0.195) — negative
+  histogram, decelerating, not a genuine bullish cross. `pullback_depth` shows a **97.4%
+  retracement** of the prior impulse ($112.45→$106.22), same near-complete-round-trip pattern as
+  SOL — not a qualifying Location confirmation. No breakout past the prior swing high either.
+  **Rejected — Trend/State is marginal/decaying (not a confirmed bullish alignment) and Location
+  fails** (no genuine pullback-in-uptrend structure, no breakout).
+- **HBAR**: 4h EMA9 $0.0567 < EMA20 $0.0573 (bearish), RSI 41.4, MACD −0.0011 vs signal −0.0012
+  (negative). Price at $0.0560 vs period high $0.0689/low $0.0548 — still near the low.
+  **Rejected — Trend/State and Location both fail.**
+- **AVAX**: 4h EMA9 $7.081 < EMA20 $7.183 (bearish), RSI 46.4, MACD −0.217 vs signal −0.260
+  (negative). No breakout past the prior swing high ($7.21). **Rejected — Trend/State and
+  Location both fail.**
+
+**Full coverage: 8/8 pairs evaluated, 8 rejected with evidence, 0 not evaluated.** No candidate
+clears the gate — **no order placed.** Stop-distance validation not reached for any pair.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-19T01:37:54Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0, "note": "queue empty"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 17, "tvremix_calls_used_today": 34, "data_source": "mixed", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
