@@ -207,6 +207,7 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
+| SOL | Crypto spot | §21 item 3 — no verified catalyst and no meaningfully checkable RS-vs-BTC driver (1h outperformance only ~0.4pp, not a specific/distinct comparison) | Trend/State (4h EMA9 73.70 > EMA20 73.26) and Momentum (4h RSI 63.9, sustained >45 across multiple cycles) both confirm; 1h shows a genuine swing-high breakout (`current_above_prior_swing_high: True`) — the dual-timeframe setup+trigger structure is otherwise intact | 2026-11-19T04:37:31Z (Kraken) | 2026-11-19T04:37:31Z | 1 | 2026-11-29 |
 
 **Removed 2026-11-18T01:37Z — XRP, invalidated (structural reversal, not merely still a
 near-miss).** Reassessed with fresh TradingView data (same session as last cycle's own Stage B
