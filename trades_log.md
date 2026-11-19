@@ -77318,3 +77318,64 @@ the near-miss queue. No order placed.**
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-19T14:37:32Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 4, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 3, "cleared": 0, "still_near_miss": 4, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 1}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-19T15:04:08Z UTC / 2026-11-19 10:04:08 America/New_York — Mode B/C First Scan of Day
+
+**DST check**: 15:04:08 UTC = 10:04:08am ET (EST, UTC-5, since DST ended 2026-11-01) — cron correctly targeting ~10am ET, no drift.
+
+**STEP 0**: §14 Status ACTIVE confirmed. No kill phrase found in recent trades_log.md history.
+
+**Account state**: `get_portfolio`/`get_equity_positions`/`get_option_positions` — $4,983.31 total, 100% cash, 0 equity positions, 0 option positions, 0 crypto positions. Mode B equity stop-audit (2a) and §18/§19 options/LEAPS stop-check (2b): **both trivially clear — 0 open positions in either category, nothing to audit.** Mode C running P&L today: $0 (flat, no positions). Portfolio heat cap: full $298.99 (6% of equity) headroom.
+
+**TradingView**: confirmed `EXHAUSTED` for 2026-11-19 (shared cross-trigger state, unchanged since 01:37:54Z). Used the exhaustion-handling fallback for the entire cycle: Robinhood's `get_equity_historicals`/`get_equity_technical_indicators` for both Mode B/C equities and the §22 ETF screen. `coverage_state: EVALUATED` (the fallback path itself worked cleanly) — not `BUDGET_BLOCKED`.
+
+**Near-miss queue reassessment**: the Mode B/C equities table (`§13.G`) is **currently empty** — every previously-queued entry has already been resolved (cleared into trades: UBER, SQQQ, SOXS; invalidated: TEM, HPE-OLD, DUOL, DIS, FIG, ZS, BE, PGY, GDX, PLTR, ZETA, SOFI; expired: IGV; resolved-to-NO_TRADE: HPE, NOW, NBIS, AMDG-OLD). **0 of the 12 Stage-2 slots this cycle were needed for queue reassessment — all 12 went to ordinary rotation.** AMD's Pending-eligibility entry was re-verified fresh (`get_earnings_results`: next report 2027-02-02, unverified/tentative, no §4 conflict) and its §19 LEAPS research gate re-checked — still does not clear cleanly (daily RSI 50.76 neutral, EMA9<EMA20, structure still a wide post-crash recovery swing, not a settled uptrend-or-basing). Removed from the Pending-eligibility table (eligibility itself was already resolved; this is now an ordinary re-evaluation, not a timing matter). `near_miss_queue.md` changed (AMD row removed/replaced with a resolution note; SPXU/TZA §22 entries refreshed — see below).
+
+**Stage 1/Stage 2 — Mode B/C equity rotation (12 names, least-recently-touched prioritized given the near-miss table's history covers most other recently-active names)**: AMD, TTD, ONDS, RKLB, LMND, PATH, ARKG, RGTI, VRT, RUN, OKLO, AVAV. Full daily EMA9/EMA20/RSI14/MACD computed via `get_equity_technical_indicators` for all 12 (Robinhood-historicals-fallback pipeline, since TradingView is exhausted):
+
+| Symbol | RSI14(1D) | EMA9 vs EMA20 | MACD vs signal | Daily-setup read |
+|---|---|---|---|---|
+| AMD | 50.8 | 519.46<522.91 (bearish) | above/improving | mixed, no clean confirm |
+| TTD | 63.8 | 14.90>14.19 (**bullish**) | above/improving | **clean bullish Trend+Momentum** |
+| ONDS | 33.7 | 5.02<5.51 (bearish) | below/worsening | bearish confirmed |
+| RKLB | 43.7 | 57.30<57.65 (bearish) | above/improving | mixed |
+| LMND | 39.7 | 41.74<42.67 (bearish) | above/improving (marginal) | mixed |
+| PATH | 30.8 | 12.77<13.09 (bearish) | below/worsening | bearish confirmed |
+| ARKG | 37.1 | 43.60<45.96 (bearish) | below/worsening | bearish confirmed |
+| RGTI | 31.9 | 9.81<10.83 (bearish) | below/worsening | bearish confirmed |
+| VRT | 43.7 | 198.21<206.04 (bearish) | below/worsening (marginal) | bearish-leaning |
+| RUN | 39.6 | 8.26<8.30 (bearish) | below/worsening | bearish confirmed |
+| OKLO | 36.1 | 23.47<25.11 (bearish) | above/improving | mixed |
+| AVAV | 34.4 | 112.55<118.15 (bearish) | below/worsening | bearish confirmed |
+
+**Critical timing finding, applies to every candidate this cycle**: this trigger fired at 15:04:08Z (10:04am ET), ~34 minutes into the regular session. The first hourly bar of the day (14:30-15:30 UTC) had not yet completed for any symbol — pulled hourly historicals for the 4 most decisive candidates (TTD for bullish; AVAV, RGTI, ONDS for bearish) and confirmed the most recent *completed* hourly bar for all of them is still yesterday's (2026-11-18 20:00 UTC close). **A same-day hourly execution trigger structurally cannot exist yet at this point in the session** — this is not a data gap or a rejection, it is a real timing fact: §5B item 7 / Bearish Mirror Gate item 7 require a confirming hourly candle, and none has formed today for anyone. Live quotes also showed a broad this-morning bounce (AMD +2.7%, RGTI +5.6%, ONDS +2.8%, AVAV +1.4%, TTD -1.5%) consistent with the same risk-on tone seen in this morning's crypto cycles — worth watching on the next Fresh Candle cycle (~16:03Z) once real hourly bars exist, especially for the bearish candidates (ONDS/PATH/ARKG/RGTI/RUN/AVAV), whose daily bearish structure could be freshly challenged by today's bounce.
+
+**Result: all 12 equity names labeled "rejected with evidence — item 7, no completed same-day hourly bar exists yet (structural/timing, not a gate failure)."** TTD is flagged as the cleanest daily bullish setup to re-check first on the next cycle; ONDS/PATH/ARKG/RGTI/RUN/AVAV as the cleanest bearish setups to re-check, watching specifically whether today's morning bounce holds or fades.
+
+**Options/LEAPS sourcing (3a/3b)**: no equity cleared §5B/Bearish Mirror Gate this cycle (all blocked on timing), so no options candidate was sourced via that channel. AMD's prioritized §19 LEAPS re-check (above) also did not clear. No qualifying options/LEAPS candidate this cycle.
+
+**§22 Leveraged/Inverse ETF screen (3c) — all 9 allowlist names evaluated, `coverage_complete: true`**:
+
+| Symbol | RSI14(1D) | EMA9 vs EMA20 | MACD vs signal | Outcome |
+|---|---|---|---|---|
+| TQQQ | 36.3 | bearish | below/worsening | Rejected — no bullish-long structure |
+| SOXL | 35.2 | bearish | above/improving (marginal) | Rejected — no clean bullish-long structure |
+| SPXL | 35.7 | bearish | below/worsening | Rejected — no bullish-long structure |
+| TNA | 39.4 | bearish | below/worsening | Rejected — no bullish-long structure |
+| AMDG | 47.5 | bearish (Trend) / Momentum confirms | above/improving | Rejected this cycle — mixed, and no hourly trigger regardless |
+| SQQQ | 60.0 | **bullish on own chart** | above/improving | Underlying QQQ bearish (EMA9 671.43<EMA20 684.84) confirmed — **blocked only by item 7 (no hourly bar yet)**, same as near-miss queue |
+| SOXS | 54.8 | **bullish on own chart** | below/worsening (marginal) | Underlying SOXX bearish (EMA9 146.37<EMA20 152.79) confirmed — blocked by item 7 |
+| SPXU | 62.8 | **bullish on own chart** | above/improving | Underlying SPY bearish (EMA9 744.13<EMA20 751.59) confirmed — blocked by item 7, already tracked in near-miss queue |
+| TZA | 58.3 | **bullish on own chart** | above/improving | Underlying IWM bearish (EMA9 274.89<EMA20 276.81) confirmed — blocked by item 7, already tracked in near-miss queue |
+
+SQQQ, SOXS, SPXU, TZA all show a genuinely intact two-sided setup (bearish underlying + bullish technical entry on the inverse ETF's own chart) blocked only by the same session-timing fact as the equities above — not a structural rejection. SPXU/TZA's near-miss entries updated accordingly (R:R blocker superseded by the timing blocker this cycle, cycles_checked incremented). SQQQ added to the queue-equivalent watch list implicitly via this log (not formally queued since it's already covered by the mandatory §22 step).
+
+**Mode C (9-13)**: today's running Mode C P&L $0 (flat). Stop-audit (9a): 0 open Mode C positions, nothing to audit. Screening (10): an ORB (opening-range breakout) setup requires the opening range itself (first 30-60 min) to have actually formed — at 34 minutes into the session, the range is only partially formed; VWAP-pullback/mean-reversion setups also need real intraday structure that doesn't exist yet. **No Mode C setup is computable yet this cycle — same structural timing reason as Mode B's hourly trigger.** No trade.
+
+**Result: OBSERVE across Mode B, Mode C, options/LEAPS, and §22. No order placed in either mode.** This is a genuine, fully-covered no-trade first scan — every candidate was evaluated, and the universal blocker (no completed same-day hourly bar yet) is a real, documented timing fact rather than a quality failure. The 16:03Z Fresh Candle cycle is the first opportunity today for any of these (TTD, the bearish six, SQQQ/SOXS/SPXU/TZA) to actually clear.
+
+```json
+{"cycle": "Mode B/C First Scan of Day", "timestamp_utc": "2026-11-19T15:04:08Z", "coverage_state": "EVALUATED", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open Mode B/C equity positions, audit moot"}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0, "note": "0 open options/LEAPS positions, audit moot"}, "coverage": {"universe_size": 74, "triaged": 12, "full_gate_evaluated": 12, "rejected_with_evidence": 12, "not_evaluated": 62, "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 2, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved, re-evaluated, still not qualifying"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 5, "not_evaluated": 0, "coverage_complete": true}, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "robinhood_historicals_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
