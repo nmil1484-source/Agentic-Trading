@@ -207,8 +207,8 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| SOL | Crypto spot | §21 item 3 (no catalyst/RS-vs-BTC) — **and this cycle the 1h breakout also receded** (`current_above_prior_swing_high` now False; the bounce stalled/pulled back slightly) | Trend/State (4h EMA9 73.70 > EMA20 73.26) and Momentum (4h RSI 63.9) still confirm on 4h, unchanged across 4 cycles now — the 4h structure itself hasn't invalidated, only the 1h trigger timing has temporarily receded | 2026-11-19T06:37:39Z (Kraken) | 2026-11-19T04:37:31Z | 3 | 2026-11-29 |
-| XRP | Crypto spot | §21 item 3 (no catalyst/RS-vs-BTC) — **and this cycle the 1h breakout also receded**, same as SOL | Trend/State (4h EMA9 0.97218 > EMA20 0.96956) and Momentum (4h RSI 53.3) still confirm on 4h, unchanged | 2026-11-19T06:37:39Z (Kraken) | 2026-11-19T05:37:57Z | 2 | 2026-11-29 |
+| SOL | Crypto spot | §21 item 3 — still no catalyst; RS-vs-BTC still negligible this cycle (SOL +0.64% vs BTC +0.60% over the same 1h, only +0.04pp) | 1h breakout reappeared (`current_above_prior_swing_high: True`); 4h Trend/State (EMA9 73.70>EMA20 73.26) and Momentum (RSI 63.9) unchanged across 5 cycles now | 2026-11-19T07:37:29Z (Kraken) | 2026-11-19T04:37:31Z | 4 | 2026-11-29 |
+| XRP | Crypto spot | §21 item 3 — still no catalyst; RS-vs-BTC modestly better but still not a strong, specific divergence (XRP +1.03% vs BTC +0.60%, +0.43pp over 1h alone — directionally the best RS reading yet for this pair but still just one hour, not the multi-session comparison the item calls for) | 1h breakout reappeared; 4h Trend/State (EMA9 0.97218>EMA20 0.96956) and Momentum (RSI 53.3) unchanged | 2026-11-19T07:37:29Z (Kraken) | 2026-11-19T05:37:57Z | 3 | 2026-11-29 |
 
 **Removed 2026-11-18T01:37Z — XRP, invalidated (structural reversal, not merely still a
 near-miss).** Reassessed with fresh TradingView data (same session as last cycle's own Stage B
