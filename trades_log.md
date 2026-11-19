@@ -77272,3 +77272,17 @@ the near-miss queue. No order placed.**
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-19T13:37:52Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 5, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 3, "cleared": 0, "still_near_miss": 3, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-19T14:08:50Z UTC — Premarket Preparation Scan (PREMARKET_PREP, read-only)
+
+**STEP 0**: §14 Status confirmed ACTIVE (CLAUDE.md top-of-file Effective Policy bullet, "Mode B AUTONOMOUS_EXECUTE is ACTIVE"). No kill phrase ("STOP AUTONOMOUS EXECUTION"/"PAUSE AUTONOMOUS TRADING") found in recent trades_log.md history. This trigger is read-only regardless — no order tool was called or will be called.
+
+**calls_made_this_cycle: 0.** The shared, cross-trigger TradingView call-budget state (`dev_scanner/data_budget.py`) was checked fresh — `status: EXHAUSTED` for 2026-11-19 (`attempts: 2`, exhausted since 01:37:54Z, reconfirmed as recently as the 13:37:52Z Crypto 24/7 cycle ~30 minutes before this scan fired). Rather than spend one of this cycle's 10 allowed calls on a SPY freshness check guaranteed to return `TOOL_QUOTA_EXCEEDED`, this cycle skipped the live attempt entirely and reported the gap directly — same "never spend a call re-discovering a quota already known dead today" principle the Crypto 24/7 trigger's own protocol already applies to this identical shared connector/quota.
+
+**Result: no shortlist produced this cycle.** `premarket_shortlist.md` rewritten to state the quota-exhausted condition plainly (not a holiday, a connector/quota outage) rather than carrying forward the stale 2026-11-16 shortlist. No watchlist or screener data was pulled. Expected to resume once TradingView's daily quota resets at the next UTC day boundary.
+
+```json
+{"cycle": "premarket_prep", "timestamp_utc": "2026-11-19T14:08:50Z", "read_only": true, "calls_made_this_cycle": 0, "coverage_state": "DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE", "candidates_found": 0, "watchlist_candidates": 0, "offwatchlist_research_only_candidates": 0, "git_push": "pending"}
+```
