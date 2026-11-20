@@ -78820,3 +78820,13 @@ No candidate reached the sizing/stop-distance step this cycle — every pair fai
 ```
 
 ---
+
+### 2026-11-20T16:03:39Z UTC (2026-11-20 08:03:39 PST) — Mode B/C Entry Screening — Fresh Candle — NOT_RUN
+
+**NOT_RUN.** The same-lane "Mode B/C First Scan of Day" cycle (fired 2026-11-20T15:04:15Z) is still actively in-flight in a background fork as of this cycle's own firing (confirmed via live agent-status check — still running, started ~58 minutes earlier). Both triggers cover the identical Mode B/C account state (stop-audits on the same open positions, the same §22/§18/§19 sourcing, and live order-placement authority in the same lane) — running this Fresh Candle cycle's full protocol concurrently with that still-in-progress First Scan cycle would risk duplicate or racing account actions (e.g. two concurrent stop-audits each deciding independently whether to place a missing stop, or two cycles each attempting to size/place an order against the same stale account snapshot). Rather than accept that risk, this cycle is explicitly deferred — no account/order/TradingView calls were made, no files beyond this log entry were touched. The First Scan cycle's own mandatory full report will cover today's first-scan coverage; the next scheduled Fresh Candle cycle (17:03 UTC) will pick up normal rotation once the First Scan cycle has completed and committed.
+
+```json
+{"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-20T16:03:39Z", "coverage_state": "NOT_RUN", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "reason": "concurrent same-lane First Scan of Day cycle (fired 2026-11-20T15:04:15Z) still in-flight in a background fork; deferred to avoid duplicate/racing Mode B/C account actions", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
