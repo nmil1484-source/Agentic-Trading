@@ -78274,3 +78274,67 @@ reached (no candidate advanced to sizing). Stop-audit: 0 open positions, audit m
 ```
 
 ---
+
+### 2026-11-20T05:37:59Z UTC (2026-11-19 21:37:59 PST) — AUTONOMOUS — Crypto 24/7 Scan
+
+STEP 0: §14 Status confirmed ACTIVE. No kill phrase found in recent history.
+
+(Note: a chat-requested, non-autonomous manual research task — LMND/CRCL/SE research leads from
+a social-media post — ran between the prior crypto cycle and this one. No order placed, no file
+changed; irrelevant to this cycle's own screening.)
+
+Account (••••8058) confirmed via `get_accounts`/`get_portfolio`: $4,983.31 total, 100% cash, 0
+positions anywhere. `get_crypto_positions` → 0 positions (crypto count 0 of 2 cap). No circuit
+breaker active: 0 stop-outs today across any trigger; SPY/QQQ shock check inapplicable (equity
+market closed, last regular session ended ~21:00 UTC, current time 05:38 UTC) — crypto's own
+inter-cycle breaker is clear regardless (SPY -0.54%/QQQ -1.04% since prior session close, both
+well under 1.5%, and the check doesn't meaningfully apply in off-hours anyway). Portfolio heat
+cap: $0 used, full $298.99 (6% of equity) headroom.
+
+TradingView quota for 2026-11-20 confirmed still EXHAUSTED (`should_attempt_tradingview` → False,
+3 attempts logged, last success before exhaustion) — skipped straight to Kraken fallback for all
+8 allowlisted pairs, 0 TradingView calls this cycle.
+
+**Near-miss queue reassessment (6 queued: SOL, XRP, LINK, BTC, ETH, AVAX).** The most recent
+*completed* 4h candle (last_t 1795132800) is identical to the one evaluated in the 04:37:20Z
+cycle — the next 4h bar (started at 1795147200) does not complete until 1795161600, still ~2.3
+hours in the future at this cycle's epoch (1795153201). This is therefore a genuine no-new-data
+reassessment on the 4h timeframe (1h bars did advance one bar, last_t 1795147200, fetched fresh
+via Kraken) — every 4h-derived confirmation/Location read below is byte-identical to the prior
+cycle's, not a stale carry-forward.
+
+- **SOL** — still near-miss (cycle 26). Momentum confirms (MACD hist +0.0975, macd>signal; RSI
+  50.44>45). Volume fails (0.834x baseline). Trend/State fails (bearish EMA stack). Location
+  remains the sole binding failure — unchanged.
+- **XRP** — still near-miss (cycle 25). Momentum confirms (MACD hist +0.000258, macd>signal; RSI
+  49.24>45). Volume fails (0.800x). Trend/State fails. Location remains the sole binding
+  failure — unchanged.
+- **LINK** — still near-miss (cycle 20). 2 confirming role-groups: Momentum (MACD hist +0.00075,
+  macd>signal) and Volume (1.466x baseline). Trend/State fails. Location remains the sole binding
+  failure regardless of the extra confirmation — unchanged.
+- **BTC** — still near-miss (cycle 7). Momentum confirms (MACD hist +0.32, macd>signal). Volume
+  fails (0.783x). Trend/State fails. No longer below the prior swing low (recovered off the
+  breakdown bar two cycles ago). Location remains the sole binding failure — unchanged.
+- **ETH** — still near-miss (cycle 5). Momentum confirms (MACD hist +1.0006, macd>signal). Volume
+  fails (0.531x). Trend/State fails. RS vs BTC: -2.66%/24h vs BTC's own -1.66%/24h, underperforming.
+  Location remains the sole binding failure — unchanged.
+- **AVAX** — still near-miss (cycle 2). Momentum confirms (MACD hist +0.01587, macd>signal).
+  Volume fails (0.5729x). Trend/State fails. Location remains the sole binding failure —
+  unchanged.
+- **HBAR** — correctly stays off the queue (invalidated last cycle, 0 confirming role-groups;
+  4h data this cycle is identical to that invalidation read).
+- **AAVE** — correctly stays off the queue. 0 confirming role-groups (Trend/State, Momentum
+  [MACD hist -0.631, RSI 30.91<45], and Volume [0.402x] all fail; Location also fails).
+
+**Per-symbol coverage labels (all 8 evaluated, 0 tool failures):** BTC, ETH, SOL, XRP, LINK, AAVE,
+HBAR, AVAX — all `evaluated`, all `rejected with evidence` on Location/4H-setup (HBAR and AAVE
+additionally on every other item).
+
+No candidate cleared the full gate this cycle — **no order placed.** No stop-distance validation
+reached (no candidate advanced to sizing). Stop-audit: 0 open positions, audit moot.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T05:37:59Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 6, "cleared": 0, "still_near_miss": 6, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 21, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
