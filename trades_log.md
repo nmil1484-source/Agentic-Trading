@@ -78201,3 +78201,76 @@ issues.**
 ```
 
 ---
+
+### 2026-11-20T04:37:20Z UTC (2026-11-19 20:37:20 PST) — AUTONOMOUS (trigger-fired) — Crypto 24/7 Scan (§21)
+
+STEP 0: §14 Status confirmed ACTIVE. No kill phrase found in recent history.
+
+Account (••••8058) confirmed via `get_accounts`/`get_portfolio`: $4,983.31 total, 100% cash, 0
+positions anywhere. `get_crypto_positions` → 0 crypto positions (0 of 2-concurrent cap).
+
+**Circuit breakers:** (a) same-day 2-stop-out cooldown — 0 stop-outs today across any trigger,
+clear. (b) market-shock pause — equity market closed (overnight, after-hours) — per this
+trigger's own text, this check is inapplicable outside equity market hours. Crypto's own
+inter-cycle breaker (SPY/QQQ comparison basis N/A overnight) — no trip. **Portfolio heat cap:**
+$0 of 6% ($298.99) used — full headroom, account 100% flat.
+
+**TradingView quota check:** `should_attempt_tradingview` for 2026-11-20 → False (confirmed
+`EXHAUSTED`, 3 attempts logged, last success 1795138729). Skipped straight to Kraken fallback for
+all 8 pairs, 0 TradingView calls attempted this cycle.
+
+**Kraken fallback fetch:** cache for all 8 pairs/both timeframes was stale (`fresh_enough: False`
+— "a newer completed bar should exist"). Fetched fresh via `fetch_kraken_ohlc` for all 16
+pair/interval combinations — all returned `status: OK`, 720 bars each. **A new 4h candle closed
+this cycle** (last 4h bar moved from 1795118400 at the 03:37:25Z cycle to 1795132800 now — a
+genuine 4-hour step), so this was a real full reassessment, not a repeat of stale data.
+
+**Near-miss queue reassessment (full gate re-check, all items, on fresh completed bars):**
+- **SOL** — still near-miss (cycle 25). Momentum confirms via MACD improving (hist +0.0975,
+  macd>signal; RSI 50.44>45 too). Volume fails (0.834x baseline). Trend/State fails (bearish EMA
+  stack). RS vs BTC: -1.78% vs BTC's -1.66% over 24h — marginal underperformance, no RS
+  confirmation. Location fails (no breakout/pullback) — sole binding failure, unchanged.
+- **XRP** — still near-miss (cycle 24). Momentum confirms via MACD improving. Volume fails
+  (0.800x). Trend/State fails. Location fails — sole binding failure, unchanged.
+- **LINK** — still near-miss (cycle 19). Now **2 confirming role-groups**: Momentum (MACD
+  improving) AND Volume (1.466x baseline, newly clearing 1.2x — up from failing last cycle).
+  Trend/State fails. Location still fails (no breakout past prior swing high 9.25928 or below
+  prior swing low 8.85305) — remains the sole binding failure regardless of the extra
+  confirmation, since confirmation count was never LINK's blocker.
+- **BTC** — still near-miss (cycle 6). Confirming role **flipped this cycle**: Momentum now
+  confirms (MACD improving, hist +0.32, macd>signal) where last cycle it failed; Volume now fails
+  (0.783x, down from 2.55x) where last cycle it confirmed. Net: still exactly 1 confirming group.
+  BTC also recovered off the prior cycle's logged bearish breakdown bar (no longer
+  `current_below_prior_swing_low`) now that a fresh 4h candle has closed — still no bullish
+  breakout either. Location remains the sole binding failure.
+- **ETH** — still near-miss (cycle 4). Confirming role flipped: Momentum now confirms (MACD
+  improving, hist +1.001) where last cycle it failed; Volume now fails (0.531x, down from 2.471x).
+  Net: still exactly 1 confirming group. RS vs BTC: -2.66%/24h vs BTC's -1.66%/24h —
+  underperforming. Location remains the sole binding failure.
+- **HBAR — INVALIDATED, removed from queue.** Last cycle qualified on Volume alone (2.058x).
+  This cycle: Volume fails (0.7696x), Trend/State fails, Momentum fails (RSI 31.48<45, MACD hist
+  -0.0001727, deteriorating), RS vs BTC negative on both 24h (-4.87% vs -1.66%) and 96h (-9.96%
+  vs -4.55%) — HBAR is underperforming, not outperforming, so no RS confirmation either. **Zero
+  confirming role-groups** — genuinely invalidated, not merely still-blocked-on-Location.
+  `current_below_prior_swing_low` is also True (a bearish breakdown, not a qualifying setup).
+- **AVAX — newly qualifies, added to queue (cycle 1).** Previously 0 confirming role-groups
+  (correctly excluded). This cycle: Momentum now confirms (MACD improving, hist +0.01587,
+  macd>signal). Trend/State fails; Volume fails (0.5729x); RS vs BTC marginal/mixed (96h -4.47%
+  vs BTC's -4.55%, essentially flat, not a clean outperformance claim). Location fails (no
+  breakout/pullback) — the sole binding failure, 1 confirming role-group clears the 1-of-6 floor.
+- **AAVE** — correctly stays off the queue. 0 confirming role-groups (Trend/State, Momentum, and
+  Volume (0.402x) all fail; Location also fails). Rejected with evidence, same as every prior
+  cycle.
+
+**Per-symbol coverage labels (all 8 evaluated, 0 tool failures):** BTC, ETH, SOL, XRP, LINK, AAVE,
+HBAR, AVAX — all `evaluated`, all `rejected with evidence` on Location/4H-setup (HBAR additionally
+on every other item; AAVE on every item).
+
+No candidate cleared the full gate this cycle — **no order placed.** No stop-distance validation
+reached (no candidate advanced to sizing). Stop-audit: 0 open positions, audit moot.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T04:37:20Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 6, "cleared": 0, "still_near_miss": 5, "invalidated": 1, "ineligible": 0, "expired": 0, "added": 1}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 21, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
