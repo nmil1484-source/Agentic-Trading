@@ -78451,3 +78451,51 @@ Stop-audit: 0 open crypto positions — audit moot. Robinhood MCP fully reachabl
 ```
 
 ---
+
+### 2026-11-20T09:37:42Z UTC (2026-11-20 01:37:42 PST) — AUTONOMOUS — Crypto 24/7 Scan
+
+STEP 0: §14 Status confirmed ACTIVE (line 3688/3920 of CLAUDE.md). No kill phrase found in recent
+trades_log.md history.
+
+Account (••••8058): $4,983.31 total, 100% cash, 0 crypto positions. Crypto position count 0/2
+(cap). Same-day 2-stop-out cooldown: 0 stop-outs logged today — clear. Market-shock breaker:
+equity market closed (overnight, ~01:37am PT / 09:37 UTC) — inapplicable per this trigger's own
+text. Portfolio heat cap: $0 used of $298.99 (6% of equity) — full headroom.
+
+TradingView quota for 2026-11-20 re-checked fresh: still EXHAUSTED (3 attempts today) — 0 calls
+attempted this cycle, skipped straight to Kraken fallback for all 8 pairs. The 4h candle cache
+had NOT rolled since the prior 3 cycles (last_t 1795147200 unchanged — confirmed via direct
+epoch math: now_epoch 1795167549 falls inside the 4h bar that starts at 1795161600, so
+1795147200 remains the latest genuinely completed 4h bar). 1h bars were freshly fetched for all
+8 pairs (last_t 1795161600).
+
+**Data-quality finding this cycle, logged in full in near_miss_queue.md:** recomputing BTC's
+4h MACD on the unchanged candle using the full 736-bar cached history (vs. the bare 60-bar
+minimum) produced a materially different, sign-flipped histogram (-18.15 vs. the previously
+logged +6.60) — the 60-bar window had not converged. Verified every other pair's MACD sign is
+stable across window lengths; only BTC was affected. This is a computation-convergence finding,
+not a policy or threshold change — see near_miss_queue.md's dated note for full detail.
+
+**Near-miss queue reassessment (6 reassessed: SOL, XRP, BTC, ETH, AVAX, HBAR):**
+- SOL, XRP, ETH, AVAX, HBAR: all still near-misses, confirming role-group unchanged for each
+  (Momentum via MACD for SOL/XRP/ETH/AVAX; Volume for HBAR); Location/4H-setup remains the sole
+  binding failure for all five.
+- **BTC: INVALIDATED and removed.** Momentum role-group (previously the sole confirmation) no
+  longer confirms once computed on a converged window — 0 confirming role-groups remain, same as
+  AAVE/LINK. Full reasoning in near_miss_queue.md.
+- AAVE, LINK: re-verified, correctly off the queue (0 confirming role-groups each, unchanged).
+
+**Full-allowlist screen (8/8 pairs, all Kraken fallback, 4h+1h):** every pair rejected with
+evidence — the universal binding failure remains §21 item 3's Location/4H-setup requirement (no
+pair's current 4h close has broken a confirmed prior swing high/low; every detected
+pullback_depth() reading is a deep >84% retracement where applicable, or no pullback structure
+at all) — compounded by every pair's bearish 4h EMA9<EMA20<EMA50 trend stack. No candidate
+reached stop-distance validation or sizing. No order placed.
+
+Stop-audit: 0 open crypto positions — audit moot. Robinhood MCP fully reachable throughout.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T09:37:42Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 6, "cleared": 0, "still_near_miss": 5, "invalidated": 1, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
