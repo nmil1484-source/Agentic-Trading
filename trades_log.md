@@ -78609,3 +78609,60 @@ Stop-audit: 0 open positions, moot. Robinhood MCP fully reachable throughout.
 ```
 
 ---
+
+### 2026-11-20T12:38:17Z UTC (2026-11-20 04:38:17 PST) — AUTONOMOUS — Crypto 24/7 Scan (§21)
+
+STEP 0: §14 Status confirmed ACTIVE. No kill phrase found in recent history.
+
+Account (••••8058): $4,983.31 total, 100% cash, 0 positions anywhere (confirmed via `get_accounts`/
+`get_portfolio`). `get_crypto_positions` → 0 open crypto positions (0 of the 2-concurrent cap).
+No §6 circuit breaker active: 0 stop-outs today across any trigger. Market-shock check:
+SPY last-non-reg $710.00 vs. yesterday's close $715.87 (-0.82%); QQQ $634.19 vs. $645.04 (-1.68%)
+— per this trigger's own text, this check "is only meaningful during equity market hours" and the
+US equity market does not open until 14:30 UTC (still ~2 hours away) — treated as inapplicable
+this cycle. Portfolio heat cap: $0 used, full $298.99 (6% of equity) headroom.
+
+**TradingView quota check**: `should_attempt_tradingview` → False, `tradingview_status_summary` →
+`EXHAUSTED` (3 attempts today, last success at an earlier cycle) — skipped straight to the Kraken
+fallback path for all 8 allowlisted pairs, 0 TradingView calls this cycle.
+
+**Near-miss queue reassessment (full gate re-check on each queued pair)**: a genuinely fresh 4h
+candle closed this cycle for the first time in 5 consecutive cycles (last_t 1795161600 vs. the
+prior 1795147200) — every pair's reassessment reflects real new data, not a repeat read. **SOL,
+XRP, and HBAR invalidated and removed** (SOL/XRP: Momentum flipped negative, MACD histogram now
+below signal on both; HBAR: Volume collapsed to 0.302x baseline, well under the 1.2x floor — see
+`near_miss_queue.md` for exact figures). **ETH and AVAX stay queued**, each still confirming via
+Momentum alone (MACD histogram positive, macd>signal) with Location/4H-setup as the sole remaining
+blocker (cycles_checked incremented to 12 and 9 respectively). BTC, AAVE, and LINK remain correctly
+off the queue (0 confirming role-groups each, verified fresh).
+
+**Full-allowlist screen, all 8 pairs, Kraken-sourced 4h+1h bars, full-cached-history MACD/EMA
+(standing methodology, stable across 4 consecutive cycles now):** a broad-based bearish 4h move
+hit every single allowlisted pair this cycle — BTC -3.34% over 24h, alts ranging -3.25% (ETH) to
+-7.09% (AAVE) — every pair's 4h close sits below its own EMA9/20/50 stack (fully bearish Trend/
+State across the board), and no pair shows a genuine breakout/retest (`swing_points()`
+current_above/below both false for all 8) or a legitimate bullish continuation pullback (depths
+ranging 65-98%, occurring inside confirmed downtrends rather than as pullbacks within an uptrend).
+Per-symbol labels (all **evaluated**, full gate check run on real fresh Kraken data):
+
+| Symbol | Confirming role-groups | Binding failure(s) |
+|---|---|---|
+| BTC | 0 (Trend/State, Location, Volume 0.698x, Momentum all fail) | Confirmation count + Location/4H-setup |
+| ETH | 1 (Momentum — MACD hist +0.324, macd>signal) | Location/4H-setup only |
+| SOL | 0 (Momentum just flipped negative this cycle) | Confirmation count + Location/4H-setup |
+| XRP | 0 (Momentum just flipped negative this cycle) | Confirmation count + Location/4H-setup |
+| AVAX | 1 (Momentum — MACD hist +0.0087, macd>signal) | Location/4H-setup only |
+| HBAR | 0 (Volume just collapsed this cycle) | Confirmation count + Location/4H-setup |
+| LINK | 0 (Trend/State, Location, Volume 0.422x, Momentum all fail) | Confirmation count + Location/4H-setup |
+| AAVE | 0 (Trend/State, Location, Volume 0.414x, Momentum all fail; RS vs BTC -3.75pp, real underperformance) | Confirmation count + Location/4H-setup |
+
+No candidate reached stop-distance/R:R/sizing — every pair failed on confirmation count and/or the
+Location/4H-setup item before getting that far. **No crypto order placed this cycle.**
+
+Stop-audit: 0 open crypto positions — audit moot, nothing to verify.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T12:38:17Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 5, "cleared": 0, "still_near_miss": 2, "invalidated": 3, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
