@@ -78830,3 +78830,49 @@ No candidate reached the sizing/stop-distance step this cycle — every pair fai
 ```
 
 ---
+
+### 2026-11-20T16:38:03Z UTC (2026-11-20 08:38:03 PST) — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+STEP 0: §14 Status confirmed ACTIVE (line "Status: ACTIVE (2026-08-14)"). No kill phrase ("STOP AUTONOMOUS EXECUTION"/"PAUSE AUTONOMOUS TRADING") found in recent trades_log.md history.
+
+**Account check:** `get_accounts`/`get_portfolio` (••••8058) — total value $4,983.31, 100% cash, equity/options/crypto value all $0. `get_crypto_positions` → 0 positions. Crypto position count 0/2 (concurrent-position cap) — full capacity available.
+
+**Circuit breakers:**
+- Same-day 2-stop-out cooldown: 0 stop-outs logged today across any trigger (checked every 2026-11-20 UTC entry) — clear.
+- Market-shock breaker (inter-cycle basis): fresh `get_equity_quotes(["SPY","QQQ"])`: SPY $703.935 vs. prior cycle's (15:37:41Z) reading $708.82 (-0.69% inter-cycle); QQQ $624.17 vs. prior cycle's reading $629.75 (-0.89% inter-cycle). Both under the 1.5% threshold — **not triggered**, despite a severe broad-market selloff visible on a vs.-yesterday's-close basis (SPY -1.67%, QQQ -3.23% vs. 2026-11-19 close) — the breaker's own text is inter-cycle, not vs.-session-close, and neither single-hour move exceeds it.
+
+**Portfolio heat cap:** $0 current risk (0 positions) vs. 6% of equity ($298.9986) — full headroom, $0 used.
+
+**Position management:** 0 open crypto positions — breakeven/trailing/peak-retracement/time-stop/stop-audit all moot this cycle.
+
+**TradingView quota check:** `should_attempt_tradingview` for 2026-11-20 → **False** (`status: EXHAUSTED`, `attempts: 3`, unchanged since earlier today — `last_success_at` 1795138729). Skipped straight to Kraken fallback for all 8 allowlist pairs, per protocol — 0 TradingView calls attempted this cycle.
+
+**Fresh Kraken fetch, all 8 pairs, both timeframes:** cache freshness check showed every pair/interval combo stale (a newer completed bar should exist beyond what was cached), so a real fetch ran for all 16 pair/interval combinations — all returned `status: OK`. **The governing 4h candle finally rolled this cycle**, exactly as anticipated: last completed 4h bar advanced from `last_t 1795161600` (unchanged across the prior 4 cycles, 12:38:17Z-15:37:41Z) to **`last_t 1795176000`** (the 16:00 UTC close) — the first genuinely fresh 4h candle in 4 consecutive cycles. Fresh 1h bar `last_t 1795186800` merged into cache for all 8 pairs (now 791 1h bars / 738 4h bars cached per pair).
+
+**Near-miss queue reassessment (ETH, AVAX) — both INVALIDATED this cycle, not merely still-near-miss.** Recomputed in full on the fresh 4h candle (EMA9/20/50, RSI14, MACD, §13.H volume baseline, `swing_points()`/`pullback_depth()`, RS vs. BTC — all from the real cached bar history, not assumed). A severe, broad market-wide crash hit every one of the 8 allowlisted pairs simultaneously with the equity selloff: 24h changes range -5.76% (BTC) to -7.72% (LINK), all 8 pairs show bearish EMA9<EMA20<EMA50 stacks, all closed below their prior 4h swing low (confirmed breakdown, not a pullback), RSI in the 12.8-21.0 range for every pair. Both ETH and AVAX's sole confirming role-group (Momentum) has now flipped to failing, decisively, not marginally:
+- **ETH**: MACD hist +0.32418→**-5.57777** (now macd<signal, reversing a 5-bar improving trend: 2.637→1.001→0.626→0.324→-5.578); RSI 35.72→**20.98** (reversing a rising trend: 43.88→40.66→33.17→35.72→20.98). Both Momentum legs now fail. 0 confirming role-groups remain (Trend/State, Location, Volume, RS all already failed).
+- **AVAX**: MACD hist +0.00869→**-0.01748** (reversing: 0.0221→0.0159→0.0129→0.0087→-0.0175); RSI 31.61→**17.78** (reversing: 44.52→41.15→28.18→31.61→17.78). 0 confirming role-groups remain.
+
+Removed from the queue as invalidated (not expired, not merely still-pending) — see `near_miss_queue.md` for the full detail and removal note.
+
+**Full-allowlist screen (all 8 pairs), per-symbol labels — all "rejected with evidence" on the fresh 4h candle, 0 confirming role-groups for every pair:**
+- **BTC**: close 59399.90, 24h -5.76%. Trend/State fails (EMA9 61838.85<EMA20 62921.35<EMA50 65573.57); Location fails (below prior swing low, no breakout/pullback structure); Volume fails in the bullish sense (3.32x baseline on a breakdown bar — abnormal selling pressure, not confirmation); Momentum fails (RSI 16.97, MACD hist -163.90, macd<signal). RS n/a (benchmark itself).
+- **ETH**: see near-miss removal above — 0 confirming role-groups (was 1, Momentum, now invalidated).
+- **SOL**: close 68.30, 24h -7.10%. Trend/State fails; Location fails; Volume fails bullishly (5.09x on breakdown); Momentum fails (RSI 17.43, MACD hist -0.326, macd<signal); RS -1.34pp vs BTC. 0 confirming role-groups.
+- **XRP**: close 0.90881, 24h -6.17%. Trend/State fails; Location fails; Volume fails bullishly (4.66x on breakdown); Momentum fails (RSI 18.86, MACD hist -0.0039, macd<signal); RS -0.41pp vs BTC. 0 confirming role-groups.
+- **LINK**: close 8.3235, 24h -7.72% (the worst performer this cycle). Trend/State fails; Location fails; Volume fails bullishly (3.18x on breakdown); Momentum fails (RSI 12.83, MACD hist -0.0457, macd<signal); RS -1.96pp vs BTC. 0 confirming role-groups.
+- **AAVE**: close 96.92, 24h -7.40%. Trend/State fails; Location fails; Volume fails bullishly (3.36x on breakdown); Momentum fails (RSI 19.97, MACD hist -1.013, macd<signal); RS -1.64pp vs BTC. 0 confirming role-groups.
+- **HBAR**: close 0.05121, 24h -7.04%. Trend/State fails; Location fails; Volume fails bullishly (1.90x on breakdown); Momentum fails (RSI 18.34, MACD hist -0.00026, macd<signal); RS -1.28pp vs BTC. 0 confirming role-groups.
+- **AVAX**: see near-miss removal above — 0 confirming role-groups (was 1, Momentum, now invalidated).
+
+No candidate reached stop-distance validation or sizing — every pair has 0 confirming role-groups, well short of the 1-of-6 floor. No `validate_stop_distance()` call was needed. **No order placed.**
+
+Stop-audit: 0 open crypto positions — audit moot, checked=true, missing_found=0, placed=0.
+
+Robinhood MCP fully reachable throughout. No account/order/kill-phrase/circuit-breaker anomaly. `near_miss_queue.md` updated (ETH, AVAX removed as invalidated) and will be committed alongside this entry.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T16:38:03Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 2, "cleared": 0, "still_near_miss": 0, "invalidated": 2, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---

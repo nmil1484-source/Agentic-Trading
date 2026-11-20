@@ -207,8 +207,30 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| ETH | Crypto spot | No genuine 4H setup: close 1746.69, no breakout past prior swing high 1815.52 or below prior swing low 1716.09, pullback_depth() depth 64.96% (within the golden-pocket range numerically, but occurring inside a fully bearish 4h EMA stack — not a genuine bullish continuation setup). Momentum confirms via MACD improving (hist +0.32418, macd>signal); RSI 35.72. Volume fails (vol_last 4614.1 vs baseline 9351.42, 0.493x). Location remains the sole binding failure. | 4h Trend/State fails (EMA9 1764.46<EMA20 1784.61<EMA50 1858.28, bearish); RS vs BTC unchanged this cycle (same 4h candle) | 2026-11-20T15:37:41Z (Kraken fallback — TradingView quota exhausted all cycle, 0 calls attempted — same 4h bar as last 3 cycles, last_t 1795161600 (still no new 4h candle; current forming bar started 1795176000, closes 1795190400); fresh 1h bar, last_t 1795183200) | 2026-11-20T01:37:57Z | 15 | 2026-11-30 |
-| AVAX | Crypto spot | No genuine 4H setup: close 6.862, no breakout past prior swing high 7.164 or below prior swing low 6.806, pullback_depth() depth 90.36% (deep retracement, not a qualifying continuation pullback). Momentum confirms via MACD improving (hist +0.00869, macd>signal); RSI 31.61. Location is the sole binding failure. | 4h Trend/State fails (EMA9 6.964<EMA20 7.062<EMA50 7.387, bearish); Volume fails (vol_last 29751.86 vs baseline 32949.18, 0.903x); RS vs BTC unchanged this cycle (same 4h candle) | 2026-11-20T15:37:41Z (Kraken fallback — TradingView quota exhausted all cycle, 0 calls attempted — same 4h bar as last 3 cycles, last_t 1795161600 (still no new 4h candle; current forming bar started 1795176000, closes 1795190400); fresh 1h bar, last_t 1795183200) | 2026-11-20T04:37:20Z | 12 | 2026-11-30 |
+
+**Removed 2026-11-20T16:38:03Z — ETH, AVAX, both invalidated this cycle (Momentum, their sole
+remaining confirming role-group, has now flipped to failing — a different, harder item, not
+merely still-failing Location) — on a genuine fresh 4h candle (the first new 4h bar in 4
+consecutive cycles, last_t 1795176000 vs. the prior 1795161600).** A broad, severe market-wide
+crash hit every one of the 8 allowlisted pairs this cycle simultaneously with a sharp equity
+selloff (SPY -1.67%/QQQ -3.23% vs. yesterday's close) — all 8 pairs now show 24h changes of
+-5.76% (BTC) to -7.72% (LINK), all bearish EMA9<EMA20<EMA50 stacks, all RSI in the 12.8-21.0 range,
+all closed below their prior 4h swing low (`current_below_prior_swing_low: true`), 0 confirming
+role-groups across the board:
+- **ETH**: Momentum flipped decisively (MACD hist +0.32418→**-5.57777**, now macd<signal; RSI
+  35.72→**20.98**, collapsing, not improving — both legs of the Momentum test now fail). Location
+  still fails independently (no pullback structure, straight breakdown). Trend/State fails
+  (EMA9 1742.28<EMA20 1772.13<EMA50 1850.25). Volume fails in the bullish sense (3.05x baseline,
+  but this is abnormal selling pressure on a breakdown bar, not bullish confirmation). RS vs BTC
+  -1.37pp (underperforming). Zero confirming role-groups remain.
+- **AVAX**: Momentum flipped decisively (MACD hist +0.00869→**-0.01748**, now macd<signal; RSI
+  31.61→**17.78**, collapsing). Location still fails independently. Trend/State fails
+  (EMA9 6.8668<EMA20 7.0067<EMA50 7.3517). Volume fails in the bullish sense (4.78x baseline on a
+  breakdown bar). RS vs BTC -1.31pp (underperforming). Zero confirming role-groups remain.
+
+Neither qualifies as a fresh single-item near-miss on this cycle's data (both now fail every
+role-group, not just Location/4H-setup), so neither is re-added. Re-add either if a future cycle's
+fresh data independently re-establishes a confirming role-group.
 
 **Removed 2026-11-20T12:38:17Z — SOL, XRP, HBAR, all invalidated this cycle on a genuine fresh 4h
 candle (the first new 4h bar in 5 consecutive cycles, last_t 1795161600 vs. the prior 1795147200).**
