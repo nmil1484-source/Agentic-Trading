@@ -78666,3 +78666,59 @@ Stop-audit: 0 open crypto positions — audit moot, nothing to verify.
 ```
 
 ---
+
+### 2026-11-20T13:37:49Z UTC (2026-11-20 05:37:49 PST) — AUTONOMOUS — Crypto 24/7 Scan (§21)
+
+STEP 0: §14 Status confirmed ACTIVE. No kill phrase found in recent history.
+
+Account (••••8058) confirmed via `get_accounts`/`get_portfolio`: $4,983.31 total, 100% cash, 0
+crypto positions (`get_crypto_positions` → `[]`). Circuit breakers: same-day 2-stop-out cooldown
+clear (0 stop-outs logged today across any trigger). Market-shock check: US equity market not yet
+open (opens 14:30 UTC; this cycle fired 13:37:49Z) — inapplicable per this trigger's own text.
+Portfolio heat cap: $0 used, full $298.99 (6% of equity) headroom, no block.
+
+TradingView quota check: `should_attempt_tradingview` for 2026-11-20 → False (confirmed EXHAUSTED,
+3 attempts logged earlier today). Skipped TradingView entirely — went straight to Kraken fallback
+for all 8 allowlisted pairs, 0 TradingView calls made.
+
+**Near-miss queue reassessment**: read `near_miss_queue.md`'s Crypto (§21) table — ETH and AVAX
+queued. Fetched fresh 1h bars via Kraken for all 8 pairs (new 1h candle, last_t 1795176000);
+re-fetched 4h bars too — confirmed no new 4h candle has closed yet (last completed 4h bar still
+last_t 1795161600; the bar starting 1795176000 doesn't close until 1795190400, after this cycle's
+epoch). Recomputed ETH and AVAX in full on the full cached bar history (737 bars each, per the
+standing MACD-convergence methodology) — both reconfirmed byte-identical to the 12:38:17Z cycle:
+ETH still confirms Momentum only (MACD hist +0.3242, macd>signal; RSI 35.72, below 45), blocked on
+Location (pullback 64.96%, no breakout, bearish EMA stack); AVAX still confirms Momentum only
+(MACD hist +0.0087, macd>signal; RSI 31.61), blocked on Location (pullback 90.36%, no breakout).
+Neither cleared, invalidated, or expired — both still_near_miss. Updated data-timestamp and
+cycles-checked fields in `near_miss_queue.md`.
+
+**Full-allowlist screen (8/8, per-symbol labels — all rejected with evidence, same 4h candle as
+last cycle, confirmed via fresh fetch not stale cache):**
+- **BTC**: Trend/State fails (bearish EMA9<EMA20<EMA50); Momentum fails (MACD hist -22.41,
+  macd<signal; RSI 28.93); Volume fails (645.0 vs 924.67 baseline, 0.697x); Location fails
+  (pullback 86.44%, no breakout). 0 confirming role-groups.
+- **ETH**: see near-miss queue above — 1 confirming role-group (Momentum), Location fails.
+- **SOL**: Trend/State fails; Momentum fails (MACD hist -0.0565, macd<signal; RSI 29.86); Volume
+  fails (0.502x baseline); Location fails (pullback 97.73%). 0 confirming role-groups.
+- **XRP**: Trend/State fails; Momentum fails (MACD hist -0.00072, macd<signal; RSI 40.54); Volume
+  fails (0.377x baseline); Location fails (pullback 88.71%). 0 confirming role-groups.
+- **LINK**: Trend/State fails; Momentum fails (MACD hist -0.0133, macd<signal; RSI 25.83); Volume
+  fails (0.422x baseline); Location fails (pullback 91.70%). 0 confirming role-groups.
+- **AAVE**: Trend/State fails; Momentum fails (MACD hist -0.6863, macd<signal; RSI 25.67); Volume
+  fails (0.414x baseline); Location fails (pullback 93.23%). 0 confirming role-groups.
+- **HBAR**: Trend/State fails; Momentum fails (MACD hist -0.000139, macd<signal; RSI 24.91);
+  Volume fails (0.302x baseline); Location fails (pullback 76.22%). 0 confirming role-groups.
+- **AVAX**: see near-miss queue above — 1 confirming role-group (Momentum), Location fails.
+
+No candidate reached stop-distance validation or sizing — none cleared the confirmation-count
+floor's own required Location/4H-setup item. No order placed.
+
+Stop-audit: 0 open crypto positions — audit moot, checked=true, missing_found=0, placed=0.
+Robinhood MCP fully reachable throughout.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T13:37:49Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 2, "cleared": 0, "still_near_miss": 2, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
