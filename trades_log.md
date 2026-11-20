@@ -77913,3 +77913,74 @@ No crypto order placed this cycle. No Robinhood MCP connectivity issues.
 ```
 
 ---
+
+### 2026-11-20T00:38:00Z UTC (2026-11-19 16:38:00 PST) — AUTONOMOUS — Crypto 24/7 Scan (§21)
+
+STEP 0: §14 Status confirmed ACTIVE. No kill phrase found in recent history.
+
+Account (••••8058) confirmed via `get_accounts`/`get_portfolio`: total value $4,983.31, 100% cash,
+crypto_value $0. `get_crypto_positions` → 0 positions. Crypto position count 0/2 (concurrent cap).
+
+**Circuit breakers:** same-day 2-stop-out cooldown clear (0 stop-outs logged today across all
+triggers). Market-shock pause: crypto's own inter-cycle basis — equity market is closed overnight;
+treated as clear/inapplicable per the protocol's own "SPY/QQQ don't trade nights/weekends... treat
+as satisfied/inapplicable outside those hours" note.
+
+**Portfolio heat cap:** $0 open risk across every mode (fully flat account); full $298.99 (6% of
+equity) headroom.
+
+**Position management:** 0 open crypto positions — no breakeven/trailing/peak-retracement/time-stop
+checks applicable. **Stop-audit:** 0 positions, audit moot.
+
+**TradingView quota — NEW UTC DATE, reset confirmed.** `should_attempt_tradingview(state,
+"2026-11-20")` returned True (UNTESTED_TODAY, 0 prior attempts) — first cycle of the new UTC date.
+Made the real Stage A call (`mcp-tv-get-symbol-data-batch`, 8 pairs); it succeeded with real data.
+Recorded via `record_tradingview_result(success=True, quota_error=False)` and `save_state()`.
+Proceeded with the full TradingView Stage A+B pipeline for all 8 pairs (1 Stage-A + 16 Stage-B 4h/1h
+`get_ohlcv` calls = 17 calls total) — no Kraken fallback needed this cycle.
+
+**Near-miss queue reassessment — full 8-pair reassessment (every pair currently queued).** Using
+fresh TradingView 4h bars run through `dev_scanner/tv_structure.py` (`completed_bars`, `ema`,
+`rsi14`, `macd`, `volume_baseline_13h`, `swing_points`, `pullback_depth`), re-verified every item
+fresh for all 8 queued pairs, not just the previously-failed one:
+- **SOL, XRP, LINK: still near-misses**, re-verified. Location/4H-setup remains the binding
+  failure for all three (no breakout past the confirmed prior swing high/low, `pullback_depth()`
+  None). Momentum now confirms for all three via "RSI above 45 and improving" (SOL 53.70, up from
+  50.41; XRP 49.86, up from 48.68; LINK 45.16, up from 40.4, right at the floor) — a shift from
+  last cycle's MACD-based confirmation basis. Volume fails for all three this cycle (SOL 1.033x,
+  XRP 0.794x, LINK 1.149x — all below the 1.2x floor).
+- **BTC: still a near-miss**, re-verified. Location fails (4h close is now BELOW its own prior
+  swing low — a bearish breakdown signal, not a qualifying setup). Confirmation basis shifted:
+  Momentum no longer confirms (MACD histogram fading for several consecutive bars, 184.68 down to
+  40.19, despite staying barely positive; RSI 36.3<45), but Volume now confirms (1.544x, up from
+  last cycle).
+- **HBAR: still a near-miss**, re-verified. Same shape as BTC — Location fails (4h close below
+  prior swing low), Volume still confirms (1.958x), Momentum fails (RSI 32.43, MACD hist
+  marginally negative).
+- **ETH, AAVE, AVAX: all three INVALIDATED this cycle and removed from the queue** — each had
+  been clearing the confirmation-count floor via one or two role-groups as of the 23:37:43Z
+  cycle; this cycle every one of those confirming role-groups independently re-checked and failed
+  outright, dropping each to zero confirming role-groups (full detail in `near_miss_queue.md`'s
+  dated removal note). ETH: Momentum and Volume both failed (fading MACD histogram plus RSI<45;
+  Volume dropped from 2.18x to 1.115x). AAVE: Volume collapsed from 3.24x to 0.449x; Momentum
+  still failing. AVAX: RSI rose to 44.96 (genuinely improving from 40.07) but missed the >45
+  threshold by 0.04 — flagged explicitly as an extremely marginal, not clean, rejection; MACD
+  histogram also fading, not improving.
+- near_miss_queue.md **changed** this cycle (3 removed as invalidated — ETH, AAVE, AVAX; 5
+  remaining entries' fields updated — SOL, XRP, LINK, BTC, HBAR).
+
+**Full-allowlist Stage-2 evaluation — all 8 pairs, every pair independently evaluated this cycle:**
+BTC, ETH, SOL, XRP, LINK, AAVE, HBAR, AVAX — all 8 **rejected with evidence**: no genuine 4H setup
+(Location) for any pair — either a bearish breakdown below the prior swing low (BTC, HBAR) or no
+breakout/no active pullback at all (ETH, SOL, XRP, LINK, AAVE, AVAX) — independent of each pair's
+confirmation-role-group count this cycle. 8/8 evaluated, 8/8 rejected with evidence, 0 not
+evaluated, 0 tool failures.
+
+**OBSERVE, no trade — every pair independently fails the Location/4H-setup gate item regardless of
+confirmation-count status.**
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T00:38:00Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 8, "cleared": 0, "still_near_miss": 5, "invalidated": 3, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 17, "tvremix_calls_used_today": 17, "data_source": "tradingview", "tradingview_quota_status": "AVAILABLE", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
