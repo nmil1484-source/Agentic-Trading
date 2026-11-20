@@ -78722,3 +78722,29 @@ Robinhood MCP fully reachable throughout.
 ```
 
 ---
+
+### 2026-11-20T14:08:35Z UTC (2026-11-20 06:08:35 PST) — PREMARKET_PREP — Premarket Preparation Scan (read-only)
+
+STEP 0: §14 Status confirmed ACTIVE. No kill phrase found in recent trades_log.md history.
+
+**STEP 1 SPY freshness check: NOT ATTEMPTED.** TradingView call-budget state
+(`dev_scanner/data_budget.py`) confirmed `status: EXHAUSTED` for UTC date 2026-11-20 (`attempts:
+3`, already logged by earlier crypto cycles today). Notably, today's quota DID reset cleanly at
+the UTC day boundary — the 00:38:00Z Crypto 24/7 cycle ran a full 17-call TradingView pass with
+zero issues — but was re-exhausted again within about an hour (01:37:57Z cycle, after only ~4
+more calls) and has stayed exhausted through every subsequent hourly crypto cycle since,
+reconfirmed as recently as 13:37:49Z, ~30 minutes before this scan fired. Attempting the SPY
+check or any watchlist/screener batch call would only return `TOOL_QUOTA_EXCEEDED` — skipped
+straight to reporting the gap rather than burning a call to re-confirm an already-known-dead
+quota.
+
+**Coverage state: `DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE`** — explicitly a connector/quota
+exhaustion, not a market holiday or a genuine TradingView outage. No candidates reported this
+cycle. `premarket_shortlist.md` rewritten to reflect today's no-shortlist status, noting the
+reset-then-immediate-re-exhaustion pattern as worth watching if it recurs on future days.
+
+```json
+{"cycle": "premarket_prep", "timestamp_utc": "2026-11-20T14:08:35Z", "read_only": true, "calls_made_this_cycle": 0, "coverage_state": "DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE", "candidates_found": 0, "watchlist_candidates": 0, "offwatchlist_research_only_candidates": 0, "git_push": "pending"}
+```
+
+---
