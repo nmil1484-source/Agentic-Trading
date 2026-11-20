@@ -79433,3 +79433,38 @@ Every pair: Trend/State fails (bearish EMA9<EMA20<EMA50 stack on 4h), Momentum f
 ```
 
 ---
+
+### 2026-11-20T23:37:59Z UTC (2026-11-20 15:37:59 PST) — Crypto 24/7 Scan
+
+**Account**: $4,983.31 total, 100% cash, 0 crypto positions (confirmed via `get_portfolio`/`get_crypto_positions` fresh this cycle). Robinhood MCP connectivity clean (no auth/connectivity errors on any call this cycle).
+
+**Circuit breakers**: no same-day stop-out (0 stop-outs anywhere today). Market-shock breaker (crypto's own inter-cycle basis) — SPY/QQQ vs-yesterday's-close moved to -2.49%/-4.10% (698.07/715.87, 618.60/645.04, using after-hours last_non_reg_trade_price since equity markets are closed), a modest improvement from the prior crypto cycle's -2.85%/-4.38% — inter-cycle change well under 1.5%, breaker **not triggered**. Portfolio heat cap: $0 open risk anywhere, full 6%-of-equity headroom available — moot with 0 positions to manage anyway.
+
+**Stop-audit**: 0 open crypto positions — audit moot, checked=true, missing_found=0, placed=0.
+
+**Near-miss queue**: `near_miss_queue.md`'s Crypto (§21) table was already empty; reassessed=0 (nothing queued to reassess). Full allowlist screen below produced no new near-miss (every pair fails all 6 confirmations outright, not a single-item near-miss). No file change.
+
+**TradingView quota**: still EXHAUSTED for 2026-11-20 (3 attempts recorded, last success earlier today) — `should_attempt_tradingview()` returned False, confirmed via fresh state check. Went straight to Kraken fallback for all 8 pairs, no Stage A batch call (no TradingView equivalent).
+
+**Kraken fallback, all 8 pairs**: 4h cache still fresh (`is_cache_fresh_enough: true`, same `last_t` 1795190400 as the last 8 cycles — **8th consecutive cycle with no new 4h candle**). 1h cache was stale; fetched fresh via `fetch_kraken_ohlc` for all 8 pairs — all returned `status: OK`, merged into `dev_scanner/state/candle_cache/*_1h.json`. Zero tool failures, zero DATA_BLOCKED pairs.
+
+**Full-allowlist screen (§21 item 3, 1-of-6 confirmation floor), per-pair, computed from the FULL cached bar history (both timeframes) via `completed_bars`/`ema`/`rsi14`/`macd`/`atr14`/`swing_points`/`volume_baseline_13h` — MACD full-history-vs-short-window cross-check: not applicable this cycle (used full history throughout, no discrepancy found in prior cycles either):**
+
+All 8 pairs rejected — **0/6 confirming role-groups each**, every pair's 4h chart shows a uniformly bearish stack (EMA9<EMA20<EMA50), RSI deeply oversold but below the 45 floor (16.42-19.81, none "improving" toward it), and MACD histogram actively **deteriorating** over the last 5 completed 4h bars for all 8 (checked explicitly, not assumed — e.g. BTC hist: 0.32→-18.15→-22.41→-163.90→-292.63; AAVE: -0.63→-0.63→-0.69→-1.01→-1.26). No pair shows a 4h breakout/reclaim (`swing_points` 4h: BTC/ETH/XRP/AAVE/HBAR still closing below their prior swing low; SOL/LINK/AVAX inside range, no break either direction). Relative strength vs. BTC (24h %change, computed from completed 1h bars): BTC -4.95%, ETH -7.93%, SOL -5.45%, XRP -5.00%, LINK -4.50%, AAVE -6.85%, HBAR -4.49%, AVAX -5.61% — max RS gap vs. BTC is HBAR/LINK at only +0.46pp/+0.45pp, far short of anything meaningful. No candidate reached stop-distance validation or sizing.
+
+- **BTC**: 0/6. Trend/State fails (bearish stack); Location fails (below prior 4h swing low); Volume n/a (confirms the down-move, not bullish); Momentum fails (RSI 16.42, MACD hist -292.63 and deteriorating); RS +0.00pp (reference).
+- **ETH**: 0/6. Same pattern — bearish stack, below swing low, RSI 18.86, MACD hist -11.77 deteriorating; RS -2.98pp (worst of the 8).
+- **SOL**: 0/6. Bearish stack, inside-range (no break), RSI 18.38, MACD hist -0.485 deteriorating; RS -0.50pp.
+- **XRP**: 0/6. Bearish stack, below swing low, RSI 18.80, MACD hist -0.0066 deteriorating; RS -0.05pp.
+- **LINK**: 0/6 on the **4h setup** (bearish stack, inside-range, RSI 17.07, MACD hist -0.060 deteriorating). **1h shows `current_above_prior_swing_high: true`** (a genuine local breakout, close 8.573 vs. prior 1h swing high 8.505) — same pattern as last cycle's note, still correctly **not qualifying**: no 4h setup exists to anchor this 1h move (the "4H-setup-plus-1H-trigger" requirement needs a real 4H confirmation first, not just a 1H micro-bounce inside a larger downtrend). RS +0.45pp.
+- **AAVE**: 0/6 on the 4h setup (bearish stack, below swing low, RSI 16.61, MACD hist -1.262 deteriorating). **1h also shows `current_above_prior_swing_high: true`** (close 97.79 vs. prior 1h swing high 97.77) — same disqualifying reasoning as LINK: no 4h setup to anchor it. RS -1.90pp.
+- **HBAR**: 0/6. Bearish stack, below swing low, RSI 17.64, MACD hist -0.00035 deteriorating; RS +0.46pp (best of the 8, still immaterial).
+- **AVAX**: 0/6. Bearish stack, inside-range, RSI 19.81, MACD hist -0.031 deteriorating; RS -0.66pp.
+
+**No order placed.** Coverage: 8/8 evaluated (full gate check run on every pair), 8/8 rejected with evidence, 0 not-evaluated, 0 tool failures.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T23:37:59Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
