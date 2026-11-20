@@ -78748,3 +78748,39 @@ reset-then-immediate-re-exhaustion pattern as worth watching if it recurs on fut
 ```
 
 ---
+
+### 2026-11-20T14:37:56Z UTC (2026-11-20 06:37:56 PST) — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+STEP 0: §14 Status confirmed ACTIVE. No kill phrase found in recent trades_log.md history.
+
+**Account check:** `get_accounts`/`get_portfolio` (••••8058) — total value $4,983.31, 100% cash, equity/options/crypto value all $0. `get_crypto_positions` → 0 positions. Crypto position count 0 vs. the 2-concurrent cap — full capacity available.
+
+**Circuit breakers:**
+- Same-day 2-stop-out cooldown: 0 stop-outs logged today across any trigger — clear.
+- Market-shock breaker: **US equity market opened at 14:30 UTC — this is the first crypto cycle since open.** Fresh `get_equity_quotes(["SPY","QQQ"])`: SPY $712.85 vs. yesterday's close $715.87 (-0.42%); QQQ $635.58 vs. $645.04 (-1.47%). This breaker's own text is an inter-cycle (this-cycle-vs-last-cycle) comparison, not vs-yesterday's-close — and no prior intraday equity reading exists yet today to compare against (every earlier cycle today was overnight, correctly marked inapplicable). With no valid "last cycle" equity price on record, there is nothing to compute an inter-cycle delta against — treated as **not triggered** this cycle (first reading of the day, no baseline to exceed), not "inapplicable" (market is now open). Flagged for context: QQQ's day-over-day change (-1.47%) is close to, but under, 1.5% — worth watching once a same-day baseline exists for the actual inter-cycle check.
+
+**Portfolio heat cap:** $0 current risk (0 positions) vs. 6% of equity ($298.9986) — full headroom.
+
+**Position management:** 0 open crypto positions — breakeven/trailing/peak-retracement/time-stop/stop-audit all moot this cycle.
+
+**TradingView quota check:** `should_attempt_tradingview` for 2026-11-20 → **False** (confirmed `status: EXHAUSTED`, `attempts: 3`, unchanged since earlier today). Skipped straight to Kraken fallback for all 8 allowlist pairs, per protocol — 0 TradingView calls attempted.
+
+**Near-miss queue reassessment (ETH, AVAX):** fresh Kraken 1h pull merged into cache (new 1h bar, last_t 1795179600); 4h cache (last_t 1795161600) independently confirmed still the latest completed bar — **no new 4h candle has closed since the 12:38:17Z cycle**. Both ETH and AVAX's full-gate recomputation (EMA9/20/50, RSI14, MACD on full cached history, §13.H volume baseline, swing_points, pullback_depth, all recomputed fresh, not assumed) came back byte-identical to the 13:37:49Z cycle's reading: both still confirm via Momentum alone (ETH: MACD hist +0.32418, macd>signal; AVAX: MACD hist +0.00869, macd>signal), both still blocked solely on Location/4H-setup (no breakout past prior swing structure; deep pullback_depth occurring inside a bearish 4h EMA stack, not a genuine bullish continuation). Reassessment result: **still-near-miss** for both — cycles-checked incremented (ETH 13→14, AVAX 10→11), data timestamps updated. near_miss_queue.md updated and committed.
+
+**Full-allowlist screen (all 8 pairs), per-symbol labels — all "rejected with evidence":**
+- **BTC**: Trend/State fails (bearish EMA9<EMA20<EMA50); Momentum fails (RSI 28.93, MACD hist -22.41, macd<signal); Volume fails (0.698x baseline); Location fails (no breakout, pullback_depth 86.44% not a qualifying setup inside a bearish stack). 0 confirming role-groups.
+- **SOL**: Trend/State fails; Momentum fails (RSI 29.86, MACD hist -0.056, macd<signal); Volume fails (0.502x); Location fails (depth 97.73%). 0 confirming role-groups.
+- **XRP**: Trend/State fails; Momentum fails (RSI 40.54, MACD hist -0.0007, macd<signal); Volume fails (0.377x); Location fails (depth 88.71%). 0 confirming role-groups.
+- **LINK**: Trend/State fails; Momentum fails (RSI 25.83, MACD hist -0.0133, macd<signal); Volume fails (0.422x); Location fails (depth 91.70%). 0 confirming role-groups.
+- **AAVE**: Trend/State fails; Momentum fails (RSI 25.67, MACD hist -0.686, macd<signal); Volume fails (0.414x); Location fails (depth 93.23%). 0 confirming role-groups.
+- **HBAR**: Trend/State fails; Momentum fails (RSI 24.91, MACD hist -0.00014, macd<signal); Volume fails (0.302x); Location fails (depth 76.22%). 0 confirming role-groups.
+- **ETH**: Momentum confirms (MACD hist +0.32418, macd>signal) — the sole confirming role-group; Location fails (binding failure, see near-miss entry above).
+- **AVAX**: Momentum confirms (MACD hist +0.00869, macd>signal) — the sole confirming role-group; Location fails (binding failure, see near-miss entry above).
+
+No candidate reached the sizing/stop-distance step this cycle — every pair fails Location/4H-setup, the gate's own dual-timeframe structural requirement; ETH/AVAX's single Momentum confirmation is not itself sufficient without it. No `validate_stop_distance()` call was needed. **No order placed.**
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T14:37:56Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 2, "cleared": 0, "still_near_miss": 2, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
