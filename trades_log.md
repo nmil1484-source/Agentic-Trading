@@ -78928,3 +78928,139 @@ No candidate reached stop-distance validation or sizing — every pair has 0 con
 ```
 
 ---
+
+### 2026-11-20T15:04:15Z — AUTONOMOUS (trigger-fired, Mode B/C First Scan of Day, trig_01RN6ZbtgxKpoDApzmGswWAs)
+
+**STRATEGY: SWING_TRADING / DAY_TRADING** — §14 Status confirmed **ACTIVE**, no kill phrase found in
+recent log history. Agentic Account (••••8058): total value **$4,983.31**, cash $4,983.31 (100%
+cash), 0 equity positions, 0 option positions, 0 open orders of any kind — account fully flat
+across Mode B/§18/§19/§22. Portfolio heat cap: $0 used of $299.00 (6% of equity) — full headroom,
+0 open positions anywhere.
+
+**Note on timing**: this entry's data-gathering spanned roughly 15:04Z–17:4xZ real time (an
+unusually long single-cycle duration, driven by the depth of the market move described below
+making a fresh circuit-breaker re-check necessary mid-cycle) — flagged plainly rather than
+back-dated; all price/technical data below is explicitly timestamped to when it was actually
+pulled, not assumed concurrent with the 15:04:15Z trigger fire.
+
+**Circuit breakers — MARKET-SHOCK BREAKER ACTIVE.** Same-day stop-out cluster: 0 stop-outs logged
+anywhere today across any trigger — clear. Major unscheduled market-shock (§6): an early read at
+~15:06Z (SPY $715.6383 vs. yesterday's close $715.87 = -0.03%; QQQ $639.31 vs. $645.04 = -0.89%)
+showed no breach. By ~16:34Z, re-checked fresh ahead of order-placement decisions, the market had
+moved sharply further: **SPY $704.655 vs. $715.87 = -1.566%; QQQ $624.6774 vs. $645.04 = -3.157%**
+— QQQ's move alone clears the 1.5% threshold by more than double. SOXX (semis) -7.618%, IWM
+(small-caps) -1.186% — a broad, uneven decline with semiconductors and AI-infrastructure/datacenter
+names hit hardest (see Stage-2 below). **§6's major-market-shock breaker is ACTIVE this cycle**:
+no new entries in any mode for the remainder of this cycle and the next scheduled cycle, auto-
+resuming the cycle after absent a fresh trigger. Protective-exit/stop-audit authority is
+unaffected (moot here — 0 open positions). This is logged as the governing reason no order was
+placed this cycle, on top of the ordinary item-7 hourly-trigger timing gap described below.
+
+**Stage 1 — full-universe batch triage.** TradingView/tvremix confirmed EXHAUSTED for all of
+2026-11-20 (`dev_scanner.data_budget`, state recorded earlier today: 3 attempts, exhausted).
+Ran the Robinhood-native fallback (`get_equity_quotes`) across the complete 74-name `watchlist.md`
+universe in 4 batches — **74/74 triaged**, 0 tool failures. Today is a broad decliner: roughly
+60 of 74 names red vs. yesterday's close, led down by AI-infrastructure/datacenter-adjacent names
+(CORZ -8.61%, AMDG -8.36%, BE -7.41%, IREN -7.46%, NBIS -6.24%, CRWV -6.14%, MU -5.97%, DELL -5.24%,
+VRT -4.96%) alongside a handful of green names (FIG +5.04%, CBRS +4.51%, NOW +3.98%, UBER +3.35%,
+GOOG +2.46%). This pattern — broad weakness concentrated in capex-heavy AI-datacenter names —
+is consistent with the AI-financing/credit-exposure soft-tilt context already on file (§8 item 11);
+no fresh credit-spread pull was made this cycle to confirm it quantitatively, flagged as a gap for
+a future cycle rather than asserted as confirmed causation.
+
+**Stage 2 — full-gate evaluation, 12-slot rotation (no near-miss-queue reservation needed — the
+Mode B/C equities near-miss table is currently empty).** Selected by today's most notable price
+moves (8 bearish-leaning, 4 bullish-leaning-by-price), daily-timeframe indicators pulled fresh
+(RSI14, MACD, EMA9/EMA20; `start_time=2026-09-01`, `as of` the last completed daily bar, 2026-11-19):
+
+- **CORZ**: Bearish Mirror Gate — Trend/State confirms (EMA9 13.64<EMA20 13.76); Momentum mixed
+  (RSI 46.4 neutral, MACD histogram +0.18 improving — does not confirm). Item 3 clears on
+  Trend/State alone. Relative weakness vs. SPY today: -8.61% vs. -1.57% (item 2 ✓, large gap).
+  **Item 7 (hourly trigger) PENDING** — session opened 14:30 UTC; no hourly bar had completed yet
+  at evaluation time. Daily setup clears, stays OBSERVE pending a completed hourly trigger at a
+  later cycle.
+- **BE**: Trend/State confirms (EMA9 182.0<EMA20 196.2); Momentum confirms (RSI 38.0, MACD
+  histogram -1.0 deteriorating, macd<signal). Two role-groups. RS vs. SPY: -7.41% vs. -1.57% ✓.
+  Item 7 PENDING. Daily setup clears, OBSERVE.
+- **IREN**: Trend/State confirms (EMA9 17.53<EMA20 21.19); Momentum confirms (RSI 27.7, MACD
+  histogram -0.18 deteriorating). Two role-groups. RS: -7.46% vs. -1.57% ✓. Item 7 PENDING. OBSERVE.
+- **NBIS**: Trend/State confirms strongly (EMA9 117.0<EMA20 136.5, wide gap); Momentum confirms
+  strongly (RSI 32.0, MACD histogram -2.21). RS: -6.24% vs. -1.57% ✓. Item 7 PENDING. OBSERVE.
+- **CRWV**: Trend/State confirms (EMA9 50.0<EMA20 54.1); Momentum mixed (RSI 36.5, MACD histogram
+  +0.48 improving — does not confirm). Item 3 clears on Trend/State alone. RS: -6.14% vs. -1.57% ✓.
+  Item 7 PENDING. OBSERVE.
+- **DELL**: Trend/State confirms (EMA9 337.2<EMA20 376.8); Momentum confirms (RSI 32.5, MACD
+  histogram -2.74). RS: -5.24% vs. -1.57% ✓. Item 7 PENDING. OBSERVE.
+- **STM**: Trend/State confirms, narrow gap (EMA9 44.87<EMA20 45.73); Momentum mixed (RSI 42.9,
+  MACD histogram +0.11 improving — does not confirm). Item 3 clears on Trend/State alone. RS:
+  -4.43% vs. -1.57% ✓. Item 7 PENDING. OBSERVE.
+- **DRAM**: Trend/State confirms (EMA9 40.74<EMA20 43.67); Momentum confirms (RSI 36.7, MACD
+  histogram -0.17). RS: -4.67% vs. -1.57% ✓. Item 7 PENDING. OBSERVE.
+- **FIG** (bullish gate tested — today +5.04%): **REJECTED, §5B item 3** — Trend/State fails
+  (EMA9 18.41<EMA20 19.69, still bearish daily structure despite today's bounce); Momentum fails
+  (RSI 30.3, below the required >45; MACD histogram -0.34, still deteriorating). 0 of 5 bullish
+  role-groups confirm — today reads as a bounce inside an existing downtrend, not a reversal.
+- **CBRS** (bullish gate tested — today +4.51%): **REJECTED, §5B item 2/3** — Trend/State fails
+  (EMA9 97.2<EMA20 105.4); only Momentum marginally confirms (MACD histogram +2.35 improving,
+  RSI 35.3 still <45). A single day's RS pop (+4.51% vs. SPY -1.57%) is not a checkable
+  multi-session relative-strength driver per item 2's own text, and no dated catalyst found this
+  cycle. Rejected with evidence.
+- **NOW** (tested both directions — today +3.98%, but RSI 24.66 very oversold, EMA9 97.8<EMA20
+  108.6 still deeply bearish, MACD histogram -1.60 still deteriorating): **REJECTED both
+  directions** — fails bullish Trend/State+Momentum outright; a fresh bearish entry today is
+  poorly timed against today's actual intraday bounce, no fresh breakdown trigger. Rejected with
+  evidence.
+- **UBER** (tested bullish — today +3.35%): **REJECTED, §5B item 3** — Trend/State flat/marginal
+  (EMA9 68.47 vs. EMA20 68.63, essentially neutral); Momentum fails (RSI 38.9 <45, MACD histogram
+  -0.07 flat-to-slightly-deteriorating). 0 of 5 confirmed despite today's real RS outperformance.
+
+**Mandatory §22 leveraged/inverse-ETF screen — all 9 names accounted for, independent of
+TradingView availability (Robinhood fallback used throughout).**
+
+| Symbol | Gate tested | Result |
+|---|---|---|
+| TQQQ | §5B bullish (own chart) | REJECTED — Trend/State bearish (EMA9 54.4<EMA20 59.1), Momentum bearish (RSI 32.5, MACD hist -0.55); today -9.62% reinforces bearish. |
+| SOXL | §5B bullish (own chart) | REJECTED — Trend/State bearish (EMA9 54.2<EMA20 67.5), Momentum weak; today -23.05%, decisively bearish. |
+| SPXL | §5B bullish (own chart) | REJECTED — Trend/State bearish (EMA9 249.2<EMA20 260.8), Momentum bearish (MACD hist -3.44); today -4.85%. |
+| TNA | §5B bullish (own chart) | REJECTED — Trend/State bearish (EMA9 53.0<EMA20 55.0), Momentum bearish (MACD hist -0.77); today -3.68%. |
+| SQQQ | Bearish Mirror Gate on QQQ + bullish entry on SQQQ | **Underlying (QQQ) item 2/3 CLEAR**: RS -3.157% vs. SPY -1.566% (-1.59pp, item2 ✓); Trend/State confirms (EMA9 666.1<EMA20 681.2); Momentum confirms (RSI 33.9, MACD hist -2.24). **SQQQ's own chart**: Trend/State bullish (EMA9 45.37>EMA20 43.09); Momentum bullish (RSI 65.1, MACD hist +0.43). Everything clears except **item 7 (hourly trigger) — PENDING**, and the market-shock breaker above blocks any new entry this cycle regardless. Flagged as the strongest candidate found this cycle — watch closely next eligible cycle once a completed hourly bar exists and the breaker's status is re-verified. Added to near-miss queue. |
+| SOXS | Bearish Mirror Gate on SOXX + bullish entry on SOXS | **Underlying (SOXX) item 2/3 CLEAR**: RS -7.618% vs. SPY -1.566% (-6.05pp, item2 ✓, strongest RS gap of the cycle); Trend/State confirms (EMA9 144.7<EMA20 151.5); Momentum confirms (RSI 36.0, MACD hist -0.29). **SOXS's own chart**: Trend/State bullish (EMA9 57.30>EMA20 54.22); Momentum roughly flat/marginal (RSI 58.2, MACD hist +0.05). Everything but item 7 clears; breaker blocks entry this cycle. Second-strongest candidate. Added to near-miss queue. |
+| SPXU | Bearish Mirror Gate on SPY (benchmark-itself) + bullish entry on SPXU | REJECTED, item 2 — SPY is the benchmark used elsewhere in this methodology, so a relative-weakness-vs-SPY comparison does not apply to SPY itself, and no independently verified, dated catalyst/headwind was found this cycle for the broad-market decline. SPXU's own chart is strongly bullish (EMA9 38.23>EMA20 36.89, RSI 68.9, MACD hist +0.48) but the underlying leg is not established — rejected with evidence, not a technicals failure. |
+| AMDG | §5B bullish (own chart, leveraged-long on AMD) | REJECTED — Trend/State bearish (EMA9 81.6<EMA20 87.5); Momentum mixed (RSI 42.5, MACD hist +0.44 improving but trend still bearish); today -8.36% (AMD -4.57%, consistent ~1.8x leveraged decay-adjusted). |
+| TZA | Reassessed fresh (prior near-miss, item 4 only) | See near-miss-queue update below — reassessed, thesis **weakening**: IWM showed relative *strength* vs. SPY today (-1.19% vs. -1.57%), undermining the fresh relative-weakness driver even though TZA's own chart remains technically bullish (EMA9 49.60>EMA20 48.32, RSI 64.4, MACD hist +0.67). Not recomputed to a fresh R:R this cycle (moot given the active market-shock breaker); flagged for a full fresh re-check next eligible cycle. |
+
+**§22 completion check: 9 of 9 accounted for** (4 rejected on own-chart bullish structure: TQQQ,
+SOXL, SPXL, TNA; 1 rejected on own-chart bullish structure: AMDG; 1 rejected on underlying-catalyst
+item 2: SPXU; 2 clear everything but item 7/breaker: SQQQ, SOXS; 1 reassessed near-miss: TZA). No
+`COVERAGE_INCOMPLETE`.
+
+**Options/LEAPS sourcing (§18 item 11/§19 item 8): DEFERRED this cycle.** Call/tool budget this
+cycle was prioritized to completing the mandatory §22 screen and the 12-slot Mode B/C equity
+rotation given the active market-shock breaker precludes any live execution this cycle regardless
+of what sourcing would find. Rotation pointer in `near_miss_queue.md`'s Options/LEAPS Sourcing
+Queue table is unchanged — picked up at the next eligible cycle. Logged per §18 item 12's own
+`options_leaps_deferred` labeling, not a tool failure and not a rejection.
+
+**Mode C (hourly-adapted VWAP-pullback/ORB/mean-reversion).** Screened via the same Stage-1 triage
+data above; no Mode C setup reached a valid entry trigger this cycle — the opening-range window
+(first 30-60 min) and the first completed hourly bar both needed more of today's session to exist
+than had elapsed at evaluation time for a clean read, and in any case the market-shock breaker
+blocks any new Mode C entry this cycle regardless. 0 new Mode C entries.
+
+**Stop-audits — both trivial, explicitly checked, not omitted.** Mode B equities (incl. §22 ETFs):
+`get_equity_positions` returned 0 open positions — 0 stops to audit. Mode C: 0 open positions —
+0 stops to audit. **§18/§19 options/LEAPS stop-check (step 2b)**: `get_option_positions(nonzero=
+true)` returned 0 open positions — 0 marks to compare, nothing to protect.
+
+**No order placed in Mode B or Mode C this cycle** — blocked both by the active market-shock
+circuit breaker and, independently, by the structural absence of any completed-hourly-bar trigger
+this early in today's session for every candidate that otherwise cleared its daily setup.
+
+**near_miss_queue.md updated**: TZA reassessed (weakening thesis, see above); SQQQ and SOXS added
+as fresh near-miss rows (item 7 pending + breaker-blocked, everything else cleared).
+
+```json
+{"cycle": "Mode B/C First Scan of Day", "timestamp_utc": "2026-11-20T15:04:15Z", "coverage_state": "OBSERVE", "modes_covered": ["B", "C"], "status_gate": "ACTIVE", "circuit_breakers_active": ["market_shock_qqq_-3.157pct"], "same_day_stop_out_count": 0, "positions": {"mode_b_count": 0, "mode_c_count": 0, "options_count": 0, "leveraged_etf_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions in any Mode B/C/§22 lane, audit moot"}, "options_stop_check": {"checked": true, "open_positions": 0, "note": "0 open option/LEAPS positions"}, "coverage": {"universe_size": 74, "triaged": 74, "full_gate_evaluated": 12, "rejected_with_evidence": 7, "not_evaluated": 55, "tool_failures": 0, "options_leaps_deferred": true, "tvremix_calls_used_today": 0, "data_source": "robinhood_fallback", "tradingview_quota_status": "EXHAUSTED"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 6, "near_miss_pending_item7_or_breaker": 2, "near_miss_reassessed": 1, "coverage_incomplete": false}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 2}, "market_shock_check": {"spy_pct": -1.566, "qqq_pct": -3.157, "soxx_pct": -7.618, "iwm_pct": -1.186, "early_read_spy_pct": -0.03, "early_read_qqq_pct": -0.89, "breaker_triggered": true}, "calls_made_this_cycle": 29, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
