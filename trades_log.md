@@ -78546,3 +78546,66 @@ Robinhood MCP fully reachable throughout.
 ```
 
 ---
+
+### 2026-11-20T11:37:55Z UTC — AUTONOMOUS — Crypto 24/7 Scan (§21)
+
+STEP 0: §14 Status confirmed ACTIVE. No kill phrase found in trades_log.md history.
+
+Account (••••8058) confirmed via `get_accounts`/`get_portfolio`: $4,983.31 total, 100% cash, 0 crypto
+positions (`get_crypto_positions`). No open positions to manage; stop-audit moot (0 found, 0
+missing). Portfolio heat cap: $0 used, full $298.99 headroom.
+
+Circuit breakers: same-day 2-stop-out cooldown clear (0 stop-outs logged today across any trigger).
+Market-shock breaker inapplicable — regular equity session has not opened yet (SPY/QQQ premarket
+only, current UTC time 11:38, market opens 14:30 UTC).
+
+TradingView quota check: `should_attempt_tradingview('2026-11-20')` -> False, confirmed EXHAUSTED
+(`attempts: 3`, last success well before this cycle). Skipped straight to Kraken fallback for all
+8 allowlisted pairs, 0 TradingView calls attempted.
+
+Fetched fresh Kraken 4h+1h bars for all 8 pairs (BTC, ETH, SOL, XRP, LINK, AAVE, HBAR, AVAX),
+merged into cache. The 4h bar is still last_t 1795147200 (04:00-08:00 UTC) -- the 08:00-12:00 UTC
+bar has not closed yet (now ~11:38 UTC, closes at 12:00 UTC). 1h bar advanced one hour to
+last_t 1795168800 (09:00 UTC). Recomputed every indicator (EMA9/20/50, RSI14, MACD, ATR14, volume
+baseline, swing_points, pullback_depth) from the full cached bar history (736 4h bars) per the
+standing MACD-convergence methodology note -- every pair's full-history MACD sign matched its own
+prior-cycle logged value exactly, confirming stability, no new convergence discrepancies found.
+
+Per-symbol result (full gate re-check, all 8):
+- **SOL** -- Trend/State fails (bearish EMA stack). Momentum confirms (MACD hist +0.0354,
+  macd>signal). Volume fails (0.477x). Location fails -- no breakout past swing high 75.56/low
+  71.52; pullback_depth 92.6% (deep retracement, not qualifying). **1 confirming role-group --
+  still a near-miss, unchanged.**
+- **XRP** -- Trend/State fails. Momentum confirms (hist +0.000149). Volume fails (0.409x).
+  Location fails -- pullback_depth 84.5%. **1 confirming role-group -- still a near-miss,
+  unchanged.**
+- **ETH** -- Trend/State fails. Momentum confirms (hist +0.626). Volume fails (0.641x). Location
+  fails -- no breakout, pullback_depth None. **1 confirming role-group -- still a near-miss,
+  unchanged.**
+- **AVAX** -- Trend/State fails. Momentum confirms (hist +0.0128). Volume fails (0.596x). Location
+  fails -- pullback_depth None. **1 confirming role-group -- still a near-miss, unchanged.**
+- **HBAR** -- Trend/State fails. Momentum fails (hist -0.00014, macd<signal). Volume confirms
+  (1.905x). Location fails -- pullback_depth None. **1 confirming role-group -- still a near-miss,
+  unchanged.**
+- **BTC** -- Trend/State fails. Momentum fails (hist -18.15, macd<signal -- full-history MACD
+  confirmed stable again this cycle). Volume fails (0.384x). Location fails. **0 confirming
+  role-groups -- correctly off queue, unchanged.**
+- **AAVE** -- Trend/State fails. Momentum fails (hist -0.635, macd<signal). Volume fails (0.406x).
+  Location fails. **0 confirming role-groups -- correctly off queue, unchanged.**
+- **LINK** -- Trend/State fails. Momentum fails (hist -0.00505, macd<signal). Volume fails
+  (0.347x). Location fails. **0 confirming role-groups -- correctly off queue, unchanged.**
+
+All 8 pairs: `rejected with evidence` -- Location/4H-setup is the binding failure for every pair,
+no candidate reached stop-distance/sizing. No order placed.
+
+Near-miss queue reassessment: SOL/XRP/ETH/AVAX/HBAR reassessed, all **still near-miss**
+(cycles-checked incremented, data timestamp updated) -- 0 cleared, 0 invalidated, 0 ineligible,
+0 expired, 0 newly added. near_miss_queue.md updated.
+
+Stop-audit: 0 open positions, moot. Robinhood MCP fully reachable throughout.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T11:37:55Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 5, "cleared": 0, "still_near_miss": 5, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
