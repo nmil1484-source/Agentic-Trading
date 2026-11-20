@@ -77984,3 +77984,101 @@ confirmation-count status.**
 ```
 
 ---
+
+### 2026-11-20T01:37:57Z UTC (2026-11-19 17:37:57 PST) — AUTONOMOUS — Crypto 24/7 Scan (§21)
+
+STEP 0: §14 Status confirmed ACTIVE. No kill phrase found in recent history.
+
+Account (••••8058) confirmed via `get_accounts`/`get_portfolio`: total value $4,983.31, 100% cash,
+crypto_value $0. `get_crypto_positions` → 0 positions. Crypto position count 0/2 (concurrent cap).
+
+**Circuit breakers:** same-day 2-stop-out cooldown clear (0 stop-outs logged today across all
+triggers). Market-shock pause: equity market closed overnight — treated as clear/inapplicable per
+the protocol's own note. Crypto's own inter-cycle basis: no relevant equity data to compare
+against while markets are closed; no crypto-specific shock condition exists in this policy.
+
+**Portfolio heat cap:** $0 open risk across every mode (fully flat account); full $298.99 headroom.
+
+**Position management:** 0 open crypto positions — no breakeven/trailing/peak-retracement/time-stop
+checks applicable. **Stop-audit:** 0 positions, audit moot.
+
+**TradingView quota — checked fresh, NOT assumed from last cycle's AVAILABLE reading.**
+`should_attempt_tradingview(state, "2026-11-20")` returned True (1 prior successful attempt
+logged from the 00:38:00Z cycle). Made the real Stage A call — succeeded (`mcp-tv-get-symbol-data-
+batch`, 8 pairs; every pair showed `MARating: StrongSell` on both 4h/1h, confirming the broad
+selloff is continuing/deepening). Proceeded into Stage B: BTC 4h and BTC 1h both succeeded with
+real data (the response itself warned "Less than 10% of your daily tool-call quota remains" on the
+second call) — then the very next call (ETH 4h) failed with `TOOL_QUOTA_EXCEEDED` and a 10-minute
+MCP cooldown. Recorded `record_tradingview_result(success=False, quota_error=True)` immediately and
+did not retry TradingView again this cycle, per protocol. **TradingView's daily quota, reset only
+~1 hour earlier, was exhausted again after just 3 real calls this cycle (4 total including Stage
+A) — a far smaller effective ceiling than the 00:38:00Z cycle's clean 17-call run, suggesting the
+per-day quota is being shared/consumed faster than one trigger's own usage alone would explain
+(plausibly concurrent draw from the Mode B/C triggers' own TradingView usage against the same
+account-wide quota).** `tradingview_quota_status` is now `EXHAUSTED` again for the remainder of
+2026-11-20T01:xx-02:xx UTC's cooldown window and likely longer.
+
+**Kraken fallback used for the remaining 7 pairs (ETH, SOL, XRP, LINK, AAVE, HBAR, AVAX), both
+timeframes** — cache-freshness checked first (all 14 cache entries were stale, a newer completed
+bar existed beyond each), so all 14 were live `fetch_kraken_ohlc()` calls; all returned `status:
+OK` with 720 bars each, merged into the shared candle cache. BTC's own Kraken pull (2 calls) was
+also made and cached for internal analysis consistency, alongside its already-successful
+TradingView bars — BTC's structure/confirmation evidence below is drawn from real data either way
+(the Kraken and TradingView closes for BTC's current bar agreed to within normal bid/ask noise).
+`data_source: "mixed"` (TradingView for BTC's Stage B, Kraken fallback for the other 7 pairs' Stage
+B, both Stage A inputs TradingView-only).
+
+**Near-miss queue reassessment — the 5 pairs queued as of 00:38:00Z (SOL, XRP, LINK, BTC, HBAR),
+full gate re-check on fresh data:**
+- **SOL: still a near-miss.** Location/4H-setup still the binding failure (close 73.07, no
+  breakout past prior swing high 75.56 / low 72.58, `pullback_depth()` None). Momentum still
+  confirms via RSI (53.6>45) but is now flat (53.70→53.6), not clearly improving — flagged
+  honestly rather than claimed as a clean improvement. Volume still fails (0.94x).
+- **XRP: still a near-miss.** Same shape — Location fails (close 0.95904, no breakout/pullback).
+  Momentum confirms via RSI (49.67>45), essentially flat vs. 49.86. Volume fails (0.725x).
+- **LINK: still a near-miss.** Location fails (close 8.99121, no breakout/pullback). Momentum
+  confirms via RSI, slightly improving (45.57 vs. 45.16). Volume fails (0.501x).
+- **BTC: still a near-miss.** Location fails outright — price remains BELOW its own prior 4h
+  swing low (61913.5 vs. 62169.9), a genuine bearish breakdown, not merely an absent setup.
+  Volume confirmation strengthened (2.55x, up from 1.544x). Momentum still fails (RSI 36.34,
+  MACD histogram continuing to fade: 40.19→15.03, still barely positive but weakening).
+- **HBAR: still a near-miss.** Same breakdown shape as BTC (close 0.05371, below prior swing low
+  0.05448). Volume still confirms (2.058x). Momentum still fails (RSI 32.44, MACD hist negative).
+- 0 cleared, 0 invalidated, 0 ineligible, 0 expired this cycle for the 5 reassessed pairs.
+
+**ETH, AAVE, AVAX — not in the queue (removed as invalidated at 00:38:00Z) — given the ordinary
+full-allowlist screen, not a reassessment:**
+- **ETH: re-qualifies as a genuine near-miss, added back to the queue (fresh add, not a
+  reinstatement).** Volume confirmation reversed sharply back above the floor (2.471x, vs. last
+  cycle's 1.115x) — satisfying the confirmation-count floor again. Location/4H-setup still fails
+  (close 1755.29, no breakout past prior swing high 1815.52 / low 1749.15, `pullback_depth()`
+  None) — the same binding blocker every other queued pair shares. Momentum still fails (RSI
+  43.88<45; MACD histogram +2.637, small and not clearly improving vs. the prior bar).
+- **AAVE: still fully rejected, correctly stays off the queue.** Zero confirming role-groups —
+  Trend/State fails (EMA9 107.41<EMA20 108.68), Location fails (the 92.29%-deep "pullback" from
+  last cycle is not a qualifying retracement — essentially a full round-trip negating the
+  impulse leg, plus no breakout), Volume fails (0.648x, still well below 1.2x), Momentum fails
+  both legs (RSI 30.2<45; MACD histogram -0.508, negative).
+- **AVAX: still fully rejected, correctly stays off the queue.** Zero confirming role-groups —
+  Trend/State fails (EMA9 7.0362<EMA20 7.1227), Location fails (no breakout/pullback), Volume
+  fails (0.465x), Momentum fails (RSI 44.52<45 — notably WORSE than last cycle's 44.96 near-miss
+  reading, moving further from the floor rather than closing the gap; MACD histogram +0.022,
+  ambiguous/not clearly improving).
+
+near_miss_queue.md **changed** this cycle: 5 existing entries updated (SOL, XRP, LINK, BTC, HBAR),
+1 new entry added (ETH).
+
+**Full-allowlist Stage-2 evaluation — all 8 pairs independently evaluated this cycle, same
+Location/4H-setup binding failure for every one:** BTC, ETH, SOL, XRP, LINK, AAVE, HBAR, AVAX —
+all 8 **rejected with evidence**. For BTC/HBAR the failure is an active bearish breakdown below
+the prior 4h swing low; for the other 6 it is the absence of any breakout, pullback, or range-
+contraction structure. 8/8 evaluated, 8/8 rejected with evidence, 0 not evaluated, 0 tool failures.
+
+**OBSERVE, no trade. No order placed. Robinhood MCP fully reachable this cycle, no connectivity
+issues.**
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T01:37:57Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 5, "cleared": 0, "still_near_miss": 5, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 1}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 17, "tvremix_calls_used_today": 21, "data_source": "mixed", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
