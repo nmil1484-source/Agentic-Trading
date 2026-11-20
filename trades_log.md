@@ -78338,3 +78338,39 @@ reached (no candidate advanced to sizing). Stop-audit: 0 open positions, audit m
 ```
 
 ---
+
+### 2026-11-20T06:38:15Z UTC (2026-11-19 22:38:15 PST) — AUTONOMOUS — Crypto 24/7 Scan (§21)
+
+**Execution-origin validation (Universal Safety Kernel item 12):** Turn originated from scheduler-delivered trigger notification, `trigger_id: trig_01UUXAtYHjn7nBgzkdvZU4Rv` ("Crypto 24/7 Scan (§21 — AUTONOMOUS_EXECUTE)"), confirmed via `ReadNotifications`. §14 Status: ACTIVE. No kill phrase found in recent history. Scheduled-trigger authority confirmed.
+
+**Account:** `get_accounts`/`get_portfolio` (••••8058) — $4,983.31 total, 100% cash, 0 positions (crypto/equity/option all confirmed empty). Retail account untouched.
+
+**Circuit breakers:** Same-day stop-out count: 0 (verified against today's logged cycles). Crypto's own inter-cycle market-shock breaker: no prior-cycle vs. this-cycle SPY/QQQ comparison applicable — equity market closed (overnight, ~1:38am ET) per the trigger's own "treat as satisfied/inapplicable outside those hours" instruction. No breaker active.
+
+**Portfolio heat cap:** $0 open risk (0 positions anywhere) — full $298.99 (6% of equity) headroom.
+
+**Position management / stop-audit:** 0 open crypto positions — nothing to manage, audit moot.
+
+**TradingView quota check:** `should_attempt_tradingview('2026-11-20')` → False (`EXHAUSTED`, attempts=3, exhausted_at matches earlier today). Skipped straight to Kraken fallback for all 8 pairs per protocol — 0 TradingView calls attempted.
+
+**Near-miss queue reassessment:** Read `near_miss_queue.md`'s Crypto (§21) table — SOL, XRP, LINK, BTC, ETH, AVAX queued. Cache check: 4h bars still fresh (no new 4h candle since last cycle, last_t unchanged at 1795132800); 1h bars stale — fetched fresh via `fetch_kraken_ohlc` for all 8 pairs (`status: OK`, 720 bars each, last_t 1795150800), merged into cache. Recomputed the full gate on the unchanged 4h data for all 6 queued pairs plus AAVE/HBAR: every confirmation role-group, swing-structure read, and volume multiple is byte-identical to the 05:37:59Z cycle (no new 4h information exists to change any result). Result: **reassessed: 6, cleared: 0, still_near_miss: 6, invalidated: 0, ineligible: 0, expired: 0, added: 0.** Updated each queued row's data-timestamp and cycles-checked field (SOL 26→27, XRP 25→26, LINK 20→21, BTC 7→8, ETH 5→6, AVAX 2→3) in `near_miss_queue.md`. AAVE and HBAR remain correctly off the queue (0 confirming role-groups each, unchanged: AAVE — Trend/State bearish, Momentum bearish (RSI 30.9, MACD hist -0.63), Volume 0.40x; HBAR — Trend/State bearish, Momentum bearish (RSI 31.5, MACD hist -0.0002), Volume 0.77x, and a bearish breakdown below its prior swing low, not a bullish setup).
+
+**Full allowlist screen (8/8 pairs), per-symbol labels — all evaluated, all rejected with evidence:**
+- **SOL** — rejected: Location/4H-setup fails (close 72.84, no breakout past prior swing high 75.56 / below prior swing low 72.02, `pullback_depth()` None). Momentum confirms (RSI 50.44>45, MACD hist +0.098, macd>signal). Volume fails (0.834x). Trend/State fails (EMA9 73.54<EMA20 73.66<EMA50 75.97, bearish).
+- **XRP** — rejected: Location fails (close 0.96226, no breakout/breakdown, pullback None). Momentum confirms (RSI 49.24, MACD hist +0.00026). Volume fails (0.800x). Trend/State bearish.
+- **LINK** — rejected: Location fails (close 8.8803, no breakout/breakdown, pullback None) — the sole binding item despite 2 confirming role-groups (Momentum: MACD hist +0.00075; Volume: 1.466x). Trend/State bearish.
+- **BTC** — rejected: Location fails (close 62089.6, no breakout past 64014.3, no longer below prior swing low 61353.2, pullback None). Momentum confirms (MACD hist +0.32, macd>signal; RSI 39.58<45 alone wouldn't, but the OR clause with MACD satisfies it). Volume fails (0.783x). Trend/State bearish.
+- **ETH** — rejected: Location fails (close 1744.07, no breakout/breakdown, pullback None). Momentum confirms (MACD hist +1.001). Volume fails (0.531x). Trend/State bearish.
+- **AVAX** — rejected: Location fails (close 6.903, no breakout past 7.164 / below 6.88, pullback None). Momentum confirms (MACD hist +0.0159). Volume fails (0.573x). Trend/State bearish.
+- **AAVE** — rejected: Trend/State bearish, Momentum fails (RSI 30.91, MACD hist -0.631, macd<signal), Volume fails (0.402x), Location fails. Zero confirming role-groups — below the 1-of-5 floor.
+- **HBAR** — rejected: Trend/State bearish, Momentum fails (RSI 31.48, MACD hist -0.000173), Volume fails (0.770x). Zero confirming role-groups. `current_below_prior_swing_low: true` — a bearish breakdown structure, not a bullish setup.
+
+No candidate reached `validate_stop_distance()`/sizing — Location/4H-setup (or, for AAVE/HBAR, the confirmation floor itself) blocked every pair before that step.
+
+**OBSERVE, no trade.** Robinhood MCP fully reachable throughout.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T06:38:15Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 6, "cleared": 0, "still_near_miss": 6, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 21, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
