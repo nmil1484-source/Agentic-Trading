@@ -79356,3 +79356,39 @@ Robinhood MCP fully reachable throughout. No account/order/kill-phrase/circuit-b
 ```
 
 ---
+
+### 2026-11-20T21:38:06Z UTC (2026-11-20 13:38:06 PST) — Crypto 24/7 Scan (§21)
+
+**Account**: $4,983.31 total, $4,983.31 cash, 0 crypto positions (`get_crypto_positions`, rhs_account_number 748688058). Robinhood MCP connectivity clean. §14 Status confirmed ACTIVE, no kill phrase found.
+
+**Circuit breakers**: Same-day 2-stop-out cooldown — 0 stop-outs today, clear. Market-shock breaker (crypto's own inter-cycle basis): fresh `get_equity_quotes(["SPY","QQQ"])` — equity markets closed at 21:00 UTC; using the more recent of the two timestamped quotes (`last_non_reg_trade_price`, extended hours, t=21:38:27Z) per the quote tool's own freshness rule. SPY $693.74 vs. the prior crypto cycle's (20:37:28Z) reading $690.745 = **+0.43%** inter-cycle; QQQ $613.54 vs. prior reading $610.40 = **+0.51%** inter-cycle — both a bounce off the close, well under the 1.5% threshold — **not triggered**. (Vs.-yesterday's-close for context only, not this breaker's basis: SPY -3.09%, QQQ -4.88%, yesterday's close SPY 715.87/QQQ 645.04 — still deeply negative but recovering slightly into the close/after-hours.) No other breaker active.
+
+**Portfolio heat cap**: $0 open risk across every mode (Mode B/Mode C both confirmed flat at the 20:55:47Z End-of-Day check; crypto 0 positions) — full 6%-of-equity ($298.99) headroom available, not the binding constraint this cycle.
+
+**Stop-audit**: 0 open crypto positions — audit moot, checked=true, missing_found=0, placed=0.
+
+**Near-miss queue reassessment**: `near_miss_queue.md`'s Crypto (§21) table is empty — 0 reassessed, 0 cleared, 0 still-near-miss, 0 invalidated, 0 ineligible, 0 expired. No file change.
+
+**TradingView quota**: checked fresh via `should_attempt_tradingview()` — still `EXHAUSTED` for 2026-11-20 (3 attempts recorded, last success at 1795138729). Skipped TradingView entirely this cycle per the known-exhausted-today rule; went straight to Kraken fallback for all 8 pairs.
+
+**Kraken fallback**: 4h cache still fresh (last completed bar t=1795190400, unchanged for a 6th consecutive cycle — no new 4h candle has formed yet). 1h cache was stale (last bar t=1795201200, >2×3600s old) — fetched fresh 1h bars for all 8 pairs via `fetch_kraken_ohlc`, all returned `status: OK`, one new completed 1h bar each (t=1795204800), merged into the cache. 8 Kraken fetch calls this cycle, 0 TradingView calls.
+
+**Full allowlist screen (8/8 evaluated, rejected with evidence — 0 confirming role-groups across the board, same decisively bearish picture as the last several cycles, no bounce on either timeframe):**
+- **BTC**: 4h close 58480.8, EMA9<EMA20<EMA50 (61167<62498<65295), RSI 16.4, MACD hist -292.6 (deteriorating). 1h close 58351.6, same bearish stack, RSI 16.8. Below prior 4h swing low. 0/6.
+- **ETH**: 4h close 1605.82, EMA9<EMA20<EMA50, RSI 18.9, MACD hist -11.77. 1h RSI 13.9. Below prior 4h swing low. 0/6.
+- **SOL**: 4h close 68.12, EMA9<EMA20<EMA50, RSI 18.4, MACD hist -0.485. 1h RSI 19.8. 0/6.
+- **XRP**: 4h close 0.89358, EMA9<EMA20<EMA50, RSI 18.8, MACD hist -0.00662. 1h RSI 9.9 (most oversold of the 8). Below prior swing low both timeframes. 0/6.
+- **LINK**: 4h close 8.362, EMA9<EMA20<EMA50, RSI 17.1, MACD hist -0.060. 1h RSI 16.9. 0/6.
+- **AAVE**: 4h close 95.17, EMA9<EMA20<EMA50, RSI 16.6, MACD hist -1.26. 1h RSI 9.2. Below prior swing low (4h). 0/6.
+- **HBAR**: 4h close 0.0506, EMA9<EMA20<EMA50, RSI 17.6, MACD hist -0.000352. 1h RSI 16.1. Below prior swing low (4h). 0/6.
+- **AVAX**: 4h close 6.489, EMA9<EMA20<EMA50, RSI 19.8, MACD hist -0.0310. 1h RSI 20.0. 0/6.
+
+No pair reached stop-distance validation or sizing — every pair fails Trend/State and Momentum outright (long-only gate, deeply bearish structure on every chart), well short of the 1-of-6 floor. No `validate_stop_distance()` call was needed. **No order placed.**
+
+MACD full-history-vs-short-window sign cross-check: computed from the full cached history (739-796 bars per pair/timeframe via `load_cached_bars()`, not the bare fetch minimum) — matched the expected bearish sign for all 8 pairs/both timeframes, no discrepancy (no recurrence of the earlier BTC under-convergence issue).
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T21:38:06Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": "unchanged, TradingView not called this cycle (known exhausted)", "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
