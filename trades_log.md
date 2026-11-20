@@ -79064,3 +79064,43 @@ as fresh near-miss rows (item 7 pending + breaker-blocked, everything else clear
 ```
 
 ---
+
+### 2026-11-20T18:03:30Z UTC (2026-11-20 10:03:30 PST) — Mode B/C Entry Screening — Fresh Candle
+
+**§14 Status: ACTIVE, confirmed fresh.** No kill phrase found in recent history. Account confirmed flat fresh: `get_portfolio` → $4,983.31 total, 100% cash, 0 equity/option/crypto positions.
+
+**Market-shock circuit breaker: ACTIVE, re-checked fresh this cycle (vs. yesterday's 2026-11-19 close, Mode B/C's documented basis).** SPY 699.93 vs. 715.87 close = **-2.23%**; QQQ 620.01→620.87 live vs. 645.04 close = **-3.88%**. Both far exceed the 1.5% threshold — new entries blocked in every mode this cycle. Existing protective exits/stops stay active regardless (moot — 0 open positions anywhere).
+
+**Stop-audits (2a Mode B equities incl. §22, 9a Mode C):** 0 open positions in either lane — both audits trivially checked, missing_found=0, placed=0.
+
+**§18/§19 options/LEAPS stop-check (2b):** `get_option_positions(nonzero=true)` → 0 open positions. Checked=true, breached=0, exited=0.
+
+**TradingView quota: confirmed EXHAUSTED for the UTC day** (`should_attempt_tradingview` → False, 3 attempts, exhausted_at matches the morning's exhaustion). Fell back to Robinhood `get_equity_historicals`/`get_equity_quotes` for all Mode B/C/§22 structure reads this cycle, per the documented exhaustion-handling fallback. `coverage_state: EVALUATED` (fallback succeeded for everything attempted — not DATA_BLOCKED).
+
+**§22 Leveraged/Inverse ETF screen — 9/9 accounted for, no COVERAGE_INCOMPLETE:**
+- **TQQQ, SOXL, SPXL, TNA, AMDG** — rejected, bearish own-chart structure continues/worsened (fresh quotes: TQQQ -11.6%, SOXL -26.4%, SPXL -6.7%, TNA -5.5%, AMDG -22.7% vs. yesterday's close — all declining sharply, consistent with the broad QQQ/SOXX/SPY/IWM selloff).
+- **SPXU** — rejected, no verified underlying (SPY) catalyst found this cycle either; not independently re-researched beyond the First Scan's own conclusion given budget prioritized to SQQQ/SOXS/TZA reassessment.
+- **SQQQ, SOXS** — reassessed fresh (3 completed hourly bars now available: 15:00/16:00/17:00Z). Underlying bearish thesis (QQQ/SOXX) still holds and deepened. Both inverse ETFs' own charts continue a steady bullish run, with the latest bar's close right at/just above the prior bar's high (marginal breakout) — **but both fail the mandatory §13.H volume confirmation on the latest completed bar** (SQQQ 0.665x baseline, SOXS 0.616x baseline — both well under the 1.2x floor; volume has been declining through the session on both). Item 7 does not cleanly clear this cycle on a rigorous basis, independent of the breaker. Still queued as near-misses, updated in `near_miss_queue.md`.
+- **TZA** — reassessed fresh. IWM again outperformed SPY (-2.07% vs. -2.25% over the same 3-bar window) — relative strength, not weakness, confirming the First Scan's flag. Item 2 (relative-weakness driver) still fails. Still queued, updated.
+
+**Mode B equity screen — Stage 1: 74/74 full-universe triage completed** via one batched `get_equity_quotes` call (all names re-priced fresh, 18:06Z). Broad risk-off day: nearly every name down 2-26% vs. yesterday's close; a handful showed relative strength (up or flat): NOW +1.92%, CVX +1.58%, FIG +0.83%, CBRS +2.14%, AVA +1.73%, LLY +0.19%.
+
+**Stage 2 — reduced rotation, explicitly logged, not silently truncated.** Given (a) the market-shock breaker independently blocks any new entry this cycle regardless of what Stage 2 finds, (b) TradingView exhausted forcing per-symbol Robinhood-historicals fallback calls (materially more expensive per name than the TRADING_VIEW_2 batch pipeline), and (c) budget was prioritized to the near-miss-queue reassessment (SQQQ/SOXS/TZA, all §22-tracked) and the mandatory §22 9-name screen — both already completed above — this cycle's ordinary Mode B rotation was narrowed to the 3 names showing genuine relative strength not already resolved in `near_miss_queue.md`'s history (NOW, FIG, CBRS already resolved NO_TRADE/invalidated in prior cycles; not re-run):
+- **CVX** — evaluated, rejected. 3-bar hourly series (15:00-17:00Z) shows a steady uptrend (208.47→209.81) but bar3's close (209.81) didn't clear bar2's high (209.88), and bar3 volume (151,110) is 0.496x the 2-bar baseline (304,588) — fails the volume confirmation a breakout read would need. No verified catalyst found this cycle. Rejected — §5B item 3 (Volume) / item 7.
+- **AVA** — evaluated, rejected. 3-bar series shows a flattening move (39.905→40.24→40.31→40.30, essentially stalled the last 2 bars) on thin, non-confirming volume. No clear structural trigger. Rejected — §5B item 7 (no computable hourly trigger).
+- **LLY** — evaluated, rejected. Despite a positive day-over-day close comparison, the intraday 3-bar series is actually declining (1364.00→1353.94) — no bullish structure to pair with the headline RS. Rejected — §5B item 1 (no bullish daily-chart setup; price moving opposite the would-be thesis intraday).
+- **Remaining 68 of 74 names**: **not evaluated — rotation/capacity, deferred.** Reason: budget this cycle was prioritized to the near-miss-queue reassessment and mandatory §22 screen per the scan-budget allocation principle, given the active market-shock breaker independently nullifies any entry outcome from a broader Stage-2 pass this cycle regardless of what it would find. Rotation pointer unchanged — these 68 remain eligible for next cycle's rotation at the same priority (least-recently-evaluated-first) they already held.
+
+**Options/LEAPS sourcing (3a/3b):** deferred again this cycle, same reason as the First Scan (budget prioritized elsewhere, breaker nullifies outcome) — rotation pointer in `near_miss_queue.md`'s Options/LEAPS Sourcing Queue table left unchanged.
+
+**§24 vertical debit spread paper screening (3d):** 0 candidates — no underlying cleared the full §5B/Bearish Mirror Gate this cycle (CVX/AVA/LLY all rejected; SQQQ/SOXS/TZA still near-miss, not cleared), so there is nothing to spawn a §24 paper candidate from.
+
+**Mode C (steps 9-13):** 0 open positions (nothing to trail). ORB screen (step 10) **not evaluated this cycle** — same capacity/breaker-nullifies-outcome reasoning as the Mode B rotation reduction above; budget prioritized to the mandatory §22 screen and near-miss reassessment. Logged explicitly as a capacity deferral, not a rejection.
+
+**No order placed in Mode B or Mode C this cycle.** Blocked primarily by the active market-shock breaker; independently, no candidate that was actually evaluated cleared every gate item either.
+
+```json
+{"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-20T18:03:30Z", "coverage_state": "EVALUATED", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": ["market_shock_spy_qqq"], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 74, "triaged": 74, "full_gate_evaluated": 3, "rejected_with_evidence": 3, "not_evaluated": 68, "tool_failures": 0}, "near_miss_queue": {"reassessed": 3, "cleared": 0, "still_near_miss": 3, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "already resolved, prior cycle"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 6, "not_evaluated": [], "coverage_complete": true}, "scan_budget_allocation": {"etf_calls": "prioritized, funded in full (Robinhood fallback)", "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": "reduced to 3 names, 68 deferred", "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": 0, "deferred": "rotation pointer unchanged", "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "step not run this cycle — capacity deferral, breaker nullifies outcome"}, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
