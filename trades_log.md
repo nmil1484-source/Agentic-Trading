@@ -79234,3 +79234,60 @@ Git: `near_miss_queue.md` and this `trades_log.md` entry committed and pushed to
 ```
 
 ---
+
+### 2026-11-20T20:03:22Z UTC (2026-11-20 12:03:22 PST) — Mode B/C Entry Screening — Fresh Candle (last cycle of today's 16:03-20:03 UTC window)
+
+**NO ORDER PLACED IN MODE B OR MODE C — but a genuine, fully-qualifying §22 candidate (SQQQ) was found and blocked ONLY by the active market-shock circuit breaker, not by its own merits. Report-worthy per protocol.**
+
+**§14 gate check:** Status confirmed ACTIVE. No kill phrase found in recent history or trades_log.md.
+
+**Account state (step 1):** `get_accounts`/`get_portfolio` — Agentic Account (••••8058): total value $4,983.31, 100% cash, 0 equity/option/Mode-C positions (confirmed via `get_equity_positions`/`get_option_positions`, both empty). Retail account untouched.
+
+**Market-shock circuit breaker (§6) — checked fresh on its documented vs-yesterday's-close basis:** SPY $694.27 vs. yesterday's close $715.87 = **-3.02%**; QQQ $614.19 vs. yesterday's close $645.04 = **-4.78%**. Both far exceed the 1.5% threshold. **ACTIVE — a 4th consecutive Mode B/C cycle today (15:04Z First Scan, 18:03:30Z, 19:03:39Z, now 20:03:22Z).** Blocks every new entry this cycle per the breaker's own "skip new entries this cycle only" text. No same-day 2-stop-out cooldown active (0 stop-outs today). Portfolio heat cap: 0 open positions anywhere, full $298.9986 (6%) headroom — moot this cycle since the breaker blocks entries regardless.
+
+**Stop-audits (2a, 9a):** 0 open Mode B/§22 equity positions, 0 open Mode C positions — both audits trivially moot, `checked: true, missing_found: 0, placed: 0`.
+
+**§18/§19 options/LEAPS stop-check (2b):** `get_option_positions(nonzero=true)` → 0 open positions. Moot, `checked: true, breached: false, exited: false`.
+
+**TradingView quota:** `should_attempt_tradingview()` → False, `status: EXHAUSTED` (3 attempts today, last success earlier, exhausted since ~16:xxZ). Fell back to Robinhood `get_equity_historicals`/`get_equity_quotes` for all screening this cycle, logged explicitly.
+
+**§22 Leveraged/Inverse ETF screen (3c) — MANDATORY, full 9/9 accounted for, no COVERAGE_INCOMPLETE:**
+- **TQQQ**: rejected — bearish own-chart structure (48.15→42.14 over 5 bars, -12.5% today; needs bullish structure for a leveraged-long entry).
+- **SOXL**: rejected — bearish own-chart structure (41.72→32.62, -21.8% today).
+- **SPXL**: rejected — bearish own-chart structure (227.27→205.79, -9.5% today).
+- **TNA**: rejected — bearish own-chart structure (48.43→44.51, -8.1% today).
+- **AMDG**: rejected — bearish own-chart structure (67.50→54.88, -18.7% today; also very thin volume, 5k-17k shares/bar).
+- **SPXU**: rejected — no verified underlying catalyst beyond the broad market decline (unchanged conclusion from prior cycles today; SPY's bearish thesis itself is established, but SPXU's own item-2 catalyst requirement is independent and still unmet).
+- **SQQQ**: **item 7 (hourly trigger) NOW CLEARS — a complete, finalize_candidate()-verified qualifying setup.** Full detail below. Blocked only by the market-shock breaker this cycle.
+- **SOXS**: still a near-miss — genuine fresh price breakout this bar (close $80.76, above bar3's prior high $80.60) but volume 0.813x vs. the 1.2x floor (§13.H baseline from bars 2-4: 4,731,072). Item 7 fails on volume alone now — the cleanest single-item near-miss of the three queued names.
+- **TZA**: still a near-miss — IWM continues outperforming SPY (-2.70% vs. -3.09% over the session), now a 5th consecutive cycle with item 2 (relative-weakness driver) contradicted.
+
+Completion check: 5 rejected + 1 clearing-but-breaker-blocked + 2 near-miss (reassessed, not newly evaluated-and-rejected) + 0 NOT_EVALUATED = 9/9 accounted for. **COVERAGE_COMPLETE.**
+
+**SQQQ full detail — the headline finding this cycle.** Pulled a full 6-session (35-bar) hourly history for QQQ and SQQQ (2026-11-13 through today) via Robinhood historicals, since TradingView was exhausted and a proper swing/ATR read needs more than today's 5 intraday bars alone — same standing methodology discipline carried from earlier this session (use full available history, not the bare minimum). Ran the real `dev_scanner.tv_structure` module (not hand computation):
+- `swing_points(bars, as_of_index=34, lookback=5)` → `{'swing_high': 56.95, 'swing_low': 49.9201, 'current_above_prior_swing_high': True, 'prior_swing_high': 55.55}`. Today's bar5 (19:00-20:00Z) closed $56.375 — a genuine close-through break above the confirmed prior swing high ($55.55, bar4's high), and bar5's own high ($56.95) is the highest print across the entire 6-session window pulled (prior max was $49.589 on 2026-11-19). This is not a marginal poke; it is a decisive breakout on the real swing structure.
+- `volume_baseline_13h(bars, as_of_index=34, lookback=3)` → baseline $6,320,711 (avg of bars 2-4). Bar5 volume 7,968,496 → **1.261x baseline — clears the §13.H ≥1.2x floor**, the first time this ticker's volume has cleared across its entire time in this queue.
+- `atr14(bars)` → 1.8244 (hourly ATR over the full 35-bar window).
+- Underlying (QQQ) Bearish Mirror Gate: re-verified fresh, still holds decisively — QQQ 641.60→615.08 over today's 5 bars (-4.78% vs. yesterday's close), bearish EMA/momentum structure unchanged from every earlier reassessment today.
+- Fresh quote pulled (`get_equity_quotes`): SQQQ ask $56.80 (venue time 2026-11-20T20:06:15Z).
+- Stop: placed just below the broken level per §13.G item 4 → $55.50. Stop distance from fresh entry: $1.30 = 2.3% of entry — well inside §22's 8% hard ceiling.
+- Target: no further structural level above current price in the pulled history (fresh all-time-window high) → §13.F `ATR_TARGET` method, 1.5× ATR14 from the fresh entry = $56.80 + 2.737 = $59.537.
+- R:R on the fresh entry: (59.537-56.80)/(56.80-55.50) = **2.105:1** — clears the 1.3:1 equity-thesis floor comfortably.
+- Position sizing (would-be, per §22 item 4): 1% of equity risk ($49.83) / $1.30 stop distance ≈ 38 shares; 15%-of-equity per-position cap ($747.50) / $56.80 ≈ 13 shares (binding constraint); well within the $298.9986 heat-cap headroom (0 open positions).
+- **Every §22/Bearish-Mirror-Gate item clears. The sole reason no order was placed: the market-shock circuit breaker, active this cycle on its own independent basis, blocks every new entry regardless of candidate quality.** No order was submitted, no `get_equity_tradability`/`review_equity_order` call was made (correctly — the breaker is checked before any order-adjacent action, per protocol).
+
+**Mode B equities (step 3):** Stage 1 full-universe triage not separately re-run this cycle via batch quote (TradingView exhausted; given the breaker nullifies any entry outcome regardless, and the §22/SQQQ analysis above consumed the bulk of this cycle's available budget, Stage-2 rotation was not drawn this cycle — logged explicitly as deferred, not silently skipped). All 74 watchlist.md names logged `not_evaluated — rotation/capacity, deferred this cycle (budget prioritized to the mandatory §22 screen and the SQQQ finding given the active breaker)`. Near-miss-queue reassessment (TZA, SQQQ, SOXS) counted as this cycle's Stage-2-equivalent work — see §22 detail above, since all three are §22 inverse-ETF names tracked in the Mode B/C near-miss table.
+
+**Options/LEAPS sourcing (3a/3b):** Deferred this cycle — same reasoning as above (budget prioritized elsewhere given the breaker). Rotation pointer in `near_miss_queue.md`'s Options/LEAPS Sourcing Queue table unchanged.
+
+**§24 vertical debit spread paper screening (3d):** No underlying cleared the full §5B/Bearish Mirror Gate as an equity-thesis candidate this cycle (SQQQ/SOXS/TZA are §22 inverse-ETF candidates, not single/multi-leg options candidates under §24, which requires an options-eligible underlying) — no paper candidates to log.
+
+**Mode C (steps 9-13):** 0 open positions. ORB screening deferred this cycle (same budget reasoning; also moot given the breaker blocks any new entry regardless of ORB outcome). No candidates evaluated — logged as deferred, not rejected.
+
+**No order placed in Mode B or Mode C this cycle.** Git push: see below.
+
+```json
+{"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-20T20:03:22Z", "coverage_state": "OBSERVE", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": ["market_shock_pause"], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": false, "exited": false}, "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 1, "rejected_with_evidence": 5, "not_evaluated": 74, "tool_failures": 0}, "near_miss_queue": {"reassessed": 3, "cleared": 0, "still_near_miss": 2, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved, not pending"}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 1, "rejected_with_evidence": 6, "not_evaluated": [], "coverage_complete": true}, "scan_budget_allocation": {"etf_calls": "18 (via Robinhood historicals fallback)", "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": 0, "deferred": 0, "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": []}, "calls_made_this_cycle": 0, "tvremix_calls_used_today": "unchanged, TradingView not called this cycle", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending", "note": "SQQQ fully cleared every §22/Bearish-Mirror-Gate item (real swing breakout + volume confirmation + R:R 2.105:1) but no order placed — blocked solely by the active market-shock circuit breaker (SPY -3.02%/QQQ -4.78% vs yesterday's close)"}
+```
+
+---
