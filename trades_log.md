@@ -79197,3 +79197,40 @@ Git: `near_miss_queue.md` and this `trades_log.md` entry committed and pushed to
 ```
 
 ---
+
+### 2026-11-20T19:37:38Z UTC (2026-11-20 11:37:38 PST) — Crypto 24/7 Scan (§21)
+
+**Status gate**: §14 Mode B AUTONOMOUS_EXECUTE reads ACTIVE. No kill phrase found in recent history. Robinhood MCP fully reachable (`get_accounts`/`get_portfolio` clean) — the intermittent "requires re-authentication" environment flag observed earlier this session continues not to reproduce on direct testing.
+
+**Account**: $4,983.31 total, 100% cash, 0 positions anywhere (crypto/Mode B/Mode C/options/LEAPS/§22). Step 3 (manage existing positions) and the stop-audit are moot — nothing open. Portfolio heat cap: $0 of $299.00 used, full headroom.
+
+**Circuit breakers**: Same-day 2-stop-out cooldown — 0 stop-outs today, clear. Market-shock breaker (crypto's own inter-cycle basis): fresh `get_equity_quotes(["SPY","QQQ"])` — SPY $694.365 vs. the prior crypto cycle's (18:37:35Z) reading $701.74 = **-1.05%** inter-cycle; QQQ $614.44 vs. prior reading $622.115 = **-1.23%** inter-cycle. Both under the 1.5% threshold — **not triggered**, despite the vs.-yesterday figure deepening sharply further to SPY -3.00%/QQQ -4.74% (yesterday's close: SPY 715.87, QQQ 645.04).
+
+**TradingView quota**: checked fresh via `should_attempt_tradingview()` — still `EXHAUSTED` for this UTC date (3 attempts logged, last success earlier today). Routed straight to Kraken fallback for all 8 pairs, no TradingView calls spent this cycle (`calls_made_this_cycle: 0`).
+
+**Kraken fallback, all 8 pairs**: 1h cache was stale for every pair → fresh fetch succeeded for all 8 (`status: OK`), revealing a genuine new 1h candle (t=1795197600) not yet seen in any prior cycle this session. 4h cache remained fresh for all 8 (no new 4h bar yet — t=1795176000 unchanged, now the 4th consecutive cycle with this same 4h candle). Merged into `dev_scanner/state/candle_cache/*_1h.json` for all 8 pairs.
+
+**Full-history indicator computation (standing methodology fix applied — EMA/RSI/MACD/ATR computed from the complete cached history, 794 1h bars / 738 4h bars per pair, not the bare fetched minimum):**
+
+| Pair | 4h Trend/State | 4h Momentum (RSI/MACD) | 1h Trend/State | 1h Momentum | 1h Volume (vs. §13.H baseline) | 1h Location (breakout/pullback) |
+|---|---|---|---|---|---|---|
+| BTC | bearish (59399.9<61838.8<62921.4<65573.6 — stack inverted) | fails (RSI 17.0, MACD bear) | bearish | fails (RSI 23.0, MACD bear) | 0.829x — below 1.2x floor | no breakout; pullback depth None |
+| ETH | bearish | fails (RSI 21.0, MACD bear) | bearish | fails (RSI 24.1, MACD bear) | 0.382x | no breakout/pullback |
+| SOL | bearish | fails (RSI 17.4, MACD bear) | bearish | fails (RSI 30.4, MACD bear) | 0.514x | pullback depth 83.4% (near impulse low, not a confirming setup) |
+| XRP | bearish | fails (RSI 18.9, MACD bear) | bearish | fails (RSI 21.9, MACD bear) | 0.904x | pullback depth 99.0% (capitulation-depth, not confirming) |
+| LINK | bearish | fails (RSI 12.8, MACD bear) | bearish | fails (RSI 30.1, MACD bear) | 0.513x | pullback depth 85.9% |
+| AAVE | bearish | fails (RSI 20.0, MACD bear) | bearish | fails (RSI 22.6, MACD bear) | 0.776x | no breakout/pullback |
+| HBAR | bearish | fails (RSI 18.3, MACD bear) | bearish | fails (RSI 29.8, MACD bear) | 0.785x | no breakout/pullback |
+| AVAX | bearish | fails (RSI 17.8, MACD bear) | bearish | fails (RSI 30.5, MACD bear) | 0.354x | pullback depth 86.5% |
+
+**Every pair: 0 of 5 confirming role-groups (Trend/State, Location, Relative Strength, Volume, Momentum all fail bullishly) — crash continues unabated on fresh 1h data, 4th consecutive cycle with no new 4h candle to reassess 4h structure against.** No candidate reached `validate_stop_distance()` or sizing — labeled `rejected with evidence` for all 8. **No order placed.**
+
+**Near-miss queue reassessment**: `near_miss_queue.md`'s Crypto (§21) table remains empty — no pair shows even a single confirming role-group this cycle, so none qualifies as a near-miss add.
+
+**Coverage**: universe_size 8, triaged 8, full_gate_evaluated 8, rejected_with_evidence 8, not_evaluated 0, tool_failures 0.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-20T19:37:38Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 34, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
