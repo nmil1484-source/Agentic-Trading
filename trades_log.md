@@ -78876,3 +78876,15 @@ Robinhood MCP fully reachable throughout. No account/order/kill-phrase/circuit-b
 ```
 
 ---
+
+### 2026-11-20T17:03:45Z UTC (2026-11-20 09:03:45 PST) — Mode B/C Entry Screening — Fresh Candle — NOT_RUN
+
+**NOT_RUN.** The same-lane "Mode B/C First Scan of Day" cycle (fired 2026-11-20T15:04:15Z) remains in-flight in a background fork as of this cycle's firing — confirmed still "running" via live agent-status check, now ~2 hours since it started, stuck on repeated MCP tool permission prompts (observed via multiple "Agent a8095d22982d7a3c9 is waiting for permission to use an MCP tool" notifications). Both triggers cover the identical Mode B/C account state (stop-audits on the same open positions, the same §22/§18/§19 sourcing, and live order-placement authority in the same lane) — running this Fresh Candle cycle's full protocol concurrently with that still-in-progress First Scan cycle would risk duplicate or racing account actions. This cycle is explicitly deferred — no account/order/TradingView calls were made, no files beyond this log entry were touched.
+
+**Separately flagged, not yet confirmed as cause of the stuck fork:** this session's own environment now reports the Robinhood MCP connector (`robinhood-trading`) as requiring re-authentication before its tools can be used. This may explain why the First Scan fork has been stuck on MCP permission prompts for an extended period — a re-auth/consent prompt its own sub-context cannot clear. If re-authentication is genuinely required, this is an **AUTH_BLOCKED**-adjacent condition affecting the whole Mode B/C lane, not merely a stuck background task, and needs the user's attention (re-authorize via claude.ai Connectors) before either this lane or the stuck First Scan cycle can proceed normally. Flagged to the user in chat this cycle.
+
+```json
+{"cycle": "Mode B/C Entry Screening — Fresh Candle", "timestamp_utc": "2026-11-20T17:03:45Z", "coverage_state": "NOT_RUN", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "reason": "concurrent same-lane First Scan of Day cycle (fired 2026-11-20T15:04:15Z) still in-flight in a background fork, now stuck ~2h on MCP permission prompts; Robinhood MCP connector also now reporting auth-required in this session, possible root cause, flagged to user but not confirmed", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
