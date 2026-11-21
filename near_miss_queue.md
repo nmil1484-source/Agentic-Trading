@@ -207,10 +207,28 @@ SOXL/SOXS not queued, same tool-failure block applies to them too — both retri
 (2026-11-03T22:38Z through 2026-11-04T05:38Z, `tvremix_consecutive_failed_cycles: 0` throughout);
 the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
-*(queue currently empty — see the 2026-11-21T08:37:36Z removal note below)*
-
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
+| AAVE | crypto (§21) | §21 item 3 — no genuine 4H setup yet (4h chart unchanged, still bearish EMA stack 9:99.02<20:104.46<50:107.12, RSI 24.71 well below 45, macd<signal hist -1.25, no breakout; same cached candle, last_t 1795233600) | Location (1h): PASSES — current_above_prior_swing_high=true, close $96.57 > prior confirmed 1h swing high $96.41. Momentum (1h): PASSES — RSI 54.32 and rising (from 46.89 then 45.17), MACD hist +0.28 and rising (from +0.11 then +0.01), macd>signal. Volume (1h): fails, 392 vs. baseline 587 (0.67x, below normal). Catalyst/RS: not verified this cycle — moot until 4H confirms. Stop/R:R: not yet computed. | 2026-11-21T10:37:53Z cycle, 1h last_t 1795251600 | 2026-11-21T10:37:53Z | 1 | 2026-12-01 |
+| AVAX | crypto (§21) | §21 item 3 — no genuine 4H setup yet (4h chart unchanged, still bearish EMA stack 9:6.62<20:6.86<50:7.25, RSI 19.13 deeply oversold, macd<signal hist -0.058, no breakout; same cached candle, last_t 1795233600) | Location (1h): PASSES — current_above_prior_swing_high=true, close $6.39 > prior confirmed 1h swing high $6.364. Momentum (1h): PASSES — RSI 45.57 and rising (from 38.80), MACD hist +0.0055 flipped positive (from -0.0075), macd>signal. Volume (1h): fails, 10635 vs. baseline 23059 (0.46x, below normal). Catalyst/RS: not verified this cycle — moot until 4H confirms. Stop/R:R: not yet computed. | 2026-11-21T10:37:53Z cycle, 1h last_t 1795251600 | 2026-11-21T10:37:53Z | 1 | 2026-12-01 |
+
+**Added 2026-11-21T10:37:53Z — AAVE and AVAX, both new near-misses, same shape as ETH's prior
+near-miss (now invalidated, see the removal note below).** The 4h chart is unchanged from the
+last two cycles (same cached candle, `last_t` 1795233600, still decisively bearish across all 8
+pairs) — this is purely a 1h-timeframe development. Both names closed through their prior
+confirmed 1h swing high this cycle (AAVE: $96.57 vs. $96.41; AVAX: $6.39 vs. $6.364), with RSI
+climbing through/toward 45 over the last 2-3 cycles and MACD histogram turning clearly positive
+in both cases — genuinely confirming two role-groups (Location + Momentum) on the 1h execution-
+trigger timeframe, same basis ETH had. **Not a qualifying entry for either**: §21 item 3 requires
+a confirming 4H setup, and the 4H chart has not rolled over to a new candle since this near-miss
+precedent first appeared — it still shows the same decisively bearish structure (bearish EMA
+stacks, RSI 19-25, no breakout) that has produced every rejection this session. Volume fails the
+baseline check for both on 1h (below the 3-bar average) — not itself blocking, since Location/
+Momentum already clear the role-group floor, but noted for completeness. No catalyst/RS verified
+this cycle for either. Worth tracking closely as the 4h candle eventually rolls — not acted on
+until the 4H setup itself independently confirms. No other pair showed a comparably concrete 1h
+structural break this cycle (BTC/ETH/SOL/XRP/LINK/HBAR all showed Momentum strengthening but no
+`current_above_prior_swing_high`); none of those added.
 
 **Removed 2026-11-21T08:37:36Z — ETH, invalidated this cycle (a different, structural item now
 fails — the 1h Location/breakout confirmation that was this near-miss's basis has reversed, not
