@@ -80092,3 +80092,51 @@ Robinhood MCP connectivity: live. Stop-audit: moot (0 positions). Portfolio heat
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+---
+
+### 2026-11-21T20:37:37Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0:** §14 Status confirmed ACTIVE. No kill phrase found in recent trades_log.md history.
+
+**Account:** Agentic Account ••••8058 — confirmed live via `get_portfolio`/`get_crypto_positions` before this cycle's order: $4,945.64 total, 100% cash, 0 crypto positions entering the cycle. Crypto position count 0/2 cap entering, 1/2 after this fill.
+
+**Circuit breakers:** none active. Same-day stop-out count: 1 (AAVE, last cycle) — does not block new entries (threshold is 2). Market-shock pause: inapplicable (Saturday). Portfolio heat cap: $37.09 used after this trade (0.75% of equity) — well under the $296.74 (6%) cap.
+
+**Data source:** Kraken fallback direct. **4h candle rolled over this cycle** (`last_t` 1795276800). 1h refreshed for all 8 pairs (`last_t` 1795287600).
+
+## TRADE CARD — CRYPTO
+
+**STRATEGY: CRYPTO (§21)** — `CRYPTO` tag
+
+- **Pair:** XRP-USD
+- **Side:** BUY (new position)
+- **4H setup:** Genuine breakout — 4h close $0.93549 > prior confirmed 4h swing high $0.9329. 4h MACD improving (hist -0.00126, up from -0.00415 two cycles ago) — Location + Momentum (via MACD-improving) both confirm on 4H.
+- **1H execution trigger:** Genuine breakout too — 1h close $0.93549 > prior confirmed 1h swing high $0.93525. RSI 79.93 (**extremely overbought**, well above the 45 floor — flagged explicitly below), MACD hist +0.00631 (macd>signal). Both Location and Momentum confirm on 1h.
+- **Catalyst/RS:** No single dated news catalyst verified; qualifies via relative strength — **+1.68 percentage points vs. BTC over the trailing 24 hours** (XRP +4.69% vs. BTC +3.01%), computed from completed 1h bars.
+- **Confirmation role-groups:** Location (4h+1h breakout) + Momentum (4h MACD-improving, 1h RSI/MACD) — well above the 1-of-6 floor.
+- **Entry:** Market buy, $1,321.50 notional requested. **Filled** 1403.014 XRP @ average price **$0.941893**, total executed notional $1,321.49, fee $0. Order id `6b02015b-4df1-4ca3-8f96-ad6e80758be9`.
+- **Stop:** Structural — placed just below the broken 4h level ($0.9329) minus a 0.6×ATR(4h) buffer (ATR(4h)=0.02915): computed $0.91541, **rounded up to $0.916** (nearest valid price increment, per the pair's $0.001 min price increment — rounding direction required by the order tool for a sell). Stop-distance check: risk $0.0259/unit ≈ 2.75% of entry — well inside the §21 item 4 2-2.5× ATR ceiling (ATR=3.09% of entry → ceiling 6.19-7.73%); risk exceeds 0.5×ATR ($0.0146), so the tight-stop flag does NOT trigger — genuinely structurally justified.
+- **Target:** $0.9856 (entry + 1.5×ATR(4h), §13.F-style ATR target — fresh breakout territory, no clear overhead structural resistance).
+- **Reward-to-risk:** entry $0.941893, stop $0.916, target $0.9856 → risk/unit $0.0259, reward/unit $0.0437 → **R:R ≈ 1.69:1**, clearing the §21 item 3 ≥1.5:1 floor.
+- **Position size:** 1403.014 XRP, $1,321.49 executed notional — **0.75% of equity planned risk** ($37.09, throttled rate — crypto's trailing profit factor is unverified/below 1.0 after the 1st stop-out, per §16 item 16's insufficient-history default), position value 26.7% of equity, under the 30% per-position cap.
+- **Protective stop placed and verified resting:** `place_crypto_order` (type=stop_loss, side=sell, quantity=1403.014, stop_price=$0.916, time_in_force=gtc from the first attempt — no gfd-default issue this time). Confirmed **resting** via `get_crypto_orders` (state=confirmed, state_group=open). Order id `6b02016b-6304-4c32-bfe1-9c9e28d21f4a`.
+- **Portfolio heat:** $37.09 (0.75% of equity) — well inside the 6%/$296.74 cross-mode cap.
+- **No averaging down** — first entry on this pair.
+
+### Risk disclosed plainly: extreme 1h RSI
+
+1h RSI at entry was **79.93** — a genuine momentum extreme, the same category of condition that preceded AAVE's stop-out two cycles ago (AAVE's own 1h RSI had been in the mid-50s-60s when it broke out, not this extended). §21 item 3's Momentum confirmation only specifies a **floor** (RSI>45-and-improving, or MACD improving) — it has no RSI ceiling, so this is not a gate failure, but it is a real, elevated risk of a sharp pullback/reversal that this entry is knowingly accepting, consistent with how the equities-side RSI-exhaustion veto was deliberately removed per CLAUDE.md §13.F (2026-10-29) — that removal was scoped to Mode B equities, not crypto, but the underlying principle (no written rule currently blocks this) applies the same way here. Flagging this explicitly rather than letting a clean technical pass obscure the real risk being taken.
+
+**Near-miss queue:** XRP cleared and removed (4 cycles tracked, R:R had been failing at the live price until this cycle's dual breakout). No other pair showed a fresh breakout on either timeframe this cycle — BTC/ETH/SOL/LINK/AAVE/HBAR/AVAX all still below their respective 1h highs despite several (BTC, ETH, SOL) retaining a confirmed-but-stale 4h setup. Full detail in `near_miss_queue.md`.
+
+**Stop-audit:** the one open position (XRP) has a confirmed resting GTC stop — audit passes.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-21T20:37:37Z", "coverage_state": "TRADE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "positions": {"crypto_count": 1}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 1, "note": "new XRP position, stop placed and verified resting (gtc, first attempt)"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 7, "cleared": 1, "still_near_miss": 6, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 9, "data_source": "kraken_fallback (8 pairs fresh 1h+4h) + live Robinhood quotes for order finalization", "tradingview_quota_status": "AVAILABLE", "exits": [], "entries": [{"symbol": "XRP", "mode": "crypto", "qty": "1403.014", "price": "0.941893"}], "orders_placed": 2, "git_push": "pending"}
+```
+
+Robinhood MCP connectivity: live. Stop-audit: checked, 1 position, stop confirmed resting. Portfolio heat cap: 0.75%/6% used.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
