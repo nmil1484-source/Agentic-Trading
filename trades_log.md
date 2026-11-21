@@ -79932,3 +79932,64 @@ Robinhood MCP connectivity: live. Stop-audit: moot. Portfolio heat cap: not bind
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+---
+
+### 2026-11-21T16:38:10Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0:** §14 Status confirmed ACTIVE. No kill phrase found in recent trades_log.md history.
+
+**Account:** Agentic Account ••••8058 — confirmed live via `get_portfolio`/`get_crypto_positions` before this cycle's order: $4,983.31 total, 100% cash, 0 crypto positions entering the cycle. Crypto position count 0/2 cap entering, 1/2 after this fill.
+
+**Circuit breakers:** none active. Same-day stop-out count: 0. Market-shock pause: inapplicable (Saturday, equity markets closed). Portfolio heat cap: $37.37 used after this trade (0.75% of equity) — well under the $298.99 (6%) cap.
+
+**Data source:** Kraken fallback direct. **4h candle finally rolled over this cycle** (`last_t` 1795262400, absorbing the prior cycles' rally). 1h refreshed for all 8 pairs (`last_t` 1795273200).
+
+## TRADE CARD — CRYPTO
+
+**STRATEGY: CRYPTO (§21)** — `CRYPTO` tag
+
+- **Pair:** AAVE-USD
+- **Side:** BUY (new position)
+- **Instrument:** Spot crypto, named allowlist (§21 item 1)
+- **4H setup:** Genuine breakout — 4h close $100.15 > prior confirmed 4h swing high $99.94. 4h MACD improving (hist -0.388, up from -0.788 the cycle before) — Location + Momentum (via the MACD-improving branch of §21 item 3's Momentum confirmation) both confirm on the 4H chart for the first time this session.
+- **1H execution trigger:** RSI 56.30 (>45), MACD hist +0.973 (strongly positive, macd>signal) — clear hourly momentum confirmation.
+- **Catalyst/RS:** No single dated news catalyst verified; qualifies via the alternate path — relative strength vs. BTC of **+2.6 percentage points over the trailing 24 hours** (AAVE +3.33% vs. BTC +0.73%), computed directly from completed 1h bars, the strongest RS reading of any allowlisted pair this cycle.
+- **Confirmation role-groups:** Location (4h breakout) + Momentum (4h MACD-improving AND 1h RSI/MACD) — well above the 1-of-6 floor.
+- **Entry:** Market buy, $1,329.47 notional requested. **Filled** 13.2472 AAVE @ average price **$100.347936**, total executed notional $1,329.33, fee $0. Order id `6b01c9e9-714e-4c98-ac9b-350adb4acacd`.
+- **Stop:** Structural — placed just below the broken 4h level ($99.94) minus a 0.6×ATR(4h) buffer (ATR(4h)=3.89571): **$97.60**. `validate_stop_distance`-equivalent checks computed by hand: stop distance = $2.75/unit ≈ 2.74% of entry — well inside the §21 item 4 2-2.5× ATR ceiling (ATR=3.89% of entry → ceiling 7.79-9.74%); risk per unit ($2.75) exceeds 0.5×ATR ($1.95), so the tight-stop flag does NOT trigger — genuinely structurally justified (anchored to the actual broken swing high, not an arbitrary numeric proximity).
+- **Target:** $106.27 (entry + 1.5×ATR(4h), §13.F-style ATR target — no clear overhead structural resistance since price is in fresh territory past the prior swing high).
+- **Reward-to-risk:** computed on the live execution price — entry $100.428 (ask at preview time), stop $97.60, target $106.27 → risk/unit $2.83, reward/unit $5.84 → **R:R ≈ 2.07:1**, clearing the §21 item 3 ≥1.5:1 floor.
+- **Position size:** 13.2472 AAVE, $1,329.33 executed notional — **0.75% of equity planned risk** ($37.37, throttled rate since crypto's trailing profit factor is unverified/no prior round-trip closes this reconstructed period, per §16 item 16's insufficient-history default), position value 26.7% of equity, under the 30% per-position cap.
+- **Protective stop placed and verified resting:** `place_crypto_order` (type=stop_loss, side=sell, quantity=13.2472, stop_price=$97.60). **First attempt defaulted to `time_in_force: gfd`** (order id `6b01c9fa-...`) — caught before end-of-cycle, canceled (confirmed canceled, 0 fills raced it), and replaced with an explicit `time_in_force: gtc` stop (order id `6b01ca15-d068-4ca1-8ab3-ec25157ef233`), confirmed **resting** via `get_crypto_orders` (state=confirmed, state_group=open).
+- **Portfolio heat:** $37.37 (0.75% of equity) — well inside the 6%/$298.99 cross-mode cap.
+- **No averaging down** — first entry on this pair.
+
+### Important methodology finding this cycle, disclosed plainly
+
+Using the Kraken-derived 4h/1h closes as a first pass, **five pairs (BTC, ETH, SOL, XRP, AAVE) all appeared to confirm a genuine 4H breakout simultaneously** this cycle — the first 4H setup confirmation of this entire session, after 6+ hours of every pair sitting on a decisively bearish 4h chart. On closer inspection using the **live Robinhood bid/ask** (the actual realistic fill price, given a real, material spread on this account's market-maker routing):
+
+| Pair | Kraken close | Live ask | R:R @ Kraken close | R:R @ live ask | Verdict |
+|---|---|---|---|---|---|
+| BTC | $59,832.20 | $60,445.89 | — | — | No catalyst/RS available (benchmark) — rejected on item 2, not price |
+| ETH | $1,681.81 | $1,695.22 | ~1.80:1 | **~1.40:1** | R:R fails at live price — rejected |
+| SOL | $70.31 | $71.096 | ~1.70:1 | **~1.22:1** | R:R fails at live price — rejected |
+| XRP | $0.9225 | $0.93636 | ~2.26:1 | **~1.31:1** | R:R fails at live price — rejected |
+| AAVE | $100.15 | $100.428 | ~2.29:1 | **~2.07:1** | Clears 1.5:1 at both — **only qualifying candidate** |
+
+AAVE's stop/target were anchored far enough from entry (ATR-scaled buffer) that the live-price compression didn't erase its R:R edge; the other three had tighter technical stops relative to their ATR, so the same live-price gap that barely dented AAVE's R:R was enough to drop ETH/SOL/XRP below the 1.5:1 floor. This is the same category of lesson as the AMDG stale-anchor-price incident in CLAUDE.md §12 (using a technical-structure price as if it were the executable price) — caught and corrected *before* placing any order this time, rather than after. **Recommend this become a standing step**: always re-run the R:R check against the live bid/ask immediately before order placement, not just the structure-detection close, for every future crypto cycle — flagging this explicitly since it is not yet written into the trigger's own prompt text.
+
+**Near-miss queue:** AAVE cleared and removed (7 cycles as a near-miss). ETH, SOL, XRP now explicitly logged as having a confirmed 4H setup but failing R:R at the live price (new, more precise failure reason than before). LINK, HBAR, AVAX still show no 4H breakout at all. BTC logged as blocked on catalyst/RS specifically. Full detail in `near_miss_queue.md`.
+
+**Stop-audit:** the one open position (AAVE) has a confirmed resting GTC stop — audit passes.
+
+**AAVE's new position is now the only open position.** Per the standing per-cycle protocol, next cycle must manage it first (breakeven-at-+1R, trailing, peak-retracement, time-stop) before any new screening.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-21T16:38:10Z", "coverage_state": "TRADE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 1}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 1, "note": "new AAVE position, stop placed and verified resting (gtc, after a gfd-default correction)"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 7, "cleared": 1, "still_near_miss": 6, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 9, "data_source": "kraken_fallback (8 pairs fresh 1h+4h) + live Robinhood quotes for order finalization", "tradingview_quota_status": "AVAILABLE", "exits": [], "entries": [{"symbol": "AAVE", "mode": "crypto", "qty": "13.2472", "price": "100.347936"}], "orders_placed": 2, "git_push": "pending"}
+```
+
+Robinhood MCP connectivity: live. Stop-audit: checked, 1 position, stop confirmed resting. Portfolio heat cap: 0.75%/6% used, well within.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
