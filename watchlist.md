@@ -15,7 +15,7 @@ TTD, ONDS, RKLB, AMD, TSLA, IREN, AMZN, SHOP, LMND, PATH, ARKG, NFLX, RGTI, AAPL
 GOOG, RUN, MU, RDW, ASTS, KTOS, AVA, STM, SPY, DUOL, PLTR, OSCR, QQQ, NVDA, OKLO, ZETA, HOOD, TEM,
 AVAV, TSM, NOW, ORCL, PURR, BMNR, CVX, KEEL, DRAM, DELL, UBER, HPE, NBIS, CRWV, ZS, SOFI, FIG, GDX,
 IGV, CRCL, CBRS, GLD, SLV, PGY, IWM, TPST, INTC, VST, BE, DIS, IBIT, ETHA, CORZ, CAI, AMDG, SE,
-SPCX, LLY, XLI
+SPCX, LLY, XLI, ANT
 
 **Note on prioritizing IGV/HOOD/SOFI (2026-11-10):** user asked to prioritize independent evaluation
 of these three on normal scan cycles, after sharing a "Monday Q&A + Charts - November 09" investment-
@@ -330,6 +330,26 @@ SE has **no §5B verification on file yet** — same as everything else in this 
 requires its own independent catalyst/technical confirmation/stop/reward-to-risk clearance before
 it can appear on a Trade Card.
 
+**Note on ANT (2026-11-21):** added per explicit user instruction ("Add ANT to our watch list and
+options"). Confirmed via `get_equity_tradability`/`search`: **ANT = Anthropic, PBC Class A Common
+Stock** — tradable, active, individual-account-tradable. Yes, this is the stock of Anthropic, the
+company that built the Claude model operating this autonomous trading system — flagged explicitly
+to the user before adding, given the inherent conflict-of-interest optics of an Anthropic AI
+autonomously trading Anthropic's own stock in this account. **The user was asked directly whether
+ANT should carry full autonomous live-order authority (same as every other watchlist name) or be
+carved out as manual-only (research/alert, CONFIRM ORDER required for any trade) — the user chose
+full autonomous authority, same as everything else.** ANT is therefore subject to the exact same
+§5B Swing Entry Gate / Bearish Mirror Gate / §18 options eligibility as any other name in this
+pool, with no special carve-out, exception, or extra restriction — inclusion here grants no
+trading authority on its own, same as every other addition; it still requires full independent
+catalyst/confirmation/stop/reward-to-risk verification before it can appear on a Trade Card.
+**On "and options":** confirmed 2026-10-29 (see CLAUDE.md §18 item 2 and §12 change log), every
+name in this pool is already automatically eligible for single-leg long calls/puts under §18 the
+moment it clears the applicable gate — there is no separate options-only list to add to, so no
+further action was needed for that part of the request. Live price at add time: $88.44
+(2026-11-20 20:59:59Z trade), down from the prior session's $97.17 close (~-9%, consistent with
+that day's broad market selloff) — noted for context, not a catalyst or signal.
+
 **Note on SPCX and LLY (2026-10-21):** added per explicit user instruction, after two more posts
 in the same "stockinvesting" Slack channel — context per §9, never a signal:
 - **SPCX** — Nick Lowry shared a Yahoo Finance (X/Twitter) post on SPCX's (SpaceX) earnings
@@ -401,12 +421,18 @@ assume the table is wrong about everything else.
 | BE | NYSE:BE | DIS | NYSE:DIS | IBIT | NASDAQ:IBIT |
 | ETHA | NASDAQ:ETHA | CORZ | NASDAQ:CORZ | CAI | NASDAQ:CAI |
 | AMDG | NASDAQ:AMDG | SE | NYSE:SE | SPCX | NASDAQ:SPCX |
-| LLY | NYSE:LLY | XLI | AMEX:XLI¹ | | |
+| LLY | NYSE:LLY | XLI | AMEX:XLI¹ | ANT | NASDAQ:ANT² |
 
 ¹ XLI's prefix was missing from this table since it was added (gap found and fixed 2026-11-04,
 read-only diagnostic) — added now and independently verified via `search_symbols` (2026-11-04),
 not part of the original 2026-11-03 verification pass. This also corrects the table's count: it
 previously covered only 73 of the pool's 74 names (XLI was the gap); it now covers all 74.
+
+² ANT added 2026-11-21, verified live via `search_symbols` at add time (not guessed) — resolves
+cleanly to `NASDAQ:ANT`. Note: the search also surfaced `AMEX:ANTW` ("Anthropic AI Lab Ecosystem
+ETF," a thematic fund, not the same instrument) and several non-US-exchange listings
+(`TSX:ANTH`, `XETR:1ANT`, `SIX:ANT`, etc.) — none of those were added; this pool uses the
+NASDAQ-listed common stock only. This brings the table's count to 75 of the pool's 75 names.
 
 **Note, same diagnostic:** `analyze_swing_tool`'s timeframe parameter is named `interval`, not
 `timeframe` — passing `timeframe` is silently ignored and the tool defaults to `interval: "1D"`. This
