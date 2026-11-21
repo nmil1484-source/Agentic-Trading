@@ -79558,3 +79558,26 @@ No candidate reached `validate_stop_distance()` or sizing. **No order placed.** 
 ```
 
 ---
+
+### 2026-11-21T06:38:02Z UTC (2026-11-20 22:38:02 PST) — Crypto 24/7 Scan
+
+**Ran directly via Kraken fallback** (same reliable approach as the last two cycles). Account confirmed flat: $4,983.31, 0 crypto positions. Stop-audit moot. Portfolio heat cap: full headroom. Market-shock breaker: equity markets closed (Saturday) — inapplicable.
+
+**Data**: 4h still unchanged (`last_t` 1795219200, 3rd consecutive cycle with no new 4h bar). Fresh 1h bars for all 8 pairs (`last_t` 1795237200).
+
+**New this cycle: `pullback_depth()` now returns real structure for all 8 pairs on 1h** (previously `None` for several cycles) — but depth is 77-96% of the impulse leg for every pair, far beyond the 38-62% zone that would normally support a bullish buy-zone read. This is a near-total retracement of the recent bounce attempt, not a healthy pullback — read as continued breakdown pressure, not a bullish Location confirmation. Correctly not credited as a role-group pass.
+
+**Verdict, all 8 pairs — still REJECTED WITH EVIDENCE, 0/6 confirming role-groups each:**
+- Trend/State: bearish EMA stack, all 8 — fails.
+- Location: 77-96%-deep pullback (failure-depth, not buy-zone) on all 8 — fails.
+- Volume: thin this cycle (0.25x-0.52x baseline on 1h, actually below normal — no distribution surge either) — fails either direction.
+- Momentum: RSI 16.6-36.3 (still well under the 45 bullish floor, though a few ticked up slightly from last cycle's extremes), MACD hist negative/macd<signal throughout — fails.
+- Relative strength/catalyst: no new evidence — fails.
+
+No candidate reached sizing. **No order placed.** Near-miss queue: checked, still empty.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-21T06:38:02Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 9, "data_source": "kraken_fallback (8 pairs fresh 1h) + cache (8 pairs 4h, unchanged candle)", "tradingview_quota_status": "AVAILABLE", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
