@@ -79468,3 +79468,33 @@ All 8 pairs rejected — **0/6 confirming role-groups each**, every pair's 4h ch
 ```
 
 ---
+
+### 2026-11-21T00:37:46Z UTC (2026-11-20 16:37:46 PST) — Crypto 24/7 Scan — NOT_RUN
+
+**NOT_RUN.** This cycle was delegated to a background fork, which hung on an unanswered MCP tool permission prompt for over 2 hours (no cycle before or after this one took more than ~9 minutes). The coordinator stopped the fork directly (`TaskStop`) once two further scheduled cycles (01:37:36Z, 02:38:04Z) had queued up behind it. The fork's final self-report indicated it had been debugging its own script (a Bar-dataclass-to-dict conversion issue before calling `completed_bars`/`merge_bars`), not a module bug — no screening or order-placement work had actually completed at the time it was stopped. No account/order calls were made by this cycle. The fork's in-flight Kraken candle-cache writes were salvaged and committed separately (`1aac6e2`) since they represent real fetched data.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-21T00:37:46Z", "coverage_state": "NOT_RUN", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "reason": "background fork hung on unanswered MCP permission prompt for 2+ hours; stopped by coordinator before completing any screening or order-placement work", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
+
+### 2026-11-21T01:37:36Z UTC (2026-11-20 17:37:36 PST) — Crypto 24/7 Scan — NOT_RUN
+
+**NOT_RUN.** The 00:37:46Z cycle (same lane, same account state) was still occupying this lane as a hung background fork when this cycle fired. Per the established concurrency-safety practice for this lane, this cycle was deferred rather than launching a second concurrent fork into the same crypto position/account state. By the time the prior fork was stopped and cleaned up, this cycle's own hour window had fully passed — screening it now would misrepresent data availability at an already-passed time, which the trigger's own protocol explicitly prohibits. No account/order calls were made.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-21T01:37:36Z", "coverage_state": "NOT_RUN", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "reason": "deferred — prior 00:37:46Z cycle's fork still occupying the lane (hung on permission prompt); by resolution this cycle's own window had passed", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
+
+### 2026-11-21T02:38:04Z UTC (2026-11-20 18:38:04 PST) — Crypto 24/7 Scan — NOT_RUN
+
+**NOT_RUN.** Same reason as the 01:37:36Z cycle immediately above — the lane remained occupied by the hung 00:37:46Z fork until the coordinator stopped it at approximately 03:30Z, well after this cycle's own hour window had passed. No account/order calls were made. **Existing crypto position management was not at risk during this gap**: the account has been confirmed flat (0 crypto positions) since well before this gap began, so no open position went unmonitored.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-21T02:38:04Z", "coverage_state": "NOT_RUN", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "reason": "deferred — lane occupied by hung 00:37:46Z fork until ~03:30Z, well past this cycle's own window", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
