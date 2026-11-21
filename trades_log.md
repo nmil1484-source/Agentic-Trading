@@ -79604,3 +79604,51 @@ No candidate reached sizing. **No order placed.**
 ```
 
 ---
+
+---
+
+### 2026-11-21T08:37:36Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0:** §14 Status confirmed ACTIVE. No kill phrase found in recent trades_log.md history.
+
+**Account:** Agentic Account ••••8058 — $4,983.31 total, 100% cash, 0 crypto positions. Confirmed live via `get_accounts`/`get_portfolio`/`get_crypto_positions`. Crypto position count 0/2 cap.
+
+**Circuit breakers:** none active. Same-day stop-out count: 0 (checked trades_log.md for 2026-11-21 entries across all triggers). Market-shock pause (SPY/QQQ): inapplicable — Saturday, equity markets closed. Portfolio heat cap: 0% used, full 6%-of-equity headroom (moot with 0 open positions anywhere).
+
+**Position management:** 0 open crypto positions — nothing to manage. Stop-audit: moot (0 positions).
+
+**Data source:** Kraken fallback direct (continuing the established reliable pattern from this session — `TRADING_VIEW_2`'s `get_ohlcv` tool has repeatedly hung on unanswered MCP permission approvals this session, including after worker restarts and in both fork and direct-call contexts; Kraken has been used successfully every cycle since 05:37:30Z). TradingView quota status checked first (`should_attempt_tradingview` → True, `AVAILABLE`, 1 attempt recorded today) but not invoked this cycle — proceeded directly to Kraken for reliability. All 8 pairs fetched fresh at both 1h and 4h via `fetch_kraken_ohlc()`, merged into cache via `merge_bars()` (converting `Bar` dataclasses to dicts first — the known, still-unfixed `kraken_fallback`/`data_budget` Bar-vs-dict bug, worked around again this cycle).
+
+**Notable: the 4h candle finally rolled over** — `last_t` 1795233600, the first new 4h bar in 6 consecutive cycles (prior stale value 1795219200 held since roughly 03:38Z). This directly affects the ETH near-miss reassessment below.
+
+**Near-miss queue reassessment:** ETH was the sole queued near-miss (added 07:38:09Z — 1h breakout above prior swing high + RSI/MACD momentum confirmed, but no 4H setup). Reassessed fresh this cycle using the full current gate:
+- **4h (now fresh, last_t 1795233600):** RSI 29.97 (improved from 21.86, but still well below the 45 Momentum threshold). EMA stack fully bearish (9: 1674.67 < 20: 1736.70 < 50: 1803.54). MACD -57.72 < signal -43.16, hist -14.56 (still negative, below signal). No breakout/retest (`current_above_prior_swing_high: false`, `current_below_prior_swing_low: false`). **Still no genuine 4H setup** — unchanged conclusion, now on fresh data rather than a stale candle.
+- **1h (last_t 1795244400):** close $1627.57 has fallen back **below** the prior swing high ($1654.99) it had broken through last cycle (close $1637.61 vs. level $1625.72 then). `current_above_prior_swing_high` is now `false` where it was `true` last cycle — **the breakout failed to hold through the next completed candle; a false breakout, not a continuation.** Momentum (1h) still technically passes in isolation (RSI 49.58, up from 48.55, >45 and improving; MACD hist +3.81, up from +0.66, macd>signal) — but Location's confirmation, the other half of what made this a near-miss, has reversed.
+
+**Verdict: ETH invalidated, not "still a near-miss."** A different, structural item now fails (the 1h breakout itself), not merely a continuation of the same "no 4H setup yet" gap — removed from `near_miss_queue.md` per the reassessment protocol's invalidation branch. Queue is now empty.
+
+**Full allowlist screen — per-symbol labeling (all 8 evaluated, all rejected with evidence):**
+
+| Pair | 4h Trend/State | 4h Momentum (RSI/MACD) | 4h Location (breakout) | 1h Momentum (RSI/MACD) | 1h Location (breakout) | Verdict |
+|---|---|---|---|---|---|---|
+| BTC | bearish (9<20<50) | RSI 25.38, macd<signal | none (`above_prior_high: false`) | RSI 42.06 (<45), macd<signal | none | REJECT — no role group |
+| ETH | bearish | RSI 29.97, macd<signal | none | RSI 49.58 (>45, improving), hist+ | **reversed this cycle** (was true, now false) | REJECT — Momentum(1h) only, no 4H setup, Location(1h) failed |
+| SOL | bearish | RSI 24.24, macd<signal | none | RSI 41.39 (<45), macd<signal | none | REJECT — no role group |
+| XRP | bearish | RSI 28.77, macd<signal | none | RSI 43.39 (<45, declining from 45.45), hist≈flat | none | REJECT — no role group |
+| LINK | bearish | RSI 27.65, macd<signal | none | RSI 47.80 (>45 but declining from 49.86 last cycle — not "improving") | none | REJECT — RSI fails improving test, no role group |
+| AAVE | bearish | RSI 24.71, macd<signal | none | RSI 45.17 (flat vs. 45.23 last cycle), hist +0.01 (barely positive) | none | REJECT — marginal/flat, not a clean confirmation |
+| HBAR | bearish | RSI 23.53, macd<signal | none | RSI 41.32 (<45, declining from 45.14) | none | REJECT — no role group |
+| AVAX | bearish | RSI 19.13, macd<signal | none | RSI 39.32 (<45), macd<signal | none | REJECT — no role group |
+
+No pair shows a 4H setup (no bullish EMA alignment, no RSI>45, no breakout/retest on any of the 8 charts) — per §21 item 3's dual-timeframe requirement, nothing can qualify regardless of 1h state. The broad 1h stabilization/bounce seen last cycle (RSI crossing toward/through 45 across most pairs) has largely faded this cycle — most pairs' 1h RSI declined back down (LINK 49.86→47.80, XRP 45.45→43.39, HBAR 45.14→41.32), and ETH's one concrete structural breakout reversed. Catalyst/RS: no verified catalyst for any pair this cycle; no decisive relative-strength driver computed (broad, simultaneous move across the whole allowlist, not a single-name divergence). Stop-distance validation: not reached for any candidate (no candidate cleared the preceding gate items).
+
+**No crypto order placed. 0 open positions, 0 entries, 0 exits.**
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-21T08:37:36Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 0, "invalidated": 1, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 9, "data_source": "kraken_fallback (8 pairs fresh 1h+4h)", "tradingview_quota_status": "AVAILABLE", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+Robinhood MCP connectivity: live, confirmed via `get_accounts`/`get_portfolio`/`get_crypto_positions`. Stop-audit: moot (0 positions). Portfolio heat cap: not binding (0% used). `git_push`: pending (will update on next commit confirmation).
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz

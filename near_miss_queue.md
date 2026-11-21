@@ -207,9 +207,30 @@ SOXL/SOXS not queued, same tool-failure block applies to them too — both retri
 (2026-11-03T22:38Z through 2026-11-04T05:38Z, `tvremix_consecutive_failed_cycles: 0` throughout);
 the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
+*(queue currently empty — see the 2026-11-21T08:37:36Z removal note below)*
+
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| ETH | crypto (§21) | §21 item 3 — no genuine 4H setup yet (4h chart still shows bearish EMA stack, RSI 21.86 unimproved, macd<signal, below prior swing low; same stale 4h candle for 5 consecutive cycles, last_t 1795219200) | Location (1h): PASSES — current_above_prior_swing_high=true, a real close-through breakout above the prior confirmed 1h swing high ($1625.72→close $1637.61). Momentum (1h): PASSES — RSI 48.55 and rising, MACD hist flipped positive (macd>signal, hist +0.66 vs. last cycle's -4.87). Volume (1h): borderline, 1.02x baseline — not clearly elevated. Catalyst/RS: no verified catalyst; RS vs BTC +0.16pp, not a decisive driver on its own. Stop/R:R: not yet computed — moot until the 4H setup also confirms. | 2026-11-21T07:38:09Z cycle, 1h last_t 1795240800 | 2026-11-21T07:38:09Z | 1 | 2026-12-01 |
+
+**Removed 2026-11-21T08:37:36Z — ETH, invalidated this cycle (a different, structural item now
+fails — the 1h Location/breakout confirmation that was this near-miss's basis has reversed, not
+merely "still missing the 4H setup").** Fresh data this cycle: the 4h candle finally rolled over
+(`last_t` 1795233600, first new bar in 6 consecutive cycles vs. the prior stale 1795219200) — 4h
+RSI improved to 29.97 (from 21.86) but remains well below the 45 Momentum threshold, EMA stack
+still fully bearish (9<20<50: 1674.67<1736.70<1803.54), MACD still below signal (-57.72 vs.
+-43.16, hist -14.56) and no breakout/retest on the 4h swing structure
+(`current_above_prior_swing_high: false`) — still no genuine 4H setup, same as before. But on the
+1h chart, the close ($1627.57) has fallen back **below** the prior swing high ($1654.99) that it
+had broken through last cycle ($1637.61 close vs. $1625.72 level) —
+`current_above_prior_swing_high` is now `false` where it was `true` last cycle. The breakout
+failed to hold through the next completed candle: a false breakout, not a continuing one. Momentum
+(1h) still technically passes (RSI 49.58, up from 48.55 and >45; MACD hist +3.81, up from +0.66,
+still macd>signal) — but with Location's confirmation reversed, ETH now has only one role-group
+(Momentum) instead of two, and no 4H setup regardless. Removed as invalidated rather than
+re-logged as "still a near-miss" since the specific structural evidence that made it one no longer
+holds. Re-add if a fresh breakout forms and holds through a subsequent candle. No other pair
+showed a 4H setup or a confirmed 1h breakout this cycle either (full detail in `trades_log.md`'s
+2026-11-21T08:37:36Z entry) — queue is empty.
 
 **Added 2026-11-21T07:38:09Z — ETH, first near-miss since the 16:38:03Z invalidation (see the
 removal note below).** After ~5 consecutive cycles of a decisively bearish, unchanged 4h candle
