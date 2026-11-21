@@ -79537,3 +79537,24 @@ No candidate reached `validate_stop_distance()` or sizing — 0 confirming role-
 ```
 
 ---
+
+### 2026-11-21T05:37:30Z UTC (2026-11-20 21:37:30 PST) — Crypto 24/7 Scan
+
+**Ran directly** (same approach as the 03:38:07Z/04:37:55Z consolidated cycle — bypassing `TRADING_VIEW_2`'s `get_ohlcv` in favor of the Kraken fallback, since the permission-approval hang on that tool was never confirmed resolved and the direct approach proved reliable last cycle). Account confirmed flat fresh: $4,983.31, 0 crypto positions. Stop-audit moot. Portfolio heat cap: $0 open risk anywhere, full headroom. Market-shock breaker: equity markets still closed (Saturday) — inapplicable.
+
+**Data**: 4h bars unchanged from the last cycle (`last_t` 1795219200, same candle — 2nd consecutive cycle with no new 4h bar) — correctly served from cache, no refetch needed. 1h bars fresh (`last_t` 1795233600, one hour newer), fetched via Kraken for all 8 pairs cleanly.
+
+**Verdict, all 8 pairs — still REJECTED WITH EVIDENCE, 0/6 confirming role-groups each, no change in direction from the last several cycles:**
+- Trend/State: bearish EMA9<EMA20<EMA50 stack, all 8, both timeframes — fails.
+- Location: no pair shows `pullback_depth()` structure; 4h still shows all 8 below their prior swing low (unchanged candle); the fresh 1h candle shows price stabilizing just inside the prior 1h swing range for 7/8 pairs (BTC still below) — still no breakout/retest/pullback bullish structure — fails.
+- Volume: mixed (0.87x-2.88x baseline on the fresh 1h candle) but on a flat-to-down bar for every pair — no bullish confirmation — fails.
+- Momentum: RSI 10.1-27.7 across both timeframes (ETH 1h 10.13 — a new session-low reading, even more extreme than the prior cycle's 10.08), MACD hist negative/macd<signal throughout — fails.
+- Relative strength / catalyst: not recomputed this cycle (last cycle's reading showed no pair within a meaningful RS edge of BTC); no new catalyst evidence surfaced — fails.
+
+No candidate reached `validate_stop_distance()` or sizing. **No order placed.** Near-miss queue: checked, still empty, no change.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-21T05:37:30Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 9, "data_source": "kraken_fallback (8 pairs fresh 1h) + cache (8 pairs 4h, unchanged candle)", "tradingview_quota_status": "AVAILABLE", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---
