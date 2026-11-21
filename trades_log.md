@@ -79581,3 +79581,26 @@ No candidate reached sizing. **No order placed.** Near-miss queue: checked, stil
 ```
 
 ---
+
+### 2026-11-21T07:38:09Z UTC (2026-11-20 23:38:09 PST) — Crypto 24/7 Scan
+
+**Ran directly via Kraken fallback.** Account confirmed flat: $4,983.31, 0 crypto positions. Stop-audit moot. Portfolio heat cap: full headroom. Market-shock breaker: equity markets closed — inapplicable.
+
+**Notable this cycle: the first sign of a broad stabilization/bounce after ~5+ consecutive decisively bearish cycles.** 4h still unchanged (`last_t` 1795219200, 5th consecutive cycle, same stale candle), but fresh 1h data (`last_t` 1795240800) shows every pair's 24h change improving materially (BTC -8.77%→-6.49%, ETH -10.06%→-6.33%, AVAX -10.36%→-8.35%, etc.) and several pairs' 1h RSI crossing back toward or through 45 (ETH 48.55, LINK 49.86, XRP 45.45, HBAR 45.14, AAVE 45.23).
+
+**ETH added to `near_miss_queue.md`** — the most concrete single piece of structural evidence: 1h close ($1637.61) broke above its prior confirmed 1h swing high ($1625.72), with RSI improving through 45 and MACD flipping positive (macd>signal for the first time this session). This genuinely clears the Location and Momentum role-groups **on the 1h timeframe** — but §21 item 3 requires a confirming 4H setup in addition to the 1H trigger, and the 4H chart (same stale, decisively bearish candle for 5 cycles) shows no such confirmation yet. **Not a qualifying entry** — logged as a near-miss to track closely as the 4h candle eventually rolls over, not acted on.
+
+**Verdict, all 8 pairs — still REJECTED WITH EVIDENCE for entry purposes (0/6 confirming role-groups on the gating 4H setup timeframe for all 8; ETH alone shows 2/6 on the 1H trigger timeframe, insufficient alone per the dual-timeframe requirement):**
+- Trend/State: bearish 4H EMA stack, all 8 — fails (unchanged).
+- Location: no pair shows a confirming 4H breakout/retest/pullback; ETH's 1h breakout noted above but not credited toward the 4H-gated verdict.
+- Volume: no pair clears 1.2x on a bullish bar this cycle (XRP closest at 1.72x but with no accompanying structural confirmation).
+- Momentum: fails on 4H for all 8 (unchanged RSI/MACD readings, same stale candle); ETH alone passes on 1H.
+- Relative strength: no pair shows a decisive RS edge vs. BTC (all within ±1.9pp); not a qualifying driver for any.
+
+No candidate reached sizing. **No order placed.**
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-21T07:38:09Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 1}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 9, "data_source": "kraken_fallback (8 pairs fresh 1h) + cache (8 pairs 4h, unchanged candle)", "tradingview_quota_status": "AVAILABLE", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+---

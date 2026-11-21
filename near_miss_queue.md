@@ -209,6 +209,23 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
+| ETH | crypto (§21) | §21 item 3 — no genuine 4H setup yet (4h chart still shows bearish EMA stack, RSI 21.86 unimproved, macd<signal, below prior swing low; same stale 4h candle for 5 consecutive cycles, last_t 1795219200) | Location (1h): PASSES — current_above_prior_swing_high=true, a real close-through breakout above the prior confirmed 1h swing high ($1625.72→close $1637.61). Momentum (1h): PASSES — RSI 48.55 and rising, MACD hist flipped positive (macd>signal, hist +0.66 vs. last cycle's -4.87). Volume (1h): borderline, 1.02x baseline — not clearly elevated. Catalyst/RS: no verified catalyst; RS vs BTC +0.16pp, not a decisive driver on its own. Stop/R:R: not yet computed — moot until the 4H setup also confirms. | 2026-11-21T07:38:09Z cycle, 1h last_t 1795240800 | 2026-11-21T07:38:09Z | 1 | 2026-12-01 |
+
+**Added 2026-11-21T07:38:09Z — ETH, first near-miss since the 16:38:03Z invalidation (see the
+removal note below).** After ~5 consecutive cycles of a decisively bearish, unchanged 4h candle
+across all 8 allowlisted pairs, this cycle's fresh 1h data shows a broad stabilization/bounce:
+every pair's 24h change improved materially (e.g. BTC -8.77%→-6.49%, AVAX -10.36%→-8.35%), and ETH
+specifically closed through its prior confirmed 1h swing high with RSI crossing back above 45 and
+MACD flipping positive — two real role-group confirmations (Location, Momentum) on the 1h
+execution-trigger timeframe. **Not yet a qualifying entry**: §21 item 3 requires a genuine 4H
+setup in addition to the 1H trigger, and the 4H chart has not rolled over to a new candle in 5
+cycles — it still shows the same decisively bearish structure (RSI 21.86, bearish EMA stack,
+below prior swing low) that produced every rejection this session. This is the first concrete
+sign this session that the broader selloff may be stabilizing, worth tracking closely on the next
+few cycles as the 4h candle eventually rolls — but not acted on until the 4H setup itself
+independently confirms. No other pair showed a comparably concrete 1h structural break this
+cycle (SOL/XRP/LINK/HBAR/AAVE/AVAX all showed RSI recovering toward/through 45 but no
+`above_prior_swing_high`/`pullback_depth()` structural confirmation); none added.
 
 **Removed 2026-11-20T16:38:03Z — ETH, AVAX, both invalidated this cycle (Momentum, their sole
 remaining confirming role-group, has now flipped to failing — a different, harder item, not
