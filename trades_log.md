@@ -79498,3 +79498,42 @@ All 8 pairs rejected — **0/6 confirming role-groups each**, every pair's 4h ch
 ```
 
 ---
+
+### 2026-11-21T03:38:07Z + 04:37:55Z UTC (2026-11-20 19:38:07 PST + 20:37:55 PST) — Crypto 24/7 Scan — consolidated catch-up cycle
+
+**Context:** two scheduled firings (03:38:07Z, 04:37:55Z) both occurred while the coordinator was recovering from a second hung-fork incident this session (see the 00:37:46Z/01:37:36Z/02:38:04Z NOT_RUN entries above for the first). This time the coordinator ran the cycle directly (not via a fork) after discovering that the `TRADING_VIEW_2` `get_ohlcv` tool itself was hitting unanswered MCP permission approvals in this session tonight — not a fork-specific issue. **Root cause identified and fixed in the same pass**: `dev_scanner/kraken_fallback.fetch_kraken_ohlc()`'s `bars` field returns `tv_structure.Bar` dataclass instances, not plain dicts — `dev_scanner/data_budget.merge_bars()` expects dicts (it does `b["t"]`). Calling `merge_bars()` directly on the raw `Bar` objects raises `TypeError: 'Bar' object is not subscriptable` — this is exactly the bug the earlier hung fork's last message (before being stopped) said it was mid-way through fixing in its own script. Worked around this cycle via `dataclasses.asdict(b)` before merging; **not yet fixed in the module itself** — flagging as a real, reproducible bug for a future pass to patch in `kraken_fallback.py` or `data_budget.py` directly (whichever side the module's own contract says should be responsible for the conversion), since every future cycle calling this exact sequence will hit the same TypeError.
+
+**TradingView retried fresh** per the new-UTC-date-untested rule: `should_attempt_tradingview()` returned `True` for 2026-11-21 (new date, prior day's exhaustion doesn't carry over). Stage A (`get_symbol-data-batch`) succeeded cleanly for all 8 pairs — recorded via `record_tradingview_result(success=True)`. Stage B (`get_ohlcv`, 16 calls needed) is where the permission-approval hang actually occurred, repeatedly, across a worker restart — abandoned in favor of the Kraken fallback path for Stage B this cycle, which worked cleanly for all 8 pairs (720 bars each, both timeframes, fresh fetch — cache was stale from the last successful cycle ~5 hours earlier).
+
+**Account**: $4,983.31, 0 crypto positions, 0 open crypto orders (confirmed fresh). Stop-audit moot. Portfolio heat cap: $0 open risk anywhere (Mode B/C also flat) — full 6%-of-equity headroom. Market-shock breaker: equity markets closed (Saturday) — inapplicable per protocol's own "SPY/QQQ don't trade nights/weekends... treat as satisfied/inapplicable" rule.
+
+**Full allowlist screen, all 8 pairs, both timeframes, real completed-bar structure via `tv_structure.py` (no forming candle used):**
+
+| Pair | 4h RSI | 1h RSI | EMA9/20/50 stack | MACD | Location (swing) | Vol ratio (4h/1h) | RS vs BTC (24h) |
+|---|---|---|---|---|---|---|---|
+| BTC | 18.1 | 14.0 | bearish | macd<signal, hist deeply negative | below prior swing low both TFs | 0.52 / 6.18 | — (benchmark) |
+| ETH | 21.9 | 10.1 | bearish | macd<signal | below prior swing low both TFs | 0.43 / 4.47 | -1.29pp |
+| SOL | 20.7 | 27.4 | bearish | macd<signal | below prior swing low both TFs | 1.03 / 9.14 | -0.35pp |
+| XRP | 25.1 | 23.1 | bearish | macd<signal | below prior swing low both TFs | 0.57 / 3.28 | +0.24pp |
+| LINK | 23.3 | 27.7 | bearish | macd<signal | below prior swing low both TFs | 1.03 / 13.97 | +0.82pp |
+| AAVE | 23.8 | 21.7 | bearish | macd<signal | below prior swing low both TFs | 1.23 / 17.64 | -1.46pp |
+| HBAR | 23.4 | 24.1 | bearish | macd<signal | below prior swing low both TFs | 0.92 / 17.68 | +1.12pp |
+| AVAX | 18.6 | 21.7 | bearish | macd<signal | below prior swing low both TFs | 1.27 / 14.50 | -1.59pp |
+
+**Per-symbol verdict — all 8 REJECTED WITH EVIDENCE, 0/6 confirming role-groups each:**
+- **Trend/State** fails for all 8 — EMA9<EMA20<EMA50 bearish stack on both 4h and 1h (a bullish entry needs bullish alignment).
+- **Location** fails for all 8 — every pair closed below its own prior confirmed swing low on both timeframes (a bearish breakdown structure, not a bullish breakout/retest/pullback; `pullback_depth()` returned `None` for all 8/8, correctly checked against `swing_points()`'s breakout/retest branch per the 2026-11-11 correction — confirmed genuinely absent, not just unchecked).
+- **Volume** fails for all 8 in the bullish sense — several show elevated 1h volume (up to 17.7x baseline) but this is volume on down bars (distribution), never a bullish confirmation.
+- **Momentum** fails for all 8 — RSI 10.1-27.7 across both timeframes (deeply oversold, several historically extreme — ETH 1h RSI 10.08 is the most extreme reading logged this session), MACD histogram negative and macd<signal throughout; the bullish Momentum test needs RSI>45-and-improving or MACD improving, neither holds.
+- **Relative strength vs BTC** fails for all 7 non-BTC pairs — every pair's 24h return sits within ±1.6pp of BTC's own -8.77%; no pair shows the kind of decisive outperformance (checkable, specific) this role-group requires. HBAR (+1.12pp) and LINK (+0.82pp) are the mildest relative outperformers but both are still deeply negative in absolute terms (-7.65%/-7.95%) — not a qualifying driver.
+- **Catalyst**: no verified dated catalyst found or claimed for any pair this cycle — the move remains a broad, undifferentiated crypto-wide selloff tracking the equity market's own continuing decline (SPY -3.5% to -4% / QQQ -5% to -6% range vs. Wednesday's close, per the Mode B/C lane's own readings earlier tonight).
+
+No candidate reached `validate_stop_distance()` or sizing — 0 confirming role-groups across the board, well short of the 1-of-6 floor. **No order placed.**
+
+**Near-miss queue**: checked, still empty — no pair shows a genuine single-item near-miss (every pair fails all 6 items, not just one). No change to `near_miss_queue.md`.
+
+```json
+{"cycle": "Crypto 24/7 Scan (consolidated catch-up for 03:38:07Z + 04:37:55Z firings)", "timestamp_utc": "2026-11-21T04:39:55Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "0 open positions, audit moot"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 9, "tvremix_calls_used_today": 9, "data_source": "mixed (tradingview_stage_a + kraken_fallback_stage_b, due to get_ohlcv hitting unanswered MCP permission approvals this session)", "tradingview_quota_status": "AVAILABLE", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending", "note": "consolidated single evaluation covering two adjacent scheduled firings (03:38:07Z, 04:37:55Z) after a hung-fork recovery; see narrative for full detail. A real bug found in dev_scanner (Bar-vs-dict mismatch between kraken_fallback.fetch_kraken_ohlc and data_budget.merge_bars) was worked around this cycle but not yet fixed in the module."}
+```
+
+---
