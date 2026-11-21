@@ -80140,3 +80140,43 @@ Robinhood MCP connectivity: live. Stop-audit: checked, 1 position, stop confirme
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+---
+
+### 2026-11-21T21:38:04Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0:** §14 Status confirmed ACTIVE. No kill phrase found in recent trades_log.md history.
+
+**Account:** Agentic Account ••••8058 confirmed live via `get_portfolio`: total $4,926.89, cash $3,624.15, crypto value $1,302.74. 1 open crypto position (XRP) entering and exiting this cycle — 1/2 cap.
+
+**Circuit breakers:** none active. Same-day stop-out count: 1 (AAVE, 19:37:51Z cycle) — below the 2-stop-out threshold, no block. Market-shock pause: inapplicable (Saturday, SPY/QQQ don't trade). Portfolio heat cap: $37.09 used (0.75% of equity) against the $295.61 (6%) cap — ample headroom, moot since no new entry this cycle.
+
+**Position management — XRP (existing position, entry 2026-11-21T20:37:37Z @ avg $0.941893, qty 1403.014):** Live quote: bid $0.91972, ask $0.93732, mark $0.928522 — position currently at a small unrealized loss (~-1.42% vs. entry), well below the +1R breakeven trigger (would need mark ≥ ~$0.9678). No breakeven move, no peak-retracement trigger (never reached +1.5R), 7-day time-stop not remotely close. **Stop-audit: confirmed resting** via `get_crypto_orders` — order id `6b02016b-6304-4c32-bfe1-9c9e28d21f4a`, state=confirmed, state_group=open, time_in_force=gtc, stop_price=$0.916, quantity 1403.014 (matches full position). No action taken.
+
+**Data source:** Kraken fallback direct (established pattern this session, bypassing TRADING_VIEW_2 for reliability). `should_attempt_tradingview` returned True (status AVAILABLE, last tested earlier today) but Kraken was used anyway per the standing in-session choice. 4h cache still fresh for all 8 pairs (`last_t` 1795276800, unchanged — only ~1h since last roll, due again around 00:00Z). 1h refreshed fresh for all 8 pairs via direct Kraken fetch (`last_t` 1795291200, confirming a new completed 1h bar since last cycle's 1795287600).
+
+**Full allowlist screen — no pair shows a fresh 1H breakout trigger this cycle, same pattern as the prior cycle (19:37:51Z).** Price has pulled back slightly from last cycle's rally highs across the board (1h RSI cooling from 67-82 to 57-77, still elevated but off the extreme): BTC 77.04, ETH 70.37, SOL 70.93, XRP 69.30 (open position), LINK 66.83, AAVE 57.13, HBAR 66.06, AVAX 75.00. Every pair's fresh 1h close sits below its own freshly-recomputed prior 1h swing high — no pair breaks out on 1h.
+
+Per-pair detail (full gate, fresh 4h+1h data):
+- **BTC**: 4H Location fails (close $60,238.2 < prior swing high $60,883.4, pulled back). 4H Momentum **now improving** — MACD histogram crossed to **+1.446** (was negative at prior checks) — a genuine 4H setup via Momentum. 1H trigger: no breakout (close $60,324.5 < prior 1h high $60,399.7). **Still blocked on item 2 (catalyst/RS — RS-vs-BTC inapplicable to BTC itself, no catalyst ever verified) and item 7 (no 1H trigger this cycle)** — the persistent, unchanged blocker.
+- **ETH**: 4H Location fails (close $1,683.6 < prior high $1,715.84). 4H Momentum hist -0.118, still negative. RS vs BTC +1.85pp (positive, strongest of the 7 alts). 1H trigger fails (close $1,683.01 < prior 1h high $1,694.44). **Rejected — item 3 (no 4H setup) and item 7 (no 1H trigger).**
+- **SOL**: 4H Location fails (close $70.46 < prior high $71.05). 4H Momentum hist -0.079, still negative. RS vs BTC +1.10pp. 1H trigger fails (close $70.41 < prior 1h high $70.91). **Rejected — item 3/item 7.**
+- **LINK**: 4H Location fails (close $8.63475 < prior high $8.69458). 4H Momentum hist -0.00255, still negative (barely). RS vs BTC +0.31pp (weaker than last cycle's "2nd-strongest" read — 24h window has rolled). 1H trigger fails (close $8.61862 < prior 1h high $8.66881). Volume 1h: 15,655 vs. baseline 10,856 = 1.44x (confirms, but moot without structure). **Rejected — item 3/item 7.**
+- **AAVE** (just stopped out this session): 4H Location fails (close $97.42 < freshly-recomputed prior swing high $101.64 — this is a new swing-points read, not the stale entry-candle level). 4H Momentum hist -0.263, still negative. 1H: close $97.47 below prior 1h high $100.8 (no trigger); `current_below_prior_swing_low` now **False** (recovered off the post-stop-out low, no fresh bearish breakdown either). Two independent items now fail simultaneously (4H structure + no 1H trigger) — a structural absence, not a single-item near-miss; not re-queued.
+- **HBAR**: 4H Location fails (close $0.05182 < prior high $0.0522). 4H Momentum hist -0.00003, essentially flat. RS vs BTC **-0.344pp** (negative — remains the weakest/only-negative alt). 1H trigger fails (close $0.05191 < prior 1h high $0.05204, very close). Volume 1h: 967,939 vs. baseline 483,588 = 2.00x (confirms, moot without structure). **Rejected — item 2 (RS negative) + item 3/item 7.**
+- **AVAX**: 4H Location fails, still essentially at the level (close $6.629 vs. prior high $6.7). 4H Momentum hist -0.00117, still negative. RS vs BTC flipped to **-0.493pp** (negative this cycle — was "still positive" last cycle; the 24h rolling window has turned). 1H trigger fails (close $6.627 < prior 1h high $6.662). **Rejected — item 2 (RS now negative) + item 3/item 7.**
+
+**Near-miss queue reassessment:** all 6 queued pairs (BTC, ETH, SOL, LINK, HBAR, AVAX) remain near-misses — same persistent blockers, data refreshed. 0 cleared, 0 invalidated, 0 ineligible, 0 expired. `near_miss_queue.md` updated with fresh data timestamps/cycle counts.
+
+**Per-symbol labeling:** BTC/ETH/SOL/LINK/AAVE/HBAR/AVAX — rejected with evidence (full gate evaluated, specific item(s) cited above). XRP — not screened as a new-entry candidate (existing open position, managed under position-management above, no averaging down). 8/8 universe coverage, 0 tool failures.
+
+**No crypto order placed this cycle. 1 open position (XRP, unchanged), 0 entries, 0 exits.**
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-21T21:38:04Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "positions": {"crypto_count": 1}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "XRP stop confirmed resting, gtc, full qty"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 7, "rejected_with_evidence": 7, "not_evaluated": 1, "tool_failures": 0}, "near_miss_queue": {"reassessed": 6, "cleared": 0, "still_near_miss": 6, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 9, "data_source": "kraken_fallback (8 pairs fresh 1h, 8 pairs cached 4h unchanged candle)", "tradingview_quota_status": "AVAILABLE", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+Robinhood MCP connectivity: live. Stop-audit: checked, 1 position, stop confirmed resting. Portfolio heat cap: 0.75%/6% used, no change this cycle.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
