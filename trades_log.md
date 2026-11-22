@@ -80519,3 +80519,60 @@ Robinhood MCP connectivity: live. Stop-audit: moot. Portfolio heat cap: 0% used.
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+---
+
+### 2026-11-22T09:37:30Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0:** §14 Status confirmed ACTIVE. No kill phrase found in recent trades_log.md history.
+
+**Account:** Agentic Account ••••8058 confirmed live via `get_portfolio`: total $4,908.93, 100% cash, 0 crypto positions entering the cycle. Crypto position count 0/2 cap entering, 1/2 after this fill.
+
+**Circuit breakers:** none active (fresh UTC day, 0 stop-outs today). Market-shock pause: inapplicable (Sunday). Portfolio heat cap: $36.82 used after this trade (0.75% of equity, throttled rate — crypto's trailing profit factor is unverified/below 1.0 per §16 item 16's insufficient-history default) — well under the $294.54 (6%) cap.
+
+**Data source:** Kraken fallback direct. 4h cache fresh (`last_t` 1795320000, unchanged since last cycle). 1h refreshed fresh for all 8 pairs (`last_t` 1795334400) — **a broad bounce: all 8 pairs closed above their own prior 1h swing high this bar.**
+
+## TRADE CARD — CRYPTO
+
+**STRATEGY: CRYPTO (§21)** — `CRYPTO` tag
+
+- **Pair:** SOL-USD
+- **Side:** BUY (new position)
+- **4H setup:** Momentum improving — 4h MACD histogram +0.0642 (up from +0.0558 the prior 4h bar, continuing a multi-cycle improving trend) — confirms via the Momentum role-group. (Location does not confirm on 4h: close $69.32 < prior 4h swing high $71.05.)
+- **1H execution trigger:** Genuine breakout — 1h close $69.77 > prior confirmed 1h swing high $69.68. Confirms Location on 1h. 1h RSI 35.50 (below the 45 Momentum floor) and 1h MACD hist -0.0787 (still negative) — 1h Momentum does not independently confirm, but 4H Momentum already does.
+- **Catalyst/RS:** No single dated news catalyst verified; qualifies via relative strength — **+0.36 percentage points vs. BTC over the trailing 24 hours** (SOL +3.84% vs. BTC +3.48%), computed from completed 1h bars. Modest but positive and genuinely computed.
+- **Confirmation role-groups:** Momentum (4H MACD-improving) + Location (1H breakout) — 2 of 6, above the 1-of-6 floor.
+- **Entry:** Market buy, 17 SOL requested ($1,199.43 estimated). **Filled** 17 SOL @ average price **$70.56179**, total executed notional $1,199.56 (fee $0). Order id `6b02b87c-9043-47d1-871d-54c10c19dbc3`.
+- **Stop:** Structural — placed just below the broken 1h level ($69.68) minus a 0.6×ATR(4h) buffer (ATR(4h)=$2.0664): computed $68.4401, **rounded up to $68.45** (nearest valid $0.01 price increment, rounding direction required for a sell). Stop-distance check (via `validate_stop_distance`): distance $2.05/unit ≈ 2.91% of entry — well inside the §21 item 4 2-2.5× ATR ceiling (ceiling ≈4.13% of entry); risk ($2.05) exceeds 0.5×ATR ($1.03), so the tight-stop flag does NOT trigger — genuinely structurally justified.
+- **Target:** $73.59 (entry + 1.5×ATR(4h), §13.F-style ATR target — no clear overhead structural resistance before the prior swing region).
+- **Reward-to-risk:** computed atomically via `finalize_candidate()` at the live ask ($70.49126797, pulled immediately before order placement) — risk $2.051/unit, reward $3.100/unit → **R:R ≈ 1.511:1**, clearing the §21 item 3 ≥1.5:1 floor, though narrowly. **Explicitly re-verified against the live ask, not the Kraken-close price** ($69.77), per the standing process fix established earlier this session (the AAVE/XRP divergence lesson) — the live-price R:R (1.511:1) and the Kraken-close R:R are close here but not identical; the live-price figure is the one that governs.
+- **Position size:** 17 SOL, $1,199.56 executed notional — sized via `finalize_candidate()`'s risk-budget branch (risk_based_shares=17.95 → floored to 17, binding constraint: risk budget, not the 30%-of-equity position cap which would have allowed 20). Planned risk **$36.82 (0.75% of equity)**, position value 24.4% of equity, under the 30% per-position cap.
+- **Protective stop placed and verified resting:** `place_crypto_order` (type=stop_loss, side=sell, quantity=17, stop_price=$68.45, time_in_force=gtc — correct from the first attempt). Confirmed **resting** via `get_crypto_orders` (state=confirmed, state_group=open). Order id `6b02b88d-9386-457f-b18a-7d1afd84af36`.
+- **Portfolio heat:** $36.82 (0.75% of equity) — well inside the 6%/$294.54 cross-mode cap.
+- **No averaging down** — first entry on this pair this session.
+
+### Context: broad allowlist bounce, SOL was the only pair to clear
+
+All 8 allowlisted pairs showed a genuine 1H breakout this cycle (closing above their own prior 1h swing high) following the multi-cycle selloff/consolidation. Checked all 7 other candidates (excluding the already-confirmed structural blockers) against the live-ask R:R using the identical `finalize_candidate()` method:
+- **ETH**: R:R 1.214:1 — fails.
+- **XRP**: R:R 1.457:1 — fails, narrowly.
+- **LINK**: R:R 1.221:1 — fails.
+- **AVAX**: R:R 1.260:1 — fails.
+- **BTC**: still blocked on item 2 (catalyst/RS — RS-vs-BTC inapplicable to BTC itself, no catalyst verified) regardless of R:R.
+- **HBAR**: RS vs BTC -0.12pp (negative) — fails item 2.
+- **AAVE**: 4H Momentum still negative (hist -0.139, improving but not positive) — fails the 4H setup requirement.
+
+**SOL was the only pair to clear every gate item**, and did so narrowly (R:R 1.511:1 vs. the 1.5:1 floor) — flagged explicitly as a marginal pass, not a comfortable one.
+
+**Near-miss queue:** SOL cleared and removed (had been queued since 2026-11-21T12:38:01Z, 12 cycles). The other 5 remaining queued pairs (BTC, ETH, LINK, HBAR, AVAX) remain near-misses with updated data — all now show a 1H breakout but fail on R:R, catalyst/RS, or the 4H setup as detailed above. Full detail in `near_miss_queue.md`.
+
+**Stop-audit:** the one open position (SOL) has a confirmed resting GTC stop — audit passes.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-22T09:37:30Z", "coverage_state": "TRADE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 1}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 1, "note": "new SOL position, stop placed and verified resting (gtc, first attempt)"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 6, "cleared": 1, "still_near_miss": 5, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 0, "data_source": "kraken_fallback (8 pairs fresh 1h+4h) + live Robinhood quotes for order finalization", "tradingview_quota_status": "UNTESTED_TODAY", "exits": [], "entries": [{"symbol": "SOL", "mode": "crypto", "qty": "17", "price": "70.56178675"}], "orders_placed": 2, "git_push": "pending"}
+```
+
+Robinhood MCP connectivity: live. Stop-audit: checked, 1 position, stop confirmed resting. Portfolio heat cap: 0.75%/6% used.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
