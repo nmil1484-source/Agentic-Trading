@@ -209,19 +209,19 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| BTC | crypto (§21) | §21 item 2 — catalyst/RS remains the sole blocker. BTC's 4H now confirms Location (fresh breakout, close $60,972.8 > prior 4h high $60,883.4) but RS-vs-BTC is inapplicable to BTC itself, no catalyst has ever been verified, and no fresh 1h breakout this bar (close $60,972.8 < prior 1h high $61,288.9). | — | 2026-11-22T12:37:34Z cycle, 4h last_t 1795334400 (fresh) / 1h last_t 1795345200 (fresh) | 2026-11-21T13:37:36Z | 15 | 2026-12-01 |
-| ETH | crypto (§21) | §21 item 2 — RS vs BTC -1.54pp (negative). No fresh 1h breakout (close $1,705.76 < prior 1h high $1,721.0); no fresh 4h breakout either (close $1,705.76 < prior 4h high $1,715.84). | — | 2026-11-22T12:37:34Z cycle, 4h last_t 1795334400 (fresh) / 1h last_t 1795345200 (fresh) | 2026-11-21T14:38:01Z | 14 | 2026-12-01 |
-| LINK | crypto (§21) | §21 item 2 (RS vs BTC flipped back negative, -0.75pp) + item 7 (no fresh 1h trigger this bar, close $8.79641 < prior 1h high $8.82916) — despite 4H Location now confirming (close $8.79641 > prior 4h high $8.69458). Blocker reverted from the prior cycle's item-4 (R:R, 1.431:1) reading. | — | 2026-11-22T12:37:34Z cycle, 4h last_t 1795334400 (fresh) / 1h last_t 1795345200 (fresh) | 2026-11-21T12:38:01Z | 16 | 2026-12-01 |
-| HBAR | crypto (§21) | §21 item 2 — RS vs BTC -2.11pp (negative). No fresh 1h breakout (close $0.05162 < prior 1h high $0.05174); no 4h breakout (close $0.05162 < prior 4h high $0.0522). | — | 2026-11-22T12:37:34Z cycle, 4h last_t 1795334400 (fresh) / 1h last_t 1795345200 (fresh) | 2026-11-21T14:38:01Z | 14 | 2026-12-01 |
-| AVAX | crypto (§21) | §21 item 2 — RS vs BTC -0.79pp (negative). No fresh 1h breakout (close $6.687 < prior 1h high $6.706); no 4h breakout (close $6.687 < prior 4h high $6.7). | — | 2026-11-22T12:37:34Z cycle, 4h last_t 1795334400 (fresh) / 1h last_t 1795345200 (fresh) | 2026-11-21T10:37:53Z | 18 | 2026-12-01 |
+| BTC | crypto (§21) | §21 item 2 — catalyst/RS remains the sole blocker. 4H Location still confirms (same bar, close $60,972.8 > prior 4h high $60,883.4) but no fresh 1h breakout this bar (close $60,759.0 < prior 1h high $61,288.9); RS-vs-BTC inapplicable to BTC itself, no catalyst ever verified. | — | 2026-11-22T13:38:17Z cycle, 4h last_t 1795334400 (unchanged) / 1h last_t 1795348800 (fresh) | 2026-11-21T13:37:36Z | 16 | 2026-12-01 |
+| ETH | crypto (§21) | §21 item 2 — RS vs BTC -0.76pp (negative). No fresh 1h breakout (close $1,704.5 < prior 1h high $1,721.0); no 4h breakout (close $1,705.76 < prior 4h high $1,715.84, unchanged bar). | — | 2026-11-22T13:38:17Z cycle, 4h last_t 1795334400 (unchanged) / 1h last_t 1795348800 (fresh) | 2026-11-21T14:38:01Z | 15 | 2026-12-01 |
+| LINK | crypto (§21) | §21 item 7 — no fresh 1h trigger this bar (close $8.78987 < prior 1h high $8.84063, a pullback) — despite RS flipping positive again (+0.24pp) and 4H Location still confirming (same bar, close $8.79641 > prior 4h high $8.69458). Blocker shifts to item 7 this cycle. | — | 2026-11-22T13:38:17Z cycle, 4h last_t 1795334400 (unchanged) / 1h last_t 1795348800 (fresh) | 2026-11-21T12:38:01Z | 17 | 2026-12-01 |
+| HBAR | crypto (§21) | §21 item 2 — RS vs BTC -1.63pp (negative). No fresh 1h breakout (close $0.05158 < prior 1h high $0.05176); no 4h breakout (close $0.05162 < prior 4h high $0.0522, unchanged bar). | — | 2026-11-22T13:38:17Z cycle, 4h last_t 1795334400 (unchanged) / 1h last_t 1795348800 (fresh) | 2026-11-21T14:38:01Z | 15 | 2026-12-01 |
+| AVAX | crypto (§21) | §21 item 2 — RS vs BTC -0.37pp (negative). No fresh 1h breakout (close $6.684 < prior 1h high $6.708); no 4h breakout (close $6.687 < prior 4h high $6.7, unchanged bar). | — | 2026-11-22T13:38:17Z cycle, 4h last_t 1795334400 (unchanged) / 1h last_t 1795348800 (fresh) | 2026-11-21T10:37:53Z | 19 | 2026-12-01 |
 
-**Notable, not re-queued — AAVE (2026-11-22T12:37:34Z cycle).** AAVE broke out fresh on 1h this
-cycle (close $98.5 > prior 1h high $98.31) and its 4H Momentum crossed positive (hist +0.1148, up
-from -0.139 the prior 4h bar) — a real structural improvement after being stopped out and left
-unqueued on 2026-11-21. Not added to this table because it fails §21 item 2 outright: RS vs BTC is
-**-5.87pp, the worst in the allowlist this cycle** — a genuine, strongly negative relative-weakness
-reading, not a borderline miss. Worth re-checking next cycle if RS recovers, since the technical
-setup (1h trigger + 4h momentum) is otherwise live.
+**Notable, not re-queued — AAVE (2026-11-22T13:38:17Z cycle).** AAVE confirmed a second consecutive
+fresh 1h breakout this cycle (close $99.02 > prior 1h high $98.77, a new bar beyond last cycle's
+$98.5 breakout), with its 4H Momentum still positive (unchanged bar, hist +0.1148). Still not
+added to this table because it fails §21 item 2 outright: RS vs BTC improved from -5.87pp to
+**-3.60pp but remains negative** — the worst or near-worst in the allowlist this cycle. Continuing
+to track informally; would clear item 2 and warrant full near-miss status the moment RS turns
+positive while the 1h trigger stays live.
 
 **CLEARED 2026-11-22T09:37:30Z — SOL, removed from the queue — cleared into a real live trade.**
 After 12 cycles queued, the broad allowlist-wide bounce this cycle gave SOL a genuine 1h breakout
