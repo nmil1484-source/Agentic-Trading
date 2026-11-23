@@ -81362,3 +81362,22 @@ Robinhood MCP connectivity: live. Stop-audit: checked, 1 position, stop confirme
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+### 2026-11-23T14:11:04Z — PREMARKET_PREP (Premarket Preparation Scan, trig_01FRC5Yt8UVcGH8GxcAURYXX)
+
+**Read-only, no order authority. §14 Status confirmed ACTIVE (context only, not a gate for this trigger). No kill phrase found.**
+
+**STEP 1 — SPY freshness check: FAILED, cycle ended early per the trigger's own explicit fallback.** `get_ohlcv(symbol="AMEX:SPY", interval="5m", count=3)` returned its 3 most recent bars with `last_t=1795208100` = **2026-11-20 20:55:00 UTC (last Friday)** — roughly 3 days 17+ hours stale versus this cycle's actual time (2026-11-23T14:11Z), far outside the "within ~15-20 minutes" freshness threshold this step requires.
+
+**Diagnosis, logged for the record rather than silently worked around:** this is very likely a genuine tool-capability gap in this trigger's own freshness-check design, not a holiday or a real connector outage — `get_ohlcv`'s own response `notice` field states its 5m bars are **"regular session only"**. At 06:11am Pacific / 09:11am Eastern (before the 9:30am ET open), no regular-session bar for today has formed yet, so the tool can only return the last *actual* regular-session bar, which is Friday's close. This means the SPY-freshness check as written **cannot be satisfied during premarket hours by this tool's 5m interval**, regardless of whether premarket trading is genuinely live today — not evidence of a holiday or outage, just a mismatch between what this check assumes `get_ohlcv` returns and what it actually returns pre-open. Today (2026-11-23, Monday) is not a known market holiday.
+
+**Followed the trigger's own written instruction literally rather than override it with this diagnosis**: the instruction is unconditional once the bar reads stale ("log `coverage_state: DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE`, do not report any candidate this cycle... end the cycle well under the call cap") — flagging the likely root cause here for a future prompt fix, not silently proceeding to Steps 2-9 on my own judgment that the check was wrong.
+
+**No watchlist batch, no screener calls, no catalyst checks, no shortlist, no `premarket_shortlist.md` change this cycle.** `calls_made_this_cycle`: 1 (well under the 10-call cap).
+
+```json
+{"cycle": "premarket_prep", "timestamp_utc": "2026-11-23T14:11:04Z", "read_only": true, "calls_made_this_cycle": 1, "coverage_state": "DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE", "candidates_found": 0, "watchlist_candidates": 0, "offwatchlist_research_only_candidates": 0, "git_push": "pending"}
+```
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
