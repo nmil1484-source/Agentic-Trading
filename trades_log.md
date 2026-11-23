@@ -81381,3 +81381,31 @@ Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+### 2026-11-23T14:39:50Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0:** §14 Status confirmed ACTIVE. No kill phrase found. Robinhood MCP connectivity: live.
+
+**Circuit breaker still active:** same-day 2-stop-out cooldown remains in effect — still UTC calendar day 2026-11-23. No new crypto entries this cycle; full allowlist screen skipped as moot. Lifts automatically at 2026-11-24T00:00Z.
+
+**SOL — SHARP RALLY, STOP TRAILED UP SUBSTANTIALLY (exit-rule management event, reported in full per step 10).** Mark jumped from $72.19 (last cycle, 13:39:45Z) to **$77.456** this cycle — a +6.8% move in one hour, +9.78% vs. entry. R-multiple ≈ **+3.26R** (entry $70.56179, original stop $68.45, 1R=$2.11179) — well past both the +1R breakeven threshold and the +1.5R peak-retracement threshold.
+
+Fetched fresh 1h/4h Kraken data: 1h EMA9/20 = $72.87/$71.87, confirmed 1h swing low (5-bar lookback) = **$71.75**; 4h EMA9/20 = $70.99/$70.83 (lagging, 4h candle hasn't caught up to the intra-hour move yet). Per §16 item 6/§21 item 5 ("trail under the rising 4H EMA or a confirmed higher low, never lower the stop"), moved the stop up to the confirmed 1h swing low, the tighter and more concrete of the two available reference points:
+- Canceled old stop `6b02b88d-...` ($68.45) — confirmed canceled.
+- Placed new stop `6b04501f-...` at **$71.75**, gtc, full qty 17 — confirmed resting.
+- This locks in a minimum realized gain of ~$20.37 if hit (no longer any scenario where this position closes at a loss).
+
+**Peak-retracement tracking established this cycle** (first cycle crossing +1.5R): current mark $77.456 is the highest reading logged so far today and is treated as the running peak. Computed 30%-giveback exit trigger: peak − 0.30×(peak−entry) = $77.456 − 0.30×$6.89421 = **$75.39**. If mark falls to or below $75.39 on a future cycle (and the resting stop at $71.75 hasn't already caught it first), that triggers an immediate full exit per §16 item 12/§21 item 5, overriding nothing since crypto has no same-day-hold gate. Will be re-checked and the peak updated upward every cycle going forward.
+
+**Stop-audit:** confirmed resting, new order id `6b04501f-...`, gtc, $71.75, full qty 17.
+
+**OBSERVE for new entries (breaker active); real exit-rule stop-management action taken on SOL.** 1 open position (SOL), 1/2 cap. 0 new entries, 0 exits (position remains open, stop moved only).
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-23T14:39:50Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": ["same_day_2_stop_out_cooldown"], "same_day_stop_out_count": 2, "positions": {"crypto_count": 1}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 1, "note": "SOL stop trailed up from $68.45 to $71.75 (confirmed 1h swing low) following a sharp rally to +3.26R; old stop canceled and confirmed canceled before new stop placed and confirmed resting"}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 8, "tool_failures": 0, "not_evaluated_reason": "circuit breaker active -- new-entry screening skipped"}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0, "note": "skipped, breaker active"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 0, "data_source": "kraken_fallback (SOL 1h+4h only, position management)", "tradingview_quota_status": "UNTESTED_TODAY", "exits": [], "entries": [], "orders_placed": 2, "git_push": "pending", "sol_peak_tracking": {"peak_price": 77.456, "entry": 70.56179, "giveback_exit_trigger": 75.39, "r_multiple": 3.26}}
+```
+
+Robinhood MCP connectivity: live. Stop-audit: checked, 1 position, stop trailed up and confirmed resting at new level. Circuit breaker active: same-day 2-stop-out cooldown, lifts at UTC day boundary.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
