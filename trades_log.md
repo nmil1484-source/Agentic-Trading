@@ -81192,3 +81192,40 @@ Robinhood MCP connectivity: live. Stop-audit: checked, 2 positions, both stops c
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+### 2026-11-23T06:39:05Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0:** §14 Status confirmed ACTIVE. No kill phrase found.
+
+**Robinhood MCP connectivity:** live.
+
+**STOP-OUT DETECTED (2nd stop-out today):** `get_crypto_positions` showed only SOL — LINK (bought last cycle, 06:21:17Z) was missing. `get_crypto_orders` confirmed the resting protective stop (`6b03db78-...`, stop $8.79) filled at **2026-11-23T01:22:25-05:00 (2026-11-23T06:22:25Z)** — only **~68 seconds** after the entry filled at 01:21:17-05:00 (06:21:17Z), the fastest reversal yet on this account. Average exit price **$8.78789587**, full 160-unit position closed, realized notional $1,406.06 vs. entry notional $1,436.91 → **realized loss ≈ $30.85** (close to the full planned risk of $30.51, minor slippage). Cash balance confirms this exactly ($3,577.73 pre-trade → $3,546.88 post-stop-out).
+
+## TRADE CARD — CRYPTO (EXIT)
+
+**STRATEGY: CRYPTO (§21)** — `CRYPTO` tag
+
+- Pair: LINK-USD, Side: SELL (stop-out, full position closed)
+- Entry (prior cycle): 160 LINK @ avg $8.98067452
+- Exit: stop_loss order `6b03db78-73c0-417e-977d-e9cda9e82c33`, filled @ avg $8.78789587, full 160 units
+- Realized loss: **-$30.85** (-2.14% on the position, ~-0.64% of account equity)
+- Hold time: **~68 seconds** — price broke the prior swing high, triggered entry, then immediately reversed through the stop with essentially no follow-through. This is the second consecutive stop-out on this exact pair within ~5 hours, both near-identical whipsaw reversals.
+
+**CIRCUIT BREAKER NOW ACTIVE — §6 same-day 2-stop-out cooldown TRIGGERED.** This is the 2nd stop-out across Mode B/C/crypto combined on the UTC calendar day 2026-11-23 (1st: LINK, 2026-11-23T01:52:12Z, -$31.64; 2nd: LINK, 2026-11-23T06:22:25Z, -$30.85). Per §6, **no new entries in any mode for the remainder of today (UTC)** — existing protective stops/trailing stay fully active. This auto-lifts at the next UTC day boundary (2026-11-24T00:00Z) with no manual phrase needed. **No full allowlist screen was run this cycle** — new-entry screening is moot while the breaker is active; position management and logging continue.
+
+**Account (post-stop-out):** total value ~$4,733.03, cash $3,546.88, crypto value (SOL only) ~$1,186.57 (not independently re-pulled this cycle; derived from the pre-cycle portfolio read minus the realized loss). 1 open crypto position (SOL) — 1/2 cap, capacity restored but irrelevant while the breaker is active.
+
+**Position management — SOL:** mark $71.607 vs. entry $70.56179 (+1.48%), still below +1R ($72.6736). No action due. Stop-audit: confirmed resting via `get_crypto_orders`, order id `6b02b88d-...`, gtc, $68.45, full qty 17 — unchanged, confirmed state.
+
+**Near-miss queue:** not reassessed this cycle (circuit breaker blocks all new entries regardless of gate outcome, and the full fresh screen that would normally drive reassessment was skipped) — `near_miss_queue.md` left unchanged this cycle. Will resume normal reassessment once the breaker lifts at the next UTC day boundary.
+
+**Per-symbol labeling:** not applicable this cycle — full allowlist screen was not run (circuit breaker active, no new entry possible regardless of outcome).
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-23T06:39:05Z", "coverage_state": "OBSERVE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": ["same_day_2_stop_out_cooldown"], "same_day_stop_out_count": 2, "positions": {"crypto_count": 1}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0, "note": "LINK stop found filled (not missing) -- position closed as designed, 2nd stop-out today; SOL stop confirmed resting, unchanged"}, "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 8, "tool_failures": 0, "not_evaluated_reason": "circuit breaker active -- new-entry screening skipped, not a tool failure"}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0, "note": "skipped this cycle, breaker active"}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 0, "data_source": "n/a this cycle (no screen run)", "tradingview_quota_status": "UNTESTED_TODAY", "exits": [{"symbol": "LINK", "reason": "stop_loss_filled", "realized_pl": -30.85}], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
+
+Robinhood MCP connectivity: live. Stop-audit: checked, 1 position, stop confirmed resting. Portfolio heat cap: not recomputed this cycle (no new entry possible). **Circuit breaker active: same-day 2-stop-out cooldown — no new crypto entries until the next UTC day boundary.**
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
