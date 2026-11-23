@@ -81041,3 +81041,53 @@ Robinhood MCP connectivity: live. Stop-audit: checked, 1 position, stop confirme
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+---
+
+### 2026-11-23T01:37:58Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0:** §14 Status confirmed ACTIVE. No kill phrase found.
+
+**Account (pre-trade):** $4,907.11 total, cash $3,709.37, crypto value $1,197.74. 1 open crypto position (SOL) — 1/2 cap. Robinhood MCP connectivity: live.
+
+**Circuit breakers:** none active (0 same-day stop-outs). Portfolio heat cap (pre-trade): ~0.73% used, ample headroom.
+
+**Position management — SOL:** mark $70.4407 vs. entry $70.56179 (~-0.17%), still below +1R (~$72.61). No action due. Stop-audit: confirmed resting, order id `6b02b88d-...`, gtc, $68.45, full qty 17.
+
+**Data source:** Kraken fallback direct. 1h rolled over (new last_t 1795392000, all 8 fetches OK); 4h confirmed unchanged at the 20:00Z bar (correctly not yet due — next roll 04:00Z).
+
+## TRADE CARD — CRYPTO
+
+**STRATEGY: CRYPTO (§21)** — `CRYPTO` tag
+
+- Pair: LINK-USD, Side: BUY (new position)
+- **4H setup: Momentum improving** — 4h MACD histogram rising for 5 consecutive completed bars (+0.0211 → +0.0409 → +0.0535 → +0.0591 → +0.0619)
+- **1H execution trigger: Genuine breakout** — 1h close $8.83637 > prior confirmed 1h swing high $8.82825
+- **Catalyst/RS:** +0.97pp vs BTC over trailing 24h (allowlist's strongest this cycle — specific, computed comparison)
+- Entry: Market buy, 165 LINK filled @ avg $8.89075087, notional $1,466.98, order id `6b039960-a616-46b5-a1f7-bbd8cc004836`
+- Stop: $8.70 (structural, broken level $8.82825 minus 0.6×ATR(4h)=$0.1334, rounded up to nearest $0.01 for a sell stop)
+- Target: $9.2243 (entry + 1.5×ATR(4h), ATR(4h)=$0.2224)
+- **R:R ≈ 1.748:1** (computed via `finalize_candidate()` at the actual live fill price, not the Kraken close)
+- Position size: 165 LINK, risk_based_shares=185.58 vs. cap_based_shares=165 — **binding constraint: 30%-of-equity position cap**, not the risk budget
+- Planned risk: $31.47 (0.64% of equity — well under the 0.75% throttled risk-per-trade ceiling, since the position cap bound tighter)
+- Protective stop placed and verified resting: order id `6b039975-3650-4bd0-8b3a-440b9191df2c`, gtc, $8.70, qty 165
+- Stop-distance validation: distance $0.1983 (2.23% of entry), ceiling 2.5×ATR(4h)=$0.5559 — **not exceeded**; not flagged as needing extra structural justification (distance > 0.5×ATR)
+
+**Portfolio heat cap (post-trade):** SOL ~$35.90 (0.73%) + LINK $31.47 (0.64%) = **$67.37, 1.37% of $4,907.11 equity** — well under the 6% cap. No resize needed.
+
+**Concurrent-position cap:** now 2/2 (SOL + LINK) — at the §21 item 4 cap. No further new entries possible until one closes.
+
+**Comparison — other pairs screened this cycle, all rejected:** BTC (1h close $61,250.0 within ~0.05% of prior high $61,280.0 but no breakout; item 2 — no catalyst/RS path for BTC itself); ETH (no 1h breakout, RS +0.33pp); SOL (held — not screened as a new entry; also no fresh breakout this bar); XRP (no breakout, RS -2.51pp); AAVE (no breakout, 1h momentum turned negative, RS -2.27pp); HBAR (no breakout, RS -2.56pp); AVAX (no breakout, RS -0.69pp).
+
+**Near-miss queue reassessment:** LINK cleared into this trade, removed from the queue. BTC, ETH, HBAR, AVAX remain near-misses. 0 invalidated/ineligible/expired.
+
+**Per-symbol labeling:** 1 evaluated-and-cleared (LINK), 6 rejected with evidence (SOL held, not screened as new entry). 8/8 coverage, 0 tool failures.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-23T01:37:58Z", "coverage_state": "TRADE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 0, "positions": {"crypto_count": 2}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 1, "note": "new LINK position, stop placed and verified resting (gtc, first attempt); SOL stop confirmed resting, unchanged"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 7, "rejected_with_evidence": 6, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 4, "cleared": 1, "still_near_miss": 4, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 0, "data_source": "kraken_fallback (8 pairs fresh 1h, 8 pairs confirmed unchanged 4h) + live Robinhood quotes for order finalization", "tradingview_quota_status": "UNTESTED_TODAY", "exits": [], "entries": [{"symbol": "LINK", "mode": "crypto", "qty": "165", "price": "8.89075087"}], "orders_placed": 2, "git_push": "pending"}
+```
+
+Robinhood MCP connectivity: live. Stop-audit: checked, 2 positions, both stops confirmed resting. Portfolio heat cap: 1.37%/6% used.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz

@@ -209,13 +209,19 @@ the "DATA_BLOCKED" note below is now stale history, left only for audit context.
 
 | Symbol | Instrument | Failed item (exact) | Other items' status | Data timestamp used | Added | Cycles checked | Expires (10 days) |
 |---|---|---|---|---|---|---|---|
-| BTC | crypto (§21) | §21 item 2 — catalyst/RS remains the sole blocker, now the only thing standing in the way. **Fresh 1h breakout this cycle** (close $61,170.1 > prior 1h high $61,018.5, RSI 52.8, cooled from the overbought run); 4H momentum improving (hist +422, up from +379) though 4H Location still doesn't confirm (close < prior 4h high $61,590.0). RS-vs-BTC inapplicable to BTC itself, no catalyst ever verified — this is now a pure catalyst-gate near-miss. | — | 2026-11-23T00:38:04Z cycle, 4h last_t 1795377600 (fresh) / 1h last_t 1795388400 (fresh) | 2026-11-21T13:37:36Z | 27 | 2026-12-01 |
-| ETH | crypto (§21) | §21 item 7 — RS vs BTC +0.53pp, but no fresh 1h breakout (close $1,721.45 < prior 1h high $1,727.23, RSI eased to 55.9); no 4h breakout on the fresh bar. | — | 2026-11-23T00:38:04Z cycle, 4h last_t 1795377600 (fresh) / 1h last_t 1795388400 (fresh) | 2026-11-21T14:38:01Z | 26 | 2026-12-01 |
-| LINK | crypto (§21) | §21 item 7 — no fresh 1h trigger (close $8.80399 < prior 1h high $8.82825, RSI 59.0); no 4h breakout on the fresh bar either (close < prior 4h high $8.89838). RS vs BTC +0.66pp, still the allowlist's strongest. | — | 2026-11-23T00:38:04Z cycle, 4h last_t 1795377600 (fresh) / 1h last_t 1795388400 (fresh) | 2026-11-21T12:38:01Z | 28 | 2026-12-01 |
-| HBAR | crypto (§21) | §21 item 2 — RS vs BTC -1.57pp (negative). No fresh 1h breakout (close $0.05164 vs prior $0.05183); no 4h breakout on the fresh bar. | — | 2026-11-23T00:38:04Z cycle, 4h last_t 1795377600 (fresh) / 1h last_t 1795388400 (fresh) | 2026-11-21T14:38:01Z | 26 | 2026-12-01 |
-| AVAX | crypto (§21) | §21 item 2 — RS vs BTC -0.25pp (negative, narrow). No fresh 1h breakout (close $6.673 vs prior $6.693); no 4h breakout on the fresh bar. | — | 2026-11-23T00:38:04Z cycle, 4h last_t 1795377600 (fresh) / 1h last_t 1795388400 (fresh) | 2026-11-21T10:37:53Z | 30 | 2026-12-01 |
+| BTC | crypto (§21) | §21 item 2 — catalyst/RS remains the sole blocker. No fresh 1h breakout this bar (close $61,250.0 < prior 1h high $61,280.0, within ~0.05%, RSI 60.5); 4H unchanged bar, Location still doesn't confirm. RS-vs-BTC inapplicable to BTC itself, no catalyst ever verified. | — | 2026-11-23T01:37:58Z cycle, 4h last_t 1795377600 (unchanged) / 1h last_t 1795392000 (fresh) | 2026-11-21T13:37:36Z | 28 | 2026-12-01 |
+| ETH | crypto (§21) | §21 item 7 — RS vs BTC +0.33pp, but no fresh 1h breakout (close $1,718.98 < prior 1h high $1,727.23, RSI 62.2); no 4h breakout (unchanged bar). | — | 2026-11-23T01:37:58Z cycle, 4h last_t 1795377600 (unchanged) / 1h last_t 1795392000 (fresh) | 2026-11-21T14:38:01Z | 27 | 2026-12-01 |
+| HBAR | crypto (§21) | §21 item 2 — RS vs BTC -2.56pp (negative). No fresh 1h breakout (close $0.05113 vs prior $0.05183, RSI 39.7); no 4h breakout (unchanged bar). | — | 2026-11-23T01:37:58Z cycle, 4h last_t 1795377600 (unchanged) / 1h last_t 1795392000 (fresh) | 2026-11-21T14:38:01Z | 27 | 2026-12-01 |
+| AVAX | crypto (§21) | §21 item 2 — RS vs BTC -0.69pp (negative). No fresh 1h breakout (close $6.65 vs prior $6.693, RSI 45.1); no 4h breakout (unchanged bar). | — | 2026-11-23T01:37:58Z cycle, 4h last_t 1795377600 (unchanged) / 1h last_t 1795392000 (fresh) | 2026-11-21T10:37:53Z | 31 | 2026-12-01 |
 
-**Notable, not a near-miss — SOL (held position, 2026-11-23T00:38:04Z cycle).** SOL also showed a fresh 1h breakout this cycle (close $70.62 > prior 1h high $70.43). Not evaluated as a new-entry candidate since SOL is already an open position (17 units, entry $70.56179) — this is relevant context for its own position management, not a new near-miss. RS vs BTC remains negative (-1.16pp) regardless.
+**CLEARED 2026-11-23T01:37:58Z — LINK, removed from the queue — cleared into a real live trade (3rd trade this account).**
+After the two-cycle pattern of a fresh 1h breakout attempt failing just short, LINK's 1h bar closed
+above its prior swing high ($8.83637 > $8.82825) with RS vs BTC still the allowlist's strongest
+(+0.97pp) and 4H Momentum improving for 5 consecutive completed bars (hist +0.021→+0.041→+0.054→
++0.059→+0.062). Live-fill `finalize_candidate()` R:R came to **1.748:1** (entry $8.89075, stop
+$8.70, target $9.2243) — clearing the 1.5:1 floor comfortably. Bought 165 LINK @ avg fill
+$8.89075087, protective GTC stop_loss placed and confirmed resting at $8.70. See `trades_log.md`'s
+2026-11-23T01:37:58Z entry for the full Trade Card.
 
 **CLEARED 2026-11-22T09:37:30Z — SOL, removed from the queue — cleared into a real live trade.**
 After 12 cycles queued, the broad allowlist-wide bounce this cycle gave SOL a genuine 1h breakout
