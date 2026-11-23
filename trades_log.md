@@ -81134,3 +81134,61 @@ Robinhood MCP connectivity: live. Stop-audit: checked, 1 position, stop confirme
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+### 2026-11-23T06:21:44Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**OPERATIONAL NOTE: 3 scheduled firings (03:37:44Z, 04:37:48Z, 05:37:47Z) did not produce a logged cycle.** This session's worker process was restarted mid-cycle while processing the 03:37:44Z firing (data-gathering only — no order had been placed, and no partial/inconsistent state was left in the repo; confirmed via `git status`/`git log` on resume, which showed the last committed cycle was still 02:37:51Z, commit `a7bb25c`). The 04:37:48Z and 05:37:47Z firings then queued as notifications and were read together on resume. Rather than reconstruct three separate stale-data cycles after the fact, this entry processes current real-time state as one consolidated cycle, timestamped at actual processing time. Existing protective stops (SOL, LINK-from-prior-cycles) were never at risk during the gap — they rest at the broker independently of this session. No new-entry authority was exercised during the gap itself. Flagged plainly rather than silently glossed over.
+
+**STEP 0:** §14 Status confirmed ACTIVE. No kill phrase found.
+
+**Robinhood MCP connectivity:** live (`get_accounts`/`get_portfolio`/`get_crypto_positions` all succeeded).
+
+**Cash-only discrepancy noted (§6):** account cash dropped from $3,677.73 (as of the 02:37:51Z cycle) to $3,577.73 now — a $100.00 decrease with no matching crypto order (confirmed via `get_crypto_orders` — no entries since the 2026-11-22T20:40:05-05:00 LINK stop-out until this cycle's own new LINK buy below). Positions and open orders otherwise fully reconcile (SOL unchanged, stop resting). Per §6's cash-only-discrepancy rule, this is logged and reported, not treated as a reason to pause new-entry authority — presumed the user's own account activity, since this system can never move money itself.
+
+**Account:** total value $4,799.06 (pre-trade), cash $3,577.73, crypto value $1,221.33 (SOL only, pre-trade). No circuit breaker active. Same-day stop-out count = 1 (LINK, 2026-11-23 UTC) — below the 2-stop-out cooldown threshold, not triggered. No portfolio-heat-cap block.
+
+**Position management — SOL (unchanged):** mark $71.774 vs. entry $70.56179 (+1.72%), still below +1R ($72.6736). No breakeven/trailing action due. Stop-audit: confirmed resting, order id `6b02b88d-...`, gtc, $68.45, full qty 17 — unchanged.
+
+**Near-miss queue reassessment (full current gate, fresh Kraken data, now_epoch 1795414740):**
+- **BTC**: still near-miss, item 2 — RS inapplicable to itself, no catalyst verified. No 1h breakout (close $61,593.5 < prior high $61,886.1) despite a broad +4.76% 24h rally.
+- **ETH**: still near-miss, item 2 — RS vs BTC -0.149pp (negative) despite a marginal 4h breakout (close $1,730.33 vs. prior high $1,729.87, +0.03%). No 1h breakout.
+- **HBAR**: still near-miss, item 2 — RS vs BTC -1.695pp (negative) despite a clean 1h breakout (close $0.05211 > prior high $0.05165, vol 1.62x baseline).
+- **AVAX**: still near-miss, item 2 (and no fresh breakout either timeframe this cycle — close $6.695 < prior 1h high $6.72; 4h close $6.67 < prior high $6.767) — RS vs BTC -1.634pp (negative).
+- **LINK: CLEARED — removed from queue, entered as a real live trade (see Trade Card below).** 1h breakout confirmed (close $8.93624 > prior 1h swing high $8.91652, this was the pre-fill read; live ask at order time $8.98382561), 4H Momentum confirmed via 5 consecutive rising MACD histogram values ($0.0409→$0.0535→$0.0591→$0.0619→$0.0654), 1H Volume confirmed (1.6x the §13.H 3-bar baseline). RS vs BTC +0.353pp — weak but genuinely positive, the only pair on the allowlist with a positive RS reading this cycle.
+
+**Disclosed plainly: this is a same-pair re-entry into LINK roughly 5 hours after a stop-out at a materially similar level** (prior entry $8.89075, stop $8.70, stopped out $8.699; this entry $8.98067, stop $8.79). No rule in §21 prohibits a same-pair crypto re-entry the way §17 item 4 does for Mode B equities — the gate is mechanical and both the prior and current setups independently cleared it on their own fresh data. Flagged as a real, elevated whipsaw risk given the recent history on this exact pair, not a reason to override a clearing gate.
+
+## TRADE CARD — CRYPTO
+
+**STRATEGY: CRYPTO (§21)** — `CRYPTO` tag
+
+- Pair: LINK-USD, Side: BUY (new position)
+- 4H setup: Momentum improving — 4h MACD histogram rising for 5 consecutive completed bars (+0.0409 → +0.0535 → +0.0591 → +0.0619 → +0.0654)
+- 1H execution trigger: Genuine breakout — 1h close $8.93624 > prior confirmed 1h swing high $8.91652 (pre-fill read); live ask at order time $8.98382561
+- Volume: 1h breakout-bar volume 1.6x the §13.H 3-bar baseline — confirms
+- Catalyst/RS: +0.353pp vs BTC over trailing 24h — the only allowlisted pair with a positive RS reading this cycle; no dated news catalyst separately checked this cycle, RS alone satisfies item 2
+- Entry: Market buy, 160 LINK filled @ avg $8.98067452, notional $1,436.91, order id `6b03db5d-1f40-4a2b-a3fb-dbaad44f7e79`
+- Stop: $8.79 (structural, broken level $8.91652 minus 0.6×ATR(4h)=$0.1325 → $8.784, rounded up to nearest $0.01 for a sell stop)
+- Target: $9.31181 (entry + 1.5×ATR(4h), ATR(4h)=$0.22076)
+- R:R ≈ 1.737:1 (computed via `finalize_candidate()` at the live ask, recomputed on the actual fill price)
+- Stop-distance validation: distance $0.1907 = 2.12% of entry, ceiling 2.5×ATR = 5.52% — well inside, `exceeds_ceiling: false`, `needs_structural_justification: false`
+- Position size: 160 LINK — risk_based_shares=180.18 vs. cap_based_shares=160 — binding constraint: 30%-of-equity position cap
+- Planned risk: $30.51 (0.636% of equity) — throttled risk-per-trade basis (0.75%, per §16 item 16's insufficient-history default) was not the binding constraint this trade
+- Protective stop placed and verified resting: order id `6b03db78-73c0-417e-977d-e9cda9e82c33`, gtc, $8.79, qty 160, state confirmed
+
+**Portfolio heat cap post-trade:** SOL open risk $35.90 (not yet at breakeven) + LINK $30.51 = $66.41 / $287.94 (6% of equity) — 23.1% of the cap used, well within headroom.
+
+**Concurrent-position cap:** now 2/2 (SOL + LINK) — at the §21 item 4 cap. No further new entries possible until one closes.
+
+**Comparison — other pairs screened this cycle, all rejected:** BTC (no 1h breakout despite a strong 24h rally; item 2 — no catalyst/RS path for BTC itself); ETH (marginal 4h breakout but RS -0.149pp, negative); SOL (held, not screened as a new entry); XRP (1h breakout but RS -1.865pp, negative); AAVE (no breakout either timeframe, RS -2.814pp, negative, RSI 43.4 cooling); HBAR (1h breakout but RS -1.695pp, negative); AVAX (no breakout either timeframe, RS -1.634pp, negative).
+
+**Per-symbol labeling:** 1 evaluated-and-cleared (LINK), 6 rejected with evidence (SOL held, not screened as new entry). 8/8 coverage, 0 tool failures.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-23T06:21:44Z", "coverage_state": "TRADE", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "same_day_stop_out_count": 1, "positions": {"crypto_count": 2}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 1, "note": "new LINK position, stop placed and verified resting (gtc, first attempt); SOL stop confirmed resting, unchanged"}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 7, "rejected_with_evidence": 6, "not_evaluated": 0, "tool_failures": 0}, "near_miss_queue": {"reassessed": 4, "cleared": 1, "still_near_miss": 4, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 0, "tvremix_calls_used_today": 0, "data_source": "kraken_fallback (8 pairs fresh 1h+4h)", "tradingview_quota_status": "UNTESTED_TODAY", "exits": [], "entries": [{"symbol": "LINK", "mode": "crypto", "qty": "160", "price": "8.98067452"}], "orders_placed": 2, "git_push": "pending", "missed_scheduled_cycles": ["2026-11-23T03:37:44Z", "2026-11-23T04:37:48Z", "2026-11-23T05:37:47Z"], "missed_cycle_reason": "session worker restart mid-cycle; no order placed during gap; resumed and processed as one consolidated cycle"}
+```
+
+Robinhood MCP connectivity: live. Stop-audit: checked, 2 positions, both stops confirmed resting. Portfolio heat cap: 23.1%/100% of the 6% cap used ($66.41/$287.94). Cash-only discrepancy ($100 decrease) noted above, not blocking.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
