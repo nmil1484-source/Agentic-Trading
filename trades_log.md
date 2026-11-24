@@ -83348,3 +83348,38 @@ Best realistic-exit R:R across every strike checked: **~0.26:1 ($44.5p)** — ag
 **Resolution: NO_TRADE — same category as the already-logged HPE/NOW/NBIS precedents** ("thesis directionally plausible, no instrument clears at an acceptable R:R"). CRCL's equity path remains blocked by the §16 item 2 stop-sizing ceiling (unchanged all day); its options path is now independently confirmed blocked by §18 item 2's option-economics floor. Removed from `near_miss_queue.md`'s Mode B/C table — not re-queued; both instrument paths are resolved, not pending.
 
 **No order was placed, previewed, or proposed to the user under this turn's authority** (Universal Safety Kernel item 12 — chat-requested turn, no scheduled-trigger origin). No CLAUDE.md rule, limit, or safeguard was changed. No connector/account-setting change was made.
+
+### 2026-11-24T20:42Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv) — OBSERVE, no trade
+
+STEP 0: §14 ACTIVE (confirmed in governing doc). No kill phrase found in recent trades_log.md history. Robinhood MCP reachable (`get_accounts`/`get_portfolio` both clean). Account flat: $4,800.17 total value, 100% cash, 0 positions in every mode (equity/options/crypto/leveraged-ETF).
+
+**Circuit breakers (§6):** cross-mode same-day 2-stop-out cooldown — confirmed CLEARED as of the 2026-11-24T15:04:19Z First Scan cycle (unconditional clearing per protocol, independent of that cycle's connector outage); no new stop-outs logged since. Market-shock: SPY $715.43→$716.64 (+0.17%), QQQ $634.43→$635.85 (+0.22%) vs. last cycle (20:03:51Z) — flat, no breaker. Portfolio heat cap: $0 current heat (0 positions anywhere), full 6%-of-equity headroom available — moot since nothing qualifies below.
+
+**Near-miss queue (§21):** empty, confirmed via `near_miss_queue.md` read — 0 reassessment needed.
+
+**Data source:** TradingView confirmed exhausted today (`should_attempt_tradingview` → False, 1 attempt already recorded exhausted at 2026-11-24, per the shared `data_budget` state) — routed straight to Kraken fallback per the 2026-11-17 protocol addition, no TradingView call spent. All 8 allowlisted pairs fetched cleanly: `fetch_kraken_ohlc` returned `status: OK` for every pair/timeframe (no gaps, no staleness), 1h and 4h bars merged into the shared cache.
+
+**Full allowlist screen (8/8 pairs, bullish-only per §21 item 2 spot-long-only — no short/inverse path for crypto):**
+
+| Pair | 1h Trend/RSI/MACD | 4h Trend/RSI/MACD | Location (swing_points/pullback) | Volume (vs. 1.2x floor) | Verdict |
+|---|---|---|---|---|---|
+| BTC | bearish 9<20, RSI 39.6, MACD hist -31.5 | bearish 9<20, RSI 38.6, MACD hist -16.3 | inside range both tf, no breakout; 1h pullback 68% (deep) | 1h 0.53x, 4h 1.94x (elevated but on a down bar, not a bullish confirm) | REJECTED — no bullish role-group confirms |
+| ETH | bearish, RSI 36.0, MACD hist -1.32 | bearish, RSI 41.7, MACD hist -0.80 | inside range both tf; 1h pullback 71% (deep) | 1h 0.74x, 4h 1.78x (same elevated-on-decline pattern as BTC) | REJECTED |
+| SOL | bearish, RSI 23.8, MACD hist -0.18 | bearish, RSI 43.6, MACD hist -0.18 | inside range both tf; 1h pullback 68% | 1h 1.14x (just under 1.2x floor), 4h 0.98x | REJECTED — closest on Momentum/Volume but neither clears |
+| XRP | bearish, RSI 26.3, MACD hist -0.0020 | bearish, RSI 46.9 (>45, borderline), MACD hist -0.0008 (near-flat) | inside range both tf; no breakout; 4h pullback null (no clean leg) | 1h 0.71x, 4h 0.77x | REJECTED — marginal 4h RSI read but no Location setup and no volume confirm |
+| LINK | bearish 9<20<... mixed, RSI 31.8, MACD hist -0.021 | **bullish 9>20** (Trend/State confirms), RSI 50.7 (>45), MACD hist +0.0078 (positive) | inside range both tf, no confirmed breakout/retest/pullback pattern (4h pullback null, 1h pullback 56% moderate) | 1h 0.28x, 4h 0.39x — both well below floor | REJECTED with evidence — only pair with a genuine bullish Trend/State+Momentum lean (4h), but no confirmed 4H Location setup or 1H execution trigger exists to time an entry against, and Volume fails on both timeframes; catalyst/RS not independently checked since there's no trigger to act on regardless. Flagged for priority re-check if a reclaim of the $9.14 (4h) / $8.95 (1h) level appears on a future cycle. |
+| AAVE | bearish, RSI 27.2, MACD hist -0.18 | bearish, RSI 31.2, MACD hist -0.15 | inside range both tf; pullback 98.5%/99.5% (extreme/overextended, not a healthy pullback structure) | 1h 0.33x, 4h 0.58x | REJECTED |
+| HBAR | bearish, RSI 16.7, MACD hist -0.0002 | bearish, RSI 41.6, MACD hist -0.00007 | **broken BELOW prior swing low on BOTH 1h and 4h** — active breakdown, not basing | 1h 0.62x, 4h 1.53x (elevated on the breakdown itself) | REJECTED decisively — actively breaking down |
+| AVAX | bearish, RSI 27.3, MACD hist -0.019 | bearish, RSI 42.6, MACD hist -0.0003 (near-flat) | inside range both tf; 1h pullback 61% | 1h 1.33x (clears 1.2x, but on a declining/range-bound bar — reads as selling pressure, not a bullish confirm), 4h 0.40x | REJECTED |
+
+8/8 pairs REJECTED with evidence. 0 tool failures, 0 not-evaluated. Consistent with the broad market-wide decline already flagged at the 16:38Z cycle's near-miss invalidation (TQQQ/SOXL/SPXL deep drawdowns, inverse funds up sharply) — every pair is below its own 9/20/50 EMA stack on both timeframes with no exception.
+
+**Stop-audit**: trivially checked, 0 crypto positions. **Breakeven/trailing/peak-retracement/time-stop management**: N/A, 0 open positions.
+
+```json
+{"cycle":"crypto_24_7_scan","timestamp_utc":"2026-11-24T20:42Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":true,"missing_found":false,"placed":false},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":0,"data_source":"kraken_fallback","tradingview_quota_status":"EXHAUSTED","exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
+No order placed. No rule changed. Robinhood MCP connectivity: live throughout.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
