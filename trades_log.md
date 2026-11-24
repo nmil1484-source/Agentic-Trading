@@ -83439,3 +83439,26 @@ No order placed. No rule changed. Robinhood MCP connectivity: live.
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+### 2026-11-24T23:38Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv) — OBSERVE, no trade, 1 new near-miss queued
+
+STEP 0: §14 ACTIVE. No kill phrase. Robinhood MCP live. Account flat, 0 crypto positions. Regular equity session closed (21:00Z) — market-shock check inapplicable/satisfied per protocol (SPY/QQQ don't trade this hour). Cooldown cleared (unchanged). Portfolio heat: $0, moot.
+
+**Data source:** TradingView exhausted today — Kraken fallback, no call spent. Fresh 1h bars for all 8 pairs (new candle); 4h correctly reused from cache — verified the 4h bar starting 1795550400 has not yet completed as of this cycle's epoch (its completion is 1795564800), so last_t=1795536000 remains the genuinely latest completed 4h bar, not a stale-cache error.
+
+**Near-miss queue reassessment**: queue was empty entering this cycle — 0 reassessment needed.
+
+**7/8 pairs REJECTED, 1 new near-miss (SOL) found and queued:**
+- **SOL — the standout this cycle.** 1h chart shows a real, fresh breakout: close $69.89 broke above the prior 1h swing high ($69.75), on volume 2.74x the §13.H baseline — Location + Volume role-groups both confirm (well above the 1-of-5 floor). Computed R:R using the breakout-continuation stop placement (just beyond the broken $69.75 level, §13.G principle): stop $69.70, target $71.12 (1.5xATR(1h)=$1.227) → **R:R 6.46:1**, decisively clearing 1.5:1. `validate_stop_distance` flags `needs_structural_justification: true` (stop <0.5xATR from entry) but the level is a genuinely confirmed prior swing high, not arbitrary proximity — treated as structurally justified. **Blocked solely by the 4H-setup requirement**: the 4h chart shows no confirming setup — still bearish 9/20 EMA, RSI 43.6, no breakout, and a 97.85%-deep pullback (essentially back at the recent impulse low) that reads as continuing weakness, not a qualifying range-contraction/pullback-to-support pattern. Catalyst/RS vs. BTC not independently checked this cycle (Kraken path has no Stage-A-equivalent step) — flagged as a second open item, not asserted as clearing. Added to `near_miss_queue.md`'s Crypto table for reassessment next cycle.
+- **BTC/ETH — momentum turning, flagged for continuity, still rejected.** Both flipped MACD histogram positive this cycle for the first time this session (BTC hist -21.9→+15.2, ETH hist -1.08→+0.30) with 1h RSI crossing above 45 (BTC 46.7, ETH 46.5) — Momentum role-group now arguably confirms on both. Still rejected: no breakout on either (`current_above_prior_swing_high` false on both), so no 1H trigger exists yet despite the momentum shift. Worth watching next cycle.
+- **XRP/AAVE/HBAR/AVAX**: inside range, no breakout, mixed/weak momentum (RSI 38-42 on 1h), rejected with evidence. LINK: same unresolved 4h-bullish/1h-no-trigger picture as prior cycles, 1h RSI 37.0, volume 0.30x — rejected.
+
+0 tool failures, full 8/8 coverage. Stop-audit: trivial, 0 positions.
+
+```json
+{"cycle":"crypto_24_7_scan","timestamp_utc":"2026-11-24T23:38Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":true,"missing_found":false,"placed":false},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":7,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":0,"cleared":0,"still_near_miss":0,"invalidated":0,"ineligible":0,"expired":0,"new_added":1},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":0,"data_source":"kraken_fallback","tradingview_quota_status":"EXHAUSTED","exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
+No order placed. No rule changed. Robinhood MCP connectivity: live.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
