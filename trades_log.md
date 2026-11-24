@@ -83319,3 +83319,32 @@ No order placed. No rule changed. This is the last Fresh Candle cycle of the day
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+### 2026-11-24T20:40Z — CHAT-REQUESTED RESEARCH (user question "No puts?" re: CRCL) — NO_TRADE, options path checked and resolved
+
+**Origin**: this turn was initiated by a user chat message asking "No puts?" after CRCL had been logged all day (4 cycles, 17:03Z-20:03Z) as blocked solely by §5B Bearish Mirror Gate item 4's equity-side stop-sizing dilemma (§16 item 2: no stop fits both inside 0.5×ATR and under the 6%-of-entry-price ceiling). That equity-side blocker is a §16/equity-position constraint — it does not by itself determine whether a long put clears §18 item 2's own, separately-computed option-economics R:R floor, and that check had not actually been run today despite the near-miss row's note ("pending options sourcing") implying it was outstanding. Acknowledged to the user this was a real gap, not a deliberate exclusion, and checked it directly.
+
+**Per Universal Safety Kernel item 12**: this is a chat-requested turn, not a verified scheduled-trigger firing — it carries no autonomous order-placement authority regardless of outcome. This entry is research/observation only.
+
+**CRCL options check (§18, 2026-12-18 expiration, 24 DTE, within item 3's 21-75 window):**
+- Live quote at check time: $47.38 bid / $47.40 ask.
+- ATR(14) 1h (reused from this cycle's structure read): 1.547 → §13.F-style 1.5×ATR target move = $2.32 in CRCL's favor.
+- Pulled live quotes for 9 near-the-money 2026-12-18 puts ($44.0-$48.0 strike), all liquid/tradable:
+
+| Strike | Delta | Ask | `option_realistic_exit_value()` profit | Realistic R:R |
+|---|---|---|---|---|
+| $44.0p | -0.3558 | $3.20 | $0.825 | 0.258:1 |
+| $44.5p | -0.3382 | $2.97 | $0.785 | 0.264:1 |
+| $45.0p | -0.3731 | $3.40 | $0.866 | 0.255:1 |
+| $45.5p | -0.3907 | $3.60 | $0.906 | 0.252:1 |
+| $46.0p | -0.4086 | $3.85 | $0.948 | 0.246:1 |
+| $46.5p | -0.4266 | $4.10 | $0.990 | 0.241:1 |
+| $47.0p | -0.4444 | $4.35 | $1.031 | 0.237:1 |
+| $47.5p | -0.4629 | $4.60 | $1.074 | 0.234:1 |
+| $48.0p | -0.4814 | $4.85 | $1.117 | 0.230:1 |
+
+Best realistic-exit R:R across every strike checked: **~0.26:1 ($44.5p)** — against §18 item 2's **1.5:1** floor. Every strike fits well within the 12%-of-equity (~12% of current equity) premium cap (§18 item 5), so sizing was never the binding constraint here — the economics are. Implied volatility on this chain runs ~90-93%, which inflates premium relative to the achievable 1.5×ATR move and is the primary driver of the shortfall; the gap (roughly 5-6x short of the floor) is far too wide to be closed by a different strike, a slightly different target distance, or a longer-dated expiration within the DTE window.
+
+**Resolution: NO_TRADE — same category as the already-logged HPE/NOW/NBIS precedents** ("thesis directionally plausible, no instrument clears at an acceptable R:R"). CRCL's equity path remains blocked by the §16 item 2 stop-sizing ceiling (unchanged all day); its options path is now independently confirmed blocked by §18 item 2's option-economics floor. Removed from `near_miss_queue.md`'s Mode B/C table — not re-queued; both instrument paths are resolved, not pending.
+
+**No order was placed, previewed, or proposed to the user under this turn's authority** (Universal Safety Kernel item 12 — chat-requested turn, no scheduled-trigger origin). No CLAUDE.md rule, limit, or safeguard was changed. No connector/account-setting change was made.
