@@ -83136,3 +83136,72 @@ No order placed. No account setting changed. No rule, limit, or safeguard altere
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+### 2026-11-24T17:03:22Z (9:03am PST) — AUTONOMOUS (Mode B/C Entry Screening — Fresh Candle, trig_01KrBsTt9mssjU4hPGtM3cBe) — EVALUATED via Robinhood fallback (TradingView exhausted), NO_TRADE
+
+**STEP 0**: §14 Status **ACTIVE**. No kill phrase.
+
+**Robinhood**: reachable (retested fresh — the connector-auth banner flashed again this cycle but a live `get_equity_quotes` call succeeded cleanly; treated as a stale banner, not a real outage, consistent with two earlier false alarms this session).
+
+**Market-shock breaker, re-checked on the correct basis.** CLAUDE.md §6 defines this breaker as a move ">1.5% intraday **between two consecutive scheduled cycles** (a single hourly gap, not a slow multi-hour drift)" — not vs. the prior day's close. QQQ: 631.985 (16:38Z crypto cycle) → 633.85 (now, 17:03Z) = **+0.29%**, SPY comparably flat — no fresh single-cycle gap. **Breaker NOT active this cycle** on the precise basis. (Correction note, forward-looking only, not retroactive: the 16:38Z crypto cycle's entry characterized the breaker as active using the broader "vs. prior day's close" framing (-2.93%) rather than this precise cycle-to-cycle text — that entry stands as written; this cycle applies the rule as CLAUDE.md actually defines it.) Today's broad decline is real and continuing (SPY -1.03%, QQQ -2.64% vs. yesterday's close as of this cycle) but is a multi-hour drift, which §6 explicitly exempts from this specific breaker.
+
+**Same-day 2-stop-out cooldown**: already cleared at today's First Scan cycle (unaffected by the above).
+
+**Account state**: $4,800.17, 0 positions anywhere (Mode B, Mode C, options/LEAPS, §22). Stop-audit (2a/9a): trivial, 0 positions to audit. Options/LEAPS stop-check (2b): 0 open positions, nothing to compute. Portfolio heat cap: $0 current heat, full headroom.
+
+**TradingView**: confirmed exhausted today (recorded at the 16:38Z crypto cycle, `TOOL_QUOTA_EXCEEDED` + 10-min cooldown). Per this trigger's exhaustion-handling note, **fell back to Robinhood's own `get_equity_historicals`** for both Stage 1 and Stage 2 — logged explicitly, `coverage_state: "EVALUATED"` (the fallback itself worked cleanly, not DATA_BLOCKED).
+
+**Stage 1 — full-universe triage, all 75 watchlist names, ONE batched call (`get_equity_historicals`, daily, 2026-09-10 to date, all 75 symbols in a single call — Robinhood's batch cap is 75 with an explicit interval).** Bars fed into `dev_scanner/tv_structure.py` (EMA9/20/50, RSI14, MACD, swing structure) exactly as the TradingView path would have. **Result: 54 of 75 names bearish-aligned (price below EMA9<20<50, RSI<55), 3 bullish-aligned (AVA, DIS, ANT), 15 mixed/neither** — a broad, severe market-wide decline, consistent with the §22 leveraged-ETF drawdowns and the crypto weakness already logged this date, not sector- or name-specific.
+
+**§22 mandatory 9-ETF + 4-underlying screen — COMPLETE, COVERAGE_COMPLETE (9/9 accounted for).** Daily+hourly bars pulled via `get_equity_historicals` (2 more batched calls) for TQQQ/SQQQ/SOXL/SOXS/SPXL/SPXU/TNA/TZA/AMDG/SOXX plus QQQ/SPY/IWM (already covered by the Stage-1 pull):
+| Symbol | Path | Verdict | Evidence |
+|---|---|---|---|
+| TQQQ | long bullish | REJECTED | below EMA9/20/50 both tf, daily RSI 39.4, hourly RSI 41.2, no breakout |
+| SOXL | long bullish | REJECTED | below EMAs both tf, RSI 35.9/33.9, no breakout |
+| SPXL | long bullish | REJECTED | below EMAs both tf, RSI 38.9/46.6, no breakout |
+| TNA | long bullish | REJECTED | daily below EMAs (RSI 38.2); hourly shows a mild bounce (RSI 52.7, price>ema9/20) but no daily setup to pair it with and no confirmed breakout |
+| SQQQ | inverse (underlying QQQ bearish mirror) | REJECTED | QQQ hourly `below_prior_swing_low: false` — no confirmed hourly breakdown trigger on the underlying; item 7 fails despite SQQQ's own chart showing a real bullish pullback structure (16.1% depth, ascending daily EMAs) |
+| SOXS | inverse (underlying SOXX) | REJECTED | SOXX hourly `below_prior_swing_low: false` — same item-7 gap |
+| SPXU | inverse (underlying SPY) | REJECTED | SPY hourly `below_prior_swing_low: false` — same item-7 gap |
+| TZA | inverse (underlying IWM) | REJECTED | IWM hourly `below_prior_swing_low: false`, in fact a mild bounce (RSI 54.2) — same item-7 gap, underlying not confirmed breaking down |
+| AMDG | long bullish | REJECTED | hourly RSI 24.9, price deeply below EMA9(55.3)/20(60.9)/50(72.9) — no bullish signal at all |
+
+**Stage 2 rotation (12 names, 0 reserved for near-miss reassessment — queue was empty): AVA, DIS, ANT, ONDS, RKLB, AMD, IREN, HIMS, OKLO, TEM, SOFI, CRCL.** Hourly bars via one more batched `get_equity_historicals` call.
+- **AVA, DIS** (the 2 daily-bullish-aligned names besides ANT): both show a real shallow pullback structure (36-37% depth, not overextended) and strong-ish hourly RSI (65/61), but **no volume-confirmed hourly trigger candle** — last hourly bar's volume is 0.37x (AVA) / 0.79x (DIS) of the 3-bar §13.H baseline, well under the required 1.2x. REJECTED with evidence — item 7 (no confirming volume on the would-be trigger bar); item 2 (catalyst) also not independently verified this cycle, a second, compounding gap.
+- **ANT**: daily Stage-1 tag was bullish, but fresh hourly data shows a sharp intraday collapse (RSI 23.2, price $77.42 well below all three hourly EMAs) — the daily read is stale/contradicted. REJECTED — invalidated by fresher data, not a bullish candidate.
+- **ONDS, RKLB, AMD, IREN, HIMS, OKLO, TEM, SOFI**: all daily-bearish-aligned but **no hourly `below_prior_swing_low` breakdown confirmed** for any of them (checked via `swing_points()`) — no item-7 trigger. REJECTED with evidence for each.
+- **CRCL — the one real near-miss this cycle.** Daily: deeply bearish (RSI **18.26**, price $51.34 vs. EMA9 $56.00/EMA20 $63.75/EMA50 $76.78 — Trend/State clears). Hourly: **confirmed breakdown** — close $48.075 broke below the prior 1h swing low ($48.08) (Location/item-7 clears). Relative-weakness driver computed directly (item 2): CRCL -10.95% vs. SPY -2.39% over the last 5 daily sessions (**-8.56pp**), -24.01% vs. -4.04% (**-19.97pp**) over 10 sessions — a real, specific, checkable headwind, consistent with CRCL's crypto-stablecoin-infrastructure business during today's broad crypto selloff (logged separately at the 16:38Z crypto cycle). **3 of 5 confirmation role-groups clear (Trend/State, Location, Relative weakness) — well above the 1-of-5 floor.** **Item 4 (stop/R:R) is where this fails, and it's a genuine dilemma, not a shortcut**: a stop placed just above the just-broken level (~$48.20) sits well inside `0.5×ATR14(hourly)` ($0.87) — `validate_stop_distance()`'s `needs_structural_justification` flag, which per CLAUDE.md must never be auto-trusted into an R:R without independently verifying the stop's real structural basis (not done this cycle). The next structurally real level up — the hourly swing high ($51.97) — is **8.1% above entry**, which breaches §16 item 2's hard 6%-of-entry-price ceiling outright. **No stop placement satisfies both constraints simultaneously** — this is why item 4 fails, not a lack of effort. No instrument/options sourcing was attempted (moot — item 4 blocks before reaching that step). **Logged as a genuine single-item near-miss (item 4 only; items 1-3/5-7 all clear) and added to `near_miss_queue.md`** for reassessment next eligible cycle, rather than closed out as a flat reject.
+
+**§18/§19 options/LEAPS sourcing (3a/3b)**: deferred this cycle — 0 names cleared the equity-side gate to trigger an options evaluation, and the proactive earnings/politician-trades/elevated-IV sourcing rotation itself was not run given the Robinhood-fallback workload already consumed on Stage 1/2/§22 above. Logged honestly as deferred, not silently skipped.
+
+**Mode C (step 10)**: reused Stage 1/Stage 2 data rather than a separate dedicated scan. No hourly RSI reading among the 12 Stage-2 names reached the <20/>80 mean-reversion extreme (ANT's hourly RSI 23.2 came closest). No ORB/VWAP-pullback setup checked independently this cycle (budget fully consumed by Mode B's Robinhood-fallback work) — logged as partial coverage, not a false "nothing found."
+
+```json
+{
+  "cycle": "mode_bc_fresh_candle",
+  "timestamp_utc": "2026-11-24T17:03:22Z",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": true, "missing_found": false, "placed": false},
+  "options_stop_check": {"checked": true, "breached": false, "exited": false},
+  "coverage": {"universe_size": 75, "triaged": 75, "full_gate_evaluated": 12, "rejected_with_evidence": 11, "not_evaluated": [], "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": 1, "amd_pending_eligibility_status": "resolved, not pending"},
+  "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 9, "not_evaluated": [], "coverage_complete": true},
+  "scan_budget_allocation": {"data_source": "robinhood_historicals_fallback (TradingView exhausted)", "options_leaps_deferred": true, "mode_c_deferred_partial": true},
+  "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": []},
+  "calls_made_this_cycle": 0,
+  "tvremix_calls_used_today": "EXHAUSTED (see 16:38Z crypto cycle)",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
+
+No order placed in Mode B or Mode C this cycle. No rule, cap, or safeguard changed.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
