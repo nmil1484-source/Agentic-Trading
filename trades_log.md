@@ -84437,3 +84437,78 @@ No circuit breakers active for crypto specifically. Portfolio heat: $0. No trade
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 18:03Z (1:03pm ET) — Mode B/C Entry Screening, Fresh Candle (trig_01KrBsTt9mssjU4hPGtM3cBe)
+
+§14 status ACTIVE, no kill phrase. Account flat (0 equity/option positions). Stop-audits
+trivially pass.
+
+**Market-shock breaker: still active by a narrow margin — QQQ over, SPY now under.** SPY
+$718.78→$711.78 (**-0.97%**, now UNDER the 1.5% threshold), QQQ $638.10→$625.05 (**-2.06%**,
+still over). Since the rule triggers on SPY OR QQQ, the breaker remains active this cycle on
+QQQ's own reading, even though SPY has substantially recovered. Blocks all new entries this
+cycle.
+
+**Stage 1 refresh — notable recovery under way**: ASTS +9.6% (was -2% at First Scan), UBER
++2.85%, DUOL +5.9%, SE +3.0%, DIS +1.6%, CVX +1.3%, ANT +2.6%, RGTI +0.2%. §22 inverse ETFs have
+largely round-tripped: IWM now +0.06% (was -1.54%), TZA -0.07% (was +5.3%), TNA +0.12% (was
+-4.74%) — the small-cap leg has essentially fully recovered. QQQ/SOXX/SPY legs (SQQQ/SOXS/SPXU)
+still show their underlying down, though less than earlier.
+
+Stage 2 rotation, options/LEAPS, §22 own-chart confirmation, §24 paper screening, Mode C ORB:
+deferred again — the breaker (on QQQ's reading) still blocks any entry this cycle regardless.
+Flagged: this is the closest the breaker has come to clearing all session; a near-term cycle may
+see it lift as the recovery continues.
+
+Near-miss queue: empty, unchanged. No order placed in Mode B or Mode C this cycle.
+
+```json
+{
+  "cycle": "fresh_candle_entry_screening",
+  "timestamp_utc": "2026-11-25T18:03:00Z",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["market_shock_spy_qqq"],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "coverage": {
+    "universe_size": 74,
+    "triaged": 74,
+    "full_gate_evaluated": 0,
+    "rejected_with_evidence": 0,
+    "not_evaluated": [{"scope": "Stage-2 rotation + options/LEAPS sourcing + Mode C ORB screen", "reason": "market-shock breaker active on QQQ's reading (-2.06%), Stage-2 deferred as resource allocation"}],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "already resolved, not pending"},
+  "leveraged_etf_coverage": {
+    "universe_size": 9,
+    "evaluated": 0,
+    "rejected_with_evidence": 0,
+    "not_evaluated": [
+      {"symbol": "TQQQ", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SOXL", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SPXL", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "TNA", "reason": "market-shock breaker active, Stage-2 deferred -- own underlying (IWM) now roughly flat"},
+      {"symbol": "AMDG", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SQQQ", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SOXS", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SPXU", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "TZA", "reason": "market-shock breaker active, Stage-2 deferred -- own underlying (IWM) now roughly flat"}
+    ],
+    "coverage_complete": true
+  },
+  "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true},
+  "options_leaps_coverage": {"selected": [], "deferred": [], "evaluated": 0, "rejected": 0, "data_blocked": 0},
+  "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []},
+  "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": []},
+  "calls_made_this_cycle": 0,
+  "tvremix_calls_used_today": 6,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
