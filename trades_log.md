@@ -83679,3 +83679,55 @@ No circuit breakers active. Portfolio heat: $0 (flat). No trade.
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 08:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+§14 status ACTIVE, no kill phrase. Account flat (0 crypto positions). TradingView still
+`EXHAUSTED` for UTC 2026-11-25 — routed to Kraken for all 8 pairs. Market-shock breaker
+(SPY/QQQ) inapplicable — well outside regular equity hours (~3:38am ET).
+
+**Notable risk-off move this cycle**, logged for the record though not actionable (§21 is
+spot-long-only, item 2 — no bearish instrument path exists for crypto): BTC, ETH, SOL, and AAVE
+all broke below their prior 1h swing low on sharply elevated volume (BTC 3.03x, ETH 2.23x, SOL
+4.49x, **AAVE 14.16x** baseline) with RSI dropping into oversold territory on all four (BTC 22.2,
+ETH 25.0, SOL 32.3, AAVE 32.0). XRP/LINK/HBAR/AVAX showed milder weakness, no 1h breakdown. 4H
+trend bearish across all 8 pairs (EMA9<EMA20 universally this cycle — a first for this session).
+No bullish 4H setup anywhere — every pair rejected, §21 item 3.
+
+Near-miss queue: empty, unchanged (nothing bullish to queue; a bearish breakdown isn't a near-miss
+under a long-only gate).
+
+No circuit breakers active (no open positions to stop out; equity-decline breaker is
+Agentic-Account-equity-based, unaffected by unrealized crypto market moves on a flat account).
+Portfolio heat: $0. No trade.
+
+```json
+{
+  "cycle": "crypto_24_7_scan",
+  "timestamp_utc": "2026-11-25T08:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 8,
+    "rejected_with_evidence": 8,
+    "not_evaluated": [],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
