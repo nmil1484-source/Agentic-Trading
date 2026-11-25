@@ -84192,3 +84192,83 @@ trade.
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 16:03Z (11:03am ET) — Mode B/C Entry Screening, Fresh Candle (trig_01KrBsTt9mssjU4hPGtM3cBe)
+
+§14 status ACTIVE, no kill phrase. Account flat (0 equity/option positions, confirmed via
+`get_equity_positions`/`get_option_positions`). Stop-audits (Mode B equity + §18/§19 options):
+trivially pass, 0 open positions in either lane. Mode C: 0 open positions.
+
+**Market-shock breaker: STILL ACTIVE, deepening.** SPY $718.78→$699.24 (**-2.72%**), QQQ
+$638.10→$610.44 (**-4.34%**) vs. yesterday's close — both well over the 1.5% threshold, worse
+than at the 15:04Z First Scan (-2.72% vs -2.06% SPY; -4.34% vs -3.27% QQQ). Blocks all new Mode
+B/C entries this cycle.
+
+**Stage 1 — full 74-name watchlist + 9 §22 ETF + 4 underlying refresh: COMPLETE**, 2 batch
+`get_equity_quotes` calls, 0 tool failures. Selloff has deepened across the board since the First
+Scan: MU -11.2%, SOXL -22.1%, AMDG -17.76%, NBIS -11.97%, ORCL -8.4%, CRWV -9.5%, DRAM -10.1%,
+TQQQ -13.1%, VRT -5.8%, AMD -9.0%. Inverse ETFs continuing to climb: SQQQ +13.07%, SOXS +22.3%,
+SPXU +8.3%, TZA +5.3% — underlying bearish thesis (QQQ/SOXX/SPY/IWM) holding and strengthening.
+
+**Stage 2 rotation, options/LEAPS sourcing, §22 own-chart confirmation, §24 paper screening, and
+Mode C ORB screen again DEFERRED this cycle — same resource-allocation reasoning as the First
+Scan 59 minutes ago**: the market-shock breaker independently blocks every new entry regardless
+of what a full gate evaluation would find, and the breaker has only gotten more deeply triggered
+since, not less. All Stage-2-eligible names and all 9 §22 names labeled **NOT_EVALUATED beyond
+Stage 1 — market-shock breaker active, Stage-2 deferred as resource allocation**.
+`leveraged_etf_coverage.coverage_complete: true` at Stage-1 level.
+
+Near-miss queue: empty (unchanged, confirmed at First Scan — no reassessment needed).
+
+No order placed in Mode B or Mode C this cycle.
+
+```json
+{
+  "cycle": "fresh_candle_entry_screening",
+  "timestamp_utc": "2026-11-25T16:03:00Z",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["market_shock_spy_qqq"],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "coverage": {
+    "universe_size": 74,
+    "triaged": 74,
+    "full_gate_evaluated": 0,
+    "rejected_with_evidence": 0,
+    "not_evaluated": [{"scope": "Stage-2 rotation + options/LEAPS sourcing + Mode C ORB screen", "reason": "market-shock breaker active (worse than First Scan), Stage-2 deferred as resource allocation"}],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "already resolved, not pending"},
+  "leveraged_etf_coverage": {
+    "universe_size": 9,
+    "evaluated": 0,
+    "rejected_with_evidence": 0,
+    "not_evaluated": [
+      {"symbol": "TQQQ", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SOXL", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SPXL", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "TNA", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "AMDG", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SQQQ", "reason": "underlying bearish thesis holding/strengthening at Stage 1, own-chart confirmation deferred -- market-shock breaker active"},
+      {"symbol": "SOXS", "reason": "underlying bearish thesis holding/strengthening at Stage 1, own-chart confirmation deferred -- market-shock breaker active"},
+      {"symbol": "SPXU", "reason": "underlying bearish thesis holding/strengthening at Stage 1, own-chart confirmation deferred -- market-shock breaker active"},
+      {"symbol": "TZA", "reason": "underlying bearish thesis holding/strengthening at Stage 1, own-chart confirmation deferred -- market-shock breaker active"}
+    ],
+    "coverage_complete": true
+  },
+  "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true},
+  "options_leaps_coverage": {"selected": [], "deferred": [], "evaluated": 0, "rejected": 0, "data_blocked": 0},
+  "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []},
+  "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": []},
+  "calls_made_this_cycle": 0,
+  "tvremix_calls_used_today": 6,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
