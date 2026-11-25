@@ -83566,3 +83566,57 @@ No order placed. No rule changed. Robinhood MCP connectivity: live.
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+---
+### 2026-11-25 06:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+Account flat (0 crypto positions, 0 equity/option positions). TradingView confirmed still
+`EXHAUSTED` for UTC date 2026-11-25 (per `should_attempt_tradingview`) — skipped Stage A entirely,
+routed straight to Kraken fallback for all 8 allowlisted pairs, 1h+4h each (16 fetches).
+
+All 8 pairs: **bearish or flat 4H trend** (EMA9<EMA20 on 7/8; LINK's 4H EMA9/EMA20 barely crossed
+bullish but MACD histogram still negative/declining and RSI only 50.3 — no real Momentum
+confirmation). No pair shows a genuine bullish 4H setup — §21 item 3's gate requires a bullish
+4H-setup-plus-1H-trigger (spot-long-only, no bearish instrument path exists for crypto per item 2)
+and none qualify this cycle.
+
+One item checked closely: AVAX 1h volume spiked to 6.05x the 3-bar baseline (vs. 0.23-0.99x on
+every other pair/timeframe) — but `swing_points` confirms AVAX's current close sits inside its
+recent range on both 1h and 4h (no break of the prior swing high: 1h current close well below
+6.56 prior high, 4h well below 6.845 prior high), and the EMA/MACD read stays bearish. Logged as a
+volume anomaly, not a confirmation — doesn't qualify for the near-miss queue (not blocked by a
+single item; trend/location/momentum all fail together).
+
+Near-miss queue: empty, unchanged (SOL's breakout from the 23:38Z/00:38Z cycles remains invalidated).
+
+No circuit breakers active. Portfolio heat: $0 (flat). No trade.
+
+```json
+{
+  "cycle": "crypto_24_7_scan",
+  "timestamp_utc": "2026-11-25T06:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "FULL",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 8,
+    "rejected_with_evidence": 8,
+    "not_evaluated": [],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"crypto_count": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED_TODAY_SKIPPED",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
