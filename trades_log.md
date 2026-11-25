@@ -84590,3 +84590,102 @@ No order placed. Stop-audit: trivially clean (0 positions, 0 orders to audit).
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 19:03Z (11:03am PT) — Mode B/C Entry Screening, Fresh Candle (trig_01KrBsTt9mssjU4hPGtM3cBe)
+
+§14 status ACTIVE, no kill phrase. Account flat (0 equity/option positions). Stop-audits (§16
+item 15, §18/§19 options check, §20 item 12) all trivially clean — zero open positions anywhere.
+
+**Market-shock breaker CLEARS this cycle — first time all day.** SPY $717.045 vs. prior close
+$718.78 = **-0.24%**; QQQ $632.724 vs. $638.10 = **-0.84%**. Both now under the 1.5% threshold.
+New entries are not blocked by this breaker this cycle. No other circuit breaker active; heat
+cap $0/$0 (nothing open in any mode).
+
+TradingView (TRADING_VIEW_2) re-tested live this cycle (`mcp-tv-get-symbol-data-batch`, 3
+symbols) — still `TOOL_QUOTA_EXCEEDED`, confirmed exhausted for the remainder of UTC
+2026-11-25. Fell back to Robinhood-native `get_equity_historicals` (daily + hourly) with local
+indicator computation via `dev_scanner/tv_structure.py`, per the trigger's own exhaustion-
+handling note. Logged explicitly per `coverage_state` below.
+
+**Delegated the data-gathering (fork) given the scope of a full dual-mode cycle with
+TradingView down; this entry's screening results are that fork's findings, order/logging
+decisions are mine.**
+
+**Market context**: a powerful, broad intraday recovery is underway — SPY +1.71%/QQQ +2.05% in
+the 15:00-19:00Z window alone, every one of 78 names/ETFs checked green over that window.
+
+**§22 Leveraged/Inverse ETF screen — all 9 REJECTED (item 7, daily-setup/hourly-trigger
+alignment), 9/9 accounted for, COVERAGE_COMPLETE:**
+- Leveraged-longs (TQQQ, SOXL, SPXL, TNA, AMDG): daily chart bearish across the board (below
+  EMA9/20/50, RSI 33-41, MACD hist negative) — today's hourly bounce (+5-8% each) has no daily
+  setup underneath it.
+- Inverse (SQQQ, SOXS, SPXU, TZA): underlying's daily Trend/State is bearish (QQQ/SOXX/SPY/IWM
+  all below their own EMAs — that leg would pass), but the required BULLISH 1h trigger on the
+  inverse ETF's own chart doesn't exist — these are getting crushed intraday instead (SOXS
+  -6.95%, TZA -6.07%, SPXU -4.75%) as the underlying rallies. Daily structure and today's hourly
+  action point opposite directions.
+
+**Mode B Stage 1 triage — full 74-name universe, today's 15:00-19:00Z window vs. SPY.** Top RS
+outperformers: ASTS +11.9% (+10.2pp vs SPY), ONDS +11.1%, RGTI +9.9%, LMND +8.7%, ANT +8.4%, RDW
++6.5%, SE +6.3%, RKLB +6.1%, PATH +5.7%, BMNR/SHOP/PLAB +5-6pp RS.
+
+**Mode B Stage 2 full-gate — 12 names (ASTS, RGTI, ONDS, LMND, ANT, RDW, SE, RKLB, PATH, BMNR,
+SHOP, PLAB) — ALL REJECTED (item 7).** Identical pattern on every name: daily chart firmly
+bearish (well below EMA9/20/50; RSI 18.9-44.2, only ANT at 48.1 clears the Momentum floor, and
+ANT's daily price has broken below its own prior swing low — a confirmed breakdown, not a setup);
+MACD histogram negative on 11/12. Hourly shows a genuine breakout above the prior 1h swing high
+on 10/12 with improving RSI/positive MACD — an unconfirmed bounce, not a daily-level reclaim. No
+bullish candidate clears item 7. Bearish/put thesis also fails for all 12 (today's RS is sharply
+positive, the opposite of the required relative-weakness driver, and the hourly trigger is
+bullish not a breakdown). **Zero READY candidates, zero orders placed.**
+
+**Not reached this cycle (budget prioritization, not a rejection)**: Mode C ORB screen,
+§18/§19 options/LEAPS sourcing rotation, §24 vertical-spread paper screening. Given the
+unusual severity/breadth of today's reversal, budget went to getting the mandatory §22 screen
+and a defensible 12-name Mode B rotation right rather than rushing all six steps shallowly.
+`near_miss_queue.md`'s Options/LEAPS Sourcing Queue only has one sourced symbol (AVAV,
+2026-11-19), so this isn't time-sensitive — resume at the next eligible cycle.
+
+Near-miss queue: Mode B/C equities table confirmed empty, nothing to reassess. §22 table
+re-screened fresh above (no reassessment mechanism needed, tracked for history only).
+
+```json
+{
+  "cycle": "fresh_candle_entry_screening",
+  "timestamp_utc": "2026-11-25T19:03:00Z",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "coverage": {
+    "universe_size": 74,
+    "triaged": 74,
+    "full_gate_evaluated": 12,
+    "rejected_with_evidence": 12,
+    "not_evaluated": [{"scope": "remaining 62 watchlist names", "reason": "rotation/capacity -- 12-slot cap this cycle"}],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "already resolved, not pending"},
+  "leveraged_etf_coverage": {
+    "universe_size": 9,
+    "evaluated": 9,
+    "rejected_with_evidence": 9,
+    "not_evaluated": [],
+    "coverage_complete": true
+  },
+  "scan_budget_allocation": {"etf_calls": 13, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 15, "mode_b_deferred": false, "options_leaps_deferred": true},
+  "options_leaps_coverage": {"selected": [], "deferred": ["budget prioritization this cycle"], "evaluated": 0, "rejected": 0, "data_blocked": 0},
+  "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []},
+  "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "deferred this cycle, budget prioritization"},
+  "calls_made_this_cycle": 1,
+  "tvremix_calls_used_today": 7,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
