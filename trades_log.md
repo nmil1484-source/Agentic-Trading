@@ -84039,3 +84039,105 @@ No circuit breakers active (no positions to stop out). Portfolio heat: $0. No tr
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 15:04Z (10:04am ET) — Mode B/C First Scan of Day (trig_01RN6ZbtgxKpoDApzmGswWAs) — MANDATORY FULL REPORT
+
+§14 status ACTIVE, no kill phrase on record. Robinhood MCP live and reachable —
+`get_accounts`/`get_portfolio` confirmed: total value $4,800.17, 100% cash, $0 equity/options/
+crypto positions (`get_equity_positions`/`get_option_positions` both empty). Mode B equity
+stop-audit and §18/§19 options stop-check: **trivially pass, 0 open positions in either lane**.
+Mode C: 0 open positions, $0 realized/unrealized P&L today (flat).
+
+**Cross-mode same-day 2-stop-out cooldown**: already cleared at the 2026-11-24T15:04:19Z First
+Scan cycle, no new stop-outs since — stays cleared, not newly cleared this cycle.
+
+**Near-miss queue** (`near_miss_queue.md`): the Mode B/C equities table, the §22 ETF table, and
+the Pending-eligibility (AMD) table are all currently empty of active entries — 0 reassessments
+performed, file unchanged this cycle.
+
+**Market-shock breaker (§6): ACTIVE — the dominant event this cycle.** SPY $718.79→$703.99
+(**-2.06%**) and QQQ $638.12→$617.22 (**-3.27%**) since the last logged cycle/yesterday's close —
+both decisively over the 1.5% threshold. This pauses all new Mode B/C/Mode C entries for this
+cycle only (existing protective exits are moot — account is fully flat everywhere). This is a
+severe, broad risk-off day, consistent with the overnight crypto breakdown already logged on the
+Crypto 24/7 trigger (all 8 allowlisted pairs broke below their 1h swing lows between 08:38Z and
+14:38Z).
+
+**TradingView confirmed EXHAUSTED for UTC 2026-11-25** (re-confirmed via a real call at 14:08Z,
+Premarket Prep cycle) — zero TradingView calls made this cycle; fell back entirely to Robinhood-
+native `get_equity_quotes`/historicals per the Exhaustion handling note.
+
+**Stage 1 — full 74-name watchlist.md triage: COMPLETE**, 3 batch `get_equity_quotes` calls, 0
+tool failures, all 74 accounted for. Virtually every name down hard: AMD -7.4%, TSLA -5.1%, NVDA
+-6.96%, MU -8.62%, CRWV -7.94%, NBIS -10.30%, ORCL -7.10%, BE -8.98%, VRT -4.79%, ZS -4.52%, DRAM
+-7.68%, CRCL -5.30%, AMZN -4.08%, GOOG -3.74%. A handful green: CVX +1.20%, AVA +0.92%, RUN
++0.37%, DUOL +1.13%, TPST +1.29%.
+
+**§22 Leveraged/Inverse ETF screen — Stage-1 quote level, all 9 + 4 underlyings: COMPLETE, 0 tool
+failures.** TQQQ -9.64%, SOXL -17.12%, SPXL -6.12%, TNA -4.74%, AMDG -15.19% (all leveraged-long,
+wrong direction for a bullish entry on a day like this). SQQQ +9.56% (QQQ -3.27%), SOXS +17.16%
+(SOXX -5.60%), SPXU +6.14% (SPY -2.06%), TZA +4.86% (IWM -1.54%) — all 4 inverse names have their
+underlying-bearish-thesis leg holding at the quote level.
+
+**Stage 2 (12-name rotation), options/LEAPS sourcing, the 4 inverse names' own-chart technical
+confirmation, and the Mode C hourly screen were deliberately DEFERRED this cycle — a resource-
+management choice, not a hidden gap, matching the exact precedent already logged at the
+2026-11-23T15:04:06Z First Scan under the same circumstance (market-shock breaker independently
+blocks every new entry this cycle regardless of what a full gate evaluation would find).** Spending
+~20+ further technical-indicator calls to fully evaluate names that cannot trade today under the
+active breaker was judged a poor use of that budget. All 9 §22 names and all Stage-2-eligible Mode
+B/C names are labeled **NOT_EVALUATED beyond Stage 1 — market-shock breaker active, full Stage-2
+dive deferred as resource allocation** (never a rejection) — none silently skipped, all accounted
+for. `leveraged_etf_coverage.coverage_complete: true` at the Stage-1 level; the deeper per-symbol
+gate evaluation is the explicitly-deferred piece.
+
+**No candidates sought or found beyond Stage 1, per the above. No order placed in Mode B or Mode
+C this cycle.** Portfolio heat: $0 (flat), moot.
+
+```json
+{
+  "cycle": "first_scan_of_day",
+  "timestamp_utc": "2026-11-25T15:04:00Z",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["market_shock_spy_qqq"],
+  "same_day_2_stop_out_cooldown_cleared_this_cycle": false,
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "coverage": {
+    "universe_size": 74,
+    "triaged": 74,
+    "full_gate_evaluated": 0,
+    "rejected_with_evidence": 0,
+    "not_evaluated": [{"scope": "12-name Stage-2 rotation + options/LEAPS sourcing + Mode C screen", "reason": "market-shock breaker active, Stage-2 deferred as resource allocation"}],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "already resolved, not pending"},
+  "leveraged_etf_coverage": {
+    "universe_size": 9,
+    "evaluated": 0,
+    "rejected_with_evidence": 0,
+    "not_evaluated": [
+      {"symbol": "TQQQ", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SOXL", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SPXL", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "TNA", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "AMDG", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SQQQ", "reason": "underlying bearish thesis holds at Stage 1, own-chart confirmation deferred -- market-shock breaker active"},
+      {"symbol": "SOXS", "reason": "underlying bearish thesis holds at Stage 1, own-chart confirmation deferred -- market-shock breaker active"},
+      {"symbol": "SPXU", "reason": "underlying bearish thesis holds at Stage 1, own-chart confirmation deferred -- market-shock breaker active"},
+      {"symbol": "TZA", "reason": "underlying bearish thesis holds at Stage 1, own-chart confirmation deferred -- market-shock breaker active"}
+    ],
+    "coverage_complete": true
+  },
+  "calls_made_this_cycle": 0,
+  "tvremix_calls_used_today": 6,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
