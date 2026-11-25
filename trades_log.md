@@ -83731,3 +83731,50 @@ Portfolio heat: $0. No trade.
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 09:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+§14 status ACTIVE, no kill phrase. Account flat (0 crypto positions). TradingView still
+`EXHAUSTED` for UTC 2026-11-25 — routed to Kraken for all 8 pairs. Market-shock breaker
+inapplicable (outside equity hours, ~4:38am ET).
+
+1h RSI recovering off last cycle's oversold reading on BTC/ETH/SOL/AAVE (e.g. BTC 22.2→42.3,
+ETH 25.0→36.3) — a stabilizing bounce, not a reversal: no pair closed above its prior 1h swing
+high, and 4H trend stays bearish across all 8 pairs (EMA9<EMA20 universally, same as 08:38Z).
+No breakout/retest or pullback-reclaim setup on any 4H chart. All 8 rejected, §21 item 3 — no
+qualifying 4H setup.
+
+Near-miss queue: empty, unchanged.
+
+No circuit breakers active. Portfolio heat: $0 (flat). No trade.
+
+```json
+{
+  "cycle": "crypto_24_7_scan",
+  "timestamp_utc": "2026-11-25T09:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 8,
+    "rejected_with_evidence": 8,
+    "not_evaluated": [],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
