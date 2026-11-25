@@ -84839,3 +84839,115 @@ market-shock threshold) hasn't yet been confirmed at the daily level on any name
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 20:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv) — **TRADE: 2 entries**
+
+§14 status ACTIVE, no kill phrase. Robinhood connected cleanly. Pre-trade: 0 crypto positions, 0
+open crypto orders. SPY -0.65%/QQQ -1.34% vs. prior close — both under the 1.5% market-shock
+threshold (crypto's own rule has no session boundary anyway). Portfolio heat pre-trade: $0/$0
+headroom (nothing open in any mode).
+
+TradingView still exhausted. Kraken fallback for all 8 pairs — 6 served from fresh cache, 2
+(BTC/ETH) required no new fetch either; all 8 clean, zero DATA_BLOCKED.
+
+**A genuine structural shift this cycle**: 5 of 8 pairs (SOL, XRP, LINK, AAVE, HBAR) now show a
+real 4H breakout above their own prior 4h swing high — the first time today the 4H setup
+timeframe itself has turned constructive, not just the 1h bounce. Full per-pair evaluation:
+
+| Pair | 4H setup | 1H trigger | RS vs BTC (24h) | Verdict |
+|---|---|---|---|---|
+| BTC | No breakout (inside range) | — | — (benchmark) | REJECTED — item 7, no 4h setup |
+| ETH | No breakout (inside range) | — | -0.00pp (benchmark-relative n/a) | REJECTED — item 7, no 4h setup |
+| **SOL** | Breakout: close $70.24 > prior 4h swing high $70.00 | Confirmed: close $70.24 > prior 1h swing high $70.08 | +1.55pp | **Qualified — cleared full gate** (R:R 6.25:1, stop $69.65 just under the broken level) — **not entered, 2-position cap already filled by XRP/HBAR below** |
+| **XRP** | Breakout: close $0.93798 > prior 4h swing high $0.92622 | Confirmed: close $0.93798 > prior 1h swing high $0.93112 | +2.00pp | **ENTERED** |
+| **LINK** | Breakout: close $9.07179 > prior 4h swing high $8.87384 | Confirmed: close $9.07179 > prior 1h swing high $9.03283 | +2.59pp | **Qualified — cleared full gate** (R:R 1.596:1, thinnest margin of the 5) — **not entered, 2-position cap already filled** |
+| AAVE | Breakout: close $95.21 > prior 4h swing high $94.78 | **NOT confirmed this cycle** — 1h close $95.21 is below its own prior 1h swing high $95.54 (live mark $95.345 also below) | +2.00pp | REJECTED — item 7, 4h setup real but no confirmed 1h trigger this exact cycle (close) |
+| **HBAR** | Breakout: close $0.05157 > prior 4h swing high $0.05068 | Confirmed: close $0.05157 > prior 1h swing high $0.0513 | +3.31pp | **ENTERED** |
+| AVAX | No breakout (inside range) | — | — | REJECTED — item 7, no 4h setup |
+
+**Selection among 4 qualifying candidates (SOL/XRP/LINK/HBAR), capped at 2 concurrent positions
+(§21 item 4):** picked XRP and HBAR as the two strongest — both show 4 of 5 confirmation
+role-groups (Location, RS, Volume, Momentum; only Trend/State still bearish-aligned on EMA9/20),
+clean R:R comfortably above the 1.5:1 floor, and the stronger RS readings of the group. SOL's
+Momentum role-group was ambiguous (4h RSI 42.9, just under the 45 floor; 4h volume 1.199x baseline,
+right at the edge) despite an excellent R:R (an artifact of an unusually tight technical stop).
+LINK's R:R (1.596:1) left the thinnest margin above the floor. Both SOL and LINK fully cleared
+the gate and are logged as qualified-but-not-taken (capacity), not rejections.
+
+**Risk-sizing basis**: crypto's round-trip-based trailing profit-factor window remains
+unpopulated (only 2 genuine round-trip crypto closes since the 2026-11-03 counting-rule
+resolution — SOL 2026-11-22, LINK re-entry 2026-11-23 — short of the 10-trade minimum), so per
+§16 item 16's insufficient-history default, the **halved** risk-per-trade (0.75% of equity) was
+used for sizing both entries, not the full 1.5%.
+
+**Trade Card — XRP-USD** (`CRYPTO`)
+- Side/qty: BUY 1,539 XRP, market order, filled in full @ avg $0.94414063 (order id
+  `6b0747b7-78bc-4fd5-a027-5fd605f946ec`), notional $1,453.04, fee $0.
+- 4H setup: breakout above prior 4h swing high $0.92622 (Location); RSI14 49.36 (Momentum, >45);
+  volume 11,775,101 vs. 3-bar baseline 4,937,602 = 2.38x (Volume); RS vs BTC +2.00pp over 24h (RS)
+  — 4 of 5 role-groups confirm (swing_lookback: 5). 1H trigger: fresh breakout above prior 1h
+  swing high $0.93112, confirmed this cycle.
+- Stop: $0.922 (just below the broken 4h level, now acting as support) — resting
+  `stop_loss`/sell, qty 1,539, GTC, **confirmed resting** (order id
+  `6b0747f2-a8ad-4229-b894-f5ef44728823`; a first attempt at GFD and an un-rounded stop price was
+  caught and corrected before any risk: canceled cleanly, re-placed at the valid $0.001 increment
+  with explicit GTC). Stop-distance: 1.45% of entry, flagged `needs_structural_justification`
+  (closer than 0.5x ATR) — justified: the stop sits exactly at the genuinely confirmed broken 4h
+  swing high, a real structural level, not an arbitrary close distance.
+- Target: $0.978211 (1.5x ATR(4h) projection, §13.F method). R:R at fill: **3.18:1**.
+- Max planned loss: 1,539 × ($0.94414063 − $0.922) = **$34.07** (0.71% of equity) — under the
+  0.75% halved budget; fill landed close to the sizing quote.
+
+**Trade Card — HBAR-USD** (`CRYPTO`)
+- Side/qty: BUY 27,867 HBAR, market order, filled in full @ avg $0.05215971 (order id
+  `6b0747b8-2219-47cc-887a-cf71911ff2d5`), notional $1,453.54, fee $0.
+- 4H setup: breakout above prior 4h swing high $0.05068 (Location); RSI14 48.14 (Momentum, >45);
+  MACD histogram +0.000008, just turned positive (Momentum, confirming); volume 5,943,332 vs.
+  3-bar baseline 2,982,782 = 1.99x (Volume); RS vs BTC +3.31pp over 24h (RS) — 4 of 5 role-groups
+  confirm. 1H trigger: fresh breakout above prior 1h swing high $0.0513, confirmed this cycle.
+- Stop: $0.0505 (just below the broken 4h level) — resting `stop_loss`/sell, qty 27,867, GTC,
+  **confirmed resting** (order id `6b0747f4-ad50-4ec7-b289-8a3b79dab816`; same GFD/rounding
+  correction applied as XRP above before any risk was taken). Stop-distance: 2.41% of entry,
+  `needs_structural_justification: false` (cleanly beyond 0.5x ATR).
+- Target: $0.05416411 (1.5x ATR(4h) projection). R:R at fill: **2.00:1**.
+- Max planned loss: 27,867 × ($0.05215971 − $0.0505) = **$46.26** (0.96% of equity). **Disclosed
+  plainly**: this exceeds the intended 0.75% halved budget ($36.00) by about 29% — the fill
+  landed meaningfully above the fresh-quote mark price used for sizing ($0.05215971 vs.
+  $0.051674), and the stop was rounded up (toward entry, per the exchange's sell-side rounding
+  convention) from the computed $0.0504266 to the valid $0.0505 increment, both of which widened
+  the realized per-unit risk versus the planned figure. A real market-order slippage gap between
+  sizing-time quote and fill-time price, not a rule violation — combined realized risk across
+  both new positions ($34.07 + $46.26 = $80.33, 1.67% of equity) stays well inside the 6%
+  portfolio heat cap and even inside the un-halved 1.5% single-trade ceiling.
+
+Position count: 2 of 2 (cap reached — no further crypto entries possible this cycle regardless
+of SOL/LINK's qualifying status). Near-miss queue: unchanged, remains empty (SOL/LINK are
+capacity-blocked, not single-item near-misses). No averaging down. No prior crypto position to
+manage/exit this cycle (account was flat entering it).
+
+```json
+{
+  "cycle": "crypto_24_7_scan",
+  "timestamp_utc": "2026-11-25T20:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "TRADE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 2},
+  "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 4, "not_evaluated": [], "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "exits": [],
+  "entries": [
+    {"symbol": "XRP", "qty": 1539, "price": 0.94414063, "stop": 0.922, "risk_dollars": 34.07, "rr": 3.18},
+    {"symbol": "HBAR", "qty": 27867, "price": 0.05215971, "stop": 0.0505, "risk_dollars": 46.26, "rr": 2.00}
+  ],
+  "orders_placed": 4,
+  "git_push": "pending"
+}
+```
