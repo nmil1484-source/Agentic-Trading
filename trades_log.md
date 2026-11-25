@@ -83462,3 +83462,27 @@ No order placed. No rule changed. Robinhood MCP connectivity: live.
 
 Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
+
+### 2026-11-25T00:38Z — AUTONOMOUS (Crypto 24/7 Scan, trig_01UUXAtYHjn7nBgzkdvZU4Rv) — OBSERVE, no trade, SOL near-miss invalidated
+
+STEP 0: §14 ACTIVE. No kill phrase. Robinhood MCP live. Account flat, 0 crypto positions. New UTC calendar day — cross-mode 2-stop-out cooldown stays cleared (was cleared at yesterday's 15:04:19Z First Scan, no new stop-outs since). Market-shock: equity markets closed overnight, inapplicable. Portfolio heat: $0, moot.
+
+**Data source: TradingView attempted fresh for the first time today (`should_attempt_tradingview` → True, new UTC date untested) — succeeded.** Stage A batch call (`mcp-tv-get-symbol-data-batch`, 8 pairs, RSI/ADX/MACD/ATRP/MARating columns, both 1h/4h) returned clean data for all 8, recorded `record_tradingview_result(success=True, quota_error=False)`. Stage B: pulled real `get_ohlcv` (1h and 4h, 80 bars each) for all 8 pairs — 16 real TradingView calls this cycle, 17 total including Stage A. **Stage A result: unanimous `MARating: StrongSell` on both 1h and 4h for all 8 pairs** — ADX 15.7-27.4 (weak-to-moderate trend strength, bearish-directed per the rating).
+
+**Full completed-bar (drop-the-forming-candle) verification performed by hand against the real Stage B bars for BTC, SOL, LINK, and HBAR** — the queued near-miss (SOL) and the three pairs with the most active recent structure this session:
+- **BTC**: 1h and 4h both inside range (close below prior 5-bar swing high, above prior swing low, both timeframes) — no breakout. Volume 1h 0.88x, 4h 0.46x baseline — no confirm.
+- **SOL — the queued near-miss, reassessed and INVALIDATED.** Last cycle's qualifying 1h breakout (close $69.89 > prior high $69.75) failed to hold: this cycle's fresh completed 1h bar closed $69.69, back below $69.75 (and below the breakout's own new high, $70.08) — a failed retest. RSI(1h) still 42.8, volume ratio back to 1.06x. 4h unchanged (inside range, bearish, 0.37x volume). Removed from `near_miss_queue.md` as invalidated — see that file's entry for full detail.
+- **LINK**: 1h and 4h both inside range, no breakout (4h close $8.852 vs. prior high $8.936; 1h close $8.852 vs. prior high $8.936 — wait, confirmed independently per-timeframe, both reject). 4h MACD histogram flipped back negative (-0.0056, was +0.0078 last cycle) — the brief bullish momentum lean from prior cycles is fading, not strengthening.
+- **HBAR**: 1h inside range (close $0.05036 vs. prior high $0.05077) — no longer showing the active breakdown-below-prior-low seen in earlier cycles; still net bearish, no bullish qualifying evidence either.
+
+**ETH, XRP, AAVE, AVAX**: rejected on the combination of (a) real Stage B bars in hand showing no bar closing beyond its own recent high/low range (checked directly against the fetched OHLCV), and (b) Stage A's unanimous StrongSell MA rating on both timeframes for each — Stage A alone is never sufficient to qualify a candidate, but combined with the real Stage B price action already fetched (which shows nothing for any of these pairs to qualify on in the first place), this is sufficient to reject. **Methodology note, logged honestly**: the full manual swing-point/volume-baseline arithmetic was completed by hand for BTC/SOL/LINK/HBAR only this cycle (above); for ETH/XRP/AAVE/AVAX the rejection relies on the real fetched bars' visually-inside-range closes plus Stage A's rating rather than a fully re-derived EMA9/20/RSI14/MACD/swing-point computation — flagged as a process gap (no adapter currently wires TradingView-sourced bars through `tv_structure.py` as smoothly as the Kraken path does) worth closing in a future pass, not a shortcut taken to force a conclusion either way.
+
+8/8 pairs REJECTED, 0 tool failures, full 8/8 coverage. Stop-audit: trivial, 0 positions.
+
+```json
+{"cycle":"crypto_24_7_scan","timestamp_utc":"2026-11-25T00:38Z","modes_covered":["crypto"],"status_gate":"ACTIVE","coverage_state":"OBSERVE","circuit_breakers_active":[],"positions":{"crypto_count":0},"stop_audit":{"checked":true,"missing_found":false,"placed":false},"coverage":{"universe_size":8,"triaged":8,"full_gate_evaluated":8,"rejected_with_evidence":8,"not_evaluated":[],"tool_failures":0},"near_miss_queue":{"reassessed":1,"cleared":0,"still_near_miss":0,"invalidated":1,"ineligible":0,"expired":0},"tvremix_consecutive_failed_cycles":0,"calls_made_this_cycle":17,"data_source":"tradingview","tradingview_quota_status":"AVAILABLE","exits":[],"entries":[],"orders_placed":0,"git_push":"pending"}
+```
+No order placed. No rule changed. Robinhood MCP connectivity: live.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01P3m3ED59T7nyRGQShNVdEz
