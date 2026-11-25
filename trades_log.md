@@ -84512,3 +84512,81 @@ Near-miss queue: empty, unchanged. No order placed in Mode B or Mode C this cycl
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 18:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+§14 status ACTIVE, no kill phrase. Robinhood reauthenticated and confirmed live this cycle
+(`get_accounts`/`get_portfolio` succeeded cleanly after the 18:03Z-area auth gap). Account:
+total value $4,800.17, 100% cash, 0 crypto positions, 0 open crypto orders. No circuit breaker
+active for crypto specifically (same-day stop-out cooldown: last First Scan after 2+ stop-outs
+has cleared it, no new stop-outs since); SPY/QQQ market-shock breaker is account-wide for
+equities but doesn't block crypto under §21's own rules. Portfolio heat: $0 (nothing open in
+any mode) — no heat-cap constraint on any new entry.
+
+**TradingView: still exhausted for UTC 2026-11-25** (`should_attempt_tradingview` → False, 6
+prior attempts recorded, `tradingview_quota_status: EXHAUSTED`) — routed straight to Kraken
+fallback, no TradingView call spent this cycle. All 8 allowlisted pairs got clean, fresh Kraken
+1h/4h bars (BTC/ETH/SOL/XRP served from fresh-enough cache; LINK/AAVE/HBAR/AVAX required a new
+1h fetch, 913 bars each, 4h served from cache) — zero DATA_BLOCKED/UNSUPPORTED results.
+
+**Full-allowlist screen — one consistent pattern across all 8 pairs, consistent with the
+afternoon's broad equity/crypto recovery bounce already tracked on the Mode B/C side:**
+
+| Pair | 1h (trigger TF) | 4h (setup TF) | Verdict |
+|---|---|---|---|
+| BTC | Close $59,523 > prior 1h swing high $58,926.8 (breakout); RSI 52.0; MACD hist +60.5 | Price below EMA9/20/50 ($58,277 vs 59,284/59,919/61,607); RSI 26.4; MACD hist -183.6; broke BELOW prior 4h swing low ($58,372) | **REJECTED — item 3 (4H setup)**: 4h is a continuing breakdown, not a setup; 1h move is an unconfirmed bounce |
+| ETH | Close $1,677.37 > prior 1h swing high $1,669.70; RSI 55.3; MACD hist +3.38 | Below all 4h EMAs; RSI 33.4; MACD hist -5.30; inside range (no 4h breakout/breakdown) | **REJECTED — item 3**: no 4h basing/breakout structure; 4h trend still bearish |
+| SOL | Close $69.35 > prior 1h swing high $68.33; RSI 50.9; MACD hist +0.159 | Below all 4h EMAs; RSI 34.1; MACD hist -0.388; inside range | **REJECTED — item 3**: same gap |
+| XRP | Close $0.92364 > prior 1h swing high $0.9123; RSI 52.4; MACD hist +0.00089 | Below all 4h EMAs; RSI 40.6; MACD hist -0.0029; broke BELOW prior 4h swing low | **REJECTED — item 3**: 4h continuing breakdown |
+| LINK | Close $8.86802 > prior 1h swing high $8.7394; RSI 54.5; MACD hist +0.0179 | Below all 4h EMAs; RSI 39.4; MACD hist -0.0332; inside range | **REJECTED — item 3**: same gap |
+| AAVE | Close $94.29 > prior 1h swing high $92.63; RSI 56.7; MACD hist +0.231 | Below all 4h EMAs; RSI 29.0; MACD hist -0.313; broke BELOW prior 4h swing low | **REJECTED — item 3**: 4h continuing breakdown |
+| HBAR | Close $0.05082 > prior 1h swing high $0.04998; RSI 57.9; MACD hist +0.000117 | Below all 4h EMAs; RSI 36.9; MACD hist -0.000141; inside range | **REJECTED — item 3**: same gap |
+| AVAX | Close $6.507 > prior 1h swing high $6.443; RSI 48.7; MACD hist +0.00556 | Below all 4h EMAs; RSI 34.9; MACD hist -0.0276; broke BELOW prior 4h swing low | **REJECTED — item 3**: 4h continuing breakdown |
+
+Every pair shows the identical shape: a genuine 1h breakout/trigger with positive momentum
+(bounce), but the 4h chart — the setup timeframe — remains unambiguously bearish (price below
+all three EMAs, RSI well under the 45-and-improving Momentum threshold, MACD histogram
+negative), with three pairs (BTC, XRP, AAVE) actively breaking further below their own 4h swing
+low rather than basing or breaking out. Per item 3's own text, a 1h trigger alone, without a
+genuine 4h setup underneath it, does not qualify — this is read as a bounce inside an ongoing 4h
+downtrend, not an actionable dual-timeframe setup. No catalyst/RS or stop/R:R math was computed
+for any pair since the structural item-3 gap is dispositive on its own.
+
+**Near-miss queue**: unchanged, remains empty. Not queuing any of the 8 as single-item near-misses
+— every pair fails on the same shared structural gap (4h trend still bearish market-wide), not an
+individual, pair-specific single-item shortfall, so this is read as one macro condition rather than
+8 separate near-misses, consistent with how the queue was cleared of BTC/ETH/HBAR/AVAX for the
+same reason at 2026-11-24T16:38:03Z.
+
+No order placed. Stop-audit: trivially clean (0 positions, 0 orders to audit).
+
+```json
+{
+  "cycle": "crypto_24_7_scan",
+  "timestamp_utc": "2026-11-25T18:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 8,
+    "rejected_with_evidence": 8,
+    "not_evaluated": [],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
