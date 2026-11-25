@@ -84320,3 +84320,75 @@ $0. No trade.
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 17:03Z (12:03pm ET) — Mode B/C Entry Screening, Fresh Candle (trig_01KrBsTt9mssjU4hPGtM3cBe)
+
+§14 status ACTIVE, no kill phrase. Account flat (0 equity/option positions). Stop-audits
+trivially pass.
+
+**Market-shock breaker: still active**, modest bounce off the lows. SPY $718.78→$703.18
+(-2.17%), QQQ $638.10→$615.64 (-3.52%) vs. yesterday's close — improved from 16:03Z's
+-2.72%/-4.34% but still well over the 1.5% threshold. Blocks all new entries this cycle.
+
+**Stage 1 — full 74-name watchlist + 9 §22 ETF + 4 underlying refresh: COMPLETE**, 2 batch
+calls, 0 tool failures. Broad market showing a stabilization attempt: DUOL +3.9%, DIS +0.65%,
+UBER +1.0%, CVX +0.73%, AVA +0.67%, RUN +0.83%, SE +0.68% bouncing; AMDG recovering slightly
+(-16.46% vs -17.76% last cycle). Still mostly red overall (MU -11.2%, SOXL -19.4%, NBIS -10.4%).
+
+Stage 2 rotation, options/LEAPS, §22 own-chart confirmation, §24 paper screening, Mode C ORB:
+again DEFERRED — breaker still active. All labeled NOT_EVALUATED beyond Stage 1 for the same
+reason as the prior two cycles. `leveraged_etf_coverage.coverage_complete: true` at Stage-1
+level.
+
+Near-miss queue: empty, unchanged. No order placed in Mode B or Mode C this cycle.
+
+```json
+{
+  "cycle": "fresh_candle_entry_screening",
+  "timestamp_utc": "2026-11-25T17:03:00Z",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": ["market_shock_spy_qqq"],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "coverage": {
+    "universe_size": 74,
+    "triaged": 74,
+    "full_gate_evaluated": 0,
+    "rejected_with_evidence": 0,
+    "not_evaluated": [{"scope": "Stage-2 rotation + options/LEAPS sourcing + Mode C ORB screen", "reason": "market-shock breaker still active, Stage-2 deferred as resource allocation"}],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "already resolved, not pending"},
+  "leveraged_etf_coverage": {
+    "universe_size": 9,
+    "evaluated": 0,
+    "rejected_with_evidence": 0,
+    "not_evaluated": [
+      {"symbol": "TQQQ", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SOXL", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SPXL", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "TNA", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "AMDG", "reason": "market-shock breaker active, Stage-2 deferred"},
+      {"symbol": "SQQQ", "reason": "underlying bearish thesis holding at Stage 1, own-chart confirmation deferred -- market-shock breaker active"},
+      {"symbol": "SOXS", "reason": "underlying bearish thesis holding at Stage 1, own-chart confirmation deferred -- market-shock breaker active"},
+      {"symbol": "SPXU", "reason": "underlying bearish thesis holding at Stage 1, own-chart confirmation deferred -- market-shock breaker active"},
+      {"symbol": "TZA", "reason": "underlying bearish thesis holding at Stage 1, own-chart confirmation deferred -- market-shock breaker active"}
+    ],
+    "coverage_complete": true
+  },
+  "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true},
+  "options_leaps_coverage": {"selected": [], "deferred": [], "evaluated": 0, "rejected": 0, "data_blocked": 0},
+  "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []},
+  "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": []},
+  "calls_made_this_cycle": 0,
+  "tvremix_calls_used_today": 6,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
