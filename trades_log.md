@@ -84141,3 +84141,54 @@ C this cycle.** Portfolio heat: $0 (flat), moot.
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 15:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+§14 status ACTIVE, no kill phrase. Account flat (0 crypto positions). TradingView still
+`EXHAUSTED` for UTC 2026-11-25 — routed to Kraken for all 8 pairs. Market-shock check vs. last
+crypto cycle (14:38Z): SPY $703.99→$701.85 (-0.30%), QQQ $617.22→$613.89 (-0.54%) — both under
+the 1.5% intercycle threshold, so no new breaker trigger from this specific check (the broader
+day-level selloff, SPY -2.35%/QQQ -3.80% vs. yesterday's close, is already logged in full on the
+15:04Z First Scan cycle, which found its own breaker active on that wider basis).
+
+1h RSI stabilizing off deep oversold on most pairs (BTC 27.4→31.4, ETH 30.2→39.6) but still no
+reclaim — no pair closed above its prior 1h swing high, SOL/XRP/LINK/AAVE/HBAR/AVAX remain below
+their prior 4H swing lows. 4H trend bearish across all 8, unchanged. No bullish setup anywhere.
+All 8 rejected, §21 item 3.
+
+Near-miss queue: empty, unchanged.
+
+No circuit breakers active for crypto specifically (no positions to stop out; the equity
+market-shock check above reads flat on this cycle's own narrower basis). Portfolio heat: $0. No
+trade.
+
+```json
+{
+  "cycle": "crypto_24_7_scan",
+  "timestamp_utc": "2026-11-25T15:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 8,
+    "rejected_with_evidence": 8,
+    "not_evaluated": [],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
