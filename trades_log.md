@@ -83620,3 +83620,62 @@ No circuit breakers active. Portfolio heat: $0 (flat). No trade.
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 07:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+§14 status confirmed ACTIVE (read from CLAUDE.md this cycle). No kill phrase on record. Account
+flat (0 crypto positions). TradingView confirmed `EXHAUSTED` for UTC date 2026-11-25 (5 attempts
+recorded, unchanged since 04:38Z) — skipped Stage A, routed straight to Kraken for all 8
+allowlisted pairs, 1h+4h each.
+
+7/8 pairs: bearish or flat 4H trend (EMA9<EMA20), no breakout/retest structure, no 4H setup —
+same pattern as every cycle since 02:38Z. LINK's 4H EMA9/EMA20 barely crossed bullish but MACD
+histogram stays negative (-0.0064) and RSI only 50.29 — no real Momentum confirmation, no
+breakout. Rejected, §21 item 3 — no qualifying 4H setup.
+
+**HBAR flagged for closer look**: confirmed 1h breakout above its prior swing high (close 0.05046
+vs. prior high 0.05028, `current_above_prior_swing_high=True`) on a strong volume spike (3.61x
+baseline). Checked fully rather than dismissed: (a) 4H chart remains bearish — EMA9<EMA20, RSI
+44.14, MACD hist -0.0001, no breakout/retest structure on 4H — so there is still no 4H setup to
+pair with this 1H trigger, same structural gap every pair has this cycle; (b) computed R:R using
+the breakout-continuation method (§13.G) regardless, to check for a single-item-only near-miss:
+entry 0.05046, ATR14(1h) 0.000454, 1.5x-ATR target 0.05114. Stop beyond the broken level at
+today's low (0.04999) gives R:R ≈1.44:1; stop at the 5-bar swing low (0.04977) gives R:R≈0.98:1 —
+**neither clears the 1.5:1 floor**. HBAR fails on two independent items (no 4H setup AND R:R
+short of floor), not one — does not qualify for the near-miss queue under its single-item
+standard. Rejected, §21 item 3.
+
+Near-miss queue: empty, unchanged.
+
+No circuit breakers active. Portfolio heat: $0 (flat). No trade.
+
+```json
+{
+  "cycle": "crypto_24_7_scan",
+  "timestamp_utc": "2026-11-25T07:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 8,
+    "rejected_with_evidence": 8,
+    "not_evaluated": [],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
