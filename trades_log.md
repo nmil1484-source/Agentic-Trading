@@ -84689,3 +84689,50 @@ re-screened fresh above (no reassessment mechanism needed, tracked for history o
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 19:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+§14 status ACTIVE, no kill phrase. Robinhood connected cleanly. Account: 0 crypto positions, 0
+open crypto orders (trivial stop-audit). SPY -0.20%/QQQ -0.66% vs. prior close (both already
+under the 1.5% threshold, inapplicable to crypto's own rules anyway). Portfolio heat $0.
+
+TradingView still exhausted for UTC 2026-11-25 (`should_attempt_tradingview` → False, unchanged).
+Routed to Kraken fallback, all 8 pairs served (BTC/ETH/SOL/XRP/LINK/AAVE/HBAR/AVAX 1h freshly
+fetched, 4h served from fresh-enough cache) — zero DATA_BLOCKED.
+
+**Same pattern as the prior two cycles, continuing**: all 8 pairs' 1h charts keep extending the
+bounce (SOL, XRP, LINK, HBAR, AVAX all now showing a fresh 1h breakout above their own prior 1h
+swing high; BTC/ETH/AAVE inside a pullback read), with RSI 54-62 and positive MACD histogram
+across the board. The 4h setup timeframe remains unambiguously bearish for every pair — price
+below all three EMAs, RSI 26-41 (none clearing the 45 Momentum floor), MACD histogram negative —
+with BTC, XRP, and AAVE still registering further below their own 4h swing low. No 4h setup
+exists for any pair; item 3's dual-timeframe requirement fails across the board. **All 8
+REJECTED — item 3 (4H setup).** No catalyst/RS/stop math computed (structural gap is
+dispositive). No order placed.
+
+Near-miss queue: unchanged, remains empty — same reasoning as prior cycles (shared macro
+condition across the whole allowlist, not individual single-item gaps).
+
+```json
+{
+  "cycle": "crypto_24_7_scan",
+  "timestamp_utc": "2026-11-25T19:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
