@@ -84986,3 +84986,53 @@ No action taken, no order placed. Routine confirmation cycle — no chat report 
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 21:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+§14 status ACTIVE, no kill phrase. Robinhood connected cleanly (tools briefly dropped from
+session scope between cycles, reloaded without issue). Position count: **2 of 2** (XRP, HBAR —
+at the concurrent-position cap). Market-shock breaker check: equity market closed (21:38Z =
+4:38pm ET), inapplicable/satisfied.
+
+**Position management (both opened 20:38Z, ~1 hour old):**
+- **XRP**: entry $0.94414063, stop $0.922 (confirmed resting, order `6b0747f2...`). Mark
+  $0.943307 — essentially flat (-0.09% vs. entry), well short of +1R. No breakeven/trailing
+  action due.
+- **HBAR**: entry $0.05215971, stop $0.0505 (confirmed resting, order `6b0747f4...`). Mark
+  $0.05202977 — essentially flat (-0.25% vs. entry), well short of +1R. No action due.
+
+Stop-audit: both stops verified resting via `get_crypto_orders` (state=confirmed, state_group=
+open) — 2 checked, 0 missing, 0 placed (none needed). Time-stop: not applicable (positions <1
+day old, 7-calendar-day window far off). Peak-retracement: not applicable (never reached +1.5R).
+
+**New-entry screen**: capacity does not allow (2 of 2 concurrent-position cap already reached) —
+per item 5's own conditional, the full allowlist gate screen was not run this cycle; all 8 pairs
+labeled accordingly rather than performing a needless full evaluation: XRP, HBAR =
+already-open positions (not applicable to a new-entry screen); BTC, ETH, SOL, LINK, AAVE, AVAX =
+**not evaluated — capacity (2/2 concurrent cap reached)**, never a rejection.
+
+Near-miss queue: checked, remains empty, no change.
+
+```json
+{
+  "cycle": "crypto_24_7_scan",
+  "timestamp_utc": "2026-11-25T21:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"scope": "BTC, ETH, SOL, LINK, AAVE, AVAX", "reason": "capacity -- 2/2 concurrent-position cap reached"}], "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "n/a -- capacity-blocked, no structure screen run",
+  "tradingview_quota_status": "EXHAUSTED",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
