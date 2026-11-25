@@ -83870,3 +83870,51 @@ No circuit breakers active. Portfolio heat: $0 (flat). No trade.
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 12:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+§14 status ACTIVE, no kill phrase. Account flat (0 crypto positions). TradingView still
+`EXHAUSTED` for UTC 2026-11-25 — routed to Kraken for all 8 pairs. Market-shock breaker
+inapplicable (outside equity hours, ~7:38am ET).
+
+**Risk-off move extended this cycle**: XRP, LINK, AAVE, HBAR, and AVAX all broke below their
+prior 1h swing low (AAVE on 3.27x volume, HBAR 2.11x); SOL/XRP/LINK/AAVE/HBAR/AVAX also now below
+their prior 4H swing low. BTC/ETH stayed within range but RSI dropped further into oversold (BTC
+31.0, ETH 29.8). 4H trend bearish across all 8, continuing from 08:38Z's initial breakdown. Not
+actionable under §21 (spot-long-only, no bearish instrument path). All 8 rejected, §21 item 3 —
+no bullish setup anywhere.
+
+Near-miss queue: empty, unchanged.
+
+No circuit breakers active (no open positions to stop out). Portfolio heat: $0. No trade.
+
+```json
+{
+  "cycle": "crypto_24_7_scan",
+  "timestamp_utc": "2026-11-25T12:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 8,
+    "rejected_with_evidence": 8,
+    "not_evaluated": [],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
