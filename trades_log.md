@@ -84736,3 +84736,106 @@ condition across the whole allowlist, not individual single-item gaps).
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 20:03Z (12:03pm PT) — Mode B/C Entry Screening, Fresh Candle (trig_01KrBsTt9mssjU4hPGtM3cBe)
+*(Last Fresh Candle firing of the day — next is the mandatory 20:55Z End-of-Day Protective Check.)*
+
+§14 status ACTIVE, no kill phrase. Account flat (0 equity/option positions). Stop-audits
+trivially clean. SPY $716.30 vs. $718.78 close = **-0.345%**; QQQ $632.75 vs. $638.10 = **-0.846%**
+— both still under the 1.5% market-shock threshold, breaker stays clear. Heat cap $0/$0.
+
+TradingView still exhausted (not re-tested this cycle, already confirmed twice today); used
+Robinhood-native `get_equity_historicals`/`get_equity_quotes` throughout, 8 calls total.
+Delegated the data-gathering (fork) given the scope of a full cycle.
+
+**§22 ETF screen**: not redone this cycle — reused from 19:03Z (daily structure doesn't move
+meaningfully in 1 hour); still stands REJECTED, all 9, item 7.
+
+**Mode C ORB** (12 liquid names, today's session hourly bars): AAPL, TSLA, AMZN, NVDA, GOOG,
+NFLX, AMD, HOOD — **no breakout yet**, opening range broken on 2-4 bars but never on qualifying
+volume (≥1.2x baseline); afternoon volume declining as the rally extends. **UBER** — a real
+qualifying breakout occurred at bar index 3 (18:00-19:00Z) but wasn't caught fresh —
+**MISSED_NOT_EVALUATED, 1 cycle late**. **SOFI** — same, breakout at bar index 2
+(17:00-18:00Z) — **MISSED_NOT_EVALUATED, 2 cycles late**. **DELL** — data gathered but the
+breakout computation itself wasn't run this cycle (fork's own tooling gap) — logged as
+**not_evaluated, tool coverage gap**, never a rejection. No fresh actionable ORB candidate.
+
+**§18/§19 options/LEAPS sourcing** — rotation selected AAPL, AMD, AMDG, AMZN, ANT, ARKG, ASTS,
+AVA (continuing from AVAV, last sourced 2026-11-19). Quick daily-trend pre-screen before
+spending a chain pull: AAPL (mild bullish lean, no catalyst/trigger — **rejected**), AMD
+(bearish daily, but today's hourly bounce contradicts the bearish driver — **rejected, item
+2**), AMDG (strongly bearish, redundant with today's §22 rejection — **rejected**), AMZN (no
+clean alignment — **rejected**), ARKG (bearish ETF, no catalyst — **rejected**), ASTS (bearish
+daily but today's single biggest RS outperformer, +11.9% — directly contradicts the bearish
+driver — **rejected, item 2**), AVA (flat/neutral — **rejected**), ANT (**data_blocked** — daily
+history is ~90% interpolated placeholder bars before 2026-11-19, only 4 genuine bars since real
+listing, insufficient for a reliable EMA20 read). Zero chains pulled; all 8 labeled.
+
+**Mode B Stage 2 — new 12-name batch** (different from 19:03Z's 12; picked by today's |% move|
+from a fresh 58-name Stage-1 triage): MU -4.97%, ORCL -4.91%, NVDA -4.83%, DUOL +3.95%, RUN
++3.93%, OSCR +3.76%, DRAM -3.34%, CAI -3.23%, PURR -3.10%, KEEL -3.10%, KTOS +2.94%, UBER +2.80%.
+All 12 fail bullish (below daily EMA9/20, RSI 24.6-39.7, none clears the 45 floor, no daily
+breakout). Bearish/put thesis: daily Trend/State bearish-aligned for all 12, but **MU, DRAM,
+PURR, KEEL** each show a fresh hourly breakout ABOVE their own prior 1h swing high today —
+directly contradicts the required bearish RS/catalyst driver (item 2), same pattern as the
+historical TEM/SOFI near-miss invalidations. ORCL, NVDA, DUOL, RUN, OSCR, CAI, KTOS, UBER show no
+hourly breakout either direction and no catalyst gathered — structural absence. **All 12
+REJECTED.** Zero READY candidates. No order placed in either mode.
+
+§24 vertical spreads: not reached — moot, zero Stage-2 clears today to feed it.
+
+Near-miss queue: unchanged, remains empty — every rejection above cites a contradicted item or a
+full structural absence, not a genuine single-item gap worth queuing.
+
+**Day total so far**: 24 of 74 watchlist names fully evaluated today (12 at 19:03Z + 12 here),
+plus the mandatory 9-name §22 screen — all rejected on the same theme: daily charts remain
+bearish from the earlier selloff; today's sharp intraday recovery (SPY/QQQ now both under the
+market-shock threshold) hasn't yet been confirmed at the daily level on any name checked.
+
+```json
+{
+  "cycle": "fresh_candle_entry_screening",
+  "timestamp_utc": "2026-11-25T20:03:00Z",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "coverage": {
+    "universe_size": 74,
+    "triaged": 74,
+    "full_gate_evaluated": 12,
+    "rejected_with_evidence": 12,
+    "not_evaluated": [{"scope": "remaining 50 watchlist names", "reason": "rotation/capacity -- 12-slot cap this cycle; 12 others already evaluated at 19:03Z today"}],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "already resolved, not pending"},
+  "leveraged_etf_coverage": {
+    "universe_size": 9,
+    "evaluated": 9,
+    "rejected_with_evidence": 9,
+    "not_evaluated": [],
+    "coverage_complete": true,
+    "reused_from_prior_cycle": true
+  },
+  "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 2, "options_leaps_calls": 2, "mode_b_calls": 4, "mode_b_deferred": false, "options_leaps_deferred": false},
+  "options_leaps_coverage": {"selected": ["AAPL","AMD","AMDG","AMZN","ANT","ARKG","ASTS","AVA"], "deferred": [], "evaluated": 7, "rejected": 7, "data_blocked": 1},
+  "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []},
+  "mode_c_orb": {
+    "symbols_checked": 11,
+    "no_breakout_yet": ["AAPL","TSLA","AMZN","NVDA","GOOG","NFLX","AMD","HOOD"],
+    "fresh_setups": [],
+    "missed_not_evaluated": [{"symbol": "UBER", "breakout_bar_t": "2026-11-25T18:00:00Z", "cycles_late": 1}, {"symbol": "SOFI", "breakout_bar_t": "2026-11-25T17:00:00Z", "cycles_late": 2}],
+    "not_evaluated_tool_gap": ["DELL"]
+  },
+  "calls_made_this_cycle": 0,
+  "tvremix_calls_used_today": 7,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
