@@ -83963,3 +83963,30 @@ No circuit breakers active. Portfolio heat: $0 (flat). No trade.
   "git_push": "pending"
 }
 ```
+
+---
+### 2026-11-25 14:08Z — Premarket Preparation Scan (trig_01FRC5Yt8UVcGH8GxcAURYXX) — PREMARKET_PREP
+
+Read-only, no order authority. §14 status ACTIVE (context only, not a gate for this trigger). No
+kill phrase on record.
+
+Step 1 SPY freshness check (`get_ohlcv AMEX:SPY 5m`) actually attempted — returned
+`TOOL_QUOTA_EXCEEDED` (10-minute MCP cooldown enabled), confirming live exhaustion of TradingView's
+daily quota for UTC 2026-11-25, consistent with the shared cross-trigger state already showing
+`EXHAUSTED` (5 prior attempts today per the crypto cycles). Recorded this result back to the shared
+`data_budget.py` state. No fallback source exists for equities premarket data (Kraken's fallback is
+crypto-only) — Steps 2-5 (watchlist batch, screener, shortlist, catalyst checks) were not attempted,
+since they would only hit the same dead quota. `premarket_shortlist.md` updated to reflect today's
+no-data outcome, with the real test-call result distinguished from yesterday's inferred-only
+entries.
+
+Calls made this cycle: 1 of 10. No candidates found. `premarket_shortlist.md` changed (overwritten
+with today's date/outcome).
+
+```json
+{"cycle": "premarket_prep", "timestamp_utc": "2026-11-25T14:08:00Z", "read_only": true, "calls_made_this_cycle": 1, "coverage_state": "DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE", "candidates_found": 0, "watchlist_candidates": 0, "offwatchlist_research_only_candidates": 0, "git_push": "pending"}
+```
+
+Note: `coverage_state` above uses the closest available enum value; the real cause is confirmed
+live TradingView quota exhaustion (not a holiday or genuine data staleness) — see the narrative
+above and `premarket_shortlist.md` for the distinction.
