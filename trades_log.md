@@ -86381,3 +86381,43 @@ Capacity full (2/2) — no new-entry screening performed this cycle; the other 6
   "git_push": "pending"
 }
 ```
+
+## 2026-11-26 22:38Z — Crypto 24/7 Scan
+
+**STEP 0 gate check:** §14 Status ACTIVE confirmed. No kill phrase found. Trigger origin verified (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`). Robinhood MCP connector confirmed reachable this cycle (`get_accounts` succeeded) despite an ambient session note suggesting it might require reauthentication.
+
+Account ••••8058 confirmed. Open crypto positions: XRP (1539 units, entry $0.94414063) and HBAR (27867 units, entry $0.05215971) — 2 of 2 cap, capacity full. Both resting stops confirmed open/confirmed: XRP `6b0747f2-...` @ $0.922 (GTC), HBAR `6b07eff7-...` @ $0.0522 (GTC, breakeven).
+
+**XRP**: mark $0.94697697 → R ≈ **+0.13R** (pulled back from +0.41R last cycle). Breakeven trigger (mark ≥ $0.96628126) not reached. Stop unchanged.
+
+**HBAR**: mark $0.054318795 → R ≈ **+1.30R** (pulled back from +1.65R). Peak-retracement state remains active (peak $0.055062815, unchanged — no new high this cycle; retracement exit trigger unchanged at **$0.0541918835**). Current mark ($0.054318795) sits only ~$0.000127 above the trigger — close, but still above it, so **no exit fired this cycle**. Flagging for extra attention next cycle given the narrow margin.
+
+Capacity full (2/2) — no new-entry screening performed. Near-miss queue unchanged (empty). No orders placed. No circuit breaker active.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-26T22:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 6, "tool_failures": 0, "note": "capacity-blocked (2/2 cap)"},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "peak_retracement": {
+    "HBAR": {"active": true, "r_multiple": 1.30, "peak": 0.055062815, "entry": 0.05215971, "trigger_level": 0.0541918835, "mark": 0.054318795, "margin_above_trigger": 0.0001269115, "peak_raised_this_cycle": false, "exit_fired": false},
+    "XRP": {"active": false, "r_multiple": 0.13, "breakeven_trigger": 0.96628126, "mark": 0.94697697}
+  },
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "none_needed_capacity_blocked",
+  "tradingview_quota_status": "UNTESTED_TODAY",
+  "robinhood_mcp_connectivity": "reachable",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
