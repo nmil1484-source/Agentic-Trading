@@ -86275,3 +86275,35 @@ Neither position has reached +1R; no breakeven move, no +1.5R peak-retracement c
   "git_push": "pending"
 }
 ```
+
+## 2026-11-26 20:38Z — Crypto 24/7 Scan
+
+**STEP 0 gate check:** §14 Status ACTIVE confirmed (read fresh this cycle before summary-only turn). No kill phrase found. Trigger origin verified (scheduled Crypto 24/7 Scan firing, `trig_01UUXAtYHjn7nBgzkdvZU4Rv`).
+
+Account ••••8058 confirmed (agentic_allowed=true), retail ••••7533 untouched. Open crypto positions: XRP (1539 units, cost basis $1453.04 → avg entry $0.94414063) and HBAR (27867 units, cost basis $1453.54 → avg entry $0.05215971). Both resting stops confirmed open/confirmed via `get_crypto_orders`: XRP stop `6b0747f2-a8ad-4229-b894-f5ef44728823` @ $0.922 (GTC), HBAR stop `6b07eff7-0fa6-4095-a48f-12d693e1de18` @ $0.0522 (GTC, breakeven).
+
+**XRP**: mark $0.95274342 → R = (0.95274342−0.94414063)/0.02214063 ≈ **+0.39R**. Breakeven trigger (+1R) needs mark ≥ $0.96628126 — not yet reached. Stop unchanged.
+
+**HBAR**: mark $0.055062815 → R = (0.055062815−0.05215971)/0.00165971 ≈ **+1.75R**. Peak-retracement state (active since 19:38Z) updated: new mark exceeds prior logged peak ($0.054670) → **peak raised to $0.055062815**. New retracement exit trigger = peak − 0.30×(peak−entry) = $0.055062815 − 0.30×$0.002903105 ≈ **$0.0541918835** (raised from $0.053917; never lowered). Current mark is well above this trigger — no exit action required this cycle. Stop remains at breakeven ($0.0522); not yet re-raised beyond breakeven since the trailing/EMA-based trail (§16 item 6 mechanics) hasn't independently signaled a higher level yet — peak-retracement is a separate, parallel exit condition per §21 item 5/§16 item 12, tracked alongside the ordinary trailing stop.
+
+No new-entry screening this cycle (2/2 concurrent-position cap already filled — XRP, HBAR). Other 6 allowlist pairs (BTC, ETH, SOL, LINK, AAVE, AVAX) not evaluated — capacity. Near-miss queue unchanged (confirmed empty at last full read, 15:04Z cycle). No orders placed.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-26T20:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 0},
+  "peak_retracement": {
+    "HBAR": {"active": true, "r_multiple": 1.75, "peak": 0.055062815, "entry": 0.05215971, "trigger_level": 0.0541918835, "mark": 0.055062815, "exit_fired": false},
+    "XRP": {"active": false, "r_multiple": 0.39, "breakeven_trigger": 0.96628126, "mark": 0.95274342}
+  },
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
