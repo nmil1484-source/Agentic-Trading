@@ -86342,3 +86342,42 @@ No new-entry screening performed this cycle, by design (protective-management/cl
   "git_push": "pending"
 }
 ```
+
+## 2026-11-26 21:38Z — Crypto 24/7 Scan
+
+**STEP 0 gate check:** §14 Status ACTIVE confirmed. No kill phrase found. Trigger origin verified (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`).
+
+Account ••••8058 confirmed. Open crypto positions: XRP (1539 units, entry $0.94414063) and HBAR (27867 units, entry $0.05215971) — 2 of 2 concurrent-position cap, capacity full. Both resting stops confirmed open/confirmed: XRP `6b0747f2-...` @ $0.922 (GTC), HBAR `6b07eff7-...` @ $0.0522 (GTC, breakeven).
+
+**XRP**: mark $0.953256055 → R ≈ **+0.41R**. Breakeven trigger (+1R, mark ≥ $0.96628126) not yet reached. Stop unchanged.
+
+**HBAR**: mark $0.054904675 → R ≈ **+1.65R**. Peak-retracement state (active since 19:38Z): current mark is below the last-logged peak ($0.055062815, set 20:38Z) → peak NOT raised this cycle, stays at $0.055062815; retracement exit trigger stays at **$0.0541918835**. Current mark remains above the trigger — no exit action.
+
+Capacity full (2/2) — no new-entry screening performed this cycle; the other 6 allowlist pairs (BTC, ETH, SOL, LINK, AAVE, AVAX) are `not_evaluated — capacity`, per protocol (step 5 conditioned on capacity allowing). Near-miss queue unchanged (confirmed empty at last full read, 15:04Z). No orders placed. No circuit breaker active. Portfolio heat cap: both open positions sit well above breakeven (+0.41R, +1.65R), contributing their full planned risk (not $0) to heat per §3's rule since neither has moved to breakeven-or-better on its *own* stop — HBAR's stop is already at breakeven, so HBAR actually contributes $0 to heat; XRP's stop remains below entry, so it still contributes its full planned-risk dollars. No new entry was being sized this cycle regardless (capacity-blocked), so this is for context/logging only.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-26T21:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 6, "tool_failures": 0, "note": "capacity-blocked (2/2 cap) — no TradingView/Kraken calls needed or made this cycle"},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "peak_retracement": {
+    "HBAR": {"active": true, "r_multiple": 1.65, "peak": 0.055062815, "entry": 0.05215971, "trigger_level": 0.0541918835, "mark": 0.054904675, "peak_raised_this_cycle": false, "exit_fired": false},
+    "XRP": {"active": false, "r_multiple": 0.41, "breakeven_trigger": 0.96628126, "mark": 0.953256055}
+  },
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "none_needed_capacity_blocked",
+  "tradingview_quota_status": "UNTESTED_TODAY",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
