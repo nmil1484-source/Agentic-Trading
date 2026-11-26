@@ -85889,3 +85889,36 @@ Neither position has reached +1R; no breakeven move, no +1.5R peak-retracement c
   "git_push": "pending"
 }
 ```
+
+## 2026-11-26 16:03Z — Mode B/C Fresh Candle Entry Screening
+
+**STEP 0 gate check:** §14 Status ACTIVE confirmed. No kill phrase found. Trigger origin verified: trig_01KrBsTt9mssjU4hPGtM3cBe.
+
+**Market still closed — US Thanksgiving holiday, same finding as the 15:04Z First Scan this morning** (no new equity/options data exists since yesterday's close). Zero open Mode B equity positions, zero open §18/§19 options/LEAPS positions (`get_equity_positions`/`get_option_positions`, both confirmed empty, unchanged from the First Scan cycle). Stop-audits trivially clear (nothing to audit). Full Stage-1/Stage-2/options/LEAPS/§22/§24 screening again deliberately skipped this cycle for the same reason already explained in full at 15:04Z — would not be a genuine fresh evaluation and no order could execute with markets closed. No orders placed. Resumes normally at tomorrow's First Scan/Fresh Candle cycles.
+
+```json
+{
+  "cycle": "Mode B/C Fresh Candle",
+  "timestamp_utc": "2026-11-26T16:03:00Z",
+  "coverage_state": "MARKET_CLOSED_HOLIDAY",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 74, "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "already resolved 2026-11-19, not applicable"},
+  "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "market closed — US Thanksgiving holiday, no fresh data"}], "coverage_complete": false},
+  "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": false, "options_leaps_deferred": false},
+  "options_leaps_coverage": {"selected": 0, "deferred": 0, "evaluated": 0, "rejected": 0, "data_blocked": 0},
+  "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []},
+  "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": []},
+  "calls_made_this_cycle": 0,
+  "tvremix_calls_used_today": 0,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
