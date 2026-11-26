@@ -85711,3 +85711,11 @@ Neither position has reached +1R; no breakeven move, no +1.5R peak-retracement c
   "git_push": "pending"
 }
 ```
+
+## 2026-11-26 14:08Z (06:08 PT) — PREMARKET_PREP
+
+**Read-only, no order authority.** SPY freshness check (`AMEX:SPY`, 5m bars): most recent bar timestamp 2026-11-25T20:55Z — ~17 hours stale, far outside the 15-20 minute freshness window. Today (2026-11-26) is U.S. Thanksgiving Day (4th Thursday of November) — a market holiday the cron schedule (weekdays only) cannot filter. Per this trigger's own stale-data handling: **coverage_state: DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE** — no candidate reported, no `premarket_shortlist.md` change, cycle ended at 1 of 10 allowed calls.
+
+```json
+{"cycle": "premarket_prep", "timestamp_utc": "2026-11-26T14:08:00Z", "read_only": true, "calls_made_this_cycle": 1, "coverage_state": "DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE", "candidates_found": 0, "watchlist_candidates": 0, "offwatchlist_research_only_candidates": 0, "git_push": "pending"}
+```
