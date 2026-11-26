@@ -85774,3 +85774,63 @@ Neither position has reached +1R; no breakeven move, no +1.5R peak-retracement c
   "git_push": "pending"
 }
 ```
+
+## 2026-11-26 15:04Z (10:04am ET) — Mode B/C First Scan of Day
+
+**STEP 0 gate check:** §14 Mode B AUTONOMOUS_EXECUTE Status confirmed ACTIVE. No kill phrase found in recent history. Trigger origin verified: trig_01RN6ZbtgxKpoDApzmGswWAs (genuine scheduled First Scan firing).
+
+**Account check:** `get_accounts`/`get_portfolio` (••••8058) succeeded. Total account value $4,829.31 (crypto $2,935.72, cash $1,893.59). Retail account untouched. **Zero open Mode B equity positions** (`get_equity_positions`, nonzero default) and **zero open §18/§19 options/LEAPS positions** (`get_option_positions`, nonzero=true) — equity_value and options_value both $0 on the portfolio breakdown.
+
+**Market-status finding — today is a U.S. equity market holiday (Thanksgiving), confirmed via live data, not assumed:** `get_equity_quotes(SPY)` shows the last regular-session trade at 2026-11-25T20:59:59Z (yesterday's 4:00pm ET close) with `previous_close_date: 2026-11-24` — no regular-session trade has occurred today despite this being a weekday the cron can't filter for holidays. This matches the 14:08Z Premarket Prep cycle's own finding (SPY 5m bars ~17h stale) earlier this morning.
+
+**Scope decision, stated plainly:** with equities/options markets closed today, no new daily or hourly candle has formed since yesterday's close across the full `watchlist.md` universe, every §22 leveraged/inverse-ETF name, and every options/LEAPS sourcing candidate — running the full Stage-1/Stage-2 TradingView pipeline, the §18/§19 options/LEAPS sourcing steps, and the §22 nine-name ETF screen against unchanged data would not constitute a genuine fresh evaluation, and `place_equity_order`/`place_option_order` would be rejected by the exchange regardless of any gate outcome. Per the Coverage-state-labeling principle ("never present a blocked or not-run cycle as if it had screened normally, and never present a delayed/late evaluation's result as if the opportunity had been available at an earlier, already-passed time"), this cycle is logged honestly as **coverage_state: MARKET_CLOSED_HOLIDAY** rather than forcing it into EVALUATED (would misrepresent screening that didn't happen) or NOT_RUN (implies an accidental gap rather than a deliberate, disclosed skip). Full Stage-1/Stage-2/options/LEAPS/§22 screening resumes at the next trading day's cycles (First Scan ~15:04 UTC, Fresh Candle 16:03-20:03 UTC hourly) — none of those schedules were changed by this entry.
+
+**Stop-audits (Mode B equities + Mode C):** trivially clear — zero open positions in either lane, nothing to audit.
+
+**Options/LEAPS stop-check (§18 item 4 / §19 item 3):** zero open positions — nothing to check, logged per protocol even with zero positions.
+
+**Mode C:** zero open positions (same-day flatten already guarantees no overnight hold in any case); market closed so no new entries possible or sought this cycle.
+
+**Near-miss queue (`near_miss_queue.md`):** read in full — the Mode B/C equities table, the §22 leveraged/inverse-ETF table, and the Crypto (§21) table all currently show **zero active (non-removed) entries**; every historical row is already struck through/removed with its resolution logged. The Pending-eligibility table is also empty (AMD resolved 2026-11-19). **No reassessment needed or performed — file unchanged this cycle.**
+
+**Same-day 2-stop-out cooldown:** not applicable — no stop-outs logged across any trigger today or on any recent prior UTC date requiring clearance.
+
+**Circuit breakers:** none active. **Portfolio heat cap:** crypto's two open positions (XRP, HBAR) contribute ≈0.71% of equity in open risk (HBAR at breakeven contributes $0); no Mode B/C open risk. Well under the 6% cap — moot this cycle regardless, since no new entry was sought.
+
+**TradingView/Robinhood tool usage:** no TRADING_VIEW_2 calls made this cycle (screening deliberately not run, per the scope decision above) — `calls_made_this_cycle: 0`. Robinhood MCP fully reachable throughout (`get_accounts`/`get_portfolio`/`get_equity_positions`/`get_option_positions`/`get_equity_quotes` all succeeded).
+
+**Orders placed this cycle:** 0 (Mode B or Mode C).
+
+```json
+{
+  "cycle": "Mode B/C First Scan of Day",
+  "timestamp_utc": "2026-11-26T15:04:00Z",
+  "coverage_state": "MARKET_CLOSED_HOLIDAY",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "same_day_2_stop_out_cooldown_cleared_this_cycle": "not_applicable",
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 74, "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "already resolved 2026-11-19, not applicable"},
+  "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [
+    {"symbol": "TQQQ", "reason": "market closed — US Thanksgiving holiday, no fresh data"},
+    {"symbol": "SQQQ", "reason": "market closed — US Thanksgiving holiday, no fresh data"},
+    {"symbol": "SOXL", "reason": "market closed — US Thanksgiving holiday, no fresh data"},
+    {"symbol": "SOXS", "reason": "market closed — US Thanksgiving holiday, no fresh data"},
+    {"symbol": "SPXL", "reason": "market closed — US Thanksgiving holiday, no fresh data"},
+    {"symbol": "SPXU", "reason": "market closed — US Thanksgiving holiday, no fresh data"},
+    {"symbol": "TNA", "reason": "market closed — US Thanksgiving holiday, no fresh data"},
+    {"symbol": "TZA", "reason": "market closed — US Thanksgiving holiday, no fresh data"},
+    {"symbol": "AMDG", "reason": "market closed — US Thanksgiving holiday, no fresh data"}
+  ], "coverage_complete": false},
+  "calls_made_this_cycle": 0,
+  "tvremix_calls_used_today": 0,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
