@@ -86421,3 +86421,59 @@ Capacity full (2/2) — no new-entry screening performed. Near-miss queue unchan
   "git_push": "pending"
 }
 ```
+
+## 2026-11-26 23:38Z — Crypto 24/7 Scan — **TRADE: HBAR peak-retracement protective exit**
+
+**STEP 0 gate check:** §14 Status ACTIVE confirmed. No kill phrase found. Trigger origin verified (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`). Robinhood MCP connector confirmed reachable (`get_accounts` succeeded).
+
+**§21 item 5 / §16 item 12 peak-retracement rule triggered.** HBAR's peak-retracement state has been active since 19:38Z (peak $0.055062815 reached, entry $0.05215971, retracement exit trigger computed at $0.0541918835 = peak − 0.30×(peak−entry)). This cycle's fresh mark, **$0.053872995, fell below the trigger level** (by ≈$0.000319) — the first cycle this has happened since the state activated. Per §21 item 5/§16 item 12, this is an immediate, mandatory full-position protective exit, no discretion.
+
+**Execution sequence:**
+1. Canceled the existing resting breakeven stop order (`6b07eff7-0fa6-4095-a48f-12d693e1de18`, stop $0.0522) — confirmed `state: canceled` via `get_crypto_orders` before proceeding (no race with a fill).
+2. `preview_crypto_order`: market sell, full quantity 27867 HBAR — clean preview, `customer_approval_required: false`, estimated fee $0.
+3. `place_crypto_order`: market sell, 27867 HBAR, ref_id `hbar-peak-retracement-exit-20261126-2338`.
+4. Verified fill via `get_crypto_orders`: **state `filled`**, cumulative_quantity 27867/27867, average fill price **$0.05333983**, total executed notional **$1486.42** (fee $0).
+
+**TRADE CARD — CRYPTO — EXIT**
+- **Pair:** HBAR-USD
+- **Action:** SELL (full position close) — §21 item 5 / §16 item 12 peak-retracement protective exit
+- **Quantity:** 27867 HBAR
+- **Entry (2026-11-23 or earlier, cost basis):** $0.05215971/unit, total cost $1453.54
+- **Exit fill:** avg $0.05333983/unit, total credit $1486.42 (fee $0)
+- **Realized P&L: +$32.88** (+2.26% on cost basis)
+- **R-multiple at exit:** (0.05333983−0.05215971)/0.00165971 ≈ **+0.71R** (realized R lower than the pre-order mark-based R of ~+1.03R, reflecting normal bid-side market-sell slippage vs. the mid/mark price)
+- **Peak reached:** $0.055062815 (+1.75R, logged 20:38Z); retracement trigger $0.0541918835; exit fired when mark fell to $0.053872995
+- **Reason:** 30%-of-peak-gain giveback rule — a full, non-discretionary protective exit per policy, not a discretionary profit-take
+- **STRATEGY:** CRYPTO (§21)
+
+**XRP**: unaffected by this cycle's action — mark $0.941311135 → R ≈ **−0.13R** (small pullback below entry, still well above the $0.922 stop). No breakeven trigger yet (needs mark ≥ $0.96628126). Stop `6b0747f2-...` @ $0.922 (GTC) confirmed resting, unchanged.
+
+**Position count after this exit: 1 of 2** (XRP only). Capacity now has 1 open slot — however, per protocol, a new-entry screen for the freed slot is a separate decision for next cycle's full allowlist pass, not performed reactively within this exit-handling cycle. Near-miss queue unchanged (empty). No circuit breaker active. Portfolio heat cap: XRP's open risk continues to count at its planned-risk level (not yet breakeven); unaffected by this exit.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-26T23:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "TRADE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 7, "tool_failures": 0, "note": "position-management/exit cycle — new-entry screen for freed capacity deferred to next cycle's full allowlist pass"},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "peak_retracement": {
+    "HBAR": {"active": false, "exit_fired": true, "exit_order_id": "6b08c2e4-2abb-46c1-bb10-fd273a122608", "fill_price": 0.05333983, "realized_pnl": 32.88, "r_multiple_at_exit": 0.71},
+    "XRP": {"active": false, "r_multiple": -0.13, "breakeven_trigger": 0.96628126, "mark": 0.941311135}
+  },
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "none_needed_position_management_only",
+  "tradingview_quota_status": "UNTESTED_TODAY",
+  "robinhood_mcp_connectivity": "reachable",
+  "exits": [{"symbol": "HBAR", "reason": "peak_retracement_30pct_giveback", "realized_pl": 32.88}],
+  "entries": [],
+  "orders_placed": 2,
+  "git_push": "pending"
+}
+```
