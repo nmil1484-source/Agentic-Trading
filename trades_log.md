@@ -87854,3 +87854,77 @@ no longer counts as DATA_BLOCKED now that Kraken covers it).
   "git_push": "pending"
 }
 ```
+
+---
+
+### 2026-11-27T18:03Z (10:03am PT) — AUTONOMOUS (Mode B/C Entry Screening — Fresh Candle, trig_01KrBsTt9mssjU4hPGtM3cBe) — MARKET CLOSED (Black Friday early close), NO_TRADE
+
+**STEP 0**: §14 Status **ACTIVE** confirmed. No kill phrase found in recent history. Robinhood MCP
+reachable (reconnected at the 17:38Z crypto cycle after the 17:03Z AUTH_BLOCKED cycle).
+
+**Account**: `get_equity_positions` → `[]`, `get_option_positions(nonzero=true)` → `[]` — fully
+flat across Mode B equities, Mode C, options, and LEAPS. Stop-audits (2a/9a) and the §18/§19
+options/LEAPS stop-check (2b) are trivially clear — nothing open to audit or check.
+
+**Major finding this cycle: today's regular U.S. equity session already closed, ~3 minutes before
+this trigger fired.** `get_equity_quotes(SPY)` shows `venue_last_trade_time: 2026-11-27T17:59:59Z`
+(exactly 1:00:00pm ET) for the last **regular-session** trade, with a materially different
+**non-regular** trade already printing at 18:05:04Z ($728.05 vs. the 1:00pm close of $728.73) —
+this is the post-Thanksgiving ("Black Friday") scheduled half-day, a 1:00pm ET / 18:00 UTC close
+instead of the normal 4:00pm ET / 20:00 UTC close. This is the exact early-close scheduling gap
+flagged previously but never patched (CLAUDE.md §16 item 13 / §20 item 9's own notes: "the
+external trigger's cron expression... does not know about early closes at all... a scheduler/
+operations task, not something this document can enforce by itself"). **This Fresh Candle
+trigger's cron (16:03-20:03 UTC weekdays) assumes a normal full session — today it is firing into
+a market that is already closed for the remainder of the day.** Options generally observe the
+same early-close schedule, so §18/§19/§24 are equally moot today.
+
+**Practical effect**: no order can be submitted in Mode B or Mode C this cycle, or at this
+trigger's remaining scheduled firings today (19:03Z, 20:03Z) — the market will not reopen until
+Monday 2026-11-30's regular session. The mandatory "Mode B/C End-of-Day Protective Check" trigger
+(20:55 UTC) will find the same closed market; since the account is already fully flat, there is
+nothing for it to flatten.
+
+**Resource-management choice, logged explicitly, not a hidden gap** (same pattern already used
+repeatedly in this log when a circuit breaker independently blocks every possible trading outcome
+for a cycle): with no order executable today regardless of what a full Stage-2 rotation or the
+mandatory §22 9-ETF screen would find, and TradingView still `EXHAUSTED` for today (confirmed via
+`tradingview_status_summary()`, forcing the materially more expensive per-symbol Robinhood-
+historicals fallback for every name), this cycle's Stage-2 rotation batch, the §22 screen, and
+§18/§19 options/LEAPS sourcing were **not run this cycle** — deferred to Monday's first eligible
+cycle, when the results could actually be acted on. All 75 watchlist names and all 9 §22 names are
+labeled `not_evaluated — market closed (Black Friday early close), no possible trading outcome
+today` rather than `rejected`. Near-miss queue (Mode B/C equities and §22 tables): both confirmed
+empty at this cycle's start (no reassessment needed or performed). Options/LEAPS Sourcing Queue:
+not drawn this cycle (same deferral reasoning).
+
+**No order placed in Mode B or Mode C this cycle.** Mode C ORB: moot (market closed, no bars will
+complete for the rest of today beyond what already exists).
+
+```json
+{
+  "cycle": "Mode B/C Entry Screening - Fresh Candle",
+  "timestamp_utc": "2026-11-27T18:03:22Z",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "market_status": "CLOSED - Black Friday early close (1:00pm ET / 18:00 UTC), confirmed via SPY venue_last_trade_time",
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": true, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": true, "breached": 0, "exited": 0},
+  "coverage": {"universe_size": 75, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 75, "tool_failures": 0, "not_evaluated_reason": "market closed - no possible trading outcome today, deferred to Monday"},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved, not pending"},
+  "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "market closed - deferred to Monday"}], "coverage_complete": false},
+  "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true},
+  "options_leaps_coverage": {"selected": [], "deferred": "all - market closed", "evaluated": 0, "rejected": 0, "data_blocked": 0},
+  "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []},
+  "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": [], "note": "market closed"},
+  "calls_made_this_cycle": 1,
+  "tvremix_calls_used_today": "see today's other entries; TradingView still EXHAUSTED",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
