@@ -86665,3 +86665,50 @@ No circuit breaker active. Git push to follow.
   "git_push": "pending"
 }
 ```
+
+## 2026-11-27 04:38Z — Crypto 24/7 Scan — **STOP-OUT: LINK exited at planned risk**
+
+**STEP 0 gate check:** §14 Status ACTIVE confirmed. No kill phrase found. Trigger origin verified (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`). Robinhood MCP connector confirmed reachable.
+
+Account ••••8058 confirmed, total value $4829.49188642 (down from $4862.997 entering the prior cycle, reflecting this stop-out). Checking current positions this cycle surfaced that **LINK's resting protective stop (placed and confirmed resting at $9.40 last cycle, 03:38Z) has already filled** — `get_crypto_positions` no longer shows a LINK holding, and `get_crypto_orders(order_id=...)` on the stop order itself confirms `state: filled`.
+
+**TRADE CARD — CRYPTO — EXIT (protective stop)**
+- **Pair:** LINK-USD
+- **Action:** SELL (full position close) — resting stop_loss order triggered and filled
+- **Quantity:** 152 LINK
+- **Entry (03:38Z this session):** avg $9.59601235/unit, total cost $1458.60
+- **Exit fill:** stop order `6b08fbaf-e6f2-432c-9f16-125b84bb9124` filled in 3 partial executions, avg $9.399224903487566/unit, total credit $1428.68 (fee $0), filled at 2026-11-27T03:43:16Z — **only ~3 minutes after entry (03:40:19Z)**, a fast reversal/whipsaw immediately following the breakout
+- **Realized P&L: −$29.92** (−2.05% on cost basis, ≈ **−1.00R** — the stop executed almost exactly at its planned risk level, working as designed)
+- **Reason:** mandatory protective stop, not discretionary — price reversed back through the $9.40 breakout-continuation stop almost immediately after the entry
+- **STRATEGY:** CRYPTO (§21)
+
+**Same-day stop-out count (§6 cross-mode breaker): 1** (this is the first stop-out today, 2026-11-27 UTC — HBAR's exit yesterday 23:38Z was a peak-retracement *profit* exit, not a stop-out, and doesn't count toward this breaker). Breaker threshold is 2 — **not triggered**, no new-entry restriction this cycle.
+
+**Position count after this exit: 1 of 2** (XRP only). XRP: stop `6b0747f2-...` @ $0.922 (GTC) confirmed resting. Mark $0.96094619 → R ≈ **+0.76R** (pulled back slightly from +0.85R last cycle). Breakeven trigger (mark ≥ $0.96628126) not yet reached. No action.
+
+No new-entry screening performed this cycle (focus was the stop-out discovery and reporting); 1 slot is now free again for the next cycle's screen. Near-miss queue unchanged (LINK/SOL already resolved last cycle — LINK into the now-closed trade, SOL to NO_TRADE). No circuit breaker active beyond the non-triggering stop-out count above. Portfolio heat: XRP only, ~$34 planned risk, well under the 6% cap.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-27T04:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "TRADE",
+  "circuit_breakers_active": [],
+  "same_day_stop_out_count": 1,
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 8, "tool_failures": 0, "note": "cycle focused on discovering/reporting the LINK stop-out; no new-entry screen run"},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "none_needed",
+  "tradingview_quota_status": "EXHAUSTED",
+  "robinhood_mcp_connectivity": "reachable",
+  "exits": [{"symbol": "LINK", "reason": "protective_stop", "realized_pl": -29.92}],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
