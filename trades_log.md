@@ -87282,3 +87282,22 @@ Coverage: 8/8 pairs triaged. `full_gate_evaluated: 0`, `rejected_with_evidence: 
   "git_push": "pending"
 }
 ```
+
+## 2026-11-27T14:08Z — PREMARKET_PREP (Premarket Preparation Scan, trigger_id trig_01FRC5Yt8UVcGH8GxcAURYXX)
+
+Read-only, no order authority of any kind. STEP 0: §14 confirmed ACTIVE, no kill phrase found
+(context only — this trigger has no order authority to gate).
+
+**STEP 1 (SPY freshness check, call 1 of 10): FAILED — `TOOL_QUOTA_EXCEEDED`.** TradingView's
+daily call quota is exhausted (confirmed independently by the Crypto 24/7 trigger's own
+`data_budget` state earlier today, and now directly by this trigger's own call) — a 10-minute MCP
+cooldown is in effect per the error. Per this trigger's own protocol, a degraded connector is
+treated the same as a stale/holiday SPY read: **no candidate reported this cycle.**
+`coverage_state: "DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE"` (the real cause here is a connector/quota
+outage, not a holiday — today is an ordinary trading Friday — but the protocol's fixed label
+covers both). Ending the cycle well under the 10-call cap (1 call made). `premarket_shortlist.md`
+not written/changed this cycle — no data to report.
+
+```json
+{"cycle": "premarket_prep", "timestamp_utc": "2026-11-27T14:08:00Z", "read_only": true, "calls_made_this_cycle": 1, "coverage_state": "DATA_STALE_LIKELY_HOLIDAY_OR_OUTAGE", "candidates_found": 0, "watchlist_candidates": 0, "offwatchlist_research_only_candidates": 0, "git_push": "pending"}
+```
