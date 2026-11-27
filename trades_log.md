@@ -87760,3 +87760,97 @@ Settings → Connectors → Robinhood Agentic), same remedy as the 2026-10-03 pr
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-11-27T17:38Z (09:38 PT) — Crypto 24/7 Scan — OBSERVE, no trade
+
+**STEP 0:** §14 ACTIVE confirmed (Mode B AUTONOMOUS_EXECUTE Authority), no kill phrase found in
+recent history. **Robinhood MCP reconnected this cycle** — the 17:03Z Fresh Candle cycle was
+AUTH_BLOCKED; `get_accounts` succeeded cleanly this cycle (agentic account ••••8058,
+limited_margin, active, option_level_3) — connectivity restored, logged as a single blocked
+cycle, not escalated to the 3-consecutive-error reconciliation pause.
+
+**Account**: total equity $4,836.87 (100% cash, $0 equity/options/crypto value — fully flat
+across every lane). `get_crypto_positions` → `[]`, 0 of 2 concurrent crypto slots used.
+
+**Circuit breakers**: same-day 2-stop-out cooldown — 1 stop-out today (LINK only, unchanged),
+below the 2-stop-out threshold, not active. Market-shock pause — SPY $726.83/QQQ $646.76 vs. this
+morning's 16:03Z Fresh Candle cycle reading (QQQ ~$644.77): **+0.31% cycle-over-cycle**, well
+under the 1.5% single-cycle-gap threshold — the earlier broad rally already happened and was
+captured at 16:03Z; this cycle shows consolidation, not a new shock. Portfolio heat cap: $0
+currently committed anywhere (Mode B/C/crypto all flat) — full $290.21 (6% of equity) headroom
+available, moot this cycle since nothing clears the entry gate.
+
+**Near-miss queue (Crypto §21 table)**: 0 active entries (SOL was the last one, removed invalidated
+at 15:38Z). Nothing to reassess this cycle.
+
+**TradingView quota**: `tradingview_status_summary()` confirms still `EXHAUSTED` for 2026-11-27
+(2 attempts recorded, last at ~15:38Z). Per the data-budget state check, TradingView was correctly
+**not re-attempted** this cycle — routed straight to the Kraken fallback path for all 8 pairs,
+0 TradingView calls spent.
+
+**Kraken fallback — full allowlist, both timeframes:**
+- **1h**: cache was stale for all 8 pairs (a new completed bar was due) — fresh `fetch_kraken_ohlc`
+  call made for each (8 calls total), all `status: "OK"`, 960 bars each, merged into cache. Latest
+  completed 1h bar: t=2026-11-27T16:00Z (the 15:00-16:00 UTC bar) for all 8.
+- **4h**: cache already fresh enough for all 8 pairs (no new 4h bar due yet — current 4h candle
+  16:00-20:00 UTC still forming) — served from cache, 0 network calls. Latest completed 4h bar:
+  t=2026-11-27T12:00Z (the 12:00-16:00 UTC bar) for all 8.
+- `calls_made_this_cycle`: 8 (all Kraken, 1h only). `data_source`: `kraken_fallback` (1h fresh) +
+  `cache` (4h) — no TradingView calls.
+
+**Per-pair gate evaluation (§21 item 3), every pair evaluated, none cleared:**
+
+| Pair | 1h close | 1h RSI | 1h breakout/breakdown | 4h close | 4h RSI | 4h breakout/breakdown | Verdict |
+|---|---|---|---|---|---|---|---|
+| BTC | 59,900 | 34.44 (fails >45) | neither (mid-pullback, 64% depth) | 60,057.7 | 61.44 | **below prior 4h swing low** ($60,269) — bearish Location, but EMA/RSI/MACD all still read bullish (lagging) | **rejected** |
+| ETH | 1,668.3 | 30.67 (fails) | neither (66% pullback depth) | 1,670.69 | 57.16 | below prior 4h swing low ($1,681.37) — same lagging-indicator mismatch as BTC | **rejected** |
+| SOL | 71.97 | 47.44 (passes floor, but MACD hist -0.197, not improving) | neither (47% pullback depth) | 72.09 | 76.89 | neither | **rejected** |
+| XRP | 0.94821 | 44.55 (fails, just under 45) | neither (67% pullback depth) | 0.95179 | 62.45 | neither | **rejected** |
+| LINK | 9.29946 | 41.67 (fails) | neither (58% pullback depth) | 9.317 | 68.91 | neither | **rejected** |
+| AAVE | 94.34 | 39.32 (fails) | neither (60% pullback depth) | 94.12 | 55.91 | neither | **rejected** |
+| HBAR | 0.05363 | 40.78 (fails) | neither (77% pullback depth) | 0.05397 | 67.19 | neither | **rejected** |
+| AVAX | 6.63 | 43.28 (fails) | neither (60% pullback depth) | 6.633 | 58.44 | neither | **rejected** |
+
+**Common failure, item 3 (Location + the mandatory 4H-setup-plus-1H-execution-trigger)**: not one
+of the 8 allowlisted pairs shows a confirmed breakout above its own prior 1h OR 4h swing high this
+cycle — every pair is sitting mid-pullback (47-77% retracement depth) with no reclaim/trigger
+candle yet. This is consistent with the broad crypto-wide decline that began at 15:38Z and has
+continued/deepened this cycle: live mark vs. today's open is BTC -2.9%, ETH -3.9%, SOL -1.6%,
+XRP -1.8%, LINK -3.0%, AAVE -3.2%, HBAR -2.7%, AVAX -2.3% — a market-wide move, not pair-specific
+(checked — no pair diverges meaningfully from the others). BTC/ETH's 4h breakdown below their own
+prior swing low is evidence against (not for) a bullish long entry here — crypto under §21 is
+spot-long-only, no inverse/short instrument exists to act on a bearish reading. **No single pair
+is a genuine single-item-away near-miss** (several items fail simultaneously — Location/trigger
+absent AND Momentum failing on 6 of 8 pairs) — nothing added to the near-miss queue this cycle.
+
+**Stop-audit**: 0 open positions, trivially clear (nothing to audit).
+
+**No order placed.** `tvremix_consecutive_failed_cycles`: 0 — this is NOT a DATA_BLOCKED cycle;
+Kraken produced clean, fresh, in-budget data for all 8 pairs (TradingView's quota exhaustion alone
+no longer counts as DATA_BLOCKED now that Kraken covers it).
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-27T17:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": true, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 8,
+  "data_source": "kraken_fallback+cache",
+  "tradingview_quota_status": "EXHAUSTED",
+  "robinhood_mcp_connectivity": "normal (reconnected this cycle after 17:03Z AUTH_BLOCKED)",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
