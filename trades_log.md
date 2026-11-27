@@ -87574,3 +87574,90 @@ Coverage: 8/8 pairs triaged. `full_gate_evaluated: 0`, `rejected_with_evidence: 
   "git_push": "pending"
 }
 ```
+
+## 2026-11-27T16:03Z — Mode B/C Fresh Candle Entry Screening (trigger_id trig_01KrBsTt9mssjU4hPGtM3cBe)
+
+**STEP 0:** §14 ACTIVE confirmed, no kill phrase. Account re-confirmed flat: 0 Mode B equity, 0
+Mode C, 0 options/LEAPS positions (`get_equity_positions`/`get_option_positions` — all option
+entries show `quantity: 0.0000`, fully closed). Stop-audits (2a/9a) and options/LEAPS stop-check
+(2b) trivially clear — nothing open. Same-day 2-stop-out cooldown: not applicable (unchanged).
+
+**Notable market context (not a signal, logged for the record): a sharp, broad intraday
+equity rally this hour** — QQQ, SPY, IWM, and SOXX (and every §22 leveraged-long ETF: TQQQ, SOXL,
+SPXL, TNA, AMDG) all broke above their prior confirmed **1-hour** swing high simultaneously
+(e.g. QQQ $644.77 vs. its daily close of $633.93, +1.7% intraday), while the 4 inverse ETFs
+(SQQQ, SOXS, SPXU, TZA) correspondingly broke below their own 1h swing low — all internally
+consistent with one broad move, not stock-specific. **This is the mirror image of the crypto
+desk's broad selloff logged in this same hour's 15:38Z crypto entry** — equities rallying while
+crypto sold off.
+
+**TradingView quota still `EXHAUSTED`** — 0 TradingView calls, Robinhood fallback throughout
+(reusing this morning's First Scan daily pulls where same-day; one new hourly
+`get_equity_historicals` call covering 23 symbols).
+
+**Stage 2 — 12-name rotation, continuing from First Scan: GLD, SLV, PGY, IWM, TPST, VST, BE,
+IBIT, ETHA, CORZ, CAI, AMDG.** Checked daily EMA9/20 alignment, RSI14, MACD histogram for the
+broader rally candidates (QQQ/SPY/IWM/SOXX and the 5 leveraged-long ETFs) specifically because of
+today's sharp intraday move: **every one shows bearish daily EMA alignment (9<20), negative MACD
+histogram, and no daily breakout** — the rally is a fresh intraday move with no daily-level
+Trend/State, Location, or Momentum confirmation yet. **All 12 Stage-2 names rejected with
+evidence, item 7 (hourly move present on most, but no daily setup — checked and genuinely
+absent, not merely unconfirmed by a single narrow function):** GLD/SLV/PGY/BE/CAI/AMDG show a
+fresh 1h breakout with no daily confirmation; IWM/VST/TPST/ETHA show deep/overextended daily
+pullbacks (70-96% depth); IBIT/CORZ show no breakout on either timeframe and no daily pullback
+structure.
+
+**§22 Leveraged/Inverse ETF screen, full 9 + 4 underlyings, re-run fresh this cycle (mandatory
+every cycle):**
+- **TQQQ/SOXL/SPXL/TNA/AMDG** (long): all show a genuine 1h breakout matching their underlying's
+  (QQQ/SOXX/SPY/IWM/AMD) own 1h breakout — but **daily EMA9/20, RSI14, and MACD histogram all
+  fail to confirm** on both the ETF and its underlying (see table above) — **rejected**, item 7
+  (no daily setup, hourly-only move).
+- **SQQQ/SOXS/SPXU/TZA** (inverse): each broke BELOW its own prior 1h swing low this cycle — the
+  wrong direction for a long inverse-ETF entry (confirms the underlying RISING, consistent with
+  the bullish breakouts just listed) — **rejected**, wrong-direction confirmation.
+
+**§22 completion: 9/9 accounted for, `coverage_complete: true`.**
+
+**Near-miss queue:** Mode B/C equities and §22 tables both still empty — no reassessment
+performed, file unchanged. **Options/LEAPS sourcing (3a/3b):** deferred — no underlying cleared
+the equity-side gate this cycle to trigger an options evaluation, and no separate proactive
+sourcing rotation was drawn given the cycle's workload. **§24 vertical-spread paper screening:**
+not run — no underlying cleared §5B/Bearish-Mirror this cycle to source a spread candidate from.
+
+**Mode C ORB:** only **1 completed hourly bar exists for today's session so far** (14:30-15:30
+UTC; the 15:30-16:30 UTC bar is still forming) — genuinely insufficient data for an opening-range
+check yet (ORB needs at least 2 completed bars: one for the range, one as a candidate breakout).
+Logged as `no_breakout_yet` for all 23 names checked, with the explicit reason "insufficient bars
+this session" — not a rejection; checkable starting next cycle once bar 2 completes.
+
+**Orders placed this cycle: 0 (Mode B or Mode C).**
+
+```json
+{
+  "cycle": "Mode B/C Fresh Candle Entry Screening",
+  "timestamp_utc": "2026-11-27T16:03:00Z",
+  "timestamp_pacific": "2026-11-27T08:03:00-08:00",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "coverage": {"universe_size": 75, "triaged": 75, "full_gate_evaluated": 12, "rejected_with_evidence": 12, "not_evaluated": 51, "tool_failures": 0, "note": "triaged reused from 15:04Z First Scan same calendar day"},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved, not pending"},
+  "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 9, "not_evaluated": [], "coverage_complete": true},
+  "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 1, "mode_b_deferred": false, "options_leaps_deferred": true},
+  "options_leaps_coverage": {"selected": [], "deferred": "not drawn this cycle", "evaluated": 0, "rejected": 0, "data_blocked": 0},
+  "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []},
+  "mode_c_orb": {"symbols_checked": 23, "no_breakout_yet": ["GLD","SLV","PGY","IWM","TPST","VST","BE","IBIT","ETHA","CORZ","CAI","AMDG","TQQQ","SQQQ","SOXL","SOXS","SPXL","SPXU","TNA","TZA","SOXX","QQQ","SPY"], "fresh_setups": [], "missed_not_evaluated": [], "note": "only 1 completed hourly bar exists for today's session so far -- insufficient for ORB, not a rejection"},
+  "calls_made_this_cycle": 0,
+  "tvremix_calls_used_today": 0,
+  "robinhood_calls_this_cycle": 4,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
