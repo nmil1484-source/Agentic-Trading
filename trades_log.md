@@ -88138,3 +88138,30 @@ rejected with evidence.
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-27T21:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": ["AAVE"]}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 8, "data_source": "kraken_fallback+cache", "tradingview_quota_status": "EXHAUSTED", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-27T22:38Z (14:38 PT) — Crypto 24/7 Scan — OBSERVE, AAVE still near-miss, no trade
+
+**STEP 0**: §14 ACTIVE, no kill phrase. Robinhood reachable. `get_crypto_positions` → `[]`, 0/2
+slots. Same-day 2-stop-out cooldown: 1 (LINK), below threshold. Market-shock: equities closed,
+moot. Heat cap: $0 committed, full headroom.
+
+**TradingView** still `EXHAUSTED` — Kraken fallback, 8 calls (1h fresh for all 8, latest completed
+bar t=21:00Z; 4h still cache-fresh, unchanged t=16:00Z — next 4h roll is 20:00Z, still forming).
+
+**Near-miss queue reassessment — AAVE, still a near-miss, not cleared.** 1h breakout holds for a
+second consecutive bar (close $95.72 > updated prior swing high $95.45). Momentum genuinely
+improved: RSI 46.85 (now above the 45 floor, vs. 43.0 last cycle), MACD histogram less negative
+(-0.1065 vs. -0.1846). Volume 1.02x, still under the 1.2x floor. **Still blocked purely on item
+7** — the 4h candle has not rolled since AAVE was queued (same cached 16:00Z bar both cycles; next
+roll 20:00Z). Updated in `near_miss_queue.md` (cycles_checked 1→2), not removed.
+
+**Other 7 pairs**: no breakout, no change in character. All rejected with evidence.
+
+**Stop-audit**: 0 positions, trivial. **No order placed.** `tvremix_consecutive_failed_cycles`: 0.
+`near_miss_queue.md` changed (AAVE updated) — committed alongside this entry.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-27T22:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 8, "data_source": "kraken_fallback+cache", "tradingview_quota_status": "EXHAUSTED", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
