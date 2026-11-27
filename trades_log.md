@@ -86610,3 +86610,58 @@ No new entry. No circuit breaker active. Portfolio heat cap: informational only 
   "git_push": "pending"
 }
 ```
+
+## 2026-11-27 03:38Z — Crypto 24/7 Scan — **TRADE: LINK new entry (breakout, cleared from near-miss queue)**
+
+**STEP 0 gate check:** §14 Status ACTIVE confirmed. No kill phrase found. Trigger origin verified (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`). Robinhood MCP connector confirmed reachable.
+
+Account ••••8058 confirmed, total value $4862.997010005. Open positions entering this cycle: XRP only (1 of 2 cap). Stop `6b0747f2-...` @ $0.922 (GTC) confirmed resting. Mark $0.962972 → R ≈ **+0.85R** — still just short of the +1R breakeven trigger ($0.96628126). No action.
+
+**TradingView quota**: confirmed `EXHAUSTED` for today (`should_attempt_tradingview()` → False) — went straight to Kraken fallback for the two queued near-misses.
+
+**Near-miss queue reassessment (LINK, SOL) — item 7 cleared on BOTH this cycle:**
+- **LINK**: next completed 1h bar (t=1795744800) closed $9.45758 (high $9.56103) — `swing_points()` confirms `current_above_prior_swing_high: True` against the $9.40994 level. 1h ATR14 = $0.09199. Used a §13.G breakout-continuation stop just below the broken level ($9.40) rather than the farther breakout-bar low — `validate_stop_distance()` at the live ask ($9.5901768): distance $0.190 vs. ceiling $0.230 (2.5×ATR) → **clears**. Checked for a real structural target before defaulting to 1.5×ATR (which alone would have given only 0.75:1): found a genuine 20-day resistance cluster at $10.14-10.50; using the conservative low end ($10.139), **R:R = 2.89:1** — clears the 1.5:1 floor comfortably. RS vs. BTC (+8.03pp, confirmed 2 cycles ago, the strongest of the full allowlist) and Trend/State+Momentum confirmations (StrongBuy/StrongBuy, RSI14(4h) 70.6, MACD bullish) all still hold. **Cleared the full §21 gate — entry taken.**
+- **SOL**: item 7 also cleared this cycle (last completed 1h bar closed $72.28, high $72.87, confirming above $71.74) — but **every structurally-sound stop fails the ATR ceiling** at the current price: breakout-bar-low stop ($71.41) → distance $2.11 vs. ceiling $1.51 (2.5×ATR14(1h)=$0.605); broken-level stop ($71.70) → distance $1.82, still over. Resolved to **NO_TRADE** — removed from the queue as a genuine stop-distance failure, not left queued.
+
+**TRADE CARD — CRYPTO — ENTRY**
+- **Pair:** LINK-USD
+- **Action:** BUY (new position)
+- **Quantity:** 152 LINK
+- **Fill:** avg $9.59601235/unit, total $1458.60 (fee $0)
+- **Stop:** $9.40 (GTC, confirmed resting, order `6b08fbaf-e6f2-432c-9f16-125b84bb9124`) — §13.G breakout-continuation placement, just below the broken $9.40994 level
+- **Risk:** $0.19602/unit × 152 ≈ **$29.79** (0.61% of equity — below the 0.75% halved budget per the insufficient-round-trip-history default; actual size was capped by the 30%-of-equity per-position cap, not the risk budget)
+- **Target:** $10.139 (real 20-day structural resistance, not ATR_TARGET) — **R:R 2.89:1**
+- **4H setup:** pullback-to-swing structure, 25.0% depth (healthy/shallow), confirmed 3 cycles running
+- **1H trigger:** completed-bar close $9.45758 > prior swing high $9.40994 (breakout confirmed)
+- **Catalyst/RS:** relative strength vs. BTC +8.03pp over the preceding 10-day window (strongest of the 8-pair allowlist) — no separate dated news catalyst identified, RS is the qualifying driver per item 2
+- **Confirmations:** Trend/State (StrongBuy 4h/1h), Momentum (RSI14(4h) 70.6 improving, MACD(4h) hist +0.044 bullish) — ≥1-of-5 role-groups clears comfortably
+- **swing_lookback:** 5 (approved default)
+- **Position count after this trade: 2 of 2** (XRP, LINK) — capacity now full
+- **Portfolio heat after this trade:** XRP ~$34.07 (not yet breakeven) + LINK ~$29.79 = **~$63.86**, well inside the 6%-of-equity ($291.78) cap
+- **STRATEGY:** CRYPTO (§21)
+
+No circuit breaker active. Git push to follow.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-27T03:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "TRADE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 2},
+  "stop_audit": {"checked": 2, "missing_found": 0, "placed": 1},
+  "coverage": {"universe_size": 8, "triaged": 2, "full_gate_evaluated": 2, "rejected_with_evidence": 1, "not_evaluated": 6, "tool_failures": 0, "note": "LINK/SOL (queued near-misses) both fully reassessed; LINK cleared, SOL rejected on stop-distance; remaining 6 pairs not re-screened (capacity now full, 2/2)"},
+  "near_miss_queue": {"reassessed": 2, "cleared": 1, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "rejected_resolved_no_trade": 1},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "robinhood_mcp_connectivity": "reachable",
+  "exits": [],
+  "entries": [{"symbol": "LINK", "qty": 152, "price": 9.59601235}],
+  "orders_placed": 2,
+  "git_push": "pending"
+}
+```
