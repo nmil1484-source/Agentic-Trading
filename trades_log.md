@@ -86477,3 +86477,58 @@ Capacity full (2/2) — no new-entry screening performed. Near-miss queue unchan
   "git_push": "pending"
 }
 ```
+
+## 2026-11-27 00:38Z — Crypto 24/7 Scan — full allowlist screen (capacity freed by prior cycle's HBAR exit)
+
+**STEP 0 gate check:** §14 Status ACTIVE confirmed. No kill phrase found. Trigger origin verified (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`). Robinhood MCP connector confirmed reachable.
+
+Account ••••8058 confirmed. Open crypto positions: **XRP only (1539 units, entry $0.94414063)** — 1 of 2 cap, **1 slot free** (HBAR exited 23:38Z this session). Near-miss queue reassessment: crypto queue was empty entering this cycle (confirmed via full file read) — nothing to reassess.
+
+**Position management (XRP):** stop `6b0747f2-a8ad-4229-b894-f5ef44728823` @ $0.922 (GTC) confirmed resting via `get_crypto_orders`. Mark $0.941311135 → R ≈ **−0.13R**. Breakeven trigger (mark ≥ $0.96628126) not reached. No action.
+
+**Full-allowlist new-entry screen (capacity allowed it).** TradingView quota state: today (2026-11-27) was untested at this cycle's start — `should_attempt_tradingview()` returned True; made the real Stage A attempt, which **succeeded** (`data_source: tradingview`, no fallback needed), recorded via `record_tradingview_result(success=True)`. Stage A batch (`mcp-tv-get-symbol-data-batch`, 8 pairs) + Stage B (`mcp-tv-get-ohlcv`, 4h+1h × 8 pairs = 16 calls) — **17 TradingView calls this cycle**, all successful.
+
+Relative strength computed over the same 10-day/60-bar 4h window for every pair (net_change_pct from each symbol's own Stage-B summary) vs. BTC's −6.69%:
+
+| Pair | 4h/1h MARating | RSI(4h)/RSI(1h) | 10-day net chg | RS vs BTC | 4h structure | Label |
+|---|---|---|---|---|---|---|
+| BTC | Buy/StrongBuy | 52.5/54.9 | −6.69% | (benchmark) | — | **Rejected — item 2** (no dated catalyst; RS inapplicable to the benchmark pair itself) |
+| ETH | Sell/Sell | 50.5/51.7 | −7.46% | −0.77pp | — | **Rejected — item 2/3** (bearish-leaning ratings both TF, negative RS) |
+| SOL | Buy/StrongBuy | 54.0/57.4 | −2.16% | **+4.53pp** | Pullback ≈49.5% of impulse range (healthy), no breakout yet (close $71.03 vs prior-high $71.95) | **Near-miss, queued — item 7 only** (no confirmed 1h reclaim; last 3 completed 1h bars declining $71.64→$71.07→$71.03) |
+| XRP | Sell/Buy | 52.4/47.3 | −2.41% | +4.28pp | — | Already held — not screened for new entry |
+| LINK | StrongBuy/StrongBuy | 63.8/62.2 | **+1.34%** | **+8.03pp (strongest of all 8)** | Pullback ≈23.6% of impulse range (shallow, healthy), no breakout yet (close $9.278 vs prior-high $9.311) | **Near-miss, queued — item 7 only** (no confirmed 1h reclaim; last 3 completed 1h bars declining $9.404→$9.309→$9.278) |
+| AAVE | Sell/Buy | 47.1/51.9 | −15.60% | −8.91pp | — | **Rejected — item 2/3** (worst 10-day performer, mixed/bearish-leaning 4h, negative RS) |
+| HBAR | Buy/StrongBuy | 59.6/58.4 | −5.73% | +0.96pp | Pullback deepening to ≈57% of impulse range, no breakout (close $0.05399 vs prior-high $0.05495) | **Rejected — item 7** (pullback deepening, not a fresh setup; also the pair just exited this session on its peak-retracement rule 2 hours ago with no materially new signal since) |
+| AVAX | StrongSell/StrongSell | 48.3/48.1 | −8.11% | −1.42pp | — | **Rejected — item 2/3** (bearish-leaning both TF, negative RS) |
+
+**No candidate cleared the full gate this cycle.** LINK (strongest RS, +8.03pp) and SOL (+4.53pp) both show a genuine, healthy 4h pullback structure with StrongBuy/Buy ratings and improving RSI/MACD — items 2/3 clear for both — but neither has a confirmed 1H execution trigger yet (both still retracing on the hourly chart, no reclaim candle). Both added to `near_miss_queue.md`'s Crypto (§21) table as genuine single-item (item 7) near-misses, to be reassessed with full-gate re-verification at the next eligible cycle. HBAR, BTC, ETH, AAVE, AVAX rejected with cited evidence — not queued (structural/catalyst absence, not a single-item gap).
+
+**Stop-distance validation**: not reached for any pair this cycle — no candidate advanced far enough (no confirmed trigger) to compute an entry/stop/R:R.
+
+**Portfolio heat cap**: no new entry was sized this cycle (none cleared), so the check is informational only — XRP's own open risk (≈$34, unchanged, not yet at breakeven) is well inside the 6%-of-equity aggregate cap on its own.
+
+No circuit breaker active. No orders placed this cycle (XRP's prior exit was handled in the preceding 23:38Z cycle, not this one).
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-27T00:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 7, "rejected_with_evidence": 5, "not_evaluated": 1, "tool_failures": 0, "note": "XRP excluded from new-entry screen (already held); LINK and SOL are item-7-only near-misses, queued, not counted as rejections"},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "new_entries_added": 2},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 17,
+  "data_source": "tradingview",
+  "tradingview_quota_status": "AVAILABLE",
+  "robinhood_mcp_connectivity": "reachable",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
