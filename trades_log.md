@@ -88074,3 +88074,32 @@ isn't a role-group pass. No single-item near-misses. Nothing added to the queue.
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-27T20:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 16, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-27T20:55Z (12:55pm PT) — AUTONOMOUS (Mode B/C End-of-Day Protective Check, trig_01PpS6WWjQ6Wxdpa2sSuLsm2) — already flat, NO ACTION
+
+**STEP 0**: §14 ACTIVE confirmed, no kill phrase. Account re-confirmed fully flat
+(`get_equity_positions`/`get_option_positions` both `[]`) — same state as every cycle since the
+12:38Z XRP exit. Stop-audits (2a) and options/LEAPS stop-check (2b): trivially clear, nothing
+open. No Mode B §16 exit conditions to evaluate (nothing open).
+
+**STEP 0.5 flatten**: 0 Mode C positions found — confirmed already flat, nothing to flatten.
+
+**Scheduling note, flagged for the record per this trigger's own instruction to check the actual
+wall-clock basis rather than assume**: this trigger's cron (20:55 UTC) is designed to land ~5
+minutes before a normal 4:00pm ET/21:00 UTC close. **Today the regular session actually closed at
+1:00pm ET/18:00 UTC** (the post-Thanksgiving "Black Friday" scheduled half-day, confirmed earlier
+today at the 18:03Z Fresh Candle cycle via SPY's `venue_last_trade_time`). So this firing landed
+**~2 hours 55 minutes after today's actual close**, not 5 minutes before it — the same category
+of cron/wall-clock mismatch already flagged in CLAUDE.md §16 item 13/§20 item 9 (DST drift), just
+triggered by an early-close day instead of a DST transition. **No practical effect today** since
+the account was flat the entire session and no Mode C position was ever opened to need a
+same-day flatten — but worth noting explicitly since a future early-close day with an actual open
+Mode C position would have sat unflattened for ~3 hours past the real close before this trigger
+ever got a chance to act. This is a scheduler/operations gap, not something this document can fix
+from inside a single cycle.
+
+```json
+{"cycle": "Mode B/C End-of-Day Protective Check", "timestamp_utc": "2026-11-27T20:55:51Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"note": "no new-entry screening this cycle by design - protective-management/close-of-day cycle only"}, "step_0_5_flatten": {"applicable": true, "mode_c_positions_found": 0, "action_taken": "none needed - already flat"}, "scheduling_note": "20:55 UTC fired ~2h55m after today's actual Black Friday early close (18:00 UTC), not 5 min before it - no practical effect, account flat all session", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
