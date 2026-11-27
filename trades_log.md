@@ -88045,3 +88045,32 @@ overnight/through the weekend, then Monday 2026-11-30's Premarket Prep (~14:00 U
 ```json
 {"cycle": "Mode B/C Entry Screening - Fresh Candle", "timestamp_utc": "2026-11-27T20:03:19Z", "coverage_state": "EVALUATED", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "market_status": "CLOSED - Black Friday early close (unchanged)", "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 75, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 75, "tool_failures": 0, "not_evaluated_reason": "market closed, deferred to Monday"}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "market closed"}], "coverage_complete": false}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": []}, "calls_made_this_cycle": 0, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-27T20:38Z (12:38 PT) — Crypto 24/7 Scan — OBSERVE, no trade
+
+**STEP 0**: §14 ACTIVE, no kill phrase. Robinhood reachable. `get_crypto_positions` → `[]`, 0/2
+slots. Same-day 2-stop-out cooldown: 1 (LINK), below threshold. Market-shock: equities closed,
+moot. Heat cap: $0 committed, full headroom, moot.
+
+**TradingView** still `EXHAUSTED` — Kraken fallback, 16 calls this cycle (both 1h AND 4h cache
+went stale together — the 4h candle rolled at 16:00Z, so all 8 pairs needed a fresh 4h fetch in
+addition to the routine 1h fetch). Latest completed bars: 1h t=19:00Z, 4h t=16:00Z, all 8 pairs.
+
+**Per-pair gate check — all 8 rejected, no change in outcome from the prior 3 cycles.** No
+breakout on either timeframe for any pair. BTC/ETH's 4h `current_below_prior_swing_low` flag that
+was tripped the last two cycles is now **false** on the fresh 16:00Z candle — the new 4h bar
+recovered back inside the prior range, resolving that bearish-Location/bullish-indicator mismatch,
+but this doesn't create a bullish signal either (still no breakout above the swing high). 1h RSI
+has drifted lower across the board this cycle (20.42-40.50, every pair now below the 45 Momentum
+floor, several materially weaker than last cycle — ETH 26.44→20.42, LINK 44.79→32.48) — momentum
+deteriorating, not building toward a reclaim. 1h volume picked up on a few pairs (LINK 5.77x,
+HBAR 1.24x, AVAX 1.28x) but with no breakout/breakdown candle to confirm, elevated volume alone
+isn't a role-group pass. No single-item near-misses. Nothing added to the queue.
+
+**Stop-audit**: 0 positions, trivial. **No order placed.** `tvremix_consecutive_failed_cycles`: 0.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-27T20:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 16, "data_source": "kraken_fallback", "tradingview_quota_status": "EXHAUSTED", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
