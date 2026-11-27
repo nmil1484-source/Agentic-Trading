@@ -88005,3 +88005,25 @@ No order placed. Terse log per step 16 — not a new finding, nothing further to
 ```json
 {"cycle": "Mode B/C Entry Screening - Fresh Candle", "timestamp_utc": "2026-11-27T19:03:46Z", "coverage_state": "EVALUATED", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "market_status": "CLOSED - Black Friday early close (unchanged from 18:03Z)", "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 75, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 75, "tool_failures": 0, "not_evaluated_reason": "market closed, deferred to Monday"}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "market closed"}], "coverage_complete": false}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": []}, "calls_made_this_cycle": 1, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-27T19:38Z (11:38 PT) — Crypto 24/7 Scan — OBSERVE, no trade
+
+**STEP 0**: §14 ACTIVE, no kill phrase. Robinhood reachable. `get_crypto_positions` → `[]`, 0/2
+slots. Same-day 2-stop-out cooldown: 1 (LINK), below threshold. Market-shock: equities closed for
+the day, moot. Heat cap: $0 committed, full headroom, moot.
+
+**TradingView** still `EXHAUSTED` — Kraken fallback, 8 calls (1h fresh for all 8, latest completed
+bar now t=18:00Z; 4h still cache-fresh, 0 calls). Same pattern as the two prior cycles: no pair
+shows a confirmed 1h or 4h breakout; 1h RSI 26.44-44.73 (still below the 45 floor everywhere except
+XRP at 44.73, still just under); 1h volume ratios now notably lower (0.13x-0.39x) — declining
+participation within the pullback, not building toward a reclaim. BTC/ETH 4h still shows the same
+lagging-bullish-vs-broken-swing-low mismatch as before, still not actionable (spot-long-only).
+All 8 rejected with evidence. Near-miss queue unchanged (0 entries). Stop-audit trivial (0
+positions). No order placed. `tvremix_consecutive_failed_cycles`: 0 (Kraken clean for all 8).
+Terse log — same condition as the prior two cycles, no new finding to report to chat.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-27T19:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 8, "data_source": "kraken_fallback+cache", "tradingview_quota_status": "EXHAUSTED", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
