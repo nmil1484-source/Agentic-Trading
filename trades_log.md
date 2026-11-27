@@ -88165,3 +88165,33 @@ roll 20:00Z). Updated in `near_miss_queue.md` (cycles_checked 1→2), not remove
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-27T22:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 8, "data_source": "kraken_fallback+cache", "tradingview_quota_status": "EXHAUSTED", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-27T23:38Z (15:38 PT) — Crypto 24/7 Scan — OBSERVE, AAVE still near-miss, no trade
+
+**STEP 0**: §14 ACTIVE, no kill phrase. Robinhood reachable. `get_crypto_positions` → `[]`, 0/2
+slots. Same-day 2-stop-out cooldown: 1 (LINK), below threshold. Market-shock: equities closed,
+moot. Heat cap: $0 committed, full headroom.
+
+**TradingView** still `EXHAUSTED` — Kraken fallback, 8 calls (1h fresh for all 8, latest completed
+bar t=22:00Z; 4h still cache-fresh at t=16:00Z — correctly current: the 16:00-20:00 bar is the
+latest actually completed 4h bar, since the next one, 20:00-24:00Z, doesn't close until 00:00Z).
+
+**Near-miss queue reassessment — AAVE, still a near-miss (3rd cycle), not cleared or invalidated.**
+Still blocked purely on item 7 (4h unchanged, same correctly-current bar). 1h close $95.74 is
+now below this bar's own rolling 5-bar swing high ($95.88, `current_above_prior_swing_high:
+False`) — but that's just the ordinary dynamic recompute of a rolling fractal high as price
+consolidates; the actual level originally broken (~$95.13-95.45) is still held comfortably, so
+this is a pause within the breakout, not a reversal. RSI cooled to 43.48 (back under the 45
+floor), MACD histogram continues improving in direction (-0.0511, least negative of the 3 reads).
+Updated in `near_miss_queue.md` (cycles_checked 2→3), kept queued.
+
+**Other 7 pairs**: no breakout, no change in character. All rejected with evidence.
+
+**Stop-audit**: 0 positions, trivial. **No order placed.** `tvremix_consecutive_failed_cycles`: 0.
+`near_miss_queue.md` changed (AAVE updated) — committed alongside this entry.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-27T23:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 8, "data_source": "kraken_fallback+cache", "tradingview_quota_status": "EXHAUSTED", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
