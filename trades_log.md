@@ -87512,3 +87512,65 @@ to flatten).
   "git_push": "pending"
 }
 ```
+
+## 2026-11-27T15:38Z — AUTONOMOUS (Crypto 24/7 Scan, trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0:** §14 confirmed ACTIVE. No kill phrase found. Same-day stop-out count still 1 (LINK,
+04:38Z). §6 2-stop-out breaker not tripped. TradingView quota still `EXHAUSTED` — 0 TradingView
+calls this cycle, Kraken fallback throughout.
+
+**Positions: 0 of 2 (crypto cap)** — confirmed flat. Portfolio heat: $0.
+
+**Market-shock note (informational — this is the crypto trigger; the equity/QQQ market-shock
+breaker is tracked on the Mode B/C side):** a sharp, broad crypto-wide selloff occurred this
+hour — **every one of the 8 §21 allowlist pairs broke below its prior confirmed 1h swing low
+simultaneously** (BTC, ETH, SOL, XRP, LINK, AAVE, HBAR, AVAX all show
+`current_below_prior_swing_low: True`). BTC itself fell from a 4h close of $61,577.2 to a 1h
+close of $59,125.7. This is a decisively bearish reversal across the entire allowlist, not a
+long-entry opportunity for this spot-long-only lane.
+
+**Near-miss queue reassessment — SOL removed, INVALIDATED.** SOL had been queued as a near-miss
+(item 7 only, 7 cycles) on a bullish 4h breakout thesis; this cycle's 1h close ($70.82) broke
+decisively below its prior confirmed swing low ($72.81) — the opposite of what the near-miss
+needed, and a different/structural item now fails, not merely the still-pending item 7. Removed
+per the queue's own invalidation rule. `near_miss_queue.md` updated and committed.
+
+**New-entry screening — full §21 allowlist, Kraken fallback (0 TradingView calls):** all 8 pairs
+**rejected** this cycle — every one shows a fresh bearish 1h breakdown, the wrong direction for
+this long-only lane, regardless of RS/momentum readings otherwise in favor (LINK +8.72pp RS,
+XRP +5.43pp, SOL +4.76pp all still RS-positive but structurally broken down on the hourly chart
+this cycle).
+
+Coverage: 8/8 pairs triaged. `full_gate_evaluated: 0`, `rejected_with_evidence: 8`,
+`not_evaluated: 0`, `tool_failures: 0`. No new order placed. Robinhood MCP connectivity normal.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21 — AUTONOMOUS_EXECUTE)",
+  "timestamp_utc": "2026-11-27T15:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": true, "missing_found": false, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 0,
+    "rejected_with_evidence": 8,
+    "not_evaluated": 0,
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 0, "invalidated": 1, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "robinhood_mcp_connectivity": "normal",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
