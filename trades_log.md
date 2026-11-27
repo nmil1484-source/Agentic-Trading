@@ -87703,3 +87703,60 @@ reassessment needed. Robinhood MCP connectivity normal.
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-11-27T17:03Z (09:03 PT) — Mode B/C Entry Screening — Fresh Candle — AUTH_BLOCKED
+
+**Robinhood Agentic MCP connector requires re-authentication this cycle.** The connector surfaced
+an authorization-required state rather than returning data. Per the trigger's own
+`coverage_state: AUTH_BLOCKED` handling: no Robinhood tool call was attempted (get_accounts,
+get_portfolio, get_equity_positions, get_option_positions, get_equity_orders, get_equity_tradability,
+review_equity_order, place_equity_order, place_option_order — none called this cycle). Account and
+position state are therefore UNKNOWN this cycle and were not guessed at. No order was placed in
+Mode B or Mode C. No stop-audit (step 2a/9a) or options/LEAPS stop-check (step 2b) could be
+performed — both require live Robinhood data and are logged as NOT PERFORMED this cycle, not as
+"clean."
+
+Per CLAUDE.md's general missing/stale-execution-critical-data rule (Conflict Resolution item 4),
+this is classified NO_TRADE / effectively PAUSED_PENDING_RECONCILIATION for new-entry purposes
+this cycle only — existing protective stops already resting at the broker (from prior cycles)
+remain in force at the broker independently of this session's tool access; this session simply
+could not verify or act on them this cycle.
+
+TradingView-side pure-calculation screening (optional per this trigger's own protocol when
+Robinhood is AUTH_BLOCKED) was skipped this cycle — with position/account state unknown and no
+order able to be placed or verified regardless, a full Stage-2/§22/options-sourcing screen would
+produce no actionable output; reserved for the next cycle once Robinhood access is confirmed
+restored.
+
+**Action required**: the user needs to reauthorize the Robinhood Agentic connector (claude.ai →
+Settings → Connectors → Robinhood Agentic), same remedy as the 2026-10-03 precedent in this log.
+
+```json
+{
+  "cycle": "Mode B/C Entry Screening - Fresh Candle",
+  "timestamp_utc": "2026-11-27T17:03:27Z",
+  "coverage_state": "AUTH_BLOCKED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "UNKNOWN - Robinhood MCP auth-blocked, could not verify",
+  "circuit_breakers_active": "UNKNOWN - could not check",
+  "positions": {"mode_b_count": "UNKNOWN", "mode_c_count": "UNKNOWN"},
+  "stop_audit": {"checked": false, "missing_found": "N/A", "placed": "N/A", "reason": "Robinhood AUTH_BLOCKED"},
+  "options_stop_check": {"checked": false, "breached": "N/A", "exited": "N/A", "reason": "Robinhood AUTH_BLOCKED"},
+  "coverage": {"universe_size": 74, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": "all 74 - AUTH_BLOCKED", "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": "unchanged", "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "not checked this cycle"},
+  "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "Robinhood AUTH_BLOCKED - TradingView screening skipped, no actionable path"}], "coverage_complete": false},
+  "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true},
+  "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0},
+  "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []},
+  "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": []},
+  "calls_made_this_cycle": 0,
+  "tvremix_calls_used_today": "unchanged - see prior entries",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "robinhood_mcp_connectivity": "AUTH_BLOCKED - requires user reauthorization via claude.ai Connectors",
+  "git_push": "pending"
+}
+```
