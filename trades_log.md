@@ -88027,3 +88027,21 @@ Terse log — same condition as the prior two cycles, no new finding to report t
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-27T19:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 8, "data_source": "kraken_fallback+cache", "tradingview_quota_status": "EXHAUSTED", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+### 2026-11-27T20:03Z (12:03pm PT) — AUTONOMOUS (Mode B/C Entry Screening — Fresh Candle, trig_01KrBsTt9mssjU4hPGtM3cBe) — MARKET CLOSED (unchanged), NO_TRADE — last Fresh Candle cycle of the day
+
+**STEP 0**: §14 ACTIVE confirmed, no kill phrase. Account re-confirmed flat (`get_equity_positions`/
+`get_option_positions` both `[]`). Stop-audits (2a/9a) and options/LEAPS stop-check (2b) trivially
+clear. Market closure confirmed twice already today (18:03Z, 19:03Z) — not re-verified a third
+time; no reason to expect it reopened mid-afternoon on a scheduled early-close day. Same deferral
+as the prior two cycles applies. This is this trigger's last scheduled firing in today's
+16:03-20:03 UTC window. Next scheduled activity: the 20:55Z "Mode B/C End-of-Day Protective
+Check" (account already flat, nothing to flatten), then the crypto trigger continues hourly
+overnight/through the weekend, then Monday 2026-11-30's Premarket Prep (~14:00 UTC) and First Scan
+(15:00 UTC) resume full equity/options/§22 screening. No order placed.
+
+```json
+{"cycle": "Mode B/C Entry Screening - Fresh Candle", "timestamp_utc": "2026-11-27T20:03:19Z", "coverage_state": "EVALUATED", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "market_status": "CLOSED - Black Friday early close (unchanged)", "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"universe_size": 75, "triaged": 0, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 75, "tool_failures": 0, "not_evaluated_reason": "market closed, deferred to Monday"}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0}, "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": [{"symbol": "ALL_9", "reason": "market closed"}], "coverage_complete": false}, "scan_budget_allocation": {"etf_calls": 0, "mode_c_calls": 0, "options_leaps_calls": 0, "mode_b_calls": 0, "mode_b_deferred": true, "options_leaps_deferred": true}, "options_leaps_coverage": {"selected": [], "deferred": "all", "evaluated": 0, "rejected": 0, "data_blocked": 0}, "vertical_spread_paper_screening": {"candidates_evaluated": 0, "passed_item4_rr_realistic_basis": [], "sized_ok": [], "skipped_cap_or_heat": []}, "mode_c_orb": {"symbols_checked": 0, "no_breakout_yet": [], "fresh_setups": [], "missed_not_evaluated": []}, "calls_made_this_cycle": 0, "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
