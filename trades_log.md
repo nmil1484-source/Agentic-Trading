@@ -86532,3 +86532,41 @@ No circuit breaker active. No orders placed this cycle (XRP's prior exit was han
   "git_push": "pending"
 }
 ```
+
+## 2026-11-27 01:38Z — Crypto 24/7 Scan
+
+**STEP 0 gate check:** §14 Status ACTIVE confirmed. No kill phrase found. Trigger origin verified (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`). Robinhood MCP connector confirmed reachable.
+
+Account ••••8058 confirmed. Open positions: **XRP only (1 of 2 cap)**. Stop `6b0747f2-...` @ $0.922 (GTC) confirmed resting. Mark $0.946659785 → R ≈ **+0.11R**. No action.
+
+**Near-miss queue reassessment (LINK, SOL — the two item-7 near-misses queued last cycle):**
+- **LINK**: fresh 1h bar (t=1795737600) closed $9.358, a genuine bullish reversal off the $9.246 pullback low (last cycle's 3 declining 1h closes have reversed); live ask has since risen further to $9.4296. **Still not cleanly confirmed**: close remains below the absolute 5-bar swing high ($9.426), and a hand-estimated ATR14(1h)≈$0.082 puts the stop-distance right at the edge of the 2-2.5×ATR ceiling — too marginal to call without the precise module computation. **TradingView's daily quota was exhausted mid-cycle** (confirmed via a real `TOOL_QUOTA_EXCEEDED` on the next call, for SOL's 1h) before that precise computation could run — deliberately did not size/place an order off a hand-approximated ATR. Remains queued, updated, cycle 2.
+- **SOL**: reassessed via **Kraken fallback** (TradingView quota exhausted, recorded via `record_tradingview_result(quota_error=True)`) — fresh 1h bar closed $71.18, a modest bounce but still inside the existing range, no reclaim. Remains queued, unchanged status, cycle 2.
+
+**TradingView quota status**: `AVAILABLE` at cycle start (today's first attempt had already succeeded in the prior 00:38Z cycle); exhausted mid-cycle this time on the 4th call (LINK 4h, LINK 1h, SOL 4h succeeded; SOL 1h hit `TOOL_QUOTA_EXCEEDED`). Routed to Kraken for SOL's 1h only (the one remaining need); the rest of the allowlist (BTC, ETH, AAVE, HBAR, AVAX) was not re-screened this cycle — their last-cycle rejections (catalyst/RS/structural) stand unchanged, nothing material would be gained from a fresh pull one hour later given Kraken has no Stage-A prioritization equivalent and budget is now constrained for the rest of the day.
+
+No new entry this cycle. No circuit breaker active. Portfolio heat cap: informational only (no new entry sized) — XRP risk unchanged, well inside the 6% cap.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-27T01:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 2, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 6, "tool_failures": 0, "note": "only the 2 queued near-misses (LINK, SOL) reassessed this cycle; remaining 6 pairs not re-screened (budget-constrained, no material change expected within 1 hour of last full screen)"},
+  "near_miss_queue": {"reassessed": 2, "cleared": 0, "still_near_miss": 2, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 4,
+  "data_source": "mixed (tradingview: LINK 4h/1h, SOL 4h; kraken_fallback: SOL 1h)",
+  "tradingview_quota_status": "EXHAUSTED",
+  "robinhood_mcp_connectivity": "reachable",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
