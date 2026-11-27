@@ -86712,3 +86712,51 @@ No new-entry screening performed this cycle (focus was the stop-out discovery an
   "git_push": "pending"
 }
 ```
+
+## 2026-11-27 05:38Z — Crypto 24/7 Scan
+
+**STEP 0 gate check:** §14 Status ACTIVE confirmed. No kill phrase found. Trigger origin verified (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`). Robinhood MCP connector confirmed reachable (tools had deferred from session scope; reloaded via ToolSearch).
+
+Account ••••8058 confirmed. Open positions: **XRP only (1 of 2 cap)**. Stop `6b0747f2-...` @ $0.922 (GTC) confirmed resting. Mark $0.96603422 → R ≈ **+0.99R — extremely close to the +1R breakeven trigger** ($0.96628126, a gap of just $0.00025). Not yet crossed; flagging for a close look next cycle.
+
+**Full-allowlist screen (capacity allows, 1 slot free).** TradingView still `EXHAUSTED` for today — used Kraken fallback for the 6 non-XRP, non-recently-queued pairs (BTC, ETH, SOL, AAVE, HBAR, AVAX):
+
+| Pair | 4h breakout | 4h pullback | 1h breakout | RSI(4h)/RSI(1h) |
+|---|---|---|---|---|
+| BTC | **Yes** (close $61320.9 > prior 4h high) | 52.0% | No | 65.4/69.4 |
+| ETH | **Yes** | 55.5% | No | 63.8/72.0 |
+| SOL | **Yes** | 45.0% | No | 71.0/76.8 |
+| AVAX | **Yes** | 47.9% | No | 59.3/72.6 |
+| AAVE | No | 59.0% | No | 60.9/67.7 |
+| HBAR | No | 59.1% | No | 75.3/60.6 |
+
+**A broad, market-wide rally** — 4 of 6 pairs confirm a 4h breakout simultaneously, with notably elevated RSI readings across the board (60-77 range on 1h). **None show a confirmed 1H execution trigger yet** (every pair's last completed 1h close remains below its own prior 1h swing high) — item 7 fails for all six this cycle. Given the breadth of the move and how extended the RSI readings already are (a real risk of the kind of fast reversal that just stopped out LINK two cycles ago), **not adding all four 4h-breakout pairs to the near-miss queue** to avoid clutter — this is logged as rejected-with-evidence (item 7) for this cycle; the full allowlist gets re-screened next cycle as usual, and any pair that actually confirms a 1h trigger then gets picked up fresh.
+
+**Per-symbol labels this cycle:** XRP — already held, not screened for new entry. BTC, ETH, SOL, AVAX — rejected with evidence (item 7, no 1h trigger despite 4h breakout). AAVE, HBAR — rejected with evidence (item 7, no 4h breakout either). LINK — not re-screened (just stopped out this session; no fresh structural change in the last hour to revisit).
+
+No new entry. No circuit breaker active (same-day stop-out count remains 1). Portfolio heat: XRP only, unchanged, well under the 6% cap.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-27T05:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "same_day_stop_out_count": 1,
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 6, "full_gate_evaluated": 6, "rejected_with_evidence": 6, "not_evaluated": 1, "tool_failures": 0, "note": "XRP already held, not screened; LINK not re-screened (stopped out this session)"},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "robinhood_mcp_connectivity": "reachable",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
