@@ -87070,3 +87070,70 @@ Coverage: 7/7 pairs triaged. `full_gate_evaluated: 0`, `rejected_with_evidence: 
   "git_push": "pending"
 }
 ```
+
+## 2026-11-27T11:38Z — AUTONOMOUS (Crypto 24/7 Scan, trigger_id trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0:** §14 confirmed ACTIVE. No kill phrase found. Same-day stop-out count still 1 (LINK,
+04:38Z) — §6 breaker not tripped. Market-shock breaker inapplicable (overnight). TradingView
+quota still `EXHAUSTED` — 0 TradingView calls this cycle, Kraken fallback throughout.
+
+**Position management — XRP (1 of 2 concurrent-position cap):**
+- Stop-audit: prior stop ($0.957) confirmed resting before this cycle's checks.
+- `get_crypto_quotes`: mark $0.97533073 → R = (0.97533073 − 0.94414063) / 0.02214063 = **+1.409R**
+  — price pulled back from the +1.76R peak reached last cycle.
+- **Peak-retracement:** mark is below the tracked peak ($0.98315201) — **peak NOT lowered** (per
+  the never-lower rule), stays at $0.98315201. Retracement exit trigger stays
+  **$0.97144860**. Current mark ($0.97533073) remains above the trigger — no exit, by a margin of
+  ~$0.0039.
+- **Trailing-stop raise:** fresh Kraken 1h bars → `swing_points()`: confirmed swing low now
+  **$0.96718**, above the $0.95836 basis for the $0.957 stop — another genuine new confirmed
+  higher low. Canceled the $0.957 stop (id `6b095dc2-...`, confirmed `canceled`), placed a new GTC
+  stop at **$0.966** (just below $0.96718), confirmed **resting** (id
+  `6b096ba7-8705-4e0c-8335-25018545392e`, state `confirmed`). Stop raised $0.957 → $0.966, never
+  lowered. Still below the $0.97144860 retracement trigger — the retracement rule would still fire
+  first on a continued decline from here, by a narrower margin than before ($0.966 vs. the
+  trigger's $0.97145).
+
+**New-entry screening — full §21 allowlist, Kraken fallback (0 TradingView calls):**
+- **SOL (near-miss, cycles_checked now 4) reassessed**: still fails item 7 only — 1h close $73.31
+  vs. confirmed 1h swing high $73.83 (pulled back slightly this cycle). Other items unchanged
+  (RS +4.86pp, Momentum confirming). **Still a near-miss** — updated in near_miss_queue.md.
+- BTC: no breakout, RS 0.00pp — **rejected**. ETH: no breakout, RS +0.33pp — **rejected**.
+- AAVE: no breakout, RS **−10.11pp** — **rejected**, item 2.
+- HBAR: no new 1h trigger, RS +1.12pp — **rejected**, item 7.
+- AVAX: no breakout either TF this cycle, RS −1.63pp — **rejected**.
+
+Coverage: 7/7 pairs triaged. `full_gate_evaluated: 0`, `rejected_with_evidence: 5`,
+`not_evaluated: 0`, `tool_failures: 0`. No new order placed. Portfolio heat: XRP still $0
+(above breakeven). Robinhood MCP connectivity normal throughout.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan (§21 — AUTONOMOUS_EXECUTE)",
+  "timestamp_utc": "2026-11-27T11:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": true, "missing_found": false, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 7,
+    "full_gate_evaluated": 0,
+    "rejected_with_evidence": 5,
+    "not_evaluated": 0,
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "robinhood_mcp_connectivity": "normal",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 2,
+  "git_push": "pending"
+}
+```
