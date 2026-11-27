@@ -87358,3 +87358,157 @@ Coverage: 8/8 pairs triaged. `full_gate_evaluated: 0`, `rejected_with_evidence: 
   "git_push": "pending"
 }
 ```
+
+## 2026-11-27T15:04Z (10:04am ET) — Mode B/C First Scan of Day (trigger_id trig_01RN6ZbtgxKpoDApzmGswWAs)
+
+**STEP 0:** §14 Mode B AUTONOMOUS_EXECUTE Status confirmed ACTIVE. No kill phrase found. DST check:
+cron target ~10am ET; actual ET time this cycle ≈10:04am ET (15:04 UTC − 5h EST) — no drift.
+Today is the day after Thanksgiving (half-day session, early close ~1pm ET) — a real trading day,
+not a holiday closure.
+
+**Account check:** `get_accounts`/`get_portfolio` (••••8058): total value $4,836.87, all cash
+($4,836.87), equity_value $0, options_value $0, crypto_value $0 (crypto desk is flat this cycle
+per the separate 24/7 trigger's own 14:38Z entry). **Zero open Mode B equity positions**
+(`get_equity_positions` → empty), **zero open Mode C positions** (same list), **zero open §18/§19
+options/LEAPS positions** (`get_option_positions` → every entry shows `quantity: 0.0000` on both
+legs, i.e. fully closed — IGV, NOW, GOOG, CBRS, PLTR, TSLL, DLLL, IBIT, BMNR all historical/closed).
+
+**Stop-audits (2a Mode B equities, 9a Mode C):** trivially clear — zero open positions in either
+lane, nothing to audit. **Options/LEAPS stop-check (2b):** zero open positions — nothing to check,
+logged per protocol even at zero.
+
+**Same-day 2-stop-out cooldown:** NOT APPLICABLE — today's only stop-outs are on the crypto desk
+(LINK, 04:38Z, 1 genuine loss; the HBAR 23:38Z-yesterday and XRP 11:45Z-today exits were both
+profit-taking, not counted per the crypto trigger's own established convention) — count is 1,
+never reached the 2-stop-out threshold, so no cooldown was ever active to clear this cycle.
+
+**Circuit breakers:** none active. 3%-equity-decline: not triggered (no equity/options exposure
+to decline; cash+crypto only). Market-shock pause: no evidence of a >1.5% SPY/QQQ single-cycle
+move this morning (SPY ~$716.70-716.75 flat across this cycle's own daily/hourly pulls). Portfolio
+heat cap: $0 Mode B/C open risk (no positions); moot this cycle regardless since no new entry
+qualified.
+
+**FTA Regime Dashboard** (`/api/dashboard-data`, fetched live this cycle, generated_at 2026-11-27
+10:05:00 ET): `regime.call: "cautious"`, headline "Global liquidity sitting at $196.2 Trillion",
+`macro.hy_oas: 3.72` (credit spreads, context only — not a gate).
+
+**TradingView quota: `EXHAUSTED` all day** (confirmed independently 3 times already today by the
+crypto trigger and the Premarket Prep trigger) — **0 TradingView calls attempted this cycle**,
+full Robinhood-native fallback used throughout per the exhaustion-handling note (`get_equity_historicals`
+for Stage 1/Stage 2/§22, reusing `dev_scanner/tv_structure.py`'s same completed_bars/swing_points/
+rsi14/macd/atr14/volume_baseline_13h functions on Robinhood-sourced bars instead of TradingView-
+sourced ones — same gate computation, only the bar source differs, same principle as the crypto
+trigger's Kraken fallback).
+
+**STAGE 1 — full-universe triage, 75/75 names (`watchlist.md`'s actual current count, corrected
+from a stale "74").** One `get_equity_historicals` call (daily, 2026-09-01 to now) covering all
+75 names in a single call (within the tool's 75-symbol/explicit-interval cap). Coarse read only
+(last close, 5-session %, RSI14, daily swing_points) — never cited as a full gate evaluation.
+Broad market weakness over the last 5 sessions (most names negative 5-10%+; several leveraged/
+crash names down 15-45%: AMDG -43.6%, AMD -23.4%, CORZ -23.0%, KEEL -22.0%, NBIS -20.5%). Two
+names flagged a genuine fresh **daily** breakout this triage pass (noted for future rotation
+priority, NOT fully evaluated this cycle since neither was in today's Stage-2 batch): **PATH**
+(close $12.42 > prior daily swing high, and reports earnings 2026-12-03pm — within the DTE
+window, flagged for 3a/3b priority next cycle it's rotated in) and **DIS** (close $125.60 > prior
+daily swing high). **AMZN** flagged a fresh daily breakdown (close $244.43 < prior daily swing
+low) — AMZN was already fully Stage-2-evaluated in an earlier rotation batch (pre-Thanksgiving);
+this is new information for its next reassessment, not acted on this cycle since it's not in
+today's batch and there is no active near-miss entry for it to update.
+
+**STAGE 2 — full-gate evaluation, 12-name rotation (0 slots reserved for near-miss reassessment —
+the Mode B/C equities near-miss queue is empty, confirmed below).** Rotation continues from the
+pre-Thanksgiving state (yesterday was a market holiday, no rotation ran): 48 of 75 names were
+already fully Stage-2-evaluated across 4 prior batches before Thanksgiving (AVA/DIS/ANT/ONDS/
+RKLB/AMD/IREN/HIMS/OKLO/TEM/SOFI/CRCL; TTD/TSLA/AAPL/GOOG/DUOL/PLTR/NVDA/DRAM/DELL/HPE/CRWV/ZS;
+CBRS/INTC/LLY/SHOP/LMND/PATH/ARKG/RGTI/VRT/PLAB/RUN/MU; AMZN/NFLX/RDW/ASTS/KTOS/STM/ZETA/HOOD/
+AVAV/TSM/NOW/ORCL) — this cycle takes the next 12 of the 27 remaining, in watchlist order:
+**SPY, OSCR, QQQ, PURR, BMNR, CVX, KEEL, UBER, NBIS, FIG, GDX, IGV.**
+
+Two `get_equity_historicals` calls (daily reused from Stage 1; hourly, 2026-11-13 to now, 12
+names in one call). Per-name result — **all 12 REJECTED with evidence, item 7 (no computable
+daily-setup-plus-hourly-trigger under any permitted method):**
+- **SPY, QQQ, CVX, UBER, FIG**: a real daily pullback structure exists (`pullback_depth()`
+  computed), but depth is 64-98% — deeply overextended, not a healthy/actionable pullback, and no
+  breakout/breakdown on either timeframe (`current_above_prior_swing_high`/`current_below_prior_swing_low`
+  both False, daily and hourly, for all five).
+- **OSCR, PURR, BMNR, KEEL, NBIS, GDX, IGV**: no computable pullback structure at all
+  (`pullback_depth()` → `None`) AND no breakout/breakdown on either timeframe — a genuine
+  structural absence under both permitted entry methods (§13.A-D pullback, §13.G breakout-
+  continuation), checked explicitly per the "`None` is not proof" principle rather than assumed.
+
+No candidate cleared §5B or the Bearish Mirror Gate this cycle — **0 options/LEAPS evaluations
+triggered via 3a** (nothing to evaluate against, since no underlying cleared). **3b (LEAPS
+proactive sourcing):** not run this cycle given the overall Robinhood-fallback workload already
+spent on Stage 1/2/§22 below — logged as deferred, not silently skipped. **Earnings-calendar
+sourcing (part of 3a):** `get_earnings_calendar` (14-day forward window, all 75 watchlist names)
+→ only 3 reports fall in the window: PATH (2026-12-03pm), AVAV (2026-12-08pm), PLAB (2026-12-09am)
+— none today, no §4 30-minute conflict. None independently cleared the equity gate this cycle to
+trigger an options evaluation. **Politician-trades sourcing:** not run this cycle (deferred,
+same resource-allocation reason).
+
+**§22 Leveraged/Inverse ETF screen — MANDATORY, all 9 + the 4 underlyings (QQQ/SPY already
+pulled above; SOXX/IWM pulled fresh) — Robinhood fallback, same `tv_structure.py` pipeline:**
+- **TQQQ** (long QQQ): no breakout either TF on QQQ or TQQQ itself — **rejected**, item 7 (no
+  daily setup on the underlying or the ETF).
+- **SQQQ** (inverse QQQ): underlying (QQQ) shows no confirmed bearish breakdown — **rejected**,
+  item 2 (underlying bearish thesis not established).
+- **SOXL** (long SOXX): SOXL's own 1h broke its prior swing high ($32.02 > $31.79), and SOXX's 1h
+  did too — but neither shows a **daily** setup (SOXX/SOXL daily RSI 44-48, no daily breakout) —
+  an hourly move alone without a daily setup fails item 7's dual-timeframe requirement —
+  **rejected**.
+- **SOXS** (inverse SOXX): SOXS's own 1h broke BELOW its prior swing low — the WRONG direction for
+  a long inverse-ETF entry (§22 item 2 requires a bullish read on the inverse ETF's own chart,
+  never bearish, which would just confirm the underlying is rising — consistent with SOXX's own
+  1h breakout above) — **rejected**, wrong-direction confirmation.
+- **SPXL** (long SPY): no breakout on SPY or SPXL, either TF — **rejected**.
+- **SPXU** (inverse SPY): SPY shows no confirmed bearish breakdown — **rejected**, item 2.
+- **TNA** (long IWM): no breakout on IWM or TNA, either TF — **rejected**.
+- **TZA** (inverse IWM): IWM shows no confirmed bearish breakdown — **rejected**, item 2.
+- **AMDG** (long AMD, 2x): AMD/AMDG both cratering (-23.4%/-43.6% over 5 sessions) with no daily
+  breakout and no bullish structure of any kind — **rejected**, wrong direction entirely (only a
+  long-biased vehicle is permitted here; there is no inverse-AMD ETF on the allowlist to express
+  the actual move).
+
+**§22 completion check: 9/9 named ETFs accounted for (9 rejected with evidence, 0 not-evaluated)
+— `coverage_complete: true`.**
+
+**Near-miss queue (`near_miss_queue.md`):** Mode B/C equities table and §22 leveraged/inverse-ETF
+table both confirmed **empty** (every row struck-through/historical) — 0 reassessment needed,
+file unchanged by this step. AMD pending-eligibility: already resolved 2026-11-19, not applicable.
+
+**Mode C (§20):** reused this cycle's Stage 1/2 + §22 hourly pulls (23 names total: the 12-name
+Stage-2 batch plus the 9 §22 ETFs + SOXX + IWM) rather than a separate dedicated scan — **partial
+coverage, logged plainly, not hidden**: no dedicated full-watchlist ORB/VWAP-pullback/mean-
+reversion scan was run this cycle given the overall Robinhood-fallback workload. Within the 23
+names actually checked: hourly RSI14 ranged 32.9-74.6, none reaching the <20/>80 mean-reversion
+extreme (closest: OSCR 74.61, CVX 72.51 — both short of 80). No qualifying VWAP-pullback/ORB
+setup identified among this subset. Zero Mode C positions open (same-day flatten moot — nothing
+to flatten).
+
+**Orders placed this cycle: 0 (Mode B or Mode C).**
+
+```json
+{
+  "cycle": "Mode B/C First Scan of Day",
+  "timestamp_utc": "2026-11-27T15:04:00Z",
+  "timestamp_pacific": "2026-11-27T07:04:00-08:00",
+  "coverage_state": "EVALUATED",
+  "modes_covered": ["B", "C"],
+  "status_gate": "ACTIVE",
+  "circuit_breakers_active": [],
+  "same_day_2_stop_out_cooldown_cleared_this_cycle": "not_applicable",
+  "positions": {"mode_b_count": 0, "mode_c_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "options_stop_check": {"checked": 0, "breached": 0, "exited": 0},
+  "coverage": {"universe_size": 75, "triaged": 75, "full_gate_evaluated": 12, "rejected_with_evidence": 12, "not_evaluated": 63, "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "amd_pending_eligibility_status": "resolved, not pending (see 2026-11-19 entry)"},
+  "leveraged_etf_coverage": {"universe_size": 9, "evaluated": 9, "rejected_with_evidence": 9, "not_evaluated": [], "coverage_complete": true},
+  "calls_made_this_cycle": 0,
+  "tvremix_calls_used_today": 0,
+  "robinhood_calls_this_cycle": 5,
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
