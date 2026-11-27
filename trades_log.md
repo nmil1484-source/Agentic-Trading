@@ -87928,3 +87928,63 @@ complete for the rest of today beyond what already exists).
   "git_push": "pending"
 }
 ```
+
+---
+
+## 2026-11-27T18:38Z (10:38 PT) — Crypto 24/7 Scan — OBSERVE, no trade
+
+**STEP 0**: §14 ACTIVE confirmed, no kill phrase. Robinhood MCP reachable (`get_accounts` clean).
+
+**Account**: `get_crypto_positions` → `[]`, 0 of 2 concurrent slots used — still fully flat.
+
+**Circuit breakers**: same-day 2-stop-out cooldown — 1 stop-out today (LINK, unchanged), below
+threshold. Market-shock pause: equity markets already closed for the day (Black Friday early
+close, confirmed at the 18:03Z Fresh Candle cycle) — inapplicable/moot for the rest of today.
+Portfolio heat cap: $0 committed anywhere, full headroom, moot (nothing clears the gate).
+
+**Near-miss queue**: 0 active entries, nothing to reassess.
+
+**TradingView**: still `EXHAUSTED` for 2026-11-27 — routed straight to Kraken fallback, 0
+TradingView calls. **Kraken**: 1h cache stale for all 8 pairs (new bar due) — 8 fresh fetches,
+all `status: "OK"`, latest completed 1h bar now t=17:00Z. 4h cache still fresh for all 8 (current
+4h candle 16:00-20:00Z still forming) — served from cache, 0 network calls. `calls_made_this_cycle`: 8.
+
+**Per-pair gate check — all 8 still rejected, same underlying condition as the 17:38Z cycle, one
+hour further into the same pullback:** no pair shows a confirmed breakout above its own prior 1h
+or 4h swing high (`current_above_prior_swing_high` false for all 8, both timeframes). 1h RSI
+28.58-44.79 across the board, still below the 45 Momentum floor for every pair except SOL
+(44.50, still just under) and LINK (44.79, still just under) — both now marginally closer to the
+floor than last cycle but neither there yet. 1h volume ratios all well below 1 (0.18x-0.69x of
+the 3-bar baseline) — no volume confirmation anywhere. BTC/ETH's 4h close remains below its own
+prior 4h swing low (bearish Location reading), still contradicted by a lagging-bullish EMA/RSI
+stack on 4h — same mismatch as last cycle, still not an executable signal either direction for a
+spot-long-only policy. **No single-item near-misses** — multiple items fail simultaneously on
+every pair. Nothing added to the near-miss queue.
+
+**Stop-audit**: 0 open positions, trivially clear. **No order placed.**
+`tvremix_consecutive_failed_cycles`: 0 (Kraken supplied clean, fresh data for all 8 — not a
+DATA_BLOCKED cycle).
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-27T18:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 0},
+  "stop_audit": {"checked": true, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 8, "not_evaluated": [], "tool_failures": 0},
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 8,
+  "data_source": "kraken_fallback+cache",
+  "tradingview_quota_status": "EXHAUSTED",
+  "robinhood_mcp_connectivity": "normal",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
