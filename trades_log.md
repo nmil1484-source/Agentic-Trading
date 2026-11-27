@@ -86570,3 +86570,43 @@ No new entry this cycle. No circuit breaker active. Portfolio heat cap: informat
   "git_push": "pending"
 }
 ```
+
+## 2026-11-27 02:38Z — Crypto 24/7 Scan
+
+**STEP 0 gate check:** §14 Status ACTIVE confirmed. No kill phrase found. Trigger origin verified (`trig_01UUXAtYHjn7nBgzkdvZU4Rv`). Robinhood MCP connector confirmed reachable.
+
+Account ••••8058 confirmed. Open positions: **XRP only (1 of 2 cap)**. Stop `6b0747f2-...` @ $0.922 (GTC) confirmed resting. Mark $0.963155555 → R ≈ **+0.86R** — approaching the +1R breakeven trigger (needs mark ≥ $0.96628126) but not yet there. No action.
+
+**TradingView quota status**: confirmed `EXHAUSTED` for today via `should_attempt_tradingview()` returning `False` — went straight to Kraken fallback, no TradingView calls attempted this cycle (correctly not re-discovering a known-dead quota).
+
+**Near-miss queue reassessment (LINK, SOL), precise module computation this time (Kraken bars fed through the real `tv_structure.py` functions — `completed_bars`/`swing_points`/`pullback_depth`/`atr14`/`rsi14`/`macd`, not hand-estimated):**
+- **LINK**: last completed 1h bar (t=1795741200) closed $9.31482, high $9.36017 — still below the $9.40994 swing high, no confirmed breakout. 1h ATR14 = $0.07833 (matches last cycle's hand-estimate). 4h unchanged (pullback 25.0%, healthy; RSI 70.6, MACD bullish). **Live ask has since run to $9.6095 — over 2.5×ATR(1h) beyond the last confirmed close** — real momentum, but the forming candle, not usable as gate evidence. Sizing off the stale pullback low ($9.23385) now would put risk at ~$0.376, well over even the 2.5×ATR ceiling ($0.196), because price has detached from that old stop basis. Needs a fresh, tighter stop once an actual breakout candle closes. Not traded.
+- **SOL**: same pattern. Last completed 1h bar closed $71.37 (high $71.5), still below the $71.74 swing high. 1h ATR14 = $0.538. Live ask has run to $73.27 — nearly 3×ATR beyond the last confirmed close. Sizing off the stale swing low ($70.76) would be ~$2.51 risk, over the ~$1.345 ceiling. Not traded.
+
+Both remain queued, updated with the precise figures, cycle 3. No other pairs re-screened this cycle (budget-constrained; no material change expected in BTC/ETH/AAVE/HBAR/AVAX's rejections from 2 cycles ago).
+
+No new entry. No circuit breaker active. Portfolio heat cap: informational only — XRP unchanged, well inside the 6% cap.
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-27T02:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"crypto_count": 1},
+  "stop_audit": {"checked": 1, "missing_found": 0, "placed": 0},
+  "coverage": {"universe_size": 8, "triaged": 2, "full_gate_evaluated": 0, "rejected_with_evidence": 0, "not_evaluated": 6, "tool_failures": 0, "note": "only the 2 queued near-misses (LINK, SOL) reassessed this cycle via Kraken; remaining 6 pairs not re-screened"},
+  "near_miss_queue": {"reassessed": 2, "cleared": 0, "still_near_miss": 2, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 0,
+  "data_source": "kraken_fallback",
+  "tradingview_quota_status": "EXHAUSTED",
+  "robinhood_mcp_connectivity": "reachable",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
