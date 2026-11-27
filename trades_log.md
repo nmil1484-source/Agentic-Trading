@@ -88103,3 +88103,38 @@ from inside a single cycle.
 ```json
 {"cycle": "Mode B/C End-of-Day Protective Check", "timestamp_utc": "2026-11-27T20:55:51Z", "modes_covered": ["B","C"], "status_gate": "ACTIVE", "circuit_breakers_active": [], "positions": {"mode_b_count": 0, "mode_c_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "options_stop_check": {"checked": true, "breached": 0, "exited": 0}, "coverage": {"note": "no new-entry screening this cycle by design - protective-management/close-of-day cycle only"}, "step_0_5_flatten": {"applicable": true, "mode_c_positions_found": 0, "action_taken": "none needed - already flat"}, "scheduling_note": "20:55 UTC fired ~2h55m after today's actual Black Friday early close (18:00 UTC), not 5 min before it - no practical effect, account flat all session", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-27T21:38Z (13:38 PT) — Crypto 24/7 Scan — OBSERVE, new near-miss (AAVE), no trade
+
+**STEP 0**: §14 ACTIVE, no kill phrase. Robinhood reachable. `get_crypto_positions` → `[]`, 0/2
+slots. Same-day 2-stop-out cooldown: 1 (LINK), below threshold. Market-shock: equities closed,
+moot. Heat cap: $0 committed, full headroom.
+
+**TradingView** still `EXHAUSTED` — Kraken fallback, 8 calls (1h fresh for all 8, latest completed
+bar t=20:00Z; 4h still cache-fresh from the 20:38Z cycle, t=16:00Z, 0 calls).
+
+**AAVE — genuine new near-miss this cycle, added to `near_miss_queue.md`.** 1h close $95.21 broke
+above the prior confirmed 1h swing high ($95.13) — a real Location/breakout confirmation, the
+first breakout anywhere on the allowlist in 4 consecutive cycles. Checked fully before queuing:
+RS vs BTC +1.34pp over 24h (AAVE -0.21% vs. BTC -1.55%, computed from completed 1h closes) —
+real and positive, though modest; the 1-of-6 confirmation floor is independently satisfied by the
+Location/breakout confirmation alone (Volume 0.99x and 1h Momentum both fail on the same bar, but
+item 3 only needs one). **Blocked purely on item 7**: the 4h chart (last completed bar 16:00Z,
+served from cache) shows no corresponding setup — still bearish EMA9/20, no breakout above its
+own $97.75 swing high, no pullback structure either. A 1H trigger with nothing on 4H to pair it
+with is not sufficient per §21 item 3's dual-timeframe requirement. Not sized/R:R-checked yet —
+moot until a future cycle's 4h candle actually confirms. Logged as a single-item near-miss, not a
+multi-item reject.
+
+**Other 7 pairs**: no change in character from the prior 2 cycles — no breakout on either
+timeframe, 1h RSI 21.07-43.03 (all still below 45), momentum weak across the board. All 7
+rejected with evidence.
+
+**Stop-audit**: 0 positions, trivial. **No order placed.** `tvremix_consecutive_failed_cycles`: 0.
+`near_miss_queue.md` changed (AAVE added) — committed alongside this entry.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-27T21:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0, "added": ["AAVE"]}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 8, "data_source": "kraken_fallback+cache", "tradingview_quota_status": "EXHAUSTED", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
