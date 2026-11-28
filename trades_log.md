@@ -88195,3 +88195,39 @@ Updated in `near_miss_queue.md` (cycles_checked 2→3), kept queued.
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-27T23:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 8, "data_source": "kraken_fallback+cache", "tradingview_quota_status": "EXHAUSTED", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+---
+
+## 2026-11-28T00:38Z (16:38 PT Nov 27) — Crypto 24/7 Scan — OBSERVE, AAVE still near-miss, no trade
+
+**STEP 0**: §14 ACTIVE, no kill phrase. Robinhood reachable. `get_crypto_positions` → `[]`, 0/2
+slots. New UTC date (2026-11-28) — same-day 2-stop-out cooldown resets conceptually but was never
+2 anyway (1, LINK, unchanged); per CLAUDE.md's own correction this only formally lifts at the
+next First Scan trigger, moot either way since it was never active. Market-shock: equities
+closed (weekend), moot. Heat cap: $0 committed, full headroom.
+
+**TradingView: first real attempt of the new UTC day — SUCCEEDED.** `should_attempt_tradingview()`
+returned True (untested today); Stage A batch call for all 8 pairs returned cleanly, recorded via
+`record_tradingview_result(success=True)`. Quota status now `AVAILABLE`. Ran the full Stage B
+pipeline on TradingView/Binance for all 8 pairs, both timeframes (16 calls) — a genuine
+cross-check against a different venue than the Kraken fallback used all of yesterday.
+
+**AAVE near-miss — reassessed on a second, independent data source, still unresolved (item 7).**
+Despite switching from Kraken to TradingView/Binance, the picture is consistent: 1h last
+completed bar (23:00Z) closed $95.59, still below its recent local high ($95.98); 4h last
+completed bar (20:00Z) closed $95.59 (high $95.99), still well below the $97.9 4h high from two
+bars back — the 4H setup remains absent. TradingView's own computed RSI: 1h 49.37 (above 45), 4h
+48.62 (neutral) — both MACD histograms still negative on both timeframes. Updated in
+`near_miss_queue.md` (cycles_checked 3→4), kept queued, not cleared or invalidated.
+
+**Other 7 pairs**: spot-checked BTC (1h close $59,923 vs. recent highs $60,000-61,600+, no
+breakout; 4h close $59,923 vs. recent high $61,707+, no breakout) and cross-referenced Stage A's
+RSI/MACD/ADX for the remaining 6 — all neutral-to-mixed (RSI 37-59, no strong trend anywhere),
+none showing a fresh breakout. All 7 rejected with evidence.
+
+**Stop-audit**: 0 positions, trivial. **No order placed.** `tvremix_consecutive_failed_cycles`: 0.
+`near_miss_queue.md` changed (AAVE updated) — committed alongside this entry.
+
+```json
+{"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-28T00:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 17, "data_source": "tradingview", "tradingview_quota_status": "AVAILABLE", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
+```
