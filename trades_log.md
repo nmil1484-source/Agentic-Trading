@@ -88386,3 +88386,57 @@ none showing a fresh breakout. All 7 rejected with evidence.
   "git_push": "pending"
 }
 ```
+
+## 2026-11-28T04:37Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0**: §14 Status confirmed ACTIVE. No kill phrase present. Genuine scheduled-trigger origin verified.
+
+**Account/connectivity**: `get_accounts` → both accounts visible, Agentic (••••8058) `agentic_allowed: true`. `get_crypto_positions` → `[]`. Robinhood MCP fully reachable. Still fully flat, 0 of 2 concurrent-position slots used.
+
+**Circuit breakers**: Same-day stop-out count still 1 (LINK), below threshold. Market-shock breaker inapplicable (equities closed). No active breaker.
+
+**Portfolio heat**: $0 committed, cap moot.
+
+**Data source this cycle**: continued the resource-conservation choice from the prior cycle (TradingView's own tracked state still shows `AVAILABLE` but the real usage_notice two cycles ago reported <10% remaining, with no percentage-tracking in `should_attempt_tradingview` to confirm recovery) — skipped TradingView entirely again this cycle, sourced all structure data via Kraken fallback. 4h candle rolled (new 00:00-04:00Z bar completed), so both 1h and 4h needed fresh fetches for all 8 pairs: 16 Kraken calls.
+
+**Full-allowlist Stage 2 (all 8 pairs, both timeframes) — no pair clears item 7:**
+- **BTC, ETH, SOL, XRP, HBAR, AVAX**: 1h RSI still weak (27-36), bearish EMA; 4h RSI has cooled materially from recent cycles (e.g. BTC 4h RSI 51.7, down from 63.25; SOL 4h RSI 62.77, down from 74.48) as the new 4h bar absorbs the ongoing 1h weakness — no pair breaks its own 4h swing high. Rejected — item 7 unmet.
+- **LINK**: 1h closed $9.22643, now **below its own prior 1h swing low** ($9.24234, `current_below_prior_swing_low: True`) — a real breakdown, not actionable under spot-only/long-only rules (no instrument to express it). Rejected — item 7 unmet (no bullish setup).
+- **AAVE**: continues the breakdown pattern that invalidated its near-miss last cycle — 1h close $94.35 (RSI 36.0), 4h close $94.35 (fresh 00:00Z bar, RSI cooled to 46.64 from 64.34, bull_ema False) — confirms last cycle's invalidation was correct, not a stale read. Rejected — item 7 unmet. Not re-queued.
+
+**Near-miss queue**: no pairs currently queued (AAVE removed last cycle). No new single-item near-miss found this cycle — every pair either fails on multiple items or has no fresh-high/fresh-low condition worth tracking.
+
+**Stop-audit**: trivial, 0 open positions, nothing to audit.
+
+**No order placed.**
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-28T04:37:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 8,
+    "rejected_with_evidence": 8,
+    "not_evaluated": [],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 0, "cleared": 0, "still_near_miss": 0, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 16,
+  "data_source": "kraken_fallback (TradingView deliberately skipped - conserving quota after <10%-remaining usage_notice two cycles ago)",
+  "tradingview_quota_status": "AVAILABLE",
+  "robinhood_mcp_connectivity": "OK",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
