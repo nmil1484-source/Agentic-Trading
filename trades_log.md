@@ -88231,3 +88231,54 @@ none showing a fresh breakout. All 7 rejected with evidence.
 ```json
 {"cycle": "Crypto 24/7 Scan", "timestamp_utc": "2026-11-28T00:38:00Z", "modes_covered": ["crypto"], "status_gate": "ACTIVE", "coverage_state": "OBSERVE", "circuit_breakers_active": [], "positions": {"crypto_count": 0}, "stop_audit": {"checked": true, "missing_found": 0, "placed": 0}, "coverage": {"universe_size": 8, "triaged": 8, "full_gate_evaluated": 8, "rejected_with_evidence": 7, "not_evaluated": [], "tool_failures": 0}, "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0}, "tvremix_consecutive_failed_cycles": 0, "calls_made_this_cycle": 17, "data_source": "tradingview", "tradingview_quota_status": "AVAILABLE", "robinhood_mcp_connectivity": "normal", "exits": [], "entries": [], "orders_placed": 0, "git_push": "pending"}
 ```
+
+## 2026-11-28T01:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0**: §14 Status confirmed ACTIVE (verified fresh against system-prompt CLAUDE.md copy). No kill phrase present. Trigger origin verified against `list_triggers`-style trigger_id match (Universal Safety Kernel item 12) — genuine scheduled firing.
+
+**Account/positions**: `get_crypto_positions(rhs_account_number=748688058)` → `[]`. Still fully flat, 0 of 2 concurrent-position slots used.
+
+**Circuit breakers**: Same-day stop-out count still 1 (LINK), below the 2-stop-out cross-mode cooldown threshold. SPY/QQQ market-shock breaker inapplicable (equities closed, weekend). No active breaker.
+
+**Portfolio heat**: $0 committed, cap moot.
+
+**Data source this cycle — disclosed resource-conservation choice**: `should_attempt_tradingview` → `True` (`AVAILABLE`, 1 prior success today). Ran TradingView Stage A batch (`mcp-tv-get-symbol-data-batch`, 1 call) — succeeded cleanly, fresh RSI/ADX/MACD/MARating for all 8 pairs (no pair showing a strongly aligned trend; mixed Neutral/StrongBuy/StrongSell). Recorded success via `record_tradingview_result`. **Deliberately did not re-run the full 16-call TradingView Stage B OHLCV pipeline this cycle** — the prior (00:38Z) cycle's AAVE 1h OHLCV call returned a `usage_notice` stating "More than half of your daily tool-call quota has been used. We recommend making fewer, more targeted calls for the rest of the day." Given that warning, and since both the 1h and 4h candles had just rolled for every pair (fresh Kraken fetch needed regardless of venue), I chose to pull Stage B bars via the Kraken fallback (16 calls) instead, preserving TradingView's remaining daily budget for the Stage-A triage pass only. Live crypto quotes pulled via `get_crypto_quotes` (BTC $60,154.08, ETH $1,668.01, SOL $72.01, XRP $0.9526, LINK $9.384, AAVE $95.60, HBAR $0.05376, AVAX $6.639).
+
+**Full-allowlist Stage 2 (Kraken bars, both timeframes, all 8 pairs) — no breakout/breakdown anywhere, item 7 unmet for every pair:**
+- **BTC**: 1h close $59,837.5, RSI 27.94, bearish EMA stack, no setup. 4h close $59,863.7, RSI 63.25, bullish EMA but swing_high $62,139.1 unbroken.
+- **ETH, SOL, XRP, LINK, HBAR, AVAX**: same pattern across all six — 1h bearish EMA/weak RSI (22-38), 4h mixed EMA/elevated RSI (53-75), no breakout on either timeframe for any pair. Rejected — item 7 (and, for several, item 3) not cleared.
+- **AAVE** (near-miss, 5th consecutive cycle): 1h close $95.35 (fresh 00:00Z bar), RSI 39.12 (cooled from 46.85), MACD hist -0.0233 (flat/slightly negative), `current_above_prior_swing_high: False` (swing_high $95.89, swing_low $94.74) — still consolidating in range, not extending the breakout, not reversing it either. 4h close $95.51 (fresh 20:00Z bar — first new completed 4h bar since the 16:00Z bar that had been stuck for several prior cycles), RSI 64.34, MACD hist +0.339 (positive), `bull: False` (still bearish EMA9/20 stack), `current_above_prior_swing_high: False` (swing_high still $97.75, far above current close). **Item 7 (genuine 4H setup) remains unresolved for the 5th straight cycle** — 1H structure holds but doesn't extend; 4H has still never confirmed. `near_miss_queue.md` updated: cycles_checked 4→5, data source for this cycle logged as Kraken (contrasted with the prior cycle's TradingView/Binance cross-validation).
+
+**Stop-audit**: trivial, 0 open positions, nothing to audit.
+
+**No order placed.**
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-28T01:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 8,
+    "rejected_with_evidence": 7,
+    "not_evaluated": []
+  },
+  "near_miss_queue": {"crypto": ["AAVE (item 7, cycles_checked=5)"]},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 17,
+  "data_source": "tradingview+kraken_fallback (hybrid - Stage A TradingView for triage, Stage B Kraken for cost conservation after prior cycle's quota usage_notice)",
+  "tradingview_quota_status": "AVAILABLE",
+  "robinhood_mcp_connectivity": "OK",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```

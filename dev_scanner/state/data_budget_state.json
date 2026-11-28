@@ -55,10 +55,10 @@
       "last_success_at": 1795739926.9742246
     },
     "2026-11-28": {
-      "attempts": 1,
+      "attempts": 2,
       "exhausted": false,
-      "last_attempt_at": 1795826357.7111523,
-      "last_success_at": 1795826357.7111523
+      "last_attempt_at": 1795829937.9285889,
+      "last_success_at": 1795829937.9285889
     }
   }
 }
