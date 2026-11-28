@@ -88282,3 +88282,56 @@ none showing a fresh breakout. All 7 rejected with evidence.
   "git_push": "pending"
 }
 ```
+
+## 2026-11-28T02:38Z — Crypto 24/7 Scan (trig_01UUXAtYHjn7nBgzkdvZU4Rv)
+
+**STEP 0**: §14 Status confirmed ACTIVE. No kill phrase present. Genuine scheduled-trigger origin verified (trigger_id matches trig_01UUXAtYHjn7nBgzkdvZU4Rv).
+
+**Account/connectivity**: `get_accounts` → both accounts visible, Agentic (••••8058) `agentic_allowed: true`, retail (••••7533) untouched. `get_portfolio(748688058)` → total value $4,836.87, all cash, $0 crypto_value. `get_crypto_positions` → `[]`. **Robinhood MCP fully reachable this cycle** (prior system-level notice about robinhood-trading requiring auth did not materialize as an actual tool failure — confirmed via live successful calls). Still fully flat, 0 of 2 concurrent-position slots used.
+
+**Circuit breakers**: Same-day stop-out count still 1 (LINK), below the 2-stop-out threshold. Market-shock breaker inapplicable (equities closed, Saturday). No active breaker.
+
+**Portfolio heat**: $0 committed, cap moot.
+
+**Data source this cycle**: `should_attempt_tradingview` → True (`AVAILABLE`, 2 prior attempts today). Ran TradingView Stage A batch (1 call) — succeeded, but returned a sharper usage_notice than the prior cycle's: **"Less than 10% of your daily tool-call quota remains."** Recorded success via `record_tradingview_result`. Given this, **did not run any further TradingView calls this cycle** — all Stage B gating bars sourced via Kraken fallback (8 fresh 1h fetches — the 01:00-02:00Z hourly candle had just completed; the 4h cache was still fresh, no 20:00-24:00Z bar closes until 00:00Z tomorrow, so 0 additional 4h calls needed). Total calls this cycle: 1 TradingView + 8 Kraken = 9.
+
+**Full-allowlist Stage 2 (all 8 pairs, both timeframes) — no pair clears item 7:**
+- **BTC**: 1h close $60,134.5 ticked above its own recent swing high ($59,954.3) but RSI 33.06 (weak) and bearish EMA stack — a local 1h breakout with no momentum confirmation. 4h: close $59,863.7, still well below its own swing high ($62,139.1) — no 4H setup. Rejected — item 7 (4H leg) unmet.
+- **SOL, XRP**: both show a marginal 1h close just above their own very recent (5-bar) swing high, but neither has a 4h setup (4h close still well below 4h swing high in both cases) — rejected, item 7 unmet.
+- **ETH, LINK, HBAR, AVAX**: no breakout/breakdown on either timeframe — rejected, item 7 (and for most, item 3) unmet.
+- **AAVE** (near-miss, 6th consecutive cycle): 1h close $95.69 (01:00Z bar), up from $95.35 last cycle, still below its own rolling swing high $95.89 (`current_above_prior_swing_high: False`) — closer but not broken. RSI 43.07 (still under the 45 Momentum threshold), MACD hist barely positive (+0.004). 4h bar unchanged from last cycle (cache still fresh — next 4h bar doesn't close until 04:00Z): close $95.51, RSI 64.34, bearish EMA stack, swing_high $97.75 unbroken. **Item 7 remains unresolved for the 6th straight cycle.** `near_miss_queue.md` updated: cycles_checked 5→6.
+
+**Stop-audit**: trivial, 0 open positions, nothing to audit.
+
+**No order placed.**
+
+```json
+{
+  "cycle": "Crypto 24/7 Scan",
+  "timestamp_utc": "2026-11-28T02:38:00Z",
+  "modes_covered": ["crypto"],
+  "status_gate": "ACTIVE",
+  "coverage_state": "OBSERVE",
+  "circuit_breakers_active": [],
+  "positions": {"mode_b_count": 0, "mode_c_count": 0, "crypto_count": 0},
+  "stop_audit": {"checked": 0, "missing_found": 0, "placed": 0},
+  "coverage": {
+    "universe_size": 8,
+    "triaged": 8,
+    "full_gate_evaluated": 8,
+    "rejected_with_evidence": 7,
+    "not_evaluated": [],
+    "tool_failures": 0
+  },
+  "near_miss_queue": {"reassessed": 1, "cleared": 0, "still_near_miss": 1, "invalidated": 0, "ineligible": 0, "expired": 0},
+  "tvremix_consecutive_failed_cycles": 0,
+  "calls_made_this_cycle": 9,
+  "data_source": "tradingview+kraken_fallback (hybrid - Stage A TradingView, Stage B Kraken; TradingView quota <10% remaining this cycle per usage_notice, deliberately conserved)",
+  "tradingview_quota_status": "AVAILABLE",
+  "robinhood_mcp_connectivity": "OK",
+  "exits": [],
+  "entries": [],
+  "orders_placed": 0,
+  "git_push": "pending"
+}
+```
